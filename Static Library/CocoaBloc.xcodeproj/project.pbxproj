@@ -7,141 +7,138 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		525D1B33195FD7A600410DE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B32195FD7A600410DE1 /* Foundation.framework */; };
-		525D1B38195FD7A600410DE1 /* CocoaBloc.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 525D1B37195FD7A600410DE1 /* CocoaBloc.h */; };
-		525D1B41195FD7A600410DE1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B40195FD7A600410DE1 /* XCTest.framework */; };
-		525D1B42195FD7A600410DE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B32195FD7A600410DE1 /* Foundation.framework */; };
-		525D1B44195FD7A600410DE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B43195FD7A600410DE1 /* UIKit.framework */; };
-		525D1B47195FD7A600410DE1 /* libCocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B2F195FD7A600410DE1 /* libCocoaBloc.a */; };
-		525D1B4D195FD7A600410DE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 525D1B4B195FD7A600410DE1 /* InfoPlist.strings */; };
-		525D1B4F195FD7A600410DE1 /* CocoaBlocTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 525D1B4E195FD7A600410DE1 /* CocoaBlocTests.m */; };
-		D95CC71E22D84168987D1C81 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EA5BCA54154BCF8596B793 /* libPods.a */; };
+		525A6DEA195FE35500FCD513 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525A6DE9195FE35500FCD513 /* Foundation.framework */; };
+		525A6DEF195FE35500FCD513 /* CocoaBloc.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 525A6DEE195FE35500FCD513 /* CocoaBloc.h */; };
+		525A6DF1195FE35500FCD513 /* CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 525A6DF0195FE35500FCD513 /* CocoaBloc.m */; };
+		525A6DF8195FE35600FCD513 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525A6DF7195FE35600FCD513 /* XCTest.framework */; };
+		525A6DF9195FE35600FCD513 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525A6DE9195FE35500FCD513 /* Foundation.framework */; };
+		525A6DFB195FE35600FCD513 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525A6DFA195FE35600FCD513 /* UIKit.framework */; };
+		525A6DFE195FE35600FCD513 /* libCocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 525A6DE6195FE35500FCD513 /* libCocoaBloc.a */; };
+		525A6E04195FE35600FCD513 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 525A6E02195FE35600FCD513 /* InfoPlist.strings */; };
+		525A6E06195FE35600FCD513 /* CocoaBlocTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 525A6E05195FE35600FCD513 /* CocoaBlocTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		525D1B45195FD7A600410DE1 /* PBXContainerItemProxy */ = {
+		525A6DFC195FE35600FCD513 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 525D1B27195FD7A600410DE1 /* Project object */;
+			containerPortal = 525A6DDE195FE35500FCD513 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 525D1B2E195FD7A600410DE1;
+			remoteGlobalIDString = 525A6DE5195FE35500FCD513;
 			remoteInfo = CocoaBloc;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		525D1B2D195FD7A600410DE1 /* CopyFiles */ = {
+		525A6DE4195FE35500FCD513 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				525D1B38195FD7A600410DE1 /* CocoaBloc.h in CopyFiles */,
+				525A6DEF195FE35500FCD513 /* CocoaBloc.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		013A94D64BD64B57891F6476 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		22EA5BCA54154BCF8596B793 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		525D1B2F195FD7A600410DE1 /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		525D1B32195FD7A600410DE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		525D1B36195FD7A600410DE1 /* CocoaBloc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaBloc-Prefix.pch"; sourceTree = "<group>"; };
-		525D1B37195FD7A600410DE1 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
-		525D1B3F195FD7A600410DE1 /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		525D1B40195FD7A600410DE1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		525D1B43195FD7A600410DE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		525D1B4A195FD7A600410DE1 /* CocoaBlocTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaBlocTests-Info.plist"; sourceTree = "<group>"; };
-		525D1B4C195FD7A600410DE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		525D1B4E195FD7A600410DE1 /* CocoaBlocTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaBlocTests.m; sourceTree = "<group>"; };
+		525A6DE6195FE35500FCD513 /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		525A6DE9195FE35500FCD513 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		525A6DED195FE35500FCD513 /* CocoaBloc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaBloc-Prefix.pch"; sourceTree = "<group>"; };
+		525A6DEE195FE35500FCD513 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
+		525A6DF0195FE35500FCD513 /* CocoaBloc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaBloc.m; sourceTree = "<group>"; };
+		525A6DF6195FE35600FCD513 /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		525A6DF7195FE35600FCD513 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		525A6DFA195FE35600FCD513 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		525A6E01195FE35600FCD513 /* CocoaBlocTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaBlocTests-Info.plist"; sourceTree = "<group>"; };
+		525A6E03195FE35600FCD513 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		525A6E05195FE35600FCD513 /* CocoaBlocTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaBlocTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		525D1B2C195FD7A600410DE1 /* Frameworks */ = {
+		525A6DE3195FE35500FCD513 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				525D1B33195FD7A600410DE1 /* Foundation.framework in Frameworks */,
-				D95CC71E22D84168987D1C81 /* libPods.a in Frameworks */,
+				525A6DEA195FE35500FCD513 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		525D1B3C195FD7A600410DE1 /* Frameworks */ = {
+		525A6DF3195FE35600FCD513 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				525D1B41195FD7A600410DE1 /* XCTest.framework in Frameworks */,
-				525D1B47195FD7A600410DE1 /* libCocoaBloc.a in Frameworks */,
-				525D1B44195FD7A600410DE1 /* UIKit.framework in Frameworks */,
-				525D1B42195FD7A600410DE1 /* Foundation.framework in Frameworks */,
+				525A6DF8195FE35600FCD513 /* XCTest.framework in Frameworks */,
+				525A6DFE195FE35600FCD513 /* libCocoaBloc.a in Frameworks */,
+				525A6DFB195FE35600FCD513 /* UIKit.framework in Frameworks */,
+				525A6DF9195FE35600FCD513 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		525D1B26195FD7A600410DE1 = {
+		525A6DDD195FE35500FCD513 = {
 			isa = PBXGroup;
 			children = (
-				525D1B34195FD7A600410DE1 /* CocoaBloc */,
-				525D1B48195FD7A600410DE1 /* CocoaBlocTests */,
-				525D1B31195FD7A600410DE1 /* Frameworks */,
-				525D1B30195FD7A600410DE1 /* Products */,
-				013A94D64BD64B57891F6476 /* Pods.xcconfig */,
+				525A6DEB195FE35500FCD513 /* CocoaBloc */,
+				525A6DFF195FE35600FCD513 /* CocoaBlocTests */,
+				525A6DE8195FE35500FCD513 /* Frameworks */,
+				525A6DE7195FE35500FCD513 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		525D1B30195FD7A600410DE1 /* Products */ = {
+		525A6DE7195FE35500FCD513 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				525D1B2F195FD7A600410DE1 /* libCocoaBloc.a */,
-				525D1B3F195FD7A600410DE1 /* CocoaBlocTests.xctest */,
+				525A6DE6195FE35500FCD513 /* libCocoaBloc.a */,
+				525A6DF6195FE35600FCD513 /* CocoaBlocTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		525D1B31195FD7A600410DE1 /* Frameworks */ = {
+		525A6DE8195FE35500FCD513 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				525D1B32195FD7A600410DE1 /* Foundation.framework */,
-				525D1B40195FD7A600410DE1 /* XCTest.framework */,
-				525D1B43195FD7A600410DE1 /* UIKit.framework */,
-				22EA5BCA54154BCF8596B793 /* libPods.a */,
+				525A6DE9195FE35500FCD513 /* Foundation.framework */,
+				525A6DF7195FE35600FCD513 /* XCTest.framework */,
+				525A6DFA195FE35600FCD513 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		525D1B34195FD7A600410DE1 /* CocoaBloc */ = {
+		525A6DEB195FE35500FCD513 /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
-				525D1B37195FD7A600410DE1 /* CocoaBloc.h */,
-				525D1B35195FD7A600410DE1 /* Supporting Files */,
+				525A6DEE195FE35500FCD513 /* CocoaBloc.h */,
+				525A6DF0195FE35500FCD513 /* CocoaBloc.m */,
+				525A6DEC195FE35500FCD513 /* Supporting Files */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
 		};
-		525D1B35195FD7A600410DE1 /* Supporting Files */ = {
+		525A6DEC195FE35500FCD513 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				525D1B36195FD7A600410DE1 /* CocoaBloc-Prefix.pch */,
+				525A6DED195FE35500FCD513 /* CocoaBloc-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		525D1B48195FD7A600410DE1 /* CocoaBlocTests */ = {
+		525A6DFF195FE35600FCD513 /* CocoaBlocTests */ = {
 			isa = PBXGroup;
 			children = (
-				525D1B4E195FD7A600410DE1 /* CocoaBlocTests.m */,
-				525D1B49195FD7A600410DE1 /* Supporting Files */,
+				525A6E05195FE35600FCD513 /* CocoaBlocTests.m */,
+				525A6E00195FE35600FCD513 /* Supporting Files */,
 			);
 			path = CocoaBlocTests;
 			sourceTree = "<group>";
 		};
-		525D1B49195FD7A600410DE1 /* Supporting Files */ = {
+		525A6E00195FE35600FCD513 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				525D1B4A195FD7A600410DE1 /* CocoaBlocTests-Info.plist */,
-				525D1B4B195FD7A600410DE1 /* InfoPlist.strings */,
+				525A6E01195FE35600FCD513 /* CocoaBlocTests-Info.plist */,
+				525A6E02195FE35600FCD513 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -149,15 +146,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		525D1B2E195FD7A600410DE1 /* CocoaBloc */ = {
+		525A6DE5195FE35500FCD513 /* CocoaBloc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 525D1B52195FD7A600410DE1 /* Build configuration list for PBXNativeTarget "CocoaBloc" */;
+			buildConfigurationList = 525A6E09195FE35600FCD513 /* Build configuration list for PBXNativeTarget "CocoaBloc" */;
 			buildPhases = (
-				306CD20C62B3403DB615C6FD /* Check Pods Manifest.lock */,
-				525D1B2B195FD7A600410DE1 /* Sources */,
-				525D1B2C195FD7A600410DE1 /* Frameworks */,
-				525D1B2D195FD7A600410DE1 /* CopyFiles */,
-				9D23A769E4424A32BB8094BE /* Copy Pods Resources */,
+				525A6DE2195FE35500FCD513 /* Sources */,
+				525A6DE3195FE35500FCD513 /* Frameworks */,
+				525A6DE4195FE35500FCD513 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -165,129 +160,97 @@
 			);
 			name = CocoaBloc;
 			productName = CocoaBloc;
-			productReference = 525D1B2F195FD7A600410DE1 /* libCocoaBloc.a */;
+			productReference = 525A6DE6195FE35500FCD513 /* libCocoaBloc.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		525D1B3E195FD7A600410DE1 /* CocoaBlocTests */ = {
+		525A6DF5195FE35600FCD513 /* CocoaBlocTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 525D1B55195FD7A600410DE1 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */;
+			buildConfigurationList = 525A6E0C195FE35600FCD513 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */;
 			buildPhases = (
-				525D1B3B195FD7A600410DE1 /* Sources */,
-				525D1B3C195FD7A600410DE1 /* Frameworks */,
-				525D1B3D195FD7A600410DE1 /* Resources */,
+				525A6DF2195FE35600FCD513 /* Sources */,
+				525A6DF3195FE35600FCD513 /* Frameworks */,
+				525A6DF4195FE35600FCD513 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				525D1B46195FD7A600410DE1 /* PBXTargetDependency */,
+				525A6DFD195FE35600FCD513 /* PBXTargetDependency */,
 			);
 			name = CocoaBlocTests;
 			productName = CocoaBlocTests;
-			productReference = 525D1B3F195FD7A600410DE1 /* CocoaBlocTests.xctest */;
+			productReference = 525A6DF6195FE35600FCD513 /* CocoaBlocTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		525D1B27195FD7A600410DE1 /* Project object */ = {
+		525A6DDE195FE35500FCD513 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = StageBloc;
 			};
-			buildConfigurationList = 525D1B2A195FD7A600410DE1 /* Build configuration list for PBXProject "CocoaBloc" */;
+			buildConfigurationList = 525A6DE1195FE35500FCD513 /* Build configuration list for PBXProject "CocoaBloc" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 525D1B26195FD7A600410DE1;
-			productRefGroup = 525D1B30195FD7A600410DE1 /* Products */;
+			mainGroup = 525A6DDD195FE35500FCD513;
+			productRefGroup = 525A6DE7195FE35500FCD513 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				525D1B2E195FD7A600410DE1 /* CocoaBloc */,
-				525D1B3E195FD7A600410DE1 /* CocoaBlocTests */,
+				525A6DE5195FE35500FCD513 /* CocoaBloc */,
+				525A6DF5195FE35600FCD513 /* CocoaBlocTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		525D1B3D195FD7A600410DE1 /* Resources */ = {
+		525A6DF4195FE35600FCD513 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				525D1B4D195FD7A600410DE1 /* InfoPlist.strings in Resources */,
+				525A6E04195FE35600FCD513 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		306CD20C62B3403DB615C6FD /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		9D23A769E4424A32BB8094BE /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		525D1B2B195FD7A600410DE1 /* Sources */ = {
+		525A6DE2195FE35500FCD513 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525A6DF1195FE35500FCD513 /* CocoaBloc.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		525D1B3B195FD7A600410DE1 /* Sources */ = {
+		525A6DF2195FE35600FCD513 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				525D1B4F195FD7A600410DE1 /* CocoaBlocTests.m in Sources */,
+				525A6E06195FE35600FCD513 /* CocoaBlocTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		525D1B46195FD7A600410DE1 /* PBXTargetDependency */ = {
+		525A6DFD195FE35600FCD513 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 525D1B2E195FD7A600410DE1 /* CocoaBloc */;
-			targetProxy = 525D1B45195FD7A600410DE1 /* PBXContainerItemProxy */;
+			target = 525A6DE5195FE35500FCD513 /* CocoaBloc */;
+			targetProxy = 525A6DFC195FE35600FCD513 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		525D1B4B195FD7A600410DE1 /* InfoPlist.strings */ = {
+		525A6E02195FE35600FCD513 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				525D1B4C195FD7A600410DE1 /* en */,
+				525A6E03195FE35600FCD513 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -295,7 +258,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		525D1B50195FD7A600410DE1 /* Debug */ = {
+		525A6E07195FE35600FCD513 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -332,7 +295,7 @@
 			};
 			name = Debug;
 		};
-		525D1B51195FD7A600410DE1 /* Release */ = {
+		525A6E08195FE35600FCD513 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -363,9 +326,8 @@
 			};
 			name = Release;
 		};
-		525D1B53195FD7A600410DE1 /* Debug */ = {
+		525A6E0A195FE35600FCD513 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 013A94D64BD64B57891F6476 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -376,9 +338,8 @@
 			};
 			name = Debug;
 		};
-		525D1B54195FD7A600410DE1 /* Release */ = {
+		525A6E0B195FE35600FCD513 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 013A94D64BD64B57891F6476 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -389,7 +350,7 @@
 			};
 			name = Release;
 		};
-		525D1B56195FD7A600410DE1 /* Debug */ = {
+		525A6E0D195FE35600FCD513 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
@@ -409,7 +370,7 @@
 			};
 			name = Debug;
 		};
-		525D1B57195FD7A600410DE1 /* Release */ = {
+		525A6E0E195FE35600FCD513 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
@@ -428,34 +389,32 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		525D1B2A195FD7A600410DE1 /* Build configuration list for PBXProject "CocoaBloc" */ = {
+		525A6DE1195FE35500FCD513 /* Build configuration list for PBXProject "CocoaBloc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				525D1B50195FD7A600410DE1 /* Debug */,
-				525D1B51195FD7A600410DE1 /* Release */,
+				525A6E07195FE35600FCD513 /* Debug */,
+				525A6E08195FE35600FCD513 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		525D1B52195FD7A600410DE1 /* Build configuration list for PBXNativeTarget "CocoaBloc" */ = {
+		525A6E09195FE35600FCD513 /* Build configuration list for PBXNativeTarget "CocoaBloc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				525D1B53195FD7A600410DE1 /* Debug */,
-				525D1B54195FD7A600410DE1 /* Release */,
+				525A6E0A195FE35600FCD513 /* Debug */,
+				525A6E0B195FE35600FCD513 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		525D1B55195FD7A600410DE1 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */ = {
+		525A6E0C195FE35600FCD513 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				525D1B56195FD7A600410DE1 /* Debug */,
-				525D1B57195FD7A600410DE1 /* Release */,
+				525A6E0D195FE35600FCD513 /* Debug */,
+				525A6E0E195FE35600FCD513 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 525D1B27195FD7A600410DE1 /* Project object */;
+	rootObject = 525A6DDE195FE35500FCD513 /* Project object */;
 }

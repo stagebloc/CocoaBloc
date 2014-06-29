@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "525D1B2E195FD7A600410DE1"
+               BlueprintIdentifier = "525A6DE5195FE35500FCD513"
                BuildableName = "libCocoaBloc.a"
                BlueprintName = "CocoaBloc"
                ReferencedContainer = "container:CocoaBloc.xcodeproj">
@@ -28,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "525A6DF5195FE35600FCD513"
+               BuildableName = "CocoaBlocTests.xctest"
+               BlueprintName = "CocoaBlocTests"
+               ReferencedContainer = "container:CocoaBloc.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

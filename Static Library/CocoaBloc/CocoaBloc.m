@@ -1,13 +1,13 @@
 //
-//  CocoaBloc.h
+//  CocoaBloc.m
 //  CocoaBloc
 //
 //  Created by John Heaton on 6/29/14.
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "CocoaBloc.h"
 
-@interface CocoaBloc : NSObject
+@implementation CocoaBloc
 
 @end

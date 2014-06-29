@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		525A6E23195FE37800FCD513 /* libCocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 525A6E1E195FE36400FCD513 /* libCocoaBloc.a */; };
 		525D1B65195FD9C300410DE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B64195FD9C300410DE1 /* Foundation.framework */; };
 		525D1B67195FD9C300410DE1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B66195FD9C300410DE1 /* CoreGraphics.framework */; };
 		525D1B69195FD9C300410DE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B68195FD9C300410DE1 /* UIKit.framework */; };
@@ -19,10 +20,30 @@
 		525D1B80195FD9C300410DE1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B68195FD9C300410DE1 /* UIKit.framework */; };
 		525D1B88195FD9C300410DE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 525D1B86195FD9C300410DE1 /* InfoPlist.strings */; };
 		525D1B8A195FD9C300410DE1 /* CB_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 525D1B89195FD9C300410DE1 /* CB_DemoTests.m */; };
-		525D1B9E195FDA1700410DE1 /* libCocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 525D1B99195FDA0200410DE1 /* libCocoaBloc.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		525A6E1D195FE36400FCD513 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 525A6E18195FE36400FCD513 /* CocoaBloc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 525A6DE6195FE35500FCD513;
+			remoteInfo = CocoaBloc;
+		};
+		525A6E1F195FE36400FCD513 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 525A6E18195FE36400FCD513 /* CocoaBloc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 525A6DF6195FE35600FCD513;
+			remoteInfo = CocoaBlocTests;
+		};
+		525A6E21195FE37100FCD513 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 525A6E18195FE36400FCD513 /* CocoaBloc.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 525A6DE5195FE35500FCD513;
+			remoteInfo = CocoaBloc;
+		};
 		525D1B81195FD9C300410DE1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 525D1B59195FD9C300410DE1 /* Project object */;
@@ -30,30 +51,10 @@
 			remoteGlobalIDString = 525D1B60195FD9C300410DE1;
 			remoteInfo = "CB Demo";
 		};
-		525D1B98195FDA0200410DE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 525D1B93195FDA0200410DE1 /* CocoaBloc.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 525D1B2F195FD7A600410DE1;
-			remoteInfo = CocoaBloc;
-		};
-		525D1B9A195FDA0200410DE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 525D1B93195FDA0200410DE1 /* CocoaBloc.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 525D1B3F195FD7A600410DE1;
-			remoteInfo = CocoaBlocTests;
-		};
-		525D1B9C195FDA0700410DE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 525D1B93195FDA0200410DE1 /* CocoaBloc.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 525D1B2E195FD7A600410DE1;
-			remoteInfo = CocoaBloc;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		525A6E18195FE36400FCD513 /* CocoaBloc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaBloc.xcodeproj; path = "../Static Library/CocoaBloc.xcodeproj"; sourceTree = "<group>"; };
 		525D1B61195FD9C300410DE1 /* CB Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CB Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		525D1B64195FD9C300410DE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		525D1B66195FD9C300410DE1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -70,7 +71,6 @@
 		525D1B85195FD9C300410DE1 /* CB DemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CB DemoTests-Info.plist"; sourceTree = "<group>"; };
 		525D1B87195FD9C300410DE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		525D1B89195FD9C300410DE1 /* CB_DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CB_DemoTests.m; sourceTree = "<group>"; };
-		525D1B93195FDA0200410DE1 /* CocoaBloc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaBloc.xcodeproj; path = "../Static Library/CocoaBloc.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 				525D1B67195FD9C300410DE1 /* CoreGraphics.framework in Frameworks */,
 				525D1B69195FD9C300410DE1 /* UIKit.framework in Frameworks */,
 				525D1B65195FD9C300410DE1 /* Foundation.framework in Frameworks */,
-				525D1B9E195FDA1700410DE1 /* libCocoaBloc.a in Frameworks */,
+				525A6E23195FE37800FCD513 /* libCocoaBloc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,10 +98,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		525A6E19195FE36400FCD513 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				525A6E1E195FE36400FCD513 /* libCocoaBloc.a */,
+				525A6E20195FE36400FCD513 /* CocoaBlocTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		525D1B58195FD9C300410DE1 = {
 			isa = PBXGroup;
 			children = (
-				525D1B93195FDA0200410DE1 /* CocoaBloc.xcodeproj */,
+				525A6E18195FE36400FCD513 /* CocoaBloc.xcodeproj */,
 				525D1B6A195FD9C300410DE1 /* CB Demo */,
 				525D1B83195FD9C300410DE1 /* CB DemoTests */,
 				525D1B63195FD9C300410DE1 /* Frameworks */,
@@ -169,15 +178,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		525D1B94195FDA0200410DE1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				525D1B99195FDA0200410DE1 /* libCocoaBloc.a */,
-				525D1B9B195FDA0200410DE1 /* CocoaBlocTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -192,7 +192,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				525D1B9D195FDA0700410DE1 /* PBXTargetDependency */,
+				525A6E22195FE37100FCD513 /* PBXTargetDependency */,
 			);
 			name = "CB Demo";
 			productName = "CB Demo";
@@ -244,8 +244,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 525D1B94195FDA0200410DE1 /* Products */;
-					ProjectRef = 525D1B93195FDA0200410DE1 /* CocoaBloc.xcodeproj */;
+					ProductGroup = 525A6E19195FE36400FCD513 /* Products */;
+					ProjectRef = 525A6E18195FE36400FCD513 /* CocoaBloc.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -257,18 +257,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		525D1B99195FDA0200410DE1 /* libCocoaBloc.a */ = {
+		525A6E1E195FE36400FCD513 /* libCocoaBloc.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libCocoaBloc.a;
-			remoteRef = 525D1B98195FDA0200410DE1 /* PBXContainerItemProxy */;
+			remoteRef = 525A6E1D195FE36400FCD513 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		525D1B9B195FDA0200410DE1 /* CocoaBlocTests.xctest */ = {
+		525A6E20195FE36400FCD513 /* CocoaBlocTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = CocoaBlocTests.xctest;
-			remoteRef = 525D1B9A195FDA0200410DE1 /* PBXContainerItemProxy */;
+			remoteRef = 525A6E1F195FE36400FCD513 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -314,15 +314,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		525A6E22195FE37100FCD513 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaBloc;
+			targetProxy = 525A6E21195FE37100FCD513 /* PBXContainerItemProxy */;
+		};
 		525D1B82195FD9C300410DE1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 525D1B60195FD9C300410DE1 /* CB Demo */;
 			targetProxy = 525D1B81195FD9C300410DE1 /* PBXContainerItemProxy */;
-		};
-		525D1B9D195FDA0700410DE1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaBloc;
-			targetProxy = 525D1B9C195FDA0700410DE1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
