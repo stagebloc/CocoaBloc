@@ -1,9 +1,3 @@
-CocoaBloc
-=========
-
-Mac/iOS Cocoa SDK
-
-#Scripts
 ##Setup
 `./setup`
 Installs CocoaPods.
