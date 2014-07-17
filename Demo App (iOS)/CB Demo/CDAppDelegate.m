@@ -7,7 +7,6 @@
 //
 
 #import "CDAppDelegate.h"
-#import <CocoaBloc/CocoaBloc.h>
 
 @implementation CDAppDelegate
 

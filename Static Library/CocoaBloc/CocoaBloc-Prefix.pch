@@ -5,5 +5,7 @@
 //
 
 #ifdef __OBJC__
-    #import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #endif
