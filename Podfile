@@ -1,7 +1,7 @@
 inhibit_all_warnings!
 
 workspace 'CocoaBloc'
-xcodeproj './Static Library/CocoaBloc.xcodeproj'
+xcodeproj './Projects/Library/CocoaBloc.xcodeproj'
 
 target :CocoaBloc do
     pod 'ReactiveCocoa'
