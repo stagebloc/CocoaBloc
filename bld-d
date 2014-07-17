@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-xctool -workspace CocoaBloc.xcworkspace -scheme "CB Demo" -configuration Debug

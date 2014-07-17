@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-rm -rf Pods Podfile.lock build DerivedData
