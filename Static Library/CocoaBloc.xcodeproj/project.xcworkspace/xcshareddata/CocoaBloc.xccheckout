@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>00CB1AF4-9E33-4734-8ACA-88A3CC6C1D13</string>
+	<string>66D9DDB5-B646-401E-93A2-432F72F0744B</string>
 	<key>IDESourceControlProjectName</key>
 	<string>CocoaBloc</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/stagebloc/CocoaBloc.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CocoaBloc.xcworkspace</string>
+	<string>Static Library/CocoaBloc.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2FE49D02-8BE4-4D9B-BA3A-DA9C6602C1B8</key>
-		<string>..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/stagebloc/CocoaBloc.git</string>
