@@ -45,8 +45,8 @@ describe(@"Client", ^{
     });
     
     it(@"should... get me <3", ^AsyncBlock {
-    	[[client getMe] subscribeNext:^(id x) {
-            expect(x).to.beKindOf([SBUser class]);
+    	[[client getMe] subscribeNext:^(id user) {
+            expect(user).to.beKindOf([SBUser class]);
         } error:^(NSError *error) {
             expect(error).to.beNil();
             done();
