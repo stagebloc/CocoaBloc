@@ -49,12 +49,12 @@ static NSString *SBClientID, *SBClientSecret;
     NSParameterAssert(password);
     
     return [[[[self rac_POST:@"oauth2/token"
-				parameters:@{@"grant_type"    : @"password",
-							   @"username"      : username,
-							   @"password"      : password,
-							   @"client_secret" : SBClientSecret,
-							   @"client_id"     : SBClientID,
-							   @"include_admin_accounts" : @"1"}]
+				parameters:@{	@"grant_type"	: @"password",
+								@"username"		: username,
+								@"password"		: password,
+								@"client_secret": SBClientSecret,
+								@"client_id"		: SBClientID,
+								@"include_admin_accounts" : @"1"}]
 			  	doNext:^(NSDictionary *response) {
 					self.token = response[@"access_token"];
 					self.authenticated = YES;
@@ -84,6 +84,66 @@ static NSString *SBClientID, *SBClientSecret;
 					return [MTLJSONAdapter modelOfClass:[SBUser class] fromJSONDictionary:response[@"data"] error:nil];
 				}]
 				setNameWithFormat:@"Get \"me\""];
+}
+
+- (RACSignal *)uploadAudioData:(NSData *)data
+					 withTitle:(NSString *)title
+			   toAccountWithID:(NSNumber *)accountID {
+	return [RACSignal empty];
+}
+
+- (RACSignal *)createFanClubForAccountWithID:(NSNumber *)accountID
+									   title:(NSString *)title
+								 description:(NSString *)description
+									tierInfo:(NSDictionary *)tierInfo {
+	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:4];
+    if (title.length > 0) {
+        params[@"title"] = title;
+    }
+    if (description.length > 0) {
+        params[@"description"] = description;
+    }
+    if (tierInfo) {
+        params[@"tier_info"] = tierInfo;
+    }
+    params[@"expand"] = @"account,photo";
+    
+    return [self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", accountID.intValue] parameters:params];
+}
+
+- (RACSignal *)getContentFromFanClubWithParentAccountID:(NSNumber *)accountID
+												  limit:(NSUInteger)limit
+												 offset:(NSUInteger)offset
+								   additionalParameters:(NSDictionary *)parameters {
+	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:(4 + parameters.count)];
+    if (limit > 0) {
+        params[@"limit"] = [NSString stringWithFormat:@"%lu", (unsigned long)limit];
+    }
+    if (offset) {
+        params[@"offset"] = [NSString stringWithFormat:@"%lu", (unsigned long)offset];
+    }
+    params[@"expand"] = @"user,photo";
+    if (parameters) {
+        [params addEntriesFromDictionary:parameters];
+    }
+	params[@"filter"] = @"blog,photos,statuses";
+    
+    return [self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub/content", accountID.intValue] parameters:params];
+}
+
+- (RACSignal *)getRecentFanClubContentWithLimit:(NSUInteger)limit
+										 offset:(NSUInteger)offset
+						   additionalParameters:(NSDictionary *)parameters {
+	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
+    if (limit) {
+        params[@"limit"] = [NSString stringWithFormat:@"%ld", (long)limit];
+    }
+    if (offset) {
+        params[@"offset"] = [NSString stringWithFormat:@"%ld", (long)offset];
+    }
+    params[@"expand"] = @"user,account,photo";
+	
+    return [self rac_GET:@"account/fanclubs/following/content" parameters:params];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request {
