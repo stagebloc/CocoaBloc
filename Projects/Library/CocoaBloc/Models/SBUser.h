@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SBUser : MTLModel <MTLJSONSerializing, MTLManagedObjectSerializing>
+@interface SBUser : MTLModel <MTLJSONSerializing>//, MTLManagedObjectSerializing>
 
 @property (nonatomic, copy) NSString *bio;
 @property (nonatomic, copy) NSString *birthdateString;
@@ -18,5 +18,7 @@
 @property (nonatomic, copy) NSString *URL;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *createdDateString;
+
+@property (nonatomic, strong) NSArray *adminAccounts;
 
 @end

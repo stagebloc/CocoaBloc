@@ -33,17 +33,26 @@ describe(@"Client", ^{
         expect(^{ [client logInWithUsername:nil password:@"password"]; 	}).to.raiseAny();
     	expect(^{ [client logInWithUsername:nil password:nil]; 			}).to.raiseAny();
     });
-    
+	
     it(@"should log in with the test account", ^AsyncBlock {
+		__block SBUser *_nextUser;
     	[[client logInWithUsername:@"hi@stagebloc.com" password:@"starwars"]
-        	subscribeError:^(NSError *error) {
+		 	subscribeNext:^(SBUser *user) {
+				expect((_nextUser = user)).to.beKindOf([SBUser class]);
+			}
+        	error:^(NSError *error) {
         		expect(error).to.beNil();
             	done();
             }
          	completed:^{
                 expect(client.authenticated).to.equal(YES);
                 expect(client.token).notTo.beNil();
-				expect(client.user).to.beKindOf([SBUser class]);
+				expect(client.user).to.equal(_nextUser);
+				
+				for (id account in client.user.adminAccounts) {
+					expect(account).to.beKindOf([SBAccount class]);
+				}
+	
            	 	done();
         	}];
     });
@@ -62,19 +71,23 @@ describe(@"Client", ^{
         	}];
     });
 	
-	it(@"should get user #1", ^AsyncBlock {
-		[[client getUserWithID:@(1)]
-			subscribeNext:^(id user) {
-				expect(user).to.beKindOf([SBUser class]);
-			}
-		 	error:^(NSError *error) {
-				expect(error).to.beNil();
-				done();
-			}
-		 	completed:^{
-				done();
-			}];
+	it(@"should be able to create a fan club", ^AsyncBlock {
+		done();
 	});
+	
+//	it(@"should get user #1", ^AsyncBlock {
+//		[[client getUserWithID:@(1)]
+//			subscribeNext:^(id user) {
+//				expect(user).to.beKindOf([SBUser class]);
+//			}
+//		 	error:^(NSError *error) {
+//				expect(error).to.beNil();
+//				done();
+//			}
+//		 	completed:^{
+//				done();
+//			}];
+//	});
 });
 
 SpecEnd
