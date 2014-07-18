@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SBObject.h"
 
-@interface SBUser : MTLModel <MTLJSONSerializing>//, MTLManagedObjectSerializing>
+@interface SBUser : SBObject <MTLJSONSerializing>//, MTLManagedObjectSerializing>
 
 @property (nonatomic, copy) NSString *bio;
 @property (nonatomic, copy) NSString *birthdateString;

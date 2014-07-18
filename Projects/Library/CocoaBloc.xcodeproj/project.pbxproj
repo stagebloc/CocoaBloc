@@ -18,6 +18,13 @@
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
 		09B5123E1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */; };
+		09B512411979ADDF00D62F67 /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512401979ADDF00D62F67 /* SBObject.m */; };
+		09B512471979AE4900D62F67 /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512461979AE4900D62F67 /* SBContent.m */; };
+		09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512491979AE6000D62F67 /* SBFanClub.m */; };
+		09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B5124C1979AE7000D62F67 /* SBNotification.m */; };
+		09B512511979AEA500D62F67 /* SBBlog.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512501979AEA500D62F67 /* SBBlog.m */; };
+		09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512531979AEAE00D62F67 /* SBPhoto.m */; };
+		09B512571979AEB400D62F67 /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512561979AEB400D62F67 /* SBStatus.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
@@ -62,6 +69,20 @@
 		09A897FB19786D7F00EE983C /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
 		09B5123C1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CocoaBlocInternals.h"; sourceTree = "<group>"; };
 		09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CocoaBlocInternals.m"; sourceTree = "<group>"; };
+		09B5123F1979ADDF00D62F67 /* SBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBObject.h; sourceTree = "<group>"; };
+		09B512401979ADDF00D62F67 /* SBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBObject.m; sourceTree = "<group>"; };
+		09B512451979AE4900D62F67 /* SBContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBContent.h; sourceTree = "<group>"; };
+		09B512461979AE4900D62F67 /* SBContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBContent.m; sourceTree = "<group>"; };
+		09B512481979AE6000D62F67 /* SBFanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFanClub.h; sourceTree = "<group>"; };
+		09B512491979AE6000D62F67 /* SBFanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFanClub.m; sourceTree = "<group>"; };
+		09B5124B1979AE7000D62F67 /* SBNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNotification.h; sourceTree = "<group>"; };
+		09B5124C1979AE7000D62F67 /* SBNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNotification.m; sourceTree = "<group>"; };
+		09B5124F1979AEA500D62F67 /* SBBlog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBlog.h; sourceTree = "<group>"; };
+		09B512501979AEA500D62F67 /* SBBlog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBlog.m; sourceTree = "<group>"; };
+		09B512521979AEAE00D62F67 /* SBPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhoto.h; sourceTree = "<group>"; };
+		09B512531979AEAE00D62F67 /* SBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhoto.m; sourceTree = "<group>"; };
+		09B512551979AEB400D62F67 /* SBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatus.h; sourceTree = "<group>"; };
+		09B512561979AEB400D62F67 /* SBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStatus.m; sourceTree = "<group>"; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45A743DC7E74D54A2C661CC /* Pods-CocoaBlocTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.xcconfig"; path = "../../Pods/Pods-CocoaBlocTests.xcconfig"; sourceTree = "<group>"; };
 		DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.xcconfig"; path = "../../Pods/Pods-CocoaBloc.xcconfig"; sourceTree = "<group>"; };
@@ -177,10 +198,14 @@
 		09A897F4197862AC00EE983C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				09A897F71978630800EE983C /* SBAccount.h */,
-				09A897F81978630800EE983C /* SBAccount.m */,
-				09A897FA19786D7F00EE983C /* SBUser.h */,
-				09A897FB19786D7F00EE983C /* SBUser.m */,
+				09B5123F1979ADDF00D62F67 /* SBObject.h */,
+				09B512401979ADDF00D62F67 /* SBObject.m */,
+				09B5124B1979AE7000D62F67 /* SBNotification.h */,
+				09B5124C1979AE7000D62F67 /* SBNotification.m */,
+				09B512481979AE6000D62F67 /* SBFanClub.h */,
+				09B512491979AE6000D62F67 /* SBFanClub.m */,
+				09B512581979AED700D62F67 /* Content */,
+				09B5124E1979AE8900D62F67 /* People */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,6 +239,32 @@
 				09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		09B5124E1979AE8900D62F67 /* People */ = {
+			isa = PBXGroup;
+			children = (
+				09A897F71978630800EE983C /* SBAccount.h */,
+				09A897F81978630800EE983C /* SBAccount.m */,
+				09A897FA19786D7F00EE983C /* SBUser.h */,
+				09A897FB19786D7F00EE983C /* SBUser.m */,
+			);
+			name = People;
+			sourceTree = "<group>";
+		};
+		09B512581979AED700D62F67 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				09B512451979AE4900D62F67 /* SBContent.h */,
+				09B512461979AE4900D62F67 /* SBContent.m */,
+				09B5124F1979AEA500D62F67 /* SBBlog.h */,
+				09B512501979AEA500D62F67 /* SBBlog.m */,
+				09B512521979AEAE00D62F67 /* SBPhoto.h */,
+				09B512531979AEAE00D62F67 /* SBPhoto.m */,
+				09B512551979AEB400D62F67 /* SBStatus.h */,
+				09B512561979AEB400D62F67 /* SBStatus.m */,
+			);
+			name = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,8 +416,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B5123E1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m in Sources */,
+				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
+				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
+				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,
+				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
+				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
+				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
+				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
