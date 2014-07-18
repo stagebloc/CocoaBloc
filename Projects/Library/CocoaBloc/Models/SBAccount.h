@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SBObject.h"
 
-@interface SBAccount : MTLModel <MTLJSONSerializing>//, MTLManagedObjectSerializing>
+@interface SBAccount : SBObject <MTLJSONSerializing>//, MTLManagedObjectSerializing>
 
 @property (nonatomic, strong) NSNumber *identifier;
 @property (nonatomic, strong) NSNumber *verified;
