@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SBAccount : MTLModel <MTLJSONSerializing, MTLManagedObjectSerializing>
+@interface SBAccount : MTLModel <MTLJSONSerializing>//, MTLManagedObjectSerializing>
 
 @property (nonatomic, strong) NSNumber *identifier;
 @property (nonatomic, strong) NSNumber *verified;

@@ -62,27 +62,40 @@ static NSString *SBClientID, *SBClientSecret;
     NSParameterAssert(password);
     
 	@weakify(self);
-    return [[[[self rac_POST:@"oauth2/token"
-				parameters:@{	@"grant_type"	: @"password",
-								@"username"		: username,
-								@"password"		: password,
-								@"client_secret": SBClientSecret,
-								@"client_id"		: SBClientID,
-								@"include_admin_accounts" : @"1"}]
-			  	doNext:^(NSDictionary *response) {
-					@strongify(self);
-					
-					// set the auth token & auth state when a 'next' is sent
-					self.token = response[@"access_token"];
-					self.authenticated = YES;
-				}]
+	
+	return [[[[[self rac_POST:@"oauth2/token" parameters:@{	@"grant_type"	: @"password",
+															@"username"		: username,
+															@"password"		: password,
+															@"client_secret": SBClientSecret,
+															@"client_id"		: SBClientID,
+															@"include_user" : @"1",
+															@"include_admin_accounts" : @"1"}]
+				doNext:^(NSDictionary *response) {
+				   @strongify(self);
+				   
+				   // set the auth token & auth state when a 'next' is sent
+				   self.token = response[@"access_token"];
+				   self.authenticated = YES;
+			   	}]
 				map:^id(NSDictionary *response) {
-					// deserialize!
-					return [MTLJSONAdapter modelsOfClass:[SBAccount class]
-										   fromJSONArray:response[@"data"][@"admin_accounts"]
-												   error:nil];
-				}]
-				setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
+				   // deserialize the user
+				   SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
+											fromJSONDictionary:response[@"data"][@"user"]
+														 error:nil];
+				   user.adminAccounts = [MTLJSONAdapter
+										 modelsOfClass:[SBAccount class]
+										 fromJSONArray:response[@"data"][@"admin_accounts"]
+										 error:nil];
+				   
+				   return user;
+			   	}]
+				doNext:^(SBUser *user) {
+				  @strongify(self);
+				  
+				  // set the currently authenticated user
+				  self.user = user;
+			  	}]
+			 	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
 }
 
 - (RACSignal *)signUpWithEmail:(NSString *)email
@@ -198,10 +211,10 @@ static NSString *SBClientID, *SBClientSecret;
 								   additionalParameters:(NSDictionary *)parameters {
 	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:(4 + parameters.count)];
     if (limit > 0) {
-        params[@"limit"] = [NSString stringWithFormat:@"%lu", (unsigned long)limit];
+        params[@"limit"] = @(limit).stringValue;
     }
     if (offset) {
-        params[@"offset"] = [NSString stringWithFormat:@"%lu", (unsigned long)offset];
+        params[@"offset"] = @(offset).stringValue;
     }
     params[@"expand"] = @"user,photo";
     if (parameters) {
