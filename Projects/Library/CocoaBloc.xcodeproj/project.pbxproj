@@ -17,6 +17,7 @@
 		09A897F6197862AC00EE983C /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
+		09B5123E1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,8 @@
 		09A897F81978630800EE983C /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
 		09A897FA19786D7F00EE983C /* SBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUser.h; sourceTree = "<group>"; };
 		09A897FB19786D7F00EE983C /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
+		09B5123C1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CocoaBlocInternals.h"; sourceTree = "<group>"; };
+		09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CocoaBlocInternals.m"; sourceTree = "<group>"; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45A743DC7E74D54A2C661CC /* Pods-CocoaBlocTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.xcconfig"; path = "../../Pods/Pods-CocoaBlocTests.xcconfig"; sourceTree = "<group>"; };
 		DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.xcconfig"; path = "../../Pods/Pods-CocoaBloc.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +129,7 @@
 		09A897C11978536000EE983C /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
+				09B5123A1979ABF500D62F67 /* Internal */,
 				09B51235197985D800D62F67 /* ViewModels */,
 				09A897F1197862AC00EE983C /* API */,
 				09A897F4197862AC00EE983C /* Models */,
@@ -193,6 +197,23 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		09B5123A1979ABF500D62F67 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				09B5123B1979ABF500D62F67 /* Categories */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		09B5123B1979ABF500D62F67 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				09B5123C1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.h */,
+				09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09B5123E1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
 			);
