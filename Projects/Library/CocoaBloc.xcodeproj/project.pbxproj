@@ -126,6 +126,7 @@
 		09A897C11978536000EE983C /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
+				09B51235197985D800D62F67 /* ViewModels */,
 				09A897F1197862AC00EE983C /* API */,
 				09A897F4197862AC00EE983C /* Models */,
 				09A897F5197862AC00EE983C /* UI */,
@@ -185,6 +186,13 @@
 			children = (
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		09B51235197985D800D62F67 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
