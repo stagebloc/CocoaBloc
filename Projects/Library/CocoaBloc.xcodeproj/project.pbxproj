@@ -373,7 +373,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/appledoc -o Doc --docset-install-path \"${SRCROOT}/../../Doc\" -p CocoaBloc -v \"0.0.1\" -c \"StageBloc\" -d --keep-undocumented-objects --keep-undocumented-members --preprocess-headerdoc --merge-categories --docset-bundle-id \"com.stagebloc.cocoabloc.docs\" --docset-bundle-name CocoaBloc \"${SRCROOT}/CocoaBloc\"\nexit 0";
+			shellScript = "/usr/local/bin/appledoc -o Doc \\\n    --docset-install-path \"${SRCROOT}/../../Doc\" \\\n\t-p CocoaBloc \\\n\t-v \"0.0.1\" \\\n\t-c \"StageBloc\" \\\n\t--company-id \"com.stagebloc\" \\\n\t-d \\\n\t--docset-bundle-name \"CocoaBloc\" \\\n\t--keep-undocumented-objects \\\n\t--keep-undocumented-members \\\n\t--preprocess-headerdoc \\\n\t--merge-categories \\\n\t--docset-bundle-id \"com.stagebloc.cocoabloc-docs\" \\\n\t--docset-bundle-name CocoaBloc \\\n\t\"${SRCROOT}/CocoaBloc\"\nexit 0";
 		};
 		63026E92B1294B2DB61CD3B6 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
