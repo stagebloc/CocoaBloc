@@ -9,6 +9,9 @@
 #import "SBClient.h"
 #import <RACAFNetworking.h>
 
+NSString *SBAPIMethodParameterResultLimit = @"SBAPIMethodParameterResultLimit";
+NSString *SBAPIMethodParameterResultOffset = @"SBAPIMethodParameterResultOffset";
+
 @interface SBClient ()
 @property (nonatomic, assign, readwrite) BOOL authenticated;
 @property (nonatomic, copy, readwrite) NSString *token;
