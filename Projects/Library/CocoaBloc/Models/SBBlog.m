@@ -10,4 +10,14 @@
 
 @implementation SBBlog
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"dateModified" 		: @"modified",
+			  @"sticky" 			: @"sticky",
+			  @"exclusive" 			: @"exclusive",
+			  @"relatedContentTag" 	: @"related_content_tag",
+			  @"body" 				: @"body",
+			  @"category" 			: @"category"}];
+}
+
 @end

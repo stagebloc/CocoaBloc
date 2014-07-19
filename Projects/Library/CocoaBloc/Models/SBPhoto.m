@@ -10,4 +10,11 @@
 
 @implementation SBPhoto
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"descriptiveText" : @"description",
+			  @"width" : @"width",
+			  }];
+}
+
 @end

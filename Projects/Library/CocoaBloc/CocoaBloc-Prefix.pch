@@ -16,6 +16,4 @@
 #import "SBAccount.h"
 #import "SBUser.h"
 
-#import "NSDictionary+CocoaBlocInternals.h"
-
 #endif

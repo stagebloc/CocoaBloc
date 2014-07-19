@@ -17,7 +17,6 @@
 		09A897F6197862AC00EE983C /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
-		09B5123E1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */; };
 		09B512411979ADDF00D62F67 /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512401979ADDF00D62F67 /* SBObject.m */; };
 		09B512471979AE4900D62F67 /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512461979AE4900D62F67 /* SBContent.m */; };
 		09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512491979AE6000D62F67 /* SBFanClub.m */; };
@@ -67,8 +66,6 @@
 		09A897F81978630800EE983C /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
 		09A897FA19786D7F00EE983C /* SBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUser.h; sourceTree = "<group>"; };
 		09A897FB19786D7F00EE983C /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
-		09B5123C1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CocoaBlocInternals.h"; sourceTree = "<group>"; };
-		09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CocoaBlocInternals.m"; sourceTree = "<group>"; };
 		09B5123F1979ADDF00D62F67 /* SBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBObject.h; sourceTree = "<group>"; };
 		09B512401979ADDF00D62F67 /* SBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBObject.m; sourceTree = "<group>"; };
 		09B512451979AE4900D62F67 /* SBContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBContent.h; sourceTree = "<group>"; };
@@ -235,8 +232,6 @@
 		09B5123B1979ABF500D62F67 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				09B5123C1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.h */,
-				09B5123D1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -415,7 +410,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09B5123E1979AC0800D62F67 /* NSDictionary+CocoaBlocInternals.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
 				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,

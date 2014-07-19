@@ -20,4 +20,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) NSNumber *userHasLiked;
 
+@property (nonatomic, strong) SBAccount *account;
+@property (nonatomic, strong) SBUser *author;
+
 @end

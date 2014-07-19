@@ -10,4 +10,8 @@
 
 @implementation SBObject
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{@"identifier" : @"id"};
+}
+
 @end
