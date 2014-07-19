@@ -52,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		094CB709197AF2F900BBF2BE /* com.stagebloc.cocoabloc.CocoaBloc.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = com.stagebloc.cocoabloc.CocoaBloc.docset; sourceTree = "<group>"; };
 		098CF5EE197AE051001A5B0B /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09A897BC1978536000EE983C /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A897BF1978536000EE983C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -115,6 +116,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		094CB708197AF2F900BBF2BE /* Doc */ = {
+			isa = PBXGroup;
+			children = (
+				094CB709197AF2F900BBF2BE /* com.stagebloc.cocoabloc.CocoaBloc.docset */,
+			);
+			path = Doc;
+			sourceTree = "<group>";
+		};
 		09A897B31978536000EE983C = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +160,7 @@
 		09A897C11978536000EE983C /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
+				094CB708197AF2F900BBF2BE /* Doc */,
 				098CF5EE197AE051001A5B0B /* CocoaBloc.h */,
 				09D239E4197A054B002B0661 /* Internal */,
 				09B51235197985D800D62F67 /* ViewModels */,
@@ -281,6 +291,7 @@
 				09A897B91978536000EE983C /* Frameworks */,
 				09A897BA1978536000EE983C /* CopyFiles */,
 				8E474AFA79244D42BE29FDDD /* Copy Pods Resources */,
+				094CB707197AF18700BBF2BE /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -350,6 +361,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		094CB707197AF18700BBF2BE /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/appledoc -o Doc --docset-install-path \"${SRCROOT}/../../Doc\" -p CocoaBloc -v \"0.0.1\" -c \"StageBloc\" -d --keep-undocumented-objects --keep-undocumented-members --preprocess-headerdoc --merge-categories --docset-bundle-id \"com.stagebloc.cocoabloc.docs\" --docset-bundle-name CocoaBloc \"${SRCROOT}/CocoaBloc\"\nexit 0";
+		};
 		63026E92B1294B2DB61CD3B6 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -533,6 +558,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaBloc/CocoaBloc-Prefix.pch";
