@@ -7,6 +7,7 @@
 //
 
 #import "SBFanClub.h"
+#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 
 @implementation SBFanClub
 

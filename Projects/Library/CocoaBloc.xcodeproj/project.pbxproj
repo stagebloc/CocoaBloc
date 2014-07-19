@@ -52,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		098CF5EE197AE051001A5B0B /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09A897BC1978536000EE983C /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A897BF1978536000EE983C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09A897C31978536000EE983C /* CocoaBloc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaBloc-Prefix.pch"; sourceTree = "<group>"; };
@@ -150,6 +151,7 @@
 		09A897C11978536000EE983C /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
+				098CF5EE197AE051001A5B0B /* CocoaBloc.h */,
 				09D239E4197A054B002B0661 /* Internal */,
 				09B51235197985D800D62F67 /* ViewModels */,
 				09A897F1197862AC00EE983C /* API */,
@@ -534,6 +536,18 @@
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaBloc/CocoaBloc-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking-RACExtensions\"",
+					"\"${PODS_ROOT}/Headers/Expecta\"",
+					"\"${PODS_ROOT}/Headers/Mantle\"",
+					"\"${PODS_ROOT}/Headers/PureLayout\"",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa\"",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa\"",
+					"\"${PODS_ROOT}/Headers/ReactiveViewModel\"",
+					"\"${PODS_ROOT}/Headers/Specta\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
@@ -550,6 +564,18 @@
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaBloc/CocoaBloc-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/AFNetworking-RACExtensions\"",
+					"\"${PODS_ROOT}/Headers/Expecta\"",
+					"\"${PODS_ROOT}/Headers/Mantle\"",
+					"\"${PODS_ROOT}/Headers/PureLayout\"",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa\"",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa\"",
+					"\"${PODS_ROOT}/Headers/ReactiveViewModel\"",
+					"\"${PODS_ROOT}/Headers/Specta\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",

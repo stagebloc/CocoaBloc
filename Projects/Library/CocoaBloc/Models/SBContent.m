@@ -7,6 +7,8 @@
 //
 
 #import "SBContent.h"
+#import "MTLValueTransformer+Convenience.h"
+#import <Mantle/Mantle.h>
 
 @implementation SBContent
 

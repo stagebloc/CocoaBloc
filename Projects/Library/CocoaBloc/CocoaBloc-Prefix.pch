@@ -6,11 +6,6 @@
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
-#import <ReactiveCocoa/RACEXTScope.h>
-#import <AFNetworking/AFNetworking.h>
-#import <RACAFNetworking.h>
-#import <Mantle/Mantle.h>
 
 // Model awareness for sanity
 #import "SBAccount.h"
