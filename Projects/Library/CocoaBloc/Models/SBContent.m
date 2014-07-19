@@ -31,6 +31,10 @@
 	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[self JSONDateFormatter]];
 }
 
++ (NSValueTransformer *)publishDateJSONTransformer {
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[self JSONDateFormatter]];
+}
+
 + (NSDateFormatter *)JSONDateFormatter {
     NSDateFormatter *df = [NSDateFormatter new];
     df.locale = [NSLocale localeWithLocaleIdentifier:@"EN_US_POSIX"];

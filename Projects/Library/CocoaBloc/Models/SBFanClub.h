@@ -10,13 +10,13 @@
 
 @interface SBFanClub : SBObject <MTLJSONSerializing>
 
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic, strong) NSNumber *canPostBlogs;
 @property (nonatomic, strong) NSNumber *canPostPhotos;
 @property (nonatomic, strong) NSNumber *canPostStatuses;
-@property (nonatomic, copy) NSString *descriptiveText;
-@property (nonatomic, strong, getter = isModerated) NSNumber *moderated;
 @property (nonatomic, strong) NSNumber *userTier;
+@property (nonatomic, strong, getter = isModerated) NSNumber *moderated;
 @property (nonatomic, strong) NSArray *tiers;
 
 @end

@@ -10,15 +10,15 @@
 
 @interface SBContent : SBObject <MTLJSONSerializing>
 
-@property (nonatomic, strong) NSNumber *commentCount;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *excerpt;
 @property (nonatomic, strong) NSDate *creationDate;
 @property (nonatomic, strong) NSDate *publishDate;
-@property (nonatomic, copy) NSString *excerpt;
 @property (nonatomic, strong) NSNumber *inModeration;
-@property (nonatomic, strong) NSNumber *likeCount;
-@property (nonatomic, strong) NSURL *shortURL;
-@property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) NSNumber *userHasLiked;
+@property (nonatomic, strong) NSNumber *likeCount;
+@property (nonatomic, strong) NSNumber *commentCount;
+@property (nonatomic, strong) NSURL *shortURL;
 
 @property (nonatomic, strong) SBAccount *account;
 @property (nonatomic, strong) SBUser *author;
