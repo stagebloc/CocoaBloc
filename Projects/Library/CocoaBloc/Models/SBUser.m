@@ -18,7 +18,8 @@
              @"bio"					: @"bio",
              @"color"				: @"color",
              @"username"			: @"username",
-             @"createdDateString" 	: @"created"};
+             @"createdDateString" 	: @"created",
+			 @"adminAccounts"		: NSNull.null};
 }
 
 @end

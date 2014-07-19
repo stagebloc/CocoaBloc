@@ -10,4 +10,6 @@
 
 @interface SBStatus : SBContent <MTLJSONSerializing>
 
+@property (nonatomic, copy) NSString *text;
+
 @end

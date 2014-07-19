@@ -23,4 +23,21 @@
 			  @"userHasLiked"	: @"user_has_liked" }];
 }
 
++ (MTLValueTransformer *)shortURLJSONTransformer {
+	return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (NSValueTransformer *)creationDateJSONTransformer {
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[self JSONDateFormatter]];
+}
+
++ (NSDateFormatter *)JSONDateFormatter {
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.locale = [NSLocale localeWithLocaleIdentifier:@"EN_US_POSIX"];
+    df.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    df.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    
+	return df;
+}
+
 @end
