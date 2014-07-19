@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBObject.h"
+#import "SBAccount.h"
+#import "SBUser.h"
 
 @interface SBContent : SBObject <MTLJSONSerializing>
 

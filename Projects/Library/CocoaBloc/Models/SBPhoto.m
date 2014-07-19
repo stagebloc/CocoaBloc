@@ -7,6 +7,7 @@
 //
 
 #import "SBPhoto.h"
+#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 
 @implementation SBPhoto
 

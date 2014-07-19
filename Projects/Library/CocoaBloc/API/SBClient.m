@@ -7,7 +7,8 @@
 //
 
 #import "SBClient.h"
-#import <RACAFNetworking.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 NSString *SBAPIMethodParameterResultLimit = @"SBAPIMethodParameterResultLimit";
 NSString *SBAPIMethodParameterResultOffset = @"SBAPIMethodParameterResultOffset";
@@ -28,6 +29,11 @@ static NSString *SBClientID, *SBClientSecret;
 }
 
 - (id)init {
+	if (!SBClientID.length || !SBClientSecret.length) {
+		[NSException raise:@"CocoaBlocMissingClientIDSecretException" format:@"You may not use SBClient until you have set the current app's client id/secret with +[SBClient setClientID:clientSecret:]"];
+		return nil;
+	}
+	
 	self = [super initWithBaseURL:[NSURL URLWithString:
 #ifdef DEBUG
 								   @"https://api.stagebloc.dev/v1"
@@ -41,6 +47,7 @@ static NSString *SBClientID, *SBClientSecret;
 
 	return self;
 }
+
 
 - (void)setToken:(NSString *)token {
 	if (![token isEqual:self.token]) { // only change if it's different

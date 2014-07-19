@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Mantle/MTLModel.h>
+#import <Mantle/MTLJSONAdapter.h>
 
 @interface SBObject : MTLModel <MTLJSONSerializing>
 

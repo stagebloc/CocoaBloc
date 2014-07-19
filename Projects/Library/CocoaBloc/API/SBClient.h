@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
-@class SBUser;
+#import "SBUser.h"
+#import "SBAccount.h"
 
 /// @name Globals
 
