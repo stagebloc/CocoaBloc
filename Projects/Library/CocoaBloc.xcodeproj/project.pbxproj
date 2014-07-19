@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		094CB715197B133B00BBF2BE /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
 		09A897C01978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
 		09A897CE1978536000EE983C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897CD1978536000EE983C /* XCTest.framework */; };
 		09A897CF1978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
 		09A897D11978536000EE983C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897D01978536000EE983C /* UIKit.framework */; };
 		09A897D41978536000EE983C /* libCocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BC1978536000EE983C /* libCocoaBloc.a */; };
 		09A897DA1978536000EE983C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09A897D81978536000EE983C /* InfoPlist.strings */; };
-		09A897DC1978536000EE983C /* CocoaBlocTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897DB1978536000EE983C /* CocoaBlocTests.m */; };
-		09A897F6197862AC00EE983C /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
+		09A897DC1978536000EE983C /* APITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897DB1978536000EE983C /* APITests.m */; };
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
 		09B512411979ADDF00D62F67 /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512401979ADDF00D62F67 /* SBObject.m */; };
@@ -62,7 +62,7 @@
 		09A897D01978536000EE983C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		09A897D71978536000EE983C /* CocoaBlocTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaBlocTests-Info.plist"; sourceTree = "<group>"; };
 		09A897D91978536000EE983C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		09A897DB1978536000EE983C /* CocoaBlocTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaBlocTests.m; sourceTree = "<group>"; };
+		09A897DB1978536000EE983C /* APITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APITests.m; sourceTree = "<group>"; };
 		09A897F2197862AC00EE983C /* SBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBClient.h; sourceTree = "<group>"; };
 		09A897F3197862AC00EE983C /* SBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBClient.m; sourceTree = "<group>"; };
 		09A897F71978630800EE983C /* SBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAccount.h; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 		09A897D51978536000EE983C /* CocoaBlocTests */ = {
 			isa = PBXGroup;
 			children = (
-				09A897DB1978536000EE983C /* CocoaBlocTests.m */,
+				09A897DB1978536000EE983C /* APITests.m */,
 				09A897D61978536000EE983C /* Supporting Files */,
 			);
 			path = CocoaBlocTests;
@@ -459,8 +459,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09A897DC1978536000EE983C /* CocoaBlocTests.m in Sources */,
-				09A897F6197862AC00EE983C /* SBClient.m in Sources */,
+				094CB715197B133B00BBF2BE /* SBClient.m in Sources */,
+				09A897DC1978536000EE983C /* APITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +627,30 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "CocoaBlocTests/CocoaBlocTests-Info.plist";
+				OTHER_CFLAGS = (
+					"-DTESTFILE=\"\\\"${SRCROOT}/CocoaBlocTests/.tests\\\"\"",
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/AFNetworking-RACExtensions\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Expecta\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Mantle\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/PureLayout\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/ReactiveViewModel\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Specta\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -644,6 +668,30 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaBloc/CocoaBloc-Prefix.pch";
 				INFOPLIST_FILE = "CocoaBlocTests/CocoaBlocTests-Info.plist";
+				OTHER_CFLAGS = (
+					"-DTESTFILE=\"\\\"${SRCROOT}/CocoaBlocTests/.tests\\\"\"",
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/AFNetworking-RACExtensions\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Expecta\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Mantle\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/PureLayout\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/ReactiveViewModel\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Specta\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
