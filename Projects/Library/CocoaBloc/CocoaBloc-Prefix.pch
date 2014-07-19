@@ -7,10 +7,4 @@
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 
-// Model awareness for sanity
-#import "SBAccount.h"
-#import "SBUser.h"
-
-#import "MTLValueTransformer+Convenience.h"
-
 #endif

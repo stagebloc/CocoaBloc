@@ -19,7 +19,6 @@ Pod::Spec.new do |s|
       ss.dependency 'AFNetworking-RACExtensions'
       ss.dependency 'CocoaBloc/Models'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/API'
-      ss.prefix_header_contents = '#import <ReactiveCocoa/RACEXTScope.h>'
       ss.source_files = 'Projects/Library/CocoaBloc/API/*.{h,m}'
     end
 
@@ -33,5 +32,12 @@ Pod::Spec.new do |s|
     s.subspec 'UI' do |ss|
       ss.dependency 'PureLayout'
       ss.source_files = 'Projects/Library/CocoaBloc/UI/*.{h,m}'
+      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/UI'
+    end
+
+    s.subspec 'ViewModels' do |ss|
+      ss.dependency 'CocoaBloc/API'
+      ss.source_files = 'Projects/Library/CocoaBloc/ViewModels/*.{h,m}'
+      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/ViewModels'
     end
 end
