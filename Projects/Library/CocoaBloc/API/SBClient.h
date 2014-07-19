@@ -19,6 +19,7 @@
  */
 @interface SBClient : AFHTTPRequestOperationManager
 
+
 /// @name Authentication/Sign Up
 
 /*!
@@ -58,6 +59,7 @@
 					  password:(NSString *)password
 					 birthDate:(NSDate *)birthDate;
 
+
 /// @name User
 
 /*!
@@ -72,6 +74,20 @@
 - (RACSignal *)getMe;
 
 /*!
+ Request the StageBloc user by their user id.
+ 
+ @param userID the user id of the user to be requested
+ 
+ @return A "cold" signal that will perform the request on subscription.
+ The subscribed signal will send a "next" value of the requested
+ user's representative SBUser object.
+ */
+- (RACSignal *)getUserWithID:(NSNumber *)userID;
+
+
+/// @name Audio
+
+/*!
  Request an uploaded audio track on StageBloc by its audio id.
  
  @param audioID 	the track's audio id
@@ -81,18 +97,8 @@
  		 The subscribed signal will send a "next" value of the 
          requested track's <#modelClassName#> object.
  */
-- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccountWithID:(NSNumber *)accountID;
-
-/*!
- Request the StageBloc user by their user id.
- 
- @param userID the user id of the user to be requested
- 
- @return A "cold" signal that will perform the request on subscription.
- 		 The subscribed signal will send a "next" value of the requested
- 		 user's representative SBUser object.
- */
-- (RACSignal *)getUserWithID:(NSNumber *)userID;
+- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID
+				  forAccountWithID:(NSNumber *)accountID;
 
 /*!
  
@@ -101,6 +107,7 @@
 					 withTitle:(NSString *)title
 			   toAccountWithID:(NSNumber *)accountID
 				progressSignal:(RACSignal **)progressSignal;
+
 
 /// @name Fan Clubs
 
@@ -126,6 +133,7 @@
 - (RACSignal *)getRecentFanClubContentWithLimit:(NSUInteger)limit
 										 offset:(NSUInteger)offset
 						   additionalParameters:(NSDictionary *)parameters;
+
 
 /*!
  Enqueue a network request with this client. Any configurations

@@ -10,4 +10,13 @@
 
 @interface SBPhoto : SBContent <MTLJSONSerializing>
 
+@property (nonatomic, copy) NSString *descriptiveText;
+@property (nonatomic, strong) NSNumber *width;
+@property (nonatomic, strong) NSNumber *height;
+@property (nonatomic, strong) NSURL *thumbnailURL;
+@property (nonatomic, strong) NSURL *smallURL;
+@property (nonatomic, strong) NSURL *mediumURL;
+@property (nonatomic, strong) NSURL *largeURL;
+@property (nonatomic, strong) NSURL *originalURL;
+
 @end
