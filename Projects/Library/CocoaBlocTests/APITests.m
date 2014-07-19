@@ -1,5 +1,5 @@
 //
-//  CocoaBlocTests.m
+//  APITests.m
 //  CocoaBlocTests
 //
 //  Created by John Heaton on 7/17/14.
@@ -19,13 +19,40 @@
 #define TEST_SB_CID	@"hey"
 #define TEST_SB_CSE @"there"
 
+#if !defined(TARGET_IPHONE_SIMULATOR)
+#error For async magic to work, we must test on the simulator only!
+#endif
+
 SpecBegin(API)
+
+describe(@"Local Dev Server Check", ^{
+	it(@"should be running", ^AsyncBlock {
+		AFHTTPRequestOperation *op =
+		[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stagebloc.dev"]]];
+		op.securityPolicy.allowInvalidCertificates = YES;
+		
+		[op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+			expect(@(operation.response.statusCode)).to.equal(@(200));
+			done();
+		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			expect(error).to.beNil();
+			done();
+		}];
+		
+		[op start];
+	});
+});
 
 describe(@"Client", ^{
     __block SBClient *client;
     beforeAll(^{
-        client = SBClient.new;
+		expect(^{ client = SBClient.new; }).to.raiseAny();
+		
         [SBClient setClientID:TEST_SB_CID clientSecret:TEST_SB_CSE];
+		client = SBClient.new;
+		
+		NSString *x = @(TESTFILE);
+		
     });
     
 	it(@"should not accept nil log in credentials", ^{
