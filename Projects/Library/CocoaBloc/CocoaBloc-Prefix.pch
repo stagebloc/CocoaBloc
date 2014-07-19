@@ -16,4 +16,6 @@
 #import "SBAccount.h"
 #import "SBUser.h"
 
+#import "MTLValueTransformer+Convenience.h"
+
 #endif

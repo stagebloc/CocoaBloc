@@ -24,6 +24,7 @@
 		09B512511979AEA500D62F67 /* SBBlog.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512501979AEA500D62F67 /* SBBlog.m */; };
 		09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512531979AEAE00D62F67 /* SBPhoto.m */; };
 		09B512571979AEB400D62F67 /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512561979AEB400D62F67 /* SBStatus.m */; };
+		09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,8 @@
 		09B512531979AEAE00D62F67 /* SBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhoto.m; sourceTree = "<group>"; };
 		09B512551979AEB400D62F67 /* SBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatus.h; sourceTree = "<group>"; };
 		09B512561979AEB400D62F67 /* SBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStatus.m; sourceTree = "<group>"; };
+		09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
+		09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45A743DC7E74D54A2C661CC /* Pods-CocoaBlocTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.xcconfig"; path = "../../Pods/Pods-CocoaBlocTests.xcconfig"; sourceTree = "<group>"; };
 		DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.xcconfig"; path = "../../Pods/Pods-CocoaBloc.xcconfig"; sourceTree = "<group>"; };
@@ -147,7 +150,7 @@
 		09A897C11978536000EE983C /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
-				09B5123A1979ABF500D62F67 /* Internal */,
+				09D239E4197A054B002B0661 /* Internal */,
 				09B51235197985D800D62F67 /* ViewModels */,
 				09A897F1197862AC00EE983C /* API */,
 				09A897F4197862AC00EE983C /* Models */,
@@ -221,21 +224,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		09B5123A1979ABF500D62F67 /* Internal */ = {
-			isa = PBXGroup;
-			children = (
-				09B5123B1979ABF500D62F67 /* Categories */,
-			);
-			path = Internal;
-			sourceTree = "<group>";
-		};
-		09B5123B1979ABF500D62F67 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
 		09B5124E1979AE8900D62F67 /* People */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +248,23 @@
 				09B512561979AEB400D62F67 /* SBStatus.m */,
 			);
 			name = Content;
+			sourceTree = "<group>";
+		};
+		09D239E4197A054B002B0661 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				09D239E5197A054B002B0661 /* Categories */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		09D239E5197A054B002B0661 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */,
+				09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
+				09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */,
 				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
 				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,

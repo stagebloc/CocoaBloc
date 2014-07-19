@@ -10,4 +10,9 @@
 
 @implementation SBStatus
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"text" : @"text"}];
+}
+
 @end
