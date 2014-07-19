@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
     s.summary = 'StageBloc Cocoa SDK'
     s.description = 'An Objective-C(Swift-compatible) library for interacting with StageBloc, and displaying StageBloc information/content to users.'
     s.dependency 'ReactiveCocoa'
+    s.source = { :git => 'https://github.com/stagebloc/CocoaBloc.git', :tag => '0.0.1-podspec' }
     s.requires_arc = true
     s.source_files = 'Projects/Library/CocoaBloc/CocoaBloc.h'
     s.private_header_files = 'Projects/Library/CocoaBloc/Internal/*.h'

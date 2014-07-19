@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/j/Drive/dev/sb/CocoaBloc/Projects/Library/../../Doc/com.stagebloc.cocoabloc.CocoaBloc.docset
+Time: 2014-07-19 18:39:40 +0000
