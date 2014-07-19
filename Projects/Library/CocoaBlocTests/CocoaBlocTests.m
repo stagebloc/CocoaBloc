@@ -70,7 +70,7 @@ describe(@"Client", ^{
             	done();
         	}];
     });
-	
+		
 	it(@"should be able to create a fan club", ^AsyncBlock {
 		done();
 	});

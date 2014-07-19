@@ -10,6 +10,18 @@
 
 @class SBUser;
 
+/// @name Globals
+
+/// API method parameter dictionary keys
+extern NSString *SBAPIMethodParameterResultLimit;
+extern NSString *SBAPIMethodParameterResultOffset;
+
+/// Fan club tier info dictionary keys
+extern NSString *SBFanClubTierInfoName;
+extern NSString *SBFanClubTierInfoCanSubmitContent;
+extern NSString *SBFanClubTierInfoPrice;
+extern NSString *SBFanClubTierInfoDescription;
+
 /*!
  A client object that manages authentication + requests for a single
  StageBloc user.
@@ -37,7 +49,7 @@
  @param username the user's username/email address
  @param password the user's password
  
- @return A "cold" signal that will perform the log in on subscription. 
+ @return A "cold" signal that will perform the log in upon subscription.
 		 The subscribed signal will send a "next" value
 		 of an array of admin accounts (SBAccount) for that user (SBUser).
  */
@@ -51,13 +63,13 @@
  @param password 	the user's password
  @param birthDate 	the user's birth date
  
- @return A "cold" signal that will perform the sign up on subscription.
+ @return A "cold" signal that will perform the sign up upon subscription.
  		 The subscribed signal will send a "next" value
 		 of the newly authenticated user (SBUser).
  */
 - (RACSignal *)signUpWithEmail:(NSString *)email
 					  password:(NSString *)password
-					 birthDate:(NSDate *)birthDate;
+					 birthDate:(NSDate *)birthDate __attribute__((unavailable("Not implemented in v1 yet")));
 
 
 /// @name User
@@ -66,7 +78,7 @@
  Request the currently authenticated user from StageBloc.
  NOTE: This is already done on sign in. See the `user` property.
  
- @return A "cold" signal that will perform the request on subscription.
+ @return A "cold" signal that will perform the request upon subscription.
  		 The subscribed signal will send a "next" value of the currently
 	     authenticated user's SBUser object. This is the same as the `user` 
  		 property after signing in.
@@ -78,7 +90,7 @@
  
  @param userID the user id of the user to be requested
  
- @return A "cold" signal that will perform the request on subscription.
+ @return A "cold" signal that will perform the request upon subscription.
  The subscribed signal will send a "next" value of the requested
  user's representative SBUser object.
  */
@@ -93,7 +105,7 @@
  @param audioID 	the track's audio id
  @param accountID	the account to query for the track
  
- @return A "cold" signal that will perform teh request on subscription.
+ @return A "cold" signal that will perform the request upon subscription.
  		 The subscribed signal will send a "next" value of the 
          requested track's <#modelClassName#> object.
  */
@@ -112,27 +124,38 @@
 /// @name Fan Clubs
 
 /*!
+ Create the fan club for the given StageBloc account.
+ 
+ @param account		the parent/fan-club-owning StageBloc account object
+ @param title		the title for the fan club
+ @param description	the description for the fan club
+ @param tierInfo	a dictionary with any of the following tier info keys,
+					or nil, to use the default values (determined server-side):
+					SBFanClubTierInfoName
+ 					SBFanClubTierInfoCanSubmitContent
+ 					SBFanClubTierInfoPrice
+ 					SBFanClubTierInfoDescription
+ 
+ @return A "cold" signal that will perform the creation upon subscription.
+		 The subscribed signal will send a "next" value of the newly created
+		 fan club object (SBFanClub).
  
  */
-- (RACSignal *)createFanClubForAccountWithID:(NSNumber *)accountID
-									   title:(NSString *)title
-								 description:(NSString *)description
-									tierInfo:(NSDictionary *)tierInfo;
+- (RACSignal *)createFanClubForAccount:(SBAccount *)account
+								 title:(NSString *)title
+						   description:(NSString *)description
+							  tierInfo:(NSDictionary *)tierInfo;
 
 /*!
  
  */
-- (RACSignal *)getContentFromFanClubWithParentAccountID:(NSNumber *)accountID
-												  limit:(NSUInteger)limit
-												 offset:(NSUInteger)offset
-								   additionalParameters:(NSDictionary *)parameters;
+- (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
+									parameters:(NSDictionary *)parameters;
 
 /*!
  
  */
-- (RACSignal *)getRecentFanClubContentWithLimit:(NSUInteger)limit
-										 offset:(NSUInteger)offset
-						   additionalParameters:(NSDictionary *)parameters;
+- (RACSignal *)getRecentFanClubContentWithParameters:(NSDictionary *)parameters;
 
 
 /*!
