@@ -76,7 +76,7 @@ describe(@"Client", ^{
                 expect(client.authenticated).to.equal(YES);
                 expect(client.token).notTo.beNil();
 				expect(client.user).to.equal(_nextUser);
-				
+                
 				for (id account in client.user.adminAccounts) {
 					expect(account).to.beKindOf([SBAccount class]);
 				}
@@ -95,11 +95,18 @@ describe(@"Client", ^{
             	done();
         	}
 		 	completed:^{
+                expect(client.user).toNot.beNil();
+                for (id account in client.user.adminAccounts) {
+					expect(account).to.beKindOf([SBAccount class]);
+				}
+                
             	done();
         	}];
     });
     
     it(@"should upload audio data", ^AsyncBlock {
+        expect(@(client.authenticated)).to.equal(@(YES));
+        
     	NSData *audioSample = [NSData dataWithContentsOfFile:[testProjectDirectory stringByAppendingPathComponent:@"sample.m4a"]];
         expect(@(audioSample.length)).to.beGreaterThan(@(0));
         
@@ -109,6 +116,13 @@ describe(@"Client", ^{
                                  fileName:@"sample.m4a"
                           		toAccount:(SBAccount *)client.user.adminAccounts.firstObject
                            progressSignal:&progress];
+        
+        [progress subscribeNext:^(NSNumber *progress) {
+            NSLog(@"%@", progress);
+            
+        	expect(progress).to.beGreaterThanOrEqualTo(@(0));
+            expect(progress).to.beLessThanOrEqualTo(@(100));
+        }];
     
     	[upload subscribeNext:^(id upload) {
             expect(upload).toNot.beNil();
@@ -120,24 +134,24 @@ describe(@"Client", ^{
             done();
         }];
     });
-		
-	it(@"should be able to create a fan club", ^AsyncBlock {
-		done();
-	});
-	
-//	it(@"should get user #1", ^AsyncBlock {
-//		[[client getUserWithID:@(1)]
-//			subscribeNext:^(id user) {
-//				expect(user).to.beKindOf([SBUser class]);
-//			}
-//		 	error:^(NSError *error) {
-//				expect(error).to.beNil();
-//				done();
-//			}
-//		 	completed:^{
-//				done();
-//			}];
+//		
+//	it(@"should be able to create a fan club", ^AsyncBlock {
+//		done();
 //	});
+	
+	it(@"should get a user by id", ^AsyncBlock {
+		[[client getUserWithID:client.user.identifier]
+			subscribeNext:^(id user) {
+				expect(user).to.beKindOf([SBUser class]);
+			}
+		 	error:^(NSError *error) {
+				expect(error).to.beNil();
+				done();
+			}
+		 	completed:^{
+				done();
+			}];
+	});
 });
 
 SpecEnd
