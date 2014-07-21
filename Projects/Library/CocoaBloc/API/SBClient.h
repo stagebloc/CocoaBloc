@@ -119,7 +119,8 @@ extern NSString *SBFanClubTierInfoDescription;
  */
 - (RACSignal *)uploadAudioData:(NSData *)data
 					 withTitle:(NSString *)title
-			   toAccountWithID:(NSNumber *)accountID
+                      fileName:(NSString *)fileName
+                     toAccount:(SBAccount *)account
 				progressSignal:(RACSignal **)progressSignal;
 
 

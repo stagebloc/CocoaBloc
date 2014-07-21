@@ -25,7 +25,7 @@
 
 SpecBegin(API)
 
-describe(@"Local Dev Server Check", ^{
+describe(@"Local Dev Server", ^{
 	it(@"should be running", ^AsyncBlock {
 		AFHTTPRequestOperation *op =
 		[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stagebloc.dev"]]];
@@ -45,14 +45,15 @@ describe(@"Local Dev Server Check", ^{
 
 describe(@"Client", ^{
     __block SBClient *client;
+    __block NSString *testProjectDirectory;
     beforeAll(^{
 		expect(^{ client = SBClient.new; }).to.raiseAny();
 		
         [SBClient setClientID:TEST_SB_CID clientSecret:TEST_SB_CSE];
 		client = SBClient.new;
 		
-		NSString *x = @(TESTFILE);
-		
+		testProjectDirectory = @(TEST_PROJ_DIR);
+        expect(testProjectDirectory).toNot.beNil();
     });
     
 	it(@"should not accept nil log in credentials", ^{
@@ -96,6 +97,28 @@ describe(@"Client", ^{
 		 	completed:^{
             	done();
         	}];
+    });
+    
+    it(@"should upload audio data", ^AsyncBlock {
+    	NSData *audioSample = [NSData dataWithContentsOfFile:[testProjectDirectory stringByAppendingPathComponent:@"sample.m4a"]];
+        expect(@(audioSample.length)).to.beGreaterThan(@(0));
+        
+        RACSignal *progress,
+        *upload = [client uploadAudioData:audioSample
+                                withTitle:@"Test Upload"
+                                 fileName:@"sample.m4a"
+                          		toAccount:(SBAccount *)client.user.adminAccounts.firstObject
+                           progressSignal:&progress];
+    
+    	[upload subscribeNext:^(id upload) {
+            expect(upload).toNot.beNil();
+            done();
+        } error:^(NSError *error) {
+            expect(error).to.beNil();
+            done();
+        } completed:^{
+            done();
+        }];
     });
 		
 	it(@"should be able to create a fan club", ^AsyncBlock {
