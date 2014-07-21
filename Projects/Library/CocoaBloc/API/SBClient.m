@@ -152,48 +152,77 @@ static NSString *SBClientID, *SBClientSecret;
 				setNameWithFormat:@"Get user with ID: %d", userID.intValue];
 }
 
+// Figure out MIME type based on extension
+static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL *supportedAudioUpload) {
+	static NSArray *supportedAudioExtensions;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        supportedAudioExtensions = @[@"aif", @"aiff", @"wav", @"m4a"];
+    });
+    
+    NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
+    NSString *contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
+    if (!contentType) {
+        if (supportedAudioUpload) *supportedAudioUpload = NO;
+    }
+    return contentType;
+}
+
 - (RACSignal *)uploadAudioData:(NSData *)data
 					 withTitle:(NSString *)title
-			   toAccountWithID:(NSNumber *)accountID
+                      fileName:(NSString *)fileName
+                     toAccount:(SBAccount *)account
 				progressSignal:(RACSignal **)progressSignal {
 	NSParameterAssert(data);
 	NSParameterAssert(title);
-	NSParameterAssert(accountID);
+    NSParameterAssert(fileName);
+	NSParameterAssert(account);
 	
-	NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%d/audio", accountID.intValue]].absoluteString;
-	//
-//	NSError *err;
-//	NSMutableURLRequest *req =
-//	[self.requestSerializer multipartFormRequestWithMethod:@"POST"
-//												 URLString:endpointLocation
-//												parameters:@{@"title" : title}
-//								 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//									 [formData appendPartWithFileData:<#(NSData *)#> name:<#(NSString *)#> fileName:<#(NSString *)#> mimeType:<#(NSString *)#>
-//									 if (err) {
-//										 [subscriber sendError:err];
-//									 }
-//								 } error:&err];
-//	
-//	op = [self.api HTTPRequestOperationWithRequest:req success:nil failure:nil];
-//	
-//	if (signal) {
-//		[op setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-//			[subj sendNext:@((double)totalBytesWritten * 100 / totalBytesExpectedToWrite)];
-//			
-//#ifdef DEBUG
-//			NSLog(@"totalBytesWritten: %lld, totalBytesExpectedToWrite: %lld", totalBytesWritten, totalBytesExpectedToWrite);
-//#endif
-//			if (totalBytesWritten >= totalBytesExpectedToWrite) {
-//#ifdef DEBUG
-//				NSLog(@"done uploading. waiting for stagebloc to process...");
-//#endif
-//				
-//				[subj sendCompleted];
-//			}
-//		}];
-//	}
-//	
-	return [RACSignal empty];
+    // create endpoint location string
+	NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%d/audio", account.identifier.intValue]].absoluteString;
+    
+    // verify that the mime type is valid and supported by us
+    BOOL supported;
+    NSString *mime = SBContentTypeForPathExtension([fileName.lastPathComponent componentsSeparatedByString:@"."].lastObject, &supported);
+    
+    if (!supported || !mime) {
+#warning make this a real error
+    	return [RACSignal error:nil];
+    }
+    
+    // create the upload request
+	NSError *err;
+	NSMutableURLRequest *req =
+	[self.requestSerializer multipartFormRequestWithMethod:@"POST"
+												 URLString:endpointLocation
+												parameters:@{@"title" : title}
+								 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+									 [formData appendPartWithFileData:data name:title fileName:fileName mimeType:mime];
+								 } error:&err];
+    
+	AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
+    if (progressSignal) {
+        
+        // progress signal is still cold. beautiful!
+        *progressSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            [op setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                [subscriber sendNext:@((double)totalBytesWritten * 100 / totalBytesExpectedToWrite)];
+                
+                if (totalBytesWritten >= totalBytesExpectedToWrite) {
+                    [subscriber sendCompleted];
+                }
+            }];
+            
+            return [RACDisposable disposableWithBlock:^{
+                [op setUploadProgressBlock:nil];
+            }];
+        }];
+
+    }
+    
+    return [RACSignal defer:^RACSignal *{
+        return [self rac_enqueueHTTPRequestOperation:op];
+    }];
 }
 
 - (RACSignal *)createFanClubForAccountWithID:(NSNumber *)accountID

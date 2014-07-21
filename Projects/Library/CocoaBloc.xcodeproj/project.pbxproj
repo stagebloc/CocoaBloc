@@ -83,6 +83,7 @@
 		09B512531979AEAE00D62F67 /* SBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhoto.m; sourceTree = "<group>"; };
 		09B512551979AEB400D62F67 /* SBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatus.h; sourceTree = "<group>"; };
 		09B512561979AEB400D62F67 /* SBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStatus.m; sourceTree = "<group>"; };
+		09C88783197D796100842D0F /* sample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.m4a; sourceTree = "<group>"; };
 		09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
 		09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +184,7 @@
 		09A897D51978536000EE983C /* CocoaBlocTests */ = {
 			isa = PBXGroup;
 			children = (
+				09C88783197D796100842D0F /* sample.m4a */,
 				09A897DB1978536000EE983C /* APITests.m */,
 				09A897D61978536000EE983C /* Supporting Files */,
 			);
@@ -628,7 +630,7 @@
 				);
 				INFOPLIST_FILE = "CocoaBlocTests/CocoaBlocTests-Info.plist";
 				OTHER_CFLAGS = (
-					"-DTESTFILE=\"\\\"${SRCROOT}/CocoaBlocTests/.tests\\\"\"",
+					"-DTEST_PROJ_DIR=\"\\\"${SRCROOT}/CocoaBlocTests\\\"\"",
 					"$(inherited)",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers\"",
@@ -669,7 +671,7 @@
 				GCC_PREFIX_HEADER = "CocoaBloc/CocoaBloc-Prefix.pch";
 				INFOPLIST_FILE = "CocoaBlocTests/CocoaBlocTests-Info.plist";
 				OTHER_CFLAGS = (
-					"-DTESTFILE=\"\\\"${SRCROOT}/CocoaBlocTests/.tests\\\"\"",
+					"-DTEST_PROJ_DIR=\"\\\"${SRCROOT}/CocoaBlocTests\\\"\"",
 					"$(inherited)",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers\"",
