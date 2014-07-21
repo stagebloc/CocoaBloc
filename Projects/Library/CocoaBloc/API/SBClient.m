@@ -130,8 +130,17 @@ static NSString *SBClientID, *SBClientSecret;
 			 	doNext:^(SBUser *user) {
 					@strongify(self);
 					
-					// on 'next', update the current user
-					self.user = user;
+                    SBUser *oldMe = self.user;
+                    
+                    // set the new user
+                    self.user = user;
+                    
+                    // if it's the same user, use the new response data
+                    // and add in the current admin acccounts
+                    // Why? this response doesn't return admin accounts
+                    if ([oldMe.identifier isEqual:user.identifier]) {
+                        self.user.adminAccounts = oldMe.adminAccounts;
+                    }
 				}]
 				setNameWithFormat:@"Get \"me\""];
 }
@@ -147,7 +156,16 @@ static NSString *SBClientID, *SBClientSecret;
 - (RACSignal *)getUserWithID:(NSNumber *)userID {
 	return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:nil]
 				map:^id(NSDictionary *response) {
-					return response;
+					SBUser *user = [MTLJSONAdapter
+                                    modelOfClass:[SBUser class]
+                                    fromJSONDictionary:response[@"data"]
+                                    error:nil];
+                    
+                    if ([user.identifier isEqual:self.user.identifier]) {
+                        user.adminAccounts = self.user.adminAccounts;
+                    }
+                    
+                    return user;
 				}]
 				setNameWithFormat:@"Get user with ID: %d", userID.intValue];
 }
@@ -162,9 +180,11 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     
     NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
     NSString *contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
-    if (!contentType) {
-        if (supportedAudioUpload) *supportedAudioUpload = NO;
+    
+    if (supportedAudioUpload) {
+        *supportedAudioUpload = contentType != nil;
     }
+
     return contentType;
 }
 
@@ -187,7 +207,7 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     
     if (!supported || !mime) {
 #warning make this a real error
-    	return [RACSignal error:nil];
+    	return [RACSignal error:[NSError errorWithDomain:@"temp" code:1 userInfo:nil]];
     }
     
     // create the upload request
@@ -197,8 +217,12 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
 												 URLString:endpointLocation
 												parameters:@{@"title" : title}
 								 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-									 [formData appendPartWithFileData:data name:title fileName:fileName mimeType:mime];
+									 [formData appendPartWithFileData:data name:@"audio" fileName:fileName mimeType:mime];
 								 } error:&err];
+    
+    if (err) {
+        return [RACSignal error:err];
+    }
     
 	AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
     if (progressSignal) {
@@ -220,8 +244,12 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
 
     }
     
+    // use defer to turn "hot" enqueueing into cold signal
     return [RACSignal defer:^RACSignal *{
-        return [self rac_enqueueHTTPRequestOperation:op];
+        return [[self rac_enqueueHTTPRequestOperation:op]
+            		map:^id(NSDictionary *response) {
+                        return response;
+                    }];
     }];
 }
 
