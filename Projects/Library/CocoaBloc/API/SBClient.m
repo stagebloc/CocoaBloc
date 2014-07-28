@@ -24,46 +24,46 @@ NSString *SBAPIMethodParameterResultOffset = @"SBAPIMethodParameterResultOffset"
 static NSString *SBClientID, *SBClientSecret;
 
 + (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
-	SBClientID = clientID.copy;
-	SBClientSecret = clientSecret.copy;
+    SBClientID = clientID.copy;
+    SBClientSecret = clientSecret.copy;
 }
 
 - (id)init {
-	if (!SBClientID.length || !SBClientSecret.length) {
-		[NSException raise:@"CocoaBlocMissingClientIDSecretException" format:@"You may not use SBClient until you have set the current app's client id/secret with +[SBClient setClientID:clientSecret:]"];
-		return nil;
-	}
-	
-	self = [super initWithBaseURL:[NSURL URLWithString:
+    if (!SBClientID.length || !SBClientSecret.length) {
+        [NSException raise:@"CocoaBlocMissingClientIDSecretException" format:@"You may not use SBClient until you have set the current app's client id/secret with +[SBClient setClientID:clientSecret:]"];
+        return nil;
+    }
+    
+    self = [super initWithBaseURL:[NSURL URLWithString:
 #ifdef DEBUG
-								   @"https://api.stagebloc.dev/v1"
+                                   @"https://api.stagebloc.dev/v1"
 #else
-								   @"https://api.stagebloc.com/v1"
+                                   @"https://api.stagebloc.com/v1"
 #endif
-								   ]];
-	if (self) {
-		self.securityPolicy.allowInvalidCertificates = YES; // dave says this is a dragon's leash
-	}
-
-	return self;
+                                   ]];
+    if (self) {
+        self.securityPolicy.allowInvalidCertificates = YES; // dave says this is a dragon's leash
+    }
+    
+    return self;
 }
 
 
 - (void)setToken:(NSString *)token {
-	if (![token isEqual:self.token]) { // only change if it's different
-		
-		// keep the KVO compliance for observing token
-		[self willChangeValueForKey:@"token"];
-		
-		// clear it if nil
-		if (!token) {
-			[self.requestSerializer setValue:nil forHTTPHeaderField:@"Authorization"];
+    if (![token isEqual:self.token]) { // only change if it's different
+        
+        // keep the KVO compliance for observing token
+        [self willChangeValueForKey:@"token"];
+        
+        // clear it if nil
+        if (!token) {
+            [self.requestSerializer setValue:nil forHTTPHeaderField:@"Authorization"];
         } else {
-			// else set it
-			_token = token.copy;
-			[self.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", token] forHTTPHeaderField:@"Authorization"];
-		}
-		[self didChangeValueForKey:@"token"];
+            // else set it
+            _token = token.copy;
+            [self.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", token] forHTTPHeaderField:@"Authorization"];
+        }
+        [self didChangeValueForKey:@"token"];
     }
 }
 
@@ -71,108 +71,108 @@ static NSString *SBClientID, *SBClientSecret;
     NSParameterAssert(username);
     NSParameterAssert(password);
     
-	@weakify(self);
-	
-	return [[[[[self rac_POST:@"oauth2/token" parameters:@{	@"grant_type"	: @"password",
-															@"username"		: username,
-															@"password"		: password,
-															@"client_secret": SBClientSecret,
-															@"client_id"		: SBClientID,
-															@"include_user" : @"1",
-															@"include_admin_accounts" : @"1"}]
-				doNext:^(NSDictionary *response) {
-				   @strongify(self);
-				   
-				   // set the auth token & auth state when a 'next' is sent
-				   self.token = response[@"access_token"];
-				   self.authenticated = YES;
-			   	}]
-				map:^id(NSDictionary *response) {
-				   // deserialize the user
-				   SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
-											fromJSONDictionary:response[@"data"][@"user"]
-														 error:nil];
-				   user.adminAccounts = [MTLJSONAdapter
-										 modelsOfClass:[SBAccount class]
-										 fromJSONArray:response[@"data"][@"admin_accounts"]
-										 error:nil];
-				   
-				   return user;
-			   	}]
-				doNext:^(SBUser *user) {
-				  @strongify(self);
-				  
-				  // set the currently authenticated user
-				  self.user = user;
-			  	}]
-			 	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
+    @weakify(self);
+    
+    return [[[[[self rac_POST:@"oauth2/token" parameters:@{	@"grant_type"	: @"password",
+                                                            @"username"		: username,
+                                                            @"password"		: password,
+                                                            @"client_secret": SBClientSecret,
+                                                            @"client_id"		: SBClientID,
+                                                            @"include_user" : @"1",
+                                                            @"include_admin_accounts" : @"1"}]
+               	doNext:^(NSDictionary *response) {
+                   	@strongify(self);
+                   
+                   	// set the auth token & auth state when a 'next' is sent
+                   	self.token = response[@"access_token"];
+                   	self.authenticated = YES;
+               	}]
+              	map:^id(NSDictionary *response) {
+                  	// deserialize the user
+                  	SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
+                                           fromJSONDictionary:response[@"data"][@"user"]
+                                                        error:nil];
+                  	user.adminAccounts = [MTLJSONAdapter
+                                        modelsOfClass:[SBAccount class]
+                                        fromJSONArray:response[@"data"][@"admin_accounts"]
+                                        error:nil];
+                  
+                  	return user;
+              	}]
+             	doNext:^(SBUser *user) {
+                 	@strongify(self);
+                 
+                 	// set the currently authenticated user
+                 	self.user = user;
+             	}]
+            	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
 }
 
 - (RACSignal *)signUpWithEmail:(NSString *)email
-					  password:(NSString *)password
-					 birthDate:(NSDate *)birthDate {
-	NSParameterAssert(email);
-	NSParameterAssert(password);
-	NSParameterAssert(birthDate);
+                      password:(NSString *)password
+                     birthDate:(NSDate *)birthDate {
+    NSParameterAssert(email);
+    NSParameterAssert(password);
+    NSParameterAssert(birthDate);
     
-	return [RACSignal error:nil];
+    return [RACSignal error:nil];
 }
 
 - (RACSignal *)getMe {
-	@weakify(self);
-	return [[[[self rac_GET:@"users/me" parameters:nil]
-				map:^id(NSDictionary *response) {
-					// deserialize
-					return [MTLJSONAdapter modelOfClass:[SBUser class]
-									 fromJSONDictionary:response[@"data"]
-												  error:nil];
-				}]
-			 	doNext:^(SBUser *user) {
-					@strongify(self);
-					
+    @weakify(self);
+    return [[[[self rac_GET:@"users/me" parameters:nil]
+            	map:^id(NSDictionary *response) {
+                  // deserialize
+                  return [MTLJSONAdapter modelOfClass:[SBUser class]
+                                   fromJSONDictionary:response[@"data"]
+                                                error:nil];
+              	}]
+             	doNext:^(SBUser *user) {
+                	@strongify(self);
+                     
                     SBUser *oldMe = self.user;
-                    
+                     
                     // set the new user
                     self.user = user;
-                    
+                     
                     // if it's the same user, use the new response data
                     // and add in the current admin acccounts
                     // Why? this response doesn't return admin accounts
-                    if ([oldMe.identifier isEqual:user.identifier]) {
-                        self.user.adminAccounts = oldMe.adminAccounts;
-                    }
-				}]
-				setNameWithFormat:@"Get \"me\""];
+                 	if ([oldMe.identifier isEqual:user.identifier]) {
+                     self.user.adminAccounts = oldMe.adminAccounts;
+                 	}
+             	}]
+            	setNameWithFormat:@"Get \"me\""];
 }
 
 - (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccountWithID:(NSNumber *)accountID {
-	return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", accountID.intValue, audioID.intValue] parameters:nil]
-				map:^id(NSDictionary *response) {
-					return response;
-				}]
-				setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", accountID.intValue, audioID.intValue];
+    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", accountID.intValue, audioID.intValue] parameters:nil]
+             	map:^id(NSDictionary *response) {
+                 	return response;
+             	}]
+            	setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", accountID.intValue, audioID.intValue];
 }
 
 - (RACSignal *)getUserWithID:(NSNumber *)userID {
-	return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:nil]
-				map:^id(NSDictionary *response) {
-					SBUser *user = [MTLJSONAdapter
-                                    modelOfClass:[SBUser class]
-                                    fromJSONDictionary:response[@"data"]
-                                    error:nil];
-                    
-                    if ([user.identifier isEqual:self.user.identifier]) {
-                        user.adminAccounts = self.user.adminAccounts;
-                    }
-                    
-                    return user;
-				}]
-				setNameWithFormat:@"Get user with ID: %d", userID.intValue];
+    return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:nil]
+             	map:^id(NSDictionary *response) {
+                 	SBUser *user = [MTLJSONAdapter
+                                 modelOfClass:[SBUser class]
+                                 fromJSONDictionary:response[@"data"]
+                                 error:nil];
+                 
+                 	if ([user.identifier isEqual:self.user.identifier]) {
+                     	user.adminAccounts = self.user.adminAccounts;
+                 	}
+                 
+                 	return user;
+             	}]
+            	setNameWithFormat:@"Get user with ID: %d", userID.intValue];
 }
 
 // Figure out MIME type based on extension
 static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL *supportedAudioUpload) {
-	static NSArray *supportedAudioExtensions;
+    static NSArray *supportedAudioExtensions;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         supportedAudioExtensions = @[@"aif", @"aiff", @"wav", @"m4a"];
@@ -184,22 +184,22 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     if (supportedAudioUpload) {
         *supportedAudioUpload = contentType != nil;
     }
-
+    
     return contentType;
 }
 
 - (RACSignal *)uploadAudioData:(NSData *)data
-					 withTitle:(NSString *)title
+                     withTitle:(NSString *)title
                       fileName:(NSString *)fileName
                      toAccount:(SBAccount *)account
-				progressSignal:(RACSignal **)progressSignal {
-	NSParameterAssert(data);
-	NSParameterAssert(title);
+                progressSignal:(RACSignal **)progressSignal {
+    NSParameterAssert(data);
+    NSParameterAssert(title);
     NSParameterAssert(fileName);
-	NSParameterAssert(account);
-	
+    NSParameterAssert(account);
+    
     // create endpoint location string
-	NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%d/audio", account.identifier.intValue]].absoluteString;
+    NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%d/audio", account.identifier.intValue]].absoluteString;
     
     // verify that the mime type is valid and supported by us
     BOOL supported;
@@ -207,24 +207,24 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     
     if (!supported || !mime) {
 #warning make this a real error
-    	return [RACSignal error:[NSError errorWithDomain:@"temp" code:1 userInfo:nil]];
+        return [RACSignal error:[NSError errorWithDomain:@"temp" code:1 userInfo:nil]];
     }
     
     // create the upload request
-	NSError *err;
-	NSMutableURLRequest *req =
-	[self.requestSerializer multipartFormRequestWithMethod:@"POST"
-												 URLString:endpointLocation
-												parameters:@{@"title" : title}
-								 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-									 [formData appendPartWithFileData:data name:@"audio" fileName:fileName mimeType:mime];
-								 } error:&err];
+    NSError *err;
+    NSMutableURLRequest *req =
+    [self.requestSerializer multipartFormRequestWithMethod:@"POST"
+                                                 URLString:endpointLocation
+                                                parameters:@{@"title" : title}
+                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                                     [formData appendPartWithFileData:data name:@"audio" fileName:fileName mimeType:mime];
+                                 } error:&err];
     
     if (err) {
         return [RACSignal error:err];
     }
     
-	AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
+    AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
     if (progressSignal) {
         
         // progress signal is still cold. beautiful!
@@ -241,23 +241,23 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
                 [op setUploadProgressBlock:nil];
             }];
         }];
-
+        
     }
     
     // use defer to turn "hot" enqueueing into cold signal
     return [RACSignal defer:^RACSignal *{
         return [[self rac_enqueueHTTPRequestOperation:op]
-            		map:^id(NSDictionary *response) {
-                        return response;
-                    }];
+                	map:^id(NSDictionary *response) {
+                    	return response;
+                	}];
     }];
 }
 
 - (RACSignal *)createFanClubForAccountWithID:(NSNumber *)accountID
-									   title:(NSString *)title
-								 description:(NSString *)description
-									tierInfo:(NSDictionary *)tierInfo {
-	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:4];
+                                       title:(NSString *)title
+                                 description:(NSString *)description
+                                    tierInfo:(NSDictionary *)tierInfo {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:4];
     if (title.length > 0) {
         params[@"title"] = title;
     }
@@ -273,10 +273,10 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
 }
 
 - (RACSignal *)getContentFromFanClubWithParentAccountID:(NSNumber *)accountID
-												  limit:(NSUInteger)limit
-												 offset:(NSUInteger)offset
-								   additionalParameters:(NSDictionary *)parameters {
-	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:(4 + parameters.count)];
+                                                  limit:(NSUInteger)limit
+                                                 offset:(NSUInteger)offset
+                                   additionalParameters:(NSDictionary *)parameters {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:(4 + parameters.count)];
     if (limit > 0) {
         params[@"limit"] = @(limit).stringValue;
     }
@@ -287,15 +287,15 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     if (parameters) {
         [params addEntriesFromDictionary:parameters];
     }
-	params[@"filter"] = @"blog,photos,statuses";
+    params[@"filter"] = @"blog,photos,statuses";
     
     return [self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub/content", accountID.intValue] parameters:params];
 }
 
 - (RACSignal *)getRecentFanClubContentWithLimit:(NSUInteger)limit
-										 offset:(NSUInteger)offset
-						   additionalParameters:(NSDictionary *)parameters {
-	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
+                                         offset:(NSUInteger)offset
+                           additionalParameters:(NSDictionary *)parameters {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
     if (limit) {
         params[@"limit"] = [NSString stringWithFormat:@"%ld", (long)limit];
     }
@@ -303,12 +303,12 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
         params[@"offset"] = [NSString stringWithFormat:@"%ld", (long)offset];
     }
     params[@"expand"] = @"user,account,photo";
-	
+    
     return [self rac_GET:@"account/fanclubs/following/content" parameters:params];
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request {
-	return [self rac_enqueueHTTPRequestOperation:[self HTTPRequestOperationWithRequest:request success:nil failure:nil]];
+    return [self rac_enqueueHTTPRequestOperation:[self HTTPRequestOperationWithRequest:request success:nil failure:nil]];
 }
 
 @end
