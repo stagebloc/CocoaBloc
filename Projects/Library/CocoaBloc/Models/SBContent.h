@@ -7,8 +7,8 @@
 //
 
 #import "SBAccount.h"
-#import "SBUser.h"
 
+@class SBUser;
 @interface SBContent : SBObject <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *title;

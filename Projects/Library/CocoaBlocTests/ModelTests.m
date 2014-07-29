@@ -109,16 +109,16 @@ describe(@"User", ^{
                            @"id" : @8,
                            @"name" : @"Josh Holat",
                            @"photo" : @{
-                               @"height" : @169,
-                               @"images" : @{
-                               @"large_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/large/20140326_190304_8_70.jpeg",
-                               @"medium_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/medium/20140326_190304_8_70.jpeg",
-                               @"original_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/original/20140326_190304_8_70.jpeg",
-                               @"small_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/small/20140326_190304_8_70.jpeg",
-                               @"thumbnail_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/thumbnail/20140326_190304_8_70.jpeg"
-                               },
-                               @"width" : @160
-                           },
+                                   @"height" : @169,
+                                   @"images" : @{
+                                           @"large_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/large/20140326_190304_8_70.jpeg",
+                                           @"medium_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/medium/20140326_190304_8_70.jpeg",
+                                           @"original_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/original/20140326_190304_8_70.jpeg",
+                                           @"small_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/small/20140326_190304_8_70.jpeg",
+                                           @"thumbnail_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/thumbnail/20140326_190304_8_70.jpeg"
+                                           },
+                                   @"width" : @160
+                                   },
                            @"url" : @"https://stagebloc.dev/user/joshholatdudemanman",
                            @"username" : @"joshholatdudemanman"
                            };
@@ -150,6 +150,7 @@ describe(@"User", ^{
         expect(obj.name).to.beKindOf(NSString.class);
         expect(obj.URL).to.beKindOf(NSURL.class);
         expect(obj.username).to.beKindOf(NSString.class);
+        expect(obj.photo).to.beKindOf(SBPhoto.class);
     });
     
     it(@"should reserialize identically", ^{
