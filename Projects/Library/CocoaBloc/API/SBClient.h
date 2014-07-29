@@ -105,14 +105,14 @@ extern NSString *SBFanClubTierInfoDescription;
  Request an uploaded audio track on StageBloc by its audio id.
  
  @param audioID 	the track's audio id
- @param accountID	the account to query for the track
+ @param account		the account to query for the track
  
  @return A "cold" signal that will perform the request upon subscription.
  		 The subscribed signal will send a "next" value of the 
-         requested track's <#modelClassName#> object.
+         requested track's SBAudioUpload object.
  */
 - (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID
-				  forAccountWithID:(NSNumber *)accountID;
+                        forAccount:(SBAccount *)account;
 
 /*!
  

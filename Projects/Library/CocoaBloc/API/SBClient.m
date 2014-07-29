@@ -7,11 +7,13 @@
 //
 
 #import "SBClient.h"
+#import "SBAudioUpload.h"
+
 #import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
-NSString *SBAPIMethodParameterResultLimit = @"SBAPIMethodParameterResultLimit";
-NSString *SBAPIMethodParameterResultOffset = @"SBAPIMethodParameterResultOffset";
+NSString *SBAPIMethodParameterResultLimit = @"limit";
+NSString *SBAPIMethodParameterResultOffset = @"offset";
 
 @interface SBClient ()
 @property (nonatomic, assign, readwrite) BOOL authenticated;
@@ -145,12 +147,12 @@ static NSString *SBClientID, *SBClientSecret;
             	setNameWithFormat:@"Get \"me\""];
 }
 
-- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccountWithID:(NSNumber *)accountID {
-    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", accountID.intValue, audioID.intValue] parameters:nil]
+- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccount:(SBAccount *)account {
+    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", account.identifier.intValue, audioID.intValue] parameters:nil]
              	map:^id(NSDictionary *response) {
-                 	return response;
+                 	return [MTLJSONAdapter modelOfClass:[SBAudioUpload class] fromJSONDictionary:response[@"data"] error:nil];
              	}]
-            	setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", accountID.intValue, audioID.intValue];
+            	setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", account.identifier.intValue, audioID.intValue];
 }
 
 - (RACSignal *)getUserWithID:(NSNumber *)userID {
@@ -248,15 +250,24 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     return [RACSignal defer:^RACSignal *{
         return [[self rac_enqueueHTTPRequestOperation:op]
                 	map:^id(NSDictionary *response) {
-                    	return response;
-                	}];
+                        NSError *err;
+                    	SBAudioUpload *upload =  [MTLJSONAdapter modelOfClass:[SBAudioUpload class]
+                                                           fromJSONDictionary:response[@"data"]
+                                                                        error:&err];
+                	
+                    	if (err) {
+                            
+                        }
+                        
+                        return upload;
+                    }];
     }];
 }
 
-- (RACSignal *)createFanClubForAccountWithID:(NSNumber *)accountID
-                                       title:(NSString *)title
-                                 description:(NSString *)description
-                                    tierInfo:(NSDictionary *)tierInfo {
+- (RACSignal *)createFanClubForAccount:(SBAccount *)account
+								 title:(NSString *)title
+						   description:(NSString *)description
+							  tierInfo:(NSDictionary *)tierInfo {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:4];
     if (title.length > 0) {
         params[@"title"] = title;
@@ -269,39 +280,24 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     }
     params[@"expand"] = @"account,photo";
     
-    return [self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", accountID.intValue] parameters:params];
+    return [self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:params];
 }
 
-- (RACSignal *)getContentFromFanClubWithParentAccountID:(NSNumber *)accountID
-                                                  limit:(NSUInteger)limit
-                                                 offset:(NSUInteger)offset
-                                   additionalParameters:(NSDictionary *)parameters {
+- (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
+									parameters:(NSDictionary *)parameters {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:(4 + parameters.count)];
-    if (limit > 0) {
-        params[@"limit"] = @(limit).stringValue;
-    }
-    if (offset) {
-        params[@"offset"] = @(offset).stringValue;
-    }
+    
     params[@"expand"] = @"user,photo";
-    if (parameters) {
-        [params addEntriesFromDictionary:parameters];
-    }
+    [params addEntriesFromDictionary:parameters];
     params[@"filter"] = @"blog,photos,statuses";
     
-    return [self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub/content", accountID.intValue] parameters:params];
+    return [self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub/content", account.identifier.intValue] parameters:params];
 }
 
-- (RACSignal *)getRecentFanClubContentWithLimit:(NSUInteger)limit
-                                         offset:(NSUInteger)offset
-                           additionalParameters:(NSDictionary *)parameters {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
-    if (limit) {
-        params[@"limit"] = [NSString stringWithFormat:@"%ld", (long)limit];
-    }
-    if (offset) {
-        params[@"offset"] = [NSString stringWithFormat:@"%ld", (long)offset];
-    }
+- (RACSignal *)getRecentFanClubContentWithParameters:(NSDictionary *)parameters {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2 + 2 * parameters.count];
+    
+    [params addEntriesFromDictionary:parameters];
     params[@"expand"] = @"user,account,photo";
     
     return [self rac_GET:@"account/fanclubs/following/content" parameters:params];

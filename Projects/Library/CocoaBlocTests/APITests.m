@@ -12,6 +12,7 @@
 #import <Expecta/Expecta.h>
 
 #import "SBClient.h"
+#import "SBAudioUpload.h"
 
 #define MAC_UPLOADER_TEMP_CID @"86610122f4d3cd23dff0a1448903947d"
 #define MAC_UPLOADER_TEMP_CSE @"828c5543138fa5ad4ec360e08b66d1d4"
@@ -104,9 +105,8 @@ describe(@"Client", ^{
         	}];
     });
     
+    __block SBAudioUpload *audioUpload;
     it(@"should upload audio data", ^AsyncBlock {
-        expect(@(client.authenticated)).to.equal(@(YES));
-        
     	NSData *audioSample = [NSData dataWithContentsOfFile:[testProjectDirectory stringByAppendingPathComponent:@"sample.m4a"]];
         expect(@(audioSample.length)).to.beGreaterThan(@(0));
         
@@ -124,7 +124,8 @@ describe(@"Client", ^{
             expect(progress).to.beLessThanOrEqualTo(@(100));
         }];
     
-    	[upload subscribeNext:^(id upload) {
+    	[upload subscribeNext:^(SBAudioUpload *upload) {
+            audioUpload = upload;
             expect(upload).toNot.beNil();
             done();
         } error:^(NSError *error) {
@@ -134,6 +135,47 @@ describe(@"Client", ^{
             done();
         }];
     });
+    
+    it(@"should get an audio track by id", ^AsyncBlock {
+    	[[client getAudioTrackWithID:audioUpload.identifier
+                          forAccount:client.user.adminAccounts.firstObject]
+         	subscribeNext:^(SBAudioUpload *upload) {
+            	done();
+            } error:^(NSError *error) {
+                expect(error).to.beNil();
+                done();
+            } completed:^{
+                done();
+            }];
+    });
+    
+    it(@"should get an account's fan club info", ^AsyncBlock {
+    	[[client getContentFromFanClubForAccount:client.user.adminAccounts.firstObject
+                                      parameters:@{SBAPIMethodParameterResultOffset: @(2),
+                                                   SBAPIMethodParameterResultLimit : @(1)}]
+         	subscribeNext:^(NSArray *contentArray) {
+                
+            } error:^(NSError *error) {
+                expect(error).to.beNil();
+                done();
+            } completed:^{
+                done();
+            }];
+    });
+    
+    it(@"should get an account's fan club content stream", ^AsyncBlock {
+    	[[client getRecentFanClubContentWithParameters:@{SBAPIMethodParameterResultLimit: @(3),
+                                                         SBAPIMethodParameterResultLimit: @(1)}]
+         	subscribeNext:^(id x) {
+                
+            } error:^(NSError *error) {
+                expect(error).to.beNil();
+                done();
+            } completed:^{
+                done();
+            }];
+    });
+    
 //		
 //	it(@"should be able to create a fan club", ^AsyncBlock {
 //		done();

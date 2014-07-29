@@ -16,10 +16,10 @@
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
 			@{@"commentCount" 	: @"comment_count",
 			  @"creationDate" 	: @"created",
-			  @"excerpt"		: @"excerpt",
+			  @"excerpt"			: @"excerpt",
 			  @"inModeration"	: @"in_moderation",
 			  @"likeCount"		: @"like_count",
-			  @"publishDate"	: @"published",
+			  @"publishDate"		: @"published",
 			  @"shortURL"		: @"short_url",
 			  @"title"			: @"title",
 			  @"userHasLiked"	: @"user_has_liked" }];
