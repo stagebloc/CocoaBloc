@@ -27,6 +27,7 @@
 		09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512531979AEAE00D62F67 /* SBPhoto.m */; };
 		09B512571979AEB400D62F67 /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512561979AEB400D62F67 /* SBStatus.m */; };
 		09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */; };
+		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,8 @@
 		09C88783197D796100842D0F /* sample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.m4a; sourceTree = "<group>"; };
 		09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
 		09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
+		09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
+		09D510DA1988177A00C45D8A /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45A743DC7E74D54A2C661CC /* Pods-CocoaBlocTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.xcconfig"; path = "../../Pods/Pods-CocoaBlocTests.xcconfig"; sourceTree = "<group>"; };
 		DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.xcconfig"; path = "../../Pods/Pods-CocoaBloc.xcconfig"; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 		09D239E5197A054B002B0661 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				09D510DA1988177A00C45D8A /* NSDateFormatter+CocoaBloc.h */,
+				09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */,
 				09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */,
 				09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */,
 			);
@@ -461,6 +466,7 @@
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
+				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
 			);
