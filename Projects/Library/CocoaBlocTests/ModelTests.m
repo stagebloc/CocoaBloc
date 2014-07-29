@@ -13,6 +13,13 @@
 
 #import "SBObject.h"
 #import "SBAudioUpload.h"
+#import "SBUser.h"
+
+#if TARGET_OS_IPHONE
+@import UIKit.UIColor;
+#else
+@import AppKit;
+#endif
 
 SpecBegin(Models)
 
@@ -81,6 +88,68 @@ describe(@"Audio upload", ^{
         expect(obj.title).to.beKindOf(NSString.class);
     	expect(obj.userID).to.beKindOf(NSNumber.class);
         expect(obj.userHasLiked).to.beKindOf(NSNumber.class);
+    });
+    
+    it(@"should reserialize identically", ^{
+    	NSDictionary *newJSON = [MTLJSONAdapter JSONDictionaryFromModel:obj];
+        expect(newJSON).toNot.beNil();
+        expect(newJSON).to.equal(JSON);
+    });
+});
+
+describe(@"User", ^{
+	NSError *err;
+    NSDictionary *JSON = @{
+                           @"bio" : @"jhghjh",
+                           @"birthday" : @"1995-07-05",
+                           @"color" : @"70,170,255",
+                           @"created" : @"2009-10-27 14:29:16",
+                           @"email" : @"hi@stagebloc.com",
+                           @"gender" : @"male",
+                           @"id" : @8,
+                           @"name" : @"Josh Holat",
+                           @"photo" : @{
+                               @"height" : @169,
+                               @"images" : @{
+                               @"large_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/large/20140326_190304_8_70.jpeg",
+                               @"medium_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/medium/20140326_190304_8_70.jpeg",
+                               @"original_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/original/20140326_190304_8_70.jpeg",
+                               @"small_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/small/20140326_190304_8_70.jpeg",
+                               @"thumbnail_url" : @"http://cdn-staging.stagebloc.com/local/photos/users/8/thumbnail/20140326_190304_8_70.jpeg"
+                               },
+                               @"width" : @160
+                           },
+                           @"url" : @"https://stagebloc.dev/user/joshholatdudemanman",
+                           @"username" : @"joshholatdudemanman"
+                           };
+    
+    SBUser *obj = [MTLJSONAdapter modelOfClass:[SBUser class]
+                            fromJSONDictionary:JSON
+                                         error:&err];
+    
+    it(@"should deserialize", ^{
+    	expect(err).to.beNil();
+        expect(obj).toNot.beNil();
+    });
+    
+    it(@"should have transformed to proper types", ^{
+        Class c;
+#if TARGET_OS_IPHONE
+        c = [UIColor class];
+#else
+        c = [NSColor class];
+#endif
+        expect(obj.color).to.beKindOf(c);
+        
+        expect(obj.bio).to.beKindOf(NSString.class);
+        expect(obj.birthday).to.beKindOf(NSDate.class);
+        expect(obj.color).to.beKindOf(UIColor.class);
+        expect(obj.creationDate).to.beKindOf(NSDate.class);
+        expect(obj.emailAddress).to.beKindOf(NSString.class);
+        expect(obj.gender).to.beKindOf(NSString.class);
+        expect(obj.name).to.beKindOf(NSString.class);
+        expect(obj.URL).to.beKindOf(NSURL.class);
+        expect(obj.username).to.beKindOf(NSString.class);
     });
     
     it(@"should reserialize identically", ^{

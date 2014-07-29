@@ -8,15 +8,25 @@
 
 #import "SBObject.h"
 
+#if TARGET_OS_IPHONE
+@class UIColor;
+#define SBUserColor UIColor
+#else
+@class NSColor;
+#define SBUserColor NSColor
+#endif
+
 @interface SBUser : SBObject <MTLJSONSerializing>//, MTLManagedObjectSerializing>
 
 @property (nonatomic, copy) NSString *bio;
-@property (nonatomic, copy) NSString *birthdateString;
-@property (nonatomic, copy) NSString *color;
+@property (nonatomic, copy) NSDate *birthday;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *URL;
+@property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *createdDateString;
+@property (nonatomic, copy) NSString *emailAddress;
+@property (nonatomic, copy) NSDate *creationDate;
+@property (nonatomic, copy) NSString *gender;
+@property (nonatomic, copy) SBUserColor *color;
 
 @property (nonatomic, strong) NSArray *adminAccounts;
 
