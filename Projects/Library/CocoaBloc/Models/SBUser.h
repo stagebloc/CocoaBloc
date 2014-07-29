@@ -7,6 +7,7 @@
 //
 
 #import "SBObject.h"
+#import "SBPhoto.h"
 
 #if TARGET_OS_IPHONE
 @class UIColor;
@@ -27,7 +28,8 @@
 @property (nonatomic, copy) NSDate *creationDate;
 @property (nonatomic, copy) NSString *gender;
 @property (nonatomic, copy) SBUserColor *color;
+@property (nonatomic) SBPhoto *photo;
 
-@property (nonatomic, strong) NSArray *adminAccounts;
+@property (nonatomic) NSArray *adminAccounts;
 
 @end
