@@ -2,6 +2,7 @@
 DerivedData
 build
 Pods
+Doc
 Podfile.lock
 CocoaBloc.xcworkspace/xcuserdata
 Doc/docset-installed.txt
