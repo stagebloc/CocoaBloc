@@ -250,16 +250,9 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     return [RACSignal defer:^RACSignal *{
         return [[self rac_enqueueHTTPRequestOperation:op]
                 	map:^id(NSDictionary *response) {
-                        NSError *err;
-                    	SBAudioUpload *upload =  [MTLJSONAdapter modelOfClass:[SBAudioUpload class]
-                                                           fromJSONDictionary:response[@"data"]
-                                                                        error:&err];
-                	
-                    	if (err) {
-                            
-                        }
-                        
-                        return upload;
+                    	return [MTLJSONAdapter modelOfClass:[SBAudioUpload class]
+                                         fromJSONDictionary:response[@"data"]
+                                                      error:nil];
                     }];
     }];
 }

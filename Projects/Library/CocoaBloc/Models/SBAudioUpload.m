@@ -7,6 +7,8 @@
 //
 
 #import "SBAudioUpload.h"
+#import "NSDateFormatter+CocoaBloc.h"
+#import "MTLValueTransformer+Convenience.h"
 #import <Mantle/Mantle.h>
 #import <EXTKeyPathCoding.h>
 
@@ -23,10 +25,26 @@
               @"likeCount" 		 	: @"like_count",
               @"modificationDate"	: @"modified",
               @"shortURL" 		 	: @"short_url",
-              @"sticky" 				: @"sticky",
+              @"sticky" 			: @"sticky",
               @"title" 				: @"title",
-              @"userID" 			 	: @"user",
+              @"userID" 			: @"user",
               @"userHasLiked" 	 	: @"user_has_liked"}];
+}
+
++ (MTLValueTransformer *)creationDateJSONTransformer {
+    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+}
+
++ (MTLValueTransformer *)modificationDateJSONTransformer {
+    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+}
+
++ (MTLValueTransformer *)editURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)shortURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
 @end

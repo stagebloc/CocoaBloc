@@ -8,6 +8,7 @@
 
 #import "SBContent.h"
 #import "MTLValueTransformer+Convenience.h"
+#import "NSDateFormatter+CocoaBloc.h"
 #import <Mantle/Mantle.h>
 
 @implementation SBContent
@@ -16,10 +17,10 @@
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
 			@{@"commentCount" 	: @"comment_count",
 			  @"creationDate" 	: @"created",
-			  @"excerpt"			: @"excerpt",
+			  @"excerpt"		: @"excerpt",
 			  @"inModeration"	: @"in_moderation",
 			  @"likeCount"		: @"like_count",
-			  @"publishDate"		: @"published",
+			  @"publishDate"	: @"published",
 			  @"shortURL"		: @"short_url",
 			  @"title"			: @"title",
 			  @"userHasLiked"	: @"user_has_liked" }];
@@ -30,20 +31,13 @@
 }
 
 + (NSValueTransformer *)creationDateJSONTransformer {
-	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[self JSONDateFormatter]];
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 + (NSValueTransformer *)publishDateJSONTransformer {
-	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[self JSONDateFormatter]];
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
-+ (NSDateFormatter *)JSONDateFormatter {
-    NSDateFormatter *df = [NSDateFormatter new];
-    df.locale = [NSLocale localeWithLocaleIdentifier:@"EN_US_POSIX"];
-    df.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    df.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    
-	return df;
-}
+
 
 @end
