@@ -297,7 +297,9 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request {
-    return [self rac_enqueueHTTPRequestOperation:[self HTTPRequestOperationWithRequest:request success:nil failure:nil]];
+    return [RACSignal defer:^RACSignal *{
+        return [self rac_enqueueHTTPRequestOperation:[self HTTPRequestOperationWithRequest:request success:nil failure:nil]];
+    }];
 }
 
 @end
