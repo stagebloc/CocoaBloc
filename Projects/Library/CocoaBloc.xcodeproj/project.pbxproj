@@ -58,7 +58,6 @@
 		090EB8161987F1100081D406 /* SBAudioUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudioUpload.h; sourceTree = "<group>"; };
 		090EB8171987F1100081D406 /* SBAudioUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudioUpload.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
-		094CB709197AF2F900BBF2BE /* com.stagebloc.cocoabloc.CocoaBloc.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = com.stagebloc.cocoabloc.CocoaBloc.docset; sourceTree = "<group>"; };
 		098CF5EE197AE051001A5B0B /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09A897BC1978536000EE983C /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A897BF1978536000EE983C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -125,14 +124,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		094CB708197AF2F900BBF2BE /* Doc */ = {
-			isa = PBXGroup;
-			children = (
-				094CB709197AF2F900BBF2BE /* com.stagebloc.cocoabloc.CocoaBloc.docset */,
-			);
-			path = Doc;
-			sourceTree = "<group>";
-		};
 		09A897B31978536000EE983C = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +160,6 @@
 		09A897C11978536000EE983C /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
-				094CB708197AF2F900BBF2BE /* Doc */,
 				098CF5EE197AE051001A5B0B /* CocoaBloc.h */,
 				09D239E4197A054B002B0661 /* Internal */,
 				09B51235197985D800D62F67 /* ViewModels */,
