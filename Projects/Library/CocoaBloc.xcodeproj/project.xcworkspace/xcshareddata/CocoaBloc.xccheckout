@@ -10,29 +10,29 @@
 	<string>CocoaBloc</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CB82736F-8E60-47BC-A5AE-730FC36CCB64</key>
+		<key>F1CFD0DB6B2FD1647E03019DA117856068862DC2</key>
 		<string>ssh://github.com/stagebloc/CocoaBloc.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Projects/Library/CocoaBloc/CocoaBloc.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CB82736F-8E60-47BC-A5AE-730FC36CCB64</key>
+		<key>F1CFD0DB6B2FD1647E03019DA117856068862DC2</key>
 		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/stagebloc/CocoaBloc.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CB82736F-8E60-47BC-A5AE-730FC36CCB64</string>
+	<string>F1CFD0DB6B2FD1647E03019DA117856068862DC2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CB82736F-8E60-47BC-A5AE-730FC36CCB64</string>
+			<string>F1CFD0DB6B2FD1647E03019DA117856068862DC2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CocoaBloc</string>
 		</dict>

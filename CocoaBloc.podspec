@@ -34,6 +34,7 @@ Pod::Spec.new do |s|
       ss.dependency 'PureLayout'
       ss.source_files = 'Projects/Library/CocoaBloc/UI/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/UI'
+      ss.resource_bundle = {'CocoaBlocUI' => 'Projects/Library/CocoaBloc/CocoaBlocUI.xcassets'}
     end
 
     s.subspec 'ViewModels' do |ss|

@@ -27,7 +27,9 @@
 		09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512531979AEAE00D62F67 /* SBPhoto.m */; };
 		09B512571979AEB400D62F67 /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512561979AEB400D62F67 /* SBStatus.m */; };
 		09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */; };
+		09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A2E019B8B452000D32DE /* SBActionButton.m */; };
 		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
+		49F71ACACC5E44B5B219B916 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242377E7D60F4866BB3F698B /* libPods.a */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
@@ -91,9 +93,16 @@
 		09C88783197D796100842D0F /* sample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.m4a; sourceTree = "<group>"; };
 		09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
 		09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
+		09D2A2DF19B8B452000D32DE /* SBActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBActionButton.h; sourceTree = "<group>"; };
+		09D2A2E019B8B452000D32DE /* SBActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBActionButton.m; sourceTree = "<group>"; };
+		09D2A2E219B8C6B0000D32DE /* CocoaBloc.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = CocoaBloc.podspec; path = ../../CocoaBloc.podspec; sourceTree = "<group>"; };
+		09D2A2E319B8C6F8000D32DE /* CocoaBlocUI.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CocoaBlocUI.xcassets; path = CocoaBloc/CocoaBlocUI.xcassets; sourceTree = "<group>"; };
 		09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		09D510DA1988177A00C45D8A /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
+		11A398D28A974B2194750E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		242377E7D60F4866BB3F698B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB3F55AF555848B09B80462C /* libPods-TestApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TestApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45A743DC7E74D54A2C661CC /* Pods-CocoaBlocTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.xcconfig"; path = "../../Pods/Pods-CocoaBlocTests.xcconfig"; sourceTree = "<group>"; };
 		DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.xcconfig"; path = "../../Pods/Pods-CocoaBloc.xcconfig"; sourceTree = "<group>"; };
 		E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBloc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +115,7 @@
 			files = (
 				09A897C01978536000EE983C /* Foundation.framework in Frameworks */,
 				F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */,
+				49F71ACACC5E44B5B219B916 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,12 +137,15 @@
 		09A897B31978536000EE983C = {
 			isa = PBXGroup;
 			children = (
+				09D2A2E219B8C6B0000D32DE /* CocoaBloc.podspec */,
+				09D2A2E319B8C6F8000D32DE /* CocoaBlocUI.xcassets */,
 				09A897C11978536000EE983C /* CocoaBloc */,
 				09A897D51978536000EE983C /* CocoaBlocTests */,
 				09A897BE1978536000EE983C /* Frameworks */,
 				09A897BD1978536000EE983C /* Products */,
 				DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */,
 				C45A743DC7E74D54A2C661CC /* Pods-CocoaBlocTests.xcconfig */,
+				11A398D28A974B2194750E94 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +166,8 @@
 				09A897D01978536000EE983C /* UIKit.framework */,
 				E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */,
 				94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */,
+				242377E7D60F4866BB3F698B /* libPods.a */,
+				BB3F55AF555848B09B80462C /* libPods-TestApp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -228,6 +243,8 @@
 		09A897F5197862AC00EE983C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				09D2A2DF19B8B452000D32DE /* SBActionButton.h */,
+				09D2A2E019B8B452000D32DE /* SBActionButton.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -342,6 +359,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 09A897B31978536000EE983C;
 			productRefGroup = 09A897BD1978536000EE983C /* Products */;
@@ -422,7 +440,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../../Pods/Pods-CocoaBloc-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E023005178C14FC19BBBE9CF /* Check Pods Manifest.lock */ = {
@@ -455,6 +473,7 @@
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
+				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
@@ -564,7 +583,7 @@
 		};
 		09A897E01978536000EE983C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */;
+			baseConfigurationReference = 11A398D28A974B2194750E94 /* Pods.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DSTROOT = /tmp/CocoaBloc.dst;
@@ -593,7 +612,7 @@
 		};
 		09A897E11978536000EE983C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */;
+			baseConfigurationReference = 11A398D28A974B2194750E94 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

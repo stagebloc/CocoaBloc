@@ -5,23 +5,23 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>A788D247-B48B-4C07-942A-88D05CBC8F09</string>
+	<string>C1C1E046-FDC4-4B62-ADB2-59CC6DC4BE5E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>CocoaBloc</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>F1CFD0DB6B2FD1647E03019DA117856068862DC2</key>
-		<string>ssh://github.com/stagebloc/CocoaBloc.git</string>
+		<string>github.com:stagebloc/CocoaBloc.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CocoaBloc.xcworkspace</string>
+	<string>Projects/Library/CocoaBloc.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>F1CFD0DB6B2FD1647E03019DA117856068862DC2</key>
-		<string>..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/stagebloc/CocoaBloc.git</string>
+	<string>github.com:stagebloc/CocoaBloc.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
