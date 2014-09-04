@@ -16,3 +16,7 @@ target :CocoaBlocTests do
     pod 'Specta'
     pod 'Expecta'
 end
+
+target :"CB Test App" do
+    pod 'CocoaBloc', :path => "./"
+end

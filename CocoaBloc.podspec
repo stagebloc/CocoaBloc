@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
-    s.version = '0.0.1'
+    s.version = '0.0.3'
     s.authors = { 'John Heaton' => 'pikachu@stagebloc.com',
                   'Dave Skuza'  => 'neo@stagebloc.com' }
     s.social_media_url = 'https://twitter.com/StageBloc'
@@ -14,6 +14,11 @@ Pod::Spec.new do |s|
     s.private_header_files = 'Projects/Library/CocoaBloc/Internal/*.h'
     s.ios.deployment_target = '7.0'
     s.osx.deployment_target = '10.9'
+
+	  s.subspec 'Categories' do |ss|
+      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Categories'
+      ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h,m}'
+	  end
 
     s.subspec 'API' do |ss|
       ss.dependency 'AFNetworking'
@@ -32,6 +37,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'UI' do |ss|
       ss.dependency 'PureLayout'
+	    ss.dependency 'CocoaBloc/Categories'
       ss.source_files = 'Projects/Library/CocoaBloc/UI/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/UI'
       ss.resource_bundle = {'CocoaBlocUI' => 'Projects/Library/CocoaBloc/CocoaBlocUI.xcassets'}
