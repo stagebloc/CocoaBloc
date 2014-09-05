@@ -35,6 +35,7 @@
 		09D2A34E19B8EF0A000D32DE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09D2A34D19B8EF0A000D32DE /* Images.xcassets */; };
 		09D2A36619B8F796000D32DE /* UIColor+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36519B8F796000D32DE /* UIColor+FanClub.m */; };
 		09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36819B8FA41000D32DE /* UIFont+FanClub.m */; };
+		09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */; };
 		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
 		49F71ACACC5E44B5B219B916 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242377E7D60F4866BB3F698B /* libPods.a */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
@@ -118,6 +119,8 @@
 		09D2A36519B8F796000D32DE /* UIColor+FanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FanClub.m"; sourceTree = "<group>"; };
 		09D2A36719B8FA41000D32DE /* UIFont+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FanClub.h"; sourceTree = "<group>"; };
 		09D2A36819B8FA41000D32DE /* UIFont+FanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FanClub.m"; sourceTree = "<group>"; };
+		09D2A36A19B90EDD000D32DE /* SBLoadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLoadingImageView.h; sourceTree = "<group>"; };
+		09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoadingImageView.m; sourceTree = "<group>"; };
 		09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		09D510DA1988177A00C45D8A /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
 		11A398D28A974B2194750E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 			children = (
 				09D2A2DF19B8B452000D32DE /* SBActionButton.h */,
 				09D2A2E019B8B452000D32DE /* SBActionButton.m */,
+				09D2A36A19B90EDD000D32DE /* SBLoadingImageView.h */,
+				09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -599,6 +604,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */,
 				090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */,
