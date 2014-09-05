@@ -19,5 +19,6 @@
 @interface SBAnimationContainerView : UIView
 
 @property (nonatomic) UIView *animationView;
+@property (nonatomic, assign) UIEdgeInsets animationViewInsets;
 
 @end

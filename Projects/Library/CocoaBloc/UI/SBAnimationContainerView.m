@@ -7,14 +7,27 @@
 //
 
 #import "SBAnimationContainerView.h"
+#import <PureLayout/PureLayout.h>
 
 @implementation SBAnimationContainerView
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    if (self.animationView) {
-        self.animationView.center = self.center;
+- (CGSize)intrinsicContentSize {
+    CGSize size = self.animationView.intrinsicContentSize;
+    size.width += (self.animationViewInsets.left + self.animationViewInsets.right);
+    size.height += (self.animationViewInsets.top + self.animationViewInsets.bottom);
+    return size;
+}
+
+- (void)setAnimationView:(UIView *)animationView {
+    if (animationView != _animationView) {
+        [_animationView autoRemoveConstraintsAffectingView];
+        [_animationView removeFromSuperview];
+        
+        _animationView = animationView;
+        [self addSubview:animationView];
+        [animationView autoCenterInSuperview];
+        [self invalidateIntrinsicContentSize];
+        [self setNeedsLayout];
     }
 }
 

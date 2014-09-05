@@ -9,10 +9,12 @@
 #import "ViewController.h"
 #import <CocoaBloc/SBActionButton.h>
 #import <PureLayout/PureLayout.h>
+#import <CocoaBloc/SBAnimationContainerView.h>
 
 @interface ViewController () {
     SBActionButton *like;
     SBActionButton *comment;
+    SBAnimationContainerView *container;
 }
 
 @end
@@ -22,15 +24,19 @@
 - (void)loadView {
     [super loadView];
     
+    container = [SBAnimationContainerView new];
+    
     like = [SBActionButton buttonWithActionType:SBActionTypeLike];
     like.actionCount = 5;
-    [self.view addSubview:like];
+
+    container.animationView = like;
+    [self.view addSubview:container];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [like autoCenterInSuperview];
+    [container autoCenterInSuperview];
 //    [comment autoCenterInSuperview];
 }
 
