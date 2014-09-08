@@ -38,7 +38,6 @@
 		09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36819B8FA41000D32DE /* UIFont+FanClub.m */; };
 		09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */; };
 		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
-		49F71ACACC5E44B5B219B916 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 242377E7D60F4866BB3F698B /* libPods.a */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		B486845E2F7045E0BC1CAEA7 /* libPods-CB Test App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7900987944179BCA76913 /* libPods-CB Test App.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
@@ -144,7 +143,6 @@
 			files = (
 				09A897C01978536000EE983C /* Foundation.framework in Frameworks */,
 				F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */,
-				49F71ACACC5E44B5B219B916 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,8 +747,9 @@
 		};
 		09A897E01978536000EE983C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11A398D28A974B2194750E94 /* Pods.xcconfig */;
+			baseConfigurationReference = DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -767,19 +766,22 @@
 					"\"${PODS_ROOT}/Headers/ReactiveViewModel\"",
 					"\"${PODS_ROOT}/Headers/Specta\"",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		09A897E11978536000EE983C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11A398D28A974B2194750E94 /* Pods.xcconfig */;
+			baseConfigurationReference = DE4C44A9B9124256B765F5E3 /* Pods-CocoaBloc.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DSTROOT = /tmp/CocoaBloc.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CocoaBloc/CocoaBloc-Prefix.pch";
@@ -795,6 +797,7 @@
 					"\"${PODS_ROOT}/Headers/ReactiveViewModel\"",
 					"\"${PODS_ROOT}/Headers/Specta\"",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",

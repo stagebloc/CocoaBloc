@@ -11,6 +11,12 @@
 
 @implementation SBAnimationContainerView
 
++ (instancetype)contain:(UIView *)animationView {
+    SBAnimationContainerView *ret = [self new];
+    ret.animationView = animationView;
+    return ret;
+}
+
 - (CGSize)intrinsicContentSize {
     CGSize size = self.animationView.intrinsicContentSize;
     size.width += (self.animationViewInsets.left + self.animationViewInsets.right);

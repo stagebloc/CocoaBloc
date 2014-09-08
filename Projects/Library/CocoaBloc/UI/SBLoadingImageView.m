@@ -7,13 +7,16 @@
 //
 
 #import "SBLoadingImageView.h"
+#import <AFNetworking/AFNetworking.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <RACEXTScope.h>
 
 @import QuartzCore;
 @import CoreGraphics;
 
 @interface SBLoadingImageView ()
 @property (nonatomic, assign) BOOL downloading;
+@property (nonatomic, readonly) CAShapeLayer *shapeLayer;
 @end
 
 @implementation SBLoadingImageView {
@@ -38,32 +41,49 @@
     return self;
 }
 
+- (CAShapeLayer *)shapeLayer {
+    return (CAShapeLayer *)self.layer;
+}
+
+- (void)setProgressStrokeWidth:(CGFloat)progressStrokeWidth {
+    self.shapeLayer.lineWidth = 3;
+}
+
+- (CGFloat)progressStrokeWidth {
+    return self.shapeLayer.lineWidth;
+}
+
 - (void)setup {
     self.drawsProgressStroke = YES;
     self.progressStrokeWidth = 3;
-    self.layer.cornerRadius = 50;
-    self.layer.borderWidth = 3;
+
+    self.shapeLayer.masksToBounds = YES; // make sure image doesn't overflow the circle area
+    self.shapeLayer.strokeEnd = .5; // no stroke to start with
     self.contentMode = UIViewContentModeScaleAspectFill;
-    self.clipsToBounds = YES;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    // make our path a circle
+    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:self.bounds].CGPath;
 }
 
 - (void)tintColorDidChange {
     [super tintColorDidChange];
-    self.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.shapeLayer.strokeColor = self.tintColor.CGColor;
 }
 
 - (void)downloadImageAtURL:(NSURL *)url {
-    if (!self.downloading) {
-        
-        
-        self.downloading = YES;
-    }
-}
-
-- (void)stopDownloading {
-    if (self.downloading) {
-        
-    }
+    if (self.downloading) return;
+    
+    self.downloading = YES;
+    [self sd_setImageWithURL:url placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        self.shapeLayer.strokeEnd = 1 * ((double)receivedSize / expectedSize);
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        self.shapeLayer.strokeEnd = 1;
+        self.downloading = NO;
+    }];
 }
 
 @end

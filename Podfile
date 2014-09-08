@@ -4,8 +4,8 @@ workspace 'CocoaBloc'
 xcodeproj './Projects/Library/CocoaBloc.xcodeproj'
 
 target :CocoaBloc do
-    pod 'SDWebImage'
     pod 'ReactiveCocoa'
+    pod 'SDWebImage'
     pod 'AFNetworking'
     pod 'AFNetworking-RACExtensions'
     pod 'ReactiveViewModel'

@@ -10,11 +10,13 @@
 #import <CocoaBloc/SBActionButton.h>
 #import <PureLayout/PureLayout.h>
 #import <CocoaBloc/SBAnimationContainerView.h>
+#import <CocoaBloc/SBLoadingImageView.h>
 
 @interface ViewController () {
     SBActionButton *like;
     SBActionButton *comment;
     SBAnimationContainerView *container;
+    SBLoadingImageView *image;
 }
 
 @end
@@ -24,12 +26,10 @@
 - (void)loadView {
     [super loadView];
     
-    container = [SBAnimationContainerView new];
+    self.view.backgroundColor = [UIColor whiteColor];
+    image = [[SBLoadingImageView alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
+    container = [SBAnimationContainerView contain:image];
     
-    like = [SBActionButton buttonWithActionType:SBActionTypeLike];
-    like.actionCount = 5;
-
-    container.animationView = like;
     [self.view addSubview:container];
 }
 
@@ -37,7 +37,13 @@
     [super viewDidLoad];
     
     [container autoCenterInSuperview];
-//    [comment autoCenterInSuperview];
+    [container autoSetDimensionsToSize:CGSizeMake(100, 100)];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [image downloadImageAtURL:[NSURL URLWithString:@"http://www.picturesnew.com/media/images/a.png"]];
 }
 
 @end

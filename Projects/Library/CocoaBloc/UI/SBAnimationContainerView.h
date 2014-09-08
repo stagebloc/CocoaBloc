@@ -18,6 +18,8 @@
  */
 @interface SBAnimationContainerView : UIView
 
++ (instancetype)contain:(UIView *)animationView;
+
 @property (nonatomic) UIView *animationView;
 @property (nonatomic, assign) UIEdgeInsets animationViewInsets;
 

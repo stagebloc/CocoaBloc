@@ -11,7 +11,6 @@
 @interface SBLoadingImageView : UIImageView
 
 - (void)downloadImageAtURL:(NSURL *)url;
-- (void)stopDownloading;
 
 @property (nonatomic, readonly) BOOL downloading;
 
