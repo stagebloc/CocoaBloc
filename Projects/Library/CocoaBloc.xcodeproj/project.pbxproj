@@ -10,6 +10,15 @@
 		090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudioUpload.m */; };
 		090EB81A198800350081D406 /* ModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB819198800350081D406 /* ModelTests.m */; };
 		094CB715197B133B00BBF2BE /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
+		097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F519BE3EFC00E3CD45 /* SBClient+User.m */; };
+		097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */; };
+		097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636FB19BE3F1400E3CD45 /* SBClient+Store.m */; };
+		097636FF19BE3F2A00E3CD45 /* SBClient+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636FE19BE3F2A00E3CD45 /* SBClient+Account.m */; };
+		0976370219BE3F4200E3CD45 /* SBClient+Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976370119BE3F4200E3CD45 /* SBClient+Audio.m */; };
+		0976370819BE3F5100E3CD45 /* SBClient+Blog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976370719BE3F5100E3CD45 /* SBClient+Blog.m */; };
+		0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976370A19BE3F6500E3CD45 /* SBClient+Photo.m */; };
+		0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976370D19BE3F8200E3CD45 /* SBClient+Status.m */; };
+		0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976371019BE415200E3CD45 /* SBClient+Auth.m */; };
 		09A897C01978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
 		09A897CE1978536000EE983C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897CD1978536000EE983C /* XCTest.framework */; };
 		09A897CF1978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
@@ -69,6 +78,24 @@
 		090EB8161987F1100081D406 /* SBAudioUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudioUpload.h; sourceTree = "<group>"; };
 		090EB8171987F1100081D406 /* SBAudioUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudioUpload.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
+		097636F419BE3EFC00E3CD45 /* SBClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+User.h"; sourceTree = "<group>"; };
+		097636F519BE3EFC00E3CD45 /* SBClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+User.m"; sourceTree = "<group>"; };
+		097636F719BE3F0B00E3CD45 /* SBClient+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+FanClub.h"; sourceTree = "<group>"; };
+		097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+FanClub.m"; sourceTree = "<group>"; };
+		097636FA19BE3F1400E3CD45 /* SBClient+Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Store.h"; sourceTree = "<group>"; };
+		097636FB19BE3F1400E3CD45 /* SBClient+Store.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Store.m"; sourceTree = "<group>"; };
+		097636FD19BE3F2A00E3CD45 /* SBClient+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Account.h"; sourceTree = "<group>"; };
+		097636FE19BE3F2A00E3CD45 /* SBClient+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Account.m"; sourceTree = "<group>"; };
+		0976370019BE3F4200E3CD45 /* SBClient+Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Audio.h"; sourceTree = "<group>"; };
+		0976370119BE3F4200E3CD45 /* SBClient+Audio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Audio.m"; sourceTree = "<group>"; };
+		0976370619BE3F5100E3CD45 /* SBClient+Blog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Blog.h"; sourceTree = "<group>"; };
+		0976370719BE3F5100E3CD45 /* SBClient+Blog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Blog.m"; sourceTree = "<group>"; };
+		0976370919BE3F6500E3CD45 /* SBClient+Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Photo.h"; sourceTree = "<group>"; };
+		0976370A19BE3F6500E3CD45 /* SBClient+Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Photo.m"; sourceTree = "<group>"; };
+		0976370C19BE3F8200E3CD45 /* SBClient+Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Status.h"; sourceTree = "<group>"; };
+		0976370D19BE3F8200E3CD45 /* SBClient+Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Status.m"; sourceTree = "<group>"; };
+		0976370F19BE415200E3CD45 /* SBClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Auth.h"; sourceTree = "<group>"; };
+		0976371019BE415200E3CD45 /* SBClient+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Auth.m"; sourceTree = "<group>"; };
 		098CF5EE197AE051001A5B0B /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09A897BC1978536000EE983C /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A897BF1978536000EE983C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -169,6 +196,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		097636F219BE375F00E3CD45 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09D2A2DF19B8B452000D32DE /* SBActionButton.h */,
+				09D2A2E019B8B452000D32DE /* SBActionButton.m */,
+				09D2A36A19B90EDD000D32DE /* SBLoadingImageView.h */,
+				09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */,
+				09B3152E19BA35EC0005CEDD /* SBAnimationContainerView.h */,
+				09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		097636F319BE376800E3CD45 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		09A897B31978536000EE983C = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +306,24 @@
 			children = (
 				09A897F2197862AC00EE983C /* SBClient.h */,
 				09A897F3197862AC00EE983C /* SBClient.m */,
+				0976370F19BE415200E3CD45 /* SBClient+Auth.h */,
+				0976371019BE415200E3CD45 /* SBClient+Auth.m */,
+				097636F419BE3EFC00E3CD45 /* SBClient+User.h */,
+				097636F519BE3EFC00E3CD45 /* SBClient+User.m */,
+				097636F719BE3F0B00E3CD45 /* SBClient+FanClub.h */,
+				097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */,
+				097636FA19BE3F1400E3CD45 /* SBClient+Store.h */,
+				097636FB19BE3F1400E3CD45 /* SBClient+Store.m */,
+				097636FD19BE3F2A00E3CD45 /* SBClient+Account.h */,
+				097636FE19BE3F2A00E3CD45 /* SBClient+Account.m */,
+				0976370019BE3F4200E3CD45 /* SBClient+Audio.h */,
+				0976370119BE3F4200E3CD45 /* SBClient+Audio.m */,
+				0976370619BE3F5100E3CD45 /* SBClient+Blog.h */,
+				0976370719BE3F5100E3CD45 /* SBClient+Blog.m */,
+				0976370919BE3F6500E3CD45 /* SBClient+Photo.h */,
+				0976370A19BE3F6500E3CD45 /* SBClient+Photo.m */,
+				0976370C19BE3F8200E3CD45 /* SBClient+Status.h */,
+				0976370D19BE3F8200E3CD45 /* SBClient+Status.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -283,12 +348,8 @@
 		09A897F5197862AC00EE983C /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				09D2A2DF19B8B452000D32DE /* SBActionButton.h */,
-				09D2A2E019B8B452000D32DE /* SBActionButton.m */,
-				09D2A36A19B90EDD000D32DE /* SBLoadingImageView.h */,
-				09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */,
-				09B3152E19BA35EC0005CEDD /* SBAnimationContainerView.h */,
-				09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */,
+				097636F319BE376800E3CD45 /* View Controllers */,
+				097636F219BE375F00E3CD45 /* Views */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -610,20 +671,29 @@
 				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */,
+				097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */,
+				0976370819BE3F5100E3CD45 /* SBClient+Blog.m in Sources */,
 				090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */,
 				09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */,
 				09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */,
 				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
+				0976370219BE3F4200E3CD45 /* SBClient+Audio.m in Sources */,
 				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,
 				09D2A36619B8F796000D32DE /* UIColor+FanClub.m in Sources */,
+				097636FF19BE3F2A00E3CD45 /* SBClient+Account.m in Sources */,
+				097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */,
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
 				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
+				097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */,
+				0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */,
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
+				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
+				0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
