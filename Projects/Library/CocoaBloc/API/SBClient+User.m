@@ -83,4 +83,8 @@
     return [self rac_POST:@"users/password/reset" parameters:@{@"email":emailAddress}];
 }
 
+- (RACSignal *)updateUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates {
+    return [self rac_POST:@"users/me/location/update" parameters:@{@"latitude":@(coordinates.latitude),@"longitude":@(coordinates.longitude)}];
+}
+
 @end
