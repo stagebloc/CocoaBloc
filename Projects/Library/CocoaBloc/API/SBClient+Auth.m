@@ -16,6 +16,7 @@
 @interface SBClient ()
 @property (nonatomic, assign, readwrite) BOOL authenticated;
 @property (nonatomic, copy, readwrite) NSString *token;
+@property (nonatomic, strong, readwrite) SBUser *user;
 @end
 
 @implementation SBClient (Auth)

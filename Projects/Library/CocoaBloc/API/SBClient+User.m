@@ -87,4 +87,23 @@
     return [self rac_POST:@"users/me/location/update" parameters:@{@"latitude":@(coordinates.latitude),@"longitude":@(coordinates.longitude)}];
 }
 
+- (RACSignal *)updateUserProfileWithParameters:(NSDictionary *)parameters {
+    NSParameterAssert(parameters);
+    NSAssert(parameters.count != 0, @"Passing an empty parameters dictionary is not allowed.");
+    
+    // This is done so that we ensure only the keys we accept are in this dictionary.
+    NSMutableDictionary *p = [NSMutableDictionary dictionaryWithCapacity:parameters.count];
+    id val;
+#define SAFE_ASSIGN(key) if((val = parameters[key])) p[key] = val;
+    SAFE_ASSIGN(SBClientUserProfileUpdateParameterBio);
+    SAFE_ASSIGN(SBClientUserProfileUpdateParameterUsername);
+    SAFE_ASSIGN(SBClientUserProfileUpdateParameterName);
+    SAFE_ASSIGN(SBClientUserProfileUpdateParameterGender);
+    SAFE_ASSIGN(SBClientUserProfileUpdateParameterEmailAddress);
+    SAFE_ASSIGN(SBClientUserProfileUpdateParameterBirthday);
+#undef SAFE_ASSIGN
+    
+    return [self rac_POST:@"users/me" parameters:p];
+}
+
 @end

@@ -50,6 +50,6 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
 
 /// The authenticated user for this client, or nil if no sign in
 /// has been completed yet.
-@property (nonatomic, strong) SBUser *user;
+@property (nonatomic, readonly, strong) SBUser *user;
 
 @end
