@@ -7,6 +7,14 @@
 //
 
 #import "SBClient.h"
+#import <CoreLocation/CoreLocation.h>
+
+extern NSString *SBClientUserProfileUpdateParameterBio;
+extern NSString *SBClientUserProfileUpdateParameterBirthday;
+extern NSString *SBClientUserProfileUpdateParameterEmailAddress;
+extern NSString *SBClientUserProfileUpdateParameterUsername;
+extern NSString *SBClientUserProfileUpdateParameterName;
+extern NSString *SBClientUserProfileUpdateParameterGender;
 
 @interface SBClient (User)
 
@@ -23,6 +31,10 @@
  */
 - (RACSignal *)getMe;
 
+- (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress;
+
+- (RACSignal *)updateUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates;
+
 /*!
  Request the StageBloc user by their user id.
  
@@ -34,6 +46,10 @@
  */
 - (RACSignal *)getUserWithID:(NSNumber *)userID;
 
-- (RACSignal *)resetUserPasswordForEmail:(NSString *)emailAddress;
+- (RACSignal *)updateUserProfileWithParameters:(NSDictionary *)parameters;
+
+/// The authenticated user for this client, or nil if no sign in
+/// has been completed yet.
+@property (nonatomic, strong) SBUser *user;
 
 @end

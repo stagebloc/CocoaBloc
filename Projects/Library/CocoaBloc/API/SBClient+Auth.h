@@ -57,9 +57,4 @@
 /// in all requests after authentication.
 @property (nonatomic, copy, readonly) NSString *token;
 
-/// The authenticated user for this client, or nil if no sign in
-/// has been completed yet.
-@property (nonatomic, strong) SBUser *user;
-
-
 @end

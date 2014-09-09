@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */; };
 		090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudioUpload.m */; };
 		090EB81A198800350081D406 /* ModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB819198800350081D406 /* ModelTests.m */; };
 		094CB715197B133B00BBF2BE /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
@@ -75,6 +76,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		090A7BA119BF590D00AB0427 /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
+		090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObjects.m"; sourceTree = "<group>"; };
 		090EB8161987F1100081D406 /* SBAudioUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudioUpload.h; sourceTree = "<group>"; };
 		090EB8171987F1100081D406 /* SBAudioUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudioUpload.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
@@ -402,6 +405,8 @@
 				09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */,
 				09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */,
 				09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */,
+				090A7BA119BF590D00AB0427 /* NSObject+AssociatedObjects.h */,
+				090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -694,6 +699,7 @@
 				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
 				0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */,
+				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

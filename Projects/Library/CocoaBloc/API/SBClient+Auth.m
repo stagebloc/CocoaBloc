@@ -7,6 +7,16 @@
 //
 
 #import "SBClient+Auth.h"
+#import "SBClient.h"
+#import "SBClient+User.h"
+#import <RACAFNetworking.h>
+#import <RACEXTScope.h>
+#import "NSObject+AssociatedObjects.h"
+
+@interface SBClient ()
+@property (nonatomic, assign, readwrite) BOOL authenticated;
+@property (nonatomic, copy, readwrite) NSString *token;
+@end
 
 @implementation SBClient (Auth)
 
@@ -18,23 +28,40 @@ static NSString *SBClientID, *SBClientSecret;
     SBClientSecret = clientSecret.copy;
 }
 
-
 - (void)setToken:(NSString *)token {
     if (![token isEqual:self.token]) { // only change if it's different
         
         // keep the KVO compliance for observing token
         [self willChangeValueForKey:@"token"];
+        [self willChangeValueForKey:@"authenticated"];
         
         // clear it if nil
         if (!token) {
             [self.requestSerializer setValue:nil forHTTPHeaderField:@"Authorization"];
         } else {
             // else set it
-            _token = token.copy;
+            [self setAssociatedObject:token forKey:@"token" policy:OBJC_ASSOCIATION_COPY_NONATOMIC];
             [self.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", token] forHTTPHeaderField:@"Authorization"];
         }
         [self didChangeValueForKey:@"token"];
+        [self didChangeValueForKey:@"authenticated"];
     }
+}
+
+- (NSString *)token {
+    return [self associatedObjectForKey:@"token"];
+}
+
+- (BOOL)isAuthenticated {
+    return self.token != nil;
+}
+
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
+    if ([theKey isEqualToString:@"token"] || [theKey isEqualToString:@"authenticated"]) {
+        return NO;
+    }
+    
+    return [super automaticallyNotifiesObserversForKey:theKey];
 }
 
 - (RACSignal *)logInWithUsername:(NSString *)username password:(NSString *)password {
@@ -50,32 +77,31 @@ static NSString *SBClientID, *SBClientSecret;
                                                             @"client_id"		: SBClientID,
                                                             @"include_user" : @"1",
                                                             @"include_admin_accounts" : @"1"}]
-               doNext:^(NSDictionary *response) {
-                   @strongify(self);
+            	doNext:^(NSDictionary *response) {
+                   	@strongify(self);
                    
-                   // set the auth token & auth state when a 'next' is sent
-                   self.token = response[@"access_token"];
-                   self.authenticated = YES;
-               }]
-              map:^id(NSDictionary *response) {
-                  // deserialize the user
-                  SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
-                                           fromJSONDictionary:response[@"data"][@"user"]
-                                                        error:nil];
-                  user.adminAccounts = [MTLJSONAdapter
-                                        modelsOfClass:[SBAccount class]
-                                        fromJSONArray:response[@"data"][@"admin_accounts"]
-                                        error:nil];
+                   	// set the auth token & auth state when a 'next' is sent
+                   	self.token = response[@"access_token"];
+               	}]
+              	map:^id(NSDictionary *response) {
+                  	// deserialize the user
+                  	SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
+                                             fromJSONDictionary:response[@"data"][@"user"]
+                                                          error:nil];
+                  	user.adminAccounts = [MTLJSONAdapter
+                                          modelsOfClass:[SBAccount class]
+                                          fromJSONArray:response[@"data"][@"admin_accounts"]
+                                          error:nil];
                   
-                  return user;
-              }]
-             doNext:^(SBUser *user) {
-                 @strongify(self);
+                  	return user;
+            	}]
+             	doNext:^(SBUser *user) {
+                 	@strongify(self);
                  
-                 // set the currently authenticated user
-                 self.user = user;
-             }]
-            setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
+                 	// set the currently authenticated user
+                 	self.user = user;
+             	}]
+            	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
 }
 
 - (RACSignal *)signUpWithEmail:(NSString *)email

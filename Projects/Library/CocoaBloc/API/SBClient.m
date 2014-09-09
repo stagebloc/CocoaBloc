@@ -16,11 +16,6 @@
 NSString *SBAPIMethodParameterResultLimit = @"limit";
 NSString *SBAPIMethodParameterResultOffset = @"offset";
 
-@interface SBClient ()
-@property (nonatomic, assign, readwrite) BOOL authenticated;
-@property (nonatomic, copy, readwrite) NSString *token;
-@end
-
 @implementation SBClient
 
 static NSString *SBClientID, *SBClientSecret; // defined in +Auth.m

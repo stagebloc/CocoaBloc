@@ -7,6 +7,10 @@
 //
 
 #import "SBClient+Audio.h"
+#import "SBClient.h"
+#import "SBAudioUpload.h"
+#import <RACAFNetworking.h>
+#import <RACEXTScope.h>
 
 @implementation SBClient (Audio)
 

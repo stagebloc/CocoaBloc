@@ -33,7 +33,6 @@ extern NSString *SBFanClubTierInfoDescription;
  */
 @interface SBClient : AFHTTPRequestOperationManager
 
-
 /*!
  Enqueue a network request with this client. Any configurations
  or authentications will be used for this request.

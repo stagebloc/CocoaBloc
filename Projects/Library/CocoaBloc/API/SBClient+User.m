@@ -7,51 +7,80 @@
 //
 
 #import "SBClient+User.h"
+#import "SBClient.h"
+#import "NSObject+AssociatedObjects.h"
+#import "SBClient+Auth.h"
+#import <RACAFNetworking.h>
+#import <RACEXTScope.h>
 
 @implementation SBClient (User)
 
+- (void)setUser:(SBUser *)user {
+    [self willChangeValueForKey:@"user"];
+    [self setAssociatedObject:user forKey:@"user" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+    [self didChangeValueForKey:@"user"];
+}
+
+- (SBUser *)user {
+    return [self associatedObjectForKey:@"user"];
+}
+
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
+    if ([theKey isEqualToString:@"user"]) {
+        return NO;
+    }
+    
+    return [super automaticallyNotifiesObserversForKey:theKey];
+}
+
 - (RACSignal *)getUserWithID:(NSNumber *)userID {
     return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:nil]
-             map:^id(NSDictionary *response) {
-                 SBUser *user = [MTLJSONAdapter
+             	map:^id(NSDictionary *response) {
+                 	SBUser *user = [MTLJSONAdapter
                                  modelOfClass:[SBUser class]
                                  fromJSONDictionary:response[@"data"]
                                  error:nil];
                  
-                 if ([user.identifier isEqual:self.user.identifier]) {
-                     user.adminAccounts = self.user.adminAccounts;
-                 }
+                 	if ([user.identifier isEqual:self.user.identifier]) {
+                     	user.adminAccounts = self.user.adminAccounts;
+                 	}
                  
-                 return user;
-             }]
-            setNameWithFormat:@"Get user with ID: %d", userID.intValue];
+                 	return user;
+             	}]
+            	setNameWithFormat:@"Get user with ID: %d", userID.intValue];
 }
 
 - (RACSignal *)getMe {
     @weakify(self);
     return [[[[self rac_GET:@"users/me" parameters:nil]
-              map:^id(NSDictionary *response) {
-                  // deserialize
-                  return [MTLJSONAdapter modelOfClass:[SBUser class]
-                                   fromJSONDictionary:response[@"data"]
-                                                error:nil];
-              }]
-             doNext:^(SBUser *user) {
+            	map:^id(NSDictionary *response) {
+                    // deserialize
+                    return [MTLJSONAdapter modelOfClass:[SBUser class]
+                                     fromJSONDictionary:response[@"data"]
+                                                  error:nil];
+              	}]
+             	doNext:^(SBUser *user) {
                 	@strongify(self);
                  
-                 SBUser *oldMe = self.user;
+                 	SBUser *oldMe = self.user;
                  
-                 // set the new user
-                 self.user = user;
+                 	// set the new user
+                 	self.user = user;
                  
-                 // if it's the same user, use the new response data
-                 // and add in the current admin acccounts
-                 // Why? this response doesn't return admin accounts
-                 if ([oldMe.identifier isEqual:user.identifier]) {
-                     self.user.adminAccounts = oldMe.adminAccounts;
-                 }
-             }]
-            setNameWithFormat:@"Get \"me\""];
+                 	// if it's the same user, use the new response data
+                 	// and add in the current admin acccounts
+                 	// Why? this response doesn't return admin accounts
+                 	if ([oldMe.identifier isEqual:user.identifier]) {
+                     	self.user.adminAccounts = oldMe.adminAccounts;
+                 	}
+             	}]
+            	setNameWithFormat:@"Get \"me\""];
+}
+
+- (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress {
+    NSParameterAssert(emailAddress);
+    
+    return [self rac_POST:@"users/password/reset" parameters:@{@"email":emailAddress}];
 }
 
 @end

@@ -7,6 +7,9 @@
 //
 
 #import "SBClient+FanClub.h"
+#import "SBClient.h"
+#import <RACAFNetworking.h>
+#import <RACEXTScope.h>
 
 @implementation SBClient (FanClub)
 
