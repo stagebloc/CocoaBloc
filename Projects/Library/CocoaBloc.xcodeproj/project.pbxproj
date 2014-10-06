@@ -21,7 +21,6 @@
 		0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976370D19BE3F8200E3CD45 /* SBClient+Status.m */; };
 		0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976371019BE415200E3CD45 /* SBClient+Auth.m */; };
 		09A897C01978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
-		09A897CE1978536000EE983C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897CD1978536000EE983C /* XCTest.framework */; };
 		09A897CF1978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
 		09A897D11978536000EE983C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897D01978536000EE983C /* UIKit.framework */; };
 		09A897D41978536000EE983C /* libCocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BC1978536000EE983C /* libCocoaBloc.a */; };
@@ -180,7 +179,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09A897CE1978536000EE983C /* XCTest.framework in Frameworks */,
 				09A897D41978536000EE983C /* libCocoaBloc.a in Frameworks */,
 				09A897D11978536000EE983C /* UIKit.framework in Frameworks */,
 				09A897CF1978536000EE983C /* Foundation.framework in Frameworks */,

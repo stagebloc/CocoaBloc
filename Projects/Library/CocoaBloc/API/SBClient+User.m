@@ -13,6 +13,15 @@
 #import <RACAFNetworking.h>
 #import <RACEXTScope.h>
 
+#define NSStringConstant(val) NSString *val = @#val
+
+NSStringConstant(SBClientUserProfileUpdateParameterBio);
+NSStringConstant(SBClientUserProfileUpdateParameterBirthday);
+NSStringConstant(SBClientUserProfileUpdateParameterEmailAddress);
+NSStringConstant(SBClientUserProfileUpdateParameterUsername);
+NSStringConstant(SBClientUserProfileUpdateParameterName);
+NSStringConstant(SBClientUserProfileUpdateParameterGender);
+
 @implementation SBClient (User)
 
 - (void)setUser:(SBUser *)user {
@@ -36,10 +45,10 @@
 - (RACSignal *)getUserWithID:(NSNumber *)userID {
     return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:nil]
              	map:^id(NSDictionary *response) {
-                 	SBUser *user = [MTLJSONAdapter
-                                 modelOfClass:[SBUser class]
-                                 fromJSONDictionary:response[@"data"]
-                                 error:nil];
+                    SBUser *user = [MTLJSONAdapter
+                                    modelOfClass:[SBUser class]
+                                    fromJSONDictionary:response[@"data"]
+                                    error:nil];
                  
                  	if ([user.identifier isEqual:self.user.identifier]) {
                      	user.adminAccounts = self.user.adminAccounts;

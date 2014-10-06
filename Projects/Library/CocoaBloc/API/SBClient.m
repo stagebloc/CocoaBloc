@@ -16,9 +16,9 @@
 NSString *SBAPIMethodParameterResultLimit = @"limit";
 NSString *SBAPIMethodParameterResultOffset = @"offset";
 
-@implementation SBClient
+extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 
-static NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
+@implementation SBClient
 
 - (id)init {
     if (!SBClientID.length || !SBClientSecret.length) {

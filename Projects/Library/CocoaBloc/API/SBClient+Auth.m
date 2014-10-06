@@ -22,7 +22,7 @@
 @implementation SBClient (Auth)
 
 // global client id/secret (global is it should be one per app)
-static NSString *SBClientID, *SBClientSecret;
+NSString *SBClientID, *SBClientSecret;
 
 + (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
     SBClientID = clientID.copy;
@@ -36,12 +36,13 @@ static NSString *SBClientID, *SBClientSecret;
         [self willChangeValueForKey:@"token"];
         [self willChangeValueForKey:@"authenticated"];
         
+        [self setAssociatedObject:token forKey:@"token" policy:OBJC_ASSOCIATION_COPY_NONATOMIC];
+        
         // clear it if nil
         if (!token) {
             [self.requestSerializer setValue:nil forHTTPHeaderField:@"Authorization"];
         } else {
             // else set it
-            [self setAssociatedObject:token forKey:@"token" policy:OBJC_ASSOCIATION_COPY_NONATOMIC];
             [self.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", token] forHTTPHeaderField:@"Authorization"];
         }
         [self didChangeValueForKey:@"token"];
@@ -71,25 +72,28 @@ static NSString *SBClientID, *SBClientSecret;
     
     @weakify(self);
     
-    return [[[[[self rac_POST:@"oauth2/token" parameters:@{	@"grant_type"	: @"password",
-                                                            @"username"		: username,
-                                                            @"password"		: password,
-                                                            @"client_secret": SBClientSecret,
-                                                            @"client_id"		: SBClientID,
-                                                            @"include_user" : @"1",
-                                                            @"include_admin_accounts" : @"1"}]
+    return [[[[[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
+                                                            @"username"					: username,
+                                                            @"password"					: password,
+                                                            @"client_secret"			: SBClientSecret,
+                                                            @"client_id"				: SBClientID,
+                                                            @"include_user" 			: @"1",
+                                                            @"include_admin_accounts" 	: @"1"}]
             	doNext:^(NSDictionary *response) {
                    	@strongify(self);
                    
                    	// set the auth token & auth state when a 'next' is sent
-                   	self.token = response[@"access_token"];
+                   	self.token = response[@"data"][@"access_token"];
                	}]
+                doError:^(NSError *error) {
+                    
+                }]
               	map:^id(NSDictionary *response) {
                   	// deserialize the user
-                  	SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
+                    SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
                                              fromJSONDictionary:response[@"data"][@"user"]
                                                           error:nil];
-                  	user.adminAccounts = [MTLJSONAdapter
+                    user.adminAccounts = [MTLJSONAdapter
                                           modelsOfClass:[SBAccount class]
                                           fromJSONArray:response[@"data"][@"admin_accounts"]
                                           error:nil];
@@ -114,6 +118,5 @@ static NSString *SBClientID, *SBClientSecret;
     
     return [RACSignal error:nil];
 }
-
 
 @end
