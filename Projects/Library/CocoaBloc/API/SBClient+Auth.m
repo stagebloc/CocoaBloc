@@ -77,6 +77,7 @@ NSString *SBClientID, *SBClientSecret;
                                                             @"password"					: password,
                                                             @"client_secret"			: SBClientSecret,
                                                             @"client_id"				: SBClientID,
+                                                            @"expand"					: @"user",
                                                             @"include_user" 			: @"1",
                                                             @"include_admin_accounts" 	: @"1"}]
             	doNext:^(NSDictionary *response) {

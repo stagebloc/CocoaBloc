@@ -10,4 +10,9 @@
 
 @interface SBClient (Account)
 
+- (RACSignal *)getAccountWithID:(NSNumber *)accountID;
+- (RACSignal *)updateAccountWithID:(NSNumber *)accountID name:(NSString *)name description:(NSString *)description stageBlocURL:(NSString *)urlString;
+- (RACSignal *)getActivityStreamForAccount:(SBAccount *)account;
+- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account;
+
 @end

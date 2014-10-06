@@ -10,9 +10,10 @@
 
 @interface SBClient (Store)
 
-- (RACSignal *)connectAccountWithStripeUsingToken:(NSString *)stripeToken;
 - (RACSignal *)getDashboardData;
-- (RACSignal *)getOrders;
+- (RACSignal *)getStoreOrders;
+- (RACSignal *)getStoreItems;
+- (RACSignal *)connectAccountWithStripeUsingToken:(NSString *)stripeToken;
 - (RACSignal *)updateOrderWithID;
 
 @end

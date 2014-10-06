@@ -7,7 +7,23 @@
 //
 
 #import "SBClient+Account.h"
+#import <RACAFNetworking.h>
 
 @implementation SBClient (Account)
+
+- (RACSignal *)getAccountWithID:(NSNumber *)accountID {
+    return [[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:nil]
+    			map:^id(NSDictionary *response) {
+                    
+                }];
+}
+
+- (RACSignal *)getActivityStreamForAccount:(SBAccount *)account {
+    
+}
+
+- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account {
+    
+}
 
 @end
