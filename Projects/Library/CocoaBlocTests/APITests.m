@@ -16,6 +16,7 @@
 #import "SBClient+User.h"
 #import "SBClient+FanClub.h"
 #import "SBClient+Audio.h"
+#import "SBClient+Account.h"
 #import "SBAudioUpload.h"
 
 #define MAC_UPLOADER_TEMP_CID @"86610122f4d3cd23dff0a1448903947d"
@@ -216,6 +217,20 @@ describe(@"Client", ^{
                  }];
         });
 	});
+    
+    it(@"should get an account by id", ^{
+       waitUntil(^(DoneCallback done) {
+           [[client getAccountWithID:[(SBAccount *)client.user.adminAccounts.firstObject identifier]]
+            subscribeNext:^(SBAccount *account) {
+                expect(account).toNot.beNil();
+                expect(account).to.beKindOf([SBAccount class]);
+                done();
+            } error:^(NSError *error) {
+                expect(error).to.beNil();
+                done();
+            }];
+       });
+    });
 });
 
 SpecEnd
