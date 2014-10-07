@@ -11,6 +11,7 @@
 		090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudioUpload.m */; };
 		090EB81A198800350081D406 /* ModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB819198800350081D406 /* ModelTests.m */; };
 		094CB715197B133B00BBF2BE /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
+		094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */; };
 		097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F519BE3EFC00E3CD45 /* SBClient+User.m */; };
 		097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */; };
 		097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636FB19BE3F1400E3CD45 /* SBClient+Store.m */; };
@@ -80,6 +81,8 @@
 		090EB8161987F1100081D406 /* SBAudioUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudioUpload.h; sourceTree = "<group>"; };
 		090EB8171987F1100081D406 /* SBAudioUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudioUpload.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
+		094D917819E44CCB00254DD8 /* RACSignal+JSONDeserialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+JSONDeserialization.h"; sourceTree = "<group>"; };
+		094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+JSONDeserialization.m"; sourceTree = "<group>"; };
 		097636F419BE3EFC00E3CD45 /* SBClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+User.h"; sourceTree = "<group>"; };
 		097636F519BE3EFC00E3CD45 /* SBClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+User.m"; sourceTree = "<group>"; };
 		097636F719BE3F0B00E3CD45 /* SBClient+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+FanClub.h"; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */,
 				090A7BA119BF590D00AB0427 /* NSObject+AssociatedObjects.h */,
 				090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */,
+				094D917819E44CCB00254DD8 /* RACSignal+JSONDeserialization.h */,
+				094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -697,6 +702,7 @@
 				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
 				0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */,
+				094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */,
 				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,7 @@
 #import "SBClient+User.h"
 #import "SBClient.h"
 #import "NSObject+AssociatedObjects.h"
+#import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Auth.h"
 #import <RACAFNetworking.h>
 #import <RACEXTScope.h>
@@ -62,12 +63,7 @@ NSStringConstant(SBClientUserProfileUpdateParameterGender);
 - (RACSignal *)getMe {
     @weakify(self);
     return [[[[self rac_GET:@"users/me" parameters:nil]
-            	map:^id(NSDictionary *response) {
-                    // deserialize
-                    return [MTLJSONAdapter modelOfClass:[SBUser class]
-                                     fromJSONDictionary:response[@"data"]
-                                                  error:nil];
-              	}]
+            	cb_deserializeWithClient:self modelClass:[SBUser class]]
              	doNext:^(SBUser *user) {
                 	@strongify(self);
                  

@@ -34,6 +34,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 #endif
                                    ]];
     if (self) {
+        self.deserializationScheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground];
         self.securityPolicy.allowInvalidCertificates = YES; // dave says this is a dragon's leash
     }
     
@@ -43,6 +44,26 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request {
     return [RACSignal defer:^RACSignal *{
         return [self rac_enqueueHTTPRequestOperation:[self HTTPRequestOperationWithRequest:request success:nil failure:nil]];
+    }];
+}
+
+- (RACSignal *)deserializeModelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)dictionary {
+    NSParameterAssert(dictionary);
+    
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        return [self.deserializationScheduler schedule:^{
+            NSError *error;
+            id model = [MTLJSONAdapter modelOfClass:modelClass
+                                 fromJSONDictionary:dictionary
+                                              error:&error];
+            
+            if (error) {
+                [subscriber sendError:error];
+            } else {
+                [subscriber sendNext:model];
+                [subscriber sendCompleted];
+            }
+        }];
     }];
 }
 

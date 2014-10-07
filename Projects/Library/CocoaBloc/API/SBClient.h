@@ -45,4 +45,10 @@ extern NSString *SBFanClubTierInfoDescription;
  */
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request;
 
+- (RACSignal *)deserializeModelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)dictionary;
+
+/// The scheduler on which work will be done when converting JSON data into models.
+/// Default = background scheduler
+@property (nonatomic) RACScheduler *deserializationScheduler;
+
 @end

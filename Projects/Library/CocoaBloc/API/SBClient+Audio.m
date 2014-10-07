@@ -9,6 +9,7 @@
 #import "SBClient+Audio.h"
 #import "SBClient.h"
 #import "SBAudioUpload.h"
+#import "RACSignal+JSONDeserialization.h"
 #import <RACAFNetworking.h>
 #import <RACEXTScope.h>
 
@@ -100,12 +101,7 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     
     // use defer to turn "hot" enqueueing into cold signal
     return [RACSignal defer:^RACSignal *{
-        return [[self rac_enqueueHTTPRequestOperation:op]
-                map:^id(NSDictionary *response) {
-                    return [MTLJSONAdapter modelOfClass:[SBAudioUpload class]
-                                     fromJSONDictionary:response[@"data"]
-                                                  error:nil];
-                }];
+        return [[self rac_enqueueHTTPRequestOperation:op] cb_deserializeWithClient:self modelClass:[SBAudioUpload class]];
     }];
 }
 
