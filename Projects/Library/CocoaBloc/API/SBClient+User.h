@@ -21,15 +21,16 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
 /// @name User
 
 /*!
- Request the currently authenticated user from StageBloc.
- NOTE: This is already done on sign in. See the `user` property.
+ Request the currently authenticated user for the SBClient.
+ NOTE: 	This is already available on sign in. See the `user` property.
+ 		calling this method will update the property as well.
  
  @return A "cold" signal that will perform the request upon subscription.
  The subscribed signal will send a "next" value of the currently
  authenticated user's SBUser object. This is the same as the `user`
  property after signing in.
  */
-- (RACSignal *)getMe;
+- (RACSignal *)getAuthenticatedUser;
 
 - (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress;
 

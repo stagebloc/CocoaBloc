@@ -231,6 +231,21 @@ describe(@"Client", ^{
             }];
        });
     });
+    
+//    it(@"should update account info", ^{
+//        waitUntil(^(DoneCallback done) {
+//            [[client updateAccountWithID:[(SBAccount *)client.user.adminAccounts.firstObject identifier] name:@"testuser" description:@"test desc" stageBlocURL:@"testurl"]
+//                 subscribeNext:^(SBAccount *account) {
+//                    expect(account).toNot.beNil();
+//                    expect(account).to.beKindOf([SBAccount class]);
+//                } error:^(NSError *error) {
+//                    expect(error).to.beNil();
+//                    done();
+//                } completed:^{
+//                    done();
+//                }];
+//        });
+//    });
 });
 
 SpecEnd

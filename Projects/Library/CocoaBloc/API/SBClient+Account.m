@@ -17,11 +17,7 @@
     NSParameterAssert(accountID);
     
     return [[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:nil]
-    			map:^id(NSDictionary *response) {
-                    return [MTLJSONAdapter modelOfClass:[SBAccount class]
-                                     fromJSONDictionary:response[@"data"]
-                                                  error:nil];
-                }];
+            	cb_deserializeWithClient:self modelClass:[SBAccount class]];
 }
 
 - (RACSignal *)updateAccountWithID:(NSNumber *)accountID
@@ -49,8 +45,10 @@
                 }];
 }
 
-- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account {
-    return nil;
-}
+//- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account {
+//    NSParameterAssert(account);
+//    
+//    return [[self rac_GET:[NSString stringWithFormat:<#(NSString *), ...#>] parameters:<#(id)#>]]
+//}
 
 @end
