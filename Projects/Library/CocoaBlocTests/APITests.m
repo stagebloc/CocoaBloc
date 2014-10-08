@@ -99,7 +99,7 @@ describe(@"Client", ^{
     
     it(@"should... get me <3", ^{
         waitUntil(^(DoneCallback done) {
-            [[client getMe]
+            [[client getAuthenticatedUser]
              subscribeNext:^(id user) {
                  expect(user).to.beKindOf([SBUser class]);
              }
