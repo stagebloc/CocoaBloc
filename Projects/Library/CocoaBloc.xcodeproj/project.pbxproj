@@ -636,7 +636,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../../Pods/Pods-CocoaBloc-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B1BD1FA8B53D44869AA4E731 /* Copy Pods Resources */ = {
