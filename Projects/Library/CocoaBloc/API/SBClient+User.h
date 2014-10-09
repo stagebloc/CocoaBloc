@@ -32,6 +32,9 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
  */
 - (RACSignal *)getAuthenticatedUser;
 
+- (RACSignal *)updateAuthenticatedUserWithParameters:(NSDictionary *)parameters;
+
+
 - (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress;
 
 - (RACSignal *)updateUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates;
@@ -47,6 +50,5 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
  */
 - (RACSignal *)getUserWithID:(NSNumber *)userID;
 
-- (RACSignal *)updateUserProfileWithParameters:(NSDictionary *)parameters;
 
 @end

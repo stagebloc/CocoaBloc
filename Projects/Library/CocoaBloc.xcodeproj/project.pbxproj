@@ -157,6 +157,7 @@
 		09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoadingImageView.m; sourceTree = "<group>"; };
 		09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		09D510DA1988177A00C45D8A /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
+		09E19ECB19E6EDDE00D75927 /* Guidelines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Guidelines.txt; path = ../../Guidelines.txt; sourceTree = "<group>"; };
 		11A398D28A974B2194750E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		2023CC7631C64E2897E2F635 /* Pods-CB Test App.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CB Test App.xcconfig"; path = "../../Pods/Pods-CB Test App.xcconfig"; sourceTree = "<group>"; };
 		242377E7D60F4866BB3F698B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,6 +226,7 @@
 			children = (
 				09D2A2E219B8C6B0000D32DE /* CocoaBloc.podspec */,
 				09D2A2E319B8C6F8000D32DE /* CocoaBlocUI.xcassets */,
+				09E19ECB19E6EDDE00D75927 /* Guidelines.txt */,
 				09A897C11978536000EE983C /* CocoaBloc */,
 				09A897D51978536000EE983C /* CocoaBlocTests */,
 				09D2A33F19B8EF0A000D32DE /* CB Test App */,

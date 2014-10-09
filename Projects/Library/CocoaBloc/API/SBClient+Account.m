@@ -16,8 +16,9 @@
 - (RACSignal *)getAccountWithID:(NSNumber *)accountID {
     NSParameterAssert(accountID);
     
-    return [[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:nil]
-            	cb_deserializeWithClient:self modelClass:[SBAccount class]];
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:nil]
+            	cb_deserializeWithClient:self modelClass:[SBAccount class]]
+            	setNameWithFormat:@"Get account with ID: %@", accountID];
 }
 
 - (RACSignal *)updateAccount:(SBAccount *)account
@@ -32,8 +33,9 @@
     if (description) 	dict[@"description"] = description.copy;
     if (urlString)		dict[@"stagebloc_url"] = urlString.copy;
     
-    return [[self rac_POST:[NSString stringWithFormat:@"account/%@", account.identifier] parameters:dict]
-            	cb_deserializeWithClient:self modelClass:[SBAccount class]];
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", account.identifier] parameters:dict]
+            	cb_deserializeWithClient:self modelClass:[SBAccount class]]
+            	setNameWithFormat:@"Update account (%@)", account];
 }
 
 - (RACSignal *)getActivityStreamForAccount:(SBAccount *)account {

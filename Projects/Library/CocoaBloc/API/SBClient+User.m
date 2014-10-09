@@ -16,12 +16,12 @@
 
 #define NSStringConstant(val) NSString *val = @#val
 
-NSStringConstant(SBClientUserProfileUpdateParameterBio);
-NSStringConstant(SBClientUserProfileUpdateParameterBirthday);
-NSStringConstant(SBClientUserProfileUpdateParameterEmailAddress);
-NSStringConstant(SBClientUserProfileUpdateParameterUsername);
-NSStringConstant(SBClientUserProfileUpdateParameterName);
-NSStringConstant(SBClientUserProfileUpdateParameterGender);
+NSString *SBClientUserProfileUpdateParameterBio = @"bio";
+NSString *SBClientUserProfileUpdateParameterBirthday = @"birthday";
+NSString *SBClientUserProfileUpdateParameterEmailAddress = @"email";
+NSString *SBClientUserProfileUpdateParameterUsername = @"username";
+NSString *SBClientUserProfileUpdateParameterName = @"name";
+NSString *SBClientUserProfileUpdateParameterGender = @"gender";
 
 @implementation SBClient (User)
 
@@ -79,20 +79,22 @@ NSStringConstant(SBClientUserProfileUpdateParameterGender);
                      	self.authenticatedUser.adminAccounts = oldMe.adminAccounts;
                  	}
              	}]
-            	setNameWithFormat:@"Get \"me\""];
+            	setNameWithFormat:@"Get \"authenticated user\""];
 }
 
 - (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress {
     NSParameterAssert(emailAddress);
     
-    return [self rac_POST:@"users/password/reset" parameters:@{@"email":emailAddress}];
+    return [[self rac_POST:@"users/password/reset" parameters:@{@"email":emailAddress}]
+            	setNameWithFormat:@"Password reset (%@)", emailAddress];
 }
 
 - (RACSignal *)updateUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates {
-    return [self rac_POST:@"users/me/location/update" parameters:@{@"latitude":@(coordinates.latitude),@"longitude":@(coordinates.longitude)}];
+    return [[self rac_POST:@"users/me/location/update" parameters:@{@"latitude":@(coordinates.latitude),@"longitude":@(coordinates.longitude)}]
+            	setNameWithFormat:@"Update coordinates"];
 }
 
-- (RACSignal *)updateUserProfileWithParameters:(NSDictionary *)parameters {
+- (RACSignal *)updateAuthenticatedUserWithParameters:(NSDictionary *)parameters {
     NSParameterAssert(parameters);
     NSAssert(parameters.count != 0, @"Passing an empty parameters dictionary is not allowed.");
     
@@ -108,7 +110,8 @@ NSStringConstant(SBClientUserProfileUpdateParameterGender);
     SAFE_ASSIGN(SBClientUserProfileUpdateParameterBirthday);
 #undef SAFE_ASSIGN
     
-    return [self rac_POST:@"users/me" parameters:p];
+    return [[self rac_POST:@"users/me" parameters:p]
+            	setNameWithFormat:@"Update authenticated user (%@)", self.authenticatedUser];
 }
 
 @end

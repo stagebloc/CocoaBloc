@@ -50,7 +50,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 - (RACSignal *)deserializeModelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)dictionary {
     NSParameterAssert(dictionary);
     
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         return [self.deserializationScheduler schedule:^{
             NSError *error;
             id model = [MTLJSONAdapter modelOfClass:modelClass
@@ -64,7 +64,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
                 [subscriber sendCompleted];
             }
         }];
-    }];
+    }] setNameWithFormat:@"JSON Deserialization (Model class: %@)", NSStringFromClass(modelClass)];
 }
 
 @end

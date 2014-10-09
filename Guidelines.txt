@@ -1,0 +1,8 @@
+Guidelines for CocoaBloc
+------------------------
+
+1. API client methods
+	a. Return a cold RACSignal that sends request(s) on subscription
+	b. Include headerdoc comments outlining specific usage and parameters
+	c. Verify that signal blocks use weak references when appropriate to avoid retain cycles
+	d. Use -setNameWithFormat: on signals to provide debugging context

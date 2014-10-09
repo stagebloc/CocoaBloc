@@ -29,7 +29,8 @@
     }
     params[@"expand"] = @"account,photo";
     
-    return [self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:params];
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:params]
+            	setNameWithFormat:@"Create %lu-tier fan club \"%@\" (account: %@)", (unsigned long)tierInfo.allKeys.count, title, account];
 }
 
 - (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
@@ -40,7 +41,8 @@
     [params addEntriesFromDictionary:parameters];
     params[@"filter"] = @"blog,photos,statuses";
     
-    return [self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub/content", account.identifier.intValue] parameters:params];
+    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:params]
+            	setNameWithFormat:@"Get "];
 }
 
 - (RACSignal *)getRecentFanClubContentWithParameters:(NSDictionary *)parameters {
