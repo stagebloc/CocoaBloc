@@ -7,3 +7,4 @@ Guidelines for CocoaBloc
 	c. Verify that signal blocks use weak references when appropriate to avoid retain cycles
 	d. Use -setNameWithFormat: on signals to provide debugging context
 	e. Verify all variations of failure and success evaluate as expected, via unit tests.
+	f. Use helpful comments in the implementation. Signal flow among other things can be very complex. Let's not make people work too hard if debugging is necessary.
