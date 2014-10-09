@@ -6,3 +6,4 @@ Guidelines for CocoaBloc
 	b. Include headerdoc comments outlining specific usage and parameters
 	c. Verify that signal blocks use weak references when appropriate to avoid retain cycles
 	d. Use -setNameWithFormat: on signals to provide debugging context
+	e. Verify all variations of failure and success evaluate as expected, via unit tests.
