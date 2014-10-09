@@ -51,4 +51,6 @@ extern NSString *SBFanClubTierInfoDescription;
 /// Default = background scheduler
 @property (nonatomic) RACScheduler *deserializationScheduler;
 
+@property (nonatomic, strong, readonly) SBUser *authenticatedUser;
+
 @end

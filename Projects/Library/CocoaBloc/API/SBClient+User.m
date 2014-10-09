@@ -25,13 +25,13 @@ NSStringConstant(SBClientUserProfileUpdateParameterGender);
 
 @implementation SBClient (User)
 
-- (void)setUser:(SBUser *)user {
-    [self willChangeValueForKey:@"user"];
+- (void)setAuthenticatedUser:(SBUser *)user {
+    [self willChangeValueForKey:@"authenticatedUser"];
     [self setAssociatedObject:user forKey:@"user" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-    [self didChangeValueForKey:@"user"];
+    [self didChangeValueForKey:@"authenticatedUser"];
 }
 
-- (SBUser *)user {
+- (SBUser *)authenticatedUser {
     return [self associatedObjectForKey:@"user"];
 }
 
@@ -51,8 +51,8 @@ NSStringConstant(SBClientUserProfileUpdateParameterGender);
                                     fromJSONDictionary:response[@"data"]
                                     error:nil];
                  
-                 	if ([user.identifier isEqual:self.user.identifier]) {
-                     	user.adminAccounts = self.user.adminAccounts;
+                 	if ([user.identifier isEqual:self.authenticatedUser.identifier]) {
+                     	user.adminAccounts = self.authenticatedUser.adminAccounts;
                  	}
                  
                  	return user;
@@ -67,16 +67,16 @@ NSStringConstant(SBClientUserProfileUpdateParameterGender);
              	doNext:^(SBUser *user) {
                 	@strongify(self);
                  
-                 	SBUser *oldMe = self.user;
+                 	SBUser *oldMe = self.authenticatedUser;
                  
                  	// set the new user
-                 	self.user = user;
+                 	self.authenticatedUser = user;
                  
                  	// if it's the same user, use the new response data
                  	// and add in the current admin acccounts
                  	// Why? this response doesn't return admin accounts
                  	if ([oldMe.identifier isEqual:user.identifier]) {
-                     	self.user.adminAccounts = oldMe.adminAccounts;
+                     	self.authenticatedUser.adminAccounts = oldMe.adminAccounts;
                  	}
              	}]
             	setNameWithFormat:@"Get \"me\""];

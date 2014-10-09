@@ -25,15 +25,15 @@
  
  @param name the new account name, or nil
  @param description the new account description, or nil
- @param urlString the new StageBloc URL path component for the account
+ @param urlString the new StageBloc URL path component for the account, or nil
  
  @return 	a cold signal that will perform the request on subscription,
             or nil if all of the parameters are nil.
  */
-- (RACSignal *)updateAccountWithID:(NSNumber *)accountID
-                              name:(NSString *)name
-                       description:(NSString *)description
-                      stageBlocURL:(NSString *)urlString;
+- (RACSignal *)updateAccount:(SBAccount *)account
+                        name:(NSString *)name
+                 description:(NSString *)description
+                stageBlocURL:(NSString *)urlString;
 
 /*!
  Get an activity stream of recent content for an account.

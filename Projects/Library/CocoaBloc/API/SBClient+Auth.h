@@ -53,6 +53,10 @@
 /// user will this be true.
 @property (nonatomic, getter = isAuthenticated, readonly) BOOL authenticated;
 
+/// The authenticated user for this client, or nil if no sign in
+/// has been completed yet.
+@property (nonatomic, readonly, strong) SBUser *authenticatedUser;
+
 /// The oauth2 token for the currently authenticated user. This will be sent
 /// in all requests after authentication.
 @property (nonatomic, copy, readonly) NSString *token;

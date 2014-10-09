@@ -13,10 +13,9 @@
 #import <RACEXTScope.h>
 #import "NSObject+AssociatedObjects.h"
 
-@interface SBClient ()
-@property (nonatomic, assign, readwrite) BOOL authenticated;
+@interface SBClient (AuthInternal)
 @property (nonatomic, copy, readwrite) NSString *token;
-@property (nonatomic, strong, readwrite) SBUser *user;
+@property (nonatomic, strong, readwrite) SBUser *authenticatedUser;
 @end
 
 @implementation SBClient (Auth)
@@ -105,7 +104,7 @@ NSString *SBClientID, *SBClientSecret;
                  	@strongify(self);
                  
                  	// set the currently authenticated user
-                 	self.user = user;
+                 	self.authenticatedUser = user;
              	}]
             	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
 }

@@ -22,12 +22,12 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
 
 /*!
  Request the currently authenticated user for the SBClient.
- NOTE: 	This is already available on sign in. See the `user` property.
+ NOTE: 	This is already available on sign in. See the `authenticatedUser` property.
  		calling this method will update the property as well.
  
  @return A "cold" signal that will perform the request upon subscription.
  The subscribed signal will send a "next" value of the currently
- authenticated user's SBUser object. This is the same as the `user`
+ authenticated user's SBUser object. This is the same as the `authenticatedUser`
  property after signing in.
  */
 - (RACSignal *)getAuthenticatedUser;
@@ -48,9 +48,5 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
 - (RACSignal *)getUserWithID:(NSNumber *)userID;
 
 - (RACSignal *)updateUserProfileWithParameters:(NSDictionary *)parameters;
-
-/// The authenticated user for this client, or nil if no sign in
-/// has been completed yet.
-@property (nonatomic, readonly, strong) SBUser *user;
 
 @end

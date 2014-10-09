@@ -20,11 +20,11 @@
             	cb_deserializeWithClient:self modelClass:[SBAccount class]];
 }
 
-- (RACSignal *)updateAccountWithID:(NSNumber *)accountID
-                              name:(NSString *)name
-                       description:(NSString *)description
-                      stageBlocURL:(NSString *)urlString {
-    NSParameterAssert(accountID);
+- (RACSignal *)updateAccount:(SBAccount *)account
+                        name:(NSString *)name
+                 description:(NSString *)description
+                stageBlocURL:(NSString *)urlString {
+    NSParameterAssert(account);
     NSAssert(name != nil || description != nil || urlString != nil, @"To update the account, provide at least one property to update.");
     
     NSMutableDictionary *dict = [NSMutableDictionary new];
@@ -32,7 +32,7 @@
     if (description) 	dict[@"description"] = description.copy;
     if (urlString)		dict[@"stagebloc_url"] = urlString.copy;
     
-    return [[self rac_POST:[NSString stringWithFormat:@"account/%@", accountID] parameters:dict]
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%@", account.identifier] parameters:dict]
             	cb_deserializeWithClient:self modelClass:[SBAccount class]];
 }
 
@@ -40,9 +40,9 @@
     NSParameterAssert(account);
     
     return [[self rac_GET:[NSString stringWithFormat:@"account/%@/content", account.identifier] parameters:nil]
-            	map:^id(NSDictionary *response) {
+    map:^id(NSDictionary *response) {
                     return response;
-                }];
+                }];        	
 }
 
 //- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account {

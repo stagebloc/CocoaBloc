@@ -86,9 +86,9 @@ describe(@"Client", ^{
              completed:^{
                  expect(client.authenticated).to.equal(@(YES));
                  expect(client.token).notTo.beNil();
-                 expect(client.user).to.equal(_nextUser);
+                 expect(client.authenticatedUser).to.equal(_nextUser);
                  
-                 for (id account in client.user.adminAccounts) {
+                 for (id account in client.authenticatedUser.adminAccounts) {
                      expect(account).to.beKindOf([SBAccount class]);
                  }
                  
@@ -108,8 +108,8 @@ describe(@"Client", ^{
                  done();
              }
              completed:^{
-                 expect(client.user).toNot.beNil();
-                 for (id account in client.user.adminAccounts) {
+                 expect(client.authenticatedUser).toNot.beNil();
+                 for (id account in client.authenticatedUser.adminAccounts) {
                      expect(account).to.beKindOf([SBAccount class]);
                  }
                  
@@ -127,7 +127,7 @@ describe(@"Client", ^{
         *upload = [client uploadAudioData:audioSample
                                 withTitle:@"Test Upload"
                                  fileName:@"sample.m4a"
-                          		toAccount:(SBAccount *)client.user.adminAccounts.firstObject
+                          		toAccount:(SBAccount *)client.authenticatedUser.adminAccounts.firstObject
                            progressSignal:&progress];
         
         [progress subscribeNext:^(NSNumber *progress) {
@@ -154,7 +154,7 @@ describe(@"Client", ^{
     it(@"should get an audio track by id", ^{
         waitUntil(^(DoneCallback done) {
             [[client getAudioTrackWithID:audioUpload.identifier
-                              forAccount:client.user.adminAccounts.firstObject]
+                              forAccount:client.authenticatedUser.adminAccounts.firstObject]
              subscribeNext:^(SBAudioUpload *upload) {
                  done();
              } error:^(NSError *error) {
@@ -168,7 +168,7 @@ describe(@"Client", ^{
     
     it(@"should get an account's fan club info", ^{
         waitUntil(^(DoneCallback done) {
-            [[client getContentFromFanClubForAccount:client.user.adminAccounts.firstObject
+            [[client getContentFromFanClubForAccount:client.authenticatedUser.adminAccounts.firstObject
                                           parameters:@{SBAPIMethodParameterResultOffset: @(2),
                                                        SBAPIMethodParameterResultLimit : @(1)}]
              subscribeNext:^(NSArray *contentArray) {
@@ -204,7 +204,7 @@ describe(@"Client", ^{
 	
 	it(@"should get a user by id", ^{
         waitUntil(^(DoneCallback done) {
-            [[client getUserWithID:client.user.identifier]
+            [[client getUserWithID:client.authenticatedUser.identifier]
                  subscribeNext:^(id user) {
                      expect(user).to.beKindOf([SBUser class]);
                  }
@@ -220,7 +220,7 @@ describe(@"Client", ^{
     
     it(@"should get an account by id", ^{
        waitUntil(^(DoneCallback done) {
-           [[client getAccountWithID:[(SBAccount *)client.user.adminAccounts.firstObject identifier]]
+           [[client getAccountWithID:[(SBAccount *)client.authenticatedUser.adminAccounts.firstObject identifier]]
             subscribeNext:^(SBAccount *account) {
                 expect(account).toNot.beNil();
                 expect(account).to.beKindOf([SBAccount class]);
@@ -234,7 +234,7 @@ describe(@"Client", ^{
     
     it(@"should update account info", ^{
         waitUntil(^(DoneCallback done) {
-            [[client updateAccountWithID:[(SBAccount *)client.user.adminAccounts.firstObject identifier] name:@"testuser" description:@"test desc" stageBlocURL:[NSString stringWithFormat:@"testurl-%f", [[NSDate date] timeIntervalSince1970]]]
+            [[client updateAccount:(SBAccount *)client.authenticatedUser.adminAccounts.firstObject name:@"testuser" description:@"test desc" stageBlocURL:[NSString stringWithFormat:@"testurl-%f", [[NSDate date] timeIntervalSince1970]]]
                  subscribeNext:^(SBAccount *account) {
                     expect(account).toNot.beNil();
                     expect(account).to.beKindOf([SBAccount class]);
@@ -243,6 +243,19 @@ describe(@"Client", ^{
                     done();
                 } completed:^{
                     done();
+                }];
+        });
+    });
+    
+    it(@"should get an account's activity stream", ^{
+        waitUntil(^(DoneCallback done) {
+            [[client getActivityStreamForAccount:(SBAccount *)client.authenticatedUser.adminAccounts.firstObject]
+             	subscribeNext:^(id x) {
+                    
+                } error:^(NSError *error) {
+                    
+                } completed:^{
+                    
                 }];
         });
     });
