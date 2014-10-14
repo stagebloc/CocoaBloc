@@ -270,7 +270,7 @@ describe(@"Client", ^{
     
     it(@"should get store items for an account", ^{
         waitUntil(^(DoneCallback done) {
-            [[client getStoreItemsForAccount:client.authenticatedUser.adminAccounts.firstObject parameters:@{SBAPIMethodParameterResultLimit:@2}]
+            [[client getStoreItemsForAccount:client.authenticatedUser.adminAccounts.firstObject parameters:@{SBAPIMethodParameterResultLimit:@5}]
                 subscribeNext:^(NSArray *storeItems) {
                     expect(storeItems.firstObject).to.beKindOf([SBStoreItem class]);
                 } error:^(NSError *error) {
