@@ -16,8 +16,11 @@
 #import "SBClient+User.h"
 #import "SBClient+FanClub.h"
 #import "SBClient+Audio.h"
+#import "SBClient+Store.h"
 #import "SBClient+Account.h"
 #import "SBAudioUpload.h"
+
+#import "CocoaBloc.h"
 
 #define MAC_UPLOADER_TEMP_CID @"86610122f4d3cd23dff0a1448903947d"
 #define MAC_UPLOADER_TEMP_CSE @"828c5543138fa5ad4ec360e08b66d1d4"
@@ -29,15 +32,15 @@
 #error For async magic to work, we must test on the simulator only!
 #endif
 
-SpecBegin(API)
+SpecBegin(TestServer)
 
 describe(@"Local Dev Server", ^{
-	it(@"should be running", ^{
+    it(@"should be running", ^{
         
-		AFHTTPRequestOperation *op =
-		[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stagebloc.dev"]]];
-		op.securityPolicy.allowInvalidCertificates = YES;
-		
+        AFHTTPRequestOperation *op =
+        [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://stagebloc.dev"]]];
+        op.securityPolicy.allowInvalidCertificates = YES;
+        
         waitUntil(^(DoneCallback done) {
             [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
                 expect(@(operation.response.statusCode)).to.equal(@(200));
@@ -49,8 +52,12 @@ describe(@"Local Dev Server", ^{
             
             [op start];
         });
-	});
+    });
 });
+
+SpecEnd
+
+SpecBegin(API)
 
 describe(@"Client", ^{
     __block SBClient *client;
@@ -247,15 +254,30 @@ describe(@"Client", ^{
         });
     });
     
-    it(@"should get an account's activity stream", ^{
+//    it(@"should get an account's activity stream", ^{
+//        waitUntil(^(DoneCallback done) {
+//            [[client getActivityStreamForAccount:(SBAccount *)client.authenticatedUser.adminAccounts.firstObject]
+//             	subscribeNext:^(NSArray *x) {
+//                    expect(x.firstObject).to.beKindOf([SBStoreItem class]);
+//                } error:^(NSError *error) {
+//                    expect(error).to.beNil();
+//                    done();
+//                } completed:^{
+//                    done();
+//                }];
+//        });
+//    });
+    
+    it(@"should get store items for an account", ^{
         waitUntil(^(DoneCallback done) {
-            [[client getActivityStreamForAccount:(SBAccount *)client.authenticatedUser.adminAccounts.firstObject]
-             	subscribeNext:^(id x) {
-                    
+            [[client getStoreItemsForAccount:client.authenticatedUser.adminAccounts.firstObject parameters:@{SBAPIMethodParameterResultLimit:@2}]
+                subscribeNext:^(NSArray *storeItems) {
+                    expect(storeItems.firstObject).to.beKindOf([SBStoreItem class]);
                 } error:^(NSError *error) {
-                    
+                    expect(error).to.beNil();
+                    done();
                 } completed:^{
-                    
+                    done();
                 }];
         });
     });

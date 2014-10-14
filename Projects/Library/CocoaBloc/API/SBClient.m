@@ -15,6 +15,8 @@
 
 NSString *SBAPIMethodParameterResultLimit = @"limit";
 NSString *SBAPIMethodParameterResultOffset = @"offset";
+NSString *SBAPIMethodParameterResultDirection = @"direction";
+NSString *SBAPIMethodParameterResultOrderBy = @"order_by";
 
 extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 

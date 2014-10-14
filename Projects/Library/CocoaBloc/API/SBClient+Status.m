@@ -10,4 +10,19 @@
 
 @implementation SBClient (Status)
 
+- (RACSignal *)getStatusWithID:(NSNumber *)statusID {
+    return [RACSignal empty];
+#warning imp
+}
+
+- (RACSignal *)getUsersLikingStatus:(SBStatus *)status {
+    return [RACSignal empty];
+#warning imp
+}
+
+- (RACSignal *)deleteStatus:(SBStatus *)status {
+    return [RACSignal empty];
+#warning imp
+}
+
 @end

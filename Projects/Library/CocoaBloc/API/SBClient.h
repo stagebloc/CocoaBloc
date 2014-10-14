@@ -15,8 +15,10 @@
 /// @name Globals
 
 /// API method parameter dictionary keys
-extern NSString *SBAPIMethodParameterResultLimit;
-extern NSString *SBAPIMethodParameterResultOffset;
+extern NSString *SBAPIMethodParameterResultLimit;		// NSNumber
+extern NSString *SBAPIMethodParameterResultOffset;		// NSNumber
+extern NSString *SBAPIMethodParameterResultOrderBy;		// NSString, "created" / "modified" / "price"
+extern NSString *SBAPIMethodParameterResultDirection;	// NSSring, "ASC" or "DESC"
 
 /// Fan club tier info dictionary keys
 extern NSString *SBFanClubTierInfoName;

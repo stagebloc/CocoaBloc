@@ -19,5 +19,6 @@
 #import "SBStatus.h"
 #import "SBAccount.h"
 #import "SBUser.h"
+#import "SBStoreItem.h"
 
 #endif /* COCOABLOC_H */

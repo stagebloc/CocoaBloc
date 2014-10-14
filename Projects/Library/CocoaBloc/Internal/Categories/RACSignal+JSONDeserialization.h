@@ -12,6 +12,7 @@
 
 @interface RACSignal (JSONDeserialization)
 
-- (RACSignal *)cb_deserializeWithClient:(SBClient *)client modelClass:(Class)modelClass;
+- (RACSignal *)cb_deserializeWithClient:(SBClient *)client modelClass:(Class)modelClass keyPath:(NSString *)keyPath;
+- (RACSignal *)cb_deserializeArrayWithClient:(SBClient *)client modelClass:(Class)modelClass keyPath:(NSString *)keyPath;
 
 @end

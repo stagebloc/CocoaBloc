@@ -12,7 +12,7 @@
 
 - (RACSignal *)getDashboardData;
 - (RACSignal *)getStoreOrders;
-- (RACSignal *)getStoreItems;
+- (RACSignal *)getStoreItemsForAccount:(SBAccount *)account parameters:(NSDictionary *)parameters;
 - (RACSignal *)connectAccountWithStripeUsingToken:(NSString *)stripeToken;
 - (RACSignal *)updateOrderWithID;
 

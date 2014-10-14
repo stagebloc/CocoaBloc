@@ -100,9 +100,9 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     }
     
     // use defer to turn "hot" enqueueing into cold signal
-    return [RACSignal defer:^RACSignal *{
-        return [[self rac_enqueueHTTPRequestOperation:op] cb_deserializeWithClient:self modelClass:[SBAudioUpload class]];
-    }];
+    return [[RACSignal defer:^RACSignal *{
+        return [[self rac_enqueueHTTPRequestOperation:op] cb_deserializeWithClient:self modelClass:[SBAudioUpload class] keyPath:@"data"];
+    }] setNameWithFormat:@"Upload audio (%@)", fileName];
 }
 
 @end
