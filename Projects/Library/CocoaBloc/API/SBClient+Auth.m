@@ -58,7 +58,9 @@ NSString *SBClientID, *SBClientSecret;
 }
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
-    if ([theKey isEqualToString:@"token"] || [theKey isEqualToString:@"authenticated"]) {
+    if ([theKey isEqualToString:@"token"] ||
+        [theKey isEqualToString:@"authenticated"] ||
+        [theKey isEqualToString:@"authenticatedUser"]) {
         return NO;
     }
     

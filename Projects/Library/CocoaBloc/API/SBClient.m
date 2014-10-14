@@ -22,6 +22,8 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 
 @implementation SBClient
 
+@dynamic authenticatedUser;
+
 - (id)init {
     if (!SBClientID.length || !SBClientSecret.length) {
         [NSException raise:@"CocoaBlocMissingClientIDSecretException" format:@"You may not use SBClient until you have set the current app's client id/secret with +[SBClient setClientID:clientSecret:]"];

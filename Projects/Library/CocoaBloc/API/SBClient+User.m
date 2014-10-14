@@ -35,14 +35,6 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
     return [self associatedObjectForKey:@"user"];
 }
 
-+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
-    if ([theKey isEqualToString:@"user"]) {
-        return NO;
-    }
-    
-    return [super automaticallyNotifiesObserversForKey:theKey];
-}
-
 - (RACSignal *)getUserWithID:(NSNumber *)userID {
     return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:nil]
              	map:^id(NSDictionary *response) {
