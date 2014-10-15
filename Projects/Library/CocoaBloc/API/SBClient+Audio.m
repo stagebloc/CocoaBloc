@@ -70,7 +70,7 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     NSMutableURLRequest *req =
     [self.requestSerializer multipartFormRequestWithMethod:@"POST"
                                                  URLString:endpointLocation
-                                                parameters:@{@"title" : title}
+                                                parameters:[self requestParametersWithParameters:@{@"title" : title}]
                                  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                                      [formData appendPartWithFileData:data name:@"audio" fileName:fileName mimeType:mime];
                                  } error:&err];

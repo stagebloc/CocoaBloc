@@ -8,6 +8,7 @@
 
 #import "SBClient+User.h"
 #import "SBClient.h"
+#import "SBClient+Private.h"
 #import "NSObject+AssociatedObjects.h"
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Auth.h"
@@ -26,9 +27,11 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
 @implementation SBClient (User)
 
 - (void)setAuthenticatedUser:(SBUser *)user {
-    [self willChangeValueForKey:@"authenticatedUser"];
-    [self setAssociatedObject:user forKey:@"user" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-    [self didChangeValueForKey:@"authenticatedUser"];
+    if (![user isEqual:self.authenticatedUser]) {
+        [self willChangeValueForKey:@"authenticatedUser"];
+        [self setAssociatedObject:user forKey:@"user" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+        [self didChangeValueForKey:@"authenticatedUser"];
+    }
 }
 
 - (SBUser *)authenticatedUser {
@@ -77,12 +80,12 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
 - (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress {
     NSParameterAssert(emailAddress);
     
-    return [[self rac_POST:@"users/password/reset" parameters:@{@"email":emailAddress}]
+    return [[self rac_POST:@"users/password/reset" parameters:[self requestParametersWithParameters:@{@"email":emailAddress}]]
             	setNameWithFormat:@"Password reset (%@)", emailAddress];
 }
 
 - (RACSignal *)updateUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates {
-    return [[self rac_POST:@"users/me/location/update" parameters:@{@"latitude":@(coordinates.latitude),@"longitude":@(coordinates.longitude)}]
+    return [[self rac_POST:@"users/me/location/update" parameters:[self requestParametersWithParameters:@{@"latitude":@(coordinates.latitude),@"longitude":@(coordinates.longitude)}]]
             	setNameWithFormat:@"Update coordinates"];
 }
 
@@ -102,7 +105,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
     SAFE_ASSIGN(SBClientUserProfileUpdateParameterBirthday);
 #undef SAFE_ASSIGN
     
-    return [[self rac_POST:@"users/me" parameters:p]
+    return [[self rac_POST:@"users/me" parameters:[self requestParametersWithParameters:p]]
             	setNameWithFormat:@"Update authenticated user (%@)", self.authenticatedUser];
 }
 

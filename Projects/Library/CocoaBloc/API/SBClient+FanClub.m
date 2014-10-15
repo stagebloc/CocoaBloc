@@ -10,6 +10,7 @@
 #import "SBClient.h"
 #import <RACAFNetworking.h>
 #import <RACEXTScope.h>
+#import "SBClient+Private.h"
 
 @implementation SBClient (FanClub)
 
@@ -29,7 +30,7 @@
     }
     params[@"expand"] = @"account,photo";
     
-    return [[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:params]
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:[self requestParametersWithParameters:params]]
             	setNameWithFormat:@"Create %lu-tier fan club \"%@\" (account: %@)", (unsigned long)tierInfo.allKeys.count, title, account];
 }
 
@@ -41,7 +42,7 @@
     [params addEntriesFromDictionary:parameters];
     params[@"filter"] = @"blog,photos,statuses";
     
-    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:params]
+    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
             	setNameWithFormat:@"Get "];
 }
 
@@ -51,7 +52,7 @@
     [params addEntriesFromDictionary:parameters];
     params[@"expand"] = @"user,account,photo";
     
-    return [self rac_GET:@"account/fanclubs/following/content" parameters:params];
+    return [self rac_GET:@"account/fanclubs/following/content" parameters:[self requestParametersWithParameters:params]];
 }
 
 @end

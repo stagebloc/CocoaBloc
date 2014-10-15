@@ -8,6 +8,7 @@
 
 #import "SBClient+Account.h"
 #import <RACAFNetworking.h>
+#import "SBClient+Private.h"
 #import "SBAccount.h"
 #import "RACSignal+JSONDeserialization.h"
 
@@ -33,7 +34,7 @@
     if (description) 	dict[@"description"] = description.copy;
     if (urlString)		dict[@"stagebloc_url"] = urlString.copy;
     
-    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", account.identifier] parameters:dict]
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", account.identifier] parameters:[self requestParametersWithParameters:dict]]
             	cb_deserializeWithClient:self modelClass:[SBAccount class] keyPath:@"data"]
             	setNameWithFormat:@"Update account (%@)", account];
 }

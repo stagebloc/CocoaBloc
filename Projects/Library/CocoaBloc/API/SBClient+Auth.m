@@ -91,10 +91,9 @@ NSString *SBClientID, *SBClientSecret;
                     SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
                                              fromJSONDictionary:response[@"data"][@"user"]
                                                           error:nil];
-                    user.adminAccounts = [MTLJSONAdapter
-                                          modelsOfClass:[SBAccount class]
-                                          fromJSONArray:response[@"data"][@"admin_accounts"]
-                                          error:nil];
+                    user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
+                                                         fromJSONArray:response[@"data"][@"admin_accounts"]
+                                                                 error:nil];
                   
                   	return user;
             	}]

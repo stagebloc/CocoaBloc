@@ -7,6 +7,7 @@
 //
 
 #import "SBClient+Store.h"
+#import "SBClient+Private.h"
 #import <RACAFNetworking.h>
 #import "RACSignal+JSONDeserialization.h"
 #import "SBStoreItem.h"
@@ -23,7 +24,7 @@
     SAFE_ASSIGN(SBAPIMethodParameterResultOrderBy);
 #undef SAFE_ASSIGN
     
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:p]
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:[self requestParametersWithParameters:p]]
              	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
 				setNameWithFormat:@"Get store items for account (%@)", account];
 }
