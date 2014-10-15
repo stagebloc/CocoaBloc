@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '7.0'
     s.osx.deployment_target = '10.9'
 
-	  s.subspec 'Categories' do |ss|
-      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Categories'
+    s.subspec 'Categories' do |ss|
+	  ss.header_mappings_dir = 'Projects/Library/CocoaBloc/{Categories/*.{h,m},*.{h,m}}'
       ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h,m}'
-	  end
+    end
 
     s.subspec 'API' do |ss|
       ss.dependency 'AFNetworking'
