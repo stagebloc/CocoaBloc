@@ -79,7 +79,6 @@ NSString *SBClientID, *SBClientSecret;
                                                             @"client_secret"			: SBClientSecret,
                                                             @"client_id"				: SBClientID,
                                                             @"expand"					: @"user",
-                                                            @"include_user" 			: @"1",
                                                             @"include_admin_accounts" 	: @"1"}]
             	doNext:^(NSDictionary *response) {
                    	@strongify(self);
@@ -87,9 +86,6 @@ NSString *SBClientID, *SBClientSecret;
                    	// set the auth token & auth state when a 'next' is sent
                    	self.token = response[@"data"][@"access_token"];
                	}]
-                doError:^(NSError *error) {
-                    
-                }]
               	map:^id(NSDictionary *response) {
                   	// deserialize the user
                     SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
