@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Categories' do |ss|
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Categories'
-      ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h.m}'
+      ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h,m}'
     end
 
     s.subspec 'API' do |ss|
