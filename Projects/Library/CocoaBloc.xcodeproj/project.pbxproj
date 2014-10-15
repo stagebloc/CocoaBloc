@@ -11,7 +11,7 @@
 		090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudioUpload.m */; };
 		090EB81A198800350081D406 /* ModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB819198800350081D406 /* ModelTests.m */; };
 		09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */; };
-		0949513219EF024D00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513119EF024D00E3411E /* SBClient+Private.m */; };
+		0949513519EF261E00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513419EF261E00E3411E /* SBClient+Private.m */; };
 		094CB715197B133B00BBF2BE /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
 		094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */; };
 		097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F519BE3EFC00E3CD45 /* SBClient+User.m */; };
@@ -85,8 +85,8 @@
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
 		09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreItem.h; sourceTree = "<group>"; };
 		09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStoreItem.m; sourceTree = "<group>"; };
-		0949512F19EF01FE00E3411E /* SBClient+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBClient+Private.h"; sourceTree = "<group>"; };
-		0949513119EF024D00E3411E /* SBClient+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Private.m"; sourceTree = "<group>"; };
+		0949513319EF261E00E3411E /* SBClient+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Private.h"; sourceTree = "<group>"; };
+		0949513419EF261E00E3411E /* SBClient+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Private.m"; sourceTree = "<group>"; };
 		094D917819E44CCB00254DD8 /* RACSignal+JSONDeserialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+JSONDeserialization.h"; sourceTree = "<group>"; };
 		094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+JSONDeserialization.m"; sourceTree = "<group>"; };
 		097636F419BE3EFC00E3CD45 /* SBClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+User.h"; sourceTree = "<group>"; };
@@ -405,8 +405,6 @@
 			isa = PBXGroup;
 			children = (
 				09D239E5197A054B002B0661 /* Categories */,
-				0949512F19EF01FE00E3411E /* SBClient+Private.h */,
-				0949513119EF024D00E3411E /* SBClient+Private.m */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -414,6 +412,8 @@
 		09D239E5197A054B002B0661 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				0949513319EF261E00E3411E /* SBClient+Private.h */,
+				0949513419EF261E00E3411E /* SBClient+Private.m */,
 				09D510DA1988177A00C45D8A /* NSDateFormatter+CocoaBloc.h */,
 				09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */,
 				09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */,
@@ -714,8 +714,8 @@
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
 				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
+				0949513519EF261E00E3411E /* SBClient+Private.m in Sources */,
 				0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */,
-				0949513219EF024D00E3411E /* SBClient+Private.m in Sources */,
 				094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */,
 				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
 			);
