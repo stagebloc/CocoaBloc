@@ -73,7 +73,7 @@ NSString *SBClientID, *SBClientSecret;
     
     @weakify(self);
     
-    return [[[[[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
+    return [[[[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
                                                             @"username"					: username,
                                                             @"password"					: password,
                                                             @"client_secret"			: SBClientSecret,
