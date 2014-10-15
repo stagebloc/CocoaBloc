@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
-    s.version = '0.0.3'
+    s.version = '0.0.4'
     s.authors = { 'John Heaton' => 'pikachu@stagebloc.com',
                   'Dave Skuza'  => 'neo@stagebloc.com' }
     s.social_media_url = 'https://twitter.com/StageBloc'
@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '7.0'
     s.osx.deployment_target = '10.9'
 
-	  s.subspec 'Categories' do |ss|
+    s.subspec 'Categories' do |ss|
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Categories'
       ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h.m}'
-	  end
+    end
 
     s.subspec 'API' do |ss|
       ss.dependency 'AFNetworking'
