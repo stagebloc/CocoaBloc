@@ -9,6 +9,7 @@
 #import "SBClient+Audio.h"
 #import "SBClient.h"
 #import "SBAudioUpload.h"
+#import "SBClient+Private.h"
 #import "RACSignal+JSONDeserialization.h"
 #import <RACAFNetworking.h>
 #import <RACEXTScope.h>

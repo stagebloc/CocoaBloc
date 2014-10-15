@@ -43,7 +43,7 @@
     NSParameterAssert(account);
     
     return [[self rac_GET:[NSString stringWithFormat:@"account/%@/content", account.identifier] parameters:nil]
-    map:^id(NSDictionary *response) {
+    			map:^id(NSDictionary *response) {
                     return response;
                 }];        	
 }
@@ -51,7 +51,7 @@
 //- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account {
 //    NSParameterAssert(account);
 //    
-//    return [[self rac_GET:[NSString stringWithFormat:<#(NSString *), ...#>] parameters:<#(id)#>]]
+//    return [[self rac_GET:[NSString stringWithFormat:] parameters:]]
 //}
 
 @end
