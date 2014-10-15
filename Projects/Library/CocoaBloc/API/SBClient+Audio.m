@@ -18,10 +18,10 @@
 
 - (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccount:(SBAccount *)account {
     return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", account.identifier.intValue, audioID.intValue] parameters:nil]
-             map:^id(NSDictionary *response) {
-                 return [MTLJSONAdapter modelOfClass:[SBAudioUpload class] fromJSONDictionary:response[@"data"] error:nil];
-             }]
-            setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", account.identifier.intValue, audioID.intValue];
+            	map:^id(NSDictionary *response) {
+                 	return [MTLJSONAdapter modelOfClass:[SBAudioUpload class] fromJSONDictionary:response[@"data"] error:nil];
+             	}]
+            	setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", account.identifier.intValue, audioID.intValue];
 }
 
 
@@ -84,7 +84,7 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     if (progressSignal) {
         
         // progress signal is still cold. beautiful!
-        *progressSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        *progressSignal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [op setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                 [subscriber sendNext:@((double)totalBytesWritten * 100 / totalBytesExpectedToWrite)];
                 
@@ -96,7 +96,7 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
             return [RACDisposable disposableWithBlock:^{
                 [op setUploadProgressBlock:nil];
             }];
-        }];
+        }] setNameWithFormat:@"Upload audio progress (%@)", fileName];
         
     }
     
