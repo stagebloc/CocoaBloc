@@ -17,7 +17,7 @@
 @implementation SBClient (Audio)
 
 - (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccount:(SBAccount *)account {
-    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", account.identifier.intValue, audioID.intValue] parameters:nil]
+    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", account.identifier.intValue, audioID.intValue] parameters:[self requestParametersWithParameters:nil]]
             	map:^id(NSDictionary *response) {
                  	return [MTLJSONAdapter modelOfClass:[SBAudioUpload class] fromJSONDictionary:response[@"data"] error:nil];
              	}]

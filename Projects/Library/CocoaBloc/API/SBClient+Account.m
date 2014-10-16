@@ -17,7 +17,7 @@
 - (RACSignal *)getAccountWithID:(NSNumber *)accountID {
     NSParameterAssert(accountID);
     
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:nil]
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:[self requestParametersWithParameters:nil]]
             	cb_deserializeWithClient:self modelClass:[SBAccount class] keyPath:@"data"]
             	setNameWithFormat:@"Get account with ID: %@", accountID];
 }
@@ -42,7 +42,7 @@
 - (RACSignal *)getActivityStreamForAccount:(SBAccount *)account {
     NSParameterAssert(account);
     
-    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/content", account.identifier] parameters:nil]
+    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/content", account.identifier] parameters:[self requestParametersWithParameters:nil]]
     			map:^id(NSDictionary *response) {
                     return response;
                 }];        	

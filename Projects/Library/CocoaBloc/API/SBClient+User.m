@@ -39,7 +39,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
 }
 
 - (RACSignal *)getUserWithID:(NSNumber *)userID {
-    return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:nil]
+    return [[[self rac_GET:[NSString stringWithFormat:@"users/%d", userID.intValue] parameters:[self requestParametersWithParameters:nil]]
              	map:^id(NSDictionary *response) {
                     SBUser *user = [MTLJSONAdapter
                                     modelOfClass:[SBUser class]
@@ -57,7 +57,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
 
 - (RACSignal *)getAuthenticatedUser {
     @weakify(self);
-    return [[[[self rac_GET:@"users/me" parameters:nil]
+    return [[[[self rac_GET:@"users/me" parameters:[self requestParametersWithParameters:nil]]
             	cb_deserializeWithClient:self modelClass:[SBUser class] keyPath:@"data"]
              	doNext:^(SBUser *user) {
                 	@strongify(self);
