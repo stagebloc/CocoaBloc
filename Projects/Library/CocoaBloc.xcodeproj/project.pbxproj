@@ -39,6 +39,7 @@
 		09B512511979AEA500D62F67 /* SBBlog.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512501979AEA500D62F67 /* SBBlog.m */; };
 		09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512531979AEAE00D62F67 /* SBPhoto.m */; };
 		09B512571979AEB400D62F67 /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512561979AEB400D62F67 /* SBStatus.m */; };
+		09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C54FF919F0221700CB0C81 /* SBLogInViewModel.m */; };
 		09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */; };
 		09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A2E019B8B452000D32DE /* SBActionButton.m */; };
 		09D2A34319B8EF0A000D32DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A34219B8EF0A000D32DE /* main.m */; };
@@ -139,6 +140,8 @@
 		09B512531979AEAE00D62F67 /* SBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhoto.m; sourceTree = "<group>"; };
 		09B512551979AEB400D62F67 /* SBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatus.h; sourceTree = "<group>"; };
 		09B512561979AEB400D62F67 /* SBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStatus.m; sourceTree = "<group>"; };
+		09C54FF819F0221700CB0C81 /* SBLogInViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLogInViewModel.h; sourceTree = "<group>"; };
+		09C54FF919F0221700CB0C81 /* SBLogInViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLogInViewModel.m; sourceTree = "<group>"; };
 		09C88783197D796100842D0F /* sample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.m4a; sourceTree = "<group>"; };
 		09D239E6197A0556002B0661 /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
 		09D239E7197A0556002B0661 /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
@@ -371,6 +374,8 @@
 		09B51235197985D800D62F67 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				09C54FF819F0221700CB0C81 /* SBLogInViewModel.h */,
+				09C54FF919F0221700CB0C81 /* SBLogInViewModel.m */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -711,6 +716,7 @@
 				097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */,
 				0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */,
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
+				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
 				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
