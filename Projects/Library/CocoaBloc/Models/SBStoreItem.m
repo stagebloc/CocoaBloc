@@ -15,8 +15,10 @@
 @implementation SBStoreItemPriceConfiguration
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{@"currency" : @"currency",
-             @"price"	 : @"price"};
+    return @{
+             @"currency" : @"currency",
+             @"price"	 : @"price"
+            };
 }
 
 @end
@@ -50,7 +52,7 @@
              @"weightUnit"			: @"weight_unit",
              @"weight"				: @"weight",
              @"upc"					: @"upc"
-    };
+            };
 }
 
 @end
