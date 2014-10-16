@@ -55,7 +55,7 @@
 @property (nonatomic) NSNumber *modifyingAccountID;
 @property (nonatomic, getter=isOnSale) NSNumber *onSale;
 @property (nonatomic) NSArray *options; // [SBStoreItemOptions]
-@property (nonatomic) NSNumber *numberOfPhotos;
+@property (nonatomic) id photos; // NSNumber OR NSArray
 @property (nonatomic) NSNumber *photoID;
 @property (nonatomic) NSURL *shortURL;
 @property (nonatomic) NSNumber *soldOut;

@@ -7,6 +7,7 @@
 //
 
 #import "SBStoreItem.h"
+#import "SBPhoto.h"
 #import "MTLValueTransformer+Convenience.h"
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSDateFormatter+CocoaBloc.h"
@@ -71,7 +72,7 @@
       @"modifyingAccountID"	: @"modified_by",
       @"onSale"				: @"on_sale",
       @"options"			: @"options",
-      @"numberOfPhotos"		: @"photos",
+      @"photos"				: @"photos",
       @"priceConfigurations": @"prices",
       @"shippingProviders"	: @"shipping_providers",
       @"shortURL"			: @"short_url",
@@ -81,6 +82,24 @@
       @"type"				: @"type"
     };
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:map];
+}
+
+- (MTLValueTransformer *)photosJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id photosValue) {
+        if ([photosValue isKindOfClass:[NSNumber class]]) {
+            return photosValue;
+        } else {
+            return [MTLJSONAdapter modelsOfClass:[SBPhoto class]
+                                   fromJSONArray:photosValue
+                                           error:nil];
+        }
+    } reverseBlock:^id(id photosValue) {
+        if ([photosValue isKindOfClass:[NSNumber class]]) {
+            return photosValue;
+        } else {
+            return [MTLJSONAdapter JSONArrayFromModels:photosValue];
+        }
+    }];
 }
 
 - (MTLValueTransformer *)creationDateJSONTransformer {
