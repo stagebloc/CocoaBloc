@@ -39,7 +39,9 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
                                    ]];
     if (self) {
         self.deserializationScheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground];
+#ifdef DEBUG
         self.securityPolicy.allowInvalidCertificates = YES; // dave says this is a dragon's leash
+#endif
     }
     
     return self;
