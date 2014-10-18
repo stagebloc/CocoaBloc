@@ -11,6 +11,7 @@
 #import <RACAFNetworking.h>
 #import "RACSignal+JSONDeserialization.h"
 #import "SBStoreItem.h"
+#import "SBOrder.h"
 
 @implementation SBClient (Store)
 
@@ -28,6 +29,25 @@
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:[self requestParametersWithParameters:p]]
              	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
 				setNameWithFormat:@"Get store items for account (%@)", account];
+}
+
+- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address; {
+    
+    NSDictionary *params = @{
+                         @"items": itemsToPurchase,
+                         @"address": @{
+                                 @"street_address": address.streetAddress,
+                                 @"street_address_2": address.streetAddressTwo,
+                                 @"city": address.city,
+                                 @"state": address.stateProvince,
+                                 @"postal_code": address.postalCode,
+                                 @"country": address.country
+                        }
+                    };
+    
+    return [[[self rac_POST:@"store/purchase" parameters:[self requestParametersWithParameters:params]]
+            	cb_deserializeWithClient:self modelClass:[SBOrder class] keyPath:@"data"]
+            setNameWithFormat:@"Purchase items: %@", itemsToPurchase];
 }
 
 @end

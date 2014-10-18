@@ -7,6 +7,7 @@
 //
 
 #import "SBClient.h"
+#import "SBAddress.h"
 
 @interface SBClient (Store)
 
@@ -15,5 +16,6 @@
 - (RACSignal *)getStoreItemsForAccount:(SBAccount *)account parameters:(NSDictionary *)parameters;
 - (RACSignal *)connectAccountWithStripeUsingToken:(NSString *)stripeToken;
 - (RACSignal *)updateOrderWithID;
+- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address;
 
 @end
