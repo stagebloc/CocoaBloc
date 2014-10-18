@@ -31,10 +31,11 @@
 				setNameWithFormat:@"Get store items for account (%@)", account];
 }
 
-- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address; {
+- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address {
     
     NSDictionary *params = @{
                          @"items": itemsToPurchase,
+                         @"token": purchaseToken,
                          @"address": @{
                                  @"street_address": address.streetAddress,
                                  @"street_address_2": address.streetAddressTwo,
