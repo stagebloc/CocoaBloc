@@ -31,9 +31,29 @@
 				setNameWithFormat:@"Get store items for account (%@)", account];
 }
 
-- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address {
-    
+- (RACSignal *)getShippingRatesForItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address
+{
     NSDictionary *params = @{
+                             @"items": itemsToPurchase,
+                             @"address": @{
+                                     @"street_address": address.streetAddress,
+                                     @"street_address_2": address.streetAddressTwo,
+                                     @"city": address.city,
+                                     @"state": address.stateProvince,
+                                     @"postal_code": address.postalCode,
+                                     @"country": address.country
+                            }
+                        };
+
+    // TODO: This shouldn't serialize the response into SBOrder stuff
+    return [[[self rac_POST:@"store/shipping/rates" parameters:[self requestParametersWithParameters:params]]
+            	cb_deserializeWithClient:self modelClass:[SBOrder class] keyPath:@"data"]
+            setNameWithFormat:@"Shipping rates for items: %@", itemsToPurchase];
+}
+
+- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address andEmail:(NSString *)email {
+    // TODO: The address key could probably make user of it's serializer somehow?
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                          @"items": itemsToPurchase,
                          @"token": purchaseToken,
                          @"address": @{
@@ -44,7 +64,15 @@
                                  @"postal_code": address.postalCode,
                                  @"country": address.country
                         }
-                    };
+                    }];
+
+    if (nil == email) {
+        if (!self.authenticatedUser) {
+            // TODO: Return some sort of error RAC signal
+        }
+    } else {
+        [params setValue:email forKey:@"email"];
+    }
     
     return [[[self rac_POST:@"store/purchase" parameters:[self requestParametersWithParameters:params]]
             	cb_deserializeWithClient:self modelClass:[SBOrder class] keyPath:@"data"]

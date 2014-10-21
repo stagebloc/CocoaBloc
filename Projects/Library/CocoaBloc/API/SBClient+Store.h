@@ -16,6 +16,7 @@
 - (RACSignal *)getStoreItemsForAccount:(SBAccount *)account parameters:(NSDictionary *)parameters;
 - (RACSignal *)connectAccountWithStripeUsingToken:(NSString *)stripeToken;
 - (RACSignal *)updateOrderWithID;
-- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address;
+- (RACSignal *)getShippingRatesForItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address;
+- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address andEmail:(NSString *)email;
 
 @end
