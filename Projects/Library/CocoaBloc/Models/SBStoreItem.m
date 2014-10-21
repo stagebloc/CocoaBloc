@@ -86,7 +86,7 @@
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:map];
 }
 
-- (MTLValueTransformer *)photosJSONTransformer {
++ (MTLValueTransformer *)photosJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id photosValue) {
         if ([photosValue isKindOfClass:[NSNumber class]]) {
             return photosValue;
@@ -104,19 +104,19 @@
     }];
 }
 
-- (MTLValueTransformer *)creationDateJSONTransformer {
++ (MTLValueTransformer *)creationDateJSONTransformer {
     return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
-- (MTLValueTransformer *)modificationDateJSONTransformer {
++ (MTLValueTransformer *)modificationDateJSONTransformer {
     return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
-- (MTLValueTransformer *)shortURLJSONTransformer {
++ (MTLValueTransformer *)shortURLJSONTransformer {
     return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
-- (MTLValueTransformer *)optionsJSONTransformer {
++ (MTLValueTransformer *)optionsJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSArray *options) {
         return [MTLJSONAdapter modelsOfClass:[SBStoreItemOption class]
                                fromJSONArray:options
@@ -126,7 +126,7 @@
     }];
 }
 
-- (MTLValueTransformer *)shippingProvidersJSONTransformer {
++ (MTLValueTransformer *)shippingProvidersJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSArray *jsonArray) {
         return [MTLJSONAdapter modelsOfClass:[SBStoreItemShippingProvider class]
                                fromJSONArray:jsonArray
@@ -136,7 +136,7 @@
     }];
 }
 
-- (MTLValueTransformer *)priceConfigurationsJSONTransformer {
++ (MTLValueTransformer *)priceConfigurationsJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSArray *jsonArray) {
         return [MTLJSONAdapter modelsOfClass:[SBStoreItemPriceConfiguration class]
                                fromJSONArray:jsonArray
