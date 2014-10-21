@@ -10,6 +10,11 @@
 #define COCOABLOC_H
 
 #import "SBClient.h"
+#import "SBClient+Auth.h"
+#import "SBClient+User.h"
+#import "SBClient+Account.h"
+#import "SBClient+Store.h"
+#import "SBClient+Audio.h"
 #import "SBObject.h"
 #import "SBNotification.h"
 #import "SBFanClub.h"
