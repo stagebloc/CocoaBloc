@@ -33,42 +33,30 @@
 
 - (RACSignal *)getShippingRatesForItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address
 {
+    NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
     NSDictionary *params = @{
                              @"items": itemsToPurchase,
-                             @"address": @{
-                                     @"street_address": address.streetAddress,
-                                     @"street_address_2": address.streetAddressTwo,
-                                     @"city": address.city,
-                                     @"state": address.stateProvince,
-                                     @"postal_code": address.postalCode,
-                                     @"country": address.country
-                            }
+                             @"address": JSONaddress
                         };
 
-    // TODO: This shouldn't serialize the response into SBOrder stuff
-    return [[[self rac_POST:@"store/shipping/rates" parameters:[self requestParametersWithParameters:params]]
-            	cb_deserializeWithClient:self modelClass:[SBOrder class] keyPath:@"data"]
+    return [[self rac_POST:@"store/shipping/rates" parameters:[self requestParametersWithParameters:params]]
             setNameWithFormat:@"Shipping rates for items: %@", itemsToPurchase];
 }
 
 - (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address andEmail:(NSString *)email {
-    // TODO: The address key could probably make user of it's serializer somehow?
+    NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                          @"items": itemsToPurchase,
                          @"token": purchaseToken,
-                         @"address": @{
-                                 @"street_address": address.streetAddress,
-                                 @"street_address_2": address.streetAddressTwo,
-                                 @"city": address.city,
-                                 @"state": address.stateProvince,
-                                 @"postal_code": address.postalCode,
-                                 @"country": address.country
-                        }
+                         @"address": JSONaddress
                     }];
 
-    if (nil == email) {
+    if (email == nil) {
         if (!self.authenticatedUser) {
-            // TODO: Return some sort of error RAC signal
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                [subscriber sendError:[[NSError alloc] initWithDomain:@"com.stagebloc.cocoabloc" code:400 userInfo:@{@"message" : @"An email or authenticated user must be used"}]];
+                return nil;
+            }];
         }
     } else {
         [params setValue:email forKey:@"email"];
