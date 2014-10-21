@@ -67,7 +67,7 @@
         if ([dateShippedValue isKindOfClass:[NSNumber class]]) {
             return nil;
         } else {
-            return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+            return [[NSDateFormatter CocoaBlocJSONDateFormatter] dateFromString:dateShippedValue];
         }
     } reverseBlock:^id(id dateShippedValue) {
         return [MTLJSONAdapter JSONArrayFromModels:dateShippedValue];
