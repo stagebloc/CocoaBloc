@@ -14,6 +14,8 @@
 		0949513519EF261E00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513419EF261E00E3411E /* SBClient+Private.m */; };
 		094CB715197B133B00BBF2BE /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
 		094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */; };
+		09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFC19F6CF7A00E57355 /* SBAddress.m */; };
+		09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFE19F6CF7A00E57355 /* SBOrder.m */; };
 		097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F519BE3EFC00E3CD45 /* SBClient+User.m */; };
 		097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */; };
 		097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636FB19BE3F1400E3CD45 /* SBClient+Store.m */; };
@@ -90,6 +92,10 @@
 		0949513419EF261E00E3411E /* SBClient+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Private.m"; sourceTree = "<group>"; };
 		094D917819E44CCB00254DD8 /* RACSignal+JSONDeserialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+JSONDeserialization.h"; sourceTree = "<group>"; };
 		094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+JSONDeserialization.m"; sourceTree = "<group>"; };
+		09568EFB19F6CF7A00E57355 /* SBAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAddress.h; sourceTree = "<group>"; };
+		09568EFC19F6CF7A00E57355 /* SBAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAddress.m; sourceTree = "<group>"; };
+		09568EFD19F6CF7A00E57355 /* SBOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrder.h; sourceTree = "<group>"; };
+		09568EFE19F6CF7A00E57355 /* SBOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOrder.m; sourceTree = "<group>"; };
 		097636F419BE3EFC00E3CD45 /* SBClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+User.h"; sourceTree = "<group>"; };
 		097636F519BE3EFC00E3CD45 /* SBClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+User.m"; sourceTree = "<group>"; };
 		097636F719BE3F0B00E3CD45 /* SBClient+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+FanClub.h"; sourceTree = "<group>"; };
@@ -346,6 +352,10 @@
 		09A897F4197862AC00EE983C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				09568EFB19F6CF7A00E57355 /* SBAddress.h */,
+				09568EFC19F6CF7A00E57355 /* SBAddress.m */,
+				09568EFD19F6CF7A00E57355 /* SBOrder.h */,
+				09568EFE19F6CF7A00E57355 /* SBOrder.m */,
 				09B5123F1979ADDF00D62F67 /* SBObject.h */,
 				09B512401979ADDF00D62F67 /* SBObject.m */,
 				09B5124B1979AE7000D62F67 /* SBNotification.h */,
@@ -694,6 +704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
+				09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */,
 				097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */,
@@ -711,6 +722,7 @@
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
+				09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */,
 				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
 				097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */,

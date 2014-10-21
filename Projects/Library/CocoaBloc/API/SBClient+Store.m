@@ -11,6 +11,7 @@
 #import <RACAFNetworking.h>
 #import "RACSignal+JSONDeserialization.h"
 #import "SBStoreItem.h"
+#import "SBOrder.h"
 
 @implementation SBClient (Store)
 
@@ -28,6 +29,42 @@
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:[self requestParametersWithParameters:p]]
              	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
 				setNameWithFormat:@"Get store items for account (%@)", account];
+}
+
+- (RACSignal *)getShippingRatesForItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address
+{
+    NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
+    NSDictionary *params = @{
+                             @"items": itemsToPurchase,
+                             @"address": JSONaddress
+                        };
+
+    return [[self rac_POST:@"store/shipping/rates" parameters:[self requestParametersWithParameters:params]]
+            setNameWithFormat:@"Shipping rates for items: %@", itemsToPurchase];
+}
+
+- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address andEmail:(NSString *)email {
+    NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
+                         @"items": itemsToPurchase,
+                         @"token": purchaseToken,
+                         @"address": JSONaddress
+                    }];
+
+    if (email == nil) {
+        if (!self.authenticatedUser) {
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                [subscriber sendError:[[NSError alloc] initWithDomain:@"com.stagebloc.cocoabloc" code:400 userInfo:@{@"message" : @"An email or authenticated user must be used"}]];
+                return nil;
+            }];
+        }
+    } else {
+        [params setValue:email forKey:@"email"];
+    }
+    
+    return [[[self rac_POST:@"store/purchase" parameters:[self requestParametersWithParameters:params]]
+            	cb_deserializeWithClient:self modelClass:[SBOrder class] keyPath:@"data"]
+            setNameWithFormat:@"Purchase items: %@", itemsToPurchase];
 }
 
 @end
