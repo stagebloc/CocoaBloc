@@ -16,10 +16,8 @@
 
 - (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccount:(SBAccount *)account {
     return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/store/items/%d", account.identifier.intValue, storeItemID.intValue] parameters:[self requestParametersWithParameters:nil]]
-            	map:^id(NSDictionary *response) {
-                    return [MTLJSONAdapter modelOfClass:[SBStoreItem class] fromJSONDictionary:response[@"data"] error:nil];
-                }]
-            setNameWithFormat:@"Get store item (accountID: %d, audioID: %d)", account.identifier.intValue, storeItemID.intValue];
+             	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
+            	setNameWithFormat:@"Get store item (accountID: %d, audioID: %d)", account.identifier.intValue, storeItemID.intValue];
 }
 
 - (RACSignal *)getStoreItemsForAccount:(SBAccount *)account parameters:(NSDictionary *)parameters {
