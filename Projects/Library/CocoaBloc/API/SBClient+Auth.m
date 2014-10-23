@@ -110,28 +110,39 @@ NSString *SBClientID, *SBClientSecret;
 - (RACSignal *)signUpWithEmail:(NSString *)email
                       password:(NSString *)password
                      birthDate:(NSDate *)birthDate
+                          name:(NSString *)name
+                      username:(NSString *)username
                         gender:(NSString *)gender
-               sourceAccountID:(NSString *)sourceAccountID;
+               sourceAccountID:(NSNumber *)sourceAccountID
 {
     NSParameterAssert(email);
     NSParameterAssert(password);
     NSParameterAssert(birthDate);
-    NSParameterAssert(gender);
-    NSParameterAssert(sourceAccountID);
 
     NSDateFormatter *df = [NSDateFormatter new];
     df.locale = [NSLocale localeWithLocaleIdentifier:@"EN_US_POSIX"];
     df.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    df.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    df.dateFormat = @"yyyy-MM-dd";
     NSString *birthday = [df stringFromDate:birthDate];
 
-    NSDictionary *params = @{ @"email"              : email,
-                              @"password"           : password,
-                              @"birthday"           : birthday,
-                              @"source_account_id"  : sourceAccountID,
-                              @"gender"             : gender};
+    NSDictionary *required = @{@"email" : email, @"password" : password, @"birthday" : birthday};
+    NSMutableDictionary *params = [NSMutableDictionary  dictionaryWithDictionary:required];
+
+    if (name) {
+        [params addEntriesFromDictionary:@{@"name" : name}];
+    }
+    if (username) {
+        [params addEntriesFromDictionary:@{@"username" : username}];
+    }
+    if (gender) {
+        [params addEntriesFromDictionary:@{@"gender" : gender}];
+    }
+    if (sourceAccountID) {
+        [params addEntriesFromDictionary:@{@"source_account_id" : sourceAccountID}];
+    }
+
     @weakify(self);
-    
+
     return [[[[self rac_POST:@"users" parameters:[self requestParametersWithParameters:params]]
             doNext:^(NSDictionary *response) {
                 @strongify(self);

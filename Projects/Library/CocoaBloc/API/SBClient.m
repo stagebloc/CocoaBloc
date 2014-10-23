@@ -32,7 +32,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     
     self = [super initWithBaseURL:[NSURL URLWithString:
 #ifdef DEBUG
-                                   @"https://api.stagebloc.com/v1"
+                                   @"https://api.stagebloc.dev/v1"
 #else
                                    @"https://api.stagebloc.com/v1"
 #endif
