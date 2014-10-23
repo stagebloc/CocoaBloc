@@ -7,6 +7,7 @@
 //
 
 #import "SBClient+Auth.h"
+#import "SBClient+Private.h"
 #import "SBClient.h"
 #import "SBClient+User.h"
 #import <RACAFNetworking.h>
@@ -70,7 +71,7 @@ NSString *SBClientID, *SBClientSecret;
 - (RACSignal *)logInWithUsername:(NSString *)username password:(NSString *)password {
     NSParameterAssert(username);
     NSParameterAssert(password);
-    
+
     @weakify(self);
     
     return [[[[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
@@ -108,12 +109,55 @@ NSString *SBClientID, *SBClientSecret;
 
 - (RACSignal *)signUpWithEmail:(NSString *)email
                       password:(NSString *)password
-                     birthDate:(NSDate *)birthDate {
+                     birthDate:(NSDate *)birthDate
+                        gender:(NSString *)gender
+               sourceAccountID:(NSString *)sourceAccountID;
+{
     NSParameterAssert(email);
     NSParameterAssert(password);
     NSParameterAssert(birthDate);
+    NSParameterAssert(gender);
+    NSParameterAssert(sourceAccountID);
+
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.locale = [NSLocale localeWithLocaleIdentifier:@"EN_US_POSIX"];
+    df.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    df.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSString *birthday = [df stringFromDate:birthDate];
+
+    NSDictionary *params = @{ @"email"              : email,
+                              @"password"           : password,
+                              @"birthday"           : birthday,
+                              @"source_account_id"  : sourceAccountID,
+                              @"gender"             : gender};
+    @weakify(self);
     
-    return [RACSignal error:nil];
+    return [[[[self rac_POST:@"users" parameters:[self requestParametersWithParameters:params]]
+            doNext:^(NSDictionary *response) {
+                @strongify(self);
+
+                // set the auth token & auth state when a 'next' is sent
+                self.token = response[@"data"][@"access_token"];
+            }]
+
+            map:^id(NSDictionary *response) {
+
+                // deserialize the user
+                SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
+                                         fromJSONDictionary:response[@"data"][@"user"]
+                                                      error:nil];
+
+                user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
+                                                     fromJSONArray:response[@"data"][@"admin_accounts"]
+                                                             error:nil];
+                return user;
+            }]
+            doNext:^(SBUser *user) {
+                @strongify(self);
+
+                // set the currently authenticated user
+                self.authenticatedUser = user;
+            }];
 }
 
 @end
