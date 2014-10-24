@@ -124,8 +124,6 @@ NSString *SBClientID, *SBClientSecret;
 
     NSDictionary *p = @{@"email" : user.emailAddress,
                         @"password" : password,
-                        @"name" : user.name,
-                        @"username" : user.username,
                         @"gender" : user.gender,
                         @"birthday" : birthday};
 
