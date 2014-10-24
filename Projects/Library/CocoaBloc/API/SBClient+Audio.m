@@ -18,9 +18,7 @@
 
 - (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccount:(SBAccount *)account {
     return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", account.identifier.intValue, audioID.intValue] parameters:[self requestParametersWithParameters:nil]]
-            	map:^id(NSDictionary *response) {
-                 	return [MTLJSONAdapter modelOfClass:[SBAudioUpload class] fromJSONDictionary:response[@"data"] error:nil];
-             	}]
+             	cb_deserializeArrayWithClient:self modelClass:[SBAudioUpload class] keyPath:@"data"]
             	setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", account.identifier.intValue, audioID.intValue];
 }
 
