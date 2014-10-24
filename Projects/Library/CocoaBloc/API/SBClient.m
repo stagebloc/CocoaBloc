@@ -30,13 +30,18 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
         return nil;
     }
     
-    self = [super initWithBaseURL:[NSURL URLWithString:
+    BOOL cppDebug = NO;
 #ifdef DEBUG
-                                   @"https://api.stagebloc.dev/v1"
-#else
-                                   @"https://api.stagebloc.com/v1"
+    cppDebug = YES;
 #endif
-                                   ]];
+    
+    NSString *ext = @"com";
+    if ([NSProcessInfo processInfo].environment[@"SB_LOCAL_DEV"] && !cppDebug) { // enforce .com on release builds
+    	ext = @"dev";
+    }
+    NSString *urlString = [NSString stringWithFormat:@"https://api.stagebloc.%@/v1", ext];
+    
+    self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (self) {
         self.deserializationScheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground];
 #ifdef DEBUG
