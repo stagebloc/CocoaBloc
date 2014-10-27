@@ -47,7 +47,9 @@
  */
 - (RACSignal *)signUpWithEmail:(NSString *)email
                       password:(NSString *)password
-                     birthDate:(NSDate *)birthDate __attribute__((unavailable("Not implemented in v1 yet")));
+                      birthday:(NSDate *)birthday
+                        gender:(NSString *)gender
+               sourceAccountID:(NSNumber *)sourceAccountID;
 
 /// The state of authentication for this client instance. Only after signing in a
 /// user will this be true.
