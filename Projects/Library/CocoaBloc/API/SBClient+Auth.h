@@ -45,8 +45,10 @@
  The subscribed signal will send a "next" value
  of the newly authenticated user (SBUser).
  */
-- (RACSignal *)signUpWithUser:(SBUser *)user
+- (RACSignal *)signUpWithEmail:(NSString *)email
                       password:(NSString *)password
+                      birthday:(NSDate *)birthday
+                        gender:(NSString *)gender
                sourceAccountID:(NSNumber *)sourceAccountID;
 
 /// The state of authentication for this client instance. Only after signing in a

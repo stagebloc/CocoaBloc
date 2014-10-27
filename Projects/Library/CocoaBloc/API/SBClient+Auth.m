@@ -107,31 +107,36 @@ NSString *SBClientID, *SBClientSecret;
             	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
 }
 
-- (RACSignal *)signUpWithUser:(SBUser *)user
-                     password:(NSString *)password
+- (RACSignal *)signUpWithEmail:(NSString *)email
+                      password:(NSString *)password
+                      birthday:(NSDate *)birthday
+                        gender:(NSString *)gender
               sourceAccountID:(NSNumber *)sourceAccountID
 {
-    // Required fields
-    NSParameterAssert(user.emailAddress);
+    // Required signup parameters
+    NSParameterAssert(email);
     NSParameterAssert(password);
-    NSParameterAssert(user.birthday);
+    NSParameterAssert(birthday);
 
     NSDateFormatter *df = [NSDateFormatter new];
     df.locale = [NSLocale localeWithLocaleIdentifier:@"EN_US_POSIX"];
     df.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     df.dateFormat = @"yyyy-MM-dd";
-    NSString *birthday = [df stringFromDate:user.birthday];
+    NSString *birthdayString = [df stringFromDate:birthday];
 
-    NSDictionary *p = @{@"email" : user.emailAddress,
+    NSDictionary *p = @{@"email" : email,
                         @"password" : password,
-                        @"gender" : user.gender,
-                        @"birthday" : birthday};
+                        @"birthday" : birthdayString};
 
+    // Optional signup parameters
     NSMutableDictionary *params = [NSMutableDictionary  dictionaryWithDictionary:p];
+    if (gender) {
+        [params addEntriesFromDictionary:@{@"gender" : gender}];
+    }
     if (sourceAccountID) {
         [params addEntriesFromDictionary:@{@"source_account_id" : sourceAccountID}];
     }
-
+    
     @weakify(self);
 
     return [[[[self rac_POST:@"users" parameters:[self requestParametersWithParameters:params]]
