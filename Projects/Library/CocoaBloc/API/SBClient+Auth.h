@@ -51,6 +51,8 @@
                         gender:(NSString *)gender
                sourceAccountID:(NSNumber *)sourceAccountID;
 
+/// Method discards the authenticated user and token of the SBClient
+-(void)signOutUser;
 /// The state of authentication for this client instance. Only after signing in a
 /// user will this be true.
 @property (nonatomic, getter = isAuthenticated, readonly) BOOL authenticated;

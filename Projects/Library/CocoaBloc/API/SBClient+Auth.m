@@ -167,4 +167,10 @@ NSString *SBClientID, *SBClientSecret;
             }];
 }
 
+-(void)signOutUser
+{
+    self.authenticatedUser = nil;
+    self.token = nil;
+}
+
 @end
