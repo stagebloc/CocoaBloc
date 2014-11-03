@@ -104,6 +104,24 @@
     }];
 }
 
++ (MTLValueTransformer *)photoIDJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id photoValue) {
+        if ([photoValue isKindOfClass:[NSNumber class]]) {
+            return photoValue;
+        } else {
+            return [MTLJSONAdapter modelOfClass:[SBPhoto class]
+                             fromJSONDictionary:photoValue
+                                          error:nil];
+        }
+    } reverseBlock:^id(id photoValue) {
+        if ([photoValue isKindOfClass:[NSNumber class]]) {
+            return photoValue;
+        } else {
+            return [MTLJSONAdapter JSONDictionaryFromModel:photoValue];
+        }
+    }];
+}
+
 + (MTLValueTransformer *)creationDateJSONTransformer {
     return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
