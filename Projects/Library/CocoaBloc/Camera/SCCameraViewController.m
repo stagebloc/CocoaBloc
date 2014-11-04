@@ -26,7 +26,6 @@
 @property (nonatomic, strong) UIButton *adjustFlashMode;
 @property (nonatomic, strong) UIButton *toggleCamera;
 @property (nonatomic, strong) UISwitch *toggleSwitch;
-@property (nonatomic, strong) UILongPressGestureRecognizer *press;
 @property (nonatomic, strong) UIView *topOverlay;
 @property (nonatomic, strong) UIView *bottomOverlay;
 @property (nonatomic, strong) UIToolbar *shutterView;
@@ -55,7 +54,7 @@
     _toolBarExpanded = NO;
 
     self.view.backgroundColor = [UIColor blackColor];
-
+    
     self.captureManager = [SCCaptureManager sharedInstance];
     self.captureManager.photoManager.delegate = self;
     ((SCVideoManager *)self.captureManager.videoManager).maximumStitchCount = 1;
@@ -239,6 +238,15 @@
     [[[SCCaptureManager sharedInstance] photoManager] captureImage];
 }
 
+#pragma mark - Status bar states
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 #pragma mark - Choose existing methods
 
 -(void)selectChooseExisting:(id)sender
@@ -397,10 +405,8 @@
 -(void)switchChanged:(id)sender
 {
     if (_toggleSwitch.on) {
-        [self.recordButton removeGestureRecognizer:_press];
-        [self.captureManager setCaptureType:SCCaptureTypePhoto];
+        self.captureManager.captureType = SCCaptureTypePhoto;
     } else {
-        [self.recordButton addGestureRecognizer:_press];
         self.captureManager.captureType = SCCaptureTypeVideo;
     }
 }
