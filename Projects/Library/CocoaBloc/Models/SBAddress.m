@@ -17,6 +17,7 @@
             @{@"streetAddress"      : @"street_address",
               @"streetAddressTwo"   : @"street_address_2",
               @"city"               : @"city",
+              @"stateProvince"      : @"state",
               @"postalCode"         : @"postal_code",
               @"country"            : @"country"}];
 }
