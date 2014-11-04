@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
       ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h,m}'
     end
 
-    s.subspec 'API' do |ss|
+    s.subspec 'API' do |ss|git add-commit -m 'updated pod spec for camera module'
       ss.dependency 'AFNetworking'
       ss.dependency 'AFNetworking-RACExtensions'
       ss.dependency 'CocoaBloc/Models'
@@ -49,4 +49,12 @@ Pod::Spec.new do |s|
       ss.source_files = 'Projects/Library/CocoaBloc/ViewModels/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/ViewModels'
     end
+
+    s.subspec 'CameraModule' do |ss|
+      ss.dependency 'CocoaBloc/API'
+      ss.dependency 'CocoaBloc/UI'
+      ss.source_files = 'Projects/Library/CocoaBloc/CameraModule/{Controllers,Views,Capture,Assets,Protocols}/*.{h,m}'
+      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/CameraModule'
+    end
+
 end
