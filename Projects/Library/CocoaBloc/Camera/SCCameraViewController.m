@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIButton *chooseExistingButton;
 @property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UISwitch *toggleSwitch;
+@property (nonatomic, strong) UIButton *optionsButton;
 
 //toolbar
 @property UIToolbar *toolbar;
@@ -28,7 +29,7 @@
 @property (nonatomic, strong) UIButton *toggleAspectRatioButton;
 @property (nonatomic, strong) UIButton *adjustFlashModeButton;
 @property (nonatomic, strong) UIButton *toggleCameraButton;
-
+//
 
 @property (nonatomic, strong) UIView *topOverlayView;
 @property (nonatomic, strong) UIView *bottomOverlayView;
@@ -66,9 +67,10 @@
 - (UIButton*) chooseExistingButton {
     if (!_chooseExistingButton) {
         _chooseExistingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_chooseExistingButton setBackgroundImage:[UIImage imageNamed:@"existing"] forState:UIControlStateNormal];
+        [_chooseExistingButton setImage:[UIImage imageNamed:@"existing"] forState:UIControlStateNormal];
         _chooseExistingButton.layer.masksToBounds = YES;
         [_chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _chooseExistingButton.imageView.contentMode = UIViewContentModeCenter;
     }
     return _chooseExistingButton;
 }
@@ -118,6 +120,17 @@
     return _shutterToolbar;
 }
 
+- (UIButton*) optionsButton {
+    if (!_optionsButton) {
+        _optionsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_optionsButton setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
+        _optionsButton.layer.masksToBounds = YES;
+        [_optionsButton addTarget:self action:@selector(expandControlButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _optionsButton.imageView.contentMode = UIViewContentModeCenter;
+    }
+    return _optionsButton;
+}
+
 #pragma mark - Toolbar views
 - (UIToolbar*) toolbar {
     if (!_toolbar) {
@@ -165,6 +178,80 @@
 }
 
 #pragma mark - View state
+- (void) initializeViews {
+    //add capture view
+    SCCaptureView *captureView = [[SCCaptureView alloc] initWithCaptureSession:self.captureManager.captureSession];
+    [self.view addSubview:captureView];
+    [captureView autoCenterInSuperview];
+    [captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
+    [captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
+    ((AVCaptureVideoPreviewLayer *)captureView.layer).videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
+    CGFloat buttonWH = 30;
+    
+    //shutter toolbar
+    [self.view addSubview:self.shutterToolbar];
+    
+    //top overlay view
+    [self.view addSubview:self.topOverlayView];
+    [self.topOverlayView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:0.f];
+    [self.topOverlayView autoSetDimension:ALDimensionHeight toSize:44.f];
+    [self.topOverlayView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view];
+    [self.topOverlayView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view withOffset:0.0];
+    
+    //bottom overlay view
+    [self.view addSubview:self.bottomOverlayView];
+    [self.bottomOverlayView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:0.f];
+    [self.bottomOverlayView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view];
+    [self.bottomOverlayView autoSetDimension:ALDimensionHeight toSize:CGRectGetHeight(self.view.bounds) - CGRectGetWidth(self.view.bounds) - 44.f];
+    [self.bottomOverlayView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view withOffset:0.0];
+    
+    //progress bar
+    [self.view addSubview:self.progressBar];
+    [self.progressBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
+    [self.progressBar autoSetDimension:ALDimensionHeight toSize:5.0f];
+    [self.progressBar autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
+    [self.progressBar autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:0];
+    
+    //tool bar
+    [self.view addSubview:self.toolbar];
+    [self.toolbar addSubview:self.toggleAspectRatioButton];
+    [self.toolbar addSubview:self.adjustFlashModeButton];
+    [self.toolbar addSubview:self.toggleCameraButton];
+    
+    //toggle switch
+    [self.view addSubview:self.toggleSwitch];
+    [self.toggleSwitch autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-10.0f];
+    [self.toggleSwitch autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:(self.view.frame.size.width/2) - (self.toggleSwitch.frame.size.width/2)];
+    
+    //record button
+    [self.view addSubview:self.recordButton];
+    [self.recordButton autoSetDimension:ALDimensionWidth toSize:64.f];
+    [self.recordButton autoSetDimension:ALDimensionHeight toSize:64.f];
+    [self.recordButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
+    [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-60.f];
+    
+    //choose existing button
+    [self.view addSubview:self.chooseExistingButton];
+    [self.chooseExistingButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:15.f];
+    [self.chooseExistingButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-15.f];
+    [self.chooseExistingButton autoSetDimension:ALDimensionHeight toSize:buttonWH];
+    [self.chooseExistingButton autoSetDimension:ALDimensionWidth toSize:buttonWH];
+
+    //close button
+    [self.view addSubview:self.closeButton];
+    [self.closeButton autoSetDimension:ALDimensionHeight toSize:buttonWH];
+    [self.closeButton autoSetDimension:ALDimensionWidth toSize:buttonWH];
+    [self.closeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:15.f];
+    [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:15.f];
+    
+    [self.view addSubview:self.optionsButton];
+    [self.optionsButton autoSetDimension:ALDimensionHeight toSize:buttonWH];
+    [self.optionsButton autoSetDimension:ALDimensionWidth toSize:buttonWH];
+    [self.optionsButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-15.f];
+    [self.optionsButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-15.f];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -175,78 +262,8 @@
     self.captureManager = [SCCaptureManager sharedInstance];
     self.captureManager.photoManager.delegate = self;
     ((SCVideoManager *)self.captureManager.videoManager).maximumStitchCount = 1;
-
-    //add capture view
-    SCCaptureView *captureView = [[SCCaptureView alloc] initWithCaptureSession:self.captureManager.captureSession];
-    [self.view addSubview:captureView];
-    [captureView autoCenterInSuperview];
-    [captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
-    [captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
-    ((AVCaptureVideoPreviewLayer *)captureView.layer).videoGravity = AVLayerVideoGravityResizeAspectFill;
-
-    //shutter toolbar
-    [self.view addSubview:self.shutterToolbar];
-
-    //top overlay view
-    [self.view addSubview:self.topOverlayView];
-    [self.topOverlayView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:0.f];
-    [self.topOverlayView autoSetDimension:ALDimensionHeight toSize:44.f];
-    [self.topOverlayView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view];
-    [self.topOverlayView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view withOffset:0.0];
-
-    //bottom overlay view
-    [self.view addSubview:self.bottomOverlayView];
-    [self.bottomOverlayView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:0.f];
-    [self.bottomOverlayView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view];
-    [self.bottomOverlayView autoSetDimension:ALDimensionHeight toSize:CGRectGetHeight(self.view.bounds) - CGRectGetWidth(self.view.bounds) - 44.f];
-    [self.bottomOverlayView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view withOffset:0.0];
-
-    //progress bar
-    [self.view addSubview:self.progressBar];
-    [self.progressBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
-    [self.progressBar autoSetDimension:ALDimensionHeight toSize:5.0f];
-    [self.progressBar autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
-    [self.progressBar autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:0];
-
-    //tool bar
-    [self.view addSubview:self.toolbar];
-    [self.toolbar addSubview:self.toggleAspectRatioButton];
-    [self.toolbar addSubview:self.adjustFlashModeButton];
-    [self.toolbar addSubview:self.toggleCameraButton];
-
-    //toggle switch
-    [self.view addSubview:self.toggleSwitch];
-    [self.toggleSwitch autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-10.0f];
-    [self.toggleSwitch autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:(self.view.frame.size.width/2) - (self.toggleSwitch.frame.size.width/2)];
-
-    //record button
-    [self.view addSubview:self.recordButton];
-    [self.recordButton autoSetDimension:ALDimensionWidth toSize:64.f];
-    [self.recordButton autoSetDimension:ALDimensionHeight toSize:64.f];
-    [self.recordButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
-    [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-60.f];
-
-    //choose existing button
-    [self.view addSubview:self.chooseExistingButton];
-    [self.chooseExistingButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:15.f];
-    [self.chooseExistingButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-15.f];
-
-    //close button
-    [self.view addSubview:self.closeButton];
-    CGFloat wh = 30;
-    [self.closeButton autoSetDimension:ALDimensionHeight toSize:wh];
-    [self.closeButton autoSetDimension:ALDimensionWidth toSize:wh];
-    [self.closeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:15.f];
-    [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:15.f];
-
-    UIButton *expandControlPanel = [[UIButton alloc] init];
-    [expandControlPanel setImage:[UIImage imageNamed:@"options"] forState:UIControlStateNormal];
-    expandControlPanel.layer.masksToBounds = YES;
-    [expandControlPanel addTarget:self action:@selector(selectExpandControlPanel:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:expandControlPanel];
-
-    [expandControlPanel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-15.f];
-    [expandControlPanel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-15.f];
+    
+    [self initializeViews];
 
     __weak typeof(self) weakSelf = self;
     RAC(self.topOverlayView, hidden) = RACObserve(self, captureManager.photoManager.aspectRatioDefault).distinctUntilChanged;
@@ -445,6 +462,16 @@
     }
 }
 
+
+-(void)expandControlButtonPressed:(UIButton *)sender {
+    if (_toolBarExpanded) {
+        [self animateDown];
+    } else {
+        [self animateUp];
+    }
+    _toolBarExpanded = !_toolBarExpanded;
+}
+
 #pragma mark - Camera toggle handling
 -(void)switchCamera
 {
@@ -486,16 +513,6 @@
 }
 
 #pragma mark - Options control panel
-
--(void)selectExpandControlPanel:(UIButton *)sender
-{
-    if (_toolBarExpanded) {
-        [self animateDown];
-    } else {
-        [self animateUp];
-    }
-    _toolBarExpanded = !_toolBarExpanded;
-}
 
 -(void)animateUp
 {
