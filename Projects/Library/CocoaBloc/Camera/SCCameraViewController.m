@@ -76,7 +76,8 @@
 - (UIButton*) closeButton {
     if (!_closeButton) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        _closeButton.imageView.contentMode = UIViewContentModeCenter;
+        [_closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         _closeButton.layer.masksToBounds = YES;
         [_closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -232,9 +233,11 @@
 
     //close button
     [self.view addSubview:self.closeButton];
+    CGFloat wh = 30;
+    [self.closeButton autoSetDimension:ALDimensionHeight toSize:wh];
+    [self.closeButton autoSetDimension:ALDimensionWidth toSize:wh];
     [self.closeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:15.f];
     [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:15.f];
-
 
     UIButton *expandControlPanel = [[UIButton alloc] init];
     [expandControlPanel setImage:[UIImage imageNamed:@"options"] forState:UIControlStateNormal];
@@ -437,7 +440,9 @@
 }
 
 -(void)closeButtonPressed:(id)sender {
-    // Dismiss the view controller within the larger application
+    if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
+        [self.delegate cameraViewControllerDidFinish:self];
+    }
 }
 
 #pragma mark - Camera toggle handling
