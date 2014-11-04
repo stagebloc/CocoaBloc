@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
       ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h,m}'
     end
 
-    s.subspec 'API' do |ss|git add-commit -m 'updated pod spec for camera module'
+    s.subspec 'API' do |ss|
       ss.dependency 'AFNetworking'
       ss.dependency 'AFNetworking-RACExtensions'
       ss.dependency 'CocoaBloc/Models'
