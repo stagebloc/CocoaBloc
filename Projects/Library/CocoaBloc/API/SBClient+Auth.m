@@ -15,7 +15,6 @@
 #import "NSObject+AssociatedObjects.h"
 
 @interface SBClient (AuthInternal)
-@property (nonatomic, copy, readwrite) NSString *token;
 @property (nonatomic, strong, readwrite) SBUser *authenticatedUser;
 @end
 

@@ -63,6 +63,6 @@
 
 /// The oauth2 token for the currently authenticated user. This will be sent
 /// in all requests after authentication.
-@property (nonatomic, copy, readonly) NSString *token;
+@property (nonatomic, copy) NSString *token;
 
 @end

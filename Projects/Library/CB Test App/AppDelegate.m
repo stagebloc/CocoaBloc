@@ -7,16 +7,32 @@
 //
 
 #import "AppDelegate.h"
+#import <CocoaBloc/SBAuthenticationViewController.h>
+#import <CocoaBloc.h>
 
 @interface AppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    SBAuthenticationViewController *vc;
+}
             
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = [UIViewController new];
+    [self.window makeKeyAndVisible];
+    
+    [SBClient setClientID:@"de4346e640860eb3d6fd97e11e475d0d" clientSecret:@"c2288f625407c5aff55e41d1fef1ed73"];
+    
+    vc = [SBAuthenticationViewController new];
+    [[vc presentFromParent:self.window.rootViewController] subscribeNext:^(id x) {
+        NSLog(@"%@", x);
+    } error:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+    
     return YES;
 }
 

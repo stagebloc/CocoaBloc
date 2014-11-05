@@ -6,23 +6,63 @@ CocoaBloc enables any Cocoa developer to have instant access to the StageBloc AP
 ## Setup
 
 CocoaBloc can easily be added to any project via [CocoaPods](http://cocoapods.org/). Simply add the CocoaBloc pod to your `Podfile` and run a `pod install`.
-```
+```ruby
 pod "CocoaBloc"
 ```
 
 Once the source code is in your project, the one line of code below is all that is required to make CocoaBloc ready. A client ID and secret can be made within the developers section of your account on the StageBloc backend.
 
-```
+```objc
 [SBClient setClientID:@"client_id" clientSecret:@"client_secret"];
 ```
 
+## About Dependencies & Prerequisites
+
+### [ReactiveCocoa](http://github.com/ReactiveCocoa/ReactiveCocoa.git)
+CocoaBloc makes liberal use of the fantastic ReactiveCocoa (RAC), and in fact all API client (`SBClient`) methods do not fire off the requests themselves, but use the input parameters to compose a "cold" `RACSignal` which when subscribed to, performs the network request, validation, deserialization, and delivery back to you with either an error or tidy model object. Building our API this way gives it the ability for extremely useful transformations, chaining, limiting, etc to things like API requests, or serialization jobs.
+
+### [Mantle](https://github.com/Mantle/Mantle)
+All of the JSON<~>ObjC model mapping and translation is handled by Mantle. As such, you'll find the models to be easily convertible back to JSON and have all methods available to them that come with being an `MTLModel` subclass.
+
+### [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+This framework has become the gold standard for easily working with modern web APIs with asyncrony in mind. We also leverage some extensions to AFNetworking that bridge it into the ReactiveCocoa world, giving us the core of how we operate the client object.
+
+### So, what do I need to know?
+Read the RAC documentation. Really. It's not much, and it will help you get you up in running if you're not already, with RAC and the function-reactive mindset that accompanies it.
+
 ## Usage
 
-To use CocoaBloc, all you need to do is instantiate a new client.
+To use CocoaBloc for unauthenticated requests, or for testing authenticated requests with a static token during development, all you need to do is instantiate a new client.
 
-```
+```objc
+// Creates an unauthenticated client. This client can still be used to access API
+// endpoints that do not require authentication (read-only, public data).
+// NOTE: You may set the OAuth token of this client manually for testing purposes
 SBClient *client = [SBClient new];
 ```
+
+The proper way to obtain an authenticated client for StageBloc user is to use our pre-baked OAuth view controller, which lets the user securely log on on StageBloc's site (in-app web view), which feeds back a token that we use to craft you an `SBClient` that has:
+  1. A reference to that token
+  2. A populated model object for currently signed in user
+  3. Access to make any authenticated requests
+
+```objc
+SBAuthenticationViewController *authVC = [SBAuthenticationViewController new];
+
+// Subscription to this presentation signal will show the view controller.
+// Cancellation or completion of the subscription will dismiss it.
+// Upon success, the signal will send a next value of the authenticated client.
+[[authVC presentFromParent:currentVC]
+    subscribeNext:^(SBClient *authenticatedClient) {
+        // we now have a client to work with
+    }
+    error:^(NSError *error) {
+        // handle error
+    }];
+```
+
+## Documentation
+[appledoc](https://github.com/tomaz/appledoc) is used during each build to generate a docset from our header comments. It is mandatory that you document classes and methods that are public in the framework. The generated documentation files can be important into Dash quite easily and provides instantly updated, Apple-style, searchable/indexed documentation each build without any additional effort.
 
 ## Contributing
 
