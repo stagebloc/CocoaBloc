@@ -36,7 +36,6 @@
         [_cameraView.chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
-        [_cameraView.optionsButton addTarget:self action:@selector(expandControlButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleAspectRatioButton addTarget:self action:@selector(toggleAspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.adjustFlashModeButton addTarget:self action:@selector(adjustFlashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -250,24 +249,17 @@
 }
 
 -(void)handleSingleTap:(UITapGestureRecognizer *)tapRecognizer {
-    [self.cameraView animateDown:nil];
-    _toolBarExpanded = NO;
+    if ([self.cameraView isHudHidden]) {
+        [self.cameraView animateHudHidden:NO completion:nil];
+    } else {
+        [self.cameraView animateHudHidden:YES completion:nil];
+    }
 }
 
 -(void)closeButtonPressed:(id)sender {
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
     }
-}
-
-
--(void)expandControlButtonPressed:(UIButton *)sender {
-    if (_toolBarExpanded) {
-        [self.cameraView animateDown:nil];
-    } else {
-        [self.cameraView animateUp:nil];
-    }
-    _toolBarExpanded = !_toolBarExpanded;
 }
 
 #pragma mark - Camera toggle handling

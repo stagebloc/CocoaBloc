@@ -85,16 +85,6 @@
     return _shutterToolbar;
 }
 
-- (UIButton*) optionsButton {
-    if (!_optionsButton) {
-        _optionsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_optionsButton setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
-        _optionsButton.layer.masksToBounds = YES;
-        _optionsButton.imageView.contentMode = UIViewContentModeCenter;
-    }
-    return _optionsButton;
-}
-
 #pragma mark - Toolbar views
 - (UIToolbar*) toolbar {
     if (!_toolbar) {
@@ -196,12 +186,6 @@
     [self.closeButton autoSetDimension:ALDimensionWidth toSize:buttonWH];
     [self.closeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:15.f];
     [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:15.f];
-    
-    [self addSubview:self.optionsButton];
-    [self.optionsButton autoSetDimension:ALDimensionHeight toSize:buttonWH];
-    [self.optionsButton autoSetDimension:ALDimensionWidth toSize:buttonWH];
-    [self.optionsButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-15.f];
-    [self.optionsButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-15.f];
 }
 
 - (id) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager {
@@ -221,50 +205,33 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     _recordButton.layer.cornerRadius = CGRectGetHeight(_recordButton.frame) / 2;
+    
+    CGFloat yOffset = self.recordButton.frame.origin.y - 80.f;
+    CGFloat height = CGRectGetMaxY(self.bounds) - yOffset;
+    _toolbar.frame = CGRectMake(self.frame.origin.x, yOffset, self.frame.size.width, height);
 }
 
-#pragma mark - Animations 
--(void)animateUp:(void(^)(BOOL finished))completion
-{
-    _toggleCameraButton.alpha = 0.0f;
-    _toggleAspectRatioButton.alpha = 0.0f;
-    _adjustFlashModeButton.alpha = 0.0f;
-    [UIView animateWithDuration:0.5 animations:^{_toggleCameraButton.alpha = 1.0;}];
-    [UIView animateWithDuration:0.5 animations:^{_toggleAspectRatioButton.alpha = 1.0;}];
-    [UIView animateWithDuration:0.5 animations:^{_adjustFlashModeButton.alpha = 1.0;}];
-    
-    [UIView animateWithDuration:0.5f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         CGFloat yOffset = self.recordButton.frame.origin.y - 80.f;
-                         CGFloat height = CGRectGetMaxY(self.bounds) - yOffset;
-                         _toolbar.frame = CGRectMake(self.frame.origin.x, yOffset, self.frame.size.width, height);                 }
-                     completion:^(BOOL finished){
-                         if (completion)
-                             completion(finished);
-                     }];
+- (BOOL) isHudHidden {
+    return _toolbar.alpha == 0;
 }
 
--(void)animateDown:(void(^)(BOOL finished))completion
-{
-    _toggleCameraButton.alpha = 1.0f;
-    _toggleAspectRatioButton.alpha = 1.0f;
-    _adjustFlashModeButton.alpha = 1.0f;
-    [UIView animateWithDuration:0.5 animations:^{_toggleCameraButton.alpha = 0.0;}];
-    [UIView animateWithDuration:0.5 animations:^{_toggleAspectRatioButton.alpha = 0.0;}];
-    [UIView animateWithDuration:0.5 animations:^{_adjustFlashModeButton.alpha = 0.0;}];
+#pragma mark - Animations
+- (void) animateHudHidden:(BOOL)hidden completion:(void (^)(BOOL))completion {
+    [self animateHudHidden:hidden duration:0.5f completion:completion];
+}
+
+-(void)animateHudHidden:(BOOL)hidden duration:(CGFloat)duration completion:(void(^)(BOOL finished))completion {
+    CGFloat toValue = hidden ? 0 : 1.0f;
     
-    [UIView animateWithDuration:0.5f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         _toolbar.frame = CGRectMake(self.frame.origin.x, self.frame.size.height, self.frame.size.width, 0.0f);
-                     }
-                     completion:^(BOOL finished){
-                         if (completion)
-                             completion(finished);
-                     }];
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
+        _toggleCameraButton.alpha = toValue;
+        _toggleAspectRatioButton.alpha = toValue;
+        _adjustFlashModeButton.alpha = toValue;
+        _toolbar.alpha = toValue;
+    } completion:^(BOOL finished) {
+        if (completion)
+            completion(finished);
+    }];
 }
 
 @end

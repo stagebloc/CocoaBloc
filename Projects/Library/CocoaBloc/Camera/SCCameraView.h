@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UIButton *chooseExistingButton;
 @property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UISwitch *toggleSwitch;
-@property (nonatomic, strong) UIButton *optionsButton;
 
 @property (nonatomic, strong) UIView *topOverlayView;
 @property (nonatomic, strong) UIView *bottomOverlayView;
@@ -37,7 +36,9 @@
 
 - (id) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
 
--(void)animateUp:(void(^)(BOOL finished))completion;
--(void)animateDown:(void(^)(BOOL finished))completion;
+- (BOOL) isHudHidden;
+
+-(void)animateHudHidden:(BOOL)hidden completion:(void(^)(BOOL finished))completion;
+-(void)animateHudHidden:(BOOL)hidden duration:(CGFloat)duration completion:(void(^)(BOOL finished))completion;
 
 @end
