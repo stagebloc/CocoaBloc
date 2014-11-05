@@ -31,9 +31,6 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     }
     
     BOOL cppDebug = NO;
-#ifdef DEBUG
-    cppDebug = YES;
-#endif
     
     NSString *ext = @"com";
     if ([NSProcessInfo processInfo].environment[@"SB_LOCAL_DEV"] && !cppDebug) { // enforce .com on release builds

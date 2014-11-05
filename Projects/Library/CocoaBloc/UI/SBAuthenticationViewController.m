@@ -12,22 +12,23 @@
 #import <SBClient.h>
 #import <SBClient+Auth.h>
 
-extern NSString *SBClientID;
+extern NSString *SBClientID, *SBRedirectURI;
 
 @implementation SBAuthenticationViewController {
 @private
-    void (^_signInCompletion)(BOOL success, NSString *token);
-    __weak RACSignal *currentlyPresentingSignal;
+    RACSubject *webViewSubject;
 }
 
 + (NSURL *)OAuthURL {
-    NSAssert(SBClientID != nil, @"You must first set this application's client ID with +[SBClient setClientID:clientSecret:]");
+    NSAssert(SBClientID != nil && SBRedirectURI, @"You must first set this application's authentication details with +[SBClient setClientID:clientSecret:redirectURI:]. A valid client ID and redirect URI are required for this view controller to function.");
     
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://stagebloc.com/connect?client_id=%@&response_type=code&redirect_uri=SBiOSAuth://", SBClientID]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://stagebloc.com/connect?client_id=%@&response_type=code&redirect_uri=%@", SBClientID, SBRedirectURI]];
 }
 
 - (void)loadView {
     [super loadView];
+    
+    webViewSubject = [RACSubject new];
     
     _webView = [UIWebView new];
     _webView.delegate = self;
@@ -38,15 +39,17 @@ extern NSString *SBClientID;
 - (void)viewDidLoad {
     [super viewDidLoad];
   	
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:<#(SEL)#>]
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(selfDismiss)];
+}
+
+- (void)selfDismiss {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     if ([webView.request.URL.scheme isEqualToString:@"SBiOSAuth"]) {
 #warning ask josh about scheme
-        if (_signInCompletion) {
-            _signInCompletion(YES, nil);
-        }
+        [webViewSubject sendNext:@"AUTH"];
     }
 }
 
@@ -65,30 +68,24 @@ extern NSString *SBClientID;
         @strongify(parent);
         
         @weakify(subscriber);
-        self->_signInCompletion = ^(BOOL success, NSString *token) {
-            @strongify(subscriber);
-            
-            if (success) {
-                SBClient *c = [SBClient new];
-                c.token = token;
-                [subscriber sendNext:c];
-            } else {
-//                [subscriber sendError:<#(NSError *)#>]
-            }
-        };
+        RACDisposable *d = [webViewSubject subscribeNext:^(NSString *token) {
+            @weakify(self);
+        
+            [subscriber sendNext:[SBClient authenticatedClientWithToken:token]];
+        }];
         
         UIViewController *vc = parent ?: [UIApplication sharedApplication].keyWindow.rootViewController;
         [vc presentViewController:[[UINavigationController alloc] initWithRootViewController:self] animated:YES completion:nil];
         
         @weakify(vc);
         @weakify(self);
-    	return [RACDisposable disposableWithBlock:^{
+        return [RACCompoundDisposable compoundDisposableWithDisposables:@[d, [RACDisposable disposableWithBlock:^{
             @strongify(vc);
             @strongify(self);
             
             [self.webView stopLoading];
             [vc dismissViewControllerAnimated:YES completion:nil];
-        }];
+        }]]];
     }] publish] autoconnect];
 }
 

@@ -12,6 +12,9 @@
 
 /// @name Authentication/Sign Up
 
++ (instancetype)unauthenticatedClient;
++ (instancetype)authenticatedClientWithToken:(NSString *)token;
+
 /*!
  Set the current app's client ID and client secret, which must be
  registered for use with StageBloc.

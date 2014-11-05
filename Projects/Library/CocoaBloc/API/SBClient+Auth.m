@@ -20,12 +20,23 @@
 
 @implementation SBClient (Auth)
 
-// global client id/secret (global is it should be one per app)
-NSString *SBClientID, *SBClientSecret;
++ (instancetype)unauthenticatedClient {
+    return [self new];
+}
 
-+ (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret {
++ (instancetype)authenticatedClientWithToken:(NSString *)token {
+    SBClient *s = [self new];
+    s.token = token;
+    return s;
+}
+
+// global client id/secret (global is it should be one per app)
+NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
+
++ (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret redirectURI:(NSString *)redirectURI {
     SBClientID = clientID.copy;
     SBClientSecret = clientSecret.copy;
+    SBRedirectURI = redirectURI.copy;
 }
 
 - (void)setToken:(NSString *)token {
