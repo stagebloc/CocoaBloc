@@ -63,7 +63,7 @@ extern NSString *SBClientID, *SBRedirectURI;
     @weakify(self);
     @weakify(parent);
     
-    return [[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    return [[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         @strongify(parent);
         
@@ -86,7 +86,7 @@ extern NSString *SBClientID, *SBRedirectURI;
             [self.webView stopLoading];
             [vc dismissViewControllerAnimated:YES completion:nil];
         }]]];
-    }] publish] autoconnect];
+    }] takeUntil:self.rac_willDeallocSignal] publish] autoconnect];
 }
 
 @end

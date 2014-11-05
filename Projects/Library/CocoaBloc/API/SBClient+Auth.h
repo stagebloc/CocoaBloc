@@ -18,11 +18,8 @@
 /*!
  Set the current app's client ID and client secret, which must be
  registered for use with StageBloc.
- 
- @param clientID 		the client ID
- @param clientSecret 	the client secret
  */
-+ (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
++ (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret redirectURI:(NSString *)redirectURI;
 
 /*!
  Log in a StageBloc user with the given credentials.
