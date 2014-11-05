@@ -64,6 +64,13 @@ SBAuthenticationViewController *authVC = [SBAuthenticationViewController new];
 ## Documentation
 [appledoc](https://github.com/tomaz/appledoc) is used during each build to generate a docset from our header comments. It is mandatory that you document classes and methods that are public in the framework. The generated documentation files can be important into Dash quite easily and provides instantly updated, Apple-style, searchable/indexed documentation each build without any additional effort.
 
+### Dash Setup
+If you're a fan of [Dash](https://itunes.apple.com/us/app/dash/id458034879?ls=1&mt=12), the awesome documentation viewer app for OS X, you can import this dynamic docset and have always-updated docs from your last build.
+
+![](https://cldup.com/MZLkzQDmed.png)
+
+Just press the `+` button, navigate to `<this-repository>/Doc` and select the docset (you will need to compile at least once for this to be present). Now you have nice Apple-esque docs to work with rather than having to go header-hunting.
+
 ## Contributing
 
 CocoaBloc will expand as the [StageBloc API](https://stagebloc.com/developers/api) expands and should theoretically have all available API endpoints implemented at any point in time. If you'd like to contribute and aid in this, check out the `Guidelines.txt` file!
