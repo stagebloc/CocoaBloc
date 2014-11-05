@@ -24,13 +24,13 @@
     self.window.rootViewController = [UIViewController new];
     [self.window makeKeyAndVisible];
     
-    [SBClient setClientID:@"de4346e640860eb3d6fd97e11e475d0d" clientSecret:@"c2288f625407c5aff55e41d1fef1ed73"];
+    [SBClient setClientID:@"de4346e640860eb3d6fd97e11e475d0d" clientSecret:@"c2288f625407c5aff55e41d1fef1ed73" redirectURI:@"theseboots://"];
     
     vc = [SBAuthenticationViewController new];
     [[vc presentFromParent:self.window.rootViewController] subscribeNext:^(id x) {
-        NSLog(@"%@", x);
+        NSLog(@"win %@", x);
     } error:^(NSError *error) {
-        NSLog(@"%@", error);
+        NSLog(@"err %@", error);
     }];
     
     return YES;

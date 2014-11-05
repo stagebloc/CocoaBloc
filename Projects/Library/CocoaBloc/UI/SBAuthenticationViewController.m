@@ -19,16 +19,23 @@ extern NSString *SBClientID, *SBRedirectURI;
     RACSubject *webViewSubject;
 }
 
+- (instancetype)init {
+    if ((self = [super init])) {
+        webViewSubject = [RACSubject new];
+    }
+    return self;
+}
+
 + (NSURL *)OAuthURL {
-    NSAssert(SBClientID != nil && SBRedirectURI, @"You must first set this application's authentication details with +[SBClient setClientID:clientSecret:redirectURI:]. A valid client ID and redirect URI are required for this view controller to function.");
+    NSAssert(SBClientID != nil && SBRedirectURI != nil, @"You must first set this application's authentication details with +[SBClient setClientID:clientSecret:redirectURI:]. A valid client ID and redirect URI are required for this view controller to function.");
     
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://stagebloc.com/connect?client_id=%@&response_type=code&redirect_uri=%@", SBClientID, SBRedirectURI]];
+    NSLog(@"%@", [NSString stringWithFormat:@"http://stagebloc.com/connect?client_id=%@&response_type=code&redirect_uri=%@", SBClientID, SBRedirectURI]);
+    
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://stagebloc.com/connect?client_id=%@&response_type=code&redirect_uri=%@", SBClientID, SBRedirectURI]];
 }
 
 - (void)loadView {
     [super loadView];
-    
-    webViewSubject = [RACSubject new];
     
     _webView = [UIWebView new];
     _webView.delegate = self;
@@ -46,11 +53,12 @@ extern NSString *SBClientID, *SBRedirectURI;
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    if ([webView.request.URL.scheme isEqualToString:@"SBiOSAuth"]) {
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if ([webView.request.URL.scheme isEqualToString:SBRedirectURI]) {
 #warning ask josh about scheme
         [webViewSubject sendNext:@"AUTH"];
     }
+    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,7 +77,7 @@ extern NSString *SBClientID, *SBRedirectURI;
         
         @weakify(subscriber);
         RACDisposable *d = [webViewSubject subscribeNext:^(NSString *token) {
-            @weakify(self);
+            @strongify(subscriber);
         
             [subscriber sendNext:[SBClient authenticatedClientWithToken:token]];
         }];
