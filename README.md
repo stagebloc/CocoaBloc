@@ -10,10 +10,10 @@ CocoaBloc can easily be added to any project via [CocoaPods](http://cocoapods.or
 pod "CocoaBloc"
 ```
 
-Once the source code is in your project, the one line of code below is all that is required to make CocoaBloc ready. A client ID and secret can be made within the developers section of your account on the StageBloc backend.
+Once the source code is in your project, the one line of code below is all that is required to make CocoaBloc ready. A client ID and secret can be made within the developers section of your account on the StageBloc backend. These, along with the redirect URI for OAuth if you're intending to let users log in for authenticated requests, are supplied once for each app.
 
 ```objc
-[SBClient setClientID:@"client_id" clientSecret:@"client_secret"];
+[SBClient setClientID:@"client_id" clientSecret:@"client_secret" redirectURI:@"my_app_uri://"];
 ```
 
 ## About Dependencies & Prerequisites
