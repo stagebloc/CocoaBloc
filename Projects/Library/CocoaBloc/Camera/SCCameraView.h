@@ -35,7 +35,7 @@
 @property (nonatomic, strong) UIButton *toggleCameraButton;
 //
 
-- (id) initWithFrame:(CGRect)frame CaptureManager:(SCCaptureManager*)captureManager;
+- (id) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
 
 -(void)animateUp:(void(^)(BOOL finished))completion;
 -(void)animateDown:(void(^)(BOOL finished))completion;

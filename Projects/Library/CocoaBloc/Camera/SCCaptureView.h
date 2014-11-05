@@ -17,8 +17,17 @@
 
 @interface SCCaptureView : UIView
 
-- (instancetype)initWithCaptureSession:(AVCaptureSession *)session;
-
 @property (nonatomic, readonly) AVCaptureSession *captureSession;
+
+- (id)initWithCaptureSession:(AVCaptureSession *)session;
+
+- (void) addSessionIfNeeded:(AVCaptureSession*)session;
+
+/*
+ REQUIRED - must call when no longer using
+ an instance of this view. Session is retained
+ by layer, must remove.
+ */
+- (void) removeSession;
 
 @end

@@ -28,6 +28,23 @@
 
 @implementation SCCameraViewController
 
+- (SCCameraView*) cameraView {
+    if (!_cameraView) {
+        _cameraView = [[SCCameraView alloc] initWithFrame:self.view.frame captureManager:self.captureManager];
+        
+        [_cameraView.recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.toggleSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+        [_cameraView.optionsButton addTarget:self action:@selector(expandControlButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.toggleAspectRatioButton addTarget:self action:@selector(toggleAspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.adjustFlashModeButton addTarget:self action:@selector(adjustFlashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _cameraView.progressBar.delegate = self;
+    }
+    return _cameraView;
+}
+
 #pragma mark - View state
 - (void)viewDidLoad
 {
@@ -40,22 +57,10 @@
     self.captureManager.photoManager.delegate = self;
     ((SCVideoManager *)self.captureManager.videoManager).maximumStitchCount = 1;
     
-    self.cameraView = [[SCCameraView alloc] initWithFrame:self.view.frame CaptureManager:self.captureManager];
     [self.view addSubview:self.cameraView];
     [self.cameraView autoCenterInSuperview];
     [self.cameraView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
-    
-
-    [self.cameraView.recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.cameraView.chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.cameraView.toggleSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.cameraView.optionsButton addTarget:self action:@selector(expandControlButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.cameraView.toggleAspectRatioButton addTarget:self action:@selector(toggleAspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.cameraView.adjustFlashModeButton addTarget:self action:@selector(adjustFlashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
     
     __weak typeof(self) weakSelf = self;
     RAC(self.cameraView.topOverlayView, hidden) = RACObserve(self, captureManager.photoManager.aspectRatioDefault).distinctUntilChanged;
@@ -101,6 +106,12 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
+    [self.cameraView.captureView addSessionIfNeeded:self.captureManager.captureSession];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.cameraView.captureView removeSession];
 }
 
 -(void)viewDidAppear:(BOOL)animated

@@ -204,7 +204,7 @@
     [self.optionsButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-15.f];
 }
 
-- (id) initWithFrame:(CGRect)frame CaptureManager:(SCCaptureManager*)captureManager {
+- (id) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager {
     if (self = [super initWithFrame:frame]) {
         self.captureView = [[SCCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
         [self addSubview:self.captureView];

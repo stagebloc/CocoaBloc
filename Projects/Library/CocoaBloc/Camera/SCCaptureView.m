@@ -12,23 +12,34 @@
 
 @implementation SCCaptureView
 
-+ (Class)layerClass
-{
++ (Class)layerClass {
     return [AVCaptureVideoPreviewLayer class];
 }
 
-- (instancetype)initWithCaptureSession:(AVCaptureSession *)session
-{
-    self = [super init];
-    if (self) {
-        ((AVCaptureVideoPreviewLayer *)self.layer).session = session;
+- (AVCaptureVideoPreviewLayer*) captureLayer {
+    return ((AVCaptureVideoPreviewLayer *)self.layer);
+}
+
+- (AVCaptureSession *)captureSession {
+    return self.captureLayer.session;
+}
+
+- (id) initWithCaptureSession:(AVCaptureSession *)session {
+    if (self = [super init]) {
+        [self addSessionIfNeeded:session];
     }
     return self;
 }
 
-- (AVCaptureSession *)captureSession
-{
-    return ((AVCaptureVideoPreviewLayer *)self.layer).session;
+- (void) addSessionIfNeeded:(AVCaptureSession*)session {
+    if (self.captureLayer.session == session)
+        return;
+    self.captureLayer.session = nil;
+    self.captureLayer.session = session;
+}
+
+- (void) removeSession {
+    self.captureLayer.session = nil;
 }
 
 @end
