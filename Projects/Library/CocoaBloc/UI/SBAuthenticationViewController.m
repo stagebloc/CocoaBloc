@@ -54,9 +54,9 @@ extern NSString *SBClientID, *SBRedirectURI;
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if ([webView.request.URL.scheme isEqualToString:SBRedirectURI]) {
-#warning ask josh about scheme
-        [webViewSubject sendNext:@"AUTH"];
+    if ([request.URL.absoluteString hasPrefix:SBRedirectURI]) {
+        [webViewSubject sendNext:[request.URL.query stringByReplacingOccurrencesOfString:@"code=" withString:@""]];
+        return NO;
     }
     return YES;
 }
