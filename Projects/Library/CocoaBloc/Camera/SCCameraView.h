@@ -27,13 +27,14 @@ typedef NS_ENUM(NSUInteger, SCCameraAspectRatio) {
 //Top HUD views
 @property (nonatomic, strong) UIView *topHudView;
 @property (nonatomic, strong) UIButton *closeButton;
+@property (nonatomic, strong) UIButton *toggleCameraButton;
+@property (nonatomic, strong) UIButton *flashModeButton;
+@property (nonatomic, strong) UILabel *timeLabel;
 
 //Bottom HUD views
 @property (nonatomic, strong) UIView *bottomHudView;
 @property (nonatomic, strong) UIButton *aspectRatioButton;
-@property (nonatomic, strong) UIButton *toggleCameraButton;
 @property (nonatomic, strong) UIButton *chooseExistingButton;
-@property (nonatomic, strong) UIButton *flashModeButton;
 
 //Change this property to adjust the flashModeButton image
 @property (nonatomic, assign) AVCaptureFlashMode flashMode;

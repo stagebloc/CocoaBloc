@@ -37,7 +37,7 @@
 
 /*
  The inner filled view.
- Defaul is a red circle view.
+ Defaul is a fc_stageblocBlueColor bordered view.
  */
 @property (nonatomic, readonly) UIView *innerView;
 

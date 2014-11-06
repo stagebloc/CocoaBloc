@@ -9,6 +9,7 @@
 #import "SCRecordButton.h"
 #import <PureLayout/PureLayout.h>
 #import <pop/POP.h>
+#import "UIColor+FanClub.h"
 
 @interface SCRecordButton ()
 
@@ -25,7 +26,7 @@
         CGFloat offset = 4;
         _innerView = [[UIView alloc] initWithFrame:CGRectMake(offset, offset, CGRectGetWidth(self.bounds)-offset*2, CGRectGetHeight(self.bounds)-offset*2)];
         _innerView.backgroundColor = [UIColor whiteColor];
-        _innerView.layer.borderColor = [UIColor redColor].CGColor;
+        _innerView.layer.borderColor = [UIColor fc_stageblocBlueColor].CGColor;
         _innerView.layer.borderWidth = 1.5f;
     }
     return _innerView;
