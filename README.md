@@ -54,9 +54,9 @@ SBAuthenticationViewController *authVC = [SBAuthenticationViewController new];
 // Upon success, the signal will send a next value of the authenticated client.
   @weakify(client);
   [[[authVC presentFromParent:self.window.rootViewController]
-     	flattenMap:^RACStream *(NSString *authorizationCode) {
-            @strongify(client);
-            return [client logInWithAuthorizationCode:authorizationCode];
+      flattenMap:^RACStream *(NSString *authorizationCode) {
+          @strongify(client);
+          return [client logInWithAuthorizationCode:authorizationCode];
       }]
       subscribeNext:^(SBUser *loggedInUser) {
           // Success
@@ -65,7 +65,9 @@ SBAuthenticationViewController *authVC = [SBAuthenticationViewController new];
           // Handle error
       }
       completed:^{
-          // User pressed cancel and dismissed log in view
+          // Signal completed. This will always happen, but if no
+          // error or next value has been sent yet, this means that the
+          // user pressed cancel and dismissed log in view.
       }];
 ```
 
