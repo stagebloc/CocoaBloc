@@ -18,6 +18,39 @@
 @property (nonatomic, strong, readwrite) SBUser *authenticatedUser;
 @end
 
+@implementation RACSignal (SBClientPrivate)
+
+- (RACSignal *)_processedAuthSignalForClient:(SBClient *)client {
+    @weakify(client);
+    
+    return [[[self
+              doNext:^(NSDictionary *response) {
+                  @strongify(client);
+                  
+                  // set the auth token & auth state when a 'next' is sent
+                  client.token = response[@"data"][@"access_token"];
+              }]
+             map:^id(NSDictionary *response) {
+                 // deserialize the user
+                 SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
+                                          fromJSONDictionary:response[@"data"][@"user"]
+                                                       error:nil];
+                 user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
+                                                      fromJSONArray:response[@"data"][@"admin_accounts"]
+                                                              error:nil];
+                 
+                 return user;
+             }]
+            doNext:^(SBUser *user) {
+                @strongify(client);
+                
+                // set the currently authenticated user
+                client.authenticatedUser = user;
+            }];
+}
+
+@end
+
 @implementation SBClient (Auth)
 
 + (instancetype)unauthenticatedClient {
@@ -84,37 +117,27 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
 
     @weakify(self);
     
-    return [[[[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
+    return [[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
                                                             @"username"					: username,
                                                             @"password"					: password,
                                                             @"client_secret"			: SBClientSecret,
                                                             @"client_id"				: SBClientID,
                                                             @"expand"					: @"user",
                                                             @"include_admin_accounts" 	: @"1"}]
-            	doNext:^(NSDictionary *response) {
-                   	@strongify(self);
-                   
-                   	// set the auth token & auth state when a 'next' is sent
-                   	self.token = response[@"data"][@"access_token"];
-               	}]
-              	map:^id(NSDictionary *response) {
-                  	// deserialize the user
-                    SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
-                                             fromJSONDictionary:response[@"data"][@"user"]
-                                                          error:nil];
-                    user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
-                                                         fromJSONArray:response[@"data"][@"admin_accounts"]
-                                                                 error:nil];
-                  
-                  	return user;
-            	}]
-             	doNext:^(SBUser *user) {
-                 	@strongify(self);
-                 
-                 	// set the currently authenticated user
-                 	self.authenticatedUser = user;
-             	}]
+				_processedAuthSignalForClient:self]
             	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
+}
+
+- (RACSignal *)logInWithAuthorizationCode:(NSString *)authorizationCode {
+    NSParameterAssert(authorizationCode);
+    
+    return [[self rac_POST:@"oauth2/token" parameters:
+            [self requestParametersWithParameters:@{@"code"					: authorizationCode,
+                                                     @"client_secret"			: SBClientSecret,
+                                                     @"expand"					: @"user",
+                                                     @"include_admin_accounts"	: @"1",
+                                                     @"grant_type"				: @"authorization_code"}]]
+            	_processedAuthSignalForClient:self];
 }
 
 - (RACSignal *)signUpWithEmail:(NSString *)email

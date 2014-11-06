@@ -50,15 +50,25 @@ extern NSString *SBClientID, *SBRedirectURI;
 }
 
 - (void)selfDismiss {
+    [webViewSubject sendCompleted];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if ([request.URL.absoluteString hasPrefix:SBRedirectURI]) {
-        [webViewSubject sendNext:[request.URL.query stringByReplacingOccurrencesOfString:@"code=" withString:@""]];
+        for (NSString *param in [request.URL.query componentsSeparatedByString:@"&"]) {
+            NSArray *parts = [param componentsSeparatedByString:@"="];
+            if (parts.count == 2 && [parts.firstObject isEqualToString:@"code"]) {
+                [webViewSubject sendNext:parts[1]];
+            }
+        }
         return NO;
     }
     return YES;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [webViewSubject sendError:error];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,10 +86,10 @@ extern NSString *SBClientID, *SBRedirectURI;
         @strongify(parent);
         
         @weakify(subscriber);
-        RACDisposable *d = [webViewSubject subscribeNext:^(NSString *token) {
+        RACDisposable *d = [webViewSubject subscribeNext:^(NSString *authorizationCode) {
             @strongify(subscriber);
         
-            [subscriber sendNext:[SBClient authenticatedClientWithToken:token]];
+            [subscriber sendNext:authorizationCode];
         }];
         
         UIViewController *vc = parent ?: [UIApplication sharedApplication].keyWindow.rootViewController;

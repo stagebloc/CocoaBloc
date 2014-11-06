@@ -21,6 +21,12 @@
  */
 + (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret redirectURI:(NSString *)redirectURI;
 
+/*
+ Complete the log in process with an authorization code from StageBloc,
+ usually obtained from SBAuthenticationController.
+ */
+- (RACSignal *)logInWithAuthorizationCode:(NSString *)authorizationCode;
+
 /*!
  Log in a StageBloc user with the given credentials.
  

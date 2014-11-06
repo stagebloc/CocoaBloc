@@ -19,7 +19,7 @@
 // multicasted subscription. Subscription also presents the controller
 // as a modal from the parent.
 // Cancelling the subscription will dismiss it, and it will send
-// an SBClient object that is authenticated, or complete if not.
+// an authorization code for use in logging in an SBClient.
 - (RACSignal *)presentFromParent:(UIViewController *)parent;
 
 @end

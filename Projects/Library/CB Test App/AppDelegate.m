@@ -16,6 +16,7 @@
 
 @implementation AppDelegate {
     SBAuthenticationViewController *vc;
+    SBClient *c;
 }
             
 
@@ -23,12 +24,20 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [UIViewController new];
     [self.window makeKeyAndVisible];
-    
+
     [SBClient setClientID:@"de4346e640860eb3d6fd97e11e475d0d" clientSecret:@"c2288f625407c5aff55e41d1fef1ed73" redirectURI:@"theseboots://"];
+
+    c = [SBClient new];
     
     vc = [SBAuthenticationViewController new];
     [[vc presentFromParent:self.window.rootViewController] subscribeNext:^(id x) {
         NSLog(@"win %@", x);
+        
+        [[c logInWithAuthorizationCode:x] subscribeNext:^(id x) {
+            
+        } error:^(NSError *error) {
+            
+        }];
     } error:^(NSError *error) {
         NSLog(@"err %@", error);
     }];
