@@ -19,7 +19,6 @@
 
 @interface SCCameraViewController () <UIActionSheetDelegate, SCPhotoManagerDelegate>
 
-@property (nonatomic, assign) BOOL toolBarExpanded;
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic, strong) SCCaptureManager *captureManager;
 @property (nonatomic, strong) SCCameraView *cameraView;
@@ -32,10 +31,9 @@
     if (!_cameraView) {
         _cameraView = [[SCCameraView alloc] initWithFrame:self.view.frame captureManager:self.captureManager];
         
-        [_cameraView.recordButton addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _cameraView.recordButton.delegate = self;
         [_cameraView.chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [_cameraView.toggleSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
         [_cameraView.toggleAspectRatioButton addTarget:self action:@selector(toggleAspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.adjustFlashModeButton addTarget:self action:@selector(adjustFlashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -49,7 +47,6 @@
 {
     [super viewDidLoad];
 
-    self.toolBarExpanded = NO;
     self.view.backgroundColor = [UIColor blackColor];
     
     self.captureManager = [SCCaptureManager sharedInstance];
@@ -61,43 +58,17 @@
     [self.cameraView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
     
-    __weak typeof(self) weakSelf = self;
-    RAC(self.cameraView.topOverlayView, hidden) = RACObserve(self, captureManager.photoManager.aspectRatioDefault).distinctUntilChanged;
-    RAC(self.cameraView.bottomOverlayView, hidden) = RACObserve(self, captureManager.photoManager.aspectRatioDefault).distinctUntilChanged;
-    RAC(self.cameraView.recordButton, backgroundColor) = [RACObserve(self, recording) map:^UIColor *(NSNumber *recording) {
-        return (recording.boolValue ? [UIColor redColor] : [UIColor whiteColor]);
-    }];
-    RAC(self, recording) =
-    [RACSignal
-     combineLatest:@[RACObserve(self.cameraView.recordButton, highlighted), RACObserve(self.cameraView.recordButton, selected)]
-     reduce:^ id (NSNumber *highlighted, NSNumber *selected) {
-         typeof(weakSelf) strongSelf = self;
-         
-         BOOL isButtonSelected = highlighted.boolValue | selected.boolValue;
-         BOOL isCurrentlyRecording = strongSelf.recording;
-         
-         //TOUCH BEGAN
-         if (isButtonSelected && !isCurrentlyRecording) {
-             [strongSelf shouldStartCapturing];
-         }
-         
-         //TOUCH ENDED
-         else if (!isButtonSelected && isCurrentlyRecording) {
-             [strongSelf shouldStopCapturing];
-         }
-         
-         return @(isButtonSelected);
-     }];
-
 
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     [doubleTap setNumberOfTapsRequired: 2];
     [self.view addGestureRecognizer:doubleTap];
+    doubleTap.delegate = self;
 
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [singleTap setNumberOfTapsRequired: 1];
     [self.view addGestureRecognizer:singleTap];
     [singleTap requireGestureRecognizerToFail:doubleTap];
+    singleTap.delegate = self;
 
     [self.captureManager.captureSession startRunning];
 }
@@ -134,13 +105,13 @@
 }
 
 #pragma mark - Actions
-//holding camera button
-- (void) shouldStartCapturing {
+
+
+
+- (void) startedHoldingCameraButton {
     [self.captureManager.videoManager startCapture];
 }
-
-//released camera button
-- (void) shouldStopCapturing {
+- (void) stoppedHoldingCameraButton {
     [self.captureManager.videoManager stopCapture];
 }
 
@@ -249,11 +220,7 @@
 }
 
 -(void)handleSingleTap:(UITapGestureRecognizer *)tapRecognizer {
-    if ([self.cameraView isHudHidden]) {
-        [self.cameraView animateHudHidden:NO completion:nil];
-    } else {
-        [self.cameraView animateHudHidden:YES completion:nil];
-    }
+    //focus here
 }
 
 -(void)closeButtonPressed:(id)sender {
@@ -261,6 +228,9 @@
         [self.delegate cameraViewControllerDidFinish:self];
     }
 }
+
+#pragma mark - Gesture recognizer delegate
+
 
 #pragma mark - Camera toggle handling
 -(void)switchCamera
@@ -314,6 +284,23 @@
 
 - (void) progressBarDidStop:(SCProgressBar*)progressBar withTime:(NSTimeInterval)time {
     NSLog(@"didstop");
+}
+
+#pragma mark - SCRecordButtonDelegate
+- (void) recordButtonStartedHolding:(SCRecordButton *)button {
+    [self.captureManager.videoManager startCapture];
+    [self.cameraView animateHudHidden:YES completion:nil];
+    [self.cameraView.progressBar start];
+}
+
+- (void) recordButtonStoppedHolding:(SCRecordButton *)button {
+    [self.captureManager.videoManager startCapture];
+    [self.cameraView animateHudHidden:NO completion:nil];
+    [self.cameraView.progressBar pause];
+}
+
+- (void) recordButtonTapped:(SCRecordButton *)button {
+    [self.captureManager.photoManager captureImage];
 }
 
 @end

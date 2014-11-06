@@ -44,7 +44,7 @@ static SCCaptureManager *_sharedInstance;
 {
     [self willChangeValueForKey:@"captureType"];
     _captureType = captureType;
-    if (_captureType == 0) {
+    if (_captureType == SCCaptureTypePhoto) {
         if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
             [self.captureSession setSessionPreset:AVCaptureSessionPresetPhoto];
         } else {

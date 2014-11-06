@@ -8,37 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
-@class SCProgressBar, SCCaptureView, SCCaptureManager;
+@class SCProgressBar, SCCaptureView, SCCaptureManager, SCRecordButton;
 
 @interface SCCameraView : UIView
 
 @property (nonatomic, strong) SCCaptureView *captureView;
-
-@property (nonatomic, strong) UIButton *recordButton;
-@property (nonatomic, strong) UIButton *chooseExistingButton;
-@property (nonatomic, strong) UIButton *closeButton;
-@property (nonatomic, strong) UISwitch *toggleSwitch;
-
-@property (nonatomic, strong) UIView *topOverlayView;
-@property (nonatomic, strong) UIView *bottomOverlayView;
-
+@property (nonatomic, strong) SCRecordButton *recordButton;
+@property (nonatomic, strong) SCProgressBar *progressBar;
 @property (nonatomic, strong) UIToolbar *shutterToolbar;
 
-@property (nonatomic, strong) SCProgressBar *progressBar;
+//Top HUD views
+@property (nonatomic, strong) UIView *topHudView;
+@property (nonatomic, strong) UIButton *closeButton;
 
-//toolbar
-@property UIToolbar *toolbar;
-@property BOOL toolBarExpanded;
+//Bottom HUD views
+@property (nonatomic, strong) UIView *bottomHudView;
 @property (nonatomic, strong) UIButton *toggleAspectRatioButton;
 @property (nonatomic, strong) UIButton *adjustFlashModeButton;
 @property (nonatomic, strong) UIButton *toggleCameraButton;
-//
+@property (nonatomic, strong) UIButton *chooseExistingButton;
 
-- (id) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
+- (instancetype) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
 
-- (BOOL) isHudHidden;
+- (BOOL)isHudHidden;
 
 -(void)animateHudHidden:(BOOL)hidden completion:(void(^)(BOOL finished))completion;
--(void)animateHudHidden:(BOOL)hidden duration:(CGFloat)duration completion:(void(^)(BOOL finished))completion;
+-(void)animateHudHidden:(BOOL)hidden duration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion;
 
 @end
