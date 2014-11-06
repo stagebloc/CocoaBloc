@@ -52,16 +52,21 @@ SBAuthenticationViewController *authVC = [SBAuthenticationViewController new];
 // Subscription to this presentation signal will show the view controller.
 // Cancellation or completion of the subscription will dismiss it.
 // Upon success, the signal will send a next value of the authenticated client.
-[[[authVC presentFromParent:currentVC]
-    subscribeNext:^(SBClient *authenticatedClient) {
-        // we now have a client to work with
-    }
-    error:^(NSError *error) {
-        // handle error
-    }
-    completed:^{
-        // handle user cancelled/dismissed login
-    }];
+  @weakify(client);
+  [[[authVC presentFromParent:self.window.rootViewController]
+     	flattenMap:^RACStream *(NSString *authorizationCode) {
+            @strongify(client);
+            return [client logInWithAuthorizationCode:authorizationCode];
+      }]
+      subscribeNext:^(SBUser *loggedInUser) {
+          // Success
+      }
+      error:^(NSError *error) {
+          // Handle error
+      }
+      completed:^{
+          // User pressed cancel and dismissed log in view
+      }];
 ```
 
 ## Documentation

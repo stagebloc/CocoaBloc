@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <CocoaBloc/SBAuthenticationViewController.h>
 #import <CocoaBloc.h>
+#import <RACEXTScope.h>
 
 @interface AppDelegate ()
 
@@ -28,19 +29,29 @@
     [SBClient setClientID:@"de4346e640860eb3d6fd97e11e475d0d" clientSecret:@"c2288f625407c5aff55e41d1fef1ed73" redirectURI:@"theseboots://"];
 
     c = [SBClient new];
-    
     vc = [SBAuthenticationViewController new];
-    [[vc presentFromParent:self.window.rootViewController] subscribeNext:^(id x) {
-        NSLog(@"win %@", x);
-        
-        [[c logInWithAuthorizationCode:x] subscribeNext:^(id x) {
-            
+    
+    @weakify(c);
+    [[[vc presentFromParent:self.window.rootViewController]
+     	flattenMap:^RACStream *(NSString *authorizationCode) {
+            @strongify(c);
+            return [c logInWithAuthorizationCode:authorizationCode];
+        }]
+     	subscribeNext:^(SBUser *loggedInUser) {
+            // Success
         } error:^(NSError *error) {
-            
+            // Handle error
+        } completed:^{
+            // User pressed cancel and dismissed log in view
         }];
-    } error:^(NSError *error) {
-        NSLog(@"err %@", error);
-    }];
+    
+    /*
+     [[c logInWithAuthorizationCode:x] subscribeNext:^(id x) {
+     
+     } error:^(NSError *error) {
+     
+     }];
+     */
     
     return YES;
 }
