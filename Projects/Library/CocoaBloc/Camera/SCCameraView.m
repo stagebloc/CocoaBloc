@@ -17,6 +17,8 @@
 
 @implementation SCCameraView
 
+@synthesize aspectRatio = _aspectRatio;
+
 - (SCProgressBar*) progressBar {
     if (!_progressBar) {
         _progressBar = [[SCProgressBar alloc] initWithMinValue:0 maxValue:10];
@@ -67,33 +69,34 @@
     if (!_bottomHudView) {
         _bottomHudView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds), CGRectGetWidth(self.bounds), 0.0f)];
         _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
-        [_bottomHudView addSubview:self.toggleAspectRatioButton];
-        [_bottomHudView addSubview:self.adjustFlashModeButton];
+        [_bottomHudView addSubview:self.aspectRatioButton];
+        [_bottomHudView addSubview:self.flashModeButton];
         [_bottomHudView addSubview:self.toggleCameraButton];
         [_bottomHudView addSubview:self.chooseExistingButton];
     }
     return _bottomHudView;
 }
 
-- (UIButton*) toggleAspectRatioButton {
-    if (!_toggleAspectRatioButton) {
-        _toggleAspectRatioButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _toggleAspectRatioButton.frame = CGRectMake(CGRectGetWidth(_bottomHudView.bounds) -45.f, 15.f , 30.0, 30.0);
-        [_toggleAspectRatioButton setBackgroundColor:[UIColor greenColor]];
-        _toggleAspectRatioButton.layer.masksToBounds = YES;
+- (UIButton*) aspectRatioButton {
+    if (!_aspectRatioButton) {
+        _aspectRatioButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _aspectRatioButton.frame = CGRectMake(CGRectGetWidth(_bottomHudView.bounds) -45.f, 15.f , 30.0, 30.0);
+        _aspectRatioButton.layer.masksToBounds = YES;
+        self.aspectRatio = SCCameraAspectRatio4_3;
     }
-    return _toggleAspectRatioButton;
+    return _aspectRatioButton;
 }
 
-- (UIButton*) adjustFlashModeButton {
-    if (!_adjustFlashModeButton) {
-        _adjustFlashModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _adjustFlashModeButton.frame = CGRectMake(CGRectGetMinX(_bottomHudView.bounds) + 15.f, 15.f, 30.0, 30.0);
-        [_adjustFlashModeButton setBackgroundColor:[UIColor blueColor]];
-        _adjustFlashModeButton.layer.masksToBounds = YES;
-        _adjustFlashModeButton.tag = 0;
+- (UIButton*) flashModeButton {
+    if (!_flashModeButton) {
+        _flashModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _flashModeButton.frame = CGRectMake(CGRectGetMinX(_bottomHudView.bounds) + 15.f, 15.f, 30.0, 30.0);
+        _flashModeButton.layer.masksToBounds = YES;
+        _flashModeButton.tag = 0;
+        _flashModeButton.contentMode = UIViewContentModeCenter;
+        self.flashMode = AVCaptureFlashModeOff;
     }
-    return _adjustFlashModeButton;
+    return _flashModeButton;
 }
 
 - (UIButton*) toggleCameraButton {
@@ -178,6 +181,57 @@
         [self initializeViews];
     }
     return self;
+}
+
+- (void) setFlashMode:(AVCaptureFlashMode)flashMode {
+    [self willChangeValueForKey:@"flashMode"];
+    _flashMode = flashMode;
+    [self didChangeValueForKey:@"flashMode"];
+    
+    switch (flashMode) {
+        case AVCaptureFlashModeOff:
+            [_flashModeButton setImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
+            break;
+        case AVCaptureFlashModeOn:
+            [_flashModeButton setImage:[UIImage imageNamed:@"flash_on"] forState:UIControlStateNormal];
+            break;
+        case AVCaptureFlashModeAuto:
+            [_flashModeButton setImage:[UIImage imageNamed:@"flash_auto"] forState:UIControlStateNormal];
+            break;
+        default: break;
+    }
+}
+
+- (AVCaptureFlashMode) cycleFlashMode {
+    AVCaptureFlashMode newMode = self.flashMode + 1;
+    if (newMode > AVCaptureFlashModeAuto)
+        newMode = AVCaptureFlashModeOff;
+    self.flashMode = newMode;
+    return newMode;
+}
+
+- (void) setAspectRatio:(SCCameraAspectRatio)aspectRatio {
+    [self willChangeValueForKey:@"flashMode"];
+    _aspectRatio = aspectRatio;
+    [self didChangeValueForKey:@"flashMode"];
+    
+    switch (aspectRatio) {
+        case SCCameraAspectRatio1_1:
+            [_aspectRatioButton setImage:[UIImage imageNamed:@"ratio_1_1"] forState:UIControlStateNormal];
+            break;
+        case SCCameraAspectRatio4_3:
+            [_aspectRatioButton setImage:[UIImage imageNamed:@"ratio_4_3"] forState:UIControlStateNormal];
+            break;
+        default: break;
+    }
+}
+
+- (SCCameraAspectRatio) cycleAspectRatio {
+    SCCameraAspectRatio newMode = self.aspectRatio + 1;
+    if (newMode > SCCameraAspectRatio4_3)
+        newMode = SCCameraAspectRatio1_1;
+    self.aspectRatio = newMode;
+    return newMode;
 }
 
 - (BOOL) isHudHidden {

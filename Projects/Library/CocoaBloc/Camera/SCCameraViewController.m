@@ -34,8 +34,8 @@
         _cameraView.recordButton.delegate = self;
         [_cameraView.chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [_cameraView.toggleAspectRatioButton addTarget:self action:@selector(toggleAspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [_cameraView.adjustFlashModeButton addTarget:self action:@selector(adjustFlashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.aspectRatioButton addTarget:self action:@selector(aspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.flashModeButton addTarget:self action:@selector(flashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _cameraView.progressBar.delegate = self;
     }
@@ -156,50 +156,15 @@
 }
 
 
--(void)adjustFlashModeButtonPressed:(UIButton *)sender
-{
-    sender.tag ++;
-    if (sender.tag > 2) {
-        sender.tag = 0;
-    }
-    
+-(void)flashModeButtonPressed:(UIButton *)sender {
     NSError *error = nil;
     [self.captureManager.currentManager.currentCamera lockForConfiguration:&error];
     
-    switch (sender.tag) {
-        case AVCaptureFlashModeOff:
-            if  ([self.captureManager.photoManager isFlashModeAvailable:AVCaptureFlashModeOff]) {
-                [self.captureManager.currentManager.currentCamera setFlashMode:AVCaptureFlashModeOff];
-                sender.alpha = 1.f;
-                //              [sender setBackgroundImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
-            }
-            break;
-        case AVCaptureFlashModeOn:
-            if ([self.captureManager.photoManager isFlashModeAvailable:AVCaptureFlashModeOn]) {
-                [self.captureManager.currentManager.currentCamera setFlashMode:AVCaptureFlashModeOn];
-                //              [sender setBackgroundImage:[UIImage imageNamed:@"flash_on"] forState:UIControlStateNormal];
-                sender.alpha = .75f;
-            } else {
-                //              [sender setBackgroundImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
-                sender.tag = 0;
-                sender.alpha = 1.f;
-            }
-            break;
-        case AVCaptureFlashModeAuto:
-            if ([self.captureManager.photoManager isFlashModeAvailable:AVCaptureFlashModeAuto]) {
-                [self.captureManager.currentManager.currentCamera setFlashMode:AVCaptureFlashModeAuto];
-                //              [sender setBackgroundImage:[UIImage imageNamed:@"flash_auto"] forState:UIControlStateNormal];
-                sender.alpha = .5f;
-            } else {
-                //              [_flashMode setBackgroundImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
-                sender.tag = 0;
-                sender.alpha = 1.f;
-            }
-            break;
-        default:
-            NSLog(@"Error");
-            break;
+    AVCaptureFlashMode mode = [self.cameraView cycleFlashMode];
+    if ([self.captureManager.photoManager isFlashModeActive:mode]) {
+        [self.captureManager.currentManager.currentCamera setFlashMode:mode];
     }
+
     [self.captureManager.currentManager.currentCamera unlockForConfiguration];
 }
 
@@ -229,7 +194,17 @@
     }
 }
 
-#pragma mark - Gesture recognizer delegate
+-(void)aspectRatioButtonPressed:(id)sender {
+    [self.cameraView cycleAspectRatio];
+//    self.captureManager.photoManager.aspectRatioDefault = [self.captureManager.photoManager toggleAspectRatio];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (touch.view == self.cameraView.recordButton)
+        return NO;
+    return YES;
+}
 
 
 #pragma mark - Camera toggle handling
@@ -254,10 +229,6 @@
 -(void)removeBlur {
     self.cameraView.shutterToolbar.backgroundColor = [UIColor blackColor];
     self.cameraView.shutterToolbar.hidden = YES;
-}
-
--(void)toggleAspectRatioButtonPressed:(id)sender {
-    self.captureManager.photoManager.aspectRatioDefault = [self.captureManager.photoManager toggleAspectRatio];
 }
 
 #pragma mark - SCPhotoManager Delegate

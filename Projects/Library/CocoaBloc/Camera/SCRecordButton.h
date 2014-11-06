@@ -36,10 +36,10 @@
 @property (nonatomic, assign) id<SCRecordButtonDelegate> delegate;
 
 /*
- The inner view.
+ The inner filled view.
  Defaul is a red circle view.
  */
-@property (nonatomic, readonly) UIView *stateView;
+@property (nonatomic, readonly) UIView *innerView;
 
 /*
  How long the user is required to hold the record button for it
