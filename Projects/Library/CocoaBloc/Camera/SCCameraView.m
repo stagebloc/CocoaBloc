@@ -71,26 +71,27 @@
         _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
         
         CGFloat buttonHW = 30;
-        CGFloat offset = 15.0f;
+        CGFloat offsetTB = 15.0f;
+        CGFloat offsetLR = 10.0f;
         
         [_bottomHudView addSubview:self.toggleCameraButton];
-        [self.toggleCameraButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offset];
+        [self.toggleCameraButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offsetTB];
         [self.toggleCameraButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
         [self.toggleCameraButton autoSetDimensionsToSize:CGSizeMake(buttonHW, buttonHW)];
         
         [_bottomHudView addSubview:self.flashModeButton];
-        [self.flashModeButton autoSetDimensionsToSize:CGSizeMake(50, buttonHW)];
-        [self.flashModeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offset];
-        [self.flashModeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bottomHudView withOffset:offset];
+        [self.flashModeButton autoSetDimensionsToSize:CGSizeMake(60, buttonHW)];
+        [self.flashModeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offsetTB];
+        [self.flashModeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bottomHudView withOffset:offsetLR];
         
         [_bottomHudView addSubview:self.aspectRatioButton];
         [self.aspectRatioButton autoSetDimensionsToSize:CGSizeMake(buttonHW, buttonHW)];
-        [self.aspectRatioButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offset];
-        [self.aspectRatioButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_bottomHudView withOffset:-offset];
+        [self.aspectRatioButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offsetTB];
+        [self.aspectRatioButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_bottomHudView withOffset:-offsetLR];
 
         [_bottomHudView addSubview:self.chooseExistingButton];
-        [self.chooseExistingButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bottomHudView withOffset:offset];
-        [self.chooseExistingButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomHudView withOffset:-offset];
+        [self.chooseExistingButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bottomHudView withOffset:offsetLR];
+        [self.chooseExistingButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomHudView withOffset:-offsetTB];
         [self.chooseExistingButton autoSetDimensionsToSize:CGSizeMake(buttonHW, buttonHW)];
     }
     return _bottomHudView;
@@ -112,7 +113,7 @@
         _flashModeButton.frame = CGRectMake(CGRectGetMinX(_bottomHudView.bounds) + 15.f, 15.f, 30.0, 30.0);
         _flashModeButton.layer.masksToBounds = YES;
         _flashModeButton.tag = 0;
-        _flashModeButton.contentMode = UIViewContentModeCenter;
+        _flashModeButton.imageView.contentMode = UIViewContentModeCenter;
         self.flashMode = AVCaptureFlashModeOff;
     }
     return _flashModeButton;
