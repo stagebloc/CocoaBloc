@@ -69,10 +69,29 @@
     if (!_bottomHudView) {
         _bottomHudView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds), CGRectGetWidth(self.bounds), 0.0f)];
         _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
-        [_bottomHudView addSubview:self.aspectRatioButton];
-        [_bottomHudView addSubview:self.flashModeButton];
+        
+        CGFloat buttonHW = 30;
+        CGFloat offset = 15.0f;
+        
         [_bottomHudView addSubview:self.toggleCameraButton];
+        [self.toggleCameraButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offset];
+        [self.toggleCameraButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
+        [self.toggleCameraButton autoSetDimensionsToSize:CGSizeMake(buttonHW, buttonHW)];
+        
+        [_bottomHudView addSubview:self.flashModeButton];
+        [self.flashModeButton autoSetDimensionsToSize:CGSizeMake(50, buttonHW)];
+        [self.flashModeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offset];
+        [self.flashModeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bottomHudView withOffset:offset];
+        
+        [_bottomHudView addSubview:self.aspectRatioButton];
+        [self.aspectRatioButton autoSetDimensionsToSize:CGSizeMake(buttonHW, buttonHW)];
+        [self.aspectRatioButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_bottomHudView withOffset:offset];
+        [self.aspectRatioButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_bottomHudView withOffset:-offset];
+
         [_bottomHudView addSubview:self.chooseExistingButton];
+        [self.chooseExistingButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bottomHudView withOffset:offset];
+        [self.chooseExistingButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomHudView withOffset:-offset];
+        [self.chooseExistingButton autoSetDimensionsToSize:CGSizeMake(buttonHW, buttonHW)];
     }
     return _bottomHudView;
 }
@@ -104,7 +123,7 @@
         _toggleCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _toggleCameraButton.frame = CGRectMake(CGRectGetWidth(_bottomHudView.bounds)/2 - 15.f, 15.f, 30.0, 30.0);
         [_toggleCameraButton setImage:[UIImage imageNamed:@"flip"] forState:UIControlStateNormal];
-        _toggleCameraButton.contentMode = UIViewContentModeCenter;
+        _toggleCameraButton.imageView.contentMode = UIViewContentModeCenter;
     }
     return _toggleCameraButton;
 }
@@ -130,12 +149,6 @@
     [self.bottomHudView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [self.bottomHudView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.bottomHudView autoSetDimension:ALDimensionHeight toSize:170];
-    //choose existing button
-    [self.chooseExistingButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.bottomHudView withOffset:15.f];
-    [self.chooseExistingButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.bottomHudView withOffset:-15.f];
-    [self.chooseExistingButton autoSetDimension:ALDimensionHeight toSize:buttonWH];
-    [self.chooseExistingButton autoSetDimension:ALDimensionWidth toSize:buttonWH];
-
     
     //TOP HUD (contains subviews)
     [self addSubview:self.topHudView];
@@ -144,7 +157,7 @@
     [self.topHudView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [self.topHudView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.topHudView autoSetDimension:ALDimensionHeight toSize:buttonWH+buttonOffset*2];
-    //close button
+    //close button in TOP HUD
     [self.closeButton autoSetDimension:ALDimensionHeight toSize:buttonWH];
     [self.closeButton autoSetDimension:ALDimensionWidth toSize:buttonWH];
     [self.closeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.topHudView withOffset:buttonOffset];
