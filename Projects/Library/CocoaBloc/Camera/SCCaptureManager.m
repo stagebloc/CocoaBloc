@@ -44,15 +44,17 @@ static SCCaptureManager *_sharedInstance;
 {
     [self willChangeValueForKey:@"captureType"];
     _captureType = captureType;
+    
+    NSString *preset = AVCaptureSessionPresetHigh;
     if (_captureType == SCCaptureTypePhoto) {
         if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
-            [self.captureSession setSessionPreset:AVCaptureSessionPresetPhoto];
-        } else {
-            if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetHigh]) {
-                [self.captureSession setSessionPreset:AVCaptureSessionPresetHigh];
-            }
+            preset = AVCaptureSessionPresetPhoto;
         }
     }
+    
+    if (![preset isEqualToString:self.captureSession.sessionPreset])
+        self.captureSession.sessionPreset = preset;
+    
     [self didChangeValueForKey:@"captureType"];
     
     [self.captureSession beginConfiguration];
@@ -69,20 +71,5 @@ static SCCaptureManager *_sharedInstance;
 {
     return self.captureType == SCCaptureTypePhoto ? self.photoManager : self.videoManager;
 }
-
--(void)setTogglePreset:(AVCaptureSession *)session
-{
-    _captureSession = session;
-    if (session.sessionPreset == AVCaptureSessionPresetHigh) {
-        if ([_captureSession canSetSessionPreset:AVCaptureSessionPresetPhoto]) {
-            _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-        } else {
-            _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
-        }
-    } else {
-        _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
-    }
-}
-
 
 @end

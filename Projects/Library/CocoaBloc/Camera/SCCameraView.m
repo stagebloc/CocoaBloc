@@ -14,6 +14,7 @@
 #import "SCRecordButton.h"
 #import "UIFont+FanClub.h"
 #import "UIColor+FanClub.h"
+#import "SCPageView.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
@@ -53,10 +54,11 @@
         _topHudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.0f)];
         _topHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
         
-        CGFloat buttonWH = 30;
-        CGFloat buttonOffset = 5.f;
+        CGFloat const buttonWH = 30;
+        CGFloat const buttonOffset = 5.f;
+        CGFloat const hudHeight = buttonWH+buttonOffset*2;
         
-        [_topHudView autoSetDimension:ALDimensionHeight toSize:buttonWH+buttonOffset*2];
+        [_topHudView autoSetDimension:ALDimensionHeight toSize:hudHeight];
         
         [_topHudView addSubview:self.closeButton];
         [self.closeButton autoSetDimensionsToSize:CGSizeMake(buttonWH, buttonWH)];
@@ -71,6 +73,11 @@
         [_topHudView addSubview:self.timeLabel];
         [self.timeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:_topHudView];
         [self.timeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:_topHudView];
+        
+        [_topHudView addSubview:self.pageView];
+        [self.pageView autoAlignAxis:ALAxisVertical toSameAxisOfView:_topHudView];
+        [self.pageView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:_topHudView];
+        [self.pageView autoSetDimensionsToSize:CGSizeMake(225, hudHeight)];
     }
     return _topHudView;
 }
@@ -103,6 +110,13 @@
         _timeLabel.text = @"0:00";
     }
     return _timeLabel;
+}
+
+- (SCPageView*) pageView {
+    if (!_pageView) {
+        _pageView = [[SCPageView alloc] initWithTitles:@[@"Video", @"Photo", @"Square"]];
+    }
+    return _pageView;
 }
 
 #pragma mark - Bottom HUD views
@@ -149,6 +163,8 @@
 }
 
 - (void) initializeViews {
+    //shutter toolbar
+    [self addSubview:self.shutterToolbar];
     
     //BOTTOM HUD (contains subviews)
     [self addSubview:self.bottomHudView];
@@ -164,9 +180,6 @@
     [self.topHudView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self];
     [self.topHudView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [self.topHudView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-    
-    //shutter toolbar
-    [self addSubview:self.shutterToolbar];
     
     //progress bar
     [self addSubview:self.progressBar];

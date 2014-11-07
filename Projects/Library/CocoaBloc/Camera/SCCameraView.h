@@ -11,7 +11,7 @@
 
 @import AVFoundation.AVCaptureDevice;
 
-@class SCProgressBar, SCCaptureView, SCCaptureManager, SCRecordButton;
+@class SCProgressBar, SCCaptureView, SCCaptureManager, SCRecordButton, SCPageView;
 
 @interface SCCameraView : UIView
 
@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton *toggleCameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) SCPageView *pageView;
 
 //Bottom HUD views
 @property (nonatomic, strong) UIView *bottomHudView;

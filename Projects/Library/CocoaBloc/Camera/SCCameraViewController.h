@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SCProgressBar.h"
 #import "SCRecordButton.h"
+#import "SCCaptureManager.h"
 
 @class SCCameraViewController;
 
@@ -24,5 +25,12 @@
 @interface SCCameraViewController : UIViewController <SCProgressBarDelegate, SCRecordButtonDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) id<SCCameraViewControllerDelegate> delegate;
+
+/*
+ Sets initial capture type to start with for the controller
+ */
+- (id) initWithCaptureType:(SCCaptureType)captureType;
+
+- (SCCaptureType) currentCaptureType;
 
 @end

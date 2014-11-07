@@ -13,6 +13,7 @@
 #import "SCImagePickerController.h"
 #import "SCAssetsManager.h"
 #import "SCCameraView.h"
+#import "SCPageView.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -20,12 +21,21 @@
 @interface SCCameraViewController () <UIActionSheetDelegate, SCPhotoManagerDelegate>
 
 @property (nonatomic, assign) BOOL recording;
-@property (nonatomic, strong) SCCaptureManager *captureManager;
+@property (nonatomic, weak) SCCaptureManager *captureManager;
 @property (nonatomic, strong) SCCameraView *cameraView;
 
 @end
 
 @implementation SCCameraViewController
+
+- (SCCaptureManager*) captureManager {
+    if (!_captureManager) {
+        _captureManager = [SCCaptureManager sharedInstance];
+        _captureManager.photoManager.delegate = self;
+        _captureManager.videoManager.maximumStitchCount = 1;
+    }
+    return _captureManager;
+}
 
 - (SCCameraView*) cameraView {
     if (!_cameraView) {
@@ -42,16 +52,23 @@
     return _cameraView;
 }
 
+- (SCCaptureType) currentCaptureType {
+    return self.captureManager.captureType;
+}
+
+- (id) initWithCaptureType:(SCCaptureType)captureType {
+    if (self = [super init]) {
+        self.captureManager.captureType = captureType;
+    }
+    return self;
+}
+
 #pragma mark - View state
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor blackColor];
-    
-    self.captureManager = [SCCaptureManager sharedInstance];
-    self.captureManager.photoManager.delegate = self;
-    ((SCVideoManager *)self.captureManager.videoManager).maximumStitchCount = 1;
     
     [self.view addSubview:self.cameraView];
     [self.cameraView autoCenterInSuperview];
@@ -64,7 +81,34 @@
         NSInteger mins = elapsed / 60;
         NSInteger secs = elapsed - mins;
         weakSelf.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
+        BOOL shouldHidePageView = (secs > 0 || mins > 0);
+        weakSelf.cameraView.pageView.hidden = shouldHidePageView;
+        weakSelf.cameraView.timeLabel.hidden = !shouldHidePageView;
     }];
+    
+    [[RACObserve(self.cameraView.pageView, index) skip:1] subscribeNext:^(NSNumber *n) {
+        weakSelf.cameraView.shutterToolbar.backgroundColor = [UIColor clearColor];
+        weakSelf.cameraView.shutterToolbar.hidden = NO;
+
+        NSInteger index = n.integerValue;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            switch (index) {
+                case 0:
+                    weakSelf.captureManager.captureType = SCCaptureTypeVideo;
+                    break;
+                case 1:
+                    weakSelf.captureManager.captureType = SCCaptureTypePhoto;
+                    break;
+                case 2:
+                    weakSelf.captureManager.captureType = SCCaptureTypePhoto;
+                    break;
+                default:
+                    break;
+            }
+        });
+        
+        [weakSelf performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
+    }] ;
     
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     [doubleTap setNumberOfTapsRequired: 2];
@@ -76,6 +120,16 @@
     [self.view addGestureRecognizer:singleTap];
     [singleTap requireGestureRecognizerToFail:doubleTap];
     singleTap.delegate = self;
+    
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeGesture];
+    swipeGesture.delegate = self;
+    
+    swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRightGesture:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeGesture];
+    swipeGesture.delegate = self;
 
     [self.captureManager.captureSession startRunning];
 }
@@ -160,24 +214,24 @@
     [self.captureManager.currentManager.currentCamera unlockForConfiguration];
 }
 
--(void)switchChanged:(UISwitch*)sender {
-    if (sender.on) {
-        self.captureManager.captureType = SCCaptureTypePhoto;
-    } else {
-        self.captureManager.captureType = SCCaptureTypeVideo;
-    }
-}
-
 -(void)cameraToggleButtonPressed:(UIButton *)sender {
     [self switchCamera];
 }
 
 -(void)handleDoubleTap:(UITapGestureRecognizer *)tapRecognizer {
-    [self switchCamera];
+//    [self switchCamera];
 }
 
 -(void)handleSingleTap:(UITapGestureRecognizer *)tapRecognizer {
     //focus here
+}
+
+- (void) handleSwipeLeftGesture:(UISwipeGestureRecognizer*) swipeGesture {
+    self.cameraView.pageView.index++;
+}
+
+- (void) handleSwipeRightGesture:(UISwipeGestureRecognizer*)swipeGesture {
+    self.cameraView.pageView.index--;
 }
 
 -(void)closeButtonPressed:(id)sender {
