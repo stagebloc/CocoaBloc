@@ -55,7 +55,6 @@
 }
 
 - (void) didHold {
-    NSLog(@"Did Hold");
     self.holding = YES;
     [self scaleToBig];
     if ([self.delegate respondsToSelector:@selector(recordButtonStartedHolding:)]) {

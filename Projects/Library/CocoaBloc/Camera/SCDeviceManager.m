@@ -129,7 +129,7 @@
     _cameraType = cameraType;
     [self didChangeValueForKey:@"cameraType"];
     
-    AVCaptureDevice *device = self.cameraType == SCCameraTypeFrontFacing ? self.frontFacingCamera : self.rearCamera;
+    AVCaptureDevice *device = _cameraType == SCCameraTypeFrontFacing ? self.frontFacingCamera : self.rearCamera;
     if (_currentCamera != device) {
         // Add currentManager.currentCamera
         // If video, add microphone as well

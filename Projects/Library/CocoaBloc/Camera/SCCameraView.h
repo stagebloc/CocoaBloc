@@ -42,7 +42,7 @@
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
 
 /*
- Cycles to the next AVCaptureFlashMode and sets @flashValue
+ Cycles to the next AVCaptureFlashMode
  @return the new cycled value
  */
 - (AVCaptureFlashMode) cycleFlashMode;

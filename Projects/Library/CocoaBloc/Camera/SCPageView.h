@@ -14,6 +14,7 @@
 
 /*
  Responible for animating the view to the label at @index
+ Uses @animationDuration when animating
  Cannot set index > @labels.count or index < 0
  Default = 0
  */
@@ -35,5 +36,8 @@
  Must contain 1 title or throws exception
  */
 - (id) initWithTitles:(NSArray*)titles;
+
+//same as setting @index but with declared duration
+- (void) setIndex:(NSInteger)index duration:(NSTimeInterval)duration;
 
 @end

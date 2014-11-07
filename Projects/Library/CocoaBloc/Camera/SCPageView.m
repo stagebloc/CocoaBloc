@@ -30,17 +30,21 @@
 }
 
 - (void) setIndex:(NSInteger)index {
+    [self setIndex:index duration:self.animationDuration];
+}
+
+- (void) setIndex:(NSInteger)index duration:(NSTimeInterval)duration {
     [self willChangeValueForKey:@"index"];
     if (index < 0) index = 0;
     if (index >= self.labels.count) index = self.labels.count - 1;
     
     _index = index;
-    [self configureLayout];
+    [self configureLayoutWithDuration:duration];
     
     [self didChangeValueForKey:@"index"];
 }
 
-- (void) configureLayout {
+- (void) configureLayoutWithDuration:(NSTimeInterval)duration {
     [self.constraints autoRemoveConstraints];
 
     CGFloat const Padding = 15;
@@ -74,7 +78,7 @@
     
     self.constraints = [layoutConstraints copy];
 
-    [UIView animateWithDuration:self.animationDuration animations:^{
+    [UIView animateWithDuration:duration animations:^{
         [self layoutIfNeeded];
     }];
 }

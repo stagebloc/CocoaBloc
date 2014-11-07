@@ -42,6 +42,8 @@
         _cameraView = [[SCCameraView alloc] initWithFrame:self.view.frame captureManager:self.captureManager];
         
         _cameraView.recordButton.delegate = self;
+        _cameraView.recordButton.holdingInterval = 0.2f;
+        
         [_cameraView.chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.aspectRatioButton addTarget:self action:@selector(aspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -77,8 +79,8 @@
     
     //set current index to match capture type
     switch (self.captureManager.captureType) {
-        case SCCaptureTypeVideo: self.cameraView.pageView.index = 0; break;
-        case SCCaptureTypePhoto: self.cameraView.pageView.index = 1; break;
+        case SCCaptureTypeVideo: [self.cameraView.pageView setIndex:0 duration:0]; break;
+        case SCCaptureTypePhoto: [self.cameraView.pageView setIndex:1 duration:0];; break;
         default: break;
     }
     
@@ -214,8 +216,9 @@
     [self.captureManager.currentManager.currentCamera lockForConfiguration:&error];
     
     AVCaptureFlashMode mode = [self.cameraView cycleFlashMode];
-    if ([self.captureManager.photoManager isFlashModeActive:mode]) {
-        [self.captureManager.currentManager.currentCamera setFlashMode:mode];
+    if ([self.captureManager.photoManager isFlashModeAvailable:mode]) {
+        self.cameraView.flashMode = mode;
+        self.captureManager.photoManager.flashMode = mode;
     }
 
     [self.captureManager.currentManager.currentCamera unlockForConfiguration];
@@ -249,7 +252,7 @@
 
 -(void)aspectRatioButtonPressed:(id)sender {
     [self.cameraView cycleAspectRatio];
-//    self.captureManager.photoManager.aspectRatioDefault = [self.captureManager.photoManager toggleAspectRatio];
+//    self.captureManager.photoManager.aspectRatioDefault = !self.captureManager.photoManager.aspectRatioDefault;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -286,7 +289,7 @@
 
 #pragma mark - SCPhotoManager Delegate
 
--(void)imageCaptureCompleted
+-(void)photoManager:(SCPhotoManager*)manager capturedImage:(UIImage*)image;
 {
     self.cameraView.shutterToolbar.hidden = YES;
     if ([[SCCaptureManager sharedInstance] photoManager].image) {
@@ -311,18 +314,38 @@
 
 #pragma mark - SCRecordButtonDelegate
 - (void) recordButtonStartedHolding:(SCRecordButton *)button {
+    //only accept video mode for this logic
+    if (self.captureManager.captureType != SCCaptureTypeVideo)
+        return;
+    
+    NSLog(@"Started recording");
     [self.captureManager.videoManager startCapture];
     [self.cameraView animateHudHidden:YES completion:nil];
     [self.cameraView.progressBar start];
 }
 
 - (void) recordButtonStoppedHolding:(SCRecordButton *)button {
-    [self.captureManager.videoManager startCapture];
-    [self.cameraView animateHudHidden:NO completion:nil];
-    [self.cameraView.progressBar pause];
+    //snap picture b/c we are in photo mode
+    if (self.captureManager.captureType == SCCaptureTypePhoto) {
+        NSLog(@"Captured image");
+        [self.captureManager.photoManager captureImage];
+    }
+    
+    //pause video
+    else {
+        NSLog(@"Stopped recording");
+        [self.captureManager.videoManager stopCapture];
+        [self.cameraView animateHudHidden:NO completion:nil];
+        [self.cameraView.progressBar pause];
+    }
 }
 
 - (void) recordButtonTapped:(SCRecordButton *)button {
+    //only accept photo mode for this logic
+    if (self.captureManager.captureType != SCCaptureTypePhoto)
+        return;
+    
+    NSLog(@"Captured image");
     [self.captureManager.photoManager captureImage];
 }
 

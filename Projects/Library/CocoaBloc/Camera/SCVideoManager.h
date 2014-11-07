@@ -10,6 +10,15 @@
 #import "SCCapturing.h"
 
 @interface SCVideoManager : SCDeviceManager <SCCapturing>
+/**
+ * Video output
+ */
+@property (nonatomic, strong) AVCaptureMovieFileOutput *output;
+
+/**
+ * Mic input
+ */
+@property (nonatomic, strong) AVCaptureDeviceInput *micInput;
 
 /**
  * Returns an instance of AVCaptureDevice instantiated for the microphone
@@ -67,7 +76,6 @@
  * Called when the camera output has been processed (useful for saving locally).
  */
 @property (nonatomic, copy) void (^captureOutputFinishedProcessing)(AVCaptureFileOutput *output, NSURL* fileURL, NSArray *connections, NSError *error);
-
 
 /**
  * Resets the total stitchings to 0 and deletes all previously recorded stitches

@@ -102,19 +102,25 @@ BOOL CGAffineTransformIsPortrait(CGAffineTransform transtorm) {
 }
 
 #pragma mark - Override
-
 - (void)setCameraType:(SCCameraType)cameraType
 {
     [super setCameraType:cameraType];
-    if (self.captureSession.inputs.count > 0) {
-        NSError *error = nil;
-        AVCaptureDeviceInput *mic = [AVCaptureDeviceInput deviceInputWithDevice:self.microphone error:&error];
-        if ([self.captureSession canAddInput:mic]) {
-            [self.captureSession beginConfiguration];
-            [self.captureSession addInput:mic];
-            [self.captureSession commitConfiguration];
+
+    NSError *error = nil;
+    [self.captureSession beginConfiguration];
+    if (!self.micInput || ![self.captureSession.inputs containsObject:self.micInput]) {
+        self.micInput = [AVCaptureDeviceInput deviceInputWithDevice:self.microphone error:&error];
+        if ([self.captureSession canAddInput:self.micInput]) {
+            [self.captureSession addInput:self.micInput];
         }
     }
+    if (!self.output || ![self.captureSession.outputs containsObject:self.output]) {
+        self.output = [AVCaptureMovieFileOutput new];
+        if ([self.captureSession canAddOutput:self.output]) {
+            [self.captureSession addOutput:self.output];
+        }
+    }
+    [self.captureSession commitConfiguration];
 }
 
 // Returns no if we've already returned the maximum amount of stitches
@@ -128,22 +134,14 @@ BOOL CGAffineTransformIsPortrait(CGAffineTransform transtorm) {
         return NO; // else we just want to return a failed capture
     }
     // enable URL
-    AVCaptureMovieFileOutput *output = [AVCaptureMovieFileOutput new];
-    output.maxRecordedDuration = self.maxVideoDuration;
-    if ([self.captureSession canAddOutput:output]) {
-        [self.captureSession beginConfiguration];
-        [self.captureSession addOutput:output];
-        [self.captureSession commitConfiguration];
-        AVCaptureConnection *connection = [output connectionWithMediaType:AVMediaTypeVideo];
-        connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-
-        NSString *URLString = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.mov", (NSInteger)[[NSDate date] timeIntervalSince1970]]];
-        NSURL *outputURL = [NSURL fileURLWithPath:URLString];
-        [output startRecordingToOutputFileURL:outputURL recordingDelegate:self];
-        return YES;
-    } else {
-        return NO;
-    }
+    self.output.maxRecordedDuration = self.maxVideoDuration;
+    AVCaptureConnection *connection = [self.output connectionWithMediaType:AVMediaTypeVideo];
+    connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    
+    NSString *URLString = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.mov", (NSInteger)[[NSDate date] timeIntervalSince1970]]];
+    NSURL *outputURL = [NSURL fileURLWithPath:URLString];
+    [self.output startRecordingToOutputFileURL:outputURL recordingDelegate:self];
+    return YES;
 }
 
 // Returns an NSURL iff we've hit the max stitch limit, or max duration

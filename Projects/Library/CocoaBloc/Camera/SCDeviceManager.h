@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, SCCameraType) {
 
 @interface SCDeviceManager : NSObject
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session;
-@property (nonatomic, readonly) AVCaptureSession *captureSession;
+@property (nonatomic, readonly, weak) AVCaptureSession *captureSession;
 
 /**
  * Returns the current device input

@@ -233,7 +233,6 @@
     AVCaptureFlashMode newMode = self.flashMode + 1;
     if (newMode > AVCaptureFlashModeAuto)
         newMode = AVCaptureFlashModeOff;
-    self.flashMode = newMode;
     return newMode;
 }
 
