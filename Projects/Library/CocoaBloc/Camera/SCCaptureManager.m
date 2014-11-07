@@ -56,14 +56,6 @@ static SCCaptureManager *_sharedInstance;
         self.captureSession.sessionPreset = preset;
     
     [self didChangeValueForKey:@"captureType"];
-    
-    [self.captureSession beginConfiguration];
-    // Remove currentManager.currentCamera
-    for (AVCaptureDeviceInput *input in self.captureSession.inputs) {
-        [self.captureSession removeInput:input];
-    }
-    [self.captureSession commitConfiguration];
-
     self.currentManager.cameraType = SCCameraTypeRear;
 }
 

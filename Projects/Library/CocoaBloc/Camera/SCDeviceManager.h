@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, SCCameraType) {
 /**
  * Returns either .frontFacingCamera or .rearCamera, depending on .cameraType
  */
-@property (nonatomic, readonly) AVCaptureDevice *currentCamera;
+@property (nonatomic, readonly, weak) AVCaptureDevice *currentCamera;
 /**
  * Returns an instance of AVCaptureDevice instantiated for the front-facing camera
  */

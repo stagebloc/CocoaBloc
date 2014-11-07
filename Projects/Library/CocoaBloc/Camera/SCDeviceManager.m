@@ -21,11 +21,6 @@
     return self;
 }
 
-- (AVCaptureDevice *)currentCamera
-{
-    return self.cameraType == SCCameraTypeFrontFacing ? self.frontFacingCamera : self.rearCamera;
-}
-
 - (AVCaptureDevice *)frontFacingCamera
 {
     for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
@@ -133,22 +128,27 @@
     [self willChangeValueForKey:@"cameraType"];
     _cameraType = cameraType;
     [self didChangeValueForKey:@"cameraType"];
-
-    // Add currentManager.currentCamera
-    // If video, add microphone as well
-    [self.captureSession beginConfiguration];
-    [self.captureSession removeInput:_currentInput];
-
-    NSError *error = nil;
-    _currentInput = [AVCaptureDeviceInput deviceInputWithDevice:self.currentCamera error:&error];
-    if (error) {
-        // Appropriately handle error here
-    } else {
-        if ([self.captureSession canAddInput:_currentInput]) {
-            [self.captureSession addInput:_currentInput];
+    
+    AVCaptureDevice *device = self.cameraType == SCCameraTypeFrontFacing ? self.frontFacingCamera : self.rearCamera;
+    if (_currentCamera != device) {
+        // Add currentManager.currentCamera
+        // If video, add microphone as well
+        [self.captureSession beginConfiguration];
+        [self.captureSession removeInput:_currentInput];
+        
+        NSError *error = nil;
+        _currentInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+        if (error) {
+            // Appropriately handle error here
+        } else {
+            if ([self.captureSession canAddInput:_currentInput]) {
+                [self.captureSession addInput:_currentInput];
+            }
+            [self.captureSession commitConfiguration];
         }
-        [self.captureSession commitConfiguration];
     }
+    _currentCamera = device;
+
 }
 
 @end
