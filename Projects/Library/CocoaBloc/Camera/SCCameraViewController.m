@@ -75,6 +75,13 @@
     [self.cameraView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
     
+    //set current index to match capture type
+    switch (self.captureManager.captureType) {
+        case SCCaptureTypeVideo: self.cameraView.pageView.index = 0; break;
+        case SCCaptureTypePhoto: self.cameraView.pageView.index = 1; break;
+        default: break;
+    }
+    
     __weak typeof(self) weakSelf = self;
     [RACObserve(self.cameraView.progressBar, timeElapsed) subscribeNext:^(NSNumber *n) {
         NSTimeInterval elapsed = n.floatValue;
@@ -106,7 +113,7 @@
                     break;
             }
         });
-        
+        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(removeBlur) object:nil];
         [weakSelf performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
     }] ;
     
