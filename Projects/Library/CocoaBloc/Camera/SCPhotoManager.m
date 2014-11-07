@@ -12,18 +12,6 @@
 
 @implementation SCPhotoManager
 
-- (void) setFlashMode:(AVCaptureFlashMode)flashMode {
-    [self willChangeValueForKey:@"flashMode"];
-    _flashMode = flashMode;
-    [self didChangeValueForKey:@"flashMode"];
-    
-    self.currentCamera.flashMode = flashMode;
-}
-
-- (BOOL)isFlashModeAvailable:(AVCaptureFlashMode)flashMode {
-    return [self.currentCamera isFlashModeSupported:flashMode];
-}
-
 - (id)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
         self.aspectRatio = SCCameraAspectRatio4_3;

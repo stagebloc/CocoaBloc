@@ -101,19 +101,7 @@
 
         NSInteger index = n.integerValue;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            switch (index) {
-                case 0:
-                    weakSelf.captureManager.captureType = SCCaptureTypeVideo;
-                    break;
-                case 1:
-                    weakSelf.captureManager.captureType = SCCaptureTypePhoto;
-                    break;
-                case 2:
-                    weakSelf.captureManager.captureType = SCCaptureTypePhoto;
-                    break;
-                default:
-                    break;
-            }
+            [self switchedToPage:index];
         });
         [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(removeBlur) object:nil];
         [weakSelf performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
@@ -165,6 +153,66 @@
     //    }
 }
 
+#pragma mark - Camera state handling
+- (void) switchedToPage:(NSInteger)page {
+    AVCaptureFlashMode prevFlashMode = self.captureManager.currentManager.flashMode;
+    switch (page) {
+        case 0:
+            self.captureManager.captureType = SCCaptureTypeVideo;
+            break;
+        case 1:
+            self.captureManager.captureType = SCCaptureTypePhoto;
+            self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio4_3;
+            break;
+        case 2:
+            self.captureManager.captureType = SCCaptureTypePhoto;
+            self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio1_1;
+            break;
+        default:
+            break;
+    }
+    [self updateFlashMode:prevFlashMode]; //update new flash mode
+}
+
+- (void) updateFlashMode:(AVCaptureFlashMode)mode {
+    NSError *error = nil;
+    [self.captureManager.currentManager.currentCamera lockForConfiguration:&error];
+    
+    if ([self.captureManager.currentManager isFlashModeAvailable:mode]) {
+        self.captureManager.currentManager.flashMode = mode;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.cameraView.flashMode = self.captureManager.currentManager.flashMode;
+    });
+    
+    [self.captureManager.currentManager.currentCamera unlockForConfiguration];
+}
+
+-(void)switchCamera {
+    self.cameraView.shutterToolbar.backgroundColor = [UIColor clearColor];
+    self.cameraView.shutterToolbar.hidden = NO;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        AVCaptureFlashMode prevFlashMode = self.captureManager.currentManager.flashMode;
+        if (self.captureManager.currentManager.currentCamera == self.captureManager.photoManager.rearCamera) {
+            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeFrontFacing]) {
+                self.captureManager.currentManager.cameraType = SCCameraTypeFrontFacing;
+            }
+        } else {
+            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeRear]) {
+                self.captureManager.currentManager.cameraType = SCCameraTypeRear;
+            }
+        }
+        [self updateFlashMode:prevFlashMode];
+    });
+    [self performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
+}
+
+-(void)removeBlur {
+    self.cameraView.shutterToolbar.backgroundColor = [UIColor blackColor];
+    self.cameraView.shutterToolbar.hidden = YES;
+}
+
 #pragma mark - Status bar states
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
@@ -212,16 +260,8 @@
 
 
 -(void)flashModeButtonPressed:(UIButton *)sender {
-    NSError *error = nil;
-    [self.captureManager.currentManager.currentCamera lockForConfiguration:&error];
-    
     AVCaptureFlashMode mode = [self.cameraView cycleFlashMode];
-    if ([self.captureManager.photoManager isFlashModeAvailable:mode]) {
-        self.cameraView.flashMode = mode;
-        self.captureManager.photoManager.flashMode = mode;
-    }
-
-    [self.captureManager.currentManager.currentCamera unlockForConfiguration];
+    [self updateFlashMode:mode];
 }
 
 -(void)cameraToggleButtonPressed:(UIButton *)sender {
@@ -262,30 +302,6 @@
     return YES;
 }
 
-
-#pragma mark - Camera toggle handling
--(void)switchCamera
-{
-    self.cameraView.shutterToolbar.backgroundColor = [UIColor clearColor];
-    self.cameraView.shutterToolbar.hidden = NO;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    if (self.captureManager.photoManager.currentCamera == self.captureManager.photoManager.rearCamera) {
-        if ([self.captureManager.photoManager hasAvailableCameraType:SCCameraTypeFrontFacing]) {
-                [self.captureManager.photoManager setCameraType:SCCameraTypeFrontFacing];
-            }
-        } else {
-            if ([self.captureManager.photoManager hasAvailableCameraType:SCCameraTypeRear]) {
-                [self.captureManager.photoManager setCameraType:SCCameraTypeRear];
-            }
-        }
-    });
-    [self performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
-}
-
--(void)removeBlur {
-    self.cameraView.shutterToolbar.backgroundColor = [UIColor blackColor];
-    self.cameraView.shutterToolbar.hidden = YES;
-}
 
 #pragma mark - SCPhotoManager Delegate
 

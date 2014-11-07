@@ -30,10 +30,6 @@ typedef NS_ENUM(NSUInteger, SCCameraAspectRatio) {
  */
 @property (nonatomic,strong) id<SCPhotoManagerDelegate> delegate;
 /**
- * The current flash mode used by the current camera
- */
-@property (nonatomic, assign) AVCaptureFlashMode flashMode;
-/**
  * Image output
  */
 @property (nonatomic, strong) AVCaptureStillImageOutput *output;
@@ -50,8 +46,6 @@ typedef NS_ENUM(NSUInteger, SCCameraAspectRatio) {
  * Creates the square rect in which to crop the photo
  */
 @property (nonatomic, assign) CGRect squareRect;
-
-- (BOOL)isFlashModeAvailable:(AVCaptureFlashMode)flashMode;
 
 /**
  * Captures still image

@@ -59,8 +59,7 @@ static SCCaptureManager *_sharedInstance;
     self.currentManager.cameraType = SCCameraTypeRear;
 }
 
-- (SCDeviceManager *)currentManager
-{
+- (SCDeviceManager *)currentManager {
     return self.captureType == SCCaptureTypePhoto ? self.photoManager : self.videoManager;
 }
 

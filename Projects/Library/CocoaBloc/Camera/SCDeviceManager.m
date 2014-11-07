@@ -117,6 +117,17 @@
     }
 }
 
+- (void) setFlashMode:(AVCaptureFlashMode)flashMode {
+    self.currentCamera.flashMode = flashMode;
+}
+- (AVCaptureFlashMode) flashMode {
+    return self.currentCamera.flashMode;
+}
+
+- (BOOL)isFlashModeAvailable:(AVCaptureFlashMode)flashMode {
+    return [self.currentCamera isFlashModeSupported:flashMode];
+}
+
 - (BOOL)hasAvailableCameraType:(SCCameraType)cameraType
 {
     // Can we cache this response, or improve it somehow?

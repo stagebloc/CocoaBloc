@@ -68,6 +68,10 @@ typedef NS_ENUM(NSUInteger, SCCameraType) {
  */
 @property (nonatomic, assign) CGPoint exposurePoint;
 /**
+ * The current flash mode used by the current camera
+ */
+@property (nonatomic, assign) AVCaptureFlashMode flashMode;
+/**
  * An NSURL pointing to the outputted captured file stored in the app's sandbox-ed temp cache
  * @warning This will return nil unless implemented by subclasses
  */
@@ -76,5 +80,10 @@ typedef NS_ENUM(NSUInteger, SCCameraType) {
  * Returns whether or not a specific camera type is available
  */
 - (BOOL)hasAvailableCameraType:(SCCameraType)cameraType;
+
+/**
+ * Returns whether or not the camera can set the flashMode to @param flashMode
+ */
+- (BOOL)isFlashModeAvailable:(AVCaptureFlashMode)flashMode;
 
 @end
