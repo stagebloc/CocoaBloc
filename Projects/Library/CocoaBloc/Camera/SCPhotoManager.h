@@ -11,6 +11,11 @@
 
 @class SCPhotoManager;
 
+typedef NS_ENUM(NSUInteger, SCCameraAspectRatio) {
+    SCCameraAspectRatio1_1 = 0,
+    SCCameraAspectRatio4_3 = 1,
+};
+
 @protocol SCPhotoManagerDelegate <NSObject>
 @optional
 -(void)imageCaptureCompleted;

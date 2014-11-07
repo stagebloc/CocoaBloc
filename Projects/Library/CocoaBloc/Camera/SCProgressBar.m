@@ -12,7 +12,6 @@
 
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic, copy) NSDate *timerStartDate;
-@property (nonatomic) NSTimeInterval timeElapsed;
 @property (nonatomic) NSTimeInterval pauseTimeElapsed;
 
 @end

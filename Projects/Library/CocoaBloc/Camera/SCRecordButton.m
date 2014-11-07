@@ -34,7 +34,7 @@
 
 - (instancetype) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.holdingInterval = 0.4f;
+        self.holdingInterval = .5f;
         self.layer.masksToBounds = YES;
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.innerView];
@@ -55,7 +55,9 @@
 }
 
 - (void) didHold {
+    NSLog(@"Did Hold");
     self.holding = YES;
+    [self scaleToBig];
     if ([self.delegate respondsToSelector:@selector(recordButtonStartedHolding:)]) {
         [self.delegate recordButtonStartedHolding:self];
     }
@@ -66,8 +68,6 @@
     [super touchesBegan:touches withEvent:event];
     
     [self performSelector:@selector(didHold) withObject:nil afterDelay:self.holdingInterval];
-    
-    [self scaleToBig];
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -88,15 +88,17 @@
 - (void) touchesEndedOrCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didHold) object:nil];
     
-    [self scaleBackAnimation];
-
     //hold
     if (self.holding) {
+        NSLog(@"Did stop holding");
+        
+        [self scaleBackAnimation];
         if ([self.delegate respondsToSelector:@selector(recordButtonStoppedHolding:)])
             [self.delegate recordButtonStoppedHolding:self];
     }
     //tap
     else {
+        NSLog(@"Did tap");
         if ([self.delegate respondsToSelector:@selector(recordButtonTapped:)])
             [self.delegate recordButtonTapped:self];
     }

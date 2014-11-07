@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSUInteger, SCCameraAspectRatio) {
-    SCCameraAspectRatio1_1 = 0,
-    SCCameraAspectRatio4_3 = 1,
-};
+#import "SCPhotoManager.h"
 
 @import AVFoundation.AVCaptureDevice;
 

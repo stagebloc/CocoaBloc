@@ -47,6 +47,12 @@ typedef NS_ENUM(NSUInteger, SCProgressState) {
 @property (nonatomic, readonly) CGFloat maxValue;
 @property (nonatomic, readonly) CGFloat minValue;
 
+/*
+ Not readonly for Reactive Cocoa reasons
+ DO NOT modify this variable outside this class
+ */
+@property (nonatomic) NSTimeInterval timeElapsed;
+
 @property (nonatomic, assign, readonly) SCProgressState state;
 
 @property (nonatomic, assign) id<SCProgressBarDelegate> delegate;
@@ -56,6 +62,5 @@ typedef NS_ENUM(NSUInteger, SCProgressState) {
 - (BOOL) start;
 - (BOOL) pause;
 - (BOOL) stop;
-
 
 @end

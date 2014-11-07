@@ -58,7 +58,14 @@
     [self.cameraView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
     
-
+    __weak typeof(self) weakSelf = self;
+    [RACObserve(self.cameraView.progressBar, timeElapsed) subscribeNext:^(NSNumber *n) {
+        NSTimeInterval elapsed = n.floatValue;
+        NSInteger mins = elapsed / 60;
+        NSInteger secs = elapsed - mins;
+        weakSelf.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
+    }];
+    
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     [doubleTap setNumberOfTapsRequired: 2];
     [self.view addGestureRecognizer:doubleTap];
@@ -105,21 +112,6 @@
 }
 
 #pragma mark - Actions
-
-
-
-- (void) startedHoldingCameraButton {
-    [self.captureManager.videoManager startCapture];
-}
-- (void) stoppedHoldingCameraButton {
-    [self.captureManager.videoManager stopCapture];
-}
-
--(void)recordButtonPressed:(id)sender
-{
-    self.cameraView.shutterToolbar.hidden = NO;
-    [[[SCCaptureManager sharedInstance] photoManager] captureImage];
-}
 
 -(void)chooseExistingButtonPressed:(id)sender
 {
@@ -246,15 +238,14 @@
 #pragma mark - SCProgressBarDelegate
 
 - (void) progressBarDidStart:(SCProgressBar*)progressBar {
-    NSLog(@"didstart");
 }
 
 - (void) progressBarDidPause:(SCProgressBar*)progressBar {
-    NSLog(@"didpause");
+
 }
 
 - (void) progressBarDidStop:(SCProgressBar*)progressBar withTime:(NSTimeInterval)time {
-    NSLog(@"didstop");
+
 }
 
 #pragma mark - SCRecordButtonDelegate
