@@ -7,7 +7,7 @@ CocoaBloc enables any Cocoa developer to have instant access to the StageBloc AP
 
 CocoaBloc can easily be added to any project via [CocoaPods](http://cocoapods.org/). Simply add the CocoaBloc pod to your `Podfile` and run a `pod install`.
 ```ruby
-pod "CocoaBloc"
+pod "CocoaBloc", :git => "https://github.com/stagebloc/CocoaBloc.git"
 ```
 
 Once the source code is in your project, the one line of code below is all that is required to make CocoaBloc ready. A client ID and secret can be made within the developers section of your account on the StageBloc backend. These, along with the redirect URI for OAuth if you're intending to let users log in for authenticated requests, are supplied once for each app.
