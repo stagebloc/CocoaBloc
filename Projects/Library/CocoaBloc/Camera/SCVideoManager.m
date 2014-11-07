@@ -145,11 +145,9 @@ BOOL CGAffineTransformIsPortrait(CGAffineTransform transtorm) {
 }
 
 // Returns an NSURL iff we've hit the max stitch limit, or max duration
-- (void)stopCapture
-{
+- (void)stopCapture {
     if (self.captureSession.outputs.count > 0) {
-        AVCaptureMovieFileOutput *output = self.captureSession.outputs[0];
-        [output stopRecording];
+        [self.output stopRecording];
     }
 }
 

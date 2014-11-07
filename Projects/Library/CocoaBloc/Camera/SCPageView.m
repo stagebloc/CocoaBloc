@@ -34,14 +34,14 @@
 }
 
 - (void) setIndex:(NSInteger)index duration:(NSTimeInterval)duration {
-    [self willChangeValueForKey:@"index"];
     if (index < 0) index = 0;
     if (index >= self.labels.count) index = self.labels.count - 1;
     
+    [self willChangeValueForKey:@"index"];
     _index = index;
-    [self configureLayoutWithDuration:duration];
-    
     [self didChangeValueForKey:@"index"];
+    
+    [self configureLayoutWithDuration:duration];
 }
 
 - (void) configureLayoutWithDuration:(NSTimeInterval)duration {

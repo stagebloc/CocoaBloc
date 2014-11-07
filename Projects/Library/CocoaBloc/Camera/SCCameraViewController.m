@@ -14,11 +14,13 @@
 #import "SCAssetsManager.h"
 #import "SCCameraView.h"
 #import "SCPageView.h"
+#import "SCProgressBar.h"
+#import "SCRecordButton.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SCCameraViewController () <UIActionSheetDelegate, SCPhotoManagerDelegate>
+@interface SCCameraViewController () <UIActionSheetDelegate, SCPhotoManagerDelegate, SCProgressBarDelegate, SCRecordButtonDelegate>
 
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic, weak) SCCaptureManager *captureManager;
@@ -96,10 +98,11 @@
     }];
     
     [[RACObserve(self.cameraView.pageView, index) skip:1] subscribeNext:^(NSNumber *n) {
+        NSInteger index = n.integerValue;
+
         weakSelf.cameraView.shutterToolbar.backgroundColor = [UIColor clearColor];
         weakSelf.cameraView.shutterToolbar.hidden = NO;
 
-        NSInteger index = n.integerValue;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self switchedToPage:index];
         });
@@ -277,11 +280,21 @@
 }
 
 - (void) handleSwipeLeftGesture:(UISwipeGestureRecognizer*) swipeGesture {
-    self.cameraView.pageView.index++;
+    if (self.cameraView.progressBar.timeElapsed > 0) {
+        return;
+    }
+
+    if (self.cameraView.pageView.index + 1 <= self.cameraView.pageView.labels.count-1)
+        self.cameraView.pageView.index++;
 }
 
 - (void) handleSwipeRightGesture:(UISwipeGestureRecognizer*)swipeGesture {
-    self.cameraView.pageView.index--;
+    if (self.cameraView.progressBar.timeElapsed > 0) {
+        return;
+    }
+
+    if (self.cameraView.pageView.index - 1 >= 0)
+        self.cameraView.pageView.index--;
 }
 
 -(void)closeButtonPressed:(id)sender {

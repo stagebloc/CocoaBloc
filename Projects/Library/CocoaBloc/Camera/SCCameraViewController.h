@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCProgressBar.h"
-#import "SCRecordButton.h"
 #import "SCCaptureManager.h"
 
 @class SCCameraViewController;
@@ -22,7 +20,7 @@
 - (void) cameraViewControllerDidFinish:(SCCameraViewController*)controller;
 @end
 
-@interface SCCameraViewController : UIViewController <SCProgressBarDelegate, SCRecordButtonDelegate, UIGestureRecognizerDelegate>
+@interface SCCameraViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) id<SCCameraViewControllerDelegate> delegate;
 
