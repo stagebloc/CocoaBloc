@@ -14,9 +14,12 @@
 
 @interface SCReviewController () <SCPhotoManagerDelegate, UIScrollViewDelegate, UITextFieldDelegate>
 
-@property (strong, nonatomic) ALAsset *asset;
 @property (strong, nonatomic) UIButton *rejectButton;
 @property (strong, nonatomic) UIButton *acceptButton;
+@property (nonatomic, strong) UIButton *drawButton;
+@property (nonatomic, strong) UIButton *undoButton;
+
+@property (strong, nonatomic) ALAsset *asset;
 @property (strong, nonatomic) UIToolbar *toolBar;
 @property (strong, nonatomic) UITextField *titleField;
 @property (strong, nonatomic) UITextField *descriptionField;
@@ -26,6 +29,46 @@
 @end
 
 @implementation SCReviewController
+
+- (UIButton*) rejectButton {
+    if (!_rejectButton) {
+        _rejectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rejectButton setImage:[UIImage imageNamed:@"close_circle"] forState:UIControlStateNormal];
+        _rejectButton.imageView.contentMode = UIViewContentModeCenter;
+        [_rejectButton addTarget:self action:@selector(rejectButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rejectButton;
+}
+
+- (UIButton*) acceptButton {
+    if (!_acceptButton) {
+        _acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_acceptButton setImage:[UIImage imageNamed:@"check_circle"] forState:UIControlStateNormal];
+        _acceptButton.imageView.contentMode = UIViewContentModeCenter;
+        [_acceptButton addTarget:self action:@selector(acceptButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _acceptButton;
+}
+
+- (UIButton*) undoButton {
+    if (!_undoButton) {
+        _undoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_undoButton setImage:[UIImage imageNamed:@"undo_circle"] forState:UIControlStateNormal];
+        _undoButton.imageView.contentMode = UIViewContentModeCenter;
+        [_undoButton addTarget:self action:@selector(undoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _undoButton;
+}
+
+- (UIButton*) drawButton {
+    if (!_drawButton) {
+        _drawButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_drawButton setImage:[UIImage imageNamed:@"draw_circle"] forState:UIControlStateNormal];
+        _drawButton.imageView.contentMode = UIViewContentModeCenter;
+        [_drawButton addTarget:self action:@selector(drawButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _drawButton;
+}
 
 - (instancetype) initWithImage:(UIImage*)image {
     if (self = [super init]){
@@ -39,28 +82,33 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor blackColor];
+    
+    CGPoint buttonOffset = CGPointMake(40, 40);
 
-    CGFloat buttonWidth = 60.f;
-    CGFloat spacing = 25.f;
-    CGFloat xOffset = CGRectGetWidth(self.view.bounds)/2 - spacing - buttonWidth;
-    CGFloat yOffset = CGRectGetHeight(self.view.bounds) - spacing - buttonWidth;
-
-    self.rejectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.rejectButton.frame = CGRectMake(xOffset, yOffset, buttonWidth, buttonWidth);
-    self.rejectButton.layer.cornerRadius = self.rejectButton.frame.size.width/2;
-    [self.rejectButton setBackgroundColor:[UIColor redColor]];
-    [self.rejectButton addTarget:self action:@selector(selectRejectButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.rejectButton];
-
-    xOffset = CGRectGetWidth(self.view.bounds)/2 + spacing;
-
-    self.acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.acceptButton.frame = CGRectMake(xOffset, yOffset, buttonWidth, buttonWidth);
-    self.acceptButton.layer.cornerRadius = self.acceptButton.frame.size.width/2;
-    [self.acceptButton setBackgroundColor:[UIColor greenColor]];
-    [self.acceptButton addTarget:self action:@selector(selectAcceptButton:) forControlEvents:UIControlEventTouchUpInside];
+    CGSize buttonSize = CGSizeMake(60, 60);
     [self.view addSubview:self.acceptButton];
+    [self.acceptButton autoSetDimensionsToSize:buttonSize];
+    [self.acceptButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-buttonOffset.y];
+    [self.acceptButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-buttonOffset.x];
 
+    [self.view addSubview:self.rejectButton];
+    [self.rejectButton autoSetDimensionsToSize:buttonSize];
+    [self.rejectButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-buttonOffset.y];
+    [self.rejectButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:buttonOffset.x];
+
+    buttonSize = CGSizeMake(50, 50);
+    buttonOffset = CGPointMake(20, 100);
+    [self.view addSubview:self.drawButton];
+    [self.drawButton autoSetDimensionsToSize:buttonSize];
+    [self.drawButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:buttonOffset.y];
+    [self.drawButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-buttonOffset.x];
+
+    [self.view addSubview:self.undoButton];
+    [self.undoButton autoSetDimensionsToSize:buttonSize];
+    [self.undoButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:buttonOffset.y];
+    [self.undoButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:buttonOffset.x];
+
+    
     if (_image.size.width == _image.size.height) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:_image];
         imageView.frame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds) , CGRectGetWidth(self.view.bounds), CGRectGetWidth(self.view.bounds));
@@ -127,6 +175,15 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+#pragma mark - Status bar states
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 #pragma mark - Textfield Delegate
@@ -282,21 +339,34 @@
     [UIView commitAnimations];
 }
 
--(void)selectRejectButton:(id)sender
-{
-    [[SCCaptureManager sharedInstance] photoManager].image = nil;
-    [self.navigationController popViewControllerAnimated:YES];
+#pragma mark Actions
+
+- (void) undoButtonPressed:(UIButton*)button {
+    
 }
 
--(void)selectAcceptButton:(id)sender
-{
-    NSDictionary *info = @{@"title" : _titleField.text, @"description" : _descriptionField.text};
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
-    [UIImagePNGRepresentation(_image) writeToFile:filePath atomically:YES];
+- (void) drawButtonPressed:(UIButton*)button {
+    
+}
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Image Saved to Device" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+-(void)rejectButtonPressed:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(reviewController:rejectedImage:)])
+        [self.delegate reviewController:self rejectedImage:self.image];
+    [[SCCaptureManager sharedInstance] photoManager].image = nil;
+}
+
+-(void)acceptButtonPressed:(id)sender {
+//    NSDictionary *info = @{@"title" : _titleField.text, @"description" : _descriptionField.text};
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
+//    [UIImagePNGRepresentation(_image) writeToFile:filePath atomically:YES];
+//
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Image Saved to Device" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//    [alert show];
+    
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedImage:)])
+        [self.delegate reviewController:self acceptedImage:self.image];
 }
 
 

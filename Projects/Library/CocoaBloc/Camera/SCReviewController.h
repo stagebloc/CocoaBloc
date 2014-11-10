@@ -9,9 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
+@class SCReviewController;
+
+@protocol SCReviewControllerDelegate <NSObject>
+@optional
+- (void) reviewController:(SCReviewController*)controller acceptedImage:(UIImage*)image;
+- (void) reviewController:(SCReviewController*)controller rejectedImage:(UIImage*)image;
+@end
+
 @interface SCReviewController : UIViewController
 
 @property (strong, nonatomic) UIImage *image;
+
+@property (nonatomic, weak) id <SCReviewControllerDelegate> delegate;
 
 - (instancetype) initWithImage:(UIImage*)image;
 

@@ -299,7 +299,7 @@
 }
 
 -(void)animateShutter:(void(^)(BOOL finished))completion {
-    [self animateShutterWithDuration:.5 completion:completion];
+    [self animateShutterWithDuration:.1 completion:completion];
 }
 -(void)animateShutterWithDuration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
     [UIView animateKeyframesWithDuration:duration delay:0 options:0 animations:^{

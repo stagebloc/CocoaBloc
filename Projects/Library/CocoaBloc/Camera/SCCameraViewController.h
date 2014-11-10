@@ -22,7 +22,7 @@
 
 @interface SCCameraViewController : UIViewController <UIGestureRecognizerDelegate>
 
-@property (nonatomic, assign) id<SCCameraViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<SCCameraViewControllerDelegate> delegate;
 
 /*
  Sets initial capture type to start with for the controller
