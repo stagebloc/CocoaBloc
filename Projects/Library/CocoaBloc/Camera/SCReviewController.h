@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) UIImage *image;
 
+- (instancetype) initWithImage:(UIImage*)image;
+
 @end

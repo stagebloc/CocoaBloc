@@ -16,6 +16,7 @@
 #import "SCPageView.h"
 #import "SCProgressBar.h"
 #import "SCRecordButton.h"
+#import "SCAlbumViewController.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -145,17 +146,6 @@
     [self.cameraView.captureView removeSession];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    // We /really/ need a delegate callback here instead...or, since RAC, a signal to bind to.
-    //    if ([SCAssetsManager sharedInstance].image) {
-    //        SCReviewController *vc = [[SCReviewController alloc] init];
-    //        vc.image = [SCAssetsManager sharedInstance].image;
-    //        [self.navigationController pushViewController:vc animated:YES];
-    //    }
-}
-
 #pragma mark - Camera state handling
 - (void) switchedToPage:(NSInteger)page {
     AVCaptureFlashMode prevFlashMode = self.captureManager.currentManager.flashMode;
@@ -229,6 +219,7 @@
 
 -(void)chooseExistingButtonPressed:(id)sender
 {
+    __weak typeof(self) weakSelf = self;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
     actionSheet.delegate = (id<UIActionSheetDelegate>)actionSheet;
     [[actionSheet rac_signalForSelector:@selector(actionSheet:didDismissWithButtonIndex:) fromProtocol:@protocol(UIActionSheetDelegate)] subscribeNext:^(RACTuple *t) {
@@ -239,21 +230,21 @@
                 [[[[SCAssetsManager sharedInstance] fetchLastPhoto] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
                     SCReviewController *vc = [[SCReviewController alloc] init];
                     vc.image = image;
-                    [self.navigationController pushViewController:vc animated:YES];
+                    [weakSelf.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
                     NSLog(@"ERROR: %@", error);
                 }];
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    SCImagePickerController *picker = [SCImagePickerController new];
-                    picker.completionBlock = ^(UIImage *image) {
-                        [self dismissViewControllerAnimated:YES completion:^{
-                            SCReviewController *vc = [[SCReviewController alloc] init];
-                            vc.image = image;
-                            [self.navigationController pushViewController:vc animated:YES];
-                        }];
+                    SCImagePickerController *picker = [[SCImagePickerController alloc] init];
+                    picker.completionBlock = ^(UIImage *image, NSDictionary *info) {
+                        if (image) {
+                            SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+                            [weakSelf.navigationController pushViewController:vc animated:NO];
+                        }
+                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
                     };
-                    [self presentViewController:picker animated:YES completion:nil];
+                    [weakSelf presentViewController:picker animated:YES completion:nil];
                 });
             }
         }
@@ -318,12 +309,11 @@
 
 #pragma mark - SCPhotoManager Delegate
 
--(void)photoManager:(SCPhotoManager*)manager capturedImage:(UIImage*)image;
-{
+-(void)photoManager:(SCPhotoManager*)manager capturedImage:(UIImage*)image {
     self.cameraView.shutterToolbar.hidden = YES;
-    if ([[SCCaptureManager sharedInstance] photoManager].image) {
+    if (image) {
         SCReviewController *vc = [[SCReviewController alloc] init];
-        vc.image = [[SCCaptureManager sharedInstance] photoManager].image;
+        vc.image = image;
         [self.navigationController pushViewController:vc animated:NO];
     }
 }

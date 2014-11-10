@@ -27,6 +27,13 @@
 
 @implementation SCReviewController
 
+- (instancetype) initWithImage:(UIImage*)image {
+    if (self = [super init]){
+        self.image = image;
+    }
+    return self;
+}
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];

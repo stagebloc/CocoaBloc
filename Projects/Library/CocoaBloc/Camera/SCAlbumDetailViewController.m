@@ -77,7 +77,7 @@
         // TODO: I'm not sure this is how we want to pass on images - perhaps a .selectedImage property and a completion RACCommand? Or can we pipe this through somehow?
         if ([self.navigationController isKindOfClass:[SCImagePickerController class]]) {
             if (((SCImagePickerController *)self.navigationController).completionBlock) {
-                ((SCImagePickerController *)self.navigationController).completionBlock(image);
+                ((SCImagePickerController *)self.navigationController).completionBlock(image, nil);
             }
         }
     }];
