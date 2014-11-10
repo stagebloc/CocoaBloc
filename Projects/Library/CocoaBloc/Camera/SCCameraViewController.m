@@ -81,11 +81,8 @@
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
     
     //set current index to match capture type
-    switch (self.captureManager.captureType) {
-        case SCCaptureTypeVideo: [self.cameraView.pageView setIndex:0 duration:0]; break;
-        case SCCaptureTypePhoto: [self.cameraView.pageView setIndex:1 duration:0];; break;
-        default: break;
-    }
+    NSInteger page = self.captureManager.captureType == SCCaptureTypeVideo ? 0 : 1;
+    [self.cameraView.pageView setIndex:page duration:0];
     
     __weak typeof(self) weakSelf = self;
     [RACObserve(self.cameraView.progressBar, timeElapsed) subscribeNext:^(NSNumber *n) {
@@ -98,11 +95,11 @@
         weakSelf.cameraView.timeLabel.hidden = !shouldHidePageView;
     }];
     
-    [[RACObserve(self.cameraView.pageView, index) skip:1] subscribeNext:^(NSNumber *n) {
+    [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         NSInteger index = n.integerValue;
 
-        weakSelf.cameraView.shutterToolbar.backgroundColor = [UIColor clearColor];
-        weakSelf.cameraView.shutterToolbar.hidden = NO;
+        weakSelf.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
+        weakSelf.cameraView.stateToolbar.hidden = NO;
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self switchedToPage:index];
@@ -152,14 +149,17 @@
     switch (page) {
         case 0:
             self.captureManager.captureType = SCCaptureTypeVideo;
+            self.cameraView.recordButton.allowHold = YES;
             break;
         case 1:
             self.captureManager.captureType = SCCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio4_3;
+            self.cameraView.recordButton.allowHold = NO;
             break;
         case 2:
             self.captureManager.captureType = SCCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio1_1;
+            self.cameraView.recordButton.allowHold = NO;
             break;
         default:
             break;
@@ -183,8 +183,8 @@
 }
 
 -(void)switchCamera {
-    self.cameraView.shutterToolbar.backgroundColor = [UIColor clearColor];
-    self.cameraView.shutterToolbar.hidden = NO;
+    self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
+    self.cameraView.stateToolbar.hidden = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         AVCaptureFlashMode prevFlashMode = self.captureManager.currentManager.flashMode;
         if (self.captureManager.currentManager.currentCamera == self.captureManager.photoManager.rearCamera) {
@@ -202,8 +202,8 @@
 }
 
 -(void)removeBlur {
-    self.cameraView.shutterToolbar.backgroundColor = [UIColor blackColor];
-    self.cameraView.shutterToolbar.hidden = YES;
+    self.cameraView.stateToolbar.backgroundColor = [UIColor blackColor];
+    self.cameraView.stateToolbar.hidden = YES;
 }
 
 #pragma mark - Status bar states
@@ -309,11 +309,10 @@
 #pragma mark - SCPhotoManager Delegate
 
 -(void)photoManager:(SCPhotoManager*)manager capturedImage:(UIImage*)image {
-    self.cameraView.shutterToolbar.hidden = YES;
+    self.cameraView.stateToolbar.hidden = YES;
     if (image) {
-        SCReviewController *vc = [[SCReviewController alloc] init];
-        vc.image = image;
-        [self.navigationController pushViewController:vc animated:NO];
+        SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -363,7 +362,7 @@
     if (self.captureManager.captureType != SCCaptureTypePhoto)
         return;
     
-    NSLog(@"Captured image");
+    [self.cameraView animateShutterWithDuration:.1 completion:nil];
     [self.captureManager.photoManager captureImage];
 }
 

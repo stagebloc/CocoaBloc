@@ -35,6 +35,8 @@
 - (instancetype) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.holdingInterval = .5f;
+        self.allowHold = YES;
+        
         self.layer.masksToBounds = YES;
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.innerView];
@@ -62,11 +64,18 @@
     }
 }
 
+- (void) cancelHold {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didHold) object:nil];
+}
+
 #pragma mark - Touch Methods
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
-    [self performSelector:@selector(didHold) withObject:nil afterDelay:self.holdingInterval];
+    if (self.allowHold) {
+        [self cancelHold];
+        [self performSelector:@selector(didHold) withObject:nil afterDelay:self.holdingInterval];
+    }
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -85,10 +94,10 @@
 
 //helper
 - (void) touchesEndedOrCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didHold) object:nil];
+    [self cancelHold];
     
     //hold
-    if (self.holding) {
+    if (self.allowHold && self.holding) {
         NSLog(@"Did stop holding");
         
         [self scaleBackAnimation];

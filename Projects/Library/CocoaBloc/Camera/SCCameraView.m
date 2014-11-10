@@ -38,14 +38,23 @@
     return _recordButton;
 }
 
-- (UIToolbar*) shutterToolbar {
-    if (!_shutterToolbar) {
-        _shutterToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
-        _shutterToolbar.backgroundColor = [UIColor blackColor];
-        _shutterToolbar.barStyle = UIBarStyleBlack;
-        _shutterToolbar.hidden = YES;
+- (UIToolbar*) stateToolbar {
+    if (!_stateToolbar) {
+        _stateToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
+        _stateToolbar.backgroundColor = [UIColor blackColor];
+        _stateToolbar.barStyle = UIBarStyleBlack;
+        _stateToolbar.hidden = YES;
     }
-    return _shutterToolbar;
+    return _stateToolbar;
+}
+
+- (UIView*) shutterView {
+    if (!_shutterView) {
+        _shutterView = [[UIView alloc] initWithFrame:self.bounds];
+        _shutterView.backgroundColor = [UIColor blackColor];
+        _shutterView.alpha = 0;
+    }
+    return _shutterView;
 }
 
 #pragma mark - Top HUD views
@@ -164,7 +173,7 @@
 
 - (void) initializeViews {
     //shutter toolbar
-    [self addSubview:self.shutterToolbar];
+    [self addSubview:self.stateToolbar];
     
     //BOTTOM HUD (contains subviews)
     [self addSubview:self.bottomHudView];
@@ -194,6 +203,11 @@
     [self.recordButton autoSetDimension:ALDimensionHeight toSize:64.f];
     [self.recordButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
     [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-20.f];
+    
+    [self addSubview:self.shutterView];
+    [self.shutterView autoCenterInSuperview];
+    [self.shutterView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+    [self.shutterView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
 }
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager {
@@ -278,6 +292,26 @@
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
         _bottomHudView.alpha = toValue;
         _topHudView.alpha = toValue;
+    } completion:^(BOOL finished) {
+        if (completion)
+            completion(finished);
+    }];
+}
+
+-(void)animateShutter:(void(^)(BOOL finished))completion {
+    [self animateShutterWithDuration:.5 completion:completion];
+}
+-(void)animateShutterWithDuration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
+    [UIView animateKeyframesWithDuration:duration delay:0 options:0 animations:^{
+       
+        [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0 animations:^{
+            self.shutterView.alpha = 1;
+        }];
+        
+        [UIView addKeyframeWithRelativeStartTime:1 relativeDuration:0 animations:^{
+            self.shutterView.alpha = 0;
+        }];
+        
     } completion:^(BOOL finished) {
         if (completion)
             completion(finished);

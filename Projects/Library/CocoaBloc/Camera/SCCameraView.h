@@ -18,7 +18,9 @@
 @property (nonatomic, strong) SCCaptureView *captureView;
 @property (nonatomic, strong) SCRecordButton *recordButton;
 @property (nonatomic, strong) SCProgressBar *progressBar;
-@property (nonatomic, strong) UIToolbar *shutterToolbar;
+@property (nonatomic, strong) UIToolbar *stateToolbar;
+
+@property (nonatomic, strong) UIView *shutterView;
 
 //Top HUD views
 @property (nonatomic, strong) UIView *topHudView;
@@ -65,5 +67,8 @@
  */
 -(void)animateHudHidden:(BOOL)hidden completion:(void(^)(BOOL finished))completion;
 -(void)animateHudHidden:(BOOL)hidden duration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion;
+
+-(void)animateShutter:(void(^)(BOOL finished))completion;
+-(void)animateShutterWithDuration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion;
 
 @end

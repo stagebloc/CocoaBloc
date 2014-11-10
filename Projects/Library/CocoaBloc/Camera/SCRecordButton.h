@@ -49,4 +49,12 @@
  */
 @property (nonatomic, assign) NSTimeInterval holdingInterval;
 
+/*
+ Set this property to YES if you want holding to be interpreted
+ Otherwise set to NO to allow for only presses.
+ 
+ Default = YES
+ */
+@property (nonatomic, assign) BOOL allowHold;
+
 @end
