@@ -49,6 +49,7 @@
                 for (NSInteger i = 0; i < albums.count; i++) {
                     SCAssetGroup *g = albums[i];
                     if ([g.name isEqualToString:@"Camera Roll"]) {
+                        group = g;
                         break;
                     }
                 }

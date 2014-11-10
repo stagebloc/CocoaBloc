@@ -228,8 +228,7 @@
         if (index != a.cancelButtonIndex) {
             if (index == 0) {
                 [[[[SCAssetsManager sharedInstance] fetchLastPhoto] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
-                    SCReviewController *vc = [[SCReviewController alloc] init];
-                    vc.image = image;
+                    SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
                     [weakSelf.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
                     NSLog(@"ERROR: %@", error);
