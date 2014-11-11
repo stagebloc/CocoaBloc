@@ -49,12 +49,13 @@
             setNameWithFormat:@"Shipping rates for items: %@", itemsToPurchase];
 }
 
-- (RACSignal *)purchaseItems:(NSDictionary *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address andEmail:(NSString *)email forAccount:(SBAccount *)account {
+- (RACSignal *)purchaseItems:(NSDictionary *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address shippingDetails:(NSDictionary *)shippingDetails andEmail:(NSString *)email forAccount:(SBAccount *)account {
     NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                          @"cart": @{@"store": itemsToPurchase},
                          @"token": purchaseToken,
-                         @"address": JSONaddress
+                         @"address": JSONaddress,
+                         @"shipping": shippingDetails
                     }];
 
     if (email == nil) {
