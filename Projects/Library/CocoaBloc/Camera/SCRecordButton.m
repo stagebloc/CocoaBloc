@@ -32,6 +32,14 @@
     return _innerView;
 }
 
+- (CGColorRef) borderColor {
+    return _innerView.layer.borderColor;
+}
+
+- (void) setBorderColor:(CGColorRef)borderColor {
+    _innerView.layer.borderColor = borderColor;
+}
+
 - (instancetype) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.holdingInterval = .5f;

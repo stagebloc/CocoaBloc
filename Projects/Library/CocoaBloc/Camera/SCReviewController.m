@@ -158,31 +158,36 @@ static CGFloat const kAnimationVelocity = 0.5f;
     
     NSMutableArray *constraints = [NSMutableArray array];
     
-    CGFloat offset = -50;
-    CGFloat height = 150;
+    CGFloat height = 105;
+    CGFloat offset = height - 100;
+    CGFloat titleOffset = offset;
     self.descriptionField.hidden = NO;
     self.titleField.hidden = NO;
     self.line.hidden = NO;
     switch (layoutType) {
         case SCTextFieldLayoutTitle:
-            height = 100;
+            height = 50 + offset;
             self.descriptionField.hidden = YES;
             self.line.hidden = YES;
             break;
         case SCTextFieldLayoutTitleDescription:
             break;
         default: //hidden
-            offset = -height;
+            offset = height;
+            titleOffset = 50;
+            self.descriptionField.hidden = YES;
+            self.titleField.hidden = YES;
+            self.line.hidden = YES;
             break;
     }
     
     [constraints addObject:[self.toolBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view]];
     [constraints addObject:[self.toolBar autoSetDimension:ALDimensionHeight toSize:height]];
-    [constraints addObject:[self.toolBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:offset]]; //hidden
+    [constraints addObject:[self.toolBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:-offset]]; //hidden
     
     [constraints addObject:[self.titleField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBar]];
     [constraints addObject:[self.titleField autoSetDimension:ALDimensionHeight toSize:50]];
-    [constraints addObject:[self.titleField autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.toolBar withOffset:50]];
+    [constraints addObject:[self.titleField autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.toolBar withOffset:titleOffset]];
     
     [constraints addObject:[self.descriptionField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBar]];
     [constraints addObject:[self.descriptionField autoSetDimension:ALDimensionHeight toSize:50]];

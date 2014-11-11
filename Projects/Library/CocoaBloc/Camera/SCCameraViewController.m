@@ -17,6 +17,7 @@
 #import "SCProgressBar.h"
 #import "SCRecordButton.h"
 #import "SCAlbumViewController.h"
+#import "UIColor+FanClub.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -150,16 +151,19 @@
         case 0:
             self.captureManager.captureType = SCCaptureTypeVideo;
             self.cameraView.recordButton.allowHold = YES;
+            self.cameraView.recordButton.borderColor = [UIColor redColor].CGColor;
             break;
         case 1:
             self.captureManager.captureType = SCCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio4_3;
             self.cameraView.recordButton.allowHold = NO;
+            self.cameraView.recordButton.borderColor = [UIColor fc_stageblocBlueColor].CGColor;
             break;
         case 2:
             self.captureManager.captureType = SCCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio1_1;
             self.cameraView.recordButton.allowHold = NO;
+            self.cameraView.recordButton.borderColor = [UIColor fc_stageblocBlueColor].CGColor;
             break;
         default:
             break;

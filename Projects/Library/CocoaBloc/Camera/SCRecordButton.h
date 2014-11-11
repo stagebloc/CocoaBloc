@@ -57,4 +57,9 @@
  */
 @property (nonatomic, assign) BOOL allowHold;
 
+/*
+ Border color ring for button
+ */
+@property (nonatomic) CGColorRef borderColor;
+
 @end

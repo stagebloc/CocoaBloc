@@ -172,8 +172,14 @@
 }
 
 - (void) initializeViews {
-    //shutter toolbar
+    //toolbar
     [self addSubview:self.stateToolbar];
+    
+    //shutter view
+    [self addSubview:self.shutterView];
+    [self.shutterView autoCenterInSuperview];
+    [self.shutterView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+    [self.shutterView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
     
     //BOTTOM HUD (contains subviews)
     [self addSubview:self.bottomHudView];
@@ -203,11 +209,6 @@
     [self.recordButton autoSetDimension:ALDimensionHeight toSize:64.f];
     [self.recordButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
     [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-20.f];
-    
-    [self addSubview:self.shutterView];
-    [self.shutterView autoCenterInSuperview];
-    [self.shutterView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-    [self.shutterView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
 }
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager {
