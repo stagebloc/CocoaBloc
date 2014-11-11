@@ -8,7 +8,6 @@
 
 #import "SCRecordButton.h"
 #import <PureLayout/PureLayout.h>
-#import <pop/POP.h>
 #import "UIColor+FanClub.h"
 
 @interface SCRecordButton ()
@@ -104,7 +103,7 @@
     if (self.allowHold && self.holding) {
         NSLog(@"Did stop holding");
         
-        [self scaleBackAnimation];
+        [self scaleNormal];
         if ([self.delegate respondsToSelector:@selector(recordButtonStoppedHolding:)])
             [self.delegate recordButtonStoppedHolding:self];
     }
@@ -121,24 +120,20 @@
 
 #pragma mark - Animations
 - (void)scaleToBig {
-    POPBasicAnimation *scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnimation.fromValue = [NSValue valueWithCGSize:CGSizeMake(1, 1)];
-    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2f, 1.2f)];
-    [self.layer pop_addAnimation:scaleAnimation forKey:@"layerScaleSmallAnimation"];
+    self.transform = CGAffineTransformMakeScale(1, 1);
+    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:0 animations:^{
+        self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
-- (void)scaleBackAnimation {
-    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnimation.velocity = [NSValue valueWithCGSize:CGSizeMake(.8f, .8f)];
-    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
-    scaleAnimation.springBounciness = 18.0f;
-    [self.layer pop_addAnimation:scaleAnimation forKey:@"layerScaleSpringAnimation"];
-}
-
-- (void)scaleToDefault {
-    POPBasicAnimation *scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
-    [self.layer pop_addAnimation:scaleAnimation forKey:@"layerScaleDefaultAnimation"];
+- (void)scaleNormal {
+    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:0 animations:^{
+        self.transform = CGAffineTransformMakeScale(1, 1);
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 @end

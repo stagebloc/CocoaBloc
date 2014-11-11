@@ -50,7 +50,6 @@
         
         [_cameraView.chooseExistingButton addTarget:self action:@selector(chooseExistingButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [_cameraView.aspectRatioButton addTarget:self action:@selector(aspectRatioButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.flashModeButton addTarget:self action:@selector(flashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _cameraView.progressBar.delegate = self;
@@ -175,8 +174,12 @@
 
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
-    self.cameraView.captureType = page == 0 ? SCCaptureTypeVideo : SCCaptureTypePhoto;
-    self.cameraView.aspectRatio = page == 2 ? SCCameraAspectRatio1_1 : SCCameraAspectRatio4_3;
+    switch (page) {
+        case 0: [self.cameraView setVideoCaptureType]; break;
+        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SCCameraAspectRatio4_3]; break;
+        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SCCameraAspectRatio1_1]; break;
+        default: break;
+    }
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
 

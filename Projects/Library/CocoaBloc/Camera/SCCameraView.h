@@ -33,17 +33,18 @@
 
 //Bottom HUD views
 @property (nonatomic, strong) UIView *bottomHudView;
-@property (nonatomic, strong) UIButton *aspectRatioButton;
 @property (nonatomic, strong) UIButton *chooseExistingButton;
 
 //Change this property to adjust the flashModeButton image
 @property (nonatomic, assign) AVCaptureFlashMode flashMode;
 
 //Change this property to adjust the aspectRatioButton image
-@property (nonatomic, assign) SCCameraAspectRatio aspectRatio;
+//use setPhotoCaptureTypeWithAspectRatio:
+@property (nonatomic, assign, readonly) SCCameraAspectRatio aspectRatio;
 
 //change this property to adjust the capture view
-@property (nonatomic, assign) SCCaptureType captureType;
+//use setPhotoCaptureTypeWithAspectRatio: & setVideoCaptureType
+@property (nonatomic, assign, readonly) SCCaptureType captureType;
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
 
@@ -63,6 +64,9 @@
  @return YES if hud is hidden, NO if it is not hidden.
  */
 - (BOOL)isHudHidden;
+
+- (void) setPhotoCaptureTypeWithAspectRatio:(SCCameraAspectRatio)ratio;
+- (void) setVideoCaptureType;
 
 /*
  Animates the hud's alpha value to 0 if hidden = YES

@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
     s.subspec 'Camera' do |ss|
       ss.dependency 'CocoaBloc/API'
       ss.dependency 'CocoaBloc/UI'
-      ss.dependency 'pop', '~> 1.0.7'
+      ss.dependency 'GPUImage', '~> 0.1.6'
       ss.source_files = 'Projects/Library/CocoaBloc/Camera/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Camera'
     end

@@ -207,11 +207,11 @@ static CGFloat const kAnimationVelocity = 0.5f;
     CGPoint buttonOffset = CGPointMake(40, bottomOffset);
     CGSize buttonSize = CGSizeMake(60, 60);
 
-    [constraints addObject:[self.acceptButton autoSetDimensionsToSize:buttonSize]];
+    [constraints addObjectsFromArray:[self.acceptButton autoSetDimensionsToSize:buttonSize]];
     [constraints addObject:[self.acceptButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:buttonOffset.y]];
     [constraints addObject:[self.acceptButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.view withOffset:-buttonOffset.x]];
     
-    [constraints addObject:[self.rejectButton autoSetDimensionsToSize:buttonSize]];
+    [constraints addObjectsFromArray:[self.rejectButton autoSetDimensionsToSize:buttonSize]];
     [constraints addObject:[self.rejectButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:buttonOffset.y]];
     [constraints addObject:[self.rejectButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.view withOffset:buttonOffset.x]];
     

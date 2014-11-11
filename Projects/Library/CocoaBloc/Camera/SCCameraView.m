@@ -220,8 +220,7 @@
         self.captureView = [[SCCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
         [self addSubview:self.captureView];
         [self initializeViews];
-        self.aspectRatio = SCCameraAspectRatio4_3;
-        self.captureType = SCCaptureTypeVideo;
+        [self setVideoCaptureType];
     }
     return self;
 }
@@ -231,21 +230,21 @@
     NSMutableArray *constraints = [NSMutableArray array];
     
     if (captureType == SCCaptureTypeVideo) {
-        [constraints addObject:[self.captureView autoCenterInSuperview]];
+        [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
         [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
         [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
     } else {
         if (ratio == SCCameraAspectRatio1_1) {
-            [constraints addObject:[self.captureView autoCenterInSuperview]];
+            [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
             [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self]];
+            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
         } else {
-            [constraints addObject:[self.captureView autoCenterInSuperview]];
+            [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
             [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
             [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
         }
     }
-    
+
     self.cameraConstraints = [constraints copy];
 }
 
@@ -275,39 +274,24 @@
     return newMode;
 }
 
-- (void) setAspectRatio:(SCCameraAspectRatio)aspectRatio {
-    [self willChangeValueForKey:@"flashMode"];
-    _aspectRatio = aspectRatio;
-    [self didChangeValueForKey:@"flashMode"];
-    
-    switch (aspectRatio) {
-        case SCCameraAspectRatio1_1:
-            [_aspectRatioButton setImage:[UIImage imageNamed:@"ratio_1_1"] forState:UIControlStateNormal];
-            break;
-        case SCCameraAspectRatio4_3:
-            [_aspectRatioButton setImage:[UIImage imageNamed:@"ratio_4_3"] forState:UIControlStateNormal];
-            break;
-        default: break;
-    }
-    
-    [self adjustCameraConstraintsForRatio:aspectRatio captureType:self.captureType];
-    [self layoutSubviews];
-}
-
 - (SCCameraAspectRatio) cycleAspectRatio {
     SCCameraAspectRatio newMode = self.aspectRatio + 1;
     if (newMode > SCCameraAspectRatio4_3)
         newMode = SCCameraAspectRatio1_1;
-    self.aspectRatio = newMode;
     return newMode;
 }
 
-- (void) setCaptureType:(SCCaptureType)captureType {
-    [self willChangeValueForKey:@"captureType"];
-    _captureType = captureType;
-    [self didChangeValueForKey:@"captureType"];
-    
-    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:captureType];
+- (void) setPhotoCaptureTypeWithAspectRatio:(SCCameraAspectRatio)ratio {
+    _aspectRatio = ratio;
+    _captureType = SCCaptureTypePhoto;
+    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
+    [self layoutSubviews];
+}
+
+- (void) setVideoCaptureType {
+    _aspectRatio = SCCameraAspectRatio4_3;
+    _captureType = SCCaptureTypeVideo;
+    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     [self layoutSubviews];
 }
 
