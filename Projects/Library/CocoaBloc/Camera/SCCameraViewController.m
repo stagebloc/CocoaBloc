@@ -175,6 +175,7 @@
 
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
+    self.cameraView.captureType = page == 0 ? SCCaptureTypeVideo : SCCaptureTypePhoto;
     self.cameraView.aspectRatio = page == 2 ? SCCameraAspectRatio1_1 : SCCameraAspectRatio4_3;
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
@@ -228,6 +229,25 @@
 }
 
 #pragma mark - Actions
+- (void) startRecording {
+    NSLog(@"Started recording");
+    [self.captureManager.videoManager startCapture];
+    [self.cameraView animateHudHidden:YES completion:nil];
+    [self.cameraView.progressBar start];
+}
+
+- (void) pauseRecording {
+    NSLog(@"Stopped recording");
+    [self.captureManager.videoManager stopCapture];
+    [self.cameraView animateHudHidden:NO completion:nil];
+    [self.cameraView.progressBar pause];
+}
+
+- (void) stopRecording {
+    [self.captureManager.videoManager saveVideoLocally:^(NSURL *assetURL, NSError *error) {
+        NSLog(@"saved video");
+    }];
+}
 
 -(void)chooseExistingButtonPressed:(id)sender
 {
@@ -337,11 +357,11 @@
 }
 
 - (void) progressBarDidPause:(SCProgressBar*)progressBar {
-
+    
 }
 
 - (void) progressBarDidStop:(SCProgressBar*)progressBar withTime:(NSTimeInterval)time {
-
+    [self stopRecording];
 }
 
 #pragma mark - SCRecordButtonDelegate
@@ -350,10 +370,7 @@
     if (self.captureManager.captureType != SCCaptureTypeVideo)
         return;
     
-    NSLog(@"Started recording");
-    [self.captureManager.videoManager startCapture];
-    [self.cameraView animateHudHidden:YES completion:nil];
-    [self.cameraView.progressBar start];
+    [self startRecording];
 }
 
 - (void) recordButtonStoppedHolding:(SCRecordButton *)button {
@@ -365,10 +382,7 @@
     
     //pause video
     else {
-        NSLog(@"Stopped recording");
-        [self.captureManager.videoManager stopCapture];
-        [self.cameraView animateHudHidden:NO completion:nil];
-        [self.cameraView.progressBar pause];
+        [self pauseRecording];
     }
 }
 

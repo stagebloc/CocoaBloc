@@ -221,22 +221,29 @@
         [self addSubview:self.captureView];
         [self initializeViews];
         self.aspectRatio = SCCameraAspectRatio4_3;
+        self.captureType = SCCaptureTypeVideo;
     }
     return self;
 }
 
-- (void) adjustCameraConstraintsForRatio:(SCCameraAspectRatio)ratio {
+- (void) adjustCameraConstraintsForRatio:(SCCameraAspectRatio)ratio captureType:(SCCaptureType)captureType{
     [self.cameraConstraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
-
-    if (ratio == SCCameraAspectRatio1_1) {
-        [constraints addObject:[self.captureView autoCenterInSuperview]];
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self]];
-    } else {
+    
+    if (captureType == SCCaptureTypeVideo) {
         [constraints addObject:[self.captureView autoCenterInSuperview]];
         [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
         [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+    } else {
+        if (ratio == SCCameraAspectRatio1_1) {
+            [constraints addObject:[self.captureView autoCenterInSuperview]];
+            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self]];
+        } else {
+            [constraints addObject:[self.captureView autoCenterInSuperview]];
+            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+        }
     }
     
     self.cameraConstraints = [constraints copy];
@@ -283,7 +290,7 @@
         default: break;
     }
     
-    [self adjustCameraConstraintsForRatio:aspectRatio];
+    [self adjustCameraConstraintsForRatio:aspectRatio captureType:self.captureType];
     [self layoutSubviews];
 }
 
@@ -293,6 +300,15 @@
         newMode = SCCameraAspectRatio1_1;
     self.aspectRatio = newMode;
     return newMode;
+}
+
+- (void) setCaptureType:(SCCaptureType)captureType {
+    [self willChangeValueForKey:@"captureType"];
+    _captureType = captureType;
+    [self didChangeValueForKey:@"captureType"];
+    
+    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:captureType];
+    [self layoutSubviews];
 }
 
 - (BOOL) isHudHidden {

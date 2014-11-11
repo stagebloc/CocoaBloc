@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SCPhotoManager.h"
+#import "SCCaptureManager.h"
 
 @import AVFoundation.AVCaptureDevice;
 
@@ -40,6 +41,9 @@
 
 //Change this property to adjust the aspectRatioButton image
 @property (nonatomic, assign) SCCameraAspectRatio aspectRatio;
+
+//change this property to adjust the capture view
+@property (nonatomic, assign) SCCaptureType captureType;
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
 

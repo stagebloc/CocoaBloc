@@ -203,6 +203,7 @@ BOOL CGAffineTransformIsPortrait(CGAffineTransform transtorm) {
         if (videoError) {
             // Handle error here
             NSLog(@"currentComposition :: videoError :: %@", videoError);
+            return nil;
         } else {
             if (!CGAffineTransformIsPortrait(asset.preferredTransform)) {
                 AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
