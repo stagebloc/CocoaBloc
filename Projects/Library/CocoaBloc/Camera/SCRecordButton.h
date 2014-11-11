@@ -60,6 +60,6 @@
 /*
  Border color ring for button
  */
-@property (nonatomic) CGColorRef borderColor;
+- (void) setBorderColor:(UIColor*)borderColor;
 
 @end

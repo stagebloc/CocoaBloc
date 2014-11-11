@@ -22,7 +22,7 @@
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SCCameraViewController () <UIActionSheetDelegate, SCPhotoManagerDelegate, SCProgressBarDelegate, SCRecordButtonDelegate>
+@interface SCCameraViewController () <UIActionSheetDelegate, SCPhotoManagerDelegate, SCProgressBarDelegate, SCRecordButtonDelegate, SCReviewControllerDelegate>
 
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic, weak) SCCaptureManager *captureManager;
@@ -73,6 +73,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     self.view.backgroundColor = [UIColor blackColor];
     
@@ -135,7 +137,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.navigationController.navigationBarHidden = YES;
     [self.cameraView.captureView addSessionIfNeeded:self.captureManager.captureSession];
 }
 
@@ -151,24 +152,31 @@
         case 0:
             self.captureManager.captureType = SCCaptureTypeVideo;
             self.cameraView.recordButton.allowHold = YES;
-            self.cameraView.recordButton.borderColor = [UIColor redColor].CGColor;
             break;
         case 1:
             self.captureManager.captureType = SCCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio4_3;
             self.cameraView.recordButton.allowHold = NO;
-            self.cameraView.recordButton.borderColor = [UIColor fc_stageblocBlueColor].CGColor;
             break;
         case 2:
             self.captureManager.captureType = SCCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio1_1;
             self.cameraView.recordButton.allowHold = NO;
-            self.cameraView.recordButton.borderColor = [UIColor fc_stageblocBlueColor].CGColor;
             break;
         default:
             break;
     }
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
+    [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
+    
     [self updateFlashMode:prevFlashMode]; //update new flash mode
+}
+
+- (void) updateUIForNewPage {
+    NSInteger page = self.cameraView.pageView.index;
+    self.cameraView.aspectRatio = page == 2 ? SCCameraAspectRatio1_1 : SCCameraAspectRatio4_3;
+    [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
 
 - (void) updateFlashMode:(AVCaptureFlashMode)mode {
@@ -233,6 +241,7 @@
             if (index == 0) {
                 [[[[SCAssetsManager sharedInstance] fetchLastPhoto] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
                     SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+                    vc.delegate = self;
                     [weakSelf.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
                     NSLog(@"ERROR: %@", error);
@@ -243,6 +252,7 @@
                     picker.completionBlock = ^(UIImage *image, NSDictionary *info) {
                         if (image) {
                             SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+                            vc.delegate = self;
                             [weakSelf.navigationController pushViewController:vc animated:NO];
                         }
                         [weakSelf dismissViewControllerAnimated:YES completion:nil];
@@ -316,6 +326,7 @@
     self.cameraView.stateToolbar.hidden = YES;
     if (image) {
         SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -368,6 +379,23 @@
     
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
     [self.captureManager.photoManager captureImage];
+}
+
+#pragma mark - SCReviewControllerDelegate
+- (void) reviewController:(SCReviewController *)controller acceptedImage:(UIImage *)image title:(NSString *)title description:(NSString *)description {
+    NSDictionary *info = @{@"title" : title, @"description" : description};
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
+    [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SHOULD Override Image Saved to Device" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    
+}
+
+- (void) reviewController:(SCReviewController *)controller rejectedImage:(UIImage *)image {
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 @end

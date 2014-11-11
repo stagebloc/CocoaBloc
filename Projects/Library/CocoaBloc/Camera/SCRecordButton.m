@@ -32,12 +32,8 @@
     return _innerView;
 }
 
-- (CGColorRef) borderColor {
-    return _innerView.layer.borderColor;
-}
-
-- (void) setBorderColor:(CGColorRef)borderColor {
-    _innerView.layer.borderColor = borderColor;
+- (void) setBorderColor:(UIColor*)borderColor {
+    _innerView.layer.borderColor = borderColor.CGColor;
 }
 
 - (instancetype) initWithFrame:(CGRect)frame {

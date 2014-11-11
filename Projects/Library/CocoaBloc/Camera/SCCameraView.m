@@ -18,6 +18,10 @@
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
+@interface SCCameraView ()
+@property (nonatomic, strong) NSArray *cameraConstraints;
+@end
+
 @implementation SCCameraView
 
 @synthesize aspectRatio = _aspectRatio;
@@ -215,14 +219,27 @@
     if (self = [super initWithFrame:frame]) {
         self.captureView = [[SCCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
         [self addSubview:self.captureView];
-        [self.captureView autoCenterInSuperview];
-        [self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-        [self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
-        ((AVCaptureVideoPreviewLayer *)self.captureView.layer).videoGravity = AVLayerVideoGravityResizeAspectFill;
-
         [self initializeViews];
+        self.aspectRatio = SCCameraAspectRatio4_3;
     }
     return self;
+}
+
+- (void) adjustCameraConstraintsForRatio:(SCCameraAspectRatio)ratio {
+    [self.cameraConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+
+    if (ratio == SCCameraAspectRatio1_1) {
+        [constraints addObject:[self.captureView autoCenterInSuperview]];
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self]];
+    } else {
+        [constraints addObject:[self.captureView autoCenterInSuperview]];
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+    }
+    
+    self.cameraConstraints = [constraints copy];
 }
 
 - (void) setFlashMode:(AVCaptureFlashMode)flashMode {
@@ -265,6 +282,9 @@
             break;
         default: break;
     }
+    
+    [self adjustCameraConstraintsForRatio:aspectRatio];
+    [self layoutSubviews];
 }
 
 - (SCCameraAspectRatio) cycleAspectRatio {
@@ -277,10 +297,6 @@
 
 - (BOOL) isHudHidden {
     return _bottomHudView.alpha == 0;
-}
-
-- (void) layoutSubviews {
-    [super layoutSubviews];
 }
 
 #pragma mark - Animations

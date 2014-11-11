@@ -222,6 +222,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     self.view.backgroundColor = [UIColor blackColor];
     
@@ -376,16 +378,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
 }
 
 -(void)acceptButtonPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedImage:)]) {
-        [self.delegate reviewController:self acceptedImage:self.image];
-    } else {
-        NSDictionary *info = @{@"title" : _titleField.text, @"description" : _descriptionField.text};
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
-        [UIImagePNGRepresentation(_image) writeToFile:filePath atomically:YES];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Image Saved to Device" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedImage:title:description:)]) {
+        [self.delegate reviewController:self acceptedImage:self.image title:self.titleField.text description:self.descriptionField.text];
     }
 }
 

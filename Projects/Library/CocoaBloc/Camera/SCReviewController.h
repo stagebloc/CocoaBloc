@@ -13,7 +13,7 @@
 
 @protocol SCReviewControllerDelegate <NSObject>
 @optional
-- (void) reviewController:(SCReviewController*)controller acceptedImage:(UIImage*)image;
+- (void) reviewController:(SCReviewController*)controller acceptedImage:(UIImage*)image title:(NSString*)title description:(NSString*)description;
 - (void) reviewController:(SCReviewController*)controller rejectedImage:(UIImage*)image;
 @end
 
