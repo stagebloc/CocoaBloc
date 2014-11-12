@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
     s.subspec 'Camera' do |ss|
       ss.dependency 'CocoaBloc/API'
       ss.dependency 'CocoaBloc/UI'
-      ss.dependency 'GPUImage', '~> 0.1.6'
+      ss.dependency 'GPUImage', :podspec => 'https://raw.githubusercontent.com/mglagola/GPUImage/master/GPUImage.podspec'
       ss.source_files = 'Projects/Library/CocoaBloc/Camera/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Camera'
     end
