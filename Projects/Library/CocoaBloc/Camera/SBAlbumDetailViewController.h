@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class SCAssetGroup;
+@class SBAssetGroup;
 
-@interface SCAlbumDetailViewController : UICollectionViewController
+@interface SBAlbumDetailViewController : UICollectionViewController
 
-@property (nonatomic, strong) SCAssetGroup *group;
+@property (nonatomic, strong) SBAssetGroup *group;
 
 @end

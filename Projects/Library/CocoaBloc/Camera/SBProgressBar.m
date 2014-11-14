@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCProgressBar.h"
+#import "SBProgressBar.h"
 
-@interface SCProgressBar ()
+@interface SBProgressBar ()
 
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic, copy) NSDate *timerStartDate;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation SCProgressBar
+@implementation SBProgressBar
 
 @synthesize minValue = _minValue, maxValue = _maxValue, state = _state;
 
@@ -45,7 +45,7 @@
         self.progressView.backgroundColor = [UIColor whiteColor];
         _minValue = minValue;
         _maxValue = maxValue;
-        _state = SCProgressStateStopped;
+        _state = SBProgressStateStopped;
     }
     return self;
 }
@@ -64,10 +64,10 @@
 
 #pragma mark - Timer Methods
 - (BOOL) start {
-    if (self.state == SCProgressStateStarted)
+    if (self.state == SBProgressStateStarted)
         return NO;
     
-    _state = SCProgressStateStarted;
+    _state = SBProgressStateStarted;
     
     self.timerStartDate = [NSDate date];
     CGFloat duration = 0.01f;
@@ -81,10 +81,10 @@
 }
 
 - (BOOL) pause {
-    if (self.state == SCProgressStatePaused)
+    if (self.state == SBProgressStatePaused)
         return NO;
     
-    _state = SCProgressStatePaused;
+    _state = SBProgressStatePaused;
     
     [self.timer invalidate];
     self.pauseTimeElapsed = self.timeElapsed;
@@ -97,10 +97,10 @@
 }
 
 - (BOOL) stop {
-    if (self.state == SCProgressStateStopped)
+    if (self.state == SBProgressStateStopped)
         return NO;
     
-    _state = SCProgressStateStopped;
+    _state = SBProgressStateStopped;
     
     [self.timer invalidate];
     

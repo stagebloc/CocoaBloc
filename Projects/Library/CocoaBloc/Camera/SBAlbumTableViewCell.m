@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SCAlbumTableViewCell.h"
+#import "SBAlbumTableViewCell.h"
 #import <PureLayout/PureLayout.h>
 
 
-@implementation SCAlbumTableViewCell
+@implementation SBAlbumTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

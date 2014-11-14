@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SCAssetGroup : NSObject
+@interface SBAssetGroup : NSObject
 
 /**
  * Initialize an SCAssetGroup with an array of either PHAssets or ALAssets.

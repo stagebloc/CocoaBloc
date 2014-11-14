@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class SCRecordButton;
+@class SBRecordButton;
 
 @protocol SCRecordButtonDelegate <NSObject>
 @optional
@@ -16,22 +16,22 @@
  Handle TAP state.
  Called when the button is tapped.
  */
-- (void) recordButtonTapped:(SCRecordButton*)button;
+- (void) recordButtonTapped:(SBRecordButton*)button;
 
 /*
  Handling of HOLD state.
  Called when button begins to be held.
  */
-- (void) recordButtonStartedHolding:(SCRecordButton*)button;
+- (void) recordButtonStartedHolding:(SBRecordButton*)button;
 
 /*
  Handling of HOLD state.
  Called when button stops being held.
  */
-- (void) recordButtonStoppedHolding:(SCRecordButton*)button;
+- (void) recordButtonStoppedHolding:(SBRecordButton*)button;
 @end
 
-@interface SCRecordButton : UIControl
+@interface SBRecordButton : UIControl
 
 @property (nonatomic, assign) id<SCRecordButtonDelegate> delegate;
 

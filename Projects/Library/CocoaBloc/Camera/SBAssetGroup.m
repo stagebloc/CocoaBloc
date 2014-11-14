@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCAssetGroup.h"
-#import "SCAsset.h"
+#import "SBAssetGroup.h"
+#import "SBAsset.h"
 
 @import Photos;
 @import AssetsLibrary;
 
-@implementation SCAssetGroup
+@implementation SBAssetGroup
 
 - (id)initWithAssets:(NSArray *)assets
 {
@@ -22,10 +22,10 @@
         [assets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if ([obj isKindOfClass:[PHAsset class]]) {
                 if (((PHAsset *)obj).burstSelectionTypes == PHAssetBurstSelectionTypeNone) {
-                    [array addObject:[[SCAsset alloc] initWithObject:obj]];
+                    [array addObject:[[SBAsset alloc] initWithObject:obj]];
                 }
             } else {
-                [array addObject:[[SCAsset alloc] initWithObject:obj]];
+                [array addObject:[[SBAsset alloc] initWithObject:obj]];
             }
         }];
         _assets = array;
@@ -51,7 +51,7 @@
             NSMutableArray *assets = [NSMutableArray arrayWithCapacity:temp.count];
             for (PHAsset *a in temp) {
                 if (a.burstSelectionTypes == PHAssetBurstSelectionTypeNone) {
-                    [assets addObject:[[SCAsset alloc] initWithObject:a]];
+                    [assets addObject:[[SBAsset alloc] initWithObject:a]];
                 }
             }
             _assets = assets;
@@ -62,7 +62,7 @@
             NSMutableArray *temp = [NSMutableArray arrayWithCapacity:((ALAssetsGroup *)group).numberOfAssets];
             [(ALAssetsGroup *)group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                 if (result) {
-                     [temp addObject:[[SCAsset alloc] initWithObject:result]];
+                     [temp addObject:[[SBAsset alloc] initWithObject:result]];
                 }
             }];
             _assets = temp;
@@ -76,7 +76,7 @@
 - (RACSignal *)requestPreviewImageWithSize:(CGFloat)size
 {
     CGFloat pixelSize = size * [UIScreen mainScreen].scale;
-    return [(SCAsset *)self.assets.lastObject requestImageWithSize:CGSizeMake(pixelSize, pixelSize)];
+    return [(SBAsset *)self.assets.lastObject requestImageWithSize:CGSizeMake(pixelSize, pixelSize)];
 }
 
 @end

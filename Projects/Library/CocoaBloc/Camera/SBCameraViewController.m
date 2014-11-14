@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCCameraViewController.h"
+#import "SBCameraViewController.h"
 #import "SBCaptureManager.h"
-#import "SCCaptureView.h"
-#import "SCReviewController.h"
-#import "SCImagePickerController.h"
-#import "SCAssetsManager.h"
-#import "SCCameraView.h"
-#import "SCPageView.h"
-#import "SCProgressBar.h"
-#import "SCRecordButton.h"
-#import "SCAlbumViewController.h"
+#import "SBCaptureView.h"
+#import "SBReviewController.h"
+#import "SBImagePickerController.h"
+#import "SBAssetsManager.h"
+#import "SBCameraView.h"
+#import "SBPageView.h"
+#import "SBProgressBar.h"
+#import "SBRecordButton.h"
+#import "SBAlbumViewController.h"
 #import "UIColor+FanClub.h"
 #import "SBVideoManager.h"
 #import "SBPhotoManager.h"
@@ -26,15 +26,15 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface SCCameraViewController () <UIActionSheetDelegate, SCProgressBarDelegate, SCRecordButtonDelegate, SCReviewControllerDelegate>
+@interface SBCameraViewController () <UIActionSheetDelegate, SBProgressBarDelegate, SCRecordButtonDelegate, SBReviewControllerDelegate>
 
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic, strong) SBCaptureManager *captureManager;
-@property (nonatomic, strong) SCCameraView *cameraView;
+@property (nonatomic, strong) SBCameraView *cameraView;
 
 @end
 
-@implementation SCCameraViewController
+@implementation SBCameraViewController
 
 - (SBCaptureManager*) captureManager {
     if (!_captureManager)
@@ -42,9 +42,9 @@
     return _captureManager;
 }
 
-- (SCCameraView*) cameraView {
+- (SBCameraView*) cameraView {
     if (!_cameraView) {
-        _cameraView = [[SCCameraView alloc] initWithFrame:self.view.frame captureManager:self.captureManager];
+        _cameraView = [[SBCameraView alloc] initWithFrame:self.view.frame captureManager:self.captureManager];
         
         _cameraView.recordButton.delegate = self;
         _cameraView.recordButton.holdingInterval = 0.2f;
@@ -228,7 +228,7 @@
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
     __weak typeof(self) weakSelf = self;
     [self.captureManager.photoManager captureImageWithCompletion:^(UIImage *image) {
-        SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+        SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
         vc.delegate = weakSelf;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
@@ -245,8 +245,8 @@
         NSInteger index = [t.second integerValue];
         if (index != a.cancelButtonIndex) {
             if (index == 0) {
-                [[[[SCAssetsManager sharedInstance] fetchLastPhoto] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
-                    SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+                [[[[SBAssetsManager sharedInstance] fetchLastPhoto] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
+                    SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
                     vc.delegate = self;
                     [weakSelf.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
@@ -254,10 +254,10 @@
                 }];
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    SCImagePickerController *picker = [[SCImagePickerController alloc] init];
+                    SBImagePickerController *picker = [[SBImagePickerController alloc] init];
                     picker.completionBlock = ^(UIImage *image, NSDictionary *info) {
                         if (image) {
-                            SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+                            SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
                             vc.delegate = self;
                             [weakSelf.navigationController pushViewController:vc animated:NO];
                         }
@@ -350,23 +350,23 @@
 -(void)photoManager:(SBPhotoManager*)manager capturedImage:(UIImage*)image {
     self.cameraView.stateToolbar.hidden = YES;
     if (image) {
-        SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+        SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
 #pragma mark - SCProgressBarDelegate
-- (void) progressBarDidStart:(SCProgressBar*)progressBar {
+- (void) progressBarDidStart:(SBProgressBar*)progressBar {
 }
-- (void) progressBarDidPause:(SCProgressBar*)progressBar {
+- (void) progressBarDidPause:(SBProgressBar*)progressBar {
 }
-- (void) progressBarDidStop:(SCProgressBar*)progressBar withTime:(NSTimeInterval)time {
+- (void) progressBarDidStop:(SBProgressBar*)progressBar withTime:(NSTimeInterval)time {
     [self stopRecording];
 }
 
 #pragma mark - SCRecordButtonDelegate
-- (void) recordButtonStartedHolding:(SCRecordButton *)button {
+- (void) recordButtonStartedHolding:(SBRecordButton *)button {
     //only accept video mode for this logic
     if (self.captureManager.captureType != SBCaptureTypeVideo)
         return;
@@ -374,7 +374,7 @@
     [self startRecording];
 }
 
-- (void) recordButtonStoppedHolding:(SCRecordButton *)button {
+- (void) recordButtonStoppedHolding:(SBRecordButton *)button {
     if (self.captureManager.captureType == SBCaptureTypePhoto) {
         [self capturePhoto];
     } else {
@@ -382,7 +382,7 @@
     }
 }
 
-- (void) recordButtonTapped:(SCRecordButton *)button {
+- (void) recordButtonTapped:(SBRecordButton *)button {
     //only accept photo mode for this logic
     if (self.captureManager.captureType != SBCaptureTypePhoto)
         return;
@@ -390,8 +390,8 @@
     [self capturePhoto];
 }
 
-#pragma mark - SCReviewControllerDelegate
-- (void) reviewController:(SCReviewController *)controller acceptedImage:(UIImage *)image title:(NSString *)title description:(NSString *)description {
+#pragma mark - SBReviewControllerDelegate
+- (void) reviewController:(SBReviewController *)controller acceptedImage:(UIImage *)image title:(NSString *)title description:(NSString *)description {
 //    NSDictionary *info = @{@"title" : title, @"description" : description};
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
@@ -401,7 +401,7 @@
     [alert show];
 }
 
-- (void) reviewController:(SCReviewController *)controller rejectedImage:(UIImage *)image {
+- (void) reviewController:(SBReviewController *)controller rejectedImage:(UIImage *)image {
     [self.navigationController popViewControllerAnimated:YES];
 
 }

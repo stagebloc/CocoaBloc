@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SCPhotoCollectionViewCell.h"
+#import "SBPhotoCollectionViewCell.h"
 
-@implementation SCPhotoCollectionViewCell
+@implementation SBPhotoCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame
 {

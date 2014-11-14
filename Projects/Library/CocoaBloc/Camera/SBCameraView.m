@@ -6,37 +6,37 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SCCameraView.h"
-#import "SCProgressBar.h"
-#import "SCCaptureView.h"
+#import "SBCameraView.h"
+#import "SBProgressBar.h"
+#import "SBCaptureView.h"
 #import "SBCaptureManager.h"
 #import <PureLayout/PureLayout.h>
-#import "SCRecordButton.h"
+#import "SBRecordButton.h"
 #import "UIFont+FanClub.h"
 #import "UIColor+FanClub.h"
-#import "SCPageView.h"
+#import "SBPageView.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
-@interface SCCameraView ()
+@interface SBCameraView ()
 @property (nonatomic, strong) NSArray *cameraConstraints;
 @end
 
-@implementation SCCameraView
+@implementation SBCameraView
 
 @synthesize aspectRatio = _aspectRatio;
 
-- (SCProgressBar*) progressBar {
+- (SBProgressBar*) progressBar {
     if (!_progressBar) {
-        _progressBar = [[SCProgressBar alloc] initWithMinValue:0 maxValue:10];
+        _progressBar = [[SBProgressBar alloc] initWithMinValue:0 maxValue:10];
         _progressBar.progressView.backgroundColor = [UIColor fc_stageblocBlueColor];
     }
     return _progressBar;
 }
 
-- (SCRecordButton*) recordButton {
+- (SBRecordButton*) recordButton {
     if (!_recordButton) {
-        _recordButton = [[SCRecordButton alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
+        _recordButton = [[SBRecordButton alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
         _recordButton.layer.masksToBounds = YES;
     }
     return _recordButton;
@@ -125,9 +125,9 @@
     return _timeLabel;
 }
 
-- (SCPageView*) pageView {
+- (SBPageView*) pageView {
     if (!_pageView) {
-        _pageView = [[SCPageView alloc] initWithTitles:@[@"Video", @"Photo", @"Square"]];
+        _pageView = [[SBPageView alloc] initWithTitles:@[@"Video", @"Photo", @"Square"]];
     }
     return _pageView;
 }
@@ -217,7 +217,7 @@
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager {
     if (self = [super initWithFrame:frame]) {
-        self.captureView = [[SCCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
+        self.captureView = [[SBCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
         [self addSubview:self.captureView];
         [self initializeViews];
         [self setVideoCaptureType];

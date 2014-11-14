@@ -15,7 +15,7 @@
 
 @import AVFoundation.AVCaptureSession;
 
-@interface SCCaptureView : UIView
+@interface SBCaptureView : UIView
 
 @property (nonatomic, readonly) AVCaptureSession *captureSession;
 

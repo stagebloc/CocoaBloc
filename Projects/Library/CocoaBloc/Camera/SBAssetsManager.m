@@ -6,25 +6,25 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCAssetsManager.h"
+#import "SBAssetsManager.h"
 
-#import "SCAssetGroup.h"
-#import "SCAsset.h"
+#import "SBAssetGroup.h"
+#import "SBAsset.h"
 
 #import "UIDevice+StageBloc.h"
 
-@interface SCAssetsManager ()
+@interface SBAssetsManager ()
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 @end
 
-@implementation SCAssetsManager
+@implementation SBAssetsManager
 
-+ (SCAssetsManager *)sharedInstance
++ (SBAssetsManager *)sharedInstance
 {
     static dispatch_once_t onceToken;
-    static SCAssetsManager *sharedInstance;
+    static SBAssetsManager *sharedInstance;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [SCAssetsManager new];
+        sharedInstance = [SBAssetsManager new];
     });
     return sharedInstance;
 }
@@ -44,10 +44,10 @@
 {
     // TODO: Error handling
      return [[[[self fetchAlbums]
-            map:^SCAssetGroup * (NSArray *albums) {
-                SCAssetGroup *group = nil;
+            map:^SBAssetGroup * (NSArray *albums) {
+                SBAssetGroup *group = nil;
                 for (NSInteger i = 0; i < albums.count; i++) {
-                    SCAssetGroup *g = albums[i];
+                    SBAssetGroup *g = albums[i];
                     if ([g.name isEqualToString:@"Camera Roll"]) {
                         group = g;
                         break;
@@ -55,11 +55,11 @@
                 }
                 return group;
             }]
-            flattenMap:^RACStream *(SCAssetGroup *group) {
+            flattenMap:^RACStream *(SBAssetGroup *group) {
                 return [self fetchPhotosForGroup:group];
             }]
             flattenMap:^RACStream *(NSArray *assets) {
-                return [((SCAsset *)assets[0]) requestImageWithSize:CGSizeZero];
+                return [((SBAsset *)assets[0]) requestImageWithSize:CGSizeZero];
             }];
 }
 
@@ -80,7 +80,7 @@
                 // Filters deleted images
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"description contains %@", @"assetSource=3"];
                 NSArray *filteredArray =  [tempArray filteredArrayUsingPredicate:predicate];
-                [albums addObject:[[SCAssetGroup alloc] initWithAssets:filteredArray]];
+                [albums addObject:[[SBAssetGroup alloc] initWithAssets:filteredArray]];
                 
                 // Fetch 'smart albums', filter by only ones containing images
                 PHFetchResult *fetchSmartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
@@ -88,7 +88,7 @@
                     if (collection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumBursts) {
                         PHFetchResult *smartAlbumResult = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
                         if ([smartAlbumResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] > 0) {
-                            [albums addObject:[[SCAssetGroup alloc] initWithGroup:collection]];
+                            [albums addObject:[[SBAssetGroup alloc] initWithGroup:collection]];
                         }
                     }
                 }
@@ -98,7 +98,7 @@
                 for (PHAssetCollection *collection in fetchUserAlbums) {
                     PHFetchResult *userAlbumResult = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
                     if ([userAlbumResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] > 0) {
-                        [albums addObject:[[SCAssetGroup alloc] initWithGroup:collection]];
+                        [albums addObject:[[SBAssetGroup alloc] initWithGroup:collection]];
                     }
                 }
                 
@@ -112,7 +112,7 @@
                                                   [group setAssetsFilter:[ALAssetsFilter allPhotos]];
                                                   if (albums) {
                                                       if ([group numberOfAssets] > 0) {
-                                                          [albums addObject:[[SCAssetGroup alloc] initWithGroup:group]];
+                                                          [albums addObject:[[SBAssetGroup alloc] initWithGroup:group]];
                                                       }
                                                   } else {
                                                       [subscriber sendNext:albums];
@@ -127,7 +127,7 @@
     }];
 }
 
--(RACSignal *)fetchPhotosForGroup:(SCAssetGroup *)group
+-(RACSignal *)fetchPhotosForGroup:(SBAssetGroup *)group
 {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [subscriber sendNext:group.assets];

@@ -13,14 +13,14 @@
 @import Photos;
 @import AssetsLibrary;
 
-@class SCAssetGroup;
+@class SBAssetGroup;
 
-@interface SCAssetsManager : NSObject
+@interface SBAssetsManager : NSObject
 
-+ (SCAssetsManager *)sharedInstance;
++ (SBAssetsManager *)sharedInstance;
 
 -(RACSignal *)fetchLastPhoto;
 -(RACSignal *)fetchAlbums;
--(RACSignal *)fetchPhotosForGroup:(SCAssetGroup *)group;
+-(RACSignal *)fetchPhotosForGroup:(SBAssetGroup *)group;
 
 @end

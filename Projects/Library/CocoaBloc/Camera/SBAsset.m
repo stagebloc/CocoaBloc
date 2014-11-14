@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCAsset.h"
+#import "SBAsset.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @import Photos;
 @import AssetsLibrary;
 
-@interface SCAsset ()
+@interface SBAsset ()
 {
     id _internalObject;
 }
@@ -20,7 +20,7 @@
 - (UIImage *)squareImage:(UIImage *)image toSize:(CGSize)size;
 @end
 
-@implementation SCAsset
+@implementation SBAsset
 
 - (instancetype)initWithObject:(id)object
 {

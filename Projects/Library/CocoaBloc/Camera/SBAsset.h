@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SCAsset : NSObject
+@interface SBAsset : NSObject
 
 /**
  * Initialize an SCAsset object with either a PHAsset or ALAsset

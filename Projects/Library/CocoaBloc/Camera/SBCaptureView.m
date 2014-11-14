@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCCaptureView.h"
+#import "SBCaptureView.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
-@implementation SCCaptureView
+@implementation SBCaptureView
 
 + (Class)layerClass {
     return [AVCaptureVideoPreviewLayer class];

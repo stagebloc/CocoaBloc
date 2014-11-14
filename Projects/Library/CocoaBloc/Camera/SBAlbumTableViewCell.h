@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCAlbumTableViewCell : UITableViewCell
+@interface SBAlbumTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *albumNameLabel;
 @property (nonatomic, strong) UILabel *photoCountLabel;

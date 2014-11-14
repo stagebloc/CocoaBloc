@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCImagePickerController.h"
+#import "SBImagePickerController.h"
 
-@implementation SCImagePickerController
+@implementation SBImagePickerController
 
 - (void) viewDidLoad {
     [super viewDidLoad];

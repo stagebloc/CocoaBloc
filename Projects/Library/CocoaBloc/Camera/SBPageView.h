@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCPageView : UIView
+@interface SBPageView : UIView
 
 @property (nonatomic, readonly, strong) NSArray *labels;
 

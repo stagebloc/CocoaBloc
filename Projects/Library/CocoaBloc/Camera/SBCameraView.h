@@ -12,13 +12,13 @@
 
 @import AVFoundation.AVCaptureDevice;
 
-@class SCProgressBar, SCCaptureView, SBCaptureManager, SCRecordButton, SCPageView;
+@class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView;
 
-@interface SCCameraView : UIView
+@interface SBCameraView : UIView
 
-@property (nonatomic, strong) SCCaptureView *captureView;
-@property (nonatomic, strong) SCRecordButton *recordButton;
-@property (nonatomic, strong) SCProgressBar *progressBar;
+@property (nonatomic, strong) SBCaptureView *captureView;
+@property (nonatomic, strong) SBRecordButton *recordButton;
+@property (nonatomic, strong) SBProgressBar *progressBar;
 @property (nonatomic, strong) UIToolbar *stateToolbar;
 
 @property (nonatomic, strong) UIView *shutterView;
@@ -29,7 +29,7 @@
 @property (nonatomic, strong) UIButton *toggleCameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
 @property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, strong) SCPageView *pageView;
+@property (nonatomic, strong) SBPageView *pageView;
 
 //Bottom HUD views
 @property (nonatomic, strong) UIView *bottomHudView;

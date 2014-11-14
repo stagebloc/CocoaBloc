@@ -7,7 +7,7 @@
 //
 
 #import "SBPhotoManager.h"
-#import "SCReviewController.h"
+#import "SBReviewController.h"
 #import "UIImage+Resize.h"
 
 @implementation SBPhotoManager

@@ -8,38 +8,38 @@
 
 #import <UIKit/UIKit.h>
 
-@class SCProgressBar;
+@class SBProgressBar;
 
-typedef NS_ENUM(NSUInteger, SCProgressState) {
-    SCProgressStateStopped,
-    SCProgressStatePaused,
-    SCProgressStateStarted
+typedef NS_ENUM(NSUInteger, SBProgressState) {
+    SBProgressStateStopped,
+    SBProgressStatePaused,
+    SBProgressStateStarted
 };
 
-@protocol SCProgressBarDelegate <NSObject>
+@protocol SBProgressBarDelegate <NSObject>
 @optional
 
 /*
  * Called when timer is started
  * @progressBar is the progressBar calling the method
  */
-- (void) progressBarDidStart:(SCProgressBar*)progressBar;
+- (void) progressBarDidStart:(SBProgressBar*)progressBar;
 
 /*
  * Called when timer is paused
  * @progressBar is the progressBar calling the method
  */
-- (void) progressBarDidPause:(SCProgressBar*)progressBar;
+- (void) progressBarDidPause:(SBProgressBar*)progressBar;
 
 /*
  * Called when timer is stopped either manually or when it reaches the set max value
  * @progressBar is the progressBar calling the method
  * @time is the total record time in seconds
  */
-- (void) progressBarDidStop:(SCProgressBar*)progressBar withTime:(NSTimeInterval)time;
+- (void) progressBarDidStop:(SBProgressBar*)progressBar withTime:(NSTimeInterval)time;
 @end
 
-@interface SCProgressBar : UIView
+@interface SBProgressBar : UIView
 
 @property (nonatomic) UIView *progressView;
 
@@ -53,9 +53,9 @@ typedef NS_ENUM(NSUInteger, SCProgressState) {
  */
 @property (nonatomic) NSTimeInterval timeElapsed;
 
-@property (nonatomic, assign, readonly) SCProgressState state;
+@property (nonatomic, assign, readonly) SBProgressState state;
 
-@property (nonatomic, assign) id<SCProgressBarDelegate> delegate;
+@property (nonatomic, assign) id<SBProgressBarDelegate> delegate;
 
 - (id) initWithMinValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
 

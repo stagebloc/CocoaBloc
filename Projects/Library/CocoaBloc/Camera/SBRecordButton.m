@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SCRecordButton.h"
+#import "SBRecordButton.h"
 #import <PureLayout/PureLayout.h>
 #import "UIColor+FanClub.h"
 
-@interface SCRecordButton ()
+@interface SBRecordButton ()
 
 @property (nonatomic, assign) BOOL holding;
 
 @end
 
-@implementation SCRecordButton
+@implementation SBRecordButton
 
 @synthesize innerView = _innerView;
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCPhotoCollectionViewCell : UICollectionViewCell
+@interface SBPhotoCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *imageView;
 

@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SCPageView.h"
+#import "SBPageView.h"
 #import <PureLayout/PureLayout.h>
 #import "UIColor+FanClub.h"
 
-@interface SCPageView ()
+@interface SBPageView ()
 
 @property (nonatomic, strong) NSArray *constraints;
 
 @end
 
-@implementation SCPageView
+@implementation SBPageView
 
 - (UIColor*) selectedColor {
     if (!_selectedColor)

@@ -56,26 +56,26 @@
 		4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */; };
 		4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA881A16665700EE3926 /* SBAssetStitcher.m */; };
 		4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */; };
-		4D22420B1A0D2D3D0065F172 /* SCPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SCPageView.m */; };
-		4D224DE11A0919B6007DF1D1 /* SCAlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC11A0919B6007DF1D1 /* SCAlbumDetailViewController.m */; };
-		4D224DE21A0919B6007DF1D1 /* SCAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC31A0919B6007DF1D1 /* SCAlbumTableViewCell.m */; };
-		4D224DE31A0919B6007DF1D1 /* SCAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC51A0919B6007DF1D1 /* SCAlbumViewController.m */; };
-		4D224DE41A0919B6007DF1D1 /* SCAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC71A0919B6007DF1D1 /* SCAsset.m */; };
-		4D224DE51A0919B6007DF1D1 /* SCAssetGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC91A0919B6007DF1D1 /* SCAssetGroup.m */; };
-		4D224DE61A0919B6007DF1D1 /* SCAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCB1A0919B6007DF1D1 /* SCAssetsManager.m */; };
-		4D224DE71A0919B6007DF1D1 /* SCCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCD1A0919B6007DF1D1 /* SCCameraViewController.m */; };
+		4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SBPageView.m */; };
+		4D224DE11A0919B6007DF1D1 /* SBAlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC11A0919B6007DF1D1 /* SBAlbumDetailViewController.m */; };
+		4D224DE21A0919B6007DF1D1 /* SBAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC31A0919B6007DF1D1 /* SBAlbumTableViewCell.m */; };
+		4D224DE31A0919B6007DF1D1 /* SBAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC51A0919B6007DF1D1 /* SBAlbumViewController.m */; };
+		4D224DE41A0919B6007DF1D1 /* SBAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC71A0919B6007DF1D1 /* SBAsset.m */; };
+		4D224DE51A0919B6007DF1D1 /* SBAssetGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC91A0919B6007DF1D1 /* SBAssetGroup.m */; };
+		4D224DE61A0919B6007DF1D1 /* SBAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCB1A0919B6007DF1D1 /* SBAssetsManager.m */; };
+		4D224DE71A0919B6007DF1D1 /* SBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCD1A0919B6007DF1D1 /* SBCameraViewController.m */; };
 		4D224DE81A0919B6007DF1D1 /* SBCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCF1A0919B6007DF1D1 /* SBCaptureManager.m */; };
-		4D224DE91A0919B6007DF1D1 /* SCCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD11A0919B6007DF1D1 /* SCCaptureView.m */; };
+		4D224DE91A0919B6007DF1D1 /* SBCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD11A0919B6007DF1D1 /* SBCaptureView.m */; };
 		4D224DEA1A0919B6007DF1D1 /* SBDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD41A0919B6007DF1D1 /* SBDeviceManager.m */; };
-		4D224DEB1A0919B6007DF1D1 /* SCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD61A0919B6007DF1D1 /* SCImagePickerController.m */; };
-		4D224DEC1A0919B6007DF1D1 /* SCPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD81A0919B6007DF1D1 /* SCPhotoCollectionViewCell.m */; };
+		4D224DEB1A0919B6007DF1D1 /* SBImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD61A0919B6007DF1D1 /* SBImagePickerController.m */; };
+		4D224DEC1A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD81A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m */; };
 		4D224DED1A0919B6007DF1D1 /* SBPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDA1A0919B6007DF1D1 /* SBPhotoManager.m */; };
-		4D224DEE1A0919B6007DF1D1 /* SCProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDC1A0919B6007DF1D1 /* SCProgressBar.m */; };
-		4D224DEF1A0919B6007DF1D1 /* SCReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDE1A0919B6007DF1D1 /* SCReviewController.m */; };
+		4D224DEE1A0919B6007DF1D1 /* SBProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDC1A0919B6007DF1D1 /* SBProgressBar.m */; };
+		4D224DEF1A0919B6007DF1D1 /* SBReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDE1A0919B6007DF1D1 /* SBReviewController.m */; };
 		4D224DF01A0919B6007DF1D1 /* SBVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DE01A0919B6007DF1D1 /* SBVideoManager.m */; };
 		4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */; };
-		4D8363201A0B0E1F00A820B5 /* SCRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83631F1A0B0E1F00A820B5 /* SCRecordButton.m */; };
-		4DF6EFE21A099F1600A5CFEC /* SCCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SCCameraView.m */; };
+		4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */; };
+		4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		B486845E2F7045E0BC1CAEA7 /* libPods-CB Test App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7900987944179BCA76913 /* libPods-CB Test App.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
@@ -205,46 +205,46 @@
 		4D06DA881A16665700EE3926 /* SBAssetStitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAssetStitcher.m; sourceTree = "<group>"; };
 		4D06DA8B1A16AA0400EE3926 /* AVCaptureSession+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVCaptureSession+Extension.h"; sourceTree = "<group>"; };
 		4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureSession+Extension.m"; sourceTree = "<group>"; };
-		4D2242091A0D2D3D0065F172 /* SCPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPageView.h; sourceTree = "<group>"; };
-		4D22420A1A0D2D3D0065F172 /* SCPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPageView.m; sourceTree = "<group>"; };
-		4D224DC01A0919B6007DF1D1 /* SCAlbumDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAlbumDetailViewController.h; sourceTree = "<group>"; };
-		4D224DC11A0919B6007DF1D1 /* SCAlbumDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAlbumDetailViewController.m; sourceTree = "<group>"; };
-		4D224DC21A0919B6007DF1D1 /* SCAlbumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAlbumTableViewCell.h; sourceTree = "<group>"; };
-		4D224DC31A0919B6007DF1D1 /* SCAlbumTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAlbumTableViewCell.m; sourceTree = "<group>"; };
-		4D224DC41A0919B6007DF1D1 /* SCAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAlbumViewController.h; sourceTree = "<group>"; };
-		4D224DC51A0919B6007DF1D1 /* SCAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAlbumViewController.m; sourceTree = "<group>"; };
-		4D224DC61A0919B6007DF1D1 /* SCAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAsset.h; sourceTree = "<group>"; };
-		4D224DC71A0919B6007DF1D1 /* SCAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAsset.m; sourceTree = "<group>"; };
-		4D224DC81A0919B6007DF1D1 /* SCAssetGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAssetGroup.h; sourceTree = "<group>"; };
-		4D224DC91A0919B6007DF1D1 /* SCAssetGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAssetGroup.m; sourceTree = "<group>"; };
-		4D224DCA1A0919B6007DF1D1 /* SCAssetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAssetsManager.h; sourceTree = "<group>"; };
-		4D224DCB1A0919B6007DF1D1 /* SCAssetsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAssetsManager.m; sourceTree = "<group>"; };
-		4D224DCC1A0919B6007DF1D1 /* SCCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCameraViewController.h; sourceTree = "<group>"; };
-		4D224DCD1A0919B6007DF1D1 /* SCCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCameraViewController.m; sourceTree = "<group>"; };
+		4D2242091A0D2D3D0065F172 /* SBPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPageView.h; sourceTree = "<group>"; };
+		4D22420A1A0D2D3D0065F172 /* SBPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPageView.m; sourceTree = "<group>"; };
+		4D224DC01A0919B6007DF1D1 /* SBAlbumDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAlbumDetailViewController.h; sourceTree = "<group>"; };
+		4D224DC11A0919B6007DF1D1 /* SBAlbumDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAlbumDetailViewController.m; sourceTree = "<group>"; };
+		4D224DC21A0919B6007DF1D1 /* SBAlbumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAlbumTableViewCell.h; sourceTree = "<group>"; };
+		4D224DC31A0919B6007DF1D1 /* SBAlbumTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAlbumTableViewCell.m; sourceTree = "<group>"; };
+		4D224DC41A0919B6007DF1D1 /* SBAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAlbumViewController.h; sourceTree = "<group>"; };
+		4D224DC51A0919B6007DF1D1 /* SBAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAlbumViewController.m; sourceTree = "<group>"; };
+		4D224DC61A0919B6007DF1D1 /* SBAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAsset.h; sourceTree = "<group>"; };
+		4D224DC71A0919B6007DF1D1 /* SBAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAsset.m; sourceTree = "<group>"; };
+		4D224DC81A0919B6007DF1D1 /* SBAssetGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAssetGroup.h; sourceTree = "<group>"; };
+		4D224DC91A0919B6007DF1D1 /* SBAssetGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAssetGroup.m; sourceTree = "<group>"; };
+		4D224DCA1A0919B6007DF1D1 /* SBAssetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAssetsManager.h; sourceTree = "<group>"; };
+		4D224DCB1A0919B6007DF1D1 /* SBAssetsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAssetsManager.m; sourceTree = "<group>"; };
+		4D224DCC1A0919B6007DF1D1 /* SBCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraViewController.h; sourceTree = "<group>"; };
+		4D224DCD1A0919B6007DF1D1 /* SBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraViewController.m; sourceTree = "<group>"; };
 		4D224DCE1A0919B6007DF1D1 /* SBCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCaptureManager.h; sourceTree = "<group>"; };
 		4D224DCF1A0919B6007DF1D1 /* SBCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCaptureManager.m; sourceTree = "<group>"; };
-		4D224DD01A0919B6007DF1D1 /* SCCaptureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCaptureView.h; sourceTree = "<group>"; };
-		4D224DD11A0919B6007DF1D1 /* SCCaptureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCaptureView.m; sourceTree = "<group>"; };
+		4D224DD01A0919B6007DF1D1 /* SBCaptureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCaptureView.h; sourceTree = "<group>"; };
+		4D224DD11A0919B6007DF1D1 /* SBCaptureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCaptureView.m; sourceTree = "<group>"; };
 		4D224DD31A0919B6007DF1D1 /* SBDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDeviceManager.h; sourceTree = "<group>"; };
 		4D224DD41A0919B6007DF1D1 /* SBDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDeviceManager.m; sourceTree = "<group>"; };
-		4D224DD51A0919B6007DF1D1 /* SCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImagePickerController.h; sourceTree = "<group>"; };
-		4D224DD61A0919B6007DF1D1 /* SCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCImagePickerController.m; sourceTree = "<group>"; };
-		4D224DD71A0919B6007DF1D1 /* SCPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPhotoCollectionViewCell.h; sourceTree = "<group>"; };
-		4D224DD81A0919B6007DF1D1 /* SCPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		4D224DD51A0919B6007DF1D1 /* SBImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImagePickerController.h; sourceTree = "<group>"; };
+		4D224DD61A0919B6007DF1D1 /* SBImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImagePickerController.m; sourceTree = "<group>"; };
+		4D224DD71A0919B6007DF1D1 /* SBPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		4D224DD81A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		4D224DD91A0919B6007DF1D1 /* SBPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhotoManager.h; sourceTree = "<group>"; };
 		4D224DDA1A0919B6007DF1D1 /* SBPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhotoManager.m; sourceTree = "<group>"; };
-		4D224DDB1A0919B6007DF1D1 /* SCProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProgressBar.h; sourceTree = "<group>"; };
-		4D224DDC1A0919B6007DF1D1 /* SCProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProgressBar.m; sourceTree = "<group>"; };
-		4D224DDD1A0919B6007DF1D1 /* SCReviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCReviewController.h; sourceTree = "<group>"; };
-		4D224DDE1A0919B6007DF1D1 /* SCReviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCReviewController.m; sourceTree = "<group>"; };
+		4D224DDB1A0919B6007DF1D1 /* SBProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBProgressBar.h; sourceTree = "<group>"; };
+		4D224DDC1A0919B6007DF1D1 /* SBProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBProgressBar.m; sourceTree = "<group>"; };
+		4D224DDD1A0919B6007DF1D1 /* SBReviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBReviewController.h; sourceTree = "<group>"; };
+		4D224DDE1A0919B6007DF1D1 /* SBReviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBReviewController.m; sourceTree = "<group>"; };
 		4D224DDF1A0919B6007DF1D1 /* SBVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideoManager.h; sourceTree = "<group>"; };
 		4D224DE01A0919B6007DF1D1 /* SBVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideoManager.m; sourceTree = "<group>"; };
 		4D22AA0A1A08190000B3C073 /* UIDevice+StageBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+StageBloc.h"; sourceTree = "<group>"; };
 		4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+StageBloc.m"; sourceTree = "<group>"; };
-		4D83631E1A0B0E1F00A820B5 /* SCRecordButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRecordButton.h; sourceTree = "<group>"; };
-		4D83631F1A0B0E1F00A820B5 /* SCRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRecordButton.m; sourceTree = "<group>"; };
-		4DF6EFE01A099F1600A5CFEC /* SCCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCameraView.h; sourceTree = "<group>"; };
-		4DF6EFE11A099F1600A5CFEC /* SCCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCameraView.m; sourceTree = "<group>"; };
+		4D83631E1A0B0E1F00A820B5 /* SBRecordButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBRecordButton.h; sourceTree = "<group>"; };
+		4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecordButton.m; sourceTree = "<group>"; };
+		4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraView.h; sourceTree = "<group>"; };
+		4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraView.m; sourceTree = "<group>"; };
 		5CA09BB3FDC7100CC628A1E4 /* Pods-CocoaBlocTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.debug.xcconfig"; sourceTree = "<group>"; };
 		77FB1ABA8A21E60816759167 /* Pods-CocoaBlocTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.release.xcconfig"; sourceTree = "<group>"; };
 		7EFD14D7DA05D8849CA59E07 /* Pods-CB Test App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CB Test App.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CB Test App/Pods-CB Test App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -574,16 +574,16 @@
 		4D224DF11A091ABC007DF1D1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4D224DC01A0919B6007DF1D1 /* SCAlbumDetailViewController.h */,
-				4D224DC11A0919B6007DF1D1 /* SCAlbumDetailViewController.m */,
-				4D224DC41A0919B6007DF1D1 /* SCAlbumViewController.h */,
-				4D224DC51A0919B6007DF1D1 /* SCAlbumViewController.m */,
-				4D224DCC1A0919B6007DF1D1 /* SCCameraViewController.h */,
-				4D224DCD1A0919B6007DF1D1 /* SCCameraViewController.m */,
-				4D224DD51A0919B6007DF1D1 /* SCImagePickerController.h */,
-				4D224DD61A0919B6007DF1D1 /* SCImagePickerController.m */,
-				4D224DDD1A0919B6007DF1D1 /* SCReviewController.h */,
-				4D224DDE1A0919B6007DF1D1 /* SCReviewController.m */,
+				4D224DC01A0919B6007DF1D1 /* SBAlbumDetailViewController.h */,
+				4D224DC11A0919B6007DF1D1 /* SBAlbumDetailViewController.m */,
+				4D224DC41A0919B6007DF1D1 /* SBAlbumViewController.h */,
+				4D224DC51A0919B6007DF1D1 /* SBAlbumViewController.m */,
+				4D224DCC1A0919B6007DF1D1 /* SBCameraViewController.h */,
+				4D224DCD1A0919B6007DF1D1 /* SBCameraViewController.m */,
+				4D224DD51A0919B6007DF1D1 /* SBImagePickerController.h */,
+				4D224DD61A0919B6007DF1D1 /* SBImagePickerController.m */,
+				4D224DDD1A0919B6007DF1D1 /* SBReviewController.h */,
+				4D224DDE1A0919B6007DF1D1 /* SBReviewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -591,20 +591,20 @@
 		4D224DF21A091AC1007DF1D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4D224DC21A0919B6007DF1D1 /* SCAlbumTableViewCell.h */,
-				4D224DC31A0919B6007DF1D1 /* SCAlbumTableViewCell.m */,
-				4D224DD71A0919B6007DF1D1 /* SCPhotoCollectionViewCell.h */,
-				4D224DD81A0919B6007DF1D1 /* SCPhotoCollectionViewCell.m */,
-				4D224DD01A0919B6007DF1D1 /* SCCaptureView.h */,
-				4D224DD11A0919B6007DF1D1 /* SCCaptureView.m */,
-				4D224DDB1A0919B6007DF1D1 /* SCProgressBar.h */,
-				4D224DDC1A0919B6007DF1D1 /* SCProgressBar.m */,
-				4DF6EFE01A099F1600A5CFEC /* SCCameraView.h */,
-				4DF6EFE11A099F1600A5CFEC /* SCCameraView.m */,
-				4D83631E1A0B0E1F00A820B5 /* SCRecordButton.h */,
-				4D83631F1A0B0E1F00A820B5 /* SCRecordButton.m */,
-				4D2242091A0D2D3D0065F172 /* SCPageView.h */,
-				4D22420A1A0D2D3D0065F172 /* SCPageView.m */,
+				4D224DC21A0919B6007DF1D1 /* SBAlbumTableViewCell.h */,
+				4D224DC31A0919B6007DF1D1 /* SBAlbumTableViewCell.m */,
+				4D224DD71A0919B6007DF1D1 /* SBPhotoCollectionViewCell.h */,
+				4D224DD81A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m */,
+				4D224DD01A0919B6007DF1D1 /* SBCaptureView.h */,
+				4D224DD11A0919B6007DF1D1 /* SBCaptureView.m */,
+				4D224DDB1A0919B6007DF1D1 /* SBProgressBar.h */,
+				4D224DDC1A0919B6007DF1D1 /* SBProgressBar.m */,
+				4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */,
+				4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */,
+				4D83631E1A0B0E1F00A820B5 /* SBRecordButton.h */,
+				4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */,
+				4D2242091A0D2D3D0065F172 /* SBPageView.h */,
+				4D22420A1A0D2D3D0065F172 /* SBPageView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -612,12 +612,12 @@
 		4D224DF31A091AC5007DF1D1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				4D224DC61A0919B6007DF1D1 /* SCAsset.h */,
-				4D224DC71A0919B6007DF1D1 /* SCAsset.m */,
-				4D224DC81A0919B6007DF1D1 /* SCAssetGroup.h */,
-				4D224DC91A0919B6007DF1D1 /* SCAssetGroup.m */,
-				4D224DCA1A0919B6007DF1D1 /* SCAssetsManager.h */,
-				4D224DCB1A0919B6007DF1D1 /* SCAssetsManager.m */,
+				4D224DC61A0919B6007DF1D1 /* SBAsset.h */,
+				4D224DC71A0919B6007DF1D1 /* SBAsset.m */,
+				4D224DC81A0919B6007DF1D1 /* SBAssetGroup.h */,
+				4D224DC91A0919B6007DF1D1 /* SBAssetGroup.m */,
+				4D224DCA1A0919B6007DF1D1 /* SBAssetsManager.h */,
+				4D224DCB1A0919B6007DF1D1 /* SBAssetsManager.m */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -908,15 +908,15 @@
 				0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */,
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
-				4DF6EFE21A099F1600A5CFEC /* SCCameraView.m in Sources */,
+				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
 				4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */,
-				4D22420B1A0D2D3D0065F172 /* SCPageView.m in Sources */,
+				4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */,
 				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
 				4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */,
 				0949513519EF261E00E3411E /* SBClient+Private.m in Sources */,
-				4D8363201A0B0E1F00A820B5 /* SCRecordButton.m in Sources */,
+				4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */,
 				0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */,
 				094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */,
 				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
@@ -928,24 +928,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D224DEA1A0919B6007DF1D1 /* SBDeviceManager.m in Sources */,
-				4D224DEF1A0919B6007DF1D1 /* SCReviewController.m in Sources */,
-				4D224DEE1A0919B6007DF1D1 /* SCProgressBar.m in Sources */,
+				4D224DEF1A0919B6007DF1D1 /* SBReviewController.m in Sources */,
+				4D224DEE1A0919B6007DF1D1 /* SBProgressBar.m in Sources */,
 				094CB715197B133B00BBF2BE /* SBClient.m in Sources */,
-				4D224DE21A0919B6007DF1D1 /* SCAlbumTableViewCell.m in Sources */,
-				4D224DE31A0919B6007DF1D1 /* SCAlbumViewController.m in Sources */,
-				4D224DE61A0919B6007DF1D1 /* SCAssetsManager.m in Sources */,
-				4D224DE11A0919B6007DF1D1 /* SCAlbumDetailViewController.m in Sources */,
+				4D224DE21A0919B6007DF1D1 /* SBAlbumTableViewCell.m in Sources */,
+				4D224DE31A0919B6007DF1D1 /* SBAlbumViewController.m in Sources */,
+				4D224DE61A0919B6007DF1D1 /* SBAssetsManager.m in Sources */,
+				4D224DE11A0919B6007DF1D1 /* SBAlbumDetailViewController.m in Sources */,
 				4D224DED1A0919B6007DF1D1 /* SBPhotoManager.m in Sources */,
-				4D224DE51A0919B6007DF1D1 /* SCAssetGroup.m in Sources */,
+				4D224DE51A0919B6007DF1D1 /* SBAssetGroup.m in Sources */,
 				090EB81A198800350081D406 /* ModelTests.m in Sources */,
-				4D224DEC1A0919B6007DF1D1 /* SCPhotoCollectionViewCell.m in Sources */,
-				4D224DE91A0919B6007DF1D1 /* SCCaptureView.m in Sources */,
+				4D224DEC1A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m in Sources */,
+				4D224DE91A0919B6007DF1D1 /* SBCaptureView.m in Sources */,
 				4D224DF01A0919B6007DF1D1 /* SBVideoManager.m in Sources */,
-				4D224DE41A0919B6007DF1D1 /* SCAsset.m in Sources */,
+				4D224DE41A0919B6007DF1D1 /* SBAsset.m in Sources */,
 				09A897DC1978536000EE983C /* APITests.m in Sources */,
 				4D224DE81A0919B6007DF1D1 /* SBCaptureManager.m in Sources */,
-				4D224DE71A0919B6007DF1D1 /* SCCameraViewController.m in Sources */,
-				4D224DEB1A0919B6007DF1D1 /* SCImagePickerController.m in Sources */,
+				4D224DE71A0919B6007DF1D1 /* SBCameraViewController.m in Sources */,
+				4D224DEB1A0919B6007DF1D1 /* SBImagePickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCAlbumViewController : UITableViewController
+@interface SBAlbumViewController : UITableViewController
 
 @end

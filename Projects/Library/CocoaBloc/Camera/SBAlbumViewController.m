@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SCAlbumViewController.h"
-#import "SCAlbumDetailViewController.h"
-#import "SCAlbumTableViewCell.h"
+#import "SBAlbumViewController.h"
+#import "SBAlbumDetailViewController.h"
+#import "SBAlbumTableViewCell.h"
 
-#import "SCAssetsManager.h"
-#import "SCAssetGroup.h"
-#import "SCAsset.h"
+#import "SBAssetsManager.h"
+#import "SBAssetGroup.h"
+#import "SBAsset.h"
 
 #import "UIDevice+StageBloc.h"
 
@@ -21,13 +21,13 @@
 @import AssetsLibrary;
 @import Photos;
 
-@interface SCAlbumViewController ()
+@interface SBAlbumViewController ()
 
 @property (nonatomic, strong) NSArray *albums;
 
 @end
 
-@implementation SCAlbumViewController
+@implementation SBAlbumViewController
 
 
 - (void)viewDidLoad
@@ -45,13 +45,13 @@
     }];
     self.navigationItem.rightBarButtonItem = cancel;
     
-    [self.tableView registerClass:[SCAlbumTableViewCell class] forCellReuseIdentifier:@"albumCell"];
+    [self.tableView registerClass:[SBAlbumTableViewCell class] forCellReuseIdentifier:@"albumCell"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [[[SCAssetsManager sharedInstance] fetchAlbums] subscribeNext:^(NSArray *albums) {
+    [[[SBAssetsManager sharedInstance] fetchAlbums] subscribeNext:^(NSArray *albums) {
         self.albums = albums;
         [self.tableView reloadData];
     }];
@@ -76,12 +76,12 @@
     return 90.0f;
 }
 
--(SCAlbumTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(SBAlbumTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"albumCell";
-    SCAlbumTableViewCell *cell = (SCAlbumTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    SBAlbumTableViewCell *cell = (SBAlbumTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    SCAssetGroup *group = self.albums[indexPath.row];
+    SBAssetGroup *group = self.albums[indexPath.row];
     cell.albumNameLabel.text = group.name;
     cell.photoCountLabel.text = [NSString stringWithFormat:@"%ld", group.assets.count];
     cell.albumThumbnail.image = nil;
@@ -93,7 +93,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCAlbumDetailViewController *vc = [[SCAlbumDetailViewController alloc] init];
+    SBAlbumDetailViewController *vc = [[SBAlbumDetailViewController alloc] init];
     vc.group = self.albums[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
