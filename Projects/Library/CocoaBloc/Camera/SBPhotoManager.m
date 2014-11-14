@@ -15,6 +15,7 @@
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
         self.aspectRatio = SBCameraAspectRatio4_3;
+        self.devicePosition = AVCaptureDevicePositionBack;
     }
     return self;
 }

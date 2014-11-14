@@ -17,6 +17,17 @@
     return self;
 }
 
+- (AVCaptureDevice *) currentCamera {
+    switch (self.devicePosition) {
+        case AVCaptureDevicePositionFront:
+            return self.frontFacingCamera;
+        case AVCaptureDevicePositionBack:
+            return self.rearCamera;
+        default:
+            return self.unspecifiedCamera;
+    }
+}
+
 - (AVCaptureDevice *)frontFacingCamera {
     for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
         if (d.position == AVCaptureDevicePositionFront)
@@ -28,6 +39,14 @@
 - (AVCaptureDevice *)rearCamera {
     for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
         if (d.position == AVCaptureDevicePositionBack)
+            return d;
+    }
+    return nil;
+}
+
+- (AVCaptureDevice *)unspecifiedCamera {
+    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+        if (d.position == AVCaptureDevicePositionUnspecified)
             return d;
     }
     return nil;

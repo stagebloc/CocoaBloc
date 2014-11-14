@@ -19,9 +19,13 @@
 @property (nonatomic, readonly, weak) AVCaptureSession *captureSession;
 @property (nonatomic, readonly) AVCaptureDeviceInput *currentInput;
 
-@property (nonatomic, readonly, weak) AVCaptureDevice *currentCamera;
-@property (nonatomic, readonly) AVCaptureDevice *frontFacingCamera;
-@property (nonatomic, readonly) AVCaptureDevice *rearCamera;
+@property (nonatomic, assign) AVCaptureDevicePosition devicePosition;
+
+@property (nonatomic, readonly, weak) AVCaptureDevice *currentCamera; //gets current camera being used
+
+@property (nonatomic, readonly, weak) AVCaptureDevice *frontFacingCamera;
+@property (nonatomic, readonly, weak) AVCaptureDevice *rearCamera;
+@property (nonatomic, readonly, weak) AVCaptureDevice *unspecifiedCamera;
 
 @property (nonatomic) CGPoint focusPoint;
 @property (nonatomic, assign) AVCaptureExposureMode exposureMode;

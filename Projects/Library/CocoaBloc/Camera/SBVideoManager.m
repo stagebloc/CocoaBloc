@@ -54,6 +54,8 @@
         _maxDuration = 0;
         _currentWrites = 0;
         
+        self.devicePosition = AVCaptureDevicePositionBack;
+        
         self.maxDuration = 10.0;
         self.asyncErrorHandler = ^(NSError *error) {
             NSLog(@"Error - %@", error.localizedDescription);
@@ -63,7 +65,7 @@
         
         [self startNotificationObservers];
         
-        [self setupSessionWithPreset:[self.captureSession bestSessionPreset] withCaptureDevice:AVCaptureDevicePositionBack withTorchMode:AVCaptureTorchModeOff withError:nil completion:nil];
+        [self setupSessionWithPreset:[self.captureSession bestSessionPreset] withCaptureDevice:AVCaptureDevicePositionBack withError:nil completion:nil];
     }
     return self;
 }
@@ -73,7 +75,7 @@
     [self endNotificationObservers];
 }
 
-- (void)setupSessionWithPreset:(NSString *)preset withCaptureDevice:(AVCaptureDevicePosition)cd withTorchMode:(AVCaptureTorchMode)tm withError:(void(^)(NSError *error))error completion:(void(^)(void))completion {
+- (void)setupSessionWithPreset:(NSString *)preset withCaptureDevice:(AVCaptureDevicePosition)cd withError:(void(^)(NSError *error))error completion:(void(^)(void))completion {
     
     if (error == nil) {
         error = ^ (NSError *error) {
@@ -81,16 +83,7 @@
         };
     }
     
-    AVCaptureDevice *captureDevice = [self cameraWithPosition:cd];
-    if ([captureDevice hasTorch]) {
-        if ([captureDevice lockForConfiguration:nil]) {
-            if ([captureDevice isTorchModeSupported:tm]) {
-                [captureDevice setTorchMode:AVCaptureTorchModeOff];
-            }
-            [captureDevice unlockForConfiguration];
-        }
-    }
-    
+    AVCaptureDevice *captureDevice = self.currentCamera;
     self.captureSession.sessionPreset = preset;
 
     self.videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:nil];
@@ -329,18 +322,6 @@
 }
 
 #pragma mark - Device finding methods
-
-- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition) position {
-    __block AVCaptureDevice *foundDevice = nil;
-    [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] enumerateObjectsUsingBlock:^(AVCaptureDevice *device, NSUInteger idx, BOOL *stop) {
-        if (device.position == position) {
-            foundDevice = device;
-            *stop = YES;
-        }
-    }];
-    return foundDevice;
-}
-
 - (AVCaptureDevice *)audioDevice {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
     if (devices.count > 0) {
