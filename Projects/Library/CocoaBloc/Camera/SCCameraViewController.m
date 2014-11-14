@@ -416,9 +416,4 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationPortrait;
-}
-
-
 @end
