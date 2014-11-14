@@ -225,6 +225,7 @@
 }
 
 - (void) capturePhoto {
+    [self.cameraView animateShutterWithDuration:.1 completion:nil];
     __weak typeof(self) weakSelf = self;
     [self.captureManager.photoManager captureImageWithCompletion:^(UIImage *image) {
         SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
@@ -386,7 +387,6 @@
     if (self.captureManager.captureType != SBCaptureTypePhoto)
         return;
     
-    [self.cameraView animateShutterWithDuration:.1 completion:nil];
     [self capturePhoto];
 }
 

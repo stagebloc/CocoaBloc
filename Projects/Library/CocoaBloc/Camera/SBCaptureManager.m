@@ -9,6 +9,7 @@
 #import "SBCaptureManager.h"
 #import "SBVideoManager.h"
 #import "SBPhotoManager.h"
+#import "AVCaptureSession+Extension.h"
 
 @interface SBCaptureManager ()
 
@@ -49,12 +50,14 @@
 - (void) setCaptureType:(SBCaptureType)captureType {
     switch (captureType) {
         case SBCaptureTypePhoto:
-//            [self.videoManager.currentCamera stopCameraCapture];
-//            [self.photoManager.currentCamera startCameraCapture];
+            if ([self.captureSession canSetSessionPreset:AVCaptureSessionPresetPhoto])
+                self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
             break;
-        case SBCaptureTypeVideo:
-//            [self.photoManager.camera stopCameraCapture];
-//            [self.videoManager.camera startCameraCapture];
+        case SBCaptureTypeVideo: {
+            NSString *preset = [self.captureSession bestSessionPreset];
+            if ([self.captureSession canSetSessionPreset:preset])
+                self.captureSession.sessionPreset = preset;
+            }
             break;
         default: break;
     }

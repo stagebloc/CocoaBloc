@@ -16,6 +16,16 @@
     if (self = [super initWithCaptureSession:session]) {
         self.aspectRatio = SBCameraAspectRatio4_3;
         self.devicePosition = AVCaptureDevicePositionBack;
+        
+        if (!self.output || ![self.captureSession.outputs containsObject:self.output]) {
+            [self.captureSession beginConfiguration];
+            [self.captureSession removeOutput:_output];
+            self.output = [AVCaptureStillImageOutput new];
+            if ([self.captureSession canAddOutput:_output]) {
+                [self.captureSession addOutput:_output];
+            }
+            [self.captureSession commitConfiguration];
+        }
     }
     return self;
 }
