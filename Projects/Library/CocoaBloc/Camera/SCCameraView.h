@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCPhotoManager.h"
-#import "SCCaptureManager.h"
+#import "SBPhotoManager.h"
+#import "SBCaptureManager.h"
 
 @import AVFoundation.AVCaptureDevice;
 
-@class SCProgressBar, SCCaptureView, SCCaptureManager, SCRecordButton, SCPageView;
+@class SCProgressBar, SCCaptureView, SBCaptureManager, SCRecordButton, SCPageView;
 
 @interface SCCameraView : UIView
 
@@ -40,13 +40,13 @@
 
 //Change this property to adjust the aspectRatioButton image
 //use setPhotoCaptureTypeWithAspectRatio:
-@property (nonatomic, assign, readonly) SCCameraAspectRatio aspectRatio;
+@property (nonatomic, assign, readonly) SBCameraAspectRatio aspectRatio;
 
 //change this property to adjust the capture view
 //use setPhotoCaptureTypeWithAspectRatio: & setVideoCaptureType
-@property (nonatomic, assign, readonly) SCCaptureType captureType;
+@property (nonatomic, assign, readonly) SBCaptureType captureType;
 
-- (instancetype) initWithFrame:(CGRect)frame captureManager:(SCCaptureManager*)captureManager;
+- (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager;
 
 /*
  Cycles to the next AVCaptureFlashMode
@@ -58,14 +58,14 @@
  Cycles to the next SCCameraAspectRatio and sets @aspectRatio
  @return the new cycled value
  */
-- (SCCameraAspectRatio) cycleAspectRatio;
+- (SBCameraAspectRatio) cycleAspectRatio;
 
 /*
  @return YES if hud is hidden, NO if it is not hidden.
  */
 - (BOOL)isHudHidden;
 
-- (void) setPhotoCaptureTypeWithAspectRatio:(SCCameraAspectRatio)ratio;
+- (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio;
 - (void) setVideoCaptureType;
 
 /*

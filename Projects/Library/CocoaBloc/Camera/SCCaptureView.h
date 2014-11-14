@@ -19,7 +19,7 @@
 
 @property (nonatomic, readonly) AVCaptureSession *captureSession;
 
-- (id)initWithCaptureSession:(AVCaptureSession *)session;
+- (instancetype)initWithCaptureSession:(AVCaptureSession *)session;
 
 - (void) addSessionIfNeeded:(AVCaptureSession*)session;
 

@@ -6,24 +6,24 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "SCPhotoManager.h"
-#import "SCCapturing.h"
+#import "SBPhotoManager.h"
 #import "SCReviewController.h"
+#import "UIImage+Resize.h"
 
-@implementation SCPhotoManager
+@implementation SBPhotoManager
 
-- (id)initWithCaptureSession:(AVCaptureSession *)session {
+- (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
-        self.aspectRatio = SCCameraAspectRatio4_3;
+        self.aspectRatio = SBCameraAspectRatio4_3;
     }
     return self;
 }
 
-- (void)captureImage
+- (void)captureImageWithCompletion:(void(^)(UIImage* image))completion
 {
     AVCaptureConnection *connection = [_output connectionWithMediaType:AVMediaTypeVideo];
     connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-    connection.videoMirrored = !self.cameraType;
+    connection.videoMirrored = NO;
     
     __weak typeof(self) weakSelf = self;
     [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
@@ -58,49 +58,25 @@
             }
             
             CGRect resizeRect = CGRectMake(x, y, resizedImageWidth, resizedImageHeight);
-            if (weakSelf.aspectRatio == SCCameraAspectRatio1_1) {
+            if (weakSelf.aspectRatio == SBCameraAspectRatio1_1) {
                 resizeRect = CGRectMake(x, (resizeRect.size.height/CGRectGetHeight([UIScreen mainScreen].bounds)) * 44.0, resizeRect.size.width, resizeRect.size.width);
             }
             
-            weakSelf.image = [self resizeImage:rawImage inRect:resizeRect];
-            if (weakSelf.image) {
-                if ([self.delegate respondsToSelector:@selector(photoManager:capturedImage:)])
-                    [self.delegate photoManager:self capturedImage:weakSelf.image];
+            UIImage *image = [rawImage resizeImageToRect:resizeRect];
+            weakSelf.image = image;
+            if (image) {
+                if (completion) {
+                    completion(image);
+                }
+            } else if (completion) {
+                completion(nil);
             }
         } else {
-            // Error handling
+            if (completion)
+                completion(nil);
         }
     }];
 }
 
-- (UIImage *)resizeImage:(UIImage *)image inRect:(CGRect)rect;
-{
-    if (UIGraphicsBeginImageContextWithOptions) {
-        UIGraphicsBeginImageContextWithOptions(rect.size, YES, 1.0);
-    } else {
-        UIGraphicsBeginImageContext(rect.size);
-    }
-    [image drawAtPoint:CGPointMake(-rect.origin.x, -rect.origin.y)];
-    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return result;
-}
-
-#pragma mark - Override
-
-- (void)setCameraType:(SCCameraType)cameraType
-{
-    [super setCameraType:cameraType];
-
-    if (!self.output || ![self.captureSession.outputs containsObject:self.output]) {
-        [self.captureSession beginConfiguration];
-        [self.captureSession removeOutput:_output];
-        self.output = [AVCaptureStillImageOutput new];
-        if ([self.captureSession canAddOutput:_output]) {
-            [self.captureSession addOutput:_output];
-        }
-        [self.captureSession commitConfiguration];
-    }
-}
 
 @end

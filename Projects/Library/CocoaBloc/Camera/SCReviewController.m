@@ -9,7 +9,7 @@
 #import "SCReviewController.h"
 #import <PureLayout/PureLayout.h>
 #import "SCAssetsManager.h"
-#import "SCCaptureManager.h"
+#import "SBCaptureManager.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
@@ -23,7 +23,7 @@ static NSTimeInterval const kAnimationDuration = 0.35f;
 static CGFloat const kAnimationDamping = 0.8f;
 static CGFloat const kAnimationVelocity = 0.5f;
 
-@interface SCReviewController () <SCPhotoManagerDelegate, UIScrollViewDelegate, UITextFieldDelegate>
+@interface SCReviewController () <UIScrollViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) ALAsset *asset;
 
@@ -369,12 +369,10 @@ static CGFloat const kAnimationVelocity = 0.5f;
     
 }
 
--(void)rejectButtonPressed:(id)sender
-{
+-(void)rejectButtonPressed:(id)sender {
     if ([self.delegate respondsToSelector:@selector(reviewController:rejectedImage:)]) {
         [self.delegate reviewController:self rejectedImage:self.image];
     }
-    [[SCCaptureManager sharedInstance] photoManager].image = nil;
 }
 
 -(void)acceptButtonPressed:(id)sender {

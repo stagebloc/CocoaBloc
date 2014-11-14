@@ -7,7 +7,7 @@
 //
 
 #import "SCCameraViewController.h"
-#import "SCCaptureManager.h"
+#import "SBCaptureManager.h"
 #import "SCCaptureView.h"
 #import "SCReviewController.h"
 #import "SCImagePickerController.h"
@@ -18,26 +18,27 @@
 #import "SCRecordButton.h"
 #import "SCAlbumViewController.h"
 #import "UIColor+FanClub.h"
+#import "SBVideoManager.h"
+#import "SBPhotoManager.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SCCameraViewController () <UIActionSheetDelegate, SCPhotoManagerDelegate, SCProgressBarDelegate, SCRecordButtonDelegate, SCReviewControllerDelegate>
+#import <AVFoundation/AVFoundation.h>
+
+@interface SCCameraViewController () <UIActionSheetDelegate, SCProgressBarDelegate, SCRecordButtonDelegate, SCReviewControllerDelegate>
 
 @property (nonatomic, assign) BOOL recording;
-@property (nonatomic, weak) SCCaptureManager *captureManager;
+@property (nonatomic, strong) SBCaptureManager *captureManager;
 @property (nonatomic, strong) SCCameraView *cameraView;
 
 @end
 
 @implementation SCCameraViewController
 
-- (SCCaptureManager*) captureManager {
-    if (!_captureManager) {
-        _captureManager = [SCCaptureManager sharedInstance];
-        _captureManager.photoManager.delegate = self;
-        _captureManager.videoManager.maximumStitchCount = 1;
-    }
+- (SBCaptureManager*) captureManager {
+    if (!_captureManager)
+        _captureManager = [[SBCaptureManager alloc] init];
     return _captureManager;
 }
 
@@ -57,11 +58,7 @@
     return _cameraView;
 }
 
-- (SCCaptureType) currentCaptureType {
-    return self.captureManager.captureType;
-}
-
-- (id) initWithCaptureType:(SCCaptureType)captureType {
+- (instancetype) initWithCaptureType:(SBCaptureType)captureType {
     if (self = [super init]) {
         self.captureManager.captureType = captureType;
     }
@@ -83,7 +80,7 @@
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
     
     //set current index to match capture type
-    NSInteger page = self.captureManager.captureType == SCCaptureTypeVideo ? 0 : 1;
+    NSInteger page = self.captureManager.captureType == SBCaptureTypeVideo ? 0 : 1;
     [self.cameraView.pageView setIndex:page duration:0];
     
     __weak typeof(self) weakSelf = self;
@@ -106,8 +103,7 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self switchedToPage:index];
         });
-        [NSObject cancelPreviousPerformRequestsWithTarget:weakSelf selector:@selector(removeBlur) object:nil];
-        [weakSelf performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
+        [weakSelf showBlur];
     }] ;
     
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
@@ -146,20 +142,19 @@
 
 #pragma mark - Camera state handling
 - (void) switchedToPage:(NSInteger)page {
-    AVCaptureFlashMode prevFlashMode = self.captureManager.currentManager.flashMode;
     switch (page) {
         case 0:
-            self.captureManager.captureType = SCCaptureTypeVideo;
+            self.captureManager.captureType = SBCaptureTypeVideo;
             self.cameraView.recordButton.allowHold = YES;
             break;
         case 1:
-            self.captureManager.captureType = SCCaptureTypePhoto;
-            self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio4_3;
+            self.captureManager.captureType = SBCaptureTypePhoto;
+            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
             self.cameraView.recordButton.allowHold = NO;
             break;
         case 2:
-            self.captureManager.captureType = SCCaptureTypePhoto;
-            self.captureManager.photoManager.aspectRatio = SCCameraAspectRatio1_1;
+            self.captureManager.captureType = SBCaptureTypePhoto;
+            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
             self.cameraView.recordButton.allowHold = NO;
             break;
         default:
@@ -168,52 +163,38 @@
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
     [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
-    
-    [self updateFlashMode:prevFlashMode]; //update new flash mode
 }
 
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
         case 0: [self.cameraView setVideoCaptureType]; break;
-        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SCCameraAspectRatio4_3]; break;
-        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SCCameraAspectRatio1_1]; break;
+        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
+        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
         default: break;
     }
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
-}
-
-- (void) updateFlashMode:(AVCaptureFlashMode)mode {
-    NSError *error = nil;
-    [self.captureManager.currentManager.currentCamera lockForConfiguration:&error];
-    
-    if ([self.captureManager.currentManager isFlashModeAvailable:mode]) {
-        self.captureManager.currentManager.flashMode = mode;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.cameraView.flashMode = self.captureManager.currentManager.flashMode;
-    });
-    
-    [self.captureManager.currentManager.currentCamera unlockForConfiguration];
 }
 
 -(void)switchCamera {
     self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
     self.cameraView.stateToolbar.hidden = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        AVCaptureFlashMode prevFlashMode = self.captureManager.currentManager.flashMode;
-        if (self.captureManager.currentManager.currentCamera == self.captureManager.photoManager.rearCamera) {
-            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeFrontFacing]) {
-                self.captureManager.currentManager.cameraType = SCCameraTypeFrontFacing;
-            }
-        } else {
-            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeRear]) {
-                self.captureManager.currentManager.cameraType = SCCameraTypeRear;
-            }
-        }
-        [self updateFlashMode:prevFlashMode];
+//        if (self.captureManager.currentManager.currentCamera == self.captureManager.photoManager.rearCamera) {
+//            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeFrontFacing]) {
+//                self.captureManager.currentManager.cameraType = SCCameraTypeFrontFacing;
+//            }
+//        } else {
+//            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeRear]) {
+//                self.captureManager.currentManager.cameraType = SCCameraTypeRear;
+//            }
+//        }
     });
+    [self showBlur];
+}
+
+- (void) showBlur {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeBlur) object:nil];
     [self performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
 }
 
@@ -222,38 +203,39 @@
     self.cameraView.stateToolbar.hidden = YES;
 }
 
-#pragma mark - Status bar states
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
-#pragma mark - Actions
+#pragma mark - Camera Actions 
 - (void) startRecording {
     NSLog(@"Started recording");
-    [self.captureManager.videoManager startCapture];
+    SBVideoManager *manager = self.captureManager.videoManager;
+    if (manager.isPaused) [manager resumeRecording];
+    else [manager startRecording];
     [self.cameraView animateHudHidden:YES completion:nil];
     [self.cameraView.progressBar start];
 }
 
 - (void) pauseRecording {
     NSLog(@"Stopped recording");
-    [self.captureManager.videoManager stopCapture];
+    [self.captureManager.videoManager pauseRecording];
     [self.cameraView animateHudHidden:NO completion:nil];
     [self.cameraView.progressBar pause];
 }
 
 - (void) stopRecording {
-    [self.captureManager.videoManager saveVideoLocally:^(NSURL *assetURL, NSError *error) {
-        NSLog(@"saved video");
+    [self.captureManager.videoManager pauseRecording];
+}
+
+- (void) capturePhoto {
+    __weak typeof(self) weakSelf = self;
+    [self.captureManager.photoManager captureImageWithCompletion:^(UIImage *image) {
+        SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
+        vc.delegate = weakSelf;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
 }
 
--(void)chooseExistingButtonPressed:(id)sender
-{
+#pragma mark - User Actions
+
+-(void)chooseExistingButtonPressed:(id)sender {
     __weak typeof(self) weakSelf = self;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
     actionSheet.delegate = (id<UIActionSheetDelegate>)actionSheet;
@@ -290,8 +272,8 @@
 
 
 -(void)flashModeButtonPressed:(UIButton *)sender {
-    AVCaptureFlashMode mode = [self.cameraView cycleFlashMode];
-    [self updateFlashMode:mode];
+//    AVCaptureFlashMode mode = [self.cameraView cycleFlashMode];
+//    [self updateFlashMode:mode];
 }
 
 -(void)cameraToggleButtonPressed:(UIButton *)sender {
@@ -325,6 +307,27 @@
 }
 
 -(void)closeButtonPressed:(id)sender {
+    if (CMTimeGetSeconds([self.captureManager.videoManager totalRecordingDuration]) > 0) {
+        NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
+        
+        [self.captureManager.videoManager finalizeRecordingToFile:url withVideoSize:self.cameraView.captureView.frame.size withPreset:AVAssetExportPreset640x480 withCompletionHandler:^(NSError *error) {
+            if (error) {
+                NSLog(@"Failed to save locally - %@", error.localizedDescription);
+                return;
+            }
+            
+            NSLog(@"saved locally");
+            [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:url completionBlock:^(NSURL *assetURL, NSError *error) {
+                if (error) {
+                    NSLog(@"couldn't save to library - %@", error.localizedDescription);
+                } else {
+                    NSLog(@"saved to library");
+                }
+            }];
+        }];
+        return;
+    }
+    
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
     }
@@ -344,8 +347,7 @@
 
 
 #pragma mark - SCPhotoManager Delegate
-
--(void)photoManager:(SCPhotoManager*)manager capturedImage:(UIImage*)image {
+-(void)photoManager:(SBPhotoManager*)manager capturedImage:(UIImage*)image {
     self.cameraView.stateToolbar.hidden = YES;
     if (image) {
         SCReviewController *vc = [[SCReviewController alloc] initWithImage:image];
@@ -355,14 +357,10 @@
 }
 
 #pragma mark - SCProgressBarDelegate
-
 - (void) progressBarDidStart:(SCProgressBar*)progressBar {
 }
-
 - (void) progressBarDidPause:(SCProgressBar*)progressBar {
-    
 }
-
 - (void) progressBarDidStop:(SCProgressBar*)progressBar withTime:(NSTimeInterval)time {
     [self stopRecording];
 }
@@ -370,49 +368,53 @@
 #pragma mark - SCRecordButtonDelegate
 - (void) recordButtonStartedHolding:(SCRecordButton *)button {
     //only accept video mode for this logic
-    if (self.captureManager.captureType != SCCaptureTypeVideo)
+    if (self.captureManager.captureType != SBCaptureTypeVideo)
         return;
     
     [self startRecording];
 }
 
 - (void) recordButtonStoppedHolding:(SCRecordButton *)button {
-    //snap picture b/c we are in photo mode
-    if (self.captureManager.captureType == SCCaptureTypePhoto) {
-        NSLog(@"Captured image");
-        [self.captureManager.photoManager captureImage];
-    }
-    
-    //pause video
-    else {
+    if (self.captureManager.captureType == SBCaptureTypePhoto) {
+        [self capturePhoto];
+    } else {
         [self pauseRecording];
     }
 }
 
 - (void) recordButtonTapped:(SCRecordButton *)button {
     //only accept photo mode for this logic
-    if (self.captureManager.captureType != SCCaptureTypePhoto)
+    if (self.captureManager.captureType != SBCaptureTypePhoto)
         return;
     
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
-    [self.captureManager.photoManager captureImage];
+    [self capturePhoto];
 }
 
 #pragma mark - SCReviewControllerDelegate
 - (void) reviewController:(SCReviewController *)controller acceptedImage:(UIImage *)image title:(NSString *)title description:(NSString *)description {
-    NSDictionary *info = @{@"title" : title, @"description" : description};
+//    NSDictionary *info = @{@"title" : title, @"description" : description};
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
     [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SHOULD Override Image Saved to Device" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
-    
 }
 
 - (void) reviewController:(SCReviewController *)controller rejectedImage:(UIImage *)image {
     [self.navigationController popViewControllerAnimated:YES];
 
+}
+
+
+#pragma mark - Status bar states
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

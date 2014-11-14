@@ -24,7 +24,7 @@
     return self.captureLayer.session;
 }
 
-- (id) initWithCaptureSession:(AVCaptureSession *)session {
+- (instancetype) initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super init]) {
         [self addSessionIfNeeded:session];
     }
