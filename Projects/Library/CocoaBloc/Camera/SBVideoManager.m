@@ -4,10 +4,12 @@
 //
 //  Created by David Skuza on 9/3/14.
 //  Copyright (c) 2014 David Skuza. All rights reserved.
+//  Source code taken & modified from https://github.com/carsonmcdonald/iOSVideoCameraMultiStitchExample 11/14/2014 - MIT LICENSE
 //
 
 #import "SBVideoManager.h"
 #import "SBAssetStitcher.h"
+#import "AVCaptureSession+Extension.h"
 
 @interface SBVideoManager () <AVCaptureFileOutputRecordingDelegate> {
     id deviceConnectedObserver;
@@ -27,12 +29,22 @@
 @property (nonatomic, assign) NSInteger currentRecordingSegment;
 
 @property (nonatomic, assign) CMTime currentFinalDurration;
-@property (nonatomic, assign) NSInteger inFlightWrites;
+@property (nonatomic, assign) NSInteger currentWrites;
+
+@property (nonatomic, strong) SBAssetStitcher *stitcher;
+
 
 
 @end
 
 @implementation SBVideoManager
+
+- (SBAssetStitcher*) stitcher {
+    if (!_stitcher)
+        _stitcher = [[SBAssetStitcher alloc] init];
+    return _stitcher;
+}
+
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
@@ -40,7 +52,7 @@
         _currentRecordingSegment = 0;
         _isPaused = NO;
         _maxDuration = 0;
-        _inFlightWrites = 0;
+        _currentWrites = 0;
         
         self.maxDuration = 10.0;
         self.asyncErrorHandler = ^(NSError *error) {
@@ -51,14 +63,13 @@
         
         [self startNotificationObservers];
         
-        [self setupSessionWithPreset:AVCaptureSessionPresetHigh withCaptureDevice:AVCaptureDevicePositionBack withTorchMode:AVCaptureTorchModeOff withError:nil completion:nil];
+        [self setupSessionWithPreset:[self.captureSession bestSessionPreset] withCaptureDevice:AVCaptureDevicePositionBack withTorchMode:AVCaptureTorchModeOff withError:nil completion:nil];
     }
     return self;
 }
 
 - (void)dealloc {
     [self.captureSession removeOutput:self.movieFileOutput];
-    
     [self endNotificationObservers];
 }
 
@@ -85,8 +96,7 @@
     self.videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:nil];
     if([self.captureSession canAddInput:self.videoInput]) {
         [self.captureSession addInput:self.videoInput];
-    }
-    else {
+    } else {
         error([NSError errorWithDomain:@"Error setting video input." code:101 userInfo:nil]);
         return;
     }
@@ -94,16 +104,14 @@
     self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
     if([self.captureSession canAddInput:self.audioInput]) {
         [self.captureSession addInput:self.audioInput];
-    }
-    else {
+    } else {
         error([NSError errorWithDomain:@"Error setting audio input." code:101 userInfo:nil]);
         return;
     }
     
     if([self.captureSession canAddOutput:self.movieFileOutput]) {
         [self.captureSession addOutput:self.movieFileOutput];
-    }
-    else {
+    } else {
         error([NSError errorWithDomain:@"Error setting file output." code:101 userInfo:nil]);
         return;
     }
@@ -148,8 +156,7 @@
     
     if(_maxDuration > 0) {
         self.movieFileOutput.maxRecordedDuration = CMTimeSubtract(CMTimeMakeWithSeconds(_maxDuration, 600), self.currentFinalDurration);
-    }
-    else {
+    } else {
         self.movieFileOutput.maxRecordedDuration = kCMTimeInvalid;
     }
     
@@ -164,70 +171,51 @@
     _isPaused = NO;
 }
 
-- (void)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL withVideoSize:(CGSize)videoSize withPreset:(NSString *)preset withCompletionHandler:(void (^)(NSError *error))completionHandler {
+- (void)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL completion:(ErrorBlock)completionHandler {
+    __weak typeof(self) weakSelf = self;
+
+    CompletionBlock completion = ^ (NSError* error) {
+        [weakSelf.stitcher reset];
+        if (completionHandler)
+            completionHandler(error);
+    };
+    
+    if (completion == nil) completion = ^(NSError*e){};
+
     [self reset];
     
     NSError *error;
     if([finalVideoLocationURL checkResourceIsReachableAndReturnError:&error]) {
-        completionHandler([NSError errorWithDomain:@"Output file already exists." code:104 userInfo:nil]);
+        completion([NSError errorWithDomain:@"Output file already exists." code:104 userInfo:nil]);
         return;
     }
     
-    if(self.inFlightWrites != 0) {
-        completionHandler([NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]);
+    if(self.currentWrites != 0) {
+        completion([NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]);
         return;
     }
-    
-    SBAssetStitcher *stitcher = [[SBAssetStitcher alloc] initWithOutputSize:videoSize];
     
     __block NSError *stitcherError;
     [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
-        
-        [stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] withTransform:^CGAffineTransform(AVAssetTrack *videoTrack) {
-            
-            //
-            // The following transform is applied to each video track. It changes the size of the
-            // video so it fits within the output size and stays at the correct aspect ratio.
-            //
-            
-            CGFloat ratioW = videoSize.width / videoTrack.naturalSize.width;
-            CGFloat ratioH = videoSize.height / videoTrack.naturalSize.height;
-            if(ratioW < ratioH)
-            {
-                // When the ratios are larger than one, we must flip the translation.
-                float neg = (ratioH > 1.0) ? 1.0 : -1.0;
-                CGFloat diffH = videoTrack.naturalSize.height - (videoTrack.naturalSize.height * ratioH);
-                return CGAffineTransformConcat( CGAffineTransformMakeTranslation(0, neg*diffH/2.0), CGAffineTransformMakeScale(ratioH, ratioH) );
-            }
-            else
-            {
-                // When the ratios are larger than one, we must flip the translation.
-                float neg = (ratioW > 1.0) ? 1.0 : -1.0;
-                CGFloat diffW = videoTrack.naturalSize.width - (videoTrack.naturalSize.width * ratioW);
-                return CGAffineTransformConcat( CGAffineTransformMakeTranslation(neg*diffW/2.0, 0), CGAffineTransformMakeScale(ratioW, ratioW) );
-            }
-            
-        } withErrorHandler:^(NSError *error) {
-            
+        [weakSelf.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:nil error:^(NSError *error) {
             stitcherError = error;
-            
         }];
-        
     }];
     
     if(stitcherError) {
-        completionHandler(stitcherError);
+        completion(stitcherError);
         return;
     }
     
-    [stitcher exportTo:finalVideoLocationURL withPreset:preset withCompletionHandler:^(NSError *error) {
+    CGSize renderSize = [self.captureSession renderSize];
+    [self.stitcher exportTo:finalVideoLocationURL renderSize:renderSize preset:self.captureSession.exportPreset completion:^(NSError *error) {
         if(error) {
-            completionHandler(error);
+            completion(error);
         }
         else {
-            [self cleanTemporaryFiles];
-            [self.temporaryFileURLs removeAllObjects];
-            completionHandler(nil);
+            [weakSelf cleanTemporaryFiles];
+            [weakSelf.temporaryFileURLs removeAllObjects];
+            completion(nil);
         }
         
     }];
@@ -244,38 +232,33 @@
 }
 
 #pragma mark - AVCaptureFileOutputRecordingDelegate implementation
-
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
-    self.inFlightWrites++;
+    self.currentWrites++;
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections error:(NSError *)error {
     if(error){
         if(self.asyncErrorHandler){
             self.asyncErrorHandler(error);
-        }
-        else {
+        } else {
             NSLog(@"Error capturing output: %@", error);
         }
     }
     
-    self.inFlightWrites--;
+    self.currentWrites--;
 }
 
 #pragma mark - Observer start and stop
 - (void)startNotificationObservers {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
-    //
-    // Reconnect to a device that was previously being used
-    //
+    //Reconnect to a device that was previously being used
     deviceConnectedObserver = [notificationCenter addObserverForName:AVCaptureDeviceWasConnectedNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
         AVCaptureDevice *device = [notification object];
         NSString *deviceMediaType = nil;
         if ([device hasMediaType:AVMediaTypeAudio]) {
             deviceMediaType = AVMediaTypeAudio;
-        }
-        else if ([device hasMediaType:AVMediaTypeVideo]) {
+        } else if ([device hasMediaType:AVMediaTypeVideo]) {
             deviceMediaType = AVMediaTypeVideo;
         }
         
@@ -290,8 +273,7 @@
                     if(error) {
                         if(self.asyncErrorHandler) {
                             self.asyncErrorHandler(error);
-                        }
-                        else {
+                        } else {
                             NSLog(@"Error reconnecting device input: %@", error);
                         }
                     }
@@ -300,12 +282,9 @@
                 
             }];
         }
-        
     }];
     
-    //
-    // Disable inputs from removed devices that are being used
-    //
+    //Disable inputs from removed devices that are being used
     deviceDisconnectedObserver = [notificationCenter addObserverForName:AVCaptureDeviceWasDisconnectedNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
         AVCaptureDevice *device = [notification object];
         if ([device hasMediaType:AVMediaTypeAudio]) {
@@ -318,10 +297,7 @@
         }
     }];
     
-    //
-    // Track orientation changes. Note: This are pushed into the Quicktime video data and needs
-    // to be used at decoding time to transform the video into the correct orientation.
-    //
+    //Track orientation changes
     self.orientation = AVCaptureVideoOrientationPortrait;
     deviceOrientationDidChangeObserver = [notificationCenter addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         switch ([[UIDevice currentDevice] orientation]) {

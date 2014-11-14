@@ -4,13 +4,14 @@
 //
 //  Created by Mark Glagola on 11/14/14.
 //  Copyright (c) 2014 StageBloc. All rights reserved.
+//  Source code taken & modified from https://github.com/carsonmcdonald/iOSVideoCameraMultiStitchExample 11/14/2014 - MIT LICENSE
 //
 
 #import "SBAssetStitcher.h"
 
-@interface SBAssetStitcher ()
 
-@property (nonatomic, readonly) CGSize outputSize;
+
+@interface SBAssetStitcher ()
 
 @property (nonatomic, strong) AVMutableComposition *composition;
 @property (nonatomic, strong) AVMutableCompositionTrack *compositionVideoTrack;
@@ -21,29 +22,29 @@
 
 @implementation SBAssetStitcher
 
-- (instancetype)initWithOutputSize:(CGSize)outSize {
+- (instancetype)init {
     if (self = [super init]) {
-        _outputSize = outSize;
-        
-        self.composition = [AVMutableComposition composition];
-        self.compositionVideoTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
-        self.compositionAudioTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-        
-        self.instructions = [[NSMutableArray alloc] init];
+        self.orientation = AVCaptureVideoOrientationPortrait;
+        [self reset];
     }
     return self;
 }
 
-- (void)addAsset:(AVURLAsset *)asset withTransform:(CGAffineTransform (^)(AVAssetTrack *videoTrack))transformToApply withErrorHandler:(void (^)(NSError *error))errorHandler {
+- (void) reset {
+    self.composition = [AVMutableComposition composition];
+    self.compositionVideoTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    self.compositionAudioTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    self.instructions = [[NSMutableArray alloc] init];
+}
+
+- (void)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack))transformToApply error:(void (^)(NSError *error))errorHandler {
     AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
     
     AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
     AVMutableVideoCompositionLayerInstruction *layerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:self.compositionVideoTrack];
     
-    //
     // Apply a transformation to the video if one has been given. If a transformation is given it is combined
-    // with the preferred transform contained in the incoming video track.
-    //
+    // with the preferred transform contained in the incoming video track
     if(transformToApply) {
         [layerInstruction setTransform:CGAffineTransformConcat(videoTrack.preferredTransform, transformToApply(videoTrack))
                                 atTime:kCMTimeZero];
@@ -78,10 +79,14 @@
     }
 }
 
-- (void)exportTo:(NSURL *)outputFile withPreset:(NSString *)preset withCompletionHandler:(void (^)(NSError *error))completionHandler {
+- (void)exportTo:(NSURL *)outputFile renderSize:(CGSize)renderSize preset:(NSString *)preset completion:(void (^)(NSError *error))completion {
+    if (completion == nil) completion = ^(NSError*e){};
+    
+    renderSize = (self.orientation == AVCaptureVideoOrientationPortrait || self.orientation == AVCaptureVideoOrientationPortraitUpsideDown) ? CGSizeMake(renderSize.height, renderSize.width) : renderSize;
+    
     AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoComposition];
     videoComposition.instructions = self.instructions;
-    videoComposition.renderSize = self.outputSize;
+    videoComposition.renderSize = renderSize;
     videoComposition.frameDuration = CMTimeMake(1, 30);
     
     AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
@@ -94,14 +99,14 @@
     [exporter exportAsynchronouslyWithCompletionHandler:^{
         switch([exporter status]) {
             case AVAssetExportSessionStatusFailed:
-                completionHandler(exporter.error);
+                completion(exporter.error);
                 break;
             case AVAssetExportSessionStatusCancelled:
             case AVAssetExportSessionStatusCompleted:
-                completionHandler(nil);
+                completion(nil);
                 break;
             default:
-                completionHandler([NSError errorWithDomain:@"Unknown export error" code:100 userInfo:nil]);
+                completion([NSError errorWithDomain:@"Unknown export error" code:100 userInfo:nil]);
                 break;
         }
         

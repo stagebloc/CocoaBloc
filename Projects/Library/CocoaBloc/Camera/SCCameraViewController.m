@@ -309,8 +309,7 @@
 -(void)closeButtonPressed:(id)sender {
     if (CMTimeGetSeconds([self.captureManager.videoManager totalRecordingDuration]) > 0) {
         NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
-        
-        [self.captureManager.videoManager finalizeRecordingToFile:url withVideoSize:self.cameraView.captureView.frame.size withPreset:AVAssetExportPreset640x480 withCompletionHandler:^(NSError *error) {
+        [self.captureManager.videoManager finalizeRecordingToFile:url completion:^(NSError *error) {
             if (error) {
                 NSLog(@"Failed to save locally - %@", error.localizedDescription);
                 return;
@@ -416,5 +415,10 @@
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationPortrait;
+}
+
 
 @end

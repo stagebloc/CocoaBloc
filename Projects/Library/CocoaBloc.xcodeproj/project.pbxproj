@@ -55,6 +55,7 @@
 		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
 		4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */; };
 		4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA881A16665700EE3926 /* SBAssetStitcher.m */; };
+		4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */; };
 		4D22420B1A0D2D3D0065F172 /* SCPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SCPageView.m */; };
 		4D224DE11A0919B6007DF1D1 /* SCAlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC11A0919B6007DF1D1 /* SCAlbumDetailViewController.m */; };
 		4D224DE21A0919B6007DF1D1 /* SCAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC31A0919B6007DF1D1 /* SCAlbumTableViewCell.m */; };
@@ -202,6 +203,8 @@
 		4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		4D06DA871A16665700EE3926 /* SBAssetStitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAssetStitcher.h; sourceTree = "<group>"; };
 		4D06DA881A16665700EE3926 /* SBAssetStitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAssetStitcher.m; sourceTree = "<group>"; };
+		4D06DA8B1A16AA0400EE3926 /* AVCaptureSession+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVCaptureSession+Extension.h"; sourceTree = "<group>"; };
+		4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureSession+Extension.m"; sourceTree = "<group>"; };
 		4D2242091A0D2D3D0065F172 /* SCPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPageView.h; sourceTree = "<group>"; };
 		4D22420A1A0D2D3D0065F172 /* SCPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPageView.m; sourceTree = "<group>"; };
 		4D224DC01A0919B6007DF1D1 /* SCAlbumDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAlbumDetailViewController.h; sourceTree = "<group>"; };
@@ -547,9 +550,19 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		4D06DA8A1A16A4D900EE3926 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4D06DA8B1A16AA0400EE3926 /* AVCaptureSession+Extension.h */,
+				4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		4D224DBF1A0919B6007DF1D1 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				4D06DA8A1A16A4D900EE3926 /* Categories */,
 				4D224DF31A091AC5007DF1D1 /* Assets */,
 				4D224DF51A091AF0007DF1D1 /* Capture */,
 				4D224DF11A091ABC007DF1D1 /* Controllers */,
@@ -897,6 +910,7 @@
 				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
 				4DF6EFE21A099F1600A5CFEC /* SCCameraView.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
+				4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */,
 				4D22420B1A0D2D3D0065F172 /* SCPageView.m in Sources */,
 				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
