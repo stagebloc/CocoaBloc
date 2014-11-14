@@ -17,6 +17,16 @@
 
 @implementation SBCaptureManager
 
+- (void) setDevicePosition:(AVCaptureDevicePosition)devicePosition {
+    [self willChangeValueForKey:@"devicePosition"];
+    _devicePosition = devicePosition;
+    [self didChangeValueForKey:@"devicePosition"];
+    
+    self.videoManager.devicePosition = devicePosition;
+    self.photoManager.devicePosition = devicePosition;
+    [self setCaptureType:self.captureType];
+}
+
 //@return's YES if successful
 - (BOOL) setFlashMode:(SBCaptureFlashMode)flashMode {
     AVCaptureDevice *input = self.currentManager.currentCamera;
@@ -76,6 +86,7 @@
         _videoManager = [[SBVideoManager alloc] initWithCaptureSession:captureSession];
         _photoManager = [[SBPhotoManager alloc] initWithCaptureSession:captureSession];
         self.captureType = self.captureType;
+        self.devicePosition = AVCaptureDevicePositionBack;
     }
     return self;
 }

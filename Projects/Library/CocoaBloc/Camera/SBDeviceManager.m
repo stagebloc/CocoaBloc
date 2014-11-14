@@ -10,11 +10,34 @@
 
 @implementation SBDeviceManager
 
+- (void) setDevicePosition:(AVCaptureDevicePosition)devicePosition {
+    [self willChangeValueForKey:@"devicePosition"];
+    _devicePosition = devicePosition;
+    [self didChangeValueForKey:@"devicePosition"];
+    
+    [self updateCamera];
+}
+
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super init]) {
         _captureSession = session;
+        [self updateCamera];
     }
     return self;
+}
+
+- (void) updateCamera {
+    if (self.currentInput)
+        [self.captureSession removeInput:self.currentInput];
+    
+    AVCaptureDevice *captureDevice = self.currentCamera;
+    self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    _currentInput = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:nil];
+    if([self.captureSession canAddInput:self.currentInput]) {
+        [self.captureSession addInput:self.currentInput];
+    } else {
+        NSLog(@"Error setting input to capture session");
+    }
 }
 
 - (AVCaptureDevice *) currentCamera {

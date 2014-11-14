@@ -180,15 +180,8 @@
     self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
     self.cameraView.stateToolbar.hidden = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        if (self.captureManager.currentManager.currentCamera == self.captureManager.photoManager.rearCamera) {
-//            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeFrontFacing]) {
-//                self.captureManager.currentManager.cameraType = SCCameraTypeFrontFacing;
-//            }
-//        } else {
-//            if ([self.captureManager.currentManager hasAvailableCameraType:SCCameraTypeRear]) {
-//                self.captureManager.currentManager.cameraType = SCCameraTypeRear;
-//            }
-//        }
+        AVCaptureDevicePosition current = self.captureManager.devicePosition;
+        self.captureManager.devicePosition = current == AVCaptureDevicePositionBack ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
     });
     [self showBlur];
 }

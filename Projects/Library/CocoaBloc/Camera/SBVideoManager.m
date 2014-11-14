@@ -65,7 +65,20 @@
         
         [self startNotificationObservers];
         
-        [self setupSessionWithPreset:[self.captureSession bestSessionPreset] withCaptureDevice:AVCaptureDevicePositionBack withError:nil completion:nil];
+        self.captureSession.sessionPreset = [self.captureSession bestSessionPreset];
+        
+        self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
+        if([self.captureSession canAddInput:self.audioInput]) {
+            [self.captureSession addInput:self.audioInput];
+        } else {
+            NSLog(@"Error setting audio input");
+        }
+        
+        if([self.captureSession canAddOutput:self.movieFileOutput]) {
+            [self.captureSession addOutput:self.movieFileOutput];
+        } else {
+            NSLog(@"Error setting file output");
+        }
     }
     return self;
 }
@@ -73,44 +86,6 @@
 - (void)dealloc {
     [self.captureSession removeOutput:self.movieFileOutput];
     [self endNotificationObservers];
-}
-
-- (void)setupSessionWithPreset:(NSString *)preset withCaptureDevice:(AVCaptureDevicePosition)cd withError:(void(^)(NSError *error))error completion:(void(^)(void))completion {
-    
-    if (error == nil) {
-        error = ^ (NSError *error) {
-            NSLog(@"Error setting up video session - %@", error.localizedDescription);
-        };
-    }
-    
-    AVCaptureDevice *captureDevice = self.currentCamera;
-    self.captureSession.sessionPreset = preset;
-
-    self.videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:nil];
-    if([self.captureSession canAddInput:self.videoInput]) {
-        [self.captureSession addInput:self.videoInput];
-    } else {
-        error([NSError errorWithDomain:@"Error setting video input." code:101 userInfo:nil]);
-        return;
-    }
-    
-    self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
-    if([self.captureSession canAddInput:self.audioInput]) {
-        [self.captureSession addInput:self.audioInput];
-    } else {
-        error([NSError errorWithDomain:@"Error setting audio input." code:101 userInfo:nil]);
-        return;
-    }
-    
-    if([self.captureSession canAddOutput:self.movieFileOutput]) {
-        [self.captureSession addOutput:self.movieFileOutput];
-    } else {
-        error([NSError errorWithDomain:@"Error setting file output." code:101 userInfo:nil]);
-        return;
-    }
-    
-    if (completion)
-        completion();
 }
 
 - (void)startRecording {

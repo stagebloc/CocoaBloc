@@ -29,6 +29,9 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
 @property (nonatomic, strong, readonly) SBPhotoManager *photoManager;
 
 @property (nonatomic, assign) SBCaptureType captureType;
+
+@property (nonatomic, assign) AVCaptureDevicePosition devicePosition;
+
 @property (nonatomic, assign, readonly) SBCaptureFlashMode flashMode;
 
 - (SBDeviceManager*) currentManager;

@@ -17,7 +17,7 @@
 @interface SBDeviceManager : NSObject
 
 @property (nonatomic, readonly, weak) AVCaptureSession *captureSession;
-@property (nonatomic, readonly) AVCaptureDeviceInput *currentInput;
+@property (nonatomic, strong, readonly) AVCaptureDeviceInput *currentInput;
 
 @property (nonatomic, assign) AVCaptureDevicePosition devicePosition;
 
@@ -31,5 +31,7 @@
 @property (nonatomic, assign) AVCaptureExposureMode exposureMode;
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session;
+
+- (void) updateCamera; //updates camera input
 
 @end
