@@ -17,8 +17,6 @@
 
 @interface SBCaptureView : UIView
 
-@property (nonatomic, readonly) AVCaptureSession *captureSession;
-
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session;
 
 - (void) addSessionIfNeeded:(AVCaptureSession*)session;
@@ -29,5 +27,9 @@
  by layer, must remove.
  */
 - (void) removeSession;
+
+- (AVCaptureVideoPreviewLayer*) captureLayer;
+
+- (AVCaptureSession*) captureSession;
 
 @end

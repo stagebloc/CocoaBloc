@@ -307,8 +307,8 @@
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [[RACObserve(weakSelf.focusView, frame) skip:1] subscribeNext:^(NSValue *value) {
             CGRect frame = [value CGRectValue];
-            CGPoint center = CGPointMake(CGRectGetMidX(frame) / CGRectGetWidth(weakSelf.frame), CGRectGetMidY(frame) / CGRectGetHeight(weakSelf.frame));
-            [subscriber sendNext:[NSValue valueWithCGPoint:center]];
+            CGPoint center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+            [subscriber sendNext:[NSValue valueWithCGPoint:[weakSelf.captureView.captureLayer captureDevicePointOfInterestForPoint:center]]];
         } error:^(NSError *error) {
             [subscriber sendError:error];
         } completed:^{
