@@ -27,16 +27,20 @@
 }
 
 - (void) updateCamera {
-    if (self.currentInput)
+    if (self.currentInput) {
         [self.captureSession removeInput:self.currentInput];
+        _currentInput = nil;
+    }
     
+    NSError *error = nil;
     AVCaptureDevice *captureDevice = self.currentCamera;
     self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-    _currentInput = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:nil];
-    if([self.captureSession canAddInput:self.currentInput]) {
+    AVCaptureDeviceInput *input = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:&error];
+    if([self.captureSession canAddInput:input]) {
+        _currentInput = input;
         [self.captureSession addInput:self.currentInput];
     } else {
-        NSLog(@"Error setting input to capture session");
+        NSLog(@"Error setting input to capture session - %@", error.localizedDescription);
     }
 }
 

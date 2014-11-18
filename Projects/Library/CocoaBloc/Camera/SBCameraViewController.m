@@ -99,16 +99,31 @@
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
         NSInteger index = n.integerValue;
-
-        self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
-        self.cameraView.stateToolbar.hidden = NO;
-
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self switchedToPage:index];
+            switch (index) {
+                case 0:
+                    self.captureManager.captureType = SBCaptureTypeVideo;
+                    self.cameraView.recordButton.allowHold = YES;
+                    break;
+                case 1:
+                    self.captureManager.captureType = SBCaptureTypePhoto;
+                    self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
+                    self.cameraView.recordButton.allowHold = NO;
+                    break;
+                case 2:
+                    self.captureManager.captureType = SBCaptureTypePhoto;
+                    self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
+                    self.cameraView.recordButton.allowHold = NO;
+                    break;
+                default:
+                    break;
+            }
+            
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
+            [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
         });
         [self showBlur];
     }];
-    
     
     //focus point
     [[self.cameraView focusPointChangeSignal] subscribeNext:^(NSValue *value) {
@@ -120,7 +135,16 @@
         @strongify(self)
         return [self.captureManager isFocusModeAvailable:AVCaptureFocusModeAutoFocus];
     }];
-        
+    
+    //flash mode
+    [[RACObserve(self.captureManager, flashMode) skip:1] subscribeNext:^(NSNumber *n) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            SBCaptureFlashMode mode = n.integerValue;
+            self.cameraView.flashMode = mode;
+        });
+    }];
+    
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     [doubleTap setNumberOfTapsRequired: 2];
     [self.view addGestureRecognizer:doubleTap];
@@ -150,30 +174,6 @@
 }
 
 #pragma mark - Camera state handling
-- (void) switchedToPage:(NSInteger)page {
-    switch (page) {
-        case 0:
-            self.captureManager.captureType = SBCaptureTypeVideo;
-            self.cameraView.recordButton.allowHold = YES;
-            break;
-        case 1:
-            self.captureManager.captureType = SBCaptureTypePhoto;
-            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
-            self.cameraView.recordButton.allowHold = NO;
-            break;
-        case 2:
-            self.captureManager.captureType = SBCaptureTypePhoto;
-            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
-            self.cameraView.recordButton.allowHold = NO;
-            break;
-        default:
-            break;
-    }
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
-    [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
-}
-
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
@@ -186,16 +186,19 @@
 }
 
 -(void)switchCamera {
-    self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
-    self.cameraView.stateToolbar.hidden = NO;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        AVCaptureDevicePosition current = self.captureManager.devicePosition;
-        self.captureManager.devicePosition = current == AVCaptureDevicePositionBack ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
-    });
     [self showBlur];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_switchCamera) object:nil];
+    [self performSelectorOnMainThread:@selector(_switchCamera) withObject:nil waitUntilDone:NO];
+}
+
+- (void) _switchCamera {
+    AVCaptureDevicePosition current = self.captureManager.devicePosition;
+    self.captureManager.devicePosition = current == AVCaptureDevicePositionBack ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
 }
 
 - (void) showBlur {
+    self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
+    self.cameraView.stateToolbar.hidden = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeBlur) object:nil];
     [self performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
 }
@@ -275,8 +278,7 @@
 
 
 -(void)flashModeButtonPressed:(UIButton *)sender {
-//    AVCaptureFlashMode mode = [self.cameraView cycleFlashMode];
-//    [self updateFlashMode:mode];
+    [self.captureManager cycleFlashMode];
 }
 
 -(void)cameraToggleButtonPressed:(UIButton *)sender {
@@ -284,7 +286,7 @@
 }
 
 -(void)handleDoubleTap:(UITapGestureRecognizer *)tapRecognizer {
-//    [self switchCamera];
+    [self switchCamera];
 }
 
 - (void) handleSwipeLeftGesture:(UISwipeGestureRecognizer*) swipeGesture {
@@ -329,11 +331,6 @@
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
     }
-}
-
--(void)aspectRatioButtonPressed:(id)sender {
-    [self.cameraView cycleAspectRatio];
-//    self.captureManager.photoManager.aspectRatioDefault = !self.captureManager.photoManager.aspectRatioDefault;
 }
 
 #pragma mark - UIGestureRecognizerDelegate

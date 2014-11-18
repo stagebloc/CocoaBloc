@@ -38,7 +38,7 @@
 @property (nonatomic, strong) UIButton *chooseExistingButton;
 
 //Change this property to adjust the flashModeButton image
-@property (nonatomic, assign) AVCaptureFlashMode flashMode;
+@property (nonatomic, assign) SBCaptureFlashMode flashMode;
 
 //Change this property to adjust the aspectRatioButton image
 //use setPhotoCaptureTypeWithAspectRatio:
@@ -51,18 +51,6 @@
 @property (nonatomic, copy) BOOL (^shouldUpdateFocusPosition)(CGPoint toPosition);
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager;
-
-/*
- Cycles to the next AVCaptureFlashMode
- @return the new cycled value
- */
-- (AVCaptureFlashMode) cycleFlashMode;
-
-/*
- Cycles to the next SCCameraAspectRatio and sets @aspectRatio
- @return the new cycled value
- */
-- (SBCameraAspectRatio) cycleAspectRatio;
 
 /*
  @return YES if hud is hidden, NO if it is not hidden.

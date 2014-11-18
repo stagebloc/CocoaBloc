@@ -265,37 +265,22 @@
     self.cameraConstraints = [constraints copy];
 }
 
-- (void) setFlashMode:(AVCaptureFlashMode)flashMode {
+- (void) setFlashMode:(SBCaptureFlashMode)flashMode {
     [self willChangeValueForKey:@"flashMode"];
     _flashMode = flashMode;
     [self didChangeValueForKey:@"flashMode"];
     
     switch (flashMode) {
-        case AVCaptureFlashModeOff:
-            [_flashModeButton setImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
-            break;
-        case AVCaptureFlashModeOn:
+        case SBCaptureFlashModeOn:
             [_flashModeButton setImage:[UIImage imageNamed:@"flash_on"] forState:UIControlStateNormal];
             break;
-        case AVCaptureFlashModeAuto:
+        case SBCaptureFlashModeAuto:
             [_flashModeButton setImage:[UIImage imageNamed:@"flash_auto"] forState:UIControlStateNormal];
             break;
-        default: break;
+        default:
+            [_flashModeButton setImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
+            break;
     }
-}
-
-- (AVCaptureFlashMode) cycleFlashMode {
-    AVCaptureFlashMode newMode = self.flashMode + 1;
-    if (newMode > AVCaptureFlashModeAuto)
-        newMode = AVCaptureFlashModeOff;
-    return newMode;
-}
-
-- (SBCameraAspectRatio) cycleAspectRatio {
-    SBCameraAspectRatio newMode = self.aspectRatio + 1;
-    if (newMode > SBCameraAspectRatio4_3)
-        newMode = SBCameraAspectRatio1_1;
-    return newMode;
 }
 
 - (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio {
@@ -324,6 +309,10 @@
             CGRect frame = [value CGRectValue];
             CGPoint center = CGPointMake(CGRectGetMidX(frame) / CGRectGetWidth(weakSelf.frame), CGRectGetMidY(frame) / CGRectGetHeight(weakSelf.frame));
             [subscriber sendNext:[NSValue valueWithCGPoint:center]];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            [subscriber sendCompleted];
         }];
 
         return nil;

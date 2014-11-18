@@ -8,7 +8,7 @@
 
 @import AVFoundation.AVCaptureSession;
 
-@class SBVideoManager, SBPhotoManager, SBDeviceManager;
+@class SBVideoManager, SBPhotoManager, SBDeviceManager, RACSignal;
 
 typedef NS_ENUM(NSUInteger, SBCaptureType) {
     SBCaptureTypePhoto = 0,
@@ -36,6 +36,11 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
 
 - (SBDeviceManager*) currentManager;
 
+/*
+ Sets the current manager's flash mode to next available mode.
+ @return's the next flash mode that was cycled to
+ */
+- (SBCaptureFlashMode) cycleFlashMode;
 
 - (BOOL) isFocusModeAvailable:(AVCaptureFocusMode)mode;
 
@@ -45,5 +50,17 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
  @return's YES if successful, NO if unsuccessful
  */
 - (BOOL) setFocusMode:(AVCaptureFocusMode)mode pointOfInterest:(CGPoint)pointOfInterest;
+
+/*
+ Attempts to set the flash mode of the currentManager's currentCamera
+ Handles locking/unlocking
+ @return's YES if successful, NO if unsuccessful
+ */
+- (BOOL) setFlashMode:(SBCaptureFlashMode)flashMode;
+
+/*
+ RACSignal helper methods
+ */
+- (RACSignal*) currentManagerChangeSignal;
 
 @end

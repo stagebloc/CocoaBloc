@@ -9,6 +9,7 @@
 #import "SBCaptureManager.h"
 #import "SBVideoManager.h"
 #import "SBPhotoManager.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "AVCaptureSession+Extension.h"
 
 @interface SBCaptureManager ()
@@ -29,32 +30,30 @@
 
 //@return's YES if successful
 - (BOOL) setFlashMode:(SBCaptureFlashMode)flashMode {
+    BOOL didSet = NO;
     AVCaptureDevice *input = self.currentManager.currentCamera;
     [input lockForConfiguration:nil];
     if (self.captureType == SBCaptureTypePhoto) {
         AVCaptureFlashMode mode = (AVCaptureFlashMode) flashMode;
         if ([input isFlashModeSupported:mode]) {
             input.flashMode = mode;
-        } else {
-            [input unlockForConfiguration];
-            return NO;
+            didSet = YES;
         }
     } else {
         AVCaptureTorchMode mode = (AVCaptureTorchMode) flashMode;
         if ([input isTorchModeSupported:mode]) {
             input.torchMode = mode;
-        } else {
-            [input unlockForConfiguration];
-            return NO;
+            didSet = YES;
         }
     }
     [input unlockForConfiguration];
     
     [self willChangeValueForKey:@"flashMode"];
-    _flashMode = flashMode;
+    if (didSet) _flashMode = flashMode;
+    else _flashMode = SBCaptureFlashModeOff;
     [self didChangeValueForKey:@"flashMode"];
     
-    return YES;
+    return didSet;
 }
 
 - (void) setCaptureType:(SBCaptureType)captureType {
@@ -72,7 +71,7 @@
         default: break;
     }
     _captureType = captureType;
-    self.flashMode = SBCaptureFlashModeOff;
+    [self setFlashMode:SBCaptureFlashModeOff];
 }
 
 - (instancetype) init {
@@ -95,14 +94,23 @@
     return self.captureType == SBCaptureTypePhoto ? self.photoManager : self.videoManager;
 }
 
-- (void) cycleFlashMode {
-    //bad logic
-    //    int max = self.flashMode + SBCaptureFlashModeMax;
-    //    for (int m = self.flashMode; m < max; m++) {
-    //        SBCaptureFlashMode mode = max - m;
-    //        if ([self setFlashMode:mode])
-    //            break;
-    //    }
+- (SBCaptureFlashMode) nextFlashMode:(SBCaptureFlashMode)fromMode {
+    switch (fromMode) {
+        case SBCaptureFlashModeOff: return SBCaptureFlashModeOn;
+        case SBCaptureFlashModeOn: return SBCaptureFlashModeAuto;
+        default: return SBCaptureFlashModeOff;
+    }
+}
+
+- (SBCaptureFlashMode) cycleFlashMode {
+    SBCaptureFlashMode current = self.flashMode;
+    SBCaptureFlashMode nextMode = current;
+    do {
+        nextMode = [self nextFlashMode:nextMode];
+        if ([self setFlashMode:nextMode])
+            break;
+    } while (current != nextMode);
+    return nextMode;
 }
 
 - (BOOL) isFocusModeAvailable:(AVCaptureFocusMode)mode {
@@ -124,6 +132,21 @@
         }
     }
     return NO;
+}
+
+#pragma mark - RACSignals
+- (RACSignal*) currentManagerChangeSignal {
+    __weak typeof(self) weakSelf = self;
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [[RACObserve(weakSelf, captureType) skip:1] subscribeNext:^(NSValue *value) {
+            [subscriber sendNext:weakSelf.currentManager];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            [subscriber sendCompleted];
+        }];
+        return nil;
+    }];
 }
 
 @end
