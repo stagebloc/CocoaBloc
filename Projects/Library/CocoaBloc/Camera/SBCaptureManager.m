@@ -105,4 +105,25 @@
     //    }
 }
 
+- (BOOL) isFocusModeAvailable:(AVCaptureFocusMode)mode {
+    AVCaptureDevice *device = self.currentManager.currentCamera;
+    return [device isFocusModeSupported:mode];
+}
+
+- (BOOL) setFocusMode:(AVCaptureFocusMode)mode pointOfInterest:(CGPoint)pointOfInterest {
+    AVCaptureDevice *device = self.currentManager.currentCamera;
+    if ([device isFocusModeSupported:mode] && [device isFocusPointOfInterestSupported]) {
+        NSError *error = nil;
+        if ([device lockForConfiguration:&error]) {
+            [device setFocusPointOfInterest:pointOfInterest];
+            [device setFocusMode:mode];
+            [device unlockForConfiguration];
+            return YES;
+        } else {
+            NSLog(@"Error: %@", error);
+        }
+    }
+    return NO;
+}
+
 @end

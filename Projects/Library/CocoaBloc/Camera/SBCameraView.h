@@ -12,7 +12,7 @@
 
 @import AVFoundation.AVCaptureDevice;
 
-@class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView;
+@class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView, RACSignal;
 
 @interface SBCameraView : UIView
 
@@ -20,6 +20,8 @@
 @property (nonatomic, strong) SBRecordButton *recordButton;
 @property (nonatomic, strong) SBProgressBar *progressBar;
 @property (nonatomic, strong) UIToolbar *stateToolbar;
+
+@property (nonatomic, strong) UIView *focusView;
 
 @property (nonatomic, strong) UIView *shutterView;
 
@@ -46,6 +48,8 @@
 //use setPhotoCaptureTypeWithAspectRatio: & setVideoCaptureType
 @property (nonatomic, assign, readonly) SBCaptureType captureType;
 
+@property (nonatomic, copy) BOOL (^shouldUpdateFocusPosition)(CGPoint toPosition);
+
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager;
 
 /*
@@ -67,6 +71,8 @@
 
 - (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio;
 - (void) setVideoCaptureType;
+
+- (RACSignal*) focusPointChangeSignal;
 
 /*
  Animates the hud's alpha value to 0 if hidden = YES

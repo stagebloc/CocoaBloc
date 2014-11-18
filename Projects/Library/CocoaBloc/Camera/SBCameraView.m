@@ -15,6 +15,8 @@
 #import "UIFont+FanClub.h"
 #import "UIColor+FanClub.h"
 #import "SBPageView.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
@@ -59,6 +61,18 @@
         _shutterView.alpha = 0;
     }
     return _shutterView;
+}
+
+- (UIView*) focusView {
+    if (!_focusView) {
+        _focusView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+        _focusView.backgroundColor = [UIColor clearColor];
+        _focusView.alpha = 0;
+        _focusView.layer.borderColor = [UIColor whiteColor].CGColor;
+        _focusView.layer.borderWidth = 2.0f;
+        _focusView.layer.cornerRadius = 40;
+    }
+    return _focusView;
 }
 
 #pragma mark - Top HUD views
@@ -185,6 +199,9 @@
     [self.shutterView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.shutterView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
     
+    //add focus view
+    [self addSubview:self.focusView];
+    
     //BOTTOM HUD (contains subviews)
     [self addSubview:self.bottomHudView];
     [self.bottomHudView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self];
@@ -299,6 +316,59 @@
     return _bottomHudView.alpha == 0;
 }
 
+#pragma mark - RAC
+- (RACSignal*) focusPointChangeSignal {
+    __weak typeof(self) weakSelf = self;
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [[RACObserve(weakSelf.focusView, frame) skip:1] subscribeNext:^(NSValue *value) {
+            CGRect frame = [value CGRectValue];
+            CGPoint center = CGPointMake(CGRectGetMidX(frame) / CGRectGetWidth(weakSelf.frame), CGRectGetMidY(frame) / CGRectGetHeight(weakSelf.frame));
+            [subscriber sendNext:[NSValue valueWithCGPoint:center]];
+        }];
+
+        return nil;
+    }];
+}
+
+#pragma mark - Touch Event
+- (void) updateFocusPoint:(CGPoint)position alpha:(CGFloat)alpha {
+    if (self.shouldUpdateFocusPosition && !self.shouldUpdateFocusPosition(position))
+        return;
+    
+    CGRect frame = self.focusView.frame;
+    frame.origin = CGPointMake(position.x-CGRectGetWidth(frame)/2, position.y-CGRectGetHeight(frame)/2);
+    self.focusView.frame = frame;
+    self.focusView.alpha = alpha;
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    
+    CGPoint position = [[touches anyObject] locationInView:self];
+    [self updateFocusPoint:position alpha:1];
+}
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
+    
+    CGPoint position = [[touches anyObject] locationInView:self];
+    [self updateFocusPoint:position alpha:1];
+}
+
+- (void) touchesEndedOrCanceled:(NSSet*)touches withEvent:(UIEvent*)event {
+    [self animateFocusViewHideWithDuration:0.5f delay:0.5f completion:nil];
+}
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    [self touchesEndedOrCanceled:touches withEvent:event];
+}
+
+- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    [self touchesEndedOrCanceled:touches withEvent:event];
+}
+
 #pragma mark - Animations
 - (void) animateHudHidden:(BOOL)hidden completion:(void (^)(BOOL))completion {
     [self animateHudHidden:hidden duration:0.5f completion:completion];
@@ -310,8 +380,7 @@
         _bottomHudView.alpha = toValue;
         _topHudView.alpha = toValue;
     } completion:^(BOOL finished) {
-        if (completion)
-            completion(finished);
+        if (completion) completion(finished);
     }];
 }
 
@@ -320,18 +389,22 @@
 }
 -(void)animateShutterWithDuration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
     [UIView animateKeyframesWithDuration:duration delay:0 options:0 animations:^{
-       
         [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0 animations:^{
             self.shutterView.alpha = 1;
         }];
-        
         [UIView addKeyframeWithRelativeStartTime:1 relativeDuration:0 animations:^{
             self.shutterView.alpha = 0;
         }];
-        
     } completion:^(BOOL finished) {
-        if (completion)
-            completion(finished);
+        if (completion) completion(finished);
+    }];
+}
+
+- (void) animateFocusViewHideWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay completion:(void(^)(BOOL finished))completion {
+    [UIView animateWithDuration:duration delay:delay usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
+        self.focusView.alpha = 0;
+    } completion:^(BOOL finished) {
+        if (completion) completion(finished);
     }];
 }
 

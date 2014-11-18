@@ -36,4 +36,14 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
 
 - (SBDeviceManager*) currentManager;
 
+
+- (BOOL) isFocusModeAvailable:(AVCaptureFocusMode)mode;
+
+/*
+ Attempts to set the focus mode and point of interest.
+ Handles locking/unlocking the currentManager's currentCamera property.
+ @return's YES if successful, NO if unsuccessful
+ */
+- (BOOL) setFocusMode:(AVCaptureFocusMode)mode pointOfInterest:(CGPoint)pointOfInterest;
+
 @end

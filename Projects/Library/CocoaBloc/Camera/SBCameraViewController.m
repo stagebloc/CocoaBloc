@@ -23,6 +23,7 @@
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 #import <AVFoundation/AVFoundation.h>
 
@@ -83,39 +84,47 @@
     NSInteger page = self.captureManager.captureType == SBCaptureTypeVideo ? 0 : 1;
     [self.cameraView.pageView setIndex:page duration:0];
     
-    __weak typeof(self) weakSelf = self;
+    @weakify(self);
     [RACObserve(self.cameraView.progressBar, timeElapsed) subscribeNext:^(NSNumber *n) {
+        @strongify(self);
         NSTimeInterval elapsed = n.floatValue;
         NSInteger mins = elapsed / 60;
         NSInteger secs = elapsed - mins;
-        weakSelf.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
+        self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
         BOOL shouldHidePageView = (secs > 0 || mins > 0);
-        weakSelf.cameraView.pageView.hidden = shouldHidePageView;
-        weakSelf.cameraView.timeLabel.hidden = !shouldHidePageView;
+        self.cameraView.pageView.hidden = shouldHidePageView;
+        self.cameraView.timeLabel.hidden = !shouldHidePageView;
     }];
     
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
+        @strongify(self);
         NSInteger index = n.integerValue;
 
-        weakSelf.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
-        weakSelf.cameraView.stateToolbar.hidden = NO;
+        self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
+        self.cameraView.stateToolbar.hidden = NO;
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self switchedToPage:index];
         });
-        [weakSelf showBlur];
-    }] ;
+        [self showBlur];
+    }];
     
+    
+    //focus point
+    [[self.cameraView focusPointChangeSignal] subscribeNext:^(NSValue *value) {
+        @strongify(self);
+        CGPoint point = [value CGPointValue];
+        [self.captureManager setFocusMode:AVCaptureFocusModeAutoFocus pointOfInterest:point];
+    }];
+    [self.cameraView setShouldUpdateFocusPosition:^BOOL(CGPoint toPosition) {
+        @strongify(self)
+        return [self.captureManager isFocusModeAvailable:AVCaptureFocusModeAutoFocus];
+    }];
+        
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
     [doubleTap setNumberOfTapsRequired: 2];
     [self.view addGestureRecognizer:doubleTap];
     doubleTap.delegate = self;
-
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-    [singleTap setNumberOfTapsRequired: 1];
-    [self.view addGestureRecognizer:singleTap];
-    [singleTap requireGestureRecognizerToFail:doubleTap];
-    singleTap.delegate = self;
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -276,10 +285,6 @@
 
 -(void)handleDoubleTap:(UITapGestureRecognizer *)tapRecognizer {
 //    [self switchCamera];
-}
-
--(void)handleSingleTap:(UITapGestureRecognizer *)tapRecognizer {
-    //focus here
 }
 
 - (void) handleSwipeLeftGesture:(UISwipeGestureRecognizer*) swipeGesture {
