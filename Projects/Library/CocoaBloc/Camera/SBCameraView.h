@@ -16,7 +16,9 @@
 
 @interface SBCameraView : UIView
 
+@property (nonatomic, strong) UIView *captureViewContainer;
 @property (nonatomic, strong) SBCaptureView *captureView;
+
 @property (nonatomic, strong) SBRecordButton *recordButton;
 @property (nonatomic, strong) SBProgressBar *progressBar;
 @property (nonatomic, strong) UIToolbar *stateToolbar;

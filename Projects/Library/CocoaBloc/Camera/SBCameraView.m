@@ -28,6 +28,14 @@
 
 @synthesize aspectRatio = _aspectRatio;
 
+- (UIView*) captureViewContainer {
+    if (!_captureViewContainer) {
+        _captureViewContainer = [[UIView alloc] initWithFrame:self.bounds];
+        _captureViewContainer.backgroundColor = [UIColor clearColor];
+    }
+    return _captureViewContainer;
+}
+
 - (SBProgressBar*) progressBar {
     if (!_progressBar) {
         _progressBar = [[SBProgressBar alloc] initWithMinValue:0 maxValue:10];
@@ -234,8 +242,12 @@
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager {
     if (self = [super initWithFrame:frame]) {
+        
+        //capture view container
+        [self addSubview:self.captureViewContainer];
         self.captureView = [[SBCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
-        [self addSubview:self.captureView];
+        [self.captureViewContainer addSubview:self.captureView];
+
         [self initializeViews];
         [self setVideoCaptureType];
     }
@@ -246,20 +258,23 @@
     [self.cameraConstraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
     
-    if (captureType == SBCaptureTypeVideo) {
-        [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+    [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
+    [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
+
+    if (ratio == SBCameraAspectRatio4_3) {
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
     } else {
-        if (ratio == SBCameraAspectRatio1_1) {
-            [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
-            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
-        } else {
-            [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
-            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
-        }
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
+    }
+    
+    if (captureType == SBCaptureTypeVideo) {
+        [constraints addObjectsFromArray:[self.captureViewContainer autoCenterInSuperview]];
+        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+    } else {
+        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALEdgeTop toAttribute:ALEdgeBottom ofView:self.topHudView]];
+        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALEdgeBottom toAttribute:ALEdgeTop ofView:self.bottomHudView]];
+        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
     }
 
     self.cameraConstraints = [constraints copy];
@@ -287,6 +302,7 @@
     _aspectRatio = ratio;
     _captureType = SBCaptureTypePhoto;
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
+    self.captureView.captureLayer.videoGravity = ratio == SBCameraAspectRatio1_1 ? AVLayerVideoGravityResizeAspectFill : AVLayerVideoGravityResizeAspect;
     [self layoutSubviews];
 }
 
@@ -294,6 +310,7 @@
     _aspectRatio = SBCameraAspectRatio4_3;
     _captureType = SBCaptureTypeVideo;
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
+    self.captureView.captureLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [self layoutSubviews];
 }
 
