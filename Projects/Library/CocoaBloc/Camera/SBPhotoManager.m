@@ -10,6 +10,9 @@
 #import "SBReviewController.h"
 #import "UIImage+Resize.h"
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+
 @implementation SBPhotoManager
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
@@ -30,16 +33,24 @@
     return self;
 }
 
-- (void)captureImageWithCompletion:(void(^)(UIImage* image))completion
+- (RACSignal*)captureImage
 {
-    AVCaptureConnection *connection = [_output connectionWithMediaType:AVMediaTypeVideo];
-    connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-    connection.videoMirrored = NO;
     
-    __weak typeof(self) weakSelf = self;
-    [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
-        if (!error)
-        {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+
+        AVCaptureConnection *connection = [_output connectionWithMediaType:AVMediaTypeVideo];
+        connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+        connection.videoMirrored = NO;
+
+        [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+            @strongify(self);
+            if (error) {
+                [subscriber sendError:[NSError errorWithDomain:@"Cannot create image" code:101 userInfo:nil]];
+                return;
+            }
+            
             UIImage *rawImage = [UIImage imageWithData:[AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer]];
             
             CGFloat screenAspectRatio = [[UIScreen mainScreen] bounds].size.height/[[UIScreen mainScreen] bounds].size.width;
@@ -69,24 +80,23 @@
             }
             
             CGRect resizeRect = CGRectMake(x, y, resizedImageWidth, resizedImageHeight);
-            if (weakSelf.aspectRatio == SBCameraAspectRatio1_1) {
+            if (self.aspectRatio == SBCameraAspectRatio1_1) {
                 resizeRect = CGRectMake(x, (resizeRect.size.height/CGRectGetHeight([UIScreen mainScreen].bounds)) * 44.0, resizeRect.size.width, resizeRect.size.width);
             }
             
             UIImage *image = [rawImage resizeImageToRect:resizeRect];
-            weakSelf.image = image;
+            self.image = image;
             if (image) {
-                if (completion) {
-                    completion(image);
-                }
-            } else if (completion) {
-                completion(nil);
+                [subscriber sendNext:image];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:[NSError errorWithDomain:@"Cannot create image" code:101 userInfo:nil]];
             }
-        } else {
-            if (completion)
-                completion(nil);
-        }
+        }];
+        
+        return nil;
     }];
+    
 }
 
 

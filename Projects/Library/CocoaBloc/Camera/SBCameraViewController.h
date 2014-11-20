@@ -29,4 +29,5 @@
  */
 - (instancetype) initWithCaptureType:(SBCaptureType)captureType;
 
+
 @end

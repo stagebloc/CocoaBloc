@@ -8,7 +8,7 @@
 
 #import "SBDeviceManager.h"
 
-@class SBPhotoManager;
+@class SBPhotoManager, RACSignal;
 
 typedef NS_ENUM(NSUInteger, SBCameraAspectRatio) {
     SBCameraAspectRatio1_1 = 0,
@@ -31,6 +31,6 @@ typedef NS_ENUM(NSUInteger, SBCameraAspectRatio) {
 /**
  * Captures still image
  */
-- (void)captureImageWithCompletion:(void(^)(UIImage* image))completion;
+- (RACSignal*)captureImage;
 
 @end

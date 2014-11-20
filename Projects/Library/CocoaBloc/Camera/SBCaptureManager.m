@@ -11,6 +11,7 @@
 #import "SBPhotoManager.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "AVCaptureSession+Extension.h"
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @interface SBCaptureManager ()
 
@@ -29,7 +30,7 @@
 }
 
 //@return's YES if successful
-- (BOOL) setFlashMode:(SBCaptureFlashMode)flashMode {
+- (void) setFlashMode:(SBCaptureFlashMode)flashMode {
     BOOL didSet = NO;
     AVCaptureDevice *input = self.currentManager.currentCamera;
     [input lockForConfiguration:nil];
@@ -52,8 +53,6 @@
     if (didSet) _flashMode = flashMode;
     else _flashMode = SBCaptureFlashModeOff;
     [self didChangeValueForKey:@"flashMode"];
-    
-    return didSet;
 }
 
 - (void) setCaptureType:(SBCaptureType)captureType {
@@ -107,7 +106,8 @@
     SBCaptureFlashMode nextMode = current;
     do {
         nextMode = [self nextFlashMode:nextMode];
-        if ([self setFlashMode:nextMode])
+        [self setFlashMode:nextMode];
+        if (self.flashMode == nextMode)
             break;
     } while (current != nextMode);
     return nextMode;
@@ -136,17 +136,12 @@
 
 #pragma mark - RACSignals
 - (RACSignal*) currentManagerChangeSignal {
-    __weak typeof(self) weakSelf = self;
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [[RACObserve(weakSelf, captureType) skip:1] subscribeNext:^(NSValue *value) {
-            [subscriber sendNext:weakSelf.currentManager];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } completed:^{
-            [subscriber sendCompleted];
-        }];
-        return nil;
+    @weakify(self);
+    RACSignal *signal = [[RACObserve(self, captureType) skip:1] map:^SBDeviceManager*(NSNumber *n) {
+        @strongify(self);
+        return self.currentManager;
     }];
+    return signal;
 }
 
 @end

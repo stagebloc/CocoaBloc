@@ -136,6 +136,11 @@
         return [self.captureManager isFocusModeAvailable:AVCaptureFocusModeAutoFocus];
     }];
     
+    [[self.cameraView doubleTapSignal] subscribeNext:^(id _) {
+        @strongify(self);
+        [self switchCamera];
+    }];
+    
     //flash mode
     [[RACObserve(self.captureManager, flashMode) skip:1] subscribeNext:^(NSNumber *n) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -145,21 +150,6 @@
         });
     }];
     
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-    [doubleTap setNumberOfTapsRequired: 2];
-    [self.view addGestureRecognizer:doubleTap];
-    doubleTap.delegate = self;
-    
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
-    swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:swipeGesture];
-    swipeGesture.delegate = self;
-    
-    swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRightGesture:)];
-    swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeGesture];
-    swipeGesture.delegate = self;
-
     [self.captureManager.captureSession startRunning];
 }
 
@@ -231,11 +221,12 @@
 
 - (void) capturePhoto {
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
-    __weak typeof(self) weakSelf = self;
-    [self.captureManager.photoManager captureImageWithCompletion:^(UIImage *image) {
+    @weakify(self);
+    [[self.captureManager.photoManager captureImage] subscribeNext:^(UIImage *image) {
+        @strongify(self);
         SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
-        vc.delegate = weakSelf;
-        [weakSelf.navigationController pushViewController:vc animated:YES];
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
     }];
 }
 
@@ -285,28 +276,6 @@
     [self switchCamera];
 }
 
--(void)handleDoubleTap:(UITapGestureRecognizer *)tapRecognizer {
-    [self switchCamera];
-}
-
-- (void) handleSwipeLeftGesture:(UISwipeGestureRecognizer*) swipeGesture {
-    if (self.cameraView.progressBar.timeElapsed > 0) {
-        return;
-    }
-
-    if (self.cameraView.pageView.index + 1 <= self.cameraView.pageView.labels.count-1)
-        self.cameraView.pageView.index++;
-}
-
-- (void) handleSwipeRightGesture:(UISwipeGestureRecognizer*)swipeGesture {
-    if (self.cameraView.progressBar.timeElapsed > 0) {
-        return;
-    }
-
-    if (self.cameraView.pageView.index - 1 >= 0)
-        self.cameraView.pageView.index--;
-}
-
 -(void)closeButtonPressed:(id)sender {
     if (CMTimeGetSeconds([self.captureManager.videoManager totalRecordingDuration]) > 0) {
         NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
@@ -330,24 +299,6 @@
     
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
-    }
-}
-
-#pragma mark - UIGestureRecognizerDelegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (touch.view == self.cameraView.recordButton)
-        return NO;
-    return YES;
-}
-
-
-#pragma mark - SCPhotoManager Delegate
--(void)photoManager:(SBPhotoManager*)manager capturedImage:(UIImage*)image {
-    self.cameraView.stateToolbar.hidden = YES;
-    if (image) {
-        SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
-        vc.delegate = self;
-        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

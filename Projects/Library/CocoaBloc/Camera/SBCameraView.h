@@ -63,6 +63,9 @@
 - (void) setVideoCaptureType;
 
 - (RACSignal*) focusPointChangeSignal;
+- (RACSignal*) doubleTapSignal;
+- (RACSignal*) swipeLeftSignal;
+- (RACSignal*) swipeRightSignal;
 
 /*
  Animates the hud's alpha value to 0 if hidden = YES

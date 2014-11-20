@@ -22,6 +22,12 @@
 
 @interface SBCameraView ()
 @property (nonatomic, strong) NSArray *cameraConstraints;
+
+@property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
+
+@property (nonatomic, strong) UISwipeGestureRecognizer *swipeLeftGesture;
+@property (nonatomic, strong) UISwipeGestureRecognizer *swipeRightGesture;
+
 @end
 
 @implementation SBCameraView
@@ -240,8 +246,38 @@
     [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-20.f];
 }
 
+- (void) initGestures {
+    self.doubleTapGesture = [[UITapGestureRecognizer alloc] init];
+    self.doubleTapGesture.delegate = self;
+    self.doubleTapGesture.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:self.doubleTapGesture];
+    
+    self.swipeLeftGesture = [[UISwipeGestureRecognizer alloc] init];
+    self.swipeLeftGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    self.swipeLeftGesture.delegate = self;
+    [self addGestureRecognizer:self.swipeLeftGesture];
+    
+    self.swipeRightGesture = [[UISwipeGestureRecognizer alloc] init];
+    self.swipeRightGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    self.swipeRightGesture.delegate = self;
+    [self addGestureRecognizer:self.swipeRightGesture];
+    
+    @weakify(self);
+    [self.swipeLeftGesture.rac_gestureSignal subscribeNext:^(UISwipeGestureRecognizer *swipeGesture) {
+        @strongify(self);
+        if (self.progressBar.timeElapsed > 0) return;
+        if (self.pageView.index + 1 <= self.pageView.labels.count-1) self.pageView.index++;
+    }];
+    [self.swipeRightGesture.rac_gestureSignal subscribeNext:^(UISwipeGestureRecognizer *swipeGesture) {
+        @strongify(self);
+        if (self.progressBar.timeElapsed > 0) return;
+        if (self.pageView.index - 1 >= 0) self.pageView.index--;
+    }];
+}
+
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager {
     if (self = [super initWithFrame:frame]) {
+        self.multipleTouchEnabled = YES;
         
         //capture view container
         [self addSubview:self.captureViewContainer];
@@ -250,6 +286,8 @@
 
         [self initializeViews];
         [self setVideoCaptureType];
+        
+        [self initGestures];
     }
     return self;
 }
@@ -320,20 +358,26 @@
 
 #pragma mark - RAC
 - (RACSignal*) focusPointChangeSignal {
-    __weak typeof(self) weakSelf = self;
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [[RACObserve(weakSelf.focusView, frame) skip:1] subscribeNext:^(NSValue *value) {
-            CGRect frame = [value CGRectValue];
-            CGPoint center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
-            [subscriber sendNext:[NSValue valueWithCGPoint:[weakSelf.captureView.captureLayer captureDevicePointOfInterestForPoint:center]]];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } completed:^{
-            [subscriber sendCompleted];
-        }];
-
-        return nil;
+    @weakify(self);
+    RACSignal *signal = [[RACObserve(self.focusView, frame) skip:1] map:^id(NSValue *value) {
+        @strongify(self);
+        CGRect frame = [value CGRectValue];
+        CGPoint center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+        return [NSValue valueWithCGPoint:[self.captureView.captureLayer captureDevicePointOfInterestForPoint:center]];
     }];
+    return signal;
+}
+
+- (RACSignal*) doubleTapSignal {
+    return self.doubleTapGesture.rac_gestureSignal;
+}
+
+- (RACSignal*) swipeLeftSignal {
+    return self.swipeLeftGesture.rac_gestureSignal;
+}
+
+- (RACSignal*) swipeRightSignal {
+    return self.swipeRightGesture.rac_gestureSignal;
 }
 
 #pragma mark - Touch Event
@@ -349,11 +393,9 @@
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    
     CGPoint position = [[touches anyObject] locationInView:self];
     [self updateFocusPoint:position alpha:1];
 }
-
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
     
@@ -362,6 +404,9 @@
 }
 
 - (void) touchesEndedOrCanceled:(NSSet*)touches withEvent:(UIEvent*)event {
+    
+    CGPoint position = [[touches anyObject] locationInView:self];
+    [self updateFocusPoint:position alpha:1];
     [self animateFocusViewHideWithDuration:0.5f delay:0.5f completion:nil];
 }
 
@@ -373,6 +418,13 @@
 - (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesCancelled:touches withEvent:event];
     [self touchesEndedOrCanceled:touches withEvent:event];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (touch.view == self.recordButton)
+        return NO;
+    return YES;
 }
 
 #pragma mark - Animations
