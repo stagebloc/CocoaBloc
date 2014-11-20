@@ -31,7 +31,6 @@
     SAFE_ASSIGN(SBAPIMethodParameterResultOrderBy);
     SAFE_ASSIGN(@"expand");
 #undef SAFE_ASSIGN
-    
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:[self requestParametersWithParameters:p]]
              	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
 				setNameWithFormat:@"Get store items for account (%@)", account];
