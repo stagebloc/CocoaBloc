@@ -164,18 +164,30 @@
         _bottomHudView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds), CGRectGetWidth(self.bounds), 0.0f)];
         _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
         
-        CGFloat buttonWH = 30;
+        CGSize size = CGSizeMake(30, 30);
         CGFloat offset = 15.0f;
         
         [_bottomHudView addSubview:self.chooseExistingButton];
         [self.chooseExistingButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_bottomHudView withOffset:offset];
         [self.chooseExistingButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomHudView withOffset:-offset];
-        [self.chooseExistingButton autoSetDimensionsToSize:CGSizeMake(buttonWH, buttonWH)];
+        [self.chooseExistingButton autoSetDimensionsToSize:size];
         
         [_bottomHudView addSubview:self.flashModeButton];
         [self.flashModeButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_bottomHudView withOffset:-offset];
         [self.flashModeButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomHudView withOffset:-offset];
-        [self.flashModeButton autoSetDimensionsToSize:CGSizeMake(buttonWH, buttonWH)];
+        [self.flashModeButton autoSetDimensionsToSize:size];
+        
+        size = CGSizeMake(64, 64);
+        offset = 20;
+        [_bottomHudView addSubview:self.recordButton];
+        [self.recordButton autoSetDimensionsToSize:size];
+        [self.recordButton autoAlignAxis:ALAxisVertical toSameAxisOfView:_bottomHudView];
+        [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomHudView withOffset:-offset];
+        
+        [_bottomHudView addSubview:self.nextButton];
+        [self.nextButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.recordButton withOffset:10];
+        [self.nextButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomHudView withOffset:-offset];
+        [self.nextButton autoSetDimensionsToSize:size];
     }
     return _bottomHudView;
 }
@@ -245,13 +257,6 @@
     [self.progressBar autoSetDimension:ALDimensionHeight toSize:5.0f];
     [self.progressBar autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
     [self.progressBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:0];
-    
-    //record button
-    [self addSubview:self.recordButton];
-    [self.recordButton autoSetDimension:ALDimensionWidth toSize:64.f];
-    [self.recordButton autoSetDimension:ALDimensionHeight toSize:64.f];
-    [self.recordButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
-    [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-20.f];
 }
 
 - (void) initGestures {
@@ -268,12 +273,12 @@
     @weakify(self);
     [self.swipeLeftGesture.rac_gestureSignal subscribeNext:^(UISwipeGestureRecognizer *swipeGesture) {
         @strongify(self);
-        if (self.progressBar.timeElapsed > 0) return;
+        if (self.progressBar.value > 0) return;
         if (self.pageView.index + 1 <= self.pageView.labels.count-1) self.pageView.index++;
     }];
     [self.swipeRightGesture.rac_gestureSignal subscribeNext:^(UISwipeGestureRecognizer *swipeGesture) {
         @strongify(self);
-        if (self.progressBar.timeElapsed > 0) return;
+        if (self.progressBar.value > 0) return;
         if (self.pageView.index - 1 >= 0) self.pageView.index--;
     }];
 }
@@ -453,8 +458,12 @@
 
 -(void)animateHudHidden:(BOOL)hidden duration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
     CGFloat toValue = hidden ? 0 : 1.0f;
+    CGFloat bottomHudBGToValue = hidden ? 0 : .35f;
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
-        _bottomHudView.alpha = toValue;
+        NSArray *bottomViews = [_bottomHudView.subviews filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", _recordButton]];
+        [bottomViews setValue:@(toValue) forKey:@"alpha"];
+        _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:bottomHudBGToValue];
+        
         _topHudView.alpha = toValue;
     } completion:^(BOOL finished) {
         if (completion) completion(finished);

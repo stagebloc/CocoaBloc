@@ -86,17 +86,6 @@
     [self.cameraView.pageView setIndex:page duration:0];
     
     @weakify(self);
-    [RACObserve(self.cameraView.progressBar, timeElapsed) subscribeNext:^(NSNumber *n) {
-        @strongify(self);
-        NSTimeInterval elapsed = n.floatValue;
-        NSInteger mins = elapsed / 60;
-        NSInteger secs = elapsed - mins;
-        self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
-        BOOL shouldHidePageView = (secs > 0 || mins > 0);
-        self.cameraView.pageView.hidden = shouldHidePageView;
-        self.cameraView.timeLabel.hidden = !shouldHidePageView;
-    }];
-    
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
         NSInteger index = n.integerValue;
@@ -150,6 +139,31 @@
             self.cameraView.flashMode = mode;
         });
     }];
+    
+    //hide next button if video time isn't past minimum required time
+    [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(id _) {
+        @strongify(self);
+        return @(!self.captureManager.videoManager.isPastMinDuration);
+    }] subscribeNext:^(NSNumber *b) {
+        @strongify(self);
+        self.cameraView.nextButton.hidden = b.boolValue;
+    }];
+    
+    RAC(self.cameraView.progressBar, value) = [[[self.captureManager.videoManager recordDurationChangeSignal] skip:1] map:^id(id value) {
+        return @(CMTimeGetSeconds([value CMTimeValue]));
+    }];
+
+    [RACObserve(self.cameraView.progressBar, value) subscribeNext:^(NSNumber *n) {
+        @strongify(self);
+        NSTimeInterval elapsed = n.floatValue;
+        NSInteger mins = elapsed / 60;
+        NSInteger secs = elapsed - mins;
+        self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
+        BOOL shouldHidePageView = (secs > 0 || mins > 0);
+        self.cameraView.pageView.hidden = shouldHidePageView;
+        self.cameraView.timeLabel.hidden = !shouldHidePageView;
+    }];
+    
     
     [self.captureManager.captureSession startRunning];
 }
@@ -206,14 +220,12 @@
     if (manager.isPaused) [manager resumeRecording];
     else [manager startRecording];
     [self.cameraView animateHudHidden:YES completion:nil];
-    [self.cameraView.progressBar start];
 }
 
 - (void) pauseRecording {
     NSLog(@"Stopped recording");
     [self.captureManager.videoManager pauseRecording];
     [self.cameraView animateHudHidden:NO completion:nil];
-    [self.cameraView.progressBar pause];
 }
 
 - (void) stopRecording {
@@ -278,7 +290,8 @@
 }
 
 - (void) nextButtonPressed:(UIButton*)sender {
-    if (CMTimeGetSeconds([self.captureManager.videoManager totalRecordingDuration]) > 0) {
+    if (![self.captureManager.videoManager isPastMinDuration]) {
+        [[[UIAlertView alloc] initWithTitle:@"Cannot Save" message:@"The minimum duration has not been reached" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
         return;
     }
     
@@ -295,10 +308,20 @@
     } error:^(NSError *error) {
         NSLog(@"Failed to save locally - %@", error.localizedDescription);
     }];
-    return;
 }
 
 -(void)closeButtonPressed:(id)sender {
+    if (CMTimeGetSeconds(self.captureManager.videoManager.totalRecordingDuration) > 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait!" message:@"Would you like to cancel your current recording?" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        [[alert rac_buttonClickedSignal] subscribeNext:^(NSNumber *buttonIndex) {
+            if (alert.cancelButtonIndex == buttonIndex.integerValue)
+                return;
+            [self.captureManager.videoManager reset];
+        }];
+        [alert show];
+        return;
+    }
+    
     
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
@@ -352,9 +375,7 @@
 
 - (void) reviewController:(SBReviewController *)controller rejectedImage:(UIImage *)image {
     [self.navigationController popViewControllerAnimated:YES];
-
 }
-
 
 #pragma mark - Status bar states
 -(UIStatusBarStyle)preferredStatusBarStyle{

@@ -36,7 +36,7 @@
 
 @property (nonatomic, strong) SBAssetStitcher *stitcher;
 
-
+@property (nonatomic, assign) BOOL paused;
 
 @end
 
@@ -48,18 +48,25 @@
     return _stitcher;
 }
 
+- (BOOL) isPaused {
+    return self.paused;
+}
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
         _temporaryFileURLs = [[NSMutableArray alloc] init];
         _currentRecordingSegment = 0;
-        _isPaused = NO;
+        self.paused = NO;
         _maxDuration = 0;
         _currentWrites = 0;
         
+        self.currentFinalDurration = kCMTimeZero;
+
         self.devicePosition = AVCaptureDevicePositionBack;
         
-        self.maxDuration = 10.0;
+        self.maxDuration = 10.0f;
+        self.minDuration = 3.0f;
+        
         self.asyncErrorHandler = ^(NSError *error) {
             NSLog(@"Error - %@", error.localizedDescription);
         };
@@ -96,7 +103,7 @@
     
     self.uniqueTimestamp = [[NSDate date] timeIntervalSince1970];
     self.currentRecordingSegment = 0;
-    _isPaused = NO;
+    self.paused = NO;
     self.currentFinalDurration = kCMTimeZero;
     
     AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:self.movieFileOutput.connections];
@@ -112,15 +119,16 @@
 }
 
 - (void)pauseRecording {
-    _isPaused = YES;
+    self.paused = YES;
     [self.movieFileOutput stopRecording];
     
     self.currentFinalDurration = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
 }
 
 - (void)resumeRecording {
+    
     self.currentRecordingSegment++;
-    _isPaused = NO;
+    self.paused = NO;
     
     NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
     [self.temporaryFileURLs addObject:outputFileURL];
@@ -139,9 +147,36 @@
         [self pauseRecording];
     }
     
-    _isPaused = NO;
+    [self cleanTemporaryFiles];
+    [self.temporaryFileURLs removeAllObjects];
+    self.currentFinalDurration = kCMTimeZero;
+    
+    self.paused = NO;
 }
 
+- (CMTime)totalRecordingDuration {
+    if(CMTimeCompare(kCMTimeZero, self.currentFinalDurration) == 0 && ![self isReset]) {
+        return self.movieFileOutput.recordedDuration;
+    } else if (!self.paused && self.movieFileOutput.isRecording) {
+        CMTime returnTime = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
+        return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDurration : returnTime;
+    } else {
+        return self.currentFinalDurration;
+    }
+}
+
+- (BOOL) isPastMinDuration {
+    if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.minDuration) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL) isReset {
+    return !self.movieFileOutput.isRecording && !self.isPaused;
+}
+
+#pragma mark - Signals
 - (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
@@ -159,6 +194,7 @@
             return nil;
         }
         
+        error = nil;
         [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
             [[self.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:nil] subscribeError:^(NSError *e) {
                 error = e;
@@ -186,14 +222,17 @@
     }];
 }
 
-- (CMTime)totalRecordingDuration {
-    if(CMTimeCompare(kCMTimeZero, self.currentFinalDurration) == 0) {
-        return self.movieFileOutput.recordedDuration;
-    }
-    else {
-        CMTime returnTime = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
-        return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDurration : returnTime;
-    }
+- (RACSignal*)totalTimeRecordedSignal {
+    return RACObserve(self, currentFinalDurration);
+}
+
+- (RACSignal*) recordDurationChangeSignal {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [[[RACSignal interval:0.01f onScheduler:[RACScheduler mainThreadScheduler]] startWith:[NSDate date]] subscribeNext:^(id x) {
+            [subscriber sendNext:[NSValue valueWithCMTime:[self totalRecordingDuration]]];
+        }];
+        return nil;
+    }];
 }
 
 #pragma mark - AVCaptureFileOutputRecordingDelegate implementation
@@ -327,6 +366,5 @@
         [[NSFileManager defaultManager] removeItemAtURL:temporaryFiles error:nil];
     }];
 }
-
 
 @end

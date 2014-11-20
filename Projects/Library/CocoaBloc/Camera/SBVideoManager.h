@@ -15,9 +15,11 @@ typedef void (^ErrorBlock)(NSError *error);
 
 @interface SBVideoManager : SBDeviceManager
 
-@property (nonatomic, assign, readonly) BOOL isPaused;
 @property (nonatomic, assign) CGFloat maxDuration;
+@property (nonatomic, assign) CGFloat minDuration;
 @property (nonatomic, copy) ErrorBlock asyncErrorHandler;
+
+- (BOOL) isPaused;
 
 - (void)startRecording;
 - (void)pauseRecording;
@@ -25,8 +27,16 @@ typedef void (^ErrorBlock)(NSError *error);
 
 - (void)reset;
 
-- (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL;
-
 - (CMTime)totalRecordingDuration;
+- (BOOL) isPastMinDuration;
+
+- (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL;
+- (RACSignal*)totalTimeRecordedSignal;
+
+/*
+ Run's every 0.01 of a second with the current CMTime.
+ if the value = nil, then video is paused.
+ */
+- (RACSignal*)recordDurationChangeSignal;
 
 @end
