@@ -34,7 +34,7 @@
                          fromJSONDictionary:userValue
                                       error:nil];
     } reverseBlock:^id(id userValue) {
-        return [MTLJSONAdapter JSONArrayFromModels:userValue];
+        return [MTLJSONAdapter JSONDictionaryFromModel:userValue];
     }];
 }
 
@@ -44,7 +44,7 @@
                          fromJSONDictionary:accountValue
                                       error:nil];
     } reverseBlock:^id(id accountValue) {
-        return [MTLJSONAdapter JSONArrayFromModels:accountValue];
+        return [MTLJSONAdapter JSONDictionaryFromModel:accountValue];
     }];
 }
 
@@ -54,7 +54,7 @@
                              fromJSONDictionary:addressValue
                                           error:nil];
     } reverseBlock:^id(id addressValue) {
-        return [MTLJSONAdapter JSONArrayFromModels:addressValue];
+        return [MTLJSONAdapter JSONDictionaryFromModel:addressValue];
     }];
 }
 
