@@ -54,7 +54,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     
     NSString *ext = @"com";
     if ([NSProcessInfo processInfo].environment[@"SB_LOCAL_DEV"] && !cppDebug) { // enforce .com on release builds
-    	ext = @"com";
+    	ext = @"dev";
     }
     NSString *urlString = [NSString stringWithFormat:@"https://api.stagebloc.%@/v1", ext];
     
