@@ -54,6 +54,7 @@
         [_cameraView.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.flashModeButton addTarget:self action:@selector(flashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.nextButton addTarget:self action:@selector(nextButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _cameraView.progressBar.delegate = self;
     }
     return _cameraView;
@@ -276,26 +277,28 @@
     [self switchCamera];
 }
 
--(void)closeButtonPressed:(id)sender {
+- (void) nextButtonPressed:(UIButton*)sender {
     if (CMTimeGetSeconds([self.captureManager.videoManager totalRecordingDuration]) > 0) {
-        NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
-        [self.captureManager.videoManager finalizeRecordingToFile:url completion:^(NSError *error) {
-            if (error) {
-                NSLog(@"Failed to save locally - %@", error.localizedDescription);
-                return;
-            }
-            
-            NSLog(@"saved locally");
-            [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:url completionBlock:^(NSURL *assetURL, NSError *error) {
-                if (error) {
-                    NSLog(@"couldn't save to library - %@", error.localizedDescription);
-                } else {
-                    NSLog(@"saved to library");
-                }
-            }];
-        }];
         return;
     }
+    
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
+    [[self.captureManager.videoManager finalizeRecordingToFile:url] subscribeNext:^(NSURL *saveURL) {
+        NSLog(@"Saved locally");
+        [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:saveURL completionBlock:^(NSURL *assetURL, NSError *error) {
+            if (error) {
+                NSLog(@"couldn't save to library - %@", error.localizedDescription);
+            } else {
+                NSLog(@"saved to library");
+            }
+        }];
+    } error:^(NSError *error) {
+        NSLog(@"Failed to save locally - %@", error.localizedDescription);
+    }];
+    return;
+}
+
+-(void)closeButtonPressed:(id)sender {
     
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];

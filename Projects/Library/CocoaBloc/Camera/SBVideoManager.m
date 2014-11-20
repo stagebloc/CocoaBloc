@@ -11,6 +11,9 @@
 #import "SBAssetStitcher.h"
 #import "AVCaptureSession+Extension.h"
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+
 @interface SBVideoManager () <AVCaptureFileOutputRecordingDelegate> {
     id deviceConnectedObserver;
     id deviceDisconnectedObserver;
@@ -139,53 +142,47 @@
     _isPaused = NO;
 }
 
-- (void)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL completion:(ErrorBlock)completionHandler {
-    __weak typeof(self) weakSelf = self;
-
-    CompletionBlock completion = ^ (NSError* error) {
-        [weakSelf.stitcher reset];
-        if (completionHandler)
-            completionHandler(error);
-    };
-    
-    if (completion == nil) completion = ^(NSError*e){};
-
-    [self reset];
-    
-    NSError *error;
-    if([finalVideoLocationURL checkResourceIsReachableAndReturnError:&error]) {
-        completion([NSError errorWithDomain:@"Output file already exists." code:104 userInfo:nil]);
-        return;
-    }
-    
-    if(self.currentWrites != 0) {
-        completion([NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]);
-        return;
-    }
-    
-    __block NSError *stitcherError;
-    [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
-        [weakSelf.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:nil error:^(NSError *error) {
-            stitcherError = error;
-        }];
-    }];
-    
-    if(stitcherError) {
-        completion(stitcherError);
-        return;
-    }
-    
-    CGSize renderSize = [self.captureSession renderSize];
-    [self.stitcher exportTo:finalVideoLocationURL renderSize:renderSize preset:self.captureSession.exportPreset completion:^(NSError *error) {
-        if(error) {
-            completion(error);
-        }
-        else {
-            [weakSelf cleanTemporaryFiles];
-            [weakSelf.temporaryFileURLs removeAllObjects];
-            completion(nil);
+- (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        [self reset];
+        
+        __block NSError *error;
+        if([finalVideoLocationURL checkResourceIsReachableAndReturnError:&error]) {
+            [subscriber sendError:[NSError errorWithDomain:@"Output file already exists." code:104 userInfo:nil]];
+            return nil;
         }
         
+        if(self.currentWrites != 0) {
+            [subscriber sendError:[NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]];
+            return nil;
+        }
+        
+        [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
+            [[self.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:nil] subscribeError:^(NSError *e) {
+                error = e;
+            }];
+        }];
+        
+        if(error) {
+            [subscriber sendError:error];
+            return nil;
+        }
+        
+        CGSize renderSize = [self.captureSession renderSize];
+        [[self.stitcher exportTo:finalVideoLocationURL renderSize:renderSize preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
+            @strongify(self);
+            [self cleanTemporaryFiles];
+            [self.temporaryFileURLs removeAllObjects];
+            [subscriber sendNext:outputURL];
+        } error:^(NSError *e) {
+            [subscriber sendError:e];
+        } completed:^{
+            [subscriber sendCompleted];
+        }];
+        
+        return nil;
     }];
 }
 

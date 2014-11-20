@@ -38,6 +38,7 @@
 //Bottom HUD views
 @property (nonatomic, strong) UIView *bottomHudView;
 @property (nonatomic, strong) UIButton *chooseExistingButton;
+@property (nonatomic, strong) UIButton *nextButton;
 
 //Change this property to adjust the flashModeButton image
 @property (nonatomic, assign) SBCaptureFlashMode flashMode;

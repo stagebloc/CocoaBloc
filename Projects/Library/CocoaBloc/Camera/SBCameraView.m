@@ -23,8 +23,6 @@
 @interface SBCameraView ()
 @property (nonatomic, strong) NSArray *cameraConstraints;
 
-@property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
-
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeLeftGesture;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeRightGesture;
 
@@ -198,9 +196,19 @@
         _flashModeButton.frame = CGRectMake(CGRectGetMinX(_bottomHudView.bounds) + 15.f, 15.f, 30.0, 30.0);
         _flashModeButton.layer.masksToBounds = YES;
         _flashModeButton.imageView.contentMode = UIViewContentModeCenter;
-        self.flashMode = AVCaptureFlashModeOff;
+        self.flashMode = AVCaptureFlashModeOff; //sets button image
     }
     return _flashModeButton;
+}
+
+- (UIButton*) nextButton {
+    if (!_nextButton) {
+        _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_nextButton setImage:[UIImage imageNamed:@"arrow_right"] forState:UIControlStateNormal];
+        _nextButton.layer.masksToBounds = YES;
+        _nextButton.imageView.contentMode = UIViewContentModeCenter;
+    }
+    return _nextButton;
 }
 
 - (void) initializeViews {
@@ -214,7 +222,7 @@
     [self.shutterView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
     
     //add focus view
-    [self addSubview:self.focusView];
+    [self.captureView addSubview:self.focusView];
     
     //BOTTOM HUD (contains subviews)
     [self addSubview:self.bottomHudView];
@@ -247,11 +255,6 @@
 }
 
 - (void) initGestures {
-    self.doubleTapGesture = [[UITapGestureRecognizer alloc] init];
-    self.doubleTapGesture.delegate = self;
-    self.doubleTapGesture.numberOfTapsRequired = 2;
-    [self addGestureRecognizer:self.doubleTapGesture];
-    
     self.swipeLeftGesture = [[UISwipeGestureRecognizer alloc] init];
     self.swipeLeftGesture.direction = UISwipeGestureRecognizerDirectionLeft;
     self.swipeLeftGesture.delegate = self;
@@ -277,11 +280,10 @@
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager {
     if (self = [super initWithFrame:frame]) {
-        self.multipleTouchEnabled = YES;
-        
         //capture view container
         [self addSubview:self.captureViewContainer];
         self.captureView = [[SBCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
+        self.captureView.clipsToBounds = NO;
         [self.captureViewContainer addSubview:self.captureView];
 
         [self initializeViews];
@@ -369,7 +371,7 @@
 }
 
 - (RACSignal*) doubleTapSignal {
-    return self.doubleTapGesture.rac_gestureSignal;
+    return [self rac_signalForSelector:@selector(didDoubleTap:)];
 }
 
 - (RACSignal*) swipeLeftSignal {
@@ -381,6 +383,12 @@
 }
 
 #pragma mark - Touch Event
+- (void) didDoubleTap:(CGPoint)location { }
+- (void) didSingleTap:(CGPoint)location {
+    [self updateFocusPoint:location alpha:1];
+    [self animateFocusViewHideWithDuration:0.5 delay:0.5 completion:nil];
+}
+
 - (void) updateFocusPoint:(CGPoint)position alpha:(CGFloat)alpha {
     if (self.shouldUpdateFocusPosition && !self.shouldUpdateFocusPosition(position))
         return;
@@ -393,21 +401,32 @@
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    CGPoint position = [[touches anyObject] locationInView:self];
-    [self updateFocusPoint:position alpha:1];
+    
+    NSArray *allTouches = [touches allObjects];
+    UITouch *touch;
+    for (UITouch *t in allTouches) {
+        touch = t;
+        if (t.tapCount >= 2)
+            break;
+    }
+    
+    if (touch.tapCount >= 2) {
+        [self didDoubleTap:[touch locationInView:self]];
+    } else {
+        [self didSingleTap:[touch locationInView:self.focusView.superview]];
+    }
 }
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
-    
-    CGPoint position = [[touches anyObject] locationInView:self];
-    [self updateFocusPoint:position alpha:1];
+    UITouch *touch = [touches anyObject];
+    if (touch.tapCount == 1) {
+        [self updateFocusPoint:[touch locationInView:self.focusView.superview] alpha:1];
+    }
 }
 
 - (void) touchesEndedOrCanceled:(NSSet*)touches withEvent:(UIEvent*)event {
-    
-    CGPoint position = [[touches anyObject] locationInView:self];
-    [self updateFocusPoint:position alpha:1];
-    [self animateFocusViewHideWithDuration:0.5f delay:0.5f completion:nil];
+    UITouch *touch = [touches anyObject];
+    [self animateFocusViewHideWithDuration:0.5 delay:0.5 completion:nil];
 }
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

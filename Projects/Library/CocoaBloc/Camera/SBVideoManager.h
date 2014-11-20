@@ -9,8 +9,9 @@
 
 #import "SBDeviceManager.h"
 
+@class RACSignal;
+
 typedef void (^ErrorBlock)(NSError *error);
-typedef void (^CompletionBlock)(NSError *error);
 
 @interface SBVideoManager : SBDeviceManager
 
@@ -24,7 +25,7 @@ typedef void (^CompletionBlock)(NSError *error);
 
 - (void)reset;
 
-- (void)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL completion:(CompletionBlock)completion;
+- (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL;
 
 - (CMTime)totalRecordingDuration;
 

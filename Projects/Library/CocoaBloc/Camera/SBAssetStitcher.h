@@ -10,14 +10,16 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+@class RACSignal;
+
 @interface SBAssetStitcher : NSObject
 
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
 
 - (void) reset;
 
-- (void)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack))transformToApply error:(void (^)(NSError *error))errorHandler;
+- (RACSignal*)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack))transformToApply;
 
-- (void)exportTo:(NSURL *)outputFile renderSize:(CGSize)renderSize preset:(NSString *)preset completion:(void (^)(NSError *error))completion;
+- (RACSignal*)exportTo:(NSURL *)outputFile renderSize:(CGSize)size preset:(NSString *)preset;
 
 @end
