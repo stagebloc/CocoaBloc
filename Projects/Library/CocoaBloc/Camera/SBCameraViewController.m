@@ -151,7 +151,6 @@
         self.cameraView.timeLabel.hidden = !shouldHidePageView;
     }];
     
-    
     [self.captureManager.captureSession startRunning];
 }
 
@@ -300,7 +299,6 @@
     }
     
     NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
-    
     [[self.captureManager.videoManager finalizeRecordingToFile:url] subscribeNext:^(NSURL *saveURL) {
         NSLog(@"Saved locally");
         [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:saveURL completionBlock:^(NSURL *assetURL, NSError *error) {
@@ -332,7 +330,6 @@
         [alert show];
         return;
     }
-    
     
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];

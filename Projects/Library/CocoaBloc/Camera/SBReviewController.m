@@ -286,6 +286,15 @@ static CGFloat const kAnimationVelocity = 0.5f;
             self.currentLayout = SCTextFieldLayoutTitleDescription;
         }
     }];
+    
+    [[[self.titleField rac_signalForControlEvents:UIControlEventEditingDidEndOnExit | UIControlEventEditingDidEnd] map:^NSNumber*(UITextField *field) {
+        return @(field.text.length > 0);
+    }] subscribeNext:^(NSNumber *isTextEntered) {
+        @strongify(self);
+        if (isTextEntered.boolValue) {
+            [self.descriptionField becomeFirstResponder];
+        }
+    }];
 }
 
 #pragma mark - Textfield Delegate
