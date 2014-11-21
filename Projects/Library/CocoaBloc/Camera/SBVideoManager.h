@@ -11,13 +11,10 @@
 
 @class RACSignal;
 
-typedef void (^ErrorBlock)(NSError *error);
-
 @interface SBVideoManager : SBDeviceManager
 
 @property (nonatomic, assign) CGFloat maxDuration;
 @property (nonatomic, assign) CGFloat minDuration;
-@property (nonatomic, copy) ErrorBlock asyncErrorHandler;
 
 - (BOOL) isPaused;
 

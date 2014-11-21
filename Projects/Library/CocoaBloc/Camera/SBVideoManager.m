@@ -66,11 +66,7 @@
         
         self.maxDuration = 10.0f;
         self.minDuration = 3.0f;
-        
-        self.asyncErrorHandler = ^(NSError *error) {
-            NSLog(@"Error - %@", error.localizedDescription);
-        };
-        
+                
         _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
         
         [self reset];
@@ -121,14 +117,16 @@
 }
 
 - (void)pauseRecording {
+    if (self.isPaused)
+        return;
+    
     self.paused = YES;
     [self.movieFileOutput stopRecording];
-    
     self.currentFinalDurration = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
 }
 
 - (BOOL) resumeRecording {
-    if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.minDuration)
+    if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.maxDuration)
         return NO;
     
     self.currentRecordingSegment++;
@@ -162,7 +160,7 @@
 - (CMTime)totalRecordingDuration {
     if(CMTimeCompare(kCMTimeZero, self.currentFinalDurration) == 0 && ![self isReset]) {
         return self.movieFileOutput.recordedDuration;
-    } else if (!self.paused && self.movieFileOutput.isRecording) {
+    } else if ((!self.paused && self.movieFileOutput.isRecording)) {
         CMTime returnTime = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
         return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDurration : returnTime;
     } else {
@@ -253,14 +251,15 @@
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections error:(NSError *)error {
-    if(error){
-        if(self.asyncErrorHandler){
-            self.asyncErrorHandler(error);
-        } else {
-            NSLog(@"Error capturing output: %@", error);
-        }
+    
+    //pause just in case
+    if (!self.isPaused) {
+        [self pauseRecording];
     }
     
+    if(error){
+        NSLog(@"Error capturing output: %@", error);
+    }
     self.currentWrites--;
 }
 
@@ -287,11 +286,7 @@
                         [self.captureSession addInput:deviceInput];
                     }
                     if(error) {
-                        if(self.asyncErrorHandler) {
-                            self.asyncErrorHandler(error);
-                        } else {
-                            NSLog(@"Error reconnecting device input: %@", error);
-                        }
+                        NSLog(@"Error reconnecting device input: %@", error);
                     }
                     *stop = YES;
                 }

@@ -300,6 +300,7 @@
     }
     
     NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
+    
     [[self.captureManager.videoManager finalizeRecordingToFile:url] subscribeNext:^(NSURL *saveURL) {
         NSLog(@"Saved locally");
         [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:saveURL completionBlock:^(NSURL *assetURL, NSError *error) {
@@ -309,8 +310,10 @@
                 return;
             }
             
+            NSLog(@"saved to library");
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [[[UIAlertView alloc] initWithTitle:@"Successful" message:@"Video saved to library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
-                NSLog(@"saved to library");
+            });
         }];
     } error:^(NSError *error) {
         NSLog(@"Failed to save locally - %@", error.localizedDescription);
