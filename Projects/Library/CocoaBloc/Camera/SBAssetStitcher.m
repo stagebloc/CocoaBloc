@@ -98,6 +98,7 @@
         AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoComposition];
         videoComposition.instructions = self.instructions;
         videoComposition.renderSize = renderSize;
+        videoComposition.renderScale = 1;
         videoComposition.frameDuration = CMTimeMake(1, 30);
         
         AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
@@ -114,6 +115,7 @@
                     break;
                 case AVAssetExportSessionStatusCancelled:
                     [subscriber sendError:[NSError errorWithDomain:@"Export cancelled" code:100 userInfo:nil]];
+                    break;
                 case AVAssetExportSessionStatusCompleted:
                     [subscriber sendNext:outputFile];
                     [subscriber sendCompleted];
@@ -128,6 +130,5 @@
         return nil;
     }];
 }
-
 
 @end

@@ -301,12 +301,16 @@
         [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:saveURL completionBlock:^(NSURL *assetURL, NSError *error) {
             if (error) {
                 NSLog(@"couldn't save to library - %@", error.localizedDescription);
-            } else {
-                NSLog(@"saved to library");
+                [[[UIAlertView alloc] initWithTitle:@"Failed" message:@"Video was not saved to library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                return;
             }
+            
+                [[[UIAlertView alloc] initWithTitle:@"Successful" message:@"Video saved to library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                NSLog(@"saved to library");
         }];
     } error:^(NSError *error) {
         NSLog(@"Failed to save locally - %@", error.localizedDescription);
+        [[[UIAlertView alloc] initWithTitle:@"Failed" message:@"Video was not saved to library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
     }];
 }
 

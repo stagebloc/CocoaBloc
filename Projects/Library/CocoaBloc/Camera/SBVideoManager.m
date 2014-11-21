@@ -73,9 +73,11 @@
         
         _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
         
+        [self reset];
         [self startNotificationObservers];
         
         self.captureSession.sessionPreset = [self.captureSession bestSessionPreset];
+        
         
         self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
         if([self.captureSession canAddInput:self.audioInput]) {
@@ -176,12 +178,20 @@
     return !self.movieFileOutput.isRecording && !self.isPaused;
 }
 
+- (BOOL) isRecording {
+    return self.movieFileOutput.isRecording;
+}
+
 #pragma mark - Signals
 - (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
-        [self reset];
+        
+        //pause just in case
+        if (self.isRecording) {
+            [self pauseRecording];
+        }
         
         __block NSError *error;
         if([finalVideoLocationURL checkResourceIsReachableAndReturnError:&error]) {
@@ -209,12 +219,11 @@
         CGSize renderSize = [self.captureSession renderSize];
         [[self.stitcher exportTo:finalVideoLocationURL renderSize:renderSize preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
             @strongify(self);
-            [self cleanTemporaryFiles];
-            [self.temporaryFileURLs removeAllObjects];
-            [subscriber sendNext:outputURL];
+            [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *e) {
             [subscriber sendError:e];
         } completed:^{
+            [self reset];
             [subscriber sendCompleted];
         }];
         

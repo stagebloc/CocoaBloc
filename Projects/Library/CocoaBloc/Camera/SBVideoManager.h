@@ -29,6 +29,7 @@ typedef void (^ErrorBlock)(NSError *error);
 
 - (CMTime)totalRecordingDuration;
 - (BOOL) isPastMinDuration;
+- (BOOL) isRecording;
 
 - (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL;
 - (RACSignal*)totalTimeRecordedSignal;
