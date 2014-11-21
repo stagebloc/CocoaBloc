@@ -10,15 +10,11 @@
 
 @interface SBProgressBar ()
 
-@property (nonatomic) NSTimer *timer;
-@property (nonatomic, copy) NSDate *timerStartDate;
-@property (nonatomic) NSTimeInterval pauseTimeElapsed;
-
 @end
 
 @implementation SBProgressBar
 
-@synthesize minValue = _minValue, maxValue = _maxValue, state = _state;
+@synthesize minValue = _minValue, maxValue = _maxValue;
 
 - (UIView*) progressView {
     if (!_progressView) {
@@ -45,7 +41,6 @@
         self.progressView.backgroundColor = [UIColor whiteColor];
         _minValue = minValue;
         _maxValue = maxValue;
-        _state = SBProgressStateStopped;
     }
     return self;
 }

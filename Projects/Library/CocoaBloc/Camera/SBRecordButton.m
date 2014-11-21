@@ -24,7 +24,7 @@
     if (!_innerView) {
         CGFloat offset = 4;
         _innerView = [[UIView alloc] initWithFrame:CGRectMake(offset, offset, CGRectGetWidth(self.bounds)-offset*2, CGRectGetHeight(self.bounds)-offset*2)];
-        _innerView.backgroundColor = [UIColor whiteColor];
+        _innerView.backgroundColor = [UIColor clearColor];
         _innerView.layer.borderColor = [UIColor fc_stageblocBlueColor].CGColor;
         _innerView.layer.borderWidth = 1.5f;
     }
@@ -33,6 +33,11 @@
 
 - (void) setBorderColor:(UIColor*)borderColor {
     _innerView.layer.borderColor = borderColor.CGColor;
+}
+
+- (void) setEnabled:(BOOL)enabled {
+    [super setEnabled:enabled];
+    self.alpha = enabled ? 1 : 0.5;
 }
 
 - (instancetype) initWithFrame:(CGRect)frame {

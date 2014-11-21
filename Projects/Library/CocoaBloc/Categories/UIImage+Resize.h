@@ -10,6 +10,7 @@
 
 @interface UIImage (Resize)
 
+- (UIImage*) resizeToSquare;
 - (UIImage *)resizeImageToRect:(CGRect)rect;
 
 @end

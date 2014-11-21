@@ -33,9 +33,7 @@
     return self;
 }
 
-- (RACSignal*)captureImage
-{
-    
+- (RACSignal*)captureImage {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
@@ -51,40 +49,11 @@
                 return;
             }
             
-            UIImage *rawImage = [UIImage imageWithData:[AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer]];
-            
-            CGFloat screenAspectRatio = [[UIScreen mainScreen] bounds].size.height/[[UIScreen mainScreen] bounds].size.width;
-            CGFloat imageAspectRatio = rawImage.size.height/rawImage.size.width;
-            CGFloat resizedImageWidth;
-            CGFloat resizedImageHeight;
-            CGFloat x;
-            CGFloat y;
-            
-            if (imageAspectRatio/screenAspectRatio < 1) {
-                // This one should always run since all apple device screens have a higher aspect ratio than the raw image aspect ratio...
-                resizedImageWidth = (imageAspectRatio/screenAspectRatio) * rawImage.size.width;
-                resizedImageHeight = rawImage.size.height;
-                x = (rawImage.size.width - resizedImageWidth)/2;
-                y = 0.f;
-            } else if (imageAspectRatio/screenAspectRatio > 1) {
-                // ...but you can have this too, I guess?
-                resizedImageWidth = rawImage.size.width;
-                resizedImageHeight = (screenAspectRatio/imageAspectRatio) * rawImage.size.height;
-                x = 0.f;
-                y = (rawImage.size.height - resizedImageHeight)/2;
-            } else {
-                resizedImageWidth = rawImage.size.width;
-                resizedImageHeight = rawImage.size.height;
-                x = 0.f;
-                y = 0.f;
-            }
-            
-            CGRect resizeRect = CGRectMake(x, y, resizedImageWidth, resizedImageHeight);
+            UIImage *image = [UIImage imageWithData:[AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer]];
             if (self.aspectRatio == SBCameraAspectRatio1_1) {
-                resizeRect = CGRectMake(x, (resizeRect.size.height/CGRectGetHeight([UIScreen mainScreen].bounds)) * 44.0, resizeRect.size.width, resizeRect.size.width);
+                image = [image resizeToSquare];
             }
             
-            UIImage *image = [rawImage resizeImageToRect:resizeRect];
             self.image = image;
             if (image) {
                 [subscriber sendNext:image];

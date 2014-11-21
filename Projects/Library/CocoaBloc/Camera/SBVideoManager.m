@@ -127,7 +127,9 @@
     self.currentFinalDurration = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
 }
 
-- (void)resumeRecording {
+- (BOOL) resumeRecording {
+    if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.minDuration)
+        return NO;
     
     self.currentRecordingSegment++;
     self.paused = NO;
@@ -142,6 +144,7 @@
     }
     
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
+    return YES;
 }
 
 - (void)reset {

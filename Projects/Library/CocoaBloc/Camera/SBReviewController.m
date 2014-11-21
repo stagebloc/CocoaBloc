@@ -232,12 +232,12 @@ static CGFloat const kAnimationVelocity = 0.5f;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     // Screen aspect ratio / image aspect ratio x screen width -> fit image height to screen and set scrollview content width
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    CGFloat contentWidth = (CGRectGetHeight(self.view.bounds)/CGRectGetWidth(self.view.bounds) / (_image.size.height/_image.size.width)) * CGRectGetWidth(self.view.bounds);
-    self.scrollView.contentSize = CGSizeMake(contentWidth, self.scrollView.frame.size.height);
-    CGFloat xOffset = ((contentWidth - CGRectGetWidth(self.view.bounds))/2);
-    [self.scrollView setContentOffset:CGPointMake(xOffset, self.scrollView.frame.origin.y)];
     
     [self.view addSubview:self.scrollView];
+    [self.scrollView autoCenterInSuperview];
+    [self.scrollView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
+    [self.scrollView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
+    
     [self.scrollView addSubview:self.imageView];
     [self.imageView autoCenterInSuperview];
     [self.imageView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.scrollView];

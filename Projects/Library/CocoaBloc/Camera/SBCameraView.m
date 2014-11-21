@@ -288,7 +288,6 @@
         //capture view container
         [self addSubview:self.captureViewContainer];
         self.captureView = [[SBCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
-        self.captureView.clipsToBounds = NO;
         [self.captureViewContainer addSubview:self.captureView];
 
         [self initializeViews];

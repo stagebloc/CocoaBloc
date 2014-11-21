@@ -23,7 +23,7 @@ typedef void (^ErrorBlock)(NSError *error);
 
 - (void)startRecording;
 - (void)pauseRecording;
-- (void)resumeRecording;
+- (BOOL)resumeRecording;
 
 - (void)reset;
 

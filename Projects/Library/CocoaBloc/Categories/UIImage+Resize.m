@@ -10,6 +10,16 @@
 
 @implementation UIImage (Resize)
 
+- (UIImage*) resizeToSquare {
+    CGRect rect;
+    if (self.size.width < self.size.height) {
+        rect = CGRectMake(0, (self.size.height-self.size.width)/2, self.size.width, self.size.width);
+    } else {
+        rect = CGRectMake((self.size.width-self.size.height)/2, 0, self.size.height, self.size.height);
+    }
+    return [self resizeImageToRect:rect];
+}
+
 - (UIImage *)resizeImageToRect:(CGRect)rect;
 {
     if (UIGraphicsBeginImageContextWithOptions) {

@@ -27,7 +27,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface SBCameraViewController () <UIActionSheetDelegate, SBProgressBarDelegate, SCRecordButtonDelegate, SBReviewControllerDelegate>
+@interface SBCameraViewController () <UIActionSheetDelegate, SCRecordButtonDelegate, SBReviewControllerDelegate>
 
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic, strong) SBCaptureManager *captureManager;
@@ -55,7 +55,6 @@
         [_cameraView.flashModeButton addTarget:self action:@selector(flashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.nextButton addTarget:self action:@selector(nextButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        _cameraView.progressBar.delegate = self;
     }
     return _cameraView;
 }
@@ -89,29 +88,8 @@
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
         NSInteger index = n.integerValue;
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            switch (index) {
-                case 0:
-                    self.captureManager.captureType = SBCaptureTypeVideo;
-                    self.cameraView.recordButton.allowHold = YES;
-                    break;
-                case 1:
-                    self.captureManager.captureType = SBCaptureTypePhoto;
-                    self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
-                    self.cameraView.recordButton.allowHold = NO;
-                    break;
-                case 2:
-                    self.captureManager.captureType = SBCaptureTypePhoto;
-                    self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
-                    self.cameraView.recordButton.allowHold = NO;
-                    break;
-                default:
-                    break;
-            }
-            
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
-            [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
-        });
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
+        [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
         [self showBlur];
     }];
     
@@ -144,9 +122,18 @@
     [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(id _) {
         @strongify(self);
         return @(!self.captureManager.videoManager.isPastMinDuration);
-    }] subscribeNext:^(NSNumber *b) {
+    }] subscribeNext:^(NSNumber *hidden) {
         @strongify(self);
-        self.cameraView.nextButton.hidden = b.boolValue;
+        self.cameraView.nextButton.hidden = hidden.boolValue;
+    }];
+    
+    //enable/disable record button when time is at max duration
+    [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(NSNumber* value) {
+        @strongify(self);
+        return @(!(CMTimeGetSeconds([value CMTimeValue]) >= self.captureManager.videoManager.maxDuration));
+    }] subscribeNext:^(NSNumber *enabled) {
+        @strongify(self);
+        self.cameraView.recordButton.enabled = enabled.boolValue;
     }];
     
     RAC(self.cameraView.progressBar, value) = [[[self.captureManager.videoManager recordDurationChangeSignal] skip:1] map:^id(id value) {
@@ -182,10 +169,25 @@
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
-        case 0: [self.cameraView setVideoCaptureType]; break;
-        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
-        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
-        default: break;
+        case 0:
+            self.captureManager.captureType = SBCaptureTypeVideo;
+            self.cameraView.recordButton.allowHold = YES;
+            [self.cameraView setVideoCaptureType];
+            break;
+        case 1:
+            self.captureManager.captureType = SBCaptureTypePhoto;
+            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
+            self.cameraView.recordButton.allowHold = NO;
+            [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3];
+            break;
+        case 2:
+            self.captureManager.captureType = SBCaptureTypePhoto;
+            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
+            self.cameraView.recordButton.allowHold = NO;
+            [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1];
+            break;
+        default:
+            break;
     }
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
@@ -217,8 +219,11 @@
 - (void) startRecording {
     NSLog(@"Started recording");
     SBVideoManager *manager = self.captureManager.videoManager;
-    if (manager.isPaused) [manager resumeRecording];
-    else [manager startRecording];
+    if (manager.isPaused) {
+        [manager resumeRecording];
+    } else  {
+        [manager startRecording];
+    }
     [self.cameraView animateHudHidden:YES completion:nil];
 }
 
@@ -244,7 +249,6 @@
 }
 
 #pragma mark - User Actions
-
 -(void)chooseExistingButtonPressed:(id)sender {
     __weak typeof(self) weakSelf = self;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
@@ -330,15 +334,6 @@
     if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
         [self.delegate cameraViewControllerDidFinish:self];
     }
-}
-
-#pragma mark - SCProgressBarDelegate
-- (void) progressBarDidStart:(SBProgressBar*)progressBar {
-}
-- (void) progressBarDidPause:(SBProgressBar*)progressBar {
-}
-- (void) progressBarDidStop:(SBProgressBar*)progressBar withTime:(NSTimeInterval)time {
-    [self stopRecording];
 }
 
 #pragma mark - SCRecordButtonDelegate
