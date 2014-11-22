@@ -26,6 +26,6 @@
                       totals:(NSDictionary *)totals
                        notes:(NSString *)notes
                     andEmail:(NSString *)email
-                  forAccount:(SBAccount *)account;
+                  forAccount:(NSNumber *)accountId;
 
 @end
