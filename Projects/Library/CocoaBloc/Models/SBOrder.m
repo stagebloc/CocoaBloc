@@ -30,11 +30,17 @@
 
 + (MTLValueTransformer *)userJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id userValue) {
-        return [MTLJSONAdapter modelOfClass:[SBUser class]
-                         fromJSONDictionary:userValue
-                                      error:nil];
+        if ([userValue isKindOfClass:[NSDictionary class]]) {
+            return [MTLJSONAdapter modelOfClass:[SBUser class]
+                             fromJSONDictionary:userValue
+                                          error:nil];
+        }
+        return userValue;
     } reverseBlock:^id(id userValue) {
-        return [MTLJSONAdapter JSONDictionaryFromModel:userValue];
+        if ([userValue isKindOfClass:[SBUser class]]) {
+            return [MTLJSONAdapter JSONDictionaryFromModel:userValue];
+        }
+        return userValue;
     }];
 }
 

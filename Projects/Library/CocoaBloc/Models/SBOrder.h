@@ -21,6 +21,6 @@
 
 @property (nonatomic, strong) SBAddress *address;
 @property (nonatomic, strong) id account; // SBAccount or NSNumber
-@property (nonatomic, strong) SBUser *customer;
+@property (nonatomic, strong) id customer; // SBUser or NSNumber
 
 @end
