@@ -75,6 +75,7 @@
 		4D224DF01A0919B6007DF1D1 /* SBVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DE01A0919B6007DF1D1 /* SBVideoManager.m */; };
 		4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */; };
 		4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */; };
+		4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */; };
 		4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		B486845E2F7045E0BC1CAEA7 /* libPods-CB Test App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7900987944179BCA76913 /* libPods-CB Test App.a */; };
@@ -243,6 +244,8 @@
 		4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+StageBloc.m"; sourceTree = "<group>"; };
 		4D83631E1A0B0E1F00A820B5 /* SBRecordButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBRecordButton.h; sourceTree = "<group>"; };
 		4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecordButton.m; sourceTree = "<group>"; };
+		4D98B9A61A22D1DE00F8D11B /* SBOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOverlayView.h; sourceTree = "<group>"; };
+		4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOverlayView.m; sourceTree = "<group>"; };
 		4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraView.h; sourceTree = "<group>"; };
 		4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraView.m; sourceTree = "<group>"; };
 		5CA09BB3FDC7100CC628A1E4 /* Pods-CocoaBlocTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */,
 				09B3152E19BA35EC0005CEDD /* SBAnimationContainerView.h */,
 				09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */,
+				4D98B9A61A22D1DE00F8D11B /* SBOverlayView.h */,
+				4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -907,6 +912,7 @@
 				097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */,
 				0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */,
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
+				4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */,
 				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,

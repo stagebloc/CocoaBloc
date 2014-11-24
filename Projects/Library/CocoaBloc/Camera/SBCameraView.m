@@ -23,6 +23,8 @@
 @interface SBCameraView ()
 @property (nonatomic, strong) NSArray *cameraConstraints;
 
+@property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
+@property (nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeLeftGesture;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeRightGesture;
 
@@ -270,6 +272,18 @@
     self.swipeRightGesture.delegate = self;
     [self addGestureRecognizer:self.swipeRightGesture];
     
+    self.singleTapGesture = [[UITapGestureRecognizer alloc] init];
+    self.singleTapGesture.numberOfTapsRequired = 1;
+    self.singleTapGesture.delegate = self;
+    [self.captureView addGestureRecognizer:self.singleTapGesture];
+    
+    self.doubleTapGesture = [[UITapGestureRecognizer alloc] init];
+    self.doubleTapGesture.numberOfTapsRequired = 2;
+    self.doubleTapGesture.delegate = self;
+    [self addGestureRecognizer:self.doubleTapGesture];
+
+    [self.singleTapGesture requireGestureRecognizerToFail:self.doubleTapGesture];
+    
     @weakify(self);
     [self.swipeLeftGesture.rac_gestureSignal subscribeNext:^(UISwipeGestureRecognizer *swipeGesture) {
         @strongify(self);
@@ -280,6 +294,11 @@
         @strongify(self);
         if (self.progressBar.value > 0) return;
         if (self.pageView.index - 1 >= 0) self.pageView.index--;
+    }];
+    [[self.singleTapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
+        @strongify(self);
+        [self updateFocusPoint:[gesture locationInView:gesture.view] alpha:1];
+        [self animateFocusViewHideWithDuration:0.5 delay:0.5 completion:nil];
     }];
 }
 
@@ -375,7 +394,7 @@
 }
 
 - (RACSignal*) doubleTapSignal {
-    return [self rac_signalForSelector:@selector(didDoubleTap:)];
+    return [self.doubleTapGesture rac_gestureSignal];
 }
 
 - (RACSignal*) swipeLeftSignal {
@@ -386,8 +405,7 @@
     return self.swipeRightGesture.rac_gestureSignal;
 }
 
-#pragma mark - Touch Event
-- (void) didDoubleTap:(CGPoint)location { }
+#pragma mark - Focus Point
 - (void) didSingleTap:(CGPoint)location {
     [self updateFocusPoint:location alpha:1];
     [self animateFocusViewHideWithDuration:0.5 delay:0.5 completion:nil];
@@ -401,46 +419,6 @@
     frame.origin = CGPointMake(position.x-CGRectGetWidth(frame)/2, position.y-CGRectGetHeight(frame)/2);
     self.focusView.frame = frame;
     self.focusView.alpha = alpha;
-}
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    
-    NSArray *allTouches = [touches allObjects];
-    UITouch *touch;
-    for (UITouch *t in allTouches) {
-        touch = t;
-        if (t.tapCount >= 2)
-            break;
-    }
-    
-    if (touch.tapCount >= 2) {
-        [self didDoubleTap:[touch locationInView:self]];
-    } else {
-        [self didSingleTap:[touch locationInView:self.focusView.superview]];
-    }
-}
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-    UITouch *touch = [touches anyObject];
-    if (touch.tapCount == 1) {
-        [self updateFocusPoint:[touch locationInView:self.focusView.superview] alpha:1];
-    }
-}
-
-- (void) touchesEndedOrCanceled:(NSSet*)touches withEvent:(UIEvent*)event {
-    UITouch *touch = [touches anyObject];
-    [self animateFocusViewHideWithDuration:0.5 delay:0.5 completion:nil];
-}
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesEnded:touches withEvent:event];
-    [self touchesEndedOrCanceled:touches withEvent:event];
-}
-
-- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesCancelled:touches withEvent:event];
-    [self touchesEndedOrCanceled:touches withEvent:event];
 }
 
 #pragma mark - UIGestureRecognizerDelegate

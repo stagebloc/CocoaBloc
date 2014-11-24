@@ -20,6 +20,7 @@
 #import "UIColor+FanClub.h"
 #import "SBVideoManager.h"
 #import "SBPhotoManager.h"
+#import "SBOverlayView.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -32,6 +33,8 @@
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic, strong) SBCaptureManager *captureManager;
 @property (nonatomic, strong) SBCameraView *cameraView;
+
+@property (nonatomic, strong) SBOverlayView *overlayHud;
 
 @end
 
@@ -214,6 +217,12 @@
     self.cameraView.stateToolbar.hidden = YES;
 }
 
+#pragma mark - HUD
+- (void) showHudWithText:(NSString*)text {
+    [self.overlayHud dismiss];
+    self.overlayHud = [SBOverlayView showInView:self.view text:text];
+}
+
 #pragma mark - Camera Actions 
 - (void) startRecording {
     NSLog(@"Started recording");
@@ -238,12 +247,21 @@
 
 - (void) capturePhoto {
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
+    [self showHudWithText:@"Processing image"];
     @weakify(self);
     [[self.captureManager.photoManager captureImage] subscribeNext:^(UIImage *image) {
         @strongify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.overlayHud dismiss];
+        });
         SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
+    } error:^(NSError *error) {
+        @strongify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.overlayHud dismissAfterError:@"Error processing image"];
+        });
     }];
 }
 
@@ -299,21 +317,30 @@
     }
     
     NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
+    [self showHudWithText:@"Processing video"];
+    @weakify(self);
     [[self.captureManager.videoManager finalizeRecordingToFile:url] subscribeNext:^(NSURL *saveURL) {
+        @strongify(self);
         NSLog(@"Saved locally");
         [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:saveURL completionBlock:^(NSURL *assetURL, NSError *error) {
+            @strongify(self);
             if (error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.overlayHud dismissAfterError:@"Error saving to library"];
+                });
                 NSLog(@"couldn't save to library - %@", error.localizedDescription);
-                [[[UIAlertView alloc] initWithTitle:@"Failed" message:@"Video was not saved to library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
                 return;
             }
             
             NSLog(@"saved to library");
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"Successful" message:@"Video saved to library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+                [self.overlayHud dismissAfterText:@"Saved to library"];
             });
         }];
     } error:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.overlayHud dismissAfterError:@"Error processing video"];
+        });
         NSLog(@"Failed to save locally - %@", error.localizedDescription);
         [[[UIAlertView alloc] initWithTitle:@"Failed" message:@"Video was not saved to library" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
     }];
