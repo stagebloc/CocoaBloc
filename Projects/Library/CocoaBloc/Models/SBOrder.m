@@ -28,6 +28,23 @@
               @"totalUsd"       : @"total_usd"}];
 }
 
++ (MTLValueTransformer *)customerJSONTransformer {
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id customerValue) {
+        if ([customerValue isKindOfClass:[NSNumber class]]) { // unexpanded
+            return customerValue;
+        }
+        // else it's the json for the user
+        return [MTLJSONAdapter modelOfClass:[SBUser class]
+                         fromJSONDictionary:customerValue
+                                      error:nil];
+    } reverseBlock:^id(id customerModelValue) {
+        if ([customerModelValue isKindOfClass:[NSNumber class]]) {
+            return customerModelValue;
+        }
+        return [MTLJSONAdapter JSONDictionaryFromModel:customerModelValue];
+    }];
+}
+
 + (MTLValueTransformer *)userJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id userValue) {
         if ([userValue isKindOfClass:[NSDictionary class]]) {
