@@ -38,7 +38,7 @@
     self.instructions = [[NSMutableArray alloc] init];
 }
 
-- (RACSignal*)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack))transformToApply {
+- (RACSignal*)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack, CGAffineTransform preferredTransform))transformToApply {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
@@ -50,7 +50,7 @@
         // Apply a transformation to the video if one has been given. If a transformation is given it is combined
         // with the preferred transform contained in the incoming video track
         if(transformToApply) {
-            [layerInstruction setTransform:CGAffineTransformConcat(videoTrack.preferredTransform, transformToApply(videoTrack))
+            [layerInstruction setTransform:transformToApply(videoTrack, videoTrack.preferredTransform)
                                     atTime:kCMTimeZero];
         }
         else {

@@ -38,6 +38,9 @@
 
 @property (nonatomic, assign) BOOL paused;
 
+@property (nonatomic) CGSize renderSize;
+@property (nonatomic, copy) NSString *exportPreset;
+
 @end
 
 @implementation SBVideoManager
@@ -96,6 +99,18 @@
     [self endNotificationObservers];
 }
 
+//sets the lowest render size to @renderSize property.
+//@renderSize is used later in outputing the video
+//useful when switching between front and rear camera
+//and need to downgrade resolution for rear camera videos
+- (void) updateRenderSize {
+    CGSize current = self.captureSession.renderSize;
+    if (current.width < self.renderSize.width && current.height < self.renderSize.height) {
+        self.renderSize = current;
+        self.exportPreset = self.captureSession.exportPreset;
+    }
+}
+
 - (void)startRecording {
     [self.temporaryFileURLs removeAllObjects];
     
@@ -113,6 +128,8 @@
     [self.temporaryFileURLs addObject:outputFileURL];
     
     self.movieFileOutput.maxRecordedDuration = (_maxDuration > 0) ? CMTimeMakeWithSeconds(_maxDuration, 600) : kCMTimeInvalid;
+    self.renderSize = self.captureSession.renderSize;
+    self.exportPreset = self.captureSession.exportPreset;
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
 }
 
@@ -141,6 +158,7 @@
         self.movieFileOutput.maxRecordedDuration = kCMTimeInvalid;
     }
     
+    [self updateRenderSize];
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
     return YES;
 }
@@ -194,8 +212,7 @@
             [self pauseRecording];
         }
         
-        __block NSError *error;
-        if([finalVideoLocationURL checkResourceIsReachableAndReturnError:&error]) {
+        if([finalVideoLocationURL checkResourceIsReachableAndReturnError:nil]) {
             [subscriber sendError:[NSError errorWithDomain:@"Output file already exists." code:104 userInfo:nil]];
             return nil;
         }
@@ -204,24 +221,25 @@
             [subscriber sendError:[NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]];
             return nil;
         }
-                
         
-        error = nil;
+        CGSize renderSize = self.renderSize;
+        
         [self.stitcher reset];
         [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
             @strongify(self);
-            [[self.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:nil] subscribeError:^(NSError *e) {
-                error = e;
+            [[self.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:^CGAffineTransform(AVAssetTrack *videoTrack, CGAffineTransform preferredTransform) {
+//                if (preferredTransform.tx >= renderSize.height)
+//                    return CGAffineTransformConcat(CGAffineTransformMake(0, 1, -1, 0, renderSize.height, 0), CGAffineTransformMakeTranslation(0, -(1080-renderSize.height)));
+                return preferredTransform;
+            }] subscribeError:^(NSError *error) {
+                if(error) {
+                    [subscriber sendError:error];
+                }
             }];
         }];
         
-        if(error) {
-            [subscriber sendError:error];
-            return nil;
-        }
         
-        CGSize renderSize = [self.captureSession renderSize];
-        [[self.stitcher exportTo:finalVideoLocationURL renderSize:renderSize preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
+        [[self.stitcher exportTo:finalVideoLocationURL renderSize:renderSize preset:self.exportPreset] subscribeNext:^(NSURL *outputURL) {
             @strongify(self);
             [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *e) {

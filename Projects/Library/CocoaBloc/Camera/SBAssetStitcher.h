@@ -18,7 +18,7 @@
 
 - (void) reset;
 
-- (RACSignal*)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack))transformToApply;
+- (RACSignal*)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack, CGAffineTransform preferredTransform))transformToApply;
 
 - (RACSignal*)exportTo:(NSURL *)outputFile renderSize:(CGSize)size preset:(NSString *)preset;
 
