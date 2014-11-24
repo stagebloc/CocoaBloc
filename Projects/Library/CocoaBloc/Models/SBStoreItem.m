@@ -23,19 +23,6 @@
 
 @end
 
-@implementation SBStoreItemShippingProvider
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-    NSDictionary *map =
-  	@{
-      @"name" : @"name",
-      @"price": @"price"
-    };
-    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:map];
-}
-
-@end
-
 @implementation SBStoreItemOption
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -76,7 +63,6 @@
       @"options"			: @"options",
       @"photos"				: @"photos",
       @"priceConfigurations": @"prices",
-      @"shippingProviders"	: @"shipping_providers",
       @"shortURL"			: @"short_url",
       @"photoID"			: @"photo",
       @"soldOut"			: @"sold_out",
@@ -141,16 +127,6 @@
                                        error:nil];
     } reverseBlock:^id(NSArray *optionModels) {
         return [MTLJSONAdapter JSONArrayFromModels:optionModels];
-    }];
-}
-
-+ (MTLValueTransformer *)shippingProvidersJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSArray *jsonArray) {
-        return [MTLJSONAdapter modelsOfClass:[SBStoreItemShippingProvider class]
-                               fromJSONArray:jsonArray
-                                       error:nil];
-    } reverseBlock:^id(NSArray *modelArray) {
-        return [MTLJSONAdapter JSONArrayFromModels:modelArray];
     }];
 }
 

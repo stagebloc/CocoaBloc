@@ -17,13 +17,6 @@
 
 @end
 
-@interface SBStoreItemShippingProvider : SBObject <MTLJSONSerializing>
-
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic) NSNumber *price;
-
-@end
-
 @interface SBStoreItemOption : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic) NSNumber *height;
@@ -60,7 +53,6 @@
 @property (nonatomic) NSURL *shortURL;
 @property (nonatomic) NSNumber *soldOut;
 @property (nonatomic) NSArray *priceConfigurations;
-@property (nonatomic) NSArray *shippingProviders;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) NSString *type;
 

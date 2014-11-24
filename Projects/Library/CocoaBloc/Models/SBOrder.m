@@ -41,7 +41,7 @@
         if ([customerModelValue isKindOfClass:[NSNumber class]]) {
             return customerModelValue;
         }
-        return [MTLJSONAdapter JSONDictionaryFromModel:customerModelValue];
+        return customerModelValue == nil ? nil : [MTLJSONAdapter JSONDictionaryFromModel:customerModelValue];
     }];
 }
 
