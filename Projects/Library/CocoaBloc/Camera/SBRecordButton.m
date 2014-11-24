@@ -126,7 +126,7 @@
 #pragma mark - Animations
 - (void)scaleToBig {
     self.transform = CGAffineTransformMakeScale(1, 1);
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:0 animations:^{
+    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         self.transform = CGAffineTransformMakeScale(1.2, 1.2);
     } completion:^(BOOL finished) {
         
@@ -134,7 +134,7 @@
 }
 
 - (void)scaleNormal {
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:0 animations:^{
+    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         self.transform = CGAffineTransformMakeScale(1, 1);
     } completion:^(BOOL finished) {
         

@@ -204,13 +204,14 @@
             [subscriber sendError:[NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]];
             return nil;
         }
-        
+
         error = nil;
-        [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
+        [self.stitcher reset];
+        for (NSURL *outputFileURL in self.temporaryFileURLs) {
             [[self.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:nil] subscribeError:^(NSError *e) {
                 error = e;
             }];
-        }];
+        }
         
         if(error) {
             [subscriber sendError:error];

@@ -281,6 +281,15 @@
     self.doubleTapGesture.numberOfTapsRequired = 2;
     self.doubleTapGesture.delegate = self;
     [self addGestureRecognizer:self.doubleTapGesture];
+    
+    self.singleTapGesture.delaysTouchesEnded = NO;
+    self.doubleTapGesture.delaysTouchesEnded = NO;
+    self.swipeLeftGesture.delaysTouchesEnded = NO;
+    self.swipeRightGesture.delaysTouchesEnded = NO;
+    self.singleTapGesture.delaysTouchesBegan = NO;
+    self.doubleTapGesture.delaysTouchesBegan = NO;
+    self.swipeLeftGesture.delaysTouchesBegan = NO;
+    self.swipeRightGesture.delaysTouchesBegan = NO;
 
     [self.singleTapGesture requireGestureRecognizerToFail:self.doubleTapGesture];
     
@@ -423,9 +432,7 @@
 
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (touch.view == self.recordButton)
-        return NO;
-    return YES;
+    return !(touch.view == self.recordButton || touch.view == self.bottomHudView || touch.view == self.topHudView);
 }
 
 #pragma mark - Animations
