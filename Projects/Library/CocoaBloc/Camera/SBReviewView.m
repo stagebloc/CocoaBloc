@@ -15,6 +15,12 @@ static NSTimeInterval const kAnimationDuration = 0.35f;
 static CGFloat const kAnimationDamping = 0.8f;
 static CGFloat const kAnimationVelocity = 0.5f;
 
+@interface SBReviewView ()
+
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+
+@end
+
 @implementation SBReviewView
 
 #pragma mark - Getters/Setters
@@ -139,9 +145,9 @@ static CGFloat const kAnimationVelocity = 0.5f;
         @weakify(self)
         
         //gestures
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-        [self addGestureRecognizer:tap];
-        [[tap rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
+        self.tapGesture = [[UITapGestureRecognizer alloc] init];
+        [self addGestureRecognizer:self.tapGesture];
+        [[self.tapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
             @strongify(self);
             if (self.descriptionField.isEditing || self.titleField.isEditing) {
                 [self endEditing:YES];
@@ -275,6 +281,11 @@ static CGFloat const kAnimationVelocity = 0.5f;
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self endEditing:YES];
     return YES;
+}
+
+#pragma mark - Signals
+- (RACSignal*) tapSignal {
+    return self.tapGesture.rac_gestureSignal;
 }
 
 #pragma mark - Animations

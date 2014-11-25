@@ -59,7 +59,6 @@
     [self.reviewView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
     [self.reviewView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
     
-    
     [self.reviewView.rejectButton addTarget:self action:@selector(rejectButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.reviewView.acceptButton addTarget:self action:@selector(acceptButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.reviewView.undoButton addTarget:self action:@selector(undoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];

@@ -7,10 +7,14 @@
 //
 
 #import "SBVideoReviewView.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @import AVFoundation;
 
 @interface SBVideoReviewView ()
+
+@property (nonatomic, assign, getter=isPlaying) BOOL playing;
 
 @end
 
@@ -42,13 +46,52 @@
                                                  selector:@selector(playerItemReachedEnd:)
                                                      name:AVPlayerItemDidPlayToEndTimeNotification
                                                    object:nil];
+        
+        
+        @weakify(self);
+        RAC(self, playing) = [RACObserve(self.playerLayer.player, rate) map:^NSNumber*(NSNumber *value) {
+            return value.floatValue == 0 ? @NO : @YES;
+        }];
+        
+        [RACObserve(self, playing) subscribeNext:^(NSNumber *playing) {
+            if (playing.boolValue)
+                self.currentLayout = SCTextFieldLayoutHidden;
+        }];
+        
+        [self.tapSignal subscribeNext:^(UITapGestureRecognizer *gesture) {
+            @strongify(self);
+            if (self.isPlaying) {
+                [self.playerLayer.player pause];
+            } else {
+                [self.playerLayer.player play];
+            }
+        }];
+        
+        [self play];
     }
     return self;
 }
 
-#pragma mark - Notifications 
+#pragma mark - Video State
+- (void) play {
+    [self.playerLayer.player play];
+}
+
+- (void) pause {
+    [self.playerLayer.player pause];
+}
+
+- (void) restart {
+    @weakify(self);
+    [self.playerLayer.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+        @strongify(self);
+        [self.playerLayer.player play];
+    }];
+}
+
+#pragma mark - Notifications
 - (void) playerItemReachedEnd:(NSNotification*)notification {
-    NSLog(@"did reach end of video playback");
+    [self restart];
 }
 
 @end

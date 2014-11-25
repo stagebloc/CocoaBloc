@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class RACSignal;
+
 typedef NS_ENUM(NSUInteger, SCTextFieldLayout) {
     SCTextFieldLayoutHidden = 0,
     SCTextFieldLayoutTitle,
@@ -30,5 +32,7 @@ typedef NS_ENUM(NSUInteger, SCTextFieldLayout) {
 @property (strong, nonatomic) NSArray *toolbarConstraints;
 
 @property (nonatomic, assign) SCTextFieldLayout currentLayout;
+
+- (RACSignal*) tapSignal;
 
 @end

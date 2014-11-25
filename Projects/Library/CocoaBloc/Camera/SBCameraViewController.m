@@ -316,27 +316,12 @@
         NSLog(@"Saved locally");
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
+            [self.overlayHud dismiss];
             SBReviewController *controller = [[SBReviewController alloc] initWithVideoURL:saveURL];
             controller.delegate = self;
             [self.navigationController pushViewController:controller animated:YES];
         });
 
-//        [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:saveURL completionBlock:^(NSURL *assetURL, NSError *error) {
-//            @strongify(self);
-//            if (error) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self.overlayHud dismissAfterError:@"Error saving to library"];
-//                });
-//                NSLog(@"couldn't save to library - %@", error.localizedDescription);
-//                return;
-//            }
-//            
-//            NSLog(@"saved to library");
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.overlayHud dismissAfterText:@"Saved to library"];
-//                SBReviewController *controller = [[SBReviewController alloc] initWithVideoURL:saveURL]
-//            });
-//        }];
     } error:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
