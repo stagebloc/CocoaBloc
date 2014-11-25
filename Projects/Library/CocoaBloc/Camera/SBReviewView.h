@@ -10,10 +10,10 @@
 
 @class RACSignal;
 
-typedef NS_ENUM(NSUInteger, SCTextFieldLayout) {
-    SCTextFieldLayoutHidden = 0,
-    SCTextFieldLayoutTitle,
-    SCTextFieldLayoutTitleDescription
+typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
+    SBTextFieldLayoutHidden = 0,
+    SBTextFieldLayoutTitle,
+    SBTextFieldLayoutTitleDescription
 };
 
 @interface SBReviewView : UIView  <UITextFieldDelegate>
@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, SCTextFieldLayout) {
 @property (strong, nonatomic) UIView *line;
 @property (strong, nonatomic) NSArray *toolbarConstraints;
 
-@property (nonatomic, assign) SCTextFieldLayout currentLayout;
+@property (nonatomic, assign) SBTextFieldLayout currentLayout;
 
 - (RACSignal*) tapSignal;
 

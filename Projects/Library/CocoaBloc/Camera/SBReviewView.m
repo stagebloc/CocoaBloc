@@ -118,7 +118,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [self.toolBar addSubview:self.titleField];
         [self.toolBar addSubview:self.descriptionField];
         [self.toolBar addSubview:self.line];
-        [self adjustToolBarConstraints:SCTextFieldLayoutHidden];
+        [self adjustToolBarConstraints:SBTextFieldLayoutHidden];
         
         //buttons
         [self addSubview:self.acceptButton];
@@ -154,25 +154,25 @@ static CGFloat const kAnimationVelocity = 0.5f;
                 return;
             }
             
-            if (self.currentLayout == SCTextFieldLayoutHidden) {
+            if (self.currentLayout == SBTextFieldLayoutHidden) {
                 if (self.titleField.text.length > 0) {
-                    self.currentLayout = SCTextFieldLayoutTitleDescription;
+                    self.currentLayout = SBTextFieldLayoutTitleDescription;
                 } else {
-                    self.currentLayout = SCTextFieldLayoutTitle;
+                    self.currentLayout = SBTextFieldLayoutTitle;
                 }
             } else {
-                self.currentLayout = SCTextFieldLayoutHidden;
+                self.currentLayout = SBTextFieldLayoutHidden;
             }
         }];
         
         [[self.titleField.rac_textSignal skip:1] subscribeNext:^(NSString *text) {
             @strongify(self);
             if (text.length == 0) {
-                self.currentLayout = SCTextFieldLayoutTitle;
+                self.currentLayout = SBTextFieldLayoutTitle;
                 self.descriptionField.text = nil;
                 self.descriptionField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Description" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
             } else {
-                self.currentLayout = SCTextFieldLayoutTitleDescription;
+                self.currentLayout = SBTextFieldLayoutTitleDescription;
             }
         }];
         
@@ -193,7 +193,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
 }
 
 #pragma mark - Layout
-- (void) setCurrentLayout:(SCTextFieldLayout)currentLayout {
+- (void) setCurrentLayout:(SBTextFieldLayout)currentLayout {
     [self willChangeValueForKey:@"currentLayout"];
     _currentLayout = currentLayout;
     [self didChangeValueForKey:@"currentLayout"];
@@ -201,7 +201,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
     [self animateLayoutChange];
 }
 
-- (void) adjustToolBarConstraints:(SCTextFieldLayout)layoutType {
+- (void) adjustToolBarConstraints:(SBTextFieldLayout)layoutType {
     [self.toolbarConstraints autoRemoveConstraints];
     
     NSMutableArray *constraints = [NSMutableArray array];
@@ -213,12 +213,12 @@ static CGFloat const kAnimationVelocity = 0.5f;
     self.titleField.hidden = NO;
     self.line.hidden = NO;
     switch (layoutType) {
-        case SCTextFieldLayoutTitle:
+        case SBTextFieldLayoutTitle:
             height = 50 + offset;
             self.descriptionField.hidden = YES;
             self.line.hidden = YES;
             break;
-        case SCTextFieldLayoutTitleDescription:
+        case SBTextFieldLayoutTitleDescription:
             break;
         default: //hidden
             offset = height;

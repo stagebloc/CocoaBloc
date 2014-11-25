@@ -55,7 +55,7 @@
         
         [RACObserve(self, playing) subscribeNext:^(NSNumber *playing) {
             if (playing.boolValue)
-                self.currentLayout = SCTextFieldLayoutHidden;
+                self.currentLayout = SBTextFieldLayoutHidden;
         }];
         
         [self.tapSignal subscribeNext:^(UITapGestureRecognizer *gesture) {
