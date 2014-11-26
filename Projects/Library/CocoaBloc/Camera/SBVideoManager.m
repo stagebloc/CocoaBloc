@@ -227,7 +227,7 @@
         [self.stitcher reset];
         [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
             @strongify(self);
-            [[self.stitcher addAsset:[AVURLAsset assetWithURL:outputFileURL] transformation:^CGAffineTransform(AVAssetTrack *videoTrack, CGAffineTransform preferredTransform) {
+            [[self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:outputFileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}] transformation:^CGAffineTransform(AVAssetTrack *videoTrack, CGAffineTransform preferredTransform) {
 //                if (preferredTransform.tx >= renderSize.height)
 //                    return CGAffineTransformConcat(CGAffineTransformMake(0, 1, -1, 0, renderSize.height, 0), CGAffineTransformMakeTranslation(0, -(1080-renderSize.height)));
                 return preferredTransform;

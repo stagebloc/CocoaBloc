@@ -54,6 +54,7 @@
         }];
         
         [RACObserve(self, playing) subscribeNext:^(NSNumber *playing) {
+            @strongify(self);
             if (playing.boolValue)
                 self.currentLayout = SBTextFieldLayoutHidden;
         }];
@@ -70,6 +71,11 @@
         [self play];
     }
     return self;
+}
+
+- (void)dealloc {
+    self.playerLayer.player = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Video State
