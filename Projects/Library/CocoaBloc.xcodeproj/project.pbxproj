@@ -633,6 +633,8 @@
 				4D224DC91A0919B6007DF1D1 /* SBAssetGroup.m */,
 				4D224DCA1A0919B6007DF1D1 /* SBAssetsManager.h */,
 				4D224DCB1A0919B6007DF1D1 /* SBAssetsManager.m */,
+				4D06DA871A16665700EE3926 /* SBAssetStitcher.h */,
+				4D06DA881A16665700EE3926 /* SBAssetStitcher.m */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -648,8 +650,6 @@
 				4D224DDA1A0919B6007DF1D1 /* SBPhotoManager.m */,
 				4D224DDF1A0919B6007DF1D1 /* SBVideoManager.h */,
 				4D224DE01A0919B6007DF1D1 /* SBVideoManager.m */,
-				4D06DA871A16665700EE3926 /* SBAssetStitcher.h */,
-				4D06DA881A16665700EE3926 /* SBAssetStitcher.m */,
 			);
 			name = Capture;
 			sourceTree = "<group>";

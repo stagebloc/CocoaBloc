@@ -4,7 +4,6 @@
 //
 //  Created by Mark Glagola on 11/14/14.
 //  Copyright (c) 2014 StageBloc. All rights reserved.
-//  Source code taken & modified from https://github.com/carsonmcdonald/iOSVideoCameraMultiStitchExample 11/14/2014 - MIT LICENSE
 //
 
 #import "SBAssetStitcher.h"
@@ -17,7 +16,6 @@
 @property (nonatomic, strong) AVMutableComposition *composition;
 @property (nonatomic, strong) AVMutableCompositionTrack *compositionVideoTrack;
 @property (nonatomic, strong) AVMutableCompositionTrack *compositionAudioTrack;
-@property (nonatomic, strong) NSMutableArray *instructions;
 
 @end
 
@@ -35,48 +33,38 @@
     self.composition = [AVMutableComposition composition];
     self.compositionVideoTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     self.compositionAudioTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-    self.instructions = [[NSMutableArray alloc] init];
 }
 
-- (RACSignal*)addAsset:(AVURLAsset *)asset transformation:(CGAffineTransform (^)(AVAssetTrack *videoTrack, CGAffineTransform preferredTransform))transformToApply {
+- (CGAffineTransform) tranformForOrientation {
+    switch (self.orientation) {
+        case AVCaptureVideoOrientationPortrait:
+            return CGAffineTransformMakeRotation(M_PI_2);
+        case AVCaptureVideoOrientationLandscapeRight:
+            return CGAffineTransformMakeRotation(M_PI);
+        case AVCaptureVideoOrientationPortraitUpsideDown:
+            return CGAffineTransformMakeRotation(M_PI*2);
+        default: //AVCaptureVideoOrientationLandscapeLeft
+            return CGAffineTransformMakeRotation(0);
+    }
+}
+
+- (RACSignal*)addAsset:(AVURLAsset *)asset {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
-        AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-        
-        AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
-        AVMutableVideoCompositionLayerInstruction *layerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:self.compositionVideoTrack];
-        
-        // Apply a transformation to the video if one has been given. If a transformation is given it is combined
-        // with the preferred transform contained in the incoming video track
-        if(transformToApply) {
-            [layerInstruction setTransform:transformToApply(videoTrack, videoTrack.preferredTransform)
-                                    atTime:kCMTimeZero];
-        }
-        else {
-            [layerInstruction setTransform:videoTrack.preferredTransform
-                                    atTime:kCMTimeZero];
-        }
-        
-        instruction.layerInstructions = @[layerInstruction];
-        
-        __block CMTime startTime = kCMTimeZero;
-        [self.instructions enumerateObjectsUsingBlock:^(AVMutableVideoCompositionInstruction *previousInstruction, NSUInteger idx, BOOL *stop) {
-            startTime = CMTimeAdd(startTime, previousInstruction.timeRange.duration);
-        }];
-        instruction.timeRange = CMTimeRangeMake(startTime, asset.duration);
-        [self.instructions addObject:instruction];
+        AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
+        AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
+        CMTimeRange timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration);
         
         NSError *error;
-        [self.compositionVideoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration) ofTrack:videoTrack atTime:kCMTimeZero error:&error];
-        
+        [self.compositionVideoTrack insertTimeRange:timeRange ofTrack:videoTrack atTime:kCMTimeZero error:&error];
         if (error) {
             [subscriber sendError:error];
             return nil;
         }
         
-        AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0];
-        [self.compositionAudioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration) ofTrack:audioTrack atTime:kCMTimeZero error:&error];
+        error = nil;
+        [self.compositionAudioTrack insertTimeRange:timeRange ofTrack:audioTrack atTime:kCMTimeZero error:&error];
         
         if(error) {
             [subscriber sendError:error];
@@ -89,44 +77,40 @@
     }];
 }
 
-- (RACSignal*)exportTo:(NSURL *)outputFile renderSize:(CGSize)size preset:(NSString *)preset {
+- (AVMutableVideoComposition *) getVideoComposition {
+}
+
+- (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
-        CGSize renderSize = (self.orientation == AVCaptureVideoOrientationPortrait || self.orientation == AVCaptureVideoOrientationPortraitUpsideDown) ? CGSizeMake(size.height, size.width) : size;
         
-        AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoComposition];
-        videoComposition.instructions = self.instructions;
-        videoComposition.renderSize = renderSize;
-        videoComposition.renderScale = 1;
-        videoComposition.frameDuration = CMTimeMake(1, 30);
+        self.compositionVideoTrack.preferredTransform = [self tranformForOrientation];
         
         AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
-        NSParameterAssert(exporter != nil);
-        
+        exporter.outputURL = outputFileURL;
         exporter.outputFileType = AVFileTypeMPEG4;
-        exporter.videoComposition = videoComposition;
-        exporter.outputURL = outputFile;
-        
+        exporter.shouldOptimizeForNetworkUse = YES;
         [exporter exportAsynchronouslyWithCompletionHandler:^{
+            NSError *error = exporter.error;
+            
             switch([exporter status]) {
                 case AVAssetExportSessionStatusFailed:
-                    [subscriber sendError:exporter.error];
+                    [subscriber sendError:error];
                     break;
                 case AVAssetExportSessionStatusCancelled:
                     [subscriber sendError:[NSError errorWithDomain:@"Export cancelled" code:100 userInfo:nil]];
                     break;
                 case AVAssetExportSessionStatusCompleted:
-                    [subscriber sendNext:outputFile];
+                    [subscriber sendNext:outputFileURL];
                     [subscriber sendCompleted];
                     break;
                 default:
                     [subscriber sendError:[NSError errorWithDomain:@"Unknown export error" code:100 userInfo:nil]];
                     break;
             }
-            
         }];
-
+        
         return nil;
     }];
 }

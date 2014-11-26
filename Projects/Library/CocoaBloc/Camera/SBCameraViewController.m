@@ -321,7 +321,6 @@
             controller.delegate = self;
             [self.navigationController pushViewController:controller animated:YES];
         });
-
     } error:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);

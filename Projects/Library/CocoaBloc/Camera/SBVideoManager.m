@@ -38,9 +38,6 @@
 
 @property (nonatomic, assign) BOOL paused;
 
-@property (nonatomic) CGSize renderSize;
-@property (nonatomic, copy) NSString *exportPreset;
-
 @end
 
 @implementation SBVideoManager
@@ -99,18 +96,6 @@
     [self endNotificationObservers];
 }
 
-//sets the lowest render size to @renderSize property.
-//@renderSize is used later in outputing the video
-//useful when switching between front and rear camera
-//and need to downgrade resolution for rear camera videos
-- (void) updateRenderSize {
-    CGSize current = self.captureSession.renderSize;
-    if (current.width < self.renderSize.width && current.height < self.renderSize.height) {
-        self.renderSize = current;
-        self.exportPreset = self.captureSession.exportPreset;
-    }
-}
-
 - (void)startRecording {
     [self.temporaryFileURLs removeAllObjects];
     
@@ -128,8 +113,6 @@
     [self.temporaryFileURLs addObject:outputFileURL];
     
     self.movieFileOutput.maxRecordedDuration = (_maxDuration > 0) ? CMTimeMakeWithSeconds(_maxDuration, 600) : kCMTimeInvalid;
-    self.renderSize = self.captureSession.renderSize;
-    self.exportPreset = self.captureSession.exportPreset;
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
 }
 
@@ -158,7 +141,6 @@
         self.movieFileOutput.maxRecordedDuration = kCMTimeInvalid;
     }
     
-    [self updateRenderSize];
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
     return YES;
 }
@@ -170,6 +152,7 @@
     
     [self cleanTemporaryFiles];
     [self.temporaryFileURLs removeAllObjects];
+    [self.stitcher reset];
     self.currentFinalDurration = kCMTimeZero;
     
     self.paused = NO;
@@ -222,28 +205,20 @@
             return nil;
         }
         
-        CGSize renderSize = self.renderSize;
-        
         [self.stitcher reset];
         [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
             @strongify(self);
-            [[self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:outputFileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}] transformation:^CGAffineTransform(AVAssetTrack *videoTrack, CGAffineTransform preferredTransform) {
-//                if (preferredTransform.tx >= renderSize.height)
-//                    return CGAffineTransformConcat(CGAffineTransformMake(0, 1, -1, 0, renderSize.height, 0), CGAffineTransformMakeTranslation(0, -(1080-renderSize.height)));
-                return preferredTransform;
-            }] subscribeError:^(NSError *error) {
+            [[self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:outputFileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}]] subscribeError:^(NSError *error) {
                 if(error) {
                     [subscriber sendError:error];
                 }
             }];
         }];
         
-        
-        [[self.stitcher exportTo:finalVideoLocationURL renderSize:renderSize preset:self.exportPreset] subscribeNext:^(NSURL *outputURL) {
-            @strongify(self);
+        [[self.stitcher exportTo:finalVideoLocationURL preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];
-        } error:^(NSError *e) {
-            [subscriber sendError:e];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
         } completed:^{
             [self reset];
             [subscriber sendCompleted];

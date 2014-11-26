@@ -11,18 +11,26 @@
 @implementation AVCaptureSession (Extension)
 
 - (NSString*) bestSessionPreset {
-    if ([self canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
-        return AVCaptureSessionPreset1920x1080;
-    } else if ([self canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
-        return AVCaptureSessionPreset1280x720;
-    } else if ([self canSetSessionPreset:AVCaptureSessionPreset640x480]) {
-        return AVCaptureSessionPreset640x480;
-    } else if ([self canSetSessionPreset:AVCaptureSessionPreset352x288]) {
-        return AVCaptureSessionPreset352x288;
-    } else {
-        NSLog(@"Cannot set any session preset");
-        return nil;
+    if ([self canSetSessionPreset:AVCaptureSessionPresetHigh]) {
+        return AVCaptureSessionPresetHigh;
+    } else if ([self canSetSessionPreset:AVCaptureSessionPresetMedium]) {
+        return AVCaptureSessionPresetMedium;
+    } else if ([self canSetSessionPreset:AVCaptureSessionPresetLow]) {
+        return AVCaptureSessionPresetLow;
     }
+    
+//    else if ([self canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
+//        return AVCaptureSessionPreset1920x1080;
+//    } else if ([self canSetSessionPreset:AVCaptureSessionPreset1280x720]) {
+//        return AVCaptureSessionPreset1280x720;
+//    } else if ([self canSetSessionPreset:AVCaptureSessionPreset640x480]) {
+//        return AVCaptureSessionPreset640x480;
+//    } else if ([self canSetSessionPreset:AVCaptureSessionPreset352x288]) {
+//        return AVCaptureSessionPreset352x288;
+//    }
+    
+    NSLog(@"Cannot set any session preset");
+    return nil;
 }
 
 - (CGSize) renderSize {
@@ -41,16 +49,21 @@
 }
 
 - (NSString*) exportPreset {
-    if ([self.sessionPreset isEqualToString:AVCaptureSessionPreset1920x1080]) {
+    if ([self.sessionPreset isEqualToString:AVCaptureSessionPresetHigh]) {
+        return AVAssetExportPresetHighestQuality;
+    } else if ([self.sessionPreset isEqualToString:AVCaptureSessionPresetMedium]) {
+        return AVAssetExportPresetMediumQuality;
+    } else if ([self.sessionPreset isEqualToString:AVCaptureSessionPresetLow]) {
+        return AVAssetExportPresetLowQuality;
+    } else if ([self.sessionPreset isEqualToString:AVCaptureSessionPreset1920x1080]) {
         return AVAssetExportPreset1920x1080;
     } else if ([self.sessionPreset isEqualToString:AVCaptureSessionPreset1280x720]) {
         return AVAssetExportPreset1280x720;
     } else if ([self.sessionPreset isEqualToString:AVCaptureSessionPreset640x480]) {
         return AVAssetExportPreset640x480;
-    } else {
-        NSLog(@"Cannot find equal export preset");
-        return nil;
     }
+    NSLog(@"Cannot find equal export preset");
+    return nil;
 }
 
 @end
