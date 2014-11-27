@@ -43,7 +43,8 @@
 /*!
  
  @param accountId the ID of the parent account
+ @param type a specific type of child account to get (optional)
  */
-- (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId;
+- (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId withType:(NSString *)type;
 
 @end
