@@ -42,7 +42,8 @@
 
 /*!
  
+ @param accountId the ID of the parent account
  */
-- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account;
+- (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId;
 
 @end
