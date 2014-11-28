@@ -20,7 +20,11 @@
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         // Screen aspect ratio / image aspect ratio x screen width -> fit image height to screen and set scrollview content width
         self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        
+        self.scrollView.delegate = self;
+        self.scrollView.minimumZoomScale = 1.0;
+        self.scrollView.maximumZoomScale = 4.0;
+        self.scrollView.zoomScale = 1;
+
         [self insertSubview:self.scrollView atIndex:0];
         [self.scrollView autoCenterInSuperview];
         [self.scrollView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
@@ -32,6 +36,11 @@
         [self.imageView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.scrollView];
     }
     return self;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.imageView;
 }
 
 @end

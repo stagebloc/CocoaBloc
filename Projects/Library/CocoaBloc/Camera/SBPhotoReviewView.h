@@ -8,7 +8,7 @@
 
 #import "SBReviewView.h"
 
-@interface SBPhotoReviewView : SBReviewView
+@interface SBPhotoReviewView : SBReviewView <UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIScrollView *scrollView;
