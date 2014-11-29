@@ -16,7 +16,6 @@
 #import "SBPageView.h"
 #import "SBProgressBar.h"
 #import "SBRecordButton.h"
-#import "SBAlbumViewController.h"
 #import "UIColor+FanClub.h"
 #import "SBVideoManager.h"
 #import "SBPhotoManager.h"
@@ -34,11 +33,19 @@
 @property (nonatomic, strong) SBCaptureManager *captureManager;
 @property (nonatomic, strong) SBCameraView *cameraView;
 
+@property (nonatomic, strong) SBAssetsManager *assetManager;
+
 @property (nonatomic, strong) SBOverlayView *overlayHud;
 
 @end
 
 @implementation SBCameraViewController
+
+- (SBAssetsManager*) assetManager {
+    if (!_assetManager)
+        _assetManager = [[SBAssetsManager alloc] init];
+    return _assetManager;
+}
 
 - (SBCaptureManager*) captureManager {
     if (!_captureManager)
@@ -90,7 +97,6 @@
     @weakify(self);
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
-        NSInteger index = n.integerValue;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
         [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
         [self showBlur];
@@ -260,34 +266,38 @@
 
 #pragma mark - User Actions
 -(void)chooseExistingButtonPressed:(id)sender {
-    __weak typeof(self) weakSelf = self;
+    @weakify(self);
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
     actionSheet.delegate = (id<UIActionSheetDelegate>)actionSheet;
-    [[actionSheet rac_signalForSelector:@selector(actionSheet:didDismissWithButtonIndex:) fromProtocol:@protocol(UIActionSheetDelegate)] subscribeNext:^(RACTuple *t) {
+    [[[actionSheet rac_signalForSelector:@selector(actionSheet:didDismissWithButtonIndex:) fromProtocol:@protocol(UIActionSheetDelegate)] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(RACTuple *t) {
+        @strongify(self);
         UIActionSheet *a = t.first;
         NSInteger index = [t.second integerValue];
         if (index != a.cancelButtonIndex) {
             if (index == 0) {
-                [[[[SBAssetsManager sharedInstance] fetchLastPhoto] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
+                [[self.assetManager.fetchLastPhoto deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
+                    @strongify(self);
                     SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
                     vc.delegate = self;
-                    [weakSelf.navigationController pushViewController:vc animated:YES];
+                    [self.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
                     NSLog(@"ERROR: %@", error);
                 }];
             } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    SBImagePickerController *picker = [[SBImagePickerController alloc] init];
-                    picker.completionBlock = ^(UIImage *image, NSDictionary *info) {
-                        if (image) {
-                            SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
-                            vc.delegate = self;
-                            [weakSelf.navigationController pushViewController:vc animated:NO];
-                        }
-                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                    };
-                    [weakSelf presentViewController:picker animated:YES completion:nil];
-                });
+                SBImagePickerController *picker = [[SBImagePickerController alloc] init];
+                [[picker imageSelectSignal] subscribeNext:^(UIImage *image) {
+                    @strongify(self);
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    if ([image  isKindOfClass:[UIImage class]]) {
+                        SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
+                        vc.delegate = self;
+                        [self.navigationController pushViewController:vc animated:NO];
+                    }
+                } error:^(NSError *error) {
+                    @strongify(self);
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }];
+                [self presentViewController:picker animated:YES completion:nil];
             }
         }
     }];
@@ -374,7 +384,7 @@
 
 #pragma mark - SBReviewControllerDelegate
 - (void) reviewController:(SBReviewController *)controller acceptedImage:(UIImage *)image title:(NSString *)title description:(NSString *)description {
-//    NSDictionary *info = @{@"title" : title, @"description" : description};
+    NSDictionary *info = @{@"title" : title, @"description" : description};
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
     [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];

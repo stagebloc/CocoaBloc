@@ -9,35 +9,28 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+@class ALAssetsGroup, PHAssetCollection;
+
 @interface SBAssetGroup : NSObject
 
-/**
- * Initialize an SCAssetGroup with an array of either PHAssets or ALAssets.
- * This will automatically create an internal array of SCAssets that can then be accessed.
- */
-- (id)initWithAssets:(NSArray *)assets;
-/**
- * Initialize an SCAssetGroup with either a PHAssetCollection or ALAssetGroup.
- * This will automatically create an internal array of SCAssets that can then be accessed.
- */
-- (id)initWithGroup:(id)group;
++ (instancetype) groupFromAssetCollection:(PHAssetCollection*)assetCollection;
++ (instancetype) groupFromAssetGroup:(ALAssetsGroup*)assetGroup;
++ (instancetype) groupFromPHAssets:(NSArray*)assets;
 
 /**
- * An array of SCAsset objects
- * @warning This will be nil unless the object was initialized using initWithAssets
+ * Initialize an SBAssetGroup with an array of SBAsset objects.
  */
-@property (nonatomic, readonly) NSArray *assets;
+- (instancetype)initWithAssets:(NSArray *)assets;
+
+/**
+ * A set of SBAsset objects
+ */
+@property (nonatomic, readonly) NSSet *assets;
 
 /**
  * The name of the assets group. 
  * It is assumed that if you call initWithAssets, you are building a group from the Camera Roll, so this name will be "Camera Roll"
  */
-@property (nonatomic, readonly) NSString *name;
-
-/**
- * Request an image that depicts a preview of an asset group by size.
- * @param size The width and height of the thumbnail image you want to obtain. This will automatically be scaled appropriately to the current screen.
- */
-- (RACSignal *)requestPreviewImageWithSize:(CGFloat)size;
+@property (nonatomic, copy) NSString *name;
 
 @end

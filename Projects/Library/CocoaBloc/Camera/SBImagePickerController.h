@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SBImagePickerController : UIImagePickerController <UIImagePickerControllerDelegate>
+@interface SBImagePickerController : UIImagePickerController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (nonatomic, copy) void (^completionBlock)(UIImage *image, NSDictionary *info);
+- (RACSignal*) imageSelectSignal;
 
 @end

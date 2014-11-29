@@ -9,17 +9,49 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+@import CoreLocation;
+
+@class PHAsset, ALAsset;
+
+typedef NS_ENUM(NSUInteger, SBAssetType) {
+    SBAssetTypeUnknown = 0,
+    SBAssetTypeImage,
+    SBAssetTypeVideo,
+    SBAssetTypeAudio,
+};
+
 @interface SBAsset : NSObject
+
+@property (nonatomic, assign) SBAssetType type;
+
+/*
+ The pixel width/height of the asset.
+ This may or amy not be set until 
+ */
+@property(nonatomic, assign, readonly) NSUInteger pixelWidth;
+@property(nonatomic, assign, readonly) NSUInteger pixelHeight;
+
+@property(nonatomic, strong, readonly) NSDate *creationDate;
+@property(nonatomic, strong, readonly) NSDate *modificationDate;
+
+/*
+ The location where the asset was captured
+ */
+@property(nonatomic, strong, readonly) CLLocation *location;
+
+/*
+ Duration of the asset if it is a video.
+ Duration is always 0 for non videos.
+ */
+@property(nonatomic, assign, readonly) NSTimeInterval duration;
 
 /**
  * Initialize an SCAsset object with either a PHAsset or ALAsset
  */
-- (instancetype)initWithObject:(id)object;
+- (instancetype)initWithPHAsset:(PHAsset*)asset;
+- (instancetype)initWithALAsset:(ALAsset*)asset;
 
-/**
- * Request an image of the internal asset by size.
- * @param size The size of the image you wish to receive. This parameter will automatically scale to the current screen. Set to CGSizeZero for full resolution.
- */
-- (RACSignal *)requestImageWithSize:(CGSize)size;
+- (RACSignal*) requestImage;
+- (RACSignal*) requestImageWithSize:(CGSize)imageSize;
 
 @end

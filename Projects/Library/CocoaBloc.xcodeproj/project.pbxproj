@@ -57,9 +57,7 @@
 		4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA881A16665700EE3926 /* SBAssetStitcher.m */; };
 		4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */; };
 		4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SBPageView.m */; };
-		4D224DE11A0919B6007DF1D1 /* SBAlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC11A0919B6007DF1D1 /* SBAlbumDetailViewController.m */; };
 		4D224DE21A0919B6007DF1D1 /* SBAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC31A0919B6007DF1D1 /* SBAlbumTableViewCell.m */; };
-		4D224DE31A0919B6007DF1D1 /* SBAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC51A0919B6007DF1D1 /* SBAlbumViewController.m */; };
 		4D224DE41A0919B6007DF1D1 /* SBAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC71A0919B6007DF1D1 /* SBAsset.m */; };
 		4D224DE51A0919B6007DF1D1 /* SBAssetGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC91A0919B6007DF1D1 /* SBAssetGroup.m */; };
 		4D224DE61A0919B6007DF1D1 /* SBAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCB1A0919B6007DF1D1 /* SBAssetsManager.m */; };
@@ -211,12 +209,8 @@
 		4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureSession+Extension.m"; sourceTree = "<group>"; };
 		4D2242091A0D2D3D0065F172 /* SBPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPageView.h; sourceTree = "<group>"; };
 		4D22420A1A0D2D3D0065F172 /* SBPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPageView.m; sourceTree = "<group>"; };
-		4D224DC01A0919B6007DF1D1 /* SBAlbumDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAlbumDetailViewController.h; sourceTree = "<group>"; };
-		4D224DC11A0919B6007DF1D1 /* SBAlbumDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAlbumDetailViewController.m; sourceTree = "<group>"; };
 		4D224DC21A0919B6007DF1D1 /* SBAlbumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAlbumTableViewCell.h; sourceTree = "<group>"; };
 		4D224DC31A0919B6007DF1D1 /* SBAlbumTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAlbumTableViewCell.m; sourceTree = "<group>"; };
-		4D224DC41A0919B6007DF1D1 /* SBAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAlbumViewController.h; sourceTree = "<group>"; };
-		4D224DC51A0919B6007DF1D1 /* SBAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAlbumViewController.m; sourceTree = "<group>"; };
 		4D224DC61A0919B6007DF1D1 /* SBAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAsset.h; sourceTree = "<group>"; };
 		4D224DC71A0919B6007DF1D1 /* SBAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAsset.m; sourceTree = "<group>"; };
 		4D224DC81A0919B6007DF1D1 /* SBAssetGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAssetGroup.h; sourceTree = "<group>"; };
@@ -588,10 +582,6 @@
 		4D224DF11A091ABC007DF1D1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4D224DC01A0919B6007DF1D1 /* SBAlbumDetailViewController.h */,
-				4D224DC11A0919B6007DF1D1 /* SBAlbumDetailViewController.m */,
-				4D224DC41A0919B6007DF1D1 /* SBAlbumViewController.h */,
-				4D224DC51A0919B6007DF1D1 /* SBAlbumViewController.m */,
 				4D224DCC1A0919B6007DF1D1 /* SBCameraViewController.h */,
 				4D224DCD1A0919B6007DF1D1 /* SBCameraViewController.m */,
 				4D224DD51A0919B6007DF1D1 /* SBImagePickerController.h */,
@@ -964,9 +954,7 @@
 				4D224DEE1A0919B6007DF1D1 /* SBProgressBar.m in Sources */,
 				094CB715197B133B00BBF2BE /* SBClient.m in Sources */,
 				4D224DE21A0919B6007DF1D1 /* SBAlbumTableViewCell.m in Sources */,
-				4D224DE31A0919B6007DF1D1 /* SBAlbumViewController.m in Sources */,
 				4D224DE61A0919B6007DF1D1 /* SBAssetsManager.m in Sources */,
-				4D224DE11A0919B6007DF1D1 /* SBAlbumDetailViewController.m in Sources */,
 				4D224DED1A0919B6007DF1D1 /* SBPhotoManager.m in Sources */,
 				4D224DE51A0919B6007DF1D1 /* SBAssetGroup.m in Sources */,
 				090EB81A198800350081D406 /* ModelTests.m in Sources */,

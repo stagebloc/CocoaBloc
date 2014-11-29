@@ -17,10 +17,7 @@
 
 @interface SBAssetsManager : NSObject
 
-+ (SBAssetsManager *)sharedInstance;
-
 -(RACSignal *)fetchLastPhoto;
 -(RACSignal *)fetchAlbums;
--(RACSignal *)fetchPhotosForGroup:(SBAssetGroup *)group;
 
 @end
