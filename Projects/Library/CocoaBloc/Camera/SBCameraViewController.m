@@ -36,5 +36,11 @@
     return self;
 }
 
+- (void) viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.layer.cornerRadius = 5.0f;
+    self.view.layer.masksToBounds = YES;
+}
 
 @end
