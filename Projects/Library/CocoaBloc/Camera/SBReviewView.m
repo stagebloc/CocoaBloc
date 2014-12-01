@@ -143,6 +143,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [self addGestureRecognizer:self.tapGesture];
         [[self.tapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
             @strongify(self);
+            
             if (self.descriptionField.isEditing || self.titleField.isEditing) {
                 [self endEditing:YES];
                 return;
@@ -154,9 +155,13 @@ static CGFloat const kAnimationVelocity = 0.5f;
                 } else {
                     self.currentLayout = SBTextFieldLayoutTitle;
                 }
-            } else {
+            }
+            else {
                 self.currentLayout = SBTextFieldLayoutHidden;
             }
+//            else if (self.currentLayout == SBTextFieldLayoutTitle && self.titleField.text.length == 0){
+//                self.currentLayout = SBTextFieldLayoutHidden;
+//            }
         }];
         
         [[self.titleField.rac_textSignal skip:1] subscribeNext:^(NSString *text) {

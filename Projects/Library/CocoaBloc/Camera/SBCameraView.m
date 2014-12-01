@@ -92,7 +92,7 @@
 - (UIView*) topHudView {
     if (!_topHudView) {
         _topHudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.0f)];
-        _topHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
+//        _topHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
         
         CGFloat const buttonWH = 30;
         CGFloat const buttonOffset = 5.f;
@@ -163,7 +163,7 @@
 - (UIView*) bottomHudView {
     if (!_bottomHudView) {
         _bottomHudView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds), CGRectGetWidth(self.bounds), 0.0f)];
-        _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
+//        _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
         
         CGSize size = CGSizeMake(30, 30);
         CGFloat offset = 15.0f;

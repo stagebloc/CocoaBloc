@@ -394,9 +394,7 @@
 }
 
 - (void) reviewController:(SBReviewController *)controller rejectedAsset:(SBAsset *)asset {
-    if ([self.delegate respondsToSelector:@selector(cameraControllerCancelled:)]) {
-        [self.delegate cameraControllerCancelled:self];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Status bar states
