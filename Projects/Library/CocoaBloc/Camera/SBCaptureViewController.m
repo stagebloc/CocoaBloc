@@ -287,16 +287,20 @@
                 SBImagePickerController *picker = [[SBImagePickerController alloc] init];
                 [[picker imageSelectSignal] subscribeNext:^(UIImage *image) {
                     @strongify(self);
-                    [self dismissViewControllerAnimated:YES completion:nil];
                     if ([image  isKindOfClass:[UIImage class]]) {
                         SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
                         SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
                         vc.delegate = self;
                         [self.navigationController pushViewController:vc animated:NO];
+                        [self dismissViewControllerAnimated:YES completion:nil];
                     }
                 } error:^(NSError *error) {
                     @strongify(self);
                     [self dismissViewControllerAnimated:YES completion:nil];
+                } completed:^{
+                    @strongify(self);
+                    if (self.presentedViewController)
+                        [self dismissViewControllerAnimated:YES completion:nil];
                 }];
                 [self presentViewController:picker animated:YES completion:nil];
             }
