@@ -45,7 +45,6 @@
 - (SBProgressBar*) progressBar {
     if (!_progressBar) {
         _progressBar = [[SBProgressBar alloc] initWithMinValue:0 maxValue:10];
-        _progressBar.progressView.backgroundColor = [UIColor fc_stageblocBlueColor];
     }
     return _progressBar;
 }
