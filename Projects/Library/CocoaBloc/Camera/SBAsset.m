@@ -23,6 +23,9 @@
 
 + (RACSignal*)createAssetFromPHAsset:(PHAsset*)phAsset {
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        RACDisposable *disposable = [[RACDisposable alloc] init];
+        
         SBAssetType type = SBAssetTypeUnknown;
         switch (phAsset.mediaType) {
             case PHAssetMediaTypeImage: type = SBAssetTypeImage; break;
@@ -36,7 +39,7 @@
                               @"pixelHeight": @(phAsset.pixelHeight),
                               @"creationDate": phAsset.creationDate,
                               @"modificationDate": phAsset.modificationDate,
-                              @"location": phAsset.location,
+                              @"location": phAsset.location == nil ? [NSNull null] : phAsset.location,
                               @"duration": @(phAsset.duration),
                               };
         
@@ -47,11 +50,13 @@
             if ([info[PHImageResultIsDegradedKey] isEqual:@NO] || (!info[PHImageResultIsDegradedKey] && result)) {
                 SBAsset *asset = [[SBAsset alloc] initWithImage:result type:type map:map];
                 [subscriber sendNext:asset];
+                [subscriber sendCompleted];
             } else {
                 [subscriber sendError:[NSError errorWithDomain:@"Cannot parse PHAsset" code:101 userInfo:nil]];
             }
+            [disposable dispose];
         }];
-        return nil;
+        return disposable;
     }]
             
     flattenMap:^RACStream *(SBAsset *asset) {
@@ -62,6 +67,7 @@
                 return nil;
             }
 
+            RACDisposable *disposable = [[RACDisposable alloc] init];
             PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
             options.version = PHVideoRequestOptionsVersionCurrent;
             options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
@@ -73,13 +79,16 @@
                 } else {
                     [subscriber sendError:[NSError errorWithDomain:@"Cannot get URL from AVAsset" code:101 userInfo:nil]];
                 }
+                [disposable dispose];
             }];
-            return nil;
+            return disposable;
         }];
     }];
 }
 + (RACSignal*)createAssetFromALAsset:(ALAsset*)alAsset {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        RACDisposable *disposable = [[RACDisposable alloc] init];
+
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             SBAssetType type = SBAssetTypeUnknown;
             NSString *alType = [alAsset valueForKey:ALAssetPropertyType];
@@ -103,8 +112,9 @@
             
             [subscriber sendNext:asset];
             [subscriber sendCompleted];
+            [disposable dispose];
         });
-        return nil;
+        return disposable;
     }];
 }
 

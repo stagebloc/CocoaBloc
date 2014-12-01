@@ -13,9 +13,6 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
-    self.delegate = self;
-    
 }
 
 - (RACSignal*) imageSelectSignal {

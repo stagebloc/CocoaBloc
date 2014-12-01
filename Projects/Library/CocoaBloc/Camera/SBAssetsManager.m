@@ -12,6 +12,7 @@
 #import "SBAsset.h"
 
 #import "UIDevice+StageBloc.h"
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @interface SBAssetsManager ()
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
@@ -33,29 +34,50 @@
 }
 
 -(RACSignal *)fetchLastPhoto {
-    // TODO: Error handling
-     return [[[self fetchAlbums]
-            map:^SBAssetGroup * (NSArray *albums) {
-                SBAssetGroup *group = nil;
-                for (NSInteger i = 0; i < albums.count; i++) {
-                    SBAssetGroup *g = albums[i];
-                    if ([g.name isEqualToString:@"Camera Roll"]) {
-                        group = g;
-                        break;
-                    }
-                }
-                return group.assets;
-            }]
-            flattenMap:^RACStream *(NSArray *assets) {
-                return ((SBAsset *)assets[0]).image;
-            }];
+    return [[[self fetchAlbumsArray] map:^id(NSArray *albums) {
+        SBAssetGroup *group = nil;
+        for (NSInteger i = 0; i < albums.count; i++) {
+            SBAssetGroup *g = albums[i];
+            if ([g.name isEqualToString:@"Camera Roll"]) {
+                group = g;
+                break;
+            }
+        }
+        return group.assets;
+    }] map:^RACStream *(NSSet *assets) {
+        NSArray *array = [assets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]]];
+        SBAsset *asset = array.firstObject;
+        return asset.image;
+    }];
+}
+
+- (RACSignal*) fetchAlbumsArray {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        RACDisposable *disposable = [[RACDisposable alloc] init];
+        NSMutableArray *albums = [NSMutableArray array];
+
+        [[self fetchAlbums] subscribeNext:^(SBAssetGroup *group) {
+            [albums addObject:group];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+            [disposable dispose];
+        } completed:^{
+            [subscriber sendNext:[albums copy]];
+            [subscriber sendCompleted];
+            [disposable dispose];
+        }];
+        
+        return disposable;
+    }];
 }
 
 -(RACSignal *)fetchAlbums {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        
+        RACDisposable *disposable = [[RACDisposable alloc] init];
+
         NSMutableArray *signals = [NSMutableArray array];
-        NSMutableArray *albums = [NSMutableArray array];
 
         if ([[UIDevice currentDevice] isAtLeastiOS:8]) {
             if (![PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
@@ -114,18 +136,17 @@
             }
         }
         
-        
         [[RACSignal merge:signals] subscribeNext:^(SBAssetGroup *group) {
-            [albums addObject:group];
+            [subscriber sendNext:group];
         } error:^(NSError *error) {
-            NSLog(@"Error creating SBAssetGroup - %@", error);
             [subscriber sendError:error];
+            [disposable dispose];
         } completed:^{
-            [subscriber sendNext:albums];
             [subscriber sendCompleted];
+            [disposable dispose];
         }];
         
-        return nil;
+        return disposable;
     }];
 }
 

@@ -109,10 +109,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
 #pragma mark - View State
 - (instancetype) initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        //notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-        
         //toolbar
         [self addSubview:self.toolBar];
         [self.toolBar addSubview:self.titleField];

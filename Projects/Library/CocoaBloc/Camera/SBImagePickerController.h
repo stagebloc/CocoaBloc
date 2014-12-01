@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SBImagePickerController : UIImagePickerController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface SBImagePickerController : UIImagePickerController
 
 - (RACSignal*) imageSelectSignal;
 
