@@ -24,6 +24,7 @@
         self.scrollView.minimumZoomScale = 1.0;
         self.scrollView.maximumZoomScale = 4.0;
         self.scrollView.zoomScale = 1;
+        self.scrollView.contentSize = self.scrollView.frame.size;
 
         [self insertSubview:self.scrollView atIndex:0];
         [self.scrollView autoCenterInSuperview];
