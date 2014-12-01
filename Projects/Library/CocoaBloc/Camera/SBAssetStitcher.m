@@ -77,9 +77,6 @@
     }];
 }
 
-- (AVMutableVideoComposition *) getVideoComposition {
-}
-
 - (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
