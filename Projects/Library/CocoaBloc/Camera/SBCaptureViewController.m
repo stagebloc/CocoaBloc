@@ -132,15 +132,6 @@
         });
     }];
     
-    //hide next button if video time isn't past minimum required time
-    [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(id _) {
-        @strongify(self);
-        return @(!self.captureManager.videoManager.isPastMinDuration);
-    }] subscribeNext:^(NSNumber *hidden) {
-        @strongify(self);
-        self.cameraView.nextButton.hidden = hidden.boolValue;
-    }];
-    
     //enable/disable record button when time is at max duration
     [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(NSNumber* value) {
         @strongify(self);
@@ -163,6 +154,7 @@
         BOOL shouldHidePageView = (elapsed > 0);
         self.cameraView.pageView.hidden = shouldHidePageView;
         self.cameraView.timeLabel.hidden = !shouldHidePageView;
+        self.cameraView.nextButton.hidden = !shouldHidePageView;
     }];
     
     [self.captureManager.captureSession startRunning];
