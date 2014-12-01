@@ -14,7 +14,7 @@
 
 @implementation SBAssetGroup
 
-+ (instancetype) groupFromAssetCollection:(PHAssetCollection*)assetCollection {
++ (RACSignal*) createGroupFromAssetCollection:(PHAssetCollection*)assetCollection {
     PHFetchOptions *options = [PHFetchOptions new];
     options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", (NSInteger)PHAssetMediaTypeImage];
     // Fetch assets that are only images
@@ -22,40 +22,60 @@
     NSArray *temp = [fetch objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, fetch.count)]];
     // Filter our fetched assets to only those that aren't "recently deleted"
     temp = [temp filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"description contains %@", @"assetSource=3"]];
-    // TODO: Create an array of SCAssets build from PHPhoto objects
-    NSMutableArray *assets = [NSMutableArray arrayWithCapacity:temp.count];
-    for (PHAsset *a in temp) {
-        if (a.burstSelectionTypes == PHAssetBurstSelectionTypeNone) {
-            [assets addObject:[[SBAsset alloc] initWithPHAsset:a]];
-        }
-    }
-    
-    SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
-    group.name = assetCollection.localizedTitle;
-    return group;
+    return [self createGroupFromPHAssets:temp name:assetCollection.localizedTitle];
 }
 
-+ (instancetype) groupFromAssetGroup:(ALAssetsGroup*)assetGroup {
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
-    [assetGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-        if (result) [temp addObject:[[SBAsset alloc] initWithALAsset:result]];
++ (RACSignal*) createGroupFromAssetGroup:(ALAssetsGroup*)assetGroup {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+       
+        NSMutableArray *assets = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
+        NSMutableArray *signals = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
+        [assetGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if (result) {
+                [signals addObject:[SBAsset createAssetFromALAsset:result]];
+            }
+        }];
+        
+        [[RACSignal merge:signals] subscribeNext:^(SBAsset *sbAsset) {
+            [assets addObject:sbAsset];
+        } error:^(NSError *error) {
+            NSLog(@"Error creating SBAsset from PHAsset - %@", error);
+            [subscriber sendError:error];
+        } completed:^{
+            SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
+            group.name = [assetGroup valueForKey:ALAssetsGroupPropertyName];
+            [subscriber sendNext:group];
+            [subscriber sendCompleted];
+        }];
+        return nil;
     }];
     
-    SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:temp];
-    group.name = [assetGroup valueForKey:ALAssetsGroupPropertyName];
-    return group;
 }
 
-+ (instancetype) groupFromPHAssets:(NSArray*)assets {
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:assets.count];
-    [assets enumerateObjectsUsingBlock:^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
-        if (asset.burstSelectionTypes == PHAssetBurstSelectionTypeNone) {
-            [array addObject:[[SBAsset alloc] initWithPHAsset:asset]];
++ (RACSignal*) createGroupFromPHAssets:(NSArray*)temp name:(NSString*)name {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSMutableArray *assets = [NSMutableArray arrayWithCapacity:temp.count];
+        NSMutableArray *signals = [NSMutableArray arrayWithCapacity:temp.count];
+        for (PHAsset *a in temp) {
+            if (a.burstSelectionTypes == PHAssetBurstSelectionTypeNone)
+                [signals addObject:[SBAsset createAssetFromPHAsset:a]];
         }
+        
+        [[RACSignal merge:signals] subscribeNext:^(SBAsset *sbAsset) {
+            [assets addObject:sbAsset];
+        } error:^(NSError *error) {
+            NSLog(@"Error creating SBAsset from PHAsset - %@", error);
+            [subscriber sendError:error];
+        } completed:^{
+            SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
+            group.name = name;
+            [subscriber sendNext:group];
+            [subscriber sendCompleted];
+        }];
+        
+        return nil;
     }];
-    SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:array];
-    group.name = @"Camera Roll";
-    return group;
+    
 }
 
 - (instancetype)initWithAssets:(NSArray*)assets {

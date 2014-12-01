@@ -47,12 +47,16 @@
                 return group.assets;
             }]
             flattenMap:^RACStream *(NSArray *assets) {
-                return [((SBAsset *)assets[0]) requestImageWithSize:CGSizeZero];
+                return ((SBAsset *)assets[0]).image;
             }];
 }
 
 -(RACSignal *)fetchAlbums {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        NSMutableArray *signals = [NSMutableArray array];
+        NSMutableArray *albums = [NSMutableArray array];
+
         if ([[UIDevice currentDevice] isAtLeastiOS:8]) {
             if (![PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
                 // TODO: Improve returned error
@@ -60,7 +64,6 @@
                 return nil;
             }
             
-            NSMutableArray *albums = [NSMutableArray arrayWithCapacity:0];
             // Fetch all photos, sort by first created, and filter deleted photos (camera roll album)
             PHFetchOptions *fetchOptions = [PHFetchOptions new];
             fetchOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
@@ -69,7 +72,8 @@
             // Filters deleted images
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"description contains %@", @"assetSource=3"];
             NSArray *filteredArray =  [tempArray filteredArrayUsingPredicate:predicate];
-            [albums addObject:[SBAssetGroup groupFromPHAssets:filteredArray]];
+            
+            [signals addObject:[SBAssetGroup createGroupFromPHAssets:filteredArray name:@"Camera Roll"]];
             
             // Fetch 'smart albums', filter by only ones containing images
             PHFetchResult *fetchSmartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
@@ -77,7 +81,7 @@
                 if (collection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumBursts) {
                     PHFetchResult *smartAlbumResult = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
                     if ([smartAlbumResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] > 0) {
-                        [albums addObject:[SBAssetGroup groupFromAssetCollection:collection]];
+                        [signals addObject:[SBAssetGroup createGroupFromAssetCollection:collection]];
                     }
                 }
             }
@@ -87,29 +91,40 @@
             for (PHAssetCollection *collection in fetchUserAlbums) {
                 PHFetchResult *userAlbumResult = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
                 if ([userAlbumResult countOfAssetsWithMediaType:PHAssetMediaTypeImage] > 0) {
-                    [albums addObject:[SBAssetGroup groupFromAssetCollection:collection]];
+                    [signals addObject:[SBAssetGroup createGroupFromAssetCollection:collection]];
                 }
             }
             
-            [subscriber sendNext:albums];
-            [subscriber sendCompleted];
         }
         
         //ios 7 and lower
         else {
-            NSMutableArray *albums = [NSMutableArray arrayWithCapacity:0];
+            NSMutableArray *albums = [NSMutableArray array];
+            __block NSError *error = nil;
             [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
                 [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-                if (group && [group numberOfAssets] > 0) {
-                    [albums addObject:[SBAssetGroup groupFromAssetGroup:group]];
-                } else {
-                    [subscriber sendNext:albums];
-                    [subscriber sendCompleted];
-                }
-            } failureBlock:^(NSError *error) {
-                [subscriber sendError:error];
+                if (group && [group numberOfAssets] > 0)
+                    [signals addObject:[SBAssetGroup createGroupFromAssetGroup:group]];
+            } failureBlock:^(NSError *e) {
+                error = e;
             }];
+            if (error) {
+                [subscriber sendError:error];
+                return nil;
+            }
         }
+        
+        
+        [[RACSignal merge:signals] subscribeNext:^(SBAssetGroup *group) {
+            [albums addObject:group];
+        } error:^(NSError *error) {
+            NSLog(@"Error creating SBAssetGroup - %@", error);
+            [subscriber sendError:error];
+        } completed:^{
+            [subscriber sendNext:albums];
+            [subscriber sendCompleted];
+        }];
+        
         return nil;
     }];
 }

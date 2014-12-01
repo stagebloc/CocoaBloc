@@ -13,9 +13,9 @@
 
 @interface SBAssetGroup : NSObject
 
-+ (instancetype) groupFromAssetCollection:(PHAssetCollection*)assetCollection;
-+ (instancetype) groupFromAssetGroup:(ALAssetsGroup*)assetGroup;
-+ (instancetype) groupFromPHAssets:(NSArray*)assets;
++ (RACSignal*) createGroupFromAssetCollection:(PHAssetCollection*)assetCollection;
++ (RACSignal*) createGroupFromAssetGroup:(ALAssetsGroup*)assetGroup;
++ (RACSignal*) createGroupFromPHAssets:(NSArray*)temp name:(NSString*)name;
 
 /**
  * Initialize an SBAssetGroup with an array of SBAsset objects.

@@ -25,6 +25,18 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 @property (nonatomic, assign) SBAssetType type;
 
 /*
+ Depending on the @type property, this can be the image
+ representation for the SBAssetTypeImage asset or a full 
+ resolution thumbnail for a SBAssetTypeVideo.
+ */
+@property (nonatomic, strong, readonly) UIImage *image;
+
+/*
+ File URL that isn't guaranteed to be set for SBAssetTypeImage types
+ */
+@property (nonatomic, copy, readonly) NSURL *fileURL;
+
+/*
  The pixel width/height of the asset.
  This may or amy not be set until 
  */
@@ -45,13 +57,9 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
  */
 @property(nonatomic, assign, readonly) NSTimeInterval duration;
 
-/**
- * Initialize an SCAsset object with either a PHAsset or ALAsset
- */
-- (instancetype)initWithPHAsset:(PHAsset*)asset;
-- (instancetype)initWithALAsset:(ALAsset*)asset;
++ (RACSignal*)createAssetFromPHAsset:(PHAsset*)phAsset;
++ (RACSignal*)createAssetFromALAsset:(ALAsset*)alAsset;
 
-- (RACSignal*) requestImage;
-- (RACSignal*) requestImageWithSize:(CGSize)imageSize;
+- (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type map:(NSDictionary*)map;
 
 @end
