@@ -10,6 +10,7 @@
 
 @interface SBAddress : SBObject
 
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *streetAddress;
 @property (nonatomic, copy) NSString *streetAddressTwo;
 @property (nonatomic, copy) NSString *city;

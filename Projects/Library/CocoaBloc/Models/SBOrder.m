@@ -28,23 +28,52 @@
               @"totalUsd"       : @"total_usd"}];
 }
 
++ (MTLValueTransformer *)customerJSONTransformer {
+	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id customerValue) {
+        if ([customerValue isKindOfClass:[NSNumber class]]) { // unexpanded
+            return customerValue;
+        }
+        // else it's the json for the user
+        return [MTLJSONAdapter modelOfClass:[SBUser class]
+                         fromJSONDictionary:customerValue
+                                      error:nil];
+    } reverseBlock:^id(id customerModelValue) {
+        if ([customerModelValue isKindOfClass:[NSNumber class]]) {
+            return customerModelValue;
+        }
+        return customerModelValue == nil ? nil : [MTLJSONAdapter JSONDictionaryFromModel:customerModelValue];
+    }];
+}
+
 + (MTLValueTransformer *)userJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id userValue) {
-        return [MTLJSONAdapter modelOfClass:[SBUser class]
-                         fromJSONDictionary:userValue
-                                      error:nil];
+        if ([userValue isKindOfClass:[NSDictionary class]]) {
+            return [MTLJSONAdapter modelOfClass:[SBUser class]
+                             fromJSONDictionary:userValue
+                                          error:nil];
+        }
+        return userValue;
     } reverseBlock:^id(id userValue) {
-        return [MTLJSONAdapter JSONArrayFromModels:userValue];
+        if ([userValue isKindOfClass:[SBUser class]]) {
+            return [MTLJSONAdapter JSONDictionaryFromModel:userValue];
+        }
+        return userValue;
     }];
 }
 
 + (MTLValueTransformer *)accountJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id accountValue) {
-        return [MTLJSONAdapter modelOfClass:[SBAccount class]
-                         fromJSONDictionary:accountValue
-                                      error:nil];
+        if ([accountValue isKindOfClass:[NSDictionary class]]) {
+            return [MTLJSONAdapter modelOfClass:[SBAccount class]
+                             fromJSONDictionary:accountValue
+                                          error:nil];
+        }
+        return accountValue;
     } reverseBlock:^id(id accountValue) {
-        return [MTLJSONAdapter JSONArrayFromModels:accountValue];
+        if ([accountValue isKindOfClass:[SBAccount class]]) {
+            return [MTLJSONAdapter JSONDictionaryFromModel:accountValue];
+        }
+        return accountValue;
     }];
 }
 
@@ -54,7 +83,7 @@
                              fromJSONDictionary:addressValue
                                           error:nil];
     } reverseBlock:^id(id addressValue) {
-        return [MTLJSONAdapter JSONArrayFromModels:addressValue];
+        return [MTLJSONAdapter JSONDictionaryFromModel:addressValue];
     }];
 }
 
@@ -64,13 +93,13 @@
 
 + (MTLValueTransformer *)dateShippedJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id dateShippedValue) {
-        if ([dateShippedValue isKindOfClass:[NSNumber class]]) {
+        if ([dateShippedValue isKindOfClass:[NSNumber class]]) { // Unshipped items return "false"
             return nil;
         } else {
             return [[NSDateFormatter CocoaBlocJSONDateFormatter] dateFromString:dateShippedValue];
         }
     } reverseBlock:^id(id dateShippedValue) {
-        return [MTLJSONAdapter JSONArrayFromModels:dateShippedValue];
+        return dateShippedValue == nil ? @NO : [[NSDateFormatter CocoaBlocJSONDateFormatter] stringFromDate:dateShippedValue];
     }];
 }
 

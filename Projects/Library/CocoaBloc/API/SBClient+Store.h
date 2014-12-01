@@ -11,13 +11,21 @@
 
 @interface SBClient (Store)
 
+- (RACSignal *)getStoreItemsForAccount:(SBAccount *)account parameters:(NSDictionary *)parameters;
+
 - (RACSignal *)getDashboardData;
 - (RACSignal *)getStoreOrders;
 - (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccount:(SBAccount *)account;
-- (RACSignal *)getStoreItemsForAccount:(SBAccount *)account parameters:(NSDictionary *)parameters;
 - (RACSignal *)connectAccountWithStripeUsingToken:(NSString *)stripeToken;
 - (RACSignal *)updateOrderWithID;
 - (RACSignal *)getShippingRatesForItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address;
-- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address andEmail:(NSString *)email;
+- (RACSignal *)purchaseItems:(NSDictionary *)itemsToPurchase
+                  usingToken:(NSString *)purchaseToken
+                 withAddress:(SBAddress *)address
+             shippingDetails:(NSDictionary *)shippingDetails
+                      totals:(NSDictionary *)totals
+                       notes:(NSString *)notes
+                    andEmail:(NSString *)email
+                  forAccount:(NSNumber *)accountId;
 
 @end

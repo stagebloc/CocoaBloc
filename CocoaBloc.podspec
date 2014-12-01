@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
     s.version = '0.0.4'
     s.authors = { 'John Heaton' => 'pikachu@stagebloc.com',
-                  'Dave Skuza'  => 'neo@stagebloc.com' }
+                  'Josh Holat'  => 'bumblebee@stagebloc.com' }
     s.social_media_url = 'https://twitter.com/StageBloc'
     s.homepage = 'https://github.com/stagebloc/CocoaBloc'
     s.summary = 'StageBloc Cocoa SDK'

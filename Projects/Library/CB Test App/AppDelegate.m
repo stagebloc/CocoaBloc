@@ -7,16 +7,52 @@
 //
 
 #import "AppDelegate.h"
+#import <CocoaBloc/SBAuthenticationViewController.h>
+#import <CocoaBloc.h>
+#import <RACEXTScope.h>
 
 @interface AppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    SBAuthenticationViewController *vc;
+    SBClient *c;
+}
             
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = [UIViewController new];
+    [self.window makeKeyAndVisible];
+
+    [SBClient setClientID:@"de4346e640860eb3d6fd97e11e475d0d" clientSecret:@"c2288f625407c5aff55e41d1fef1ed73" redirectURI:@"theseboots://"];
+
+    c = [SBClient new];
+    vc = [SBAuthenticationViewController new];
+    
+    @weakify(c);
+    [[[vc presentFromParent:self.window.rootViewController]
+     	flattenMap:^RACStream *(NSString *authorizationCode) {
+            @strongify(c);
+            return [c logInWithAuthorizationCode:authorizationCode];
+        }]
+     	subscribeNext:^(SBUser *loggedInUser) {
+            // Success
+        } error:^(NSError *error) {
+            // Handle error
+        } completed:^{
+            // User pressed cancel and dismissed log in view
+        }];
+    
+    /*
+     [[c logInWithAuthorizationCode:x] subscribeNext:^(id x) {
+     
+     } error:^(NSError *error) {
+     
+     }];
+     */
+    
     return YES;
 }
 

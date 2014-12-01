@@ -26,6 +26,9 @@ extern NSString *SBFanClubTierInfoCanSubmitContent;
 extern NSString *SBFanClubTierInfoPrice;
 extern NSString *SBFanClubTierInfoDescription;
 
+// Error handling
+extern NSString *SBAPIErrorResponseObjectKey;			// Deserialized JSON object from server
+
 /*!
  A client object that manages authentication + requests for a single
  StageBloc user.

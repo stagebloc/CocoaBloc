@@ -31,7 +31,6 @@
     SAFE_ASSIGN(SBAPIMethodParameterResultOrderBy);
     SAFE_ASSIGN(@"expand");
 #undef SAFE_ASSIGN
-    
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:[self requestParametersWithParameters:p]]
              	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
 				setNameWithFormat:@"Get store items for account (%@)", account];
@@ -49,12 +48,15 @@
             setNameWithFormat:@"Shipping rates for items: %@", itemsToPurchase];
 }
 
-- (RACSignal *)purchaseItems:(NSArray *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address andEmail:(NSString *)email {
+- (RACSignal *)purchaseItems:(NSDictionary *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address shippingDetails:(NSDictionary *)shippingDetails totals:(NSDictionary *)totals notes:(NSString *)notes andEmail:(NSString *)email forAccount:(NSNumber *)accountId {
     NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-                         @"items": itemsToPurchase,
+                         @"cart": @{@"store": itemsToPurchase},
+                         @"notes": notes,
                          @"token": purchaseToken,
-                         @"address": JSONaddress
+                         @"totals": totals,
+                         @"address": JSONaddress,
+                         @"shipping": shippingDetails
                     }];
 
     if (email == nil) {
@@ -68,7 +70,7 @@
         [params setValue:email forKey:@"email"];
     }
     
-    return [[[self rac_POST:@"store/purchase" parameters:[self requestParametersWithParameters:params]]
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase", accountId] parameters:[self requestParametersWithParameters:params]]
             	cb_deserializeWithClient:self modelClass:[SBOrder class] keyPath:@"data"]
             setNameWithFormat:@"Purchase items: %@", itemsToPurchase];
 }

@@ -12,14 +12,20 @@
 
 /// @name Authentication/Sign Up
 
++ (instancetype)unauthenticatedClient;
++ (instancetype)authenticatedClientWithToken:(NSString *)token;
+
 /*!
  Set the current app's client ID and client secret, which must be
  registered for use with StageBloc.
- 
- @param clientID 		the client ID
- @param clientSecret 	the client secret
  */
-+ (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret;
++ (void)setClientID:(NSString *)clientID clientSecret:(NSString *)clientSecret redirectURI:(NSString *)redirectURI;
+
+/*
+ Complete the log in process with an authorization code from StageBloc,
+ usually obtained from SBAuthenticationController.
+ */
+- (RACSignal *)logInWithAuthorizationCode:(NSString *)authorizationCode;
 
 /*!
  Log in a StageBloc user with the given credentials.
@@ -63,6 +69,6 @@
 
 /// The oauth2 token for the currently authenticated user. This will be sent
 /// in all requests after authentication.
-@property (nonatomic, copy, readonly) NSString *token;
+@property (nonatomic, copy) NSString *token;
 
 @end

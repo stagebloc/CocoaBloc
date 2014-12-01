@@ -18,7 +18,27 @@ NSString *SBAPIMethodParameterResultOffset = @"offset";
 NSString *SBAPIMethodParameterResultDirection = @"direction";
 NSString *SBAPIMethodParameterResultOrderBy = @"order_by";
 
+NSString *SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
+
 extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
+
+@interface SBClientResponseSerializer : AFJSONResponseSerializer @end
+@implementation SBClientResponseSerializer
+
+- (id)responseObjectForResponse:(NSURLResponse *)response
+                           data:(NSData *)data
+                          error:(NSError *__autoreleasing *)error {
+    id obj = [super responseObjectForResponse:response data:data error:error];
+    if (*error != nil && obj != nil) {
+        NSMutableDictionary *userInfo = (*error).userInfo.mutableCopy;
+        userInfo[SBAPIErrorResponseObjectKey] = obj;
+        
+        *error = [NSError errorWithDomain:(*error).domain code:(*error).code userInfo:userInfo];
+    }
+    return obj;
+}
+
+@end
 
 @implementation SBClient
 
@@ -31,9 +51,6 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     }
     
     BOOL cppDebug = NO;
-#ifdef DEBUG
-    cppDebug = YES;
-#endif
     
     NSString *ext = @"com";
     if ([NSProcessInfo processInfo].environment[@"SB_LOCAL_DEV"] && !cppDebug) { // enforce .com on release builds
@@ -43,6 +60,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (self) {
+        self.responseSerializer = [SBClientResponseSerializer serializer];
         self.deserializationScheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground];
 #ifdef DEBUG
         self.securityPolicy.allowInvalidCertificates = YES; // dave says this is a dragon's leash

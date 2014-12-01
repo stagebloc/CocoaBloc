@@ -16,7 +16,7 @@
 
 - (RACSignal *)getAccountWithID:(NSNumber *)accountID {
     NSParameterAssert(accountID);
-    
+
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:[self requestParametersWithParameters:nil]]
             	cb_deserializeWithClient:self modelClass:[SBAccount class] keyPath:@"data"]
             	setNameWithFormat:@"Get account with ID: %@", accountID];
@@ -48,10 +48,12 @@
                 }];        	
 }
 
-//- (RACSignal *)getChildrenAccountsForAccount:(SBAccount *)account {
-//    NSParameterAssert(account);
-//    
-//    return [[self rac_GET:[NSString stringWithFormat:] parameters:]]
-//}
+- (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId withType:(NSString *)type {
+    NSParameterAssert(accountId);
+
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/children/%@", accountId, (nil == type ? @"" : type)] parameters:[self requestParametersWithParameters:nil]]
+             cb_deserializeArrayWithClient:self modelClass:[SBAccount class] keyPath:@"data.child_accounts"]
+            setNameWithFormat:@"Get children accounts (accountID: %d])", accountId.intValue];
+}
 
 @end
