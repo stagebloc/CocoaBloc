@@ -128,6 +128,7 @@
     return @{
              NSStringFromSelector(@selector(creationDate)) : [NSDate date],
              NSStringFromSelector(@selector(modificationDate)) : [NSDate date],
+             NSStringFromSelector(@selector(title)) : [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]
              };
 }
 

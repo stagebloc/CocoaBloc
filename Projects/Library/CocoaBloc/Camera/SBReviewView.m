@@ -71,7 +71,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (UITextField*)titleField {
     if (!_titleField) {
         _titleField = [UITextField new];
-        _titleField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Title" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
+        _titleField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"title" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
         [[UITextField appearance] setTintColor:[UIColor whiteColor]];
         _titleField.textColor = [UIColor whiteColor];
         _titleField.textAlignment = NSTextAlignmentCenter;
@@ -85,7 +85,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (UITextField*)descriptionField {
     if (!_descriptionField) {
         _descriptionField = [UITextField new];
-        _descriptionField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Description" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
+        _descriptionField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"caption" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
         [[UITextField appearance] setTintColor:[UIColor whiteColor]];
         _descriptionField.textColor = [UIColor whiteColor];
         _descriptionField.textAlignment = NSTextAlignmentCenter;

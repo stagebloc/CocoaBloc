@@ -22,6 +22,12 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 
 @interface SBAsset : NSObject
 
+//title is set to creationDate's time interval by default.
+@property (nonatomic, copy) NSString *title;
+
+//caption is not set by default.
+@property (nonatomic, copy) NSString *caption;
+
 @property (nonatomic, assign) SBAssetType type;
 
 /*
@@ -29,19 +35,19 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
  representation for the SBAssetTypeImage asset or a full 
  resolution thumbnail for a SBAssetTypeVideo.
  */
-@property (nonatomic, strong, readonly) UIImage *image;
+@property (nonatomic, strong) UIImage *image;
 
 /*
  File URL that isn't guaranteed to be set for SBAssetTypeImage types
  */
-@property (nonatomic, copy, readonly) NSURL *fileURL;
+@property (nonatomic, copy) NSURL *fileURL;
 
 /*
  The pixel width/height of the asset.
- This may or amy not be set until 
+ This may or amy not be set.
  */
-@property(nonatomic, assign, readonly) NSUInteger pixelWidth;
-@property(nonatomic, assign, readonly) NSUInteger pixelHeight;
+@property(nonatomic, assign) NSUInteger pixelWidth;
+@property(nonatomic, assign) NSUInteger pixelHeight;
 
 @property(nonatomic, strong, readonly) NSDate *creationDate;
 @property(nonatomic, strong, readonly) NSDate *modificationDate;
@@ -49,23 +55,18 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 /*
  The location where the asset was captured
  */
-@property(nonatomic, strong, readonly) CLLocation *location;
+@property(nonatomic, strong) CLLocation *location;
 
 /*
  Duration of the asset if it is a video.
  Duration is always 0 for non videos.
  */
-@property(nonatomic, assign, readonly) NSTimeInterval duration;
+@property(nonatomic, assign) NSTimeInterval duration;
 
 + (RACSignal*)createAssetFromPHAsset:(PHAsset*)phAsset;
 + (RACSignal*)createAssetFromALAsset:(ALAsset*)alAsset;
 
-- (instancetype) initWithType:(SBAssetType)type map:(NSDictionary*)map;
-
+- (instancetype) initWithType:(SBAssetType)type;
 - (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type;
-- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type map:(NSDictionary*)map;
-
 - (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type;
-- (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type map:(NSDictionary*)map;
-
 @end

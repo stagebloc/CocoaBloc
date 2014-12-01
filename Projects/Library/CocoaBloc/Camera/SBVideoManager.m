@@ -65,7 +65,7 @@
         self.devicePosition = AVCaptureDevicePositionBack;
         
         self.maxDuration = 10.0f;
-        self.minDuration = 3.0f;
+        self.minDuration = 0.0f;
                 
         _movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
         
@@ -170,7 +170,7 @@
 }
 
 - (BOOL) isPastMinDuration {
-    if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.minDuration) {
+    if (CMTimeGetSeconds([self totalRecordingDuration]) > self.minDuration) {
         return YES;
     }
     return NO;

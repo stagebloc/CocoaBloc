@@ -156,7 +156,7 @@
         NSInteger mins = elapsed / 60;
         NSInteger secs = elapsed - mins;
         self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
-        BOOL shouldHidePageView = (secs > 0 || mins > 0);
+        BOOL shouldHidePageView = (elapsed > 0);
         self.cameraView.pageView.hidden = shouldHidePageView;
         self.cameraView.timeLabel.hidden = !shouldHidePageView;
     }];
@@ -279,7 +279,6 @@
             if (index == 0) {
                 [[self.assetManager.fetchLastPhoto deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
                     @strongify(self);
-                    
                     SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
                     SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
                     vc.delegate = self;
@@ -358,8 +357,8 @@
         return;
     }
     
-    if ([self.delegate respondsToSelector:@selector(cameraViewControllerDidFinish:)]) {
-        [self.delegate cameraViewControllerDidFinish:self];
+    if ([self.delegate respondsToSelector:@selector(cameraControllerCancelled:)]) {
+        [self.delegate cameraControllerCancelled:self];
     }
 }
 
@@ -390,17 +389,17 @@
 
 #pragma mark - SBReviewControllerDelegate
 - (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset title:(NSString *)title description:(NSString *)description {
-//    NSDictionary *info = @{@"title" : title, @"description" : description};
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
-//    [UIImagePNGRepresentation(self.asset.image) writeToFile:filePath atomically:YES];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SHOULD implement saving to icloud" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+    if ([self.delegate respondsToSelector:@selector(cameraController:acceptedAsset:)]) {
+        asset.title = title;
+        asset.caption = description;
+        [self.delegate cameraController:self acceptedAsset:asset];
+    }
 }
 
 - (void) reviewController:(SBReviewController *)controller rejectedAsset:(SBAsset *)asset {
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([self.delegate respondsToSelector:@selector(cameraControllerCancelled:)]) {
+        [self.delegate cameraControllerCancelled:self];
+    }
 }
 
 #pragma mark - Status bar states

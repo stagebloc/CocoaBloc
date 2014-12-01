@@ -62,6 +62,9 @@
     [self.reviewView.acceptButton addTarget:self action:@selector(acceptButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.reviewView.undoButton addTarget:self action:@selector(undoButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.reviewView.drawButton addTarget:self action:@selector(drawButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.reviewView.drawButton.hidden = YES;
+    self.reviewView.undoButton.hidden = YES;
 }
 
 #pragma mark Actions

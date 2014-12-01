@@ -9,15 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SBCaptureManager.h"
 
-@class SBCameraViewController;
+@class SBCameraViewController, SBAsset;
 
 @protocol SBCameraViewControllerDelegate <NSObject>
 @optional
-/* 
- * Called when user presses the close button
- * Should dismiss or pop controller in this delegate.
- */
-- (void) cameraViewControllerDidFinish:(SBCameraViewController*)controller;
+- (void) cameraController:(SBCameraViewController*)controller acceptedAsset:(SBAsset*)asset;
+- (void) cameraControllerCancelled:(SBCameraViewController*)controller;
 @end
 
 @interface SBCameraViewController : UIViewController <UIGestureRecognizerDelegate>
