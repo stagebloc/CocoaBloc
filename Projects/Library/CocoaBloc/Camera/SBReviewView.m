@@ -76,7 +76,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
         _titleField.textColor = [UIColor whiteColor];
         _titleField.textAlignment = NSTextAlignmentCenter;
         _titleField.hidden = YES;
-        _titleField.delegate = self;
         _titleField.tag = 0;
     }
     return _titleField;
@@ -90,7 +89,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
         _descriptionField.textColor = [UIColor whiteColor];
         _descriptionField.textAlignment = NSTextAlignmentCenter;
         _descriptionField.hidden = YES;
-        _descriptionField.delegate = self;
         _descriptionField.tag = 1;
     }
     return _descriptionField;
@@ -165,8 +163,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
             @strongify(self);
             if (text.length == 0) {
                 self.currentLayout = SBTextFieldLayoutTitle;
-                self.descriptionField.text = nil;
-                self.descriptionField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Description" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
             } else {
                 self.currentLayout = SBTextFieldLayoutTitleDescription;
             }
@@ -260,23 +256,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
     [constraints addObject:[self.rejectButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:buttonOffset.x]];
     
     self.bottomButtonConstraints = [constraints copy];
-}
-
-#pragma mark - Textfield Delegate
-
--(void)textFieldDidEndEditing:(UITextField *)textField; {
-    if ([textField.text length] == 0) {
-        if (textField.tag == 0) {
-            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Title" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];;
-        } else {
-            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Description" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
-        }
-    }
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self endEditing:YES];
-    return YES;
 }
 
 #pragma mark - Signals

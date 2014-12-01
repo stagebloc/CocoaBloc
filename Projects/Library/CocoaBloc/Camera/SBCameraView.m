@@ -375,6 +375,7 @@
     _captureType = SBCaptureTypePhoto;
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     self.captureView.captureLayer.videoGravity = ratio == SBCameraAspectRatio1_1 ? AVLayerVideoGravityResizeAspectFill : AVLayerVideoGravityResizeAspect;
+    [self animateAttribute:NSStringFromSelector(@selector(chooseExistingButton)) toAlpha:1 duration:0.3 completion:nil];
     [self layoutSubviews];
 }
 
@@ -383,6 +384,7 @@
     _captureType = SBCaptureTypeVideo;
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     self.captureView.captureLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    [self animateAttribute:NSStringFromSelector(@selector(chooseExistingButton)) toAlpha:0 duration:0.3 completion:nil];
     [self layoutSubviews];
 }
 
@@ -476,6 +478,13 @@
     } completion:^(BOOL finished) {
         if (completion) completion(finished);
     }];
+}
+
+- (void) animateAttribute:(NSString*)attribute toAlpha:(CGFloat)toAlpha duration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
+    UIView *view = [self valueForKey:attribute];
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
+        [view setValue:@(toAlpha) forKey:NSStringFromSelector(@selector(alpha))];
+    } completion:completion];
 }
 
 @end

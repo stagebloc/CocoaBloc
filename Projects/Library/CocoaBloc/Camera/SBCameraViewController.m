@@ -271,7 +271,7 @@
     @weakify(self);
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
     actionSheet.delegate = (id<UIActionSheetDelegate>)actionSheet;
-    [[[actionSheet rac_signalForSelector:@selector(actionSheet:didDismissWithButtonIndex:) fromProtocol:@protocol(UIActionSheetDelegate)] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(RACTuple *t) {
+    [[actionSheet rac_signalForSelector:@selector(actionSheet:didDismissWithButtonIndex:) fromProtocol:@protocol(UIActionSheetDelegate)] subscribeNext:^(RACTuple *t) {
         @strongify(self);
         UIActionSheet *a = t.first;
         NSInteger index = [t.second integerValue];
@@ -284,6 +284,7 @@
                     vc.delegate = self;
                     [self.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
+                    @strongify(self);
                     NSLog(@"ERROR: %@", error);
                 }];
             } else {

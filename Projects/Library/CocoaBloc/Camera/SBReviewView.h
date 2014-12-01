@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
     SBTextFieldLayoutTitleDescription
 };
 
-@interface SBReviewView : UIView  <UITextFieldDelegate>
+@interface SBReviewView : UIView
 
 @property (strong, nonatomic) UIButton *rejectButton;
 @property (strong, nonatomic) UIButton *acceptButton;
