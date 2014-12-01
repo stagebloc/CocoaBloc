@@ -9,22 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@class SBReviewController;
+@class SBReviewController, SBAsset;
 
 @protocol SBReviewControllerDelegate <NSObject>
 @optional
-- (void) reviewController:(SBReviewController*)controller acceptedImage:(UIImage*)image title:(NSString*)title description:(NSString*)description;
-- (void) reviewController:(SBReviewController*)controller rejectedImage:(UIImage*)image;
+- (void) reviewController:(SBReviewController*)controller acceptedAsset:(SBAsset*)asset title:(NSString*)title description:(NSString*)description;
+- (void) reviewController:(SBReviewController*)controller rejectedAsset:(SBAsset*)asset;
 @end
 
 @interface SBReviewController : UIViewController
 
-@property (strong, nonatomic, readonly) UIImage *image;
-@property (nonatomic, readonly, copy) NSURL *videoURL;
-
+@property (nonatomic, strong, readonly) SBAsset *asset;
 @property (nonatomic, weak) id <SBReviewControllerDelegate> delegate;
 
-- (instancetype) initWithImage:(UIImage*)image;
-- (instancetype) initWithVideoURL:(NSURL*)videoURL;
+- (instancetype) initWithAsset:(SBAsset*)asset;
 
 @end

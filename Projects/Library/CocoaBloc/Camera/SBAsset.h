@@ -60,6 +60,12 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 + (RACSignal*)createAssetFromPHAsset:(PHAsset*)phAsset;
 + (RACSignal*)createAssetFromALAsset:(ALAsset*)alAsset;
 
+- (instancetype) initWithType:(SBAssetType)type map:(NSDictionary*)map;
+
+- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type;
+- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type map:(NSDictionary*)map;
+
+- (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type;
 - (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type map:(NSDictionary*)map;
 
 @end

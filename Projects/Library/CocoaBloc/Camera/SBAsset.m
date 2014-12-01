@@ -114,15 +114,52 @@
     return _cache;
 }
 
-- (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type map:(NSDictionary*)map {
+- (NSDictionary*) defaultMap {
+    return @{
+             NSStringFromSelector(@selector(creationDate)) : [NSDate date],
+             NSStringFromSelector(@selector(modificationDate)) : [NSDate date],
+             };
+}
+
+- (instancetype) initWithType:(SBAssetType)type map:(NSDictionary*)map {
     if (self = [super init]) {
-        _image = image;
+        NSDictionary *defaultMap = [self defaultMap];
+        [defaultMap enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            [self setValue:obj forKey:key];
+        }];
+        
         if (map) {
             [map enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 [self setValue:obj forKey:key];
             }];
         }
-        self.type = SBAssetTypeImage;
+        
+        self.type = type;
+    }
+    return self;
+}
+
+- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type {
+    return [self initWithFileURL:url type:type map:nil];
+}
+- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type map:(NSDictionary*)map{
+    if (self = [self initWithType:type map:map]) {
+        _fileURL = [url copy];
+    }
+    return self;
+}
+
+- (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type {
+    return [self initWithImage:image type:type map:nil];
+}
+- (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type map:(NSDictionary*)map {
+    if (self = [self initWithType:type map:map]) {
+        _image = image;
+        
+        if ([map objectForKey:NSStringFromSelector(@selector(pixelHeight))] == nil)
+            _pixelHeight = image.size.height;
+        if ([map objectForKey:NSStringFromSelector(@selector(pixelWidth))] == nil)
+            _pixelWidth = image.size.width;
     }
     return self;
 }

@@ -20,6 +20,7 @@
 #import "SBVideoManager.h"
 #import "SBPhotoManager.h"
 #import "SBOverlayView.h"
+#import "SBAsset.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -256,7 +257,8 @@
     @weakify(self);
     [[self.captureManager.photoManager captureImage] subscribeNext:^(UIImage *image) {
         @strongify(self);
-        SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
+        SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
+        SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     } error:^(NSError *error) {
@@ -277,7 +279,9 @@
             if (index == 0) {
                 [[self.assetManager.fetchLastPhoto deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
                     @strongify(self);
-                    SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
+                    
+                    SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
+                    SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
                     vc.delegate = self;
                     [self.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
@@ -289,7 +293,8 @@
                     @strongify(self);
                     [self dismissViewControllerAnimated:YES completion:nil];
                     if ([image  isKindOfClass:[UIImage class]]) {
-                        SBReviewController *vc = [[SBReviewController alloc] initWithImage:image];
+                        SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
+                        SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
                         vc.delegate = self;
                         [self.navigationController pushViewController:vc animated:NO];
                     }
@@ -327,7 +332,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             @strongify(self);
             [self.overlayHud dismiss];
-            SBReviewController *controller = [[SBReviewController alloc] initWithVideoURL:saveURL];
+            SBAsset *asset = [[SBAsset alloc] initWithFileURL:saveURL type:SBAssetTypeVideo];
+            SBReviewController *controller = [[SBReviewController alloc] initWithAsset:asset];
             controller.delegate = self;
             [self.navigationController pushViewController:controller animated:YES];
         });
@@ -383,17 +389,17 @@
 }
 
 #pragma mark - SBReviewControllerDelegate
-- (void) reviewController:(SBReviewController *)controller acceptedImage:(UIImage *)image title:(NSString *)title description:(NSString *)description {
-    NSDictionary *info = @{@"title" : title, @"description" : description};
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
-    [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
+- (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset title:(NSString *)title description:(NSString *)description {
+//    NSDictionary *info = @{@"title" : title, @"description" : description};
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Image.png"];
+//    [UIImagePNGRepresentation(self.asset.image) writeToFile:filePath atomically:YES];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SHOULD Override Image Saved to Device" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SHOULD implement saving to icloud" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
 }
 
-- (void) reviewController:(SBReviewController *)controller rejectedImage:(UIImage *)image {
+- (void) reviewController:(SBReviewController *)controller rejectedAsset:(SBAsset *)asset {
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -12,13 +12,12 @@
 #import "SBCaptureManager.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
+#import "SBAsset.h"
 
 #import "SBPhotoReviewView.h"
 #import "SBVideoReviewView.h"
 
 @interface SBReviewController ()
-
-@property (strong, nonatomic) ALAsset *asset;
 
 @property (nonatomic, strong) SBReviewView *reviewView;
 
@@ -27,15 +26,10 @@
 @implementation SBReviewController
 
 #pragma mark - Init methods
-- (instancetype) initWithImage:(UIImage*)image {
-    if (self = [super init]){
-        _image = image;
-    }
-    return self;
-}
-- (instancetype) initWithVideoURL:(NSURL*)videoURL {
-    if (self = [super init]){
-        _videoURL = [videoURL copy];
+
+- (instancetype) initWithAsset:(SBAsset *)asset {
+    if (self = [super init]) {
+        _asset = asset;
     }
     return self;
 }
@@ -48,10 +42,15 @@
 
     self.view.backgroundColor = [UIColor blackColor];
     
-    if (self.image) {
-        self.reviewView = [[SBPhotoReviewView alloc] initWithFrame:self.view.bounds image:self.image];
-    } else if (self.videoURL) {
-        self.reviewView = [[SBVideoReviewView alloc] initWithFrame:self.view.bounds videoURL:self.videoURL];
+    switch (self.asset.type) {
+        case SBAssetTypeImage:
+            self.reviewView = [[SBPhotoReviewView alloc] initWithFrame:self.view.bounds image:self.asset.image];
+            break;
+        case SBAssetTypeVideo:
+            self.reviewView = [[SBVideoReviewView alloc] initWithFrame:self.view.bounds videoURL:self.asset.fileURL];
+            break;
+        default:
+            break;
     }
     
     [self.view addSubview:self.reviewView];
@@ -76,14 +75,14 @@
 }
 
 -(void)rejectButtonPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(reviewController:rejectedImage:)]) {
-        [self.delegate reviewController:self rejectedImage:self.image];
+    if ([self.delegate respondsToSelector:@selector(reviewController:rejectedAsset:)]) {
+        [self.delegate reviewController:self rejectedAsset:self.asset];
     }
 }
 
 -(void)acceptButtonPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedImage:title:description:)]) {
-        [self.delegate reviewController:self acceptedImage:self.image title:self.reviewView.titleField.text description:self.reviewView.descriptionField.text];
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:title:description:)]) {
+        [self.delegate reviewController:self acceptedAsset:self.asset title:self.reviewView.titleField.text description:self.reviewView.descriptionField.text];
     }
 }
 
