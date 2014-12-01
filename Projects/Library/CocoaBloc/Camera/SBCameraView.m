@@ -92,7 +92,6 @@
 - (UIView*) topHudView {
     if (!_topHudView) {
         _topHudView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.0f)];
-//        _topHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
         
         CGFloat const buttonWH = 30;
         CGFloat const buttonOffset = 5.f;
@@ -163,7 +162,6 @@
 - (UIView*) bottomHudView {
     if (!_bottomHudView) {
         _bottomHudView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds), CGRectGetWidth(self.bounds), 0.0f)];
-//        _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:.35];
         
         CGSize size = CGSizeMake(30, 30);
         CGFloat offset = 15.0f;
@@ -447,8 +445,6 @@
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
         NSArray *bottomViews = [_bottomHudView.subviews filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", _recordButton]];
         [bottomViews setValue:@(toValue) forKey:@"alpha"];
-        _bottomHudView.backgroundColor = [UIColor colorWithWhite:0 alpha:bottomHudBGToValue];
-        
         _topHudView.alpha = toValue;
     } completion:^(BOOL finished) {
         if (completion) completion(finished);
