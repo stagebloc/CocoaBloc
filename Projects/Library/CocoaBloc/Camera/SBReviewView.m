@@ -156,12 +156,12 @@ static CGFloat const kAnimationVelocity = 0.5f;
                     self.currentLayout = SBTextFieldLayoutTitle;
                 }
             }
-            else {
-                self.currentLayout = SBTextFieldLayoutHidden;
-            }
-//            else if (self.currentLayout == SBTextFieldLayoutTitle && self.titleField.text.length == 0){
+//            else {
 //                self.currentLayout = SBTextFieldLayoutHidden;
 //            }
+            else if (self.currentLayout == SBTextFieldLayoutTitle && self.titleField.text.length == 0){
+                self.currentLayout = SBTextFieldLayoutHidden;
+            }
         }];
         
         [[self.titleField.rac_textSignal skip:1] subscribeNext:^(NSString *text) {
@@ -173,7 +173,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
             }
         }];
         
-        [[[self.titleField rac_signalForControlEvents:UIControlEventEditingDidEndOnExit | UIControlEventEditingDidEnd] map:^NSNumber*(UITextField *field) {
+        [[[self.titleField rac_signalForControlEvents:UIControlEventEditingDidEndOnExit] map:^NSNumber*(UITextField *field) {
             return @(field.text.length > 0);
         }] subscribeNext:^(NSNumber *isTextEntered) {
             @strongify(self);
