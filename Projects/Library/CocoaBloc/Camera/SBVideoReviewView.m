@@ -53,12 +53,6 @@
             return value.floatValue == 0 ? @NO : @YES;
         }];
         
-        [RACObserve(self, playing) subscribeNext:^(NSNumber *playing) {
-            @strongify(self);
-            if (playing.boolValue)
-                self.currentLayout = SBTextFieldLayoutHidden;
-        }];
-        
         [self.tapSignal subscribeNext:^(UITapGestureRecognizer *gesture) {
             @strongify(self);
             if (self.isPlaying) {
