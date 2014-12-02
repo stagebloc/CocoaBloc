@@ -209,6 +209,20 @@
 }
 
 #pragma mark - Options Menu
+- (SBDraggableView*) optionsMenuContianerView {
+    if (!_optionsMenuContianerView) {
+        _optionsMenuContianerView = [[SBDraggableView alloc] init];
+        _optionsMenuContianerView.dragDirection = SBDraggableViewDirectionUpDown;
+        _optionsMenuContianerView.dragDelegate = self;
+        
+        [_optionsMenuContianerView addSubview:self.optionsMenuToolbar];
+        [self.optionsMenuToolbar autoCenterInSuperview];
+        [self.optionsMenuToolbar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:_optionsMenuContianerView];
+        [self.optionsMenuToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:_optionsMenuContianerView];
+    }
+    return _optionsMenuContianerView;
+}
+
 - (UIToolbar*) optionsMenuToolbar {
     if (!_optionsMenuToolbar) {
         _optionsMenuToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
@@ -265,7 +279,7 @@
     [self.captureView addSubview:self.focusView];
 
     //optinos menu
-    [self addSubview:self.optionsMenuToolbar];
+    [self addSubview:self.optionsMenuContianerView];
     [self adjustOptionsMenuConstraintsHidden:YES];
     
     //BOTTOM HUD (contains subviews)
@@ -375,8 +389,8 @@
         [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
         [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
     } else {
-        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALEdgeTop toAttribute:ALEdgeBottom ofView:self.topContainerView]];
-        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALEdgeBottom toAttribute:ALEdgeTop ofView:self.bottomContainerView]];
+        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeTop toAttribute:ALAttributeBottom ofView:self.topContainerView]];
+        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeTop ofView:self.bottomContainerView]];
         [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
     }
 
@@ -391,13 +405,16 @@
     [self.optionsMenuConstraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
     
-    [constraints addObject:[self.optionsMenuToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-    [constraints addObject:[self.optionsMenuToolbar autoSetDimension:ALDimensionHeight toSize:170]];
+    CGFloat height = 170;
+    [constraints addObject:[self.optionsMenuContianerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+    [constraints addObject:[self.optionsMenuContianerView autoSetDimension:ALDimensionHeight toSize:height]];
+    
+    self.optionsMenuContianerView.topRestriction = @(self.frame.size.height - height);
 
     if (!isHidden) {
-        [constraints addObject:[self.optionsMenuToolbar autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self]];
+        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self]];
     } else {
-        [constraints addObject:[self.optionsMenuToolbar autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self withOffset:1]];
+        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self withOffset:1]];
     }
     
     self.optionsMenuConstraints = [constraints copy];
@@ -445,7 +462,7 @@
 
 #pragma mark - Actions
 - (void)optionsMenuButtonPressed:(id)sender {
-    BOOL shouldHide = !(self.optionsMenuToolbar.frame.origin.y > self.bounds.size.height);
+    BOOL shouldHide = !(self.optionsMenuContianerView.frame.origin.y > self.bounds.size.height);
     [self adjustOptionsMenuConstraintsHidden:shouldHide];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.2 options:0 animations:^{
         [self layoutSubviews];
@@ -549,6 +566,25 @@
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
         [view setValue:@(toAlpha) forKey:NSStringFromSelector(@selector(alpha))];
     } completion:completion];
+}
+
+#pragma mark - SBDraggableViewDelegate
+- (void) draggableViewDidStopMoving:(SBDraggableView*)view {
+    BOOL shouldHide = !(view.frame.origin.y <= view.topRestriction.floatValue + view.frame.size.height*.2f);
+    [self adjustOptionsMenuConstraintsHidden:shouldHide];
+    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.2 options:0 animations:^{
+        [self layoutSubviews];
+        [self adjustOptionsMenuButtonHidden:shouldHide];
+    } completion:nil];
+}
+
+- (void) draggableViewDidMove:(SBDraggableView *)view {
+    CGFloat bottomRestriction = (self.frame.size.height+1) - view.topRestriction.floatValue;
+    CGFloat percentage = (view.frame.origin.y - view.topRestriction.floatValue) / bottomRestriction;
+    CGFloat angle = M_PI * percentage;
+    NSLog(@"percentage - %f", percentage);
+    if (angle <= 0) angle = .00001;
+    self.optionsMenuButton.transform = CGAffineTransformMakeRotation(angle);
 }
 
 @end

@@ -78,6 +78,7 @@
 		4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5BC1A23AC7B00D33D24 /* SBVideoReviewView.m */; };
 		4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */; };
 		4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */; };
+		4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD161611A2E5AAA004C98CC /* SBDraggableView.m */; };
 		4DEF29C51A2CFE0300316B88 /* SBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */; };
 		4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
@@ -253,6 +254,8 @@
 		4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecordButton.m; sourceTree = "<group>"; };
 		4D98B9A61A22D1DE00F8D11B /* SBOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOverlayView.h; sourceTree = "<group>"; };
 		4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOverlayView.m; sourceTree = "<group>"; };
+		4DD161601A2E5AAA004C98CC /* SBDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDraggableView.h; sourceTree = "<group>"; };
+		4DD161611A2E5AAA004C98CC /* SBDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDraggableView.m; sourceTree = "<group>"; };
 		4DEF29C31A2CFE0300316B88 /* SBCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraViewController.h; sourceTree = "<group>"; };
 		4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraViewController.m; sourceTree = "<group>"; };
 		4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraView.h; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */,
 				4D98B9A61A22D1DE00F8D11B /* SBOverlayView.h */,
 				4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */,
+				4DD161601A2E5AAA004C98CC /* SBDraggableView.h */,
+				4DD161611A2E5AAA004C98CC /* SBDraggableView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -913,6 +918,7 @@
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */,
 				09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */,
+				4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */,
 				097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */,
 				4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */,
 				4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */,

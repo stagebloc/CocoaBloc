@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "SBPhotoManager.h"
 #import "SBCaptureManager.h"
+#import "SBDraggableView.h"
 
 @import AVFoundation.AVCaptureDevice;
 
 @class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView, RACSignal;
 
-@interface SBCameraView : UIView
+@interface SBCameraView : UIView <SBDraggableViewDelegate>
 
 @property (nonatomic, strong) UIView *captureViewContainer;
 @property (nonatomic, strong) SBCaptureView *captureView;
@@ -40,6 +41,7 @@
 @property (nonatomic, strong) UIButton *nextButton;
 
 //Options menu
+@property (nonatomic, strong) SBDraggableView *optionsMenuContianerView;
 @property (nonatomic, strong) UIToolbar *optionsMenuToolbar;
 @property (nonatomic, strong) UIButton *toggleCameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
