@@ -14,6 +14,10 @@
 
 @implementation SBCameraViewController
 
+- (UIViewController*) currentController {
+    return [self.viewControllers lastObject];
+}
+
 - (void) setCaptureDelegate:(id<SBCaptureViewControllerDelegate>)captureDelegate {
     SBCaptureViewController *controller = [self.viewControllers firstObject];
     controller.delegate = captureDelegate;
@@ -41,16 +45,17 @@
     self.view.layer.masksToBounds = YES;
 }
 
+#pragma mark - Orientation
 - (BOOL)shouldAutorotate {
-    return ([[UIDevice currentDevice] orientation] != UIDeviceOrientationPortrait);
+    return [self.currentController shouldAutorotate];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+    return [self.currentController supportedInterfaceOrientations];
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
+    return [self.currentController preferredInterfaceOrientationForPresentation];
 }
 
 @end

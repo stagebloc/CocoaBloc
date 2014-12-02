@@ -410,4 +410,17 @@
     return YES;
 }
 
+#pragma mark - Orientation
+- (BOOL)shouldAutorotate {
+    return ([[UIDevice currentDevice] orientation] != UIDeviceOrientationPortrait);
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 @end
