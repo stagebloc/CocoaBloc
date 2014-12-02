@@ -209,14 +209,12 @@
 }
 
 - (void) showBlur {
-    self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
     self.cameraView.stateToolbar.hidden = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeBlur) object:nil];
     [self performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
 }
 
 -(void)removeBlur {
-    self.cameraView.stateToolbar.backgroundColor = [UIColor blackColor];
     self.cameraView.stateToolbar.hidden = YES;
 }
 

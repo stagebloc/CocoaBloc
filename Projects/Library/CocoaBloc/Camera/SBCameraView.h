@@ -28,17 +28,21 @@
 @property (nonatomic, strong) UIView *shutterView;
 
 //Top HUD views
-@property (nonatomic, strong) UIView *topHudView;
+@property (nonatomic, strong) UIView *topContainerView;
 @property (nonatomic, strong) UIButton *closeButton;
-@property (nonatomic, strong) UIButton *toggleCameraButton;
-@property (nonatomic, strong) UIButton *flashModeButton;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) SBPageView *pageView;
 
 //Bottom HUD views
-@property (nonatomic, strong) UIView *bottomHudView;
+@property (nonatomic, strong) UIView *bottomContainerView;
 @property (nonatomic, strong) UIButton *chooseExistingButton;
+@property (nonatomic, strong) UIButton *optionsMenuButton;
 @property (nonatomic, strong) UIButton *nextButton;
+
+//Options menu
+@property (nonatomic, strong) UIToolbar *optionsMenuToolbar;
+@property (nonatomic, strong) UIButton *toggleCameraButton;
+@property (nonatomic, strong) UIButton *flashModeButton;
 
 //Change this property to adjust the flashModeButton image
 @property (nonatomic, assign) SBCaptureFlashMode flashMode;
