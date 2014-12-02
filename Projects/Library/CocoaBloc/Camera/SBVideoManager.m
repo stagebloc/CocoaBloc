@@ -44,16 +44,11 @@
 @implementation SBVideoManager
 
 - (SBAssetStitcher*) stitcher {
-    if (!_stitcher)
+    if (!_stitcher) {
         _stitcher = [[SBAssetStitcher alloc] init];
+        _stitcher.orientation = self.orientation;
+    }
     return _stitcher;
-}
-
-- (void) setOrientation:(AVCaptureVideoOrientation)orientation {
-    [self willChangeValueForKey:@"orientation"];
-    _orientation = orientation;
-    [self didChangeValueForKey:@"orientation"];
-    self.stitcher.orientation = orientation;
 }
 
 - (BOOL) isPaused {
@@ -232,6 +227,7 @@
             }];
         }];
         
+        self.stitcher.orientation = self.orientation;
         [[self.stitcher exportTo:finalVideoLocationURL preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *error) {
