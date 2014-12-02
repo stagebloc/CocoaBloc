@@ -443,9 +443,14 @@
     CGFloat toValue = hidden ? 0 : 1.0f;
     CGFloat bottomHudBGToValue = hidden ? 0 : .35f;
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
-        NSArray *bottomViews = [_bottomHudView.subviews filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", _recordButton]];
+        NSArray *bottomViews = [_bottomHudView.subviews filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not SELF in %@", @[_recordButton, _chooseExistingButton]]];
         [bottomViews setValue:@(toValue) forKey:@"alpha"];
         _topHudView.alpha = toValue;
+        if (hidden) {
+            _chooseExistingButton.alpha = toValue;
+        } else if (self.captureType != SBCaptureTypeVideo) {
+            _chooseExistingButton.alpha = toValue;
+        }
     } completion:^(BOOL finished) {
         if (completion) completion(finished);
     }];
