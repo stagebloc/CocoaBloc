@@ -15,7 +15,7 @@
 
 @class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView, RACSignal;
 
-@interface SBCameraView : UIView <SBDraggableViewDelegate>
+@interface SBCameraView : UIView <SBDraggableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView *captureViewContainer;
 @property (nonatomic, strong) SBCaptureView *captureView;

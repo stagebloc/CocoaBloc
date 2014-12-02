@@ -7,6 +7,8 @@
 //
 
 #import "SBCameraViewController.h"
+#import "SBReviewController.h"
+#import "UIDevice+Orientation.h"
 
 @interface SBCameraViewController ()
 
@@ -55,7 +57,9 @@
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return [self.currentController preferredInterfaceOrientationForPresentation];
+    if ([self.currentController isKindOfClass:[SBCaptureViewController class]])
+        return [self.currentController preferredInterfaceOrientationForPresentation];
+    return [[UIDevice currentDevice] interfaceOrientation];
 }
 
 @end

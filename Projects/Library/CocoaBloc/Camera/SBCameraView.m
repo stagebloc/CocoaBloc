@@ -17,6 +17,7 @@
 #import "SBPageView.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
+#import "UIDevice+Orientation.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
@@ -367,8 +368,38 @@
         [self setVideoCaptureType];
         
         [self initGestures];
+        
+        void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
+            UIInterfaceOrientation orientation = [[UIDevice currentDevice] videoOrientation];
+            if (orientation != -1) {
+                [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
+                    [self adjustViewsToOrientation:orientation];
+                } completion:nil];
+            }
+        };
+        orientationChange(nil);
+        [self adjustViewsToOrientation:[[UIDevice currentDevice] interfaceOrientation]];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:orientationChange];
     }
     return self;
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - View layout adjusting
+- (void) adjustViewsToOrientation:(UIInterfaceOrientation)orientation {
+    CGAffineTransform toVal = self.flashModeButton.transform;
+    switch (orientation) {
+        case UIInterfaceOrientationPortrait: toVal = CGAffineTransformMakeRotation(0); break;
+        case UIInterfaceOrientationLandscapeLeft : toVal = CGAffineTransformMakeRotation(M_PI + M_PI_2); break;
+        case UIInterfaceOrientationLandscapeRight: toVal = CGAffineTransformMakeRotation(M_PI_2); break;
+        case UIInterfaceOrientationPortraitUpsideDown: toVal = CGAffineTransformMakeRotation(M_PI); break;
+        default: break;
+    }
+    self.flashModeButton.transform = toVal;
+    self.toggleCameraButton.transform = toVal;
 }
 
 - (void) adjustCameraConstraintsForRatio:(SBCameraAspectRatio)ratio captureType:(SBCaptureType)captureType{
@@ -405,14 +436,15 @@
     [self.optionsMenuConstraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
     
-    CGFloat height = 170;
+    CGFloat height = 200;
+    CGFloat offset = 30;
     [constraints addObject:[self.optionsMenuContianerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
     [constraints addObject:[self.optionsMenuContianerView autoSetDimension:ALDimensionHeight toSize:height]];
     
     self.optionsMenuContianerView.topRestriction = @(self.frame.size.height - height);
 
     if (!isHidden) {
-        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self]];
+        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:offset]];
     } else {
         [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self withOffset:1]];
     }
@@ -420,6 +452,7 @@
     self.optionsMenuConstraints = [constraints copy];
 }
 
+#pragma mark - Setters/Getters
 - (void) setFlashMode:(SBCaptureFlashMode)flashMode {
     [self willChangeValueForKey:@"flashMode"];
     _flashMode = flashMode;
@@ -464,7 +497,7 @@
 - (void)optionsMenuButtonPressed:(id)sender {
     BOOL shouldHide = !(self.optionsMenuContianerView.frame.origin.y > self.bounds.size.height);
     [self adjustOptionsMenuConstraintsHidden:shouldHide];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.2 options:0 animations:^{
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:0 animations:^{
         [self layoutSubviews];
         [self adjustOptionsMenuButtonHidden:shouldHide];
     } completion:nil];

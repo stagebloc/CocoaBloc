@@ -29,4 +29,22 @@
     }
 }
 
+
++ (UIInterfaceOrientation) interfaceOrientationFrom:(UIDeviceOrientation)deviceOrientation {
+    switch (deviceOrientation) {
+        case UIDeviceOrientationPortrait:
+            return UIInterfaceOrientationPortrait;
+        case UIDeviceOrientationPortraitUpsideDown:
+            return UIInterfaceOrientationPortraitUpsideDown;
+        case UIDeviceOrientationLandscapeLeft:
+            return UIInterfaceOrientationLandscapeLeft;
+        case UIDeviceOrientationLandscapeRight:
+            return UIInterfaceOrientationLandscapeRight;
+        default:
+            return -1;
+    }
+}
+- (UIInterfaceOrientation) interfaceOrientation {
+    return [UIDevice interfaceOrientationFrom:[[UIDevice currentDevice] orientation]];
+}
 @end
