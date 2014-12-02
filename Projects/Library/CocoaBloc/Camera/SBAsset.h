@@ -22,6 +22,14 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 
 @interface SBAsset : NSObject
 
+/*
+ YES if the asset was created from a PHAsset or ALAsset
+ (createAssetFromPHAsset: & createAssetFromALAsset:)
+ 
+ NO (Default) if the asset was not created from a PHAsset or ALAsset
+ */
+@property (nonatomic, assign, readonly, getter=isLocalAsset) BOOL localAsset;
+
 //title is set to creationDate's time interval by default.
 @property (nonatomic, copy) NSString *title;
 
