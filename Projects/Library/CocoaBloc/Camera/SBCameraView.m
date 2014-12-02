@@ -570,7 +570,7 @@
 
 #pragma mark - SBDraggableViewDelegate
 - (void) draggableViewDidStopMoving:(SBDraggableView*)view velocity:(CGPoint)velocity{
-    BOOL shouldHide = velocity.y > 0;
+    BOOL shouldHide = velocity.y == 0 ? !(view.frame.origin.y <= view.topRestriction.floatValue + view.frame.size.height*.2f) : velocity.y > 0;
     [self adjustOptionsMenuConstraintsHidden:shouldHide];
     [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:1 initialSpringVelocity:velocity.y options:0 animations:^{
         [self layoutSubviews];
