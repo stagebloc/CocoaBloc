@@ -49,4 +49,14 @@ Pod::Spec.new do |s|
       ss.source_files = 'Projects/Library/CocoaBloc/ViewModels/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/ViewModels'
     end
+
+    s.subspec 'Camera' do |ss|
+      ss.dependency 'CocoaBloc/API'
+      ss.dependency 'CocoaBloc/UI'
+      ss.dependency 'CocoaBloc/Categories'
+      ss.dependency 'pop', '~>1.0.7'
+      ss.source_files = 'Projects/Library/CocoaBloc/Camera/*.{h,m}'
+      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Camera'
+    end
+
 end
