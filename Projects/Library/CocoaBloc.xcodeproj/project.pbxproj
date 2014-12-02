@@ -55,6 +55,8 @@
 		4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */; };
 		4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA881A16665700EE3926 /* SBAssetStitcher.m */; };
 		4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */; };
+		4D17D4AF1A2E1D12003B309E /* CocoaBlocCamera.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D17D4AD1A2E1D09003B309E /* CocoaBlocCamera.xcassets */; };
+		4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */; };
 		4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SBPageView.m */; };
 		4D224DE21A0919B6007DF1D1 /* SBAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC31A0919B6007DF1D1 /* SBAlbumTableViewCell.m */; };
 		4D224DE41A0919B6007DF1D1 /* SBAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC71A0919B6007DF1D1 /* SBAsset.m */; };
@@ -206,6 +208,9 @@
 		4D06DA881A16665700EE3926 /* SBAssetStitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAssetStitcher.m; sourceTree = "<group>"; };
 		4D06DA8B1A16AA0400EE3926 /* AVCaptureSession+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVCaptureSession+Extension.h"; sourceTree = "<group>"; };
 		4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureSession+Extension.m"; sourceTree = "<group>"; };
+		4D17D4AD1A2E1D09003B309E /* CocoaBlocCamera.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CocoaBlocCamera.xcassets; path = CocoaBloc/CocoaBlocCamera.xcassets; sourceTree = SOURCE_ROOT; };
+		4D17D4B11A2E2983003B309E /* UIDevice+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Orientation.h"; sourceTree = "<group>"; };
+		4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Orientation.m"; sourceTree = "<group>"; };
 		4D2242091A0D2D3D0065F172 /* SBPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPageView.h; sourceTree = "<group>"; };
 		4D22420A1A0D2D3D0065F172 /* SBPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPageView.m; sourceTree = "<group>"; };
 		4D224DC21A0919B6007DF1D1 /* SBAlbumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAlbumTableViewCell.h; sourceTree = "<group>"; };
@@ -563,6 +568,8 @@
 			children = (
 				4D06DA8B1A16AA0400EE3926 /* AVCaptureSession+Extension.h */,
 				4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */,
+				4D17D4B11A2E2983003B309E /* UIDevice+Orientation.h */,
+				4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -575,6 +582,7 @@
 				4D224DF51A091AF0007DF1D1 /* Capture */,
 				4D224DF11A091ABC007DF1D1 /* Controllers */,
 				4D224DF21A091AC1007DF1D1 /* Views */,
+				4D17D4AD1A2E1D09003B309E /* CocoaBlocCamera.xcassets */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -781,6 +789,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D17D4AF1A2E1D12003B309E /* CocoaBlocCamera.xcassets in Resources */,
 				09D2A34E19B8EF0A000D32DE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -922,6 +931,7 @@
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
+				4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */,
 				09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */,
 				09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */,
 				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,

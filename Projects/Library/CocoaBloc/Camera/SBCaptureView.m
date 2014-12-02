@@ -7,6 +7,7 @@
 //
 
 #import "SBCaptureView.h"
+#import "UIDevice+Orientation.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
@@ -24,9 +25,23 @@
     return self.captureLayer.session;
 }
 
+- (void) updateVideoConnectionWithOrientation:(AVCaptureVideoOrientation)orientation {
+    AVCaptureConnection *previewLayerConnection = self.captureLayer.connection;
+    if ([previewLayerConnection isVideoOrientationSupported])
+        [previewLayerConnection setVideoOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
 - (instancetype) initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super init]) {
         [self addSessionIfNeeded:session];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            
+            AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
+            if (orientation != -1) {
+                [self updateVideoConnectionWithOrientation:orientation];
+            }
+        }];
     }
     return self;
 }
@@ -40,6 +55,10 @@
 
 - (void) removeSession {
     self.captureLayer.session = nil;
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

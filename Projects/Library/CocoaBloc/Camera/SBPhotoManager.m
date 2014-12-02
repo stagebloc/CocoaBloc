@@ -9,6 +9,7 @@
 #import "SBPhotoManager.h"
 #import "SBReviewController.h"
 #import "UIImage+Resize.h"
+#import "UIDevice+Orientation.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -29,8 +30,13 @@
             }
             [self.captureSession commitConfiguration];
         }
+        
     }
     return self;
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (RACSignal*)captureImage {
@@ -39,7 +45,8 @@
         @strongify(self);
 
         AVCaptureConnection *connection = [_output connectionWithMediaType:AVMediaTypeVideo];
-        connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+        AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
+        connection.videoOrientation = orientation == -1 ? AVCaptureVideoOrientationPortrait : orientation;
         connection.videoMirrored = NO;
 
         [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {

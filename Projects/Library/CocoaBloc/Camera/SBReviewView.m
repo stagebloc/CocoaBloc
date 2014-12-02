@@ -12,7 +12,7 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 
 static NSTimeInterval const kAnimationDuration = 0.35f;
-static CGFloat const kAnimationDamping = 0.8f;
+static CGFloat const kAnimationDamping = 1.0f;
 static CGFloat const kAnimationVelocity = 0.5f;
 
 @interface SBReviewView ()
@@ -60,58 +60,69 @@ static CGFloat const kAnimationVelocity = 0.5f;
     return _drawButton;
 }
 
-- (UIToolbar*) toolBar {
-    if (!_toolBar) {
-        _toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), 0.f)];
-        _toolBar.barStyle = UIBarStyleBlackOpaque;
+- (UIView*) textContainerView {
+    if (!_textContainerView) {
+        _textContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), 0.f)];
     }
-    return _toolBar;
+    return _textContainerView;
+}
+
+- (UIToolbar*) toolBarTitleField {
+    if (!_toolBarTitleField) {
+        _toolBarTitleField = [[UIToolbar alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), 50)];
+        _toolBarTitleField.barStyle = UIBarStyleBlackOpaque;
+    }
+    return _toolBarTitleField;
 }
 
 - (UITextField*)titleField {
     if (!_titleField) {
-        _titleField = [UITextField new];
+        _titleField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 50)];
         _titleField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"title" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
         [[UITextField appearance] setTintColor:[UIColor whiteColor]];
         _titleField.textColor = [UIColor whiteColor];
         _titleField.textAlignment = NSTextAlignmentCenter;
-        _titleField.hidden = YES;
-        _titleField.tag = 0;
     }
     return _titleField;
 }
 
+- (UIToolbar*) toolBarDescriptionField {
+    if (!_toolBarDescriptionField) {
+        _toolBarDescriptionField = [[UIToolbar alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), 50)];
+        _toolBarDescriptionField.barStyle = UIBarStyleBlackOpaque;
+    }
+    return _toolBarDescriptionField;
+}
+
 - (UITextField*)descriptionField {
     if (!_descriptionField) {
-        _descriptionField = [UITextField new];
+        _descriptionField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 50)];
         _descriptionField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"caption" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.5f]}];
         [[UITextField appearance] setTintColor:[UIColor whiteColor]];
         _descriptionField.textColor = [UIColor whiteColor];
         _descriptionField.textAlignment = NSTextAlignmentCenter;
-        _descriptionField.hidden = YES;
-        _descriptionField.tag = 1;
     }
     return _descriptionField;
-}
-
-- (UIView*) line {
-    if (!_line) {
-        _line = [UIView new];
-        _line.backgroundColor = [UIColor whiteColor];
-        _line.alpha = .5f;
-        _line.hidden = YES;
-    }
-    return _line;
 }
 
 #pragma mark - View State
 - (instancetype) initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         //toolbar
-        [self addSubview:self.toolBar];
-        [self.toolBar addSubview:self.titleField];
-        [self.toolBar addSubview:self.descriptionField];
-        [self.toolBar addSubview:self.line];
+        [self addSubview:self.textContainerView];
+        [self.textContainerView addSubview:self.toolBarTitleField];
+        [self.textContainerView addSubview:self.toolBarDescriptionField];
+        
+        [self.toolBarTitleField addSubview:self.titleField];
+        [self.titleField autoCenterInSuperview];
+        [self.titleField autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.toolBarTitleField];
+        [self.titleField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBarTitleField];
+        
+        [self.toolBarDescriptionField addSubview:self.descriptionField];
+        [self.descriptionField autoCenterInSuperview];
+        [self.descriptionField autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.toolBarDescriptionField];
+        [self.descriptionField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBarDescriptionField];
+
         [self adjustToolBarConstraints:SBTextFieldLayoutHidden];
         
         //buttons
@@ -123,12 +134,12 @@ static CGFloat const kAnimationVelocity = 0.5f;
         CGPoint buttonOffset = CGPointMake(20, 20);
         [self addSubview:self.drawButton];
         [self.drawButton autoSetDimensionsToSize:buttonSize];
-        [self.drawButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.toolBar withOffset:buttonOffset.y];
+        [self.drawButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.textContainerView withOffset:buttonOffset.y];
         [self.drawButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-buttonOffset.x];
         
         [self addSubview:self.undoButton];
         [self.undoButton autoSetDimensionsToSize:buttonSize];
-        [self.undoButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.toolBar withOffset:buttonOffset.y];
+        [self.undoButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.textContainerView withOffset:buttonOffset.y];
         [self.undoButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:buttonOffset.x];
         
         //notifications
@@ -206,42 +217,35 @@ static CGFloat const kAnimationVelocity = 0.5f;
     CGFloat height = 105;
     CGFloat offset = height - 100;
     CGFloat titleOffset = offset;
-    self.descriptionField.hidden = NO;
-    self.titleField.hidden = NO;
-    self.line.hidden = NO;
+    self.toolBarDescriptionField.hidden = NO;
+    self.toolBarTitleField.hidden = NO;
     switch (layoutType) {
         case SBTextFieldLayoutTitle:
             height = 50 + offset;
-            self.descriptionField.hidden = YES;
-            self.line.hidden = YES;
+            self.toolBarDescriptionField.hidden = YES;
             break;
         case SBTextFieldLayoutTitleDescription:
             break;
         default: //hidden
             offset = height;
             titleOffset = 50;
-            self.descriptionField.hidden = YES;
-            self.titleField.hidden = YES;
-            self.line.hidden = YES;
+            self.toolBarDescriptionField.hidden = YES;
+            self.toolBarTitleField.hidden = YES;
             break;
     }
     
-    [constraints addObject:[self.toolBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-    [constraints addObject:[self.toolBar autoSetDimension:ALDimensionHeight toSize:height]];
-    [constraints addObject:[self.toolBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:-offset]]; //hidden
+    [constraints addObject:[self.textContainerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+    [constraints addObject:[self.textContainerView autoSetDimension:ALDimensionHeight toSize:height]];
+    [constraints addObject:[self.textContainerView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:-offset]]; //hidden
     
-    [constraints addObject:[self.titleField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBar]];
-    [constraints addObject:[self.titleField autoSetDimension:ALDimensionHeight toSize:50]];
-    [constraints addObject:[self.titleField autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.toolBar withOffset:titleOffset]];
+    [constraints addObject:[self.toolBarTitleField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.textContainerView]];
+    [constraints addObject:[self.toolBarTitleField autoSetDimension:ALDimensionHeight toSize:50]];
+    [constraints addObject:[self.toolBarTitleField autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.textContainerView withOffset:titleOffset]];
     
-    [constraints addObject:[self.descriptionField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBar]];
-    [constraints addObject:[self.descriptionField autoSetDimension:ALDimensionHeight toSize:50]];
-    [constraints addObject:[self.descriptionField autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.toolBar]];
-    
-    [constraints addObject:[self.line autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBar]];
-    [constraints addObject:[self.line autoSetDimension:ALDimensionHeight toSize:1]];
-    [constraints addObject:[self.line autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.titleField]];
-    
+    [constraints addObject:[self.toolBarDescriptionField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.textContainerView]];
+    [constraints addObject:[self.toolBarDescriptionField autoSetDimension:ALDimensionHeight toSize:50]];
+    [constraints addObject:[self.toolBarDescriptionField autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.textContainerView]];
+        
     self.toolbarConstraints = [constraints copy];
 }
 
