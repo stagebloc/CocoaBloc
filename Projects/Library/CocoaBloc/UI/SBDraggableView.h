@@ -18,9 +18,8 @@ typedef NS_OPTIONS(NSUInteger, SBDraggableViewDirection) {
 
 @protocol SBDraggableViewDelegate <NSObject>
 @optional
-- (void) draggableViewDidStopMoving:(SBDraggableView*)view;
+- (void) draggableViewDidStopMoving:(SBDraggableView*)view velocity:(CGPoint)velocity;
 - (void) draggableViewDidMove:(SBDraggableView*)view;
-- (void) draggableViewTapped:(SBDraggableView*)view event:(UIEvent*)event;
 @end
 
 @interface SBDraggableView : UIView
@@ -29,12 +28,12 @@ typedef NS_OPTIONS(NSUInteger, SBDraggableViewDirection) {
 @property (nonatomic) id <SBDraggableViewDelegate> dragDelegate;
 
 /*
- * The following attributes do not need to be set and are nil by default
- * nil means there are no restrictions
+ The following attributes are optional and a nil value indicates
+ that there is no restriction.
  */
-@property (nonatomic) NSNumber *leftRestriction; //left (x) won't go past this value
-@property (nonatomic) NSNumber *rightRestriction; //right (x + width) won't go past this value
-@property (nonatomic) NSNumber *topRestriction; //top (y) won't go past this value
-@property (nonatomic) NSNumber *bottomRestriction; //bottom (y + height) won't go past this value
+@property (nonatomic) NSNumber *leftRestriction; //(x) won't go past this value
+@property (nonatomic) NSNumber *rightRestriction; //(x + width) won't go past this value
+@property (nonatomic) NSNumber *topRestriction; //(y) won't go past this value
+@property (nonatomic) NSNumber *bottomRestriction; //(y + height) won't go past this value
 
 @end

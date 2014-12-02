@@ -8,11 +8,9 @@
 
 #import "SBDraggableView.h"
 
-@interface SBDraggableView ()
+@interface SBDraggableView () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) NSDate *touchBeganTime;
-@property (nonatomic) CGPoint touchBeganLocation;
-
+@property (nonatomic, strong) NSDate *panStarted;
 
 @end
 
@@ -48,63 +46,65 @@
     [super setFrame:frame];
 }
 
-#pragma mark - Touch methods
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-
-    if (![self doesAllowMovement])
-        return;
-    
-    [self setScrollViewEnabled:NO];
-    
-    self.touchBeganLocation = [[touches anyObject] locationInView:self];
-    self.touchBeganTime = [NSDate date];
+- (instancetype) init {
+    if (self = [super init]) {
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+        pan.maximumNumberOfTouches = 1;
+        pan.delegate = self;
+        [self addGestureRecognizer:pan];
+    }
+    return self;
 }
 
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-
-    if (![self doesAllowMovement])
-        return;
+#pragma mark - Gestures
+- (void) panGesture:(UIPanGestureRecognizer*)gesture {
+    UIView *view = gesture.view;
+    CGPoint translation = [gesture translationInView:view];
     
-    [self setScrollViewEnabled:NO];
-    
-    CGPoint location = [[touches anyObject] locationInView:self.superview];
-    CGRect frame = self.frame;
+    CGRect frame = view.frame;
     if ([self canMoveInDirection:SBDraggableViewDirectionLeftRight])
-        frame.origin.x = location.x - self.touchBeganLocation.x;
+        frame.origin.x += translation.x;
     if ([self canMoveInDirection:SBDraggableViewDirectionUpDown])
-        frame.origin.y = location.y - self.touchBeganLocation.y;
-    self.frame = frame;
-}
-
-- (void) touchesEndedOrCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self setScrollViewEnabled:YES];
-    self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-}
-
-- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesCancelled:touches withEvent:event];
-
-    [self touchesEndedOrCancelled:touches withEvent:event];
-    if ([self.dragDelegate respondsToSelector:@selector(draggableViewDidStopMoving:)])
-        [self.dragDelegate draggableViewDidStopMoving:self];
-}
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesEnded:touches withEvent:event];
+        frame.origin.y += translation.y;
+    view.frame = frame;
     
-    [self touchesEndedOrCancelled:touches withEvent:event];
+    [gesture setTranslation:CGPointMake(0, 0) inView:view];
     
-    NSTimeInterval timeSinceFirstTouch = [[NSDate date] timeIntervalSinceDate:self.touchBeganTime];
-    if (timeSinceFirstTouch < .125f) {
-        //This was a tap, call delegate method
-        if ([self.dragDelegate respondsToSelector:@selector(draggableViewTapped:event:)])
-            [self.dragDelegate draggableViewTapped:self event:event];
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        self.panStarted = [NSDate date];
     }
     
-    if ([self.dragDelegate respondsToSelector:@selector(draggableViewDidStopMoving:)])
-        [self.dragDelegate draggableViewDidStopMoving:self];
+    else if (gesture.state == UIGestureRecognizerStateChanged) {
+        if ([self.dragDelegate respondsToSelector:@selector(draggableViewDidMove:)]) {
+            [self.dragDelegate draggableViewDidMove:self];
+        }
+    }
+    
+    else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled ||
+             gesture.state == UIGestureRecognizerStateFailed) {
+        
+        CGPoint velGest = [gesture velocityInView:view];
+        CGPoint origin = frame.origin;
+        CGPoint veloicty = CGPointMake(origin.x == 0 ? 0 : velGest.x / frame.origin.x , origin.y == 0 ? 0 : velGest.y / frame.origin.y) ;
+        if ([self.dragDelegate respondsToSelector:@selector(draggableViewDidStopMoving:velocity:)]) {
+            [self.dragDelegate draggableViewDidStopMoving:self velocity:veloicty];
+        }
+        
+        self.panStarted = nil;
+    }
+    
+}
+
+// gesture recognizer should only begin when horizontally panning
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint velocity = [panGestureRecognizer velocityInView:panGestureRecognizer.view];
+    if (fabs(velocity.x) > fabs(velocity.y) && [self canMoveInDirection:SBDraggableViewDirectionLeftRight])
+        return YES;
+    if (fabs(velocity.y) > fabs(velocity.x) && [self canMoveInDirection:SBDraggableViewDirectionUpDown])
+        return YES;
+    if ([self canMoveInDirection:SBDraggableViewDirectionLeftRight] || [self canMoveInDirection:SBDraggableViewDirectionUpDown])
+        return YES;
+    return NO;
 }
 
 @end
