@@ -381,17 +381,26 @@
         
         void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
             UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
-            if (orientation != -1) {
-                [self adjustPageViewToOrientation:orientation];
-                [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
-                    [self adjustViewsToOrientation:orientation];
-                    [self layoutSubviews];
-                } completion:nil];
-            }
+            [self adjustPageViewToOrientation:orientation];
+            [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
+                [self adjustViewsToOrientation:orientation];
+                [self layoutSubviews];
+            } completion:nil];
         };
         orientationChange(nil);
         [self adjustViewsToOrientation:[[UIDevice currentDevice] interfaceOrientation]];
         [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:orientationChange];
+
+        @weakify(self);
+        [[self.recordButton rac_valuesAndChangesForKeyPath:NSStringFromSelector(@selector(holding)) options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld observer:nil] subscribeNext:^(RACTuple *tuple) {
+            @strongify(self);
+            BOOL isNowHolding = [tuple.first boolValue];
+            BOOL wasHolding = [[tuple.second valueForKey:NSKeyValueChangeOldKey] boolValue];
+            if (isNowHolding == NO && wasHolding == YES) {
+                [self.progressBar addCurrentValueToStopValues];
+            }
+        }];
+        
     }
     return self;
 }
@@ -457,12 +466,6 @@
 - (void) swipedRight:(UIPanGestureRecognizer*)sender {
     if (self.progressBar.value > 0) return;
     if (self.pageView.index - 1 >= 0) self.pageView.index--;
-}
-- (void) swipedUp:(UIPanGestureRecognizer*)sender {
-    
-}
-- (void) swipedDown:(UIPanGestureRecognizer*)sender {
-    
 }
 
 #pragma mark - RAC

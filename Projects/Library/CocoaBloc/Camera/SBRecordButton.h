@@ -10,6 +10,11 @@
 
 @class SBRecordButton;
 
+typedef NS_ENUM(NSUInteger, SBRecordButtonState) {
+    SBRecordButtonStateNone = 0,
+    SBRecordButtonStateHolding,
+};
+
 @protocol SCRecordButtonDelegate <NSObject>
 @optional
 /*
@@ -32,6 +37,8 @@
 @end
 
 @interface SBRecordButton : UIControl
+
+@property (nonatomic, assign) BOOL holding;
 
 @property (nonatomic, assign) id<SCRecordButtonDelegate> delegate;
 

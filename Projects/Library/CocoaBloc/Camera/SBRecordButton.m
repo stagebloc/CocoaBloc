@@ -12,13 +12,11 @@
 
 @interface SBRecordButton ()
 
-@property (nonatomic, assign) BOOL holding;
-
 @end
 
 @implementation SBRecordButton
 
-@synthesize innerView = _innerView;
+@synthesize innerView = _innerView, state = _state;
 
 - (UIView*) innerView {
     if (!_innerView) {
