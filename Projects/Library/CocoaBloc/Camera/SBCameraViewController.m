@@ -7,12 +7,18 @@
 //
 
 #import "SBCameraViewController.h"
+#import "SBReviewController.h"
+#import "UIDevice+Orientation.h"
 
 @interface SBCameraViewController ()
 
 @end
 
 @implementation SBCameraViewController
+
+- (UIViewController*) currentController {
+    return [self.viewControllers lastObject];
+}
 
 - (void) setCaptureDelegate:(id<SBCaptureViewControllerDelegate>)captureDelegate {
     SBCaptureViewController *controller = [self.viewControllers firstObject];
@@ -38,9 +44,22 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.layer.cornerRadius = 5.0f;
     self.view.layer.masksToBounds = YES;
+}
+
+#pragma mark - Orientation
+- (BOOL)shouldAutorotate {
+    return [self.currentController shouldAutorotate];
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return [self.currentController supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    if ([self.currentController isKindOfClass:[SBCaptureViewController class]])
+        return [self.currentController preferredInterfaceOrientationForPresentation];
+    return [[UIDevice currentDevice] interfaceOrientation];
 }
 
 @end

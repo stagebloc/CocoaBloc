@@ -21,6 +21,7 @@
 
 @implementation SBAsset
 
+
 + (RACSignal*)createAssetFromPHAsset:(PHAsset*)phAsset {
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
@@ -33,22 +34,22 @@
             case PHAssetMediaTypeAudio: type = SBAssetTypeAudio; break;
             default: break;
         }
-        
-        NSDictionary *map = @{
-                              @"pixelWidth": @(phAsset.pixelWidth),
-                              @"pixelHeight": @(phAsset.pixelHeight),
-                              @"creationDate": phAsset.creationDate,
-                              @"modificationDate": phAsset.modificationDate,
-                              @"location": phAsset.location == nil ? [NSNull null] : phAsset.location,
-                              @"duration": @(phAsset.duration),
-                              };
-        
+
         PHImageRequestOptions *options = [PHImageRequestOptions new];
         options.resizeMode = PHImageRequestOptionsResizeModeExact;
         options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
         [[PHImageManager defaultManager] requestImageForAsset:phAsset targetSize:CGSizeMake(phAsset.pixelWidth, phAsset.pixelHeight) contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage *result, NSDictionary *info) {
             if ([info[PHImageResultIsDegradedKey] isEqual:@NO] || (!info[PHImageResultIsDegradedKey] && result)) {
-                SBAsset *asset = [[SBAsset alloc] initWithImage:result type:type map:map];
+                SBAsset *asset = [[SBAsset alloc] initWithImage:result type:type];
+                
+                asset.pixelHeight = phAsset.pixelHeight;
+                asset.pixelWidth = phAsset.pixelWidth;
+                asset.location = phAsset.location;
+                asset.duration = phAsset.duration;
+                [asset setValue:phAsset.creationDate forKey:NSStringFromSelector(@selector(creationDate))];
+                [asset setValue:phAsset.modificationDate forKey:NSStringFromSelector(@selector(modificationDate))];
+                [asset setValue:@YES forKey:NSStringFromSelector(@selector(localAsset))];
+                
                 [subscriber sendNext:asset];
                 [subscriber sendCompleted];
             } else {
@@ -73,7 +74,7 @@
             options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
             [[PHImageManager defaultManager] requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset *avAsset, AVAudioMix *audioMix, NSDictionary *info) {
                 if ([avAsset isKindOfClass:[AVURLAsset class]]) {
-                    [asset setValue:([(AVURLAsset*)avAsset URL]) forKey:@"fileURL"];
+                    asset.fileURL = ([(AVURLAsset*)avAsset URL]);
                     [subscriber sendNext:asset];
                     [subscriber sendCompleted];
                 } else {
@@ -98,18 +99,18 @@
             ALAssetRepresentation *representation = alAsset.defaultRepresentation;
             CGImageRef imageRef = representation.fullScreenImage;
             NSDate *creationDate = [alAsset valueForKey:ALAssetPropertyDate];
-            NSDictionary *map = @{
-                                  @"pixelWidth": @(CGImageGetWidth(imageRef)),
-                                  @"pixelHeight": @(CGImageGetHeight(imageRef)),
-                                  @"creationDate": [creationDate copy],
-                                  @"modificationDate": [creationDate copy],
-                                  @"location": [alAsset valueForKey:ALAssetPropertyLocation],
-                                  @"duration": [alAsset valueForKey:ALAssetPropertyDuration],
-                                  @"fileURL": [representation url]
-                                  };
-            UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
-            SBAsset *asset = [[SBAsset alloc] initWithImage:image type:type map:map];
             
+            UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
+            SBAsset *asset = [[SBAsset alloc] initWithImage:image type:type];
+            asset.pixelWidth = CGImageGetWidth(imageRef);
+            asset.pixelHeight = CGImageGetHeight(imageRef);
+            asset.location = [alAsset valueForKey:ALAssetPropertyLocation];
+            asset.duration = [[alAsset valueForKey:ALAssetPropertyDuration] floatValue];
+            asset.fileURL = [representation url];
+            [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(creationDate))];
+            [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(modificationDate))];
+            [asset setValue:@YES forKey:NSStringFromSelector(@selector(localAsset))];
+
             [subscriber sendNext:asset];
             [subscriber sendCompleted];
             [disposable dispose];
@@ -124,53 +125,29 @@
     return _cache;
 }
 
-- (NSDictionary*) defaultMap {
-    return @{
-             NSStringFromSelector(@selector(creationDate)) : [NSDate date],
-             NSStringFromSelector(@selector(modificationDate)) : [NSDate date],
-             NSStringFromSelector(@selector(title)) : [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]
-             };
-}
-
-- (instancetype) initWithType:(SBAssetType)type map:(NSDictionary*)map {
+- (instancetype) initWithType:(SBAssetType)type {
     if (self = [super init]) {
-        NSDictionary *defaultMap = [self defaultMap];
-        [defaultMap enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            [self setValue:obj forKey:key];
-        }];
+        _creationDate = [NSDate date];
+        _modificationDate = [NSDate date];
         
-        if (map) {
-            [map enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                [self setValue:obj forKey:key];
-            }];
-        }
-        
+        self.title = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
         self.type = type;
     }
     return self;
 }
 
-- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type {
-    return [self initWithFileURL:url type:type map:nil];
-}
-- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type map:(NSDictionary*)map{
-    if (self = [self initWithType:type map:map]) {
-        _fileURL = [url copy];
+- (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type{
+    if (self = [self initWithType:type]) {
+        self.fileURL = [url copy];
     }
     return self;
 }
 
 - (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type {
-    return [self initWithImage:image type:type map:nil];
-}
-- (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type map:(NSDictionary*)map {
-    if (self = [self initWithType:type map:map]) {
-        _image = image;
-        
-        if ([map objectForKey:NSStringFromSelector(@selector(pixelHeight))] == nil)
-            _pixelHeight = image.size.height;
-        if ([map objectForKey:NSStringFromSelector(@selector(pixelWidth))] == nil)
-            _pixelWidth = image.size.width;
+    if (self = [self initWithType:type]) {
+        self.image = image;
+        self.pixelHeight = image.size.height;
+        self.pixelWidth = image.size.width;
     }
     return self;
 }

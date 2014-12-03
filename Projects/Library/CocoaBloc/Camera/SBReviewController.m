@@ -98,4 +98,13 @@
     return YES;
 }
 
+#pragma mark - Orientation
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 @end

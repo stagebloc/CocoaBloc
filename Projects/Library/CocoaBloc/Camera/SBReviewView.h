@@ -25,10 +25,11 @@ typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
 @property (nonatomic, strong) UIButton *drawButton;
 @property (nonatomic, strong) UIButton *undoButton;
 
-@property (strong, nonatomic) UIToolbar *toolBar;
+@property (strong, nonatomic) UIView *textContainerView;
+@property (strong, nonatomic) UIToolbar *toolBarTitleField;
 @property (strong, nonatomic) UITextField *titleField;
+@property (strong, nonatomic) UIToolbar *toolBarDescriptionField;
 @property (strong, nonatomic) UITextField *descriptionField;
-@property (strong, nonatomic) UIView *line;
 @property (strong, nonatomic) NSArray *toolbarConstraints;
 
 @property (nonatomic, assign) SBTextFieldLayout currentLayout;

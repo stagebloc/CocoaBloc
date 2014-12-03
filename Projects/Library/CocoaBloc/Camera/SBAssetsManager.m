@@ -44,7 +44,7 @@
             }
         }
         return group.assets;
-    }] map:^RACStream *(NSSet *assets) {
+    }] map:^UIImage *(NSSet *assets) {
         NSArray *array = [assets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]]];
         SBAsset *asset = array.firstObject;
         return asset.image;
@@ -121,7 +121,6 @@
         
         //ios 7 and lower
         else {
-            NSMutableArray *albums = [NSMutableArray array];
             __block NSError *error = nil;
             [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
                 [group setAssetsFilter:[ALAssetsFilter allPhotos]];

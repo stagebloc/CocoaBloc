@@ -40,4 +40,8 @@
 //same as setting @index but with declared duration
 - (void) setIndex:(NSInteger)index duration:(NSTimeInterval)duration;
 
+//translates the title labels according to the @param
+- (void) translateToX:(CGFloat)xTranslation;
+- (void) doneTranslating;
+
 @end

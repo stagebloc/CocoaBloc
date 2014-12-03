@@ -56,6 +56,7 @@
     baseLabel.textColor = [self.selectedColor copy];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisVertical]];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
+//    baseLabel.layer.transform = CATransform3DMakeRotation(0, 1, 1, 1);
     
     //left of base label
     int start = self.index-1;
@@ -65,6 +66,8 @@
         label.textColor = [self.deselectedColor copy];
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:pinLabel withOffset:-Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
+        
+//        label.layer.transform = CATransform3DMakeRotation(325 * M_PI / 180.0f, 0, 1, 0);
     }
     //right of base label
     start = self.index+1;
@@ -74,6 +77,8 @@
         label.textColor = [self.deselectedColor copy];
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:pinLabel withOffset:Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
+
+//        label.layer.transform = CATransform3DMakeRotation(35 * M_PI / 180.0f, 0, 1, 0);
     }
     
     self.constraints = [layoutConstraints copy];
@@ -110,6 +115,40 @@
     label.numberOfLines = 1;
     [label sizeToFit];
     return label;
+}
+
+- (void) translateToX:(CGFloat)xTranslation {
+    CGRect lastLabelFrame = [self.labels.lastObject frame];
+    CGRect firstLabelFrame = [self.labels.firstObject frame];
+    if (CGRectGetMinX(lastLabelFrame) - xTranslation > CGRectGetMaxX(self.frame)) {
+        xTranslation = 0;
+    } else if (CGRectGetMaxX(firstLabelFrame) - xTranslation < CGRectGetMinX(self.frame)) {
+        xTranslation = 0;
+    }
+    
+    [self.labels enumerateObjectsUsingBlock:^(UILabel *label, NSUInteger idx, BOOL *stop) {
+        CGRect frame = label.frame;
+        frame.origin.x -= xTranslation;
+        label.frame = frame;
+    }];
+}
+
+- (void) doneTranslating {
+    CGRect centerRect = CGRectMake(self.frame.size.width*.5f-20, 0, 40, self.frame.size.height);
+    __block BOOL didSetIndex = NO;
+    [self.labels enumerateObjectsUsingBlock:^(UILabel *label, NSUInteger idx, BOOL *stop) {
+        if (CGRectIntersectsRect(label.frame, centerRect)) {
+            didSetIndex = YES;
+            self.index = idx;
+        }
+    }];
+    if (!didSetIndex) {
+        CGRect firstLabelFrame = [self.labels.firstObject frame];
+        if (firstLabelFrame.origin.x >= centerRect.origin.x)
+            self.index = 0;
+        else if (firstLabelFrame.origin.x <= centerRect.origin.x)
+            self.index = self.labels.count-1;
+    }
 }
 
 @end

@@ -12,12 +12,18 @@
 
 @interface SBProgressBar : UIView
 
-@property (nonatomic) UIView *progressView;
-
 @property (nonatomic, assign) CGFloat value;
 @property (nonatomic, readonly) CGFloat maxValue;
 @property (nonatomic, readonly) CGFloat minValue;
 
+@property (nonatomic, strong, readonly) NSMutableSet *stopValues;
+
 - (id) initWithMinValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
+
+//Adds the current @value attribute to @stopValues
+- (void) addCurrentValueToStopValues;
+
+- (void) addStopValuesObject:(NSNumber *)value;
+- (void) removeStopValuesObject:(NSNumber *)value;
 
 @end

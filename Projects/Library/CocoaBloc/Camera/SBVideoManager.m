@@ -10,6 +10,7 @@
 #import "SBVideoManager.h"
 #import "SBAssetStitcher.h"
 #import "AVCaptureSession+Extension.h"
+#import "UIDevice+Orientation.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -24,7 +25,7 @@
 @property (nonatomic, strong) AVCaptureDeviceInput *audioInput;
 
 @property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
-@property (nonatomic) AVCaptureVideoOrientation orientation;
+@property (nonatomic, assign) AVCaptureVideoOrientation orientation;
 
 @property (nonatomic, strong) NSMutableArray *temporaryFileURLs;
 
@@ -43,8 +44,10 @@
 @implementation SBVideoManager
 
 - (SBAssetStitcher*) stitcher {
-    if (!_stitcher)
+    if (!_stitcher) {
         _stitcher = [[SBAssetStitcher alloc] init];
+        _stitcher.orientation = self.orientation;
+    }
     return _stitcher;
 }
 
@@ -96,6 +99,13 @@
     [self endNotificationObservers];
 }
 
+- (void) updateVideoConnectionWithOrientation:(AVCaptureVideoOrientation)orientation {
+    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:self.movieFileOutput.connections];
+    if ([videoConnection isVideoOrientationSupported]) {
+        videoConnection.videoOrientation = orientation;
+    }
+}
+
 - (void)startRecording {
     [self.temporaryFileURLs removeAllObjects];
     
@@ -104,10 +114,7 @@
     self.paused = NO;
     self.currentFinalDurration = kCMTimeZero;
     
-    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:self.movieFileOutput.connections];
-    if ([videoConnection isVideoOrientationSupported]) {
-        videoConnection.videoOrientation = self.orientation;
-    }
+    [self updateVideoConnectionWithOrientation:self.orientation];
     
     NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
     [self.temporaryFileURLs addObject:outputFileURL];
@@ -123,11 +130,14 @@
     self.paused = YES;
     [self.movieFileOutput stopRecording];
     self.currentFinalDurration = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
+    [self updateVideoConnectionWithOrientation:self.orientation];
 }
 
 - (BOOL) resumeRecording {
     if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.maxDuration)
         return NO;
+    
+    [self updateVideoConnectionWithOrientation:self.orientation];
     
     self.currentRecordingSegment++;
     self.paused = NO;
@@ -156,6 +166,8 @@
     self.currentFinalDurration = kCMTimeZero;
     
     self.paused = NO;
+    
+    [self updateVideoConnectionWithOrientation:self.orientation];
 }
 
 - (CMTime)totalRecordingDuration {
@@ -215,6 +227,7 @@
             }];
         }];
         
+        self.stitcher.orientation = self.orientation;
         [[self.stitcher exportTo:finalVideoLocationURL preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *error) {
@@ -307,22 +320,11 @@
     //Track orientation changes
     self.orientation = AVCaptureVideoOrientationPortrait;
     deviceOrientationDidChangeObserver = [notificationCenter addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        switch ([[UIDevice currentDevice] orientation]) {
-            case UIDeviceOrientationPortrait:
-                self.orientation = AVCaptureVideoOrientationPortrait;
-                break;
-            case UIDeviceOrientationPortraitUpsideDown:
-                self.orientation = AVCaptureVideoOrientationPortraitUpsideDown;
-                break;
-            case UIDeviceOrientationLandscapeLeft:
-                self.orientation = AVCaptureVideoOrientationLandscapeRight;
-                break;
-            case UIDeviceOrientationLandscapeRight:
-                self.orientation = AVCaptureVideoOrientationLandscapeLeft;
-                break;
-            default:
-                self.orientation = AVCaptureVideoOrientationPortrait;
-                break;
+        AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
+        if ((NSInteger)orientation != -1) {
+            self.orientation = orientation;
+            if (!self.isRecording)
+                [self updateVideoConnectionWithOrientation:orientation];
         }
     }];
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];

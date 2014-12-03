@@ -40,11 +40,11 @@
         case AVCaptureVideoOrientationPortrait:
             return CGAffineTransformMakeRotation(M_PI_2);
         case AVCaptureVideoOrientationLandscapeRight:
-            return CGAffineTransformMakeRotation(M_PI);
-        case AVCaptureVideoOrientationPortraitUpsideDown:
-            return CGAffineTransformMakeRotation(M_PI*2);
-        default: //AVCaptureVideoOrientationLandscapeLeft
             return CGAffineTransformMakeRotation(0);
+        case AVCaptureVideoOrientationPortraitUpsideDown:
+            return CGAffineTransformMakeRotation(M_PI_2);
+        default: //AVCaptureVideoOrientationLandscapeLeft
+            return CGAffineTransformMakeRotation(M_PI);
     }
 }
 

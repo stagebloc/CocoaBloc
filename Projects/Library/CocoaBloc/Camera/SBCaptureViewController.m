@@ -103,7 +103,7 @@
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
-        [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
+        [self performSelectorInBackground:@selector(updateUIForNewPage) withObject:nil];
         [self showBlur];
     }];
     
@@ -171,30 +171,39 @@
 }
 
 #pragma mark - Camera state handling
+- (void) _updateUIForNewPage {
+    NSInteger page = self.cameraView.pageView.index;
+    [self.cameraView setVideoCaptureType];
+    switch (page) {
+        case 0: [self.cameraView setVideoCaptureType]; break;
+        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
+        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
+        default: break;
+    }
+    [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
+}
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
         case 0:
             self.captureManager.captureType = SBCaptureTypeVideo;
             self.cameraView.recordButton.allowHold = YES;
-            [self.cameraView setVideoCaptureType];
             break;
         case 1:
             self.captureManager.captureType = SBCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
             self.cameraView.recordButton.allowHold = NO;
-            [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3];
             break;
         case 2:
             self.captureManager.captureType = SBCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
             self.cameraView.recordButton.allowHold = NO;
-            [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1];
             break;
         default:
             break;
     }
-    [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_updateUIForNewPage) object:nil];
+    [self performSelectorOnMainThread:@selector(_updateUIForNewPage) withObject:nil waitUntilDone:NO];
 }
 
 -(void)switchCamera {
@@ -209,14 +218,12 @@
 }
 
 - (void) showBlur {
-    self.cameraView.stateToolbar.backgroundColor = [UIColor clearColor];
     self.cameraView.stateToolbar.hidden = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(removeBlur) object:nil];
     [self performSelector:@selector(removeBlur) withObject:nil afterDelay:1.f];
 }
 
 -(void)removeBlur {
-    self.cameraView.stateToolbar.backgroundColor = [UIColor blackColor];
     self.cameraView.stateToolbar.hidden = YES;
 }
 
@@ -324,7 +331,9 @@
         return;
     }
     
-    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@-%ld.mp4", documentsDirectory, @"final", (long)[[NSDate date] timeIntervalSince1970]]];
     [self showHudWithText:@"Processing video"];
     @weakify(self);
     [[self.captureManager.videoManager finalizeRecordingToFile:url] subscribeNext:^(NSURL *saveURL) {
@@ -399,6 +408,7 @@
 
 - (void) reviewController:(SBReviewController *)controller rejectedAsset:(SBAsset *)asset {
     [self.navigationController popViewControllerAnimated:YES];
+    [[NSFileManager defaultManager] removeItemAtURL:asset.fileURL error:nil];
 }
 
 #pragma mark - Status bar states
@@ -408,6 +418,19 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+#pragma mark - Orientation
+- (BOOL)shouldAutorotate {
+    return ([[UIDevice currentDevice] orientation] != UIDeviceOrientationPortrait);
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
 }
 
 @end
