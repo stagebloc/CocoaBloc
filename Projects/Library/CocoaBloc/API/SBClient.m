@@ -19,6 +19,7 @@ NSString *SBAPIMethodParameterResultDirection = @"direction";
 NSString *SBAPIMethodParameterResultOrderBy = @"order_by";
 
 NSString *SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
+NSString *SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
 
 extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 

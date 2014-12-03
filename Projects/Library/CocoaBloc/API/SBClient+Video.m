@@ -46,7 +46,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
 
     if (!supported || !mime) {
 #warning make this a real error
-        return [RACSignal error:[NSError errorWithDomain:@"temp" code:1 userInfo:nil]];
+        return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
     }
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive)] forKeys:@[@"title", @"exclusive"]];

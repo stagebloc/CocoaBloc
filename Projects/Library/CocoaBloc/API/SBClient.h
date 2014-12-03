@@ -28,6 +28,12 @@ extern NSString *SBFanClubTierInfoDescription;
 
 // Error handling
 extern NSString *SBAPIErrorResponseObjectKey;			// Deserialized JSON object from server
+extern NSString *SBCocoaBlocErrorDomain;                // Error domain for CB-generated errors
+
+// CocoaBloc error codes
+typedef NS_ENUM(NSInteger, SBCocoaBlocErrorCode) {
+    kSBCocoaBlocErrorInvalidFileNameOrMIMEType = 0
+};
 
 /*!
  A client object that manages authentication + requests for a single

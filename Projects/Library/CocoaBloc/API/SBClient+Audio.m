@@ -61,7 +61,7 @@ static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension,
     
     if (!supported || !mime) {
 #warning make this a real error
-        return [RACSignal error:[NSError errorWithDomain:@"temp" code:1 userInfo:nil]];
+        return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
     }
     
     // create the upload request
