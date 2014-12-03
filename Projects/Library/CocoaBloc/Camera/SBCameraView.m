@@ -370,10 +370,11 @@
         [self initGestures];
         
         void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
-            UIInterfaceOrientation orientation = [[UIDevice currentDevice] videoOrientation];
+            UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
             if (orientation != -1) {
                 [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
                     [self adjustViewsToOrientation:orientation];
+                    [self layoutSubviews];
                 } completion:nil];
             }
         };
@@ -393,13 +394,14 @@
     CGAffineTransform toVal = self.flashModeButton.transform;
     switch (orientation) {
         case UIInterfaceOrientationPortrait: toVal = CGAffineTransformMakeRotation(0); break;
-        case UIInterfaceOrientationLandscapeLeft : toVal = CGAffineTransformMakeRotation(M_PI + M_PI_2); break;
-        case UIInterfaceOrientationLandscapeRight: toVal = CGAffineTransformMakeRotation(M_PI_2); break;
+        case UIInterfaceOrientationLandscapeLeft : toVal = CGAffineTransformMakeRotation(M_PI_2); break;
+        case UIInterfaceOrientationLandscapeRight: toVal = CGAffineTransformMakeRotation(M_PI + M_PI_2); break;
         case UIInterfaceOrientationPortraitUpsideDown: toVal = CGAffineTransformMakeRotation(M_PI); break;
         default: break;
     }
     self.flashModeButton.transform = toVal;
     self.toggleCameraButton.transform = toVal;
+//    self.pageView.transform = toVal;
 }
 
 - (void) adjustCameraConstraintsForRatio:(SBCameraAspectRatio)ratio captureType:(SBCaptureType)captureType{
