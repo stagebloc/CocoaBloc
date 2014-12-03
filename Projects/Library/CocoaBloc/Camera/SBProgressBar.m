@@ -26,6 +26,10 @@
     if (value < self.minValue) value = self.minValue;
     else if (value > self.maxValue) value = self.maxValue;
     _value = value;
+    
+    if (value == self.minValue)
+        [_stopValues removeAllObjects];
+    
     [self setNeedsDisplay];
 }
 
