@@ -22,14 +22,20 @@
  */
 - (RACSignal *)uploadVideoWithData:(NSData *)videoData
                           fileName:(NSString *)fileName
+                             title:(NSString *)title
+                       description:(NSString *)description
                          toAccount:(SBAccount *)account
+                         exclusive:(BOOL)exclusive
                     progressSignal:(RACSignal **)progressSignal;
 
 /*!
  Upload a video directly from disk by providing the absolute path to the video file.
  */
 - (RACSignal *)uploadVideoAtPath:(NSString *)filePath
+                           title:(NSString *)title
+                     description:(NSString *)description
                        toAccount:(SBAccount *)account
+                       exclusive:(BOOL)exclusive
                   progressSignal:(RACSignal **)progressSignal;
 
 @end

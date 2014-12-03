@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <CocoaBloc/SBAuthenticationViewController.h>
 #import <CocoaBloc.h>
+#import "SBClient+Video.h"
 #import <RACEXTScope.h>
 
 @interface AppDelegate ()
@@ -27,11 +28,29 @@
     
     [SBClient setClientID:@"hey" clientSecret:@"there" redirectURI:@"kooz://"];
     c = [SBClient new];
-    [[c logInWithUsername:@"hi@stagebloc.com" password:@"starwars"] subscribeNext:^(id x) {
-        
-    } error:^(NSError *error) {
-        
-    }];
+    __block RACSignal *prog;
+#warning put in password
+    [[[c logInWithUsername:@"hi@stagebloc.com" password:nil]
+        flattenMap:^RACStream *(SBUser *user) {
+            RACSignal *s = [c uploadVideoWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"bball" ofType:@"mov"]]
+                                 fileName:@"bball.mov"
+                                    title:@"no."
+                              description:@"yes"
+                                toAccount:user.adminAccounts.firstObject
+                                exclusive:NO
+                           progressSignal:&prog];
+            [prog subscribeNext:^(id x) {
+                NSLog(@"%@", x);
+            }];
+            
+            return s;
+        }]
+        subscribeNext:^(NSDictionary *response) {
+            
+        }
+        error:^(NSError *error) {
+            
+        }];
     
     return YES;
 }

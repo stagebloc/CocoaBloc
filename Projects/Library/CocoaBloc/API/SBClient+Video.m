@@ -25,10 +25,14 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
 
 - (RACSignal *)uploadVideoWithData:(NSData *)videoData
                           fileName:(NSString *)fileName
+                             title:(NSString *)title
+                       description:(NSString *)description
                          toAccount:(SBAccount *)account
+                         exclusive:(BOOL)exclusive
                     progressSignal:(RACSignal **)progressSignal {
     NSParameterAssert(videoData);
     NSParameterAssert(account);
+    NSParameterAssert(title);
     NSParameterAssert(fileName);
     
     // create endpoint location string
@@ -43,12 +47,17 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
         return [RACSignal error:[NSError errorWithDomain:@"temp" code:1 userInfo:nil]];
     }
     
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive)] forKeys:@[@"title", @"exclusive"]];
+    if (description) {
+        params[@"description"] = description;
+    }
+    
     // create the upload request
     NSError *err;
     NSMutableURLRequest *req =
     [self.requestSerializer multipartFormRequestWithMethod:@"POST"
                                                  URLString:endpointLocation
-                                                parameters:[self requestParametersWithParameters:nil]
+                                                parameters:[self requestParametersWithParameters:params]
                                  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                                      [formData appendPartWithFileData:videoData name:@"video" fileName:fileName mimeType:mime];
                                  } error:&err];
@@ -84,8 +93,15 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
 }
 
 - (RACSignal *)uploadVideoAtPath:(NSString *)filePath
+                           title:(NSString *)title
+                     description:(NSString *)description
                        toAccount:(SBAccount *)account
+                       exclusive:(BOOL)exclusive
                   progressSignal:(RACSignal **)progressSignal {
+    NSParameterAssert(filePath);
+    NSParameterAssert(title);
+    NSParameterAssert(account);
+    
     RACSignal *(^signalFromPath)() = ^RACSignal * {
         NSData *fileData;
         NSError *error;
@@ -101,8 +117,11 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     return [[RACSignal defer:signalFromPath]
                 flattenMap:^RACStream *(NSData *fileData) {
                     return [self uploadVideoWithData:fileData
-                                            fileName:filePath
+                                            fileName:filePath.lastPathComponent
+                                               title:title
+                                         description:description
                                            toAccount:account
+                                           exclusive:exclusive
                                       progressSignal:progressSignal];
                 }];
 }
