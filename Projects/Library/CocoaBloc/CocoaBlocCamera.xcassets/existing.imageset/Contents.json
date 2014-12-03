@@ -3,18 +3,6 @@
     {
       "idiom" : "universal",
       "filename" : "choose-existing.pdf"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "existing.png",
-      "unassigned" : true,
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "existing@2x.png",
-      "unassigned" : true,
-      "scale" : "2x"
     }
   ],
   "info" : {

@@ -3,18 +3,6 @@
     {
       "idiom" : "universal",
       "filename" : "close.pdf"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "close.png",
-      "unassigned" : true,
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "close@2x.png",
-      "unassigned" : true,
-      "scale" : "2x"
     }
   ],
   "info" : {

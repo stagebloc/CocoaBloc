@@ -28,7 +28,7 @@
 - (void) updateVideoConnectionWithOrientation:(AVCaptureVideoOrientation)orientation {
     AVCaptureConnection *previewLayerConnection = self.captureLayer.connection;
     if ([previewLayerConnection isVideoOrientationSupported])
-        [previewLayerConnection setVideoOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+        [previewLayerConnection setVideoOrientation:orientation];
 }
 
 - (instancetype) initWithCaptureSession:(AVCaptureSession *)session {
@@ -38,7 +38,7 @@
         [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             
             AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
-            if (orientation != -1) {
+            if ((NSInteger)orientation != -1) {
                 [self updateVideoConnectionWithOrientation:orientation];
             }
         }];

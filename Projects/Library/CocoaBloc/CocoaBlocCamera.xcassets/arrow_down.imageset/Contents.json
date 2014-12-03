@@ -3,18 +3,6 @@
     {
       "idiom" : "universal",
       "filename" : "chevron_down.pdf"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "options.png",
-      "unassigned" : true,
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "options@2x.png",
-      "unassigned" : true,
-      "scale" : "2x"
     }
   ],
   "info" : {

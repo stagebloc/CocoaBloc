@@ -3,18 +3,6 @@
     {
       "idiom" : "universal",
       "filename" : "flip.pdf"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "flip.png",
-      "unassigned" : true,
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "flip@2x.png",
-      "unassigned" : true,
-      "scale" : "2x"
     }
   ],
   "info" : {

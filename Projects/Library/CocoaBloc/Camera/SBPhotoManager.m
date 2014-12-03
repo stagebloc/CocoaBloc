@@ -46,7 +46,7 @@
 
         AVCaptureConnection *connection = [_output connectionWithMediaType:AVMediaTypeVideo];
         AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
-        connection.videoOrientation = orientation == -1 ? AVCaptureVideoOrientationPortrait : orientation;
+        connection.videoOrientation = (NSInteger)orientation == -1 ? AVCaptureVideoOrientationPortrait : orientation;
         connection.videoMirrored = NO;
 
         [self.output captureStillImageAsynchronouslyFromConnection:connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {

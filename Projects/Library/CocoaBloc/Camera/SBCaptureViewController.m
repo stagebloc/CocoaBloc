@@ -180,6 +180,7 @@
         case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
         default: break;
     }
+    [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
@@ -203,7 +204,6 @@
     }
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_updateUIForNewPage) object:nil];
     [self performSelectorOnMainThread:@selector(_updateUIForNewPage) withObject:nil waitUntilDone:NO];
-    [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
 
 -(void)switchCamera {

@@ -321,7 +321,7 @@
     self.orientation = AVCaptureVideoOrientationPortrait;
     deviceOrientationDidChangeObserver = [notificationCenter addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
-        if (orientation != -1) {
+        if ((NSInteger)orientation != -1) {
             self.orientation = orientation;
             if (!self.isRecording)
                 [self updateVideoConnectionWithOrientation:orientation];

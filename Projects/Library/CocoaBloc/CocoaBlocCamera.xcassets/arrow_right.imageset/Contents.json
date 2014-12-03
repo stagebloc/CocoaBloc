@@ -3,18 +3,6 @@
     {
       "idiom" : "universal",
       "filename" : "arrow-right.pdf"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "arrow_right.png",
-      "unassigned" : true,
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "arrow_right@2x.png",
-      "unassigned" : true,
-      "scale" : "2x"
     }
   ],
   "info" : {
