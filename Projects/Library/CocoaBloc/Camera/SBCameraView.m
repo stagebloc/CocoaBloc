@@ -63,7 +63,7 @@
 - (UIToolbar*) stateToolbar {
     if (!_stateToolbar) {
         _stateToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
-        _stateToolbar.backgroundColor = [UIColor clearColor];
+        _stateToolbar.translucent = YES;
         _stateToolbar.barStyle = UIBarStyleBlack;
         _stateToolbar.hidden = YES;
     }
@@ -223,9 +223,9 @@
 - (UIToolbar*) optionsMenuToolbar {
     if (!_optionsMenuToolbar) {
         _optionsMenuToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
-        _optionsMenuToolbar.backgroundColor = [UIColor clearColor];
         _optionsMenuToolbar.barStyle = UIBarStyleBlack;
-        
+        _optionsMenuToolbar.translucent = YES;
+
         CGSize size = CGSizeMake(30, 30);
         CGPoint offset = CGPointMake(80, 20);
         [_optionsMenuToolbar addSubview:self.toggleCameraButton];

@@ -70,7 +70,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (UIToolbar*) toolBarTitleField {
     if (!_toolBarTitleField) {
         _toolBarTitleField = [[UIToolbar alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), 50)];
-        _toolBarTitleField.barStyle = UIBarStyleBlackOpaque;
+        _toolBarTitleField.barStyle = UIBarStyleBlack;
+        _toolBarTitleField.translucent = YES;
     }
     return _toolBarTitleField;
 }
@@ -89,7 +90,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (UIToolbar*) toolBarDescriptionField {
     if (!_toolBarDescriptionField) {
         _toolBarDescriptionField = [[UIToolbar alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), 50)];
-        _toolBarDescriptionField.barStyle = UIBarStyleBlackOpaque;
+        _toolBarDescriptionField.barStyle = UIBarStyleBlack;
+        _toolBarDescriptionField.translucent = YES;
     }
     return _toolBarDescriptionField;
 }
