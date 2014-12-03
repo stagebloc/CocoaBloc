@@ -328,10 +328,6 @@
     
     @weakify(self);
     [self.panGesture.rac_gestureSignal subscribeNext:^(UIPanGestureRecognizer *panGesture) {
-        if (panGesture.state != UIGestureRecognizerStateEnded && panGesture.state != UIGestureRecognizerStateCancelled &&
-            panGesture.state != UIGestureRecognizerStateFailed)
-            return;
-        
         @strongify(self);
         UIView *view = panGesture.view;
         CGPoint translation = [panGesture translationInView:view];
@@ -353,12 +349,15 @@
                 break;
         }
         
-        if (xTrans > 0) {
-            [self swipedLeft:panGesture];
-        } else if (xTrans < 0) {
-            [self swipedRight:panGesture];
+        if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled ||
+            panGesture.state == UIGestureRecognizerStateFailed) {
+            if (xTrans > 0) {
+                [self swipedLeft:panGesture];
+            } else if (xTrans < 0) {
+                [self swipedRight:panGesture];
+            }
+            [panGesture setTranslation:CGPointMake(0, 0) inView:view];
         }
-        [panGesture setTranslation:CGPointMake(0, 0) inView:view];
     }];
     [[self.singleTapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
         @strongify(self);

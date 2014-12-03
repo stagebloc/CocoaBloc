@@ -103,7 +103,7 @@
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
-        [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
+        [self performSelectorInBackground:@selector(updateUIForNewPage) withObject:nil];
         [self showBlur];
     }];
     
@@ -171,29 +171,38 @@
 }
 
 #pragma mark - Camera state handling
+- (void) _updateUIForNewPage {
+    NSInteger page = self.cameraView.pageView.index;
+    [self.cameraView setVideoCaptureType];
+    switch (page) {
+        case 0: [self.cameraView setVideoCaptureType]; break;
+        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
+        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
+        default: break;
+    }
+}
 - (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
         case 0:
             self.captureManager.captureType = SBCaptureTypeVideo;
             self.cameraView.recordButton.allowHold = YES;
-            [self.cameraView setVideoCaptureType];
             break;
         case 1:
             self.captureManager.captureType = SBCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
             self.cameraView.recordButton.allowHold = NO;
-            [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3];
             break;
         case 2:
             self.captureManager.captureType = SBCaptureTypePhoto;
             self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
             self.cameraView.recordButton.allowHold = NO;
-            [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1];
             break;
         default:
             break;
     }
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_updateUIForNewPage) object:nil];
+    [self performSelectorOnMainThread:@selector(_updateUIForNewPage) withObject:nil waitUntilDone:NO];
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
 
