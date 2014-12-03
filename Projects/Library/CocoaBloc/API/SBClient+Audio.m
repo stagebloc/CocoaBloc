@@ -25,7 +25,7 @@
 
 
 // Figure out MIME type based on extension
-static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL *supportedAudioUpload) {
+static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension, BOOL *supportedAudioUpload) {
     static NSArray *supportedAudioExtensions;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -53,15 +53,15 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     NSParameterAssert(account);
     
     // create endpoint location string
-    NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%d/audio", account.identifier.intValue]].absoluteString;
+    NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%@/audio", account.identifier]].absoluteString;
     
     // verify that the mime type is valid and supported by us
     BOOL supported;
-    NSString *mime = SBContentTypeForPathExtension([fileName.lastPathComponent componentsSeparatedByString:@"."].lastObject, &supported);
+    NSString *mime = SBAudioContentTypeForPathExtension([fileName.lastPathComponent componentsSeparatedByString:@"."].lastObject, &supported);
     
     if (!supported || !mime) {
 #warning make this a real error
-        return [RACSignal error:[NSError errorWithDomain:@"temp" code:1 userInfo:nil]];
+        return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
     }
     
     // create the upload request
@@ -99,9 +99,9 @@ static inline NSString * SBContentTypeForPathExtension(NSString *extension, BOOL
     }
     
     // use defer to turn "hot" enqueueing into cold signal
-    return [[RACSignal defer:^RACSignal *{
-        return [[self rac_enqueueHTTPRequestOperation:op] cb_deserializeWithClient:self modelClass:[SBAudioUpload class] keyPath:@"data"];
-    }] setNameWithFormat:@"Upload audio (%@)", fileName];
+    return [[[self enqueueRequestOperation:op]
+                cb_deserializeWithClient:self modelClass:[SBAudioUpload class] keyPath:@"data"]
+                setNameWithFormat:@"Upload audio (%@)", fileName];
 }
 
 @end

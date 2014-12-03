@@ -19,7 +19,7 @@
 @property (nonatomic) NSNumber *likeCount;
 @property (nonatomic) NSDate *modificationDate;
 @property (nonatomic) NSURL *shortURL;
-@property (nonatomic, getter = isSticky) NSNumber *sticky;
+@property (nonatomic) NSNumber *sticky;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) NSNumber *userID;
 @property (nonatomic) NSNumber *userHasLiked;

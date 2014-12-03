@@ -7,6 +7,8 @@
 //
 
 #import "SBAccount.h"
+#import <Mantle/Mantle.h>
+#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 
 @implementation SBAccount
 
@@ -16,7 +18,16 @@
              @"name"	 	: @"name",
              @"stageblocURL": @"stagebloc_url",
              @"type"		: @"type",
-             @"URL"			: @"url"};
+             @"URL"			: @"url",
+             @"photo"       : @"photo"};
+}
+
++ (MTLValueTransformer *)photoJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^SBPhoto *(NSDictionary *photoJSON) {
+        return [MTLJSONAdapter modelOfClass:[SBPhoto class] fromJSONDictionary:photoJSON error:nil];
+    } reverseBlock:^NSDictionary *(SBPhoto *photo) {
+        return [MTLJSONAdapter JSONDictionaryFromModel:photo];
+    }];
 }
 
 @end

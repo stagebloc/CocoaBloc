@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */; };
 		090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudioUpload.m */; };
-		090EB81A198800350081D406 /* ModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB819198800350081D406 /* ModelTests.m */; };
 		09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09342DF21A014533006FF18E /* SBAuthenticationViewController.m */; };
 		09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */; };
 		0949513519EF261E00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513419EF261E00E3411E /* SBClient+Private.m */; };
-		094CB715197B133B00BBF2BE /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F3197862AC00EE983C /* SBClient.m */; };
 		094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */; };
 		09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFC19F6CF7A00E57355 /* SBAddress.m */; };
 		09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFE19F6CF7A00E57355 /* SBOrder.m */; };
@@ -31,7 +29,6 @@
 		09A897D11978536000EE983C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897D01978536000EE983C /* UIKit.framework */; };
 		09A897D41978536000EE983C /* libCocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BC1978536000EE983C /* libCocoaBloc.a */; };
 		09A897DA1978536000EE983C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09A897D81978536000EE983C /* InfoPlist.strings */; };
-		09A897DC1978536000EE983C /* APITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897DB1978536000EE983C /* APITests.m */; };
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
 		09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */; };
@@ -57,20 +54,6 @@
 		4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */; };
 		4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */; };
 		4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SBPageView.m */; };
-		4D224DE21A0919B6007DF1D1 /* SBAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC31A0919B6007DF1D1 /* SBAlbumTableViewCell.m */; };
-		4D224DE41A0919B6007DF1D1 /* SBAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC71A0919B6007DF1D1 /* SBAsset.m */; };
-		4D224DE51A0919B6007DF1D1 /* SBAssetGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DC91A0919B6007DF1D1 /* SBAssetGroup.m */; };
-		4D224DE61A0919B6007DF1D1 /* SBAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCB1A0919B6007DF1D1 /* SBAssetsManager.m */; };
-		4D224DE71A0919B6007DF1D1 /* SBCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCD1A0919B6007DF1D1 /* SBCaptureViewController.m */; };
-		4D224DE81A0919B6007DF1D1 /* SBCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DCF1A0919B6007DF1D1 /* SBCaptureManager.m */; };
-		4D224DE91A0919B6007DF1D1 /* SBCaptureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD11A0919B6007DF1D1 /* SBCaptureView.m */; };
-		4D224DEA1A0919B6007DF1D1 /* SBDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD41A0919B6007DF1D1 /* SBDeviceManager.m */; };
-		4D224DEB1A0919B6007DF1D1 /* SBImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD61A0919B6007DF1D1 /* SBImagePickerController.m */; };
-		4D224DEC1A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DD81A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m */; };
-		4D224DED1A0919B6007DF1D1 /* SBPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDA1A0919B6007DF1D1 /* SBPhotoManager.m */; };
-		4D224DEE1A0919B6007DF1D1 /* SBProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDC1A0919B6007DF1D1 /* SBProgressBar.m */; };
-		4D224DEF1A0919B6007DF1D1 /* SBReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DDE1A0919B6007DF1D1 /* SBReviewController.m */; };
-		4D224DF01A0919B6007DF1D1 /* SBVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D224DE01A0919B6007DF1D1 /* SBVideoManager.m */; };
 		4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */; };
 		4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B51A23A8A700D33D24 /* SBReviewView.m */; };
 		4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B91A23AC7000D33D24 /* SBPhotoReviewView.m */; };
@@ -80,6 +63,9 @@
 		4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD161611A2E5AAA004C98CC /* SBDraggableView.m */; };
 		4DEF29C51A2CFE0300316B88 /* SBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */; };
 		4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */; };
+		529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */; };
+		529FC97E1A2F8DBC00F197C7 /* bball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 529FC97D1A2F8DBC00F197C7 /* bball.mov */; };
+		529FC9811A2F98DC00F197C7 /* SBVideoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9801A2F98DC00F197C7 /* SBVideoUpload.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		B486845E2F7045E0BC1CAEA7 /* libPods-CB Test App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7900987944179BCA76913 /* libPods-CB Test App.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
@@ -259,6 +245,11 @@
 		4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraViewController.m; sourceTree = "<group>"; };
 		4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraView.h; sourceTree = "<group>"; };
 		4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraView.m; sourceTree = "<group>"; };
+		529FC9781A2F6FAC00F197C7 /* SBClient+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Video.h"; sourceTree = "<group>"; };
+		529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Video.m"; sourceTree = "<group>"; };
+		529FC97D1A2F8DBC00F197C7 /* bball.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = bball.mov; path = "../../../../../../../../../Applications/Max 6.1/patches/media/bball.mov"; sourceTree = "<group>"; };
+		529FC97F1A2F98DC00F197C7 /* SBVideoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideoUpload.h; sourceTree = "<group>"; };
+		529FC9801A2F98DC00F197C7 /* SBVideoUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideoUpload.m; sourceTree = "<group>"; };
 		5CA09BB3FDC7100CC628A1E4 /* Pods-CocoaBlocTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.debug.xcconfig"; sourceTree = "<group>"; };
 		77FB1ABA8A21E60816759167 /* Pods-CocoaBlocTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.release.xcconfig"; sourceTree = "<group>"; };
 		7EFD14D7DA05D8849CA59E07 /* Pods-CB Test App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CB Test App.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CB Test App/Pods-CB Test App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -430,6 +421,8 @@
 				097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */,
 				0976370019BE3F4200E3CD45 /* SBClient+Audio.h */,
 				0976370119BE3F4200E3CD45 /* SBClient+Audio.m */,
+				529FC9781A2F6FAC00F197C7 /* SBClient+Video.h */,
+				529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */,
 				0976370619BE3F5100E3CD45 /* SBClient+Blog.h */,
 				0976370719BE3F5100E3CD45 /* SBClient+Blog.m */,
 				0976370919BE3F6500E3CD45 /* SBClient+Photo.h */,
@@ -455,6 +448,8 @@
 				09B512491979AE6000D62F67 /* SBFanClub.m */,
 				090EB8161987F1100081D406 /* SBAudioUpload.h */,
 				090EB8171987F1100081D406 /* SBAudioUpload.m */,
+				529FC97F1A2F98DC00F197C7 /* SBVideoUpload.h */,
+				529FC9801A2F98DC00F197C7 /* SBVideoUpload.m */,
 				09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */,
 				09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */,
 				09B512581979AED700D62F67 /* Content */,
@@ -535,6 +530,7 @@
 		09D2A33F19B8EF0A000D32DE /* CB Test App */ = {
 			isa = PBXGroup;
 			children = (
+				529FC97D1A2F8DBC00F197C7 /* bball.mov */,
 				09D2A34419B8EF0A000D32DE /* AppDelegate.h */,
 				09D2A34519B8EF0A000D32DE /* AppDelegate.m */,
 				09D2A34D19B8EF0A000D32DE /* Images.xcassets */,
@@ -793,6 +789,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				529FC97E1A2F8DBC00F197C7 /* bball.mov in Resources */,
 				09D2A34E19B8EF0A000D32DE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -940,12 +937,14 @@
 				09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */,
 				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,
 				4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */,
+				529FC9811A2F98DC00F197C7 /* SBVideoUpload.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
 				097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */,
 				0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */,
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */,
 				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
+				529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */,
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
 				4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */,
@@ -966,23 +965,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D224DEA1A0919B6007DF1D1 /* SBDeviceManager.m in Sources */,
-				4D224DEF1A0919B6007DF1D1 /* SBReviewController.m in Sources */,
-				4D224DEE1A0919B6007DF1D1 /* SBProgressBar.m in Sources */,
-				094CB715197B133B00BBF2BE /* SBClient.m in Sources */,
-				4D224DE21A0919B6007DF1D1 /* SBAlbumTableViewCell.m in Sources */,
-				4D224DE61A0919B6007DF1D1 /* SBAssetsManager.m in Sources */,
-				4D224DED1A0919B6007DF1D1 /* SBPhotoManager.m in Sources */,
-				4D224DE51A0919B6007DF1D1 /* SBAssetGroup.m in Sources */,
-				090EB81A198800350081D406 /* ModelTests.m in Sources */,
-				4D224DEC1A0919B6007DF1D1 /* SBPhotoCollectionViewCell.m in Sources */,
-				4D224DE91A0919B6007DF1D1 /* SBCaptureView.m in Sources */,
-				4D224DF01A0919B6007DF1D1 /* SBVideoManager.m in Sources */,
-				4D224DE41A0919B6007DF1D1 /* SBAsset.m in Sources */,
-				09A897DC1978536000EE983C /* APITests.m in Sources */,
-				4D224DE81A0919B6007DF1D1 /* SBCaptureManager.m in Sources */,
-				4D224DE71A0919B6007DF1D1 /* SBCaptureViewController.m in Sources */,
-				4D224DEB1A0919B6007DF1D1 /* SBImagePickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
