@@ -24,11 +24,12 @@
 @interface SBCameraView ()
 @property (nonatomic, strong) NSArray *cameraConstraints;
 @property (nonatomic, strong) NSArray *optionsMenuConstraints;
+@property (nonatomic, strong) NSArray *pageViewConstraints;
 
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
-@property (nonatomic, strong) UISwipeGestureRecognizer *swipeLeftGesture;
-@property (nonatomic, strong) UISwipeGestureRecognizer *swipeRightGesture;
+
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 @end
 
@@ -109,11 +110,6 @@
         [_topContainerView addSubview:self.timeLabel];
         [self.timeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:_topContainerView];
         [self.timeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:_topContainerView];
-        
-        [_topContainerView addSubview:self.pageView];
-        [self.pageView autoAlignAxis:ALAxisVertical toSameAxisOfView:_topContainerView];
-        [self.pageView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:_topContainerView];
-        [self.pageView autoSetDimensionsToSize:CGSizeMake(225, hudHeight)];
     }
     return _topContainerView;
 }
@@ -299,6 +295,9 @@
     [self.topContainerView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [self.topContainerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     
+    //pageView
+    [self addSubview:self.pageView];
+    
     //progress bar
     [self addSubview:self.progressBar];
     [self.progressBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
@@ -308,15 +307,9 @@
 }
 
 - (void) initGestures {
-    self.swipeLeftGesture = [[UISwipeGestureRecognizer alloc] init];
-    self.swipeLeftGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    self.swipeLeftGesture.delegate = self;
-    [self addGestureRecognizer:self.swipeLeftGesture];
-    
-    self.swipeRightGesture = [[UISwipeGestureRecognizer alloc] init];
-    self.swipeRightGesture.direction = UISwipeGestureRecognizerDirectionRight;
-    self.swipeRightGesture.delegate = self;
-    [self addGestureRecognizer:self.swipeRightGesture];
+    self.panGesture = [[UIPanGestureRecognizer alloc] init];
+    self.panGesture.delegate = self;
+    [self addGestureRecognizer:self.panGesture];
     
     self.singleTapGesture = [[UITapGestureRecognizer alloc] init];
     self.singleTapGesture.numberOfTapsRequired = 1;
@@ -328,27 +321,44 @@
     self.doubleTapGesture.delegate = self;
     [self addGestureRecognizer:self.doubleTapGesture];
     
-    self.singleTapGesture.delaysTouchesEnded = NO;
-    self.doubleTapGesture.delaysTouchesEnded = NO;
-    self.swipeLeftGesture.delaysTouchesEnded = NO;
-    self.swipeRightGesture.delaysTouchesEnded = NO;
-    self.singleTapGesture.delaysTouchesBegan = NO;
-    self.doubleTapGesture.delaysTouchesBegan = NO;
-    self.swipeLeftGesture.delaysTouchesBegan = NO;
-    self.swipeRightGesture.delaysTouchesBegan = NO;
+    NSArray *gestures = @[self.singleTapGesture, self.doubleTapGesture, self.panGesture];
+    [gestures setValue:@NO forKey:NSStringFromSelector(@selector(delaysTouchesEnded))];
 
     [self.singleTapGesture requireGestureRecognizerToFail:self.doubleTapGesture];
     
     @weakify(self);
-    [self.swipeLeftGesture.rac_gestureSignal subscribeNext:^(UISwipeGestureRecognizer *swipeGesture) {
+    [self.panGesture.rac_gestureSignal subscribeNext:^(UIPanGestureRecognizer *panGesture) {
+        if (panGesture.state != UIGestureRecognizerStateEnded && panGesture.state != UIGestureRecognizerStateCancelled &&
+            panGesture.state != UIGestureRecognizerStateFailed)
+            return;
+        
         @strongify(self);
-        if (self.progressBar.value > 0) return;
-        if (self.pageView.index + 1 <= self.pageView.labels.count-1) self.pageView.index++;
-    }];
-    [self.swipeRightGesture.rac_gestureSignal subscribeNext:^(UISwipeGestureRecognizer *swipeGesture) {
-        @strongify(self);
-        if (self.progressBar.value > 0) return;
-        if (self.pageView.index - 1 >= 0) self.pageView.index--;
+        UIView *view = panGesture.view;
+        CGPoint translation = [panGesture translationInView:view];
+        
+        CGFloat xTrans = 0;
+        UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
+        switch (orientation) {
+            case UIInterfaceOrientationPortraitUpsideDown:
+                xTrans = translation.x;
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                xTrans = -translation.y;
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                xTrans = translation.y;
+                break;
+            default:
+                xTrans = -translation.x;
+                break;
+        }
+        
+        if (xTrans > 0) {
+            [self swipedLeft:panGesture];
+        } else if (xTrans < 0) {
+            [self swipedRight:panGesture];
+        }
+        [panGesture setTranslation:CGPointMake(0, 0) inView:view];
     }];
     [[self.singleTapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
         @strongify(self);
@@ -372,6 +382,7 @@
         void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
             UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
             if (orientation != -1) {
+                [self adjustPageViewToOrientation:orientation];
                 [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
                     [self adjustViewsToOrientation:orientation];
                     [self layoutSubviews];
@@ -389,72 +400,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - View layout adjusting
-- (void) adjustViewsToOrientation:(UIInterfaceOrientation)orientation {
-    CGAffineTransform toVal = self.flashModeButton.transform;
-    switch (orientation) {
-        case UIInterfaceOrientationPortrait: toVal = CGAffineTransformMakeRotation(0); break;
-        case UIInterfaceOrientationLandscapeLeft : toVal = CGAffineTransformMakeRotation(M_PI_2); break;
-        case UIInterfaceOrientationLandscapeRight: toVal = CGAffineTransformMakeRotation(M_PI + M_PI_2); break;
-        case UIInterfaceOrientationPortraitUpsideDown: toVal = CGAffineTransformMakeRotation(M_PI); break;
-        default: break;
-    }
-    self.flashModeButton.transform = toVal;
-    self.toggleCameraButton.transform = toVal;
-//    self.pageView.transform = toVal;
-}
-
-- (void) adjustCameraConstraintsForRatio:(SBCameraAspectRatio)ratio captureType:(SBCaptureType)captureType{
-    [self.cameraConstraints autoRemoveConstraints];
-    NSMutableArray *constraints = [NSMutableArray array];
-    
-    [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
-    [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
-
-    if (ratio == SBCameraAspectRatio4_3) {
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
-    } else {
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
-    }
-    
-    if (captureType == SBCaptureTypeVideo) {
-        [constraints addObjectsFromArray:[self.captureViewContainer autoCenterInSuperview]];
-        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
-    } else {
-        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeTop toAttribute:ALAttributeBottom ofView:self.topContainerView]];
-        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeTop ofView:self.bottomContainerView]];
-        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-    }
-
-    self.cameraConstraints = [constraints copy];
-}
-
-- (void) adjustOptionsMenuButtonHidden:(BOOL)isHidden {
-    //.00001 is a little tweak/hack to keep animation direction consistent
-    self.optionsMenuButton.transform = isHidden ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformMakeRotation(.00001);
-}
-- (void) adjustOptionsMenuConstraintsHidden:(BOOL)isHidden {
-    [self.optionsMenuConstraints autoRemoveConstraints];
-    NSMutableArray *constraints = [NSMutableArray array];
-    
-    CGFloat height = 200;
-    CGFloat offset = 30;
-    [constraints addObject:[self.optionsMenuContianerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-    [constraints addObject:[self.optionsMenuContianerView autoSetDimension:ALDimensionHeight toSize:height]];
-    
-    self.optionsMenuContianerView.topRestriction = @(self.frame.size.height - height);
-
-    if (!isHidden) {
-        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:offset]];
-    } else {
-        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self withOffset:1]];
-    }
-    
-    self.optionsMenuConstraints = [constraints copy];
-}
-
-#pragma mark - Setters/Getters
 - (void) setFlashMode:(SBCaptureFlashMode)flashMode {
     [self willChangeValueForKey:@"flashMode"];
     _flashMode = flashMode;
@@ -505,6 +450,21 @@
     } completion:nil];
 }
 
+- (void) swipedLeft:(UIPanGestureRecognizer*)sender {
+    if (self.progressBar.value > 0) return;
+    if (self.pageView.index + 1 <= self.pageView.labels.count-1) self.pageView.index++;
+}
+- (void) swipedRight:(UIPanGestureRecognizer*)sender {
+    if (self.progressBar.value > 0) return;
+    if (self.pageView.index - 1 >= 0) self.pageView.index--;
+}
+- (void) swipedUp:(UIPanGestureRecognizer*)sender {
+    
+}
+- (void) swipedDown:(UIPanGestureRecognizer*)sender {
+    
+}
+
 #pragma mark - RAC
 - (RACSignal*) focusPointChangeSignal {
     @weakify(self);
@@ -522,11 +482,11 @@
 }
 
 - (RACSignal*) swipeLeftSignal {
-    return self.swipeLeftGesture.rac_gestureSignal;
+    return [self rac_signalForSelector:@selector(swipedLeft:)];
 }
 
 - (RACSignal*) swipeRightSignal {
-    return self.swipeRightGesture.rac_gestureSignal;
+    return [self rac_signalForSelector:@selector(swipedRight:)];
 }
 
 #pragma mark - Focus Point
@@ -617,9 +577,104 @@
     CGFloat bottomRestriction = (self.frame.size.height+1) - view.topRestriction.floatValue;
     CGFloat percentage = (view.frame.origin.y - view.topRestriction.floatValue) / bottomRestriction;
     CGFloat angle = M_PI * percentage;
-    NSLog(@"percentage - %f", percentage);
     if (angle <= 0) angle = .00001;
     self.optionsMenuButton.transform = CGAffineTransformMakeRotation(angle);
+}
+
+#pragma mark - View layout adjusting
+- (void) adjustViewsToOrientation:(UIInterfaceOrientation)orientation {
+    CGAffineTransform toVal = self.flashModeButton.transform;
+    switch (orientation) {
+        case UIInterfaceOrientationPortrait: toVal = CGAffineTransformMakeRotation(0); break;
+        case UIInterfaceOrientationLandscapeLeft : toVal = CGAffineTransformMakeRotation(M_PI_2); break;
+        case UIInterfaceOrientationLandscapeRight: toVal = CGAffineTransformMakeRotation(M_PI + M_PI_2); break;
+        case UIInterfaceOrientationPortraitUpsideDown: toVal = CGAffineTransformMakeRotation(M_PI); break;
+        default: break;
+    }
+    self.flashModeButton.transform = toVal;
+    self.toggleCameraButton.transform = toVal;
+    self.pageView.transform = toVal;
+}
+
+- (void) adjustPageViewToOrientation:(UIInterfaceOrientation)orientation {
+    [self.pageViewConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+    
+    CGSize size = CGSizeMake(255, 40);
+    CGFloat leftRightOffset = size.width/2-size.height/2;
+    [constraints addObjectsFromArray:[self.pageView autoSetDimensionsToSize:size]];
+    
+    switch (orientation) {
+        case UIInterfaceOrientationPortrait:
+            [constraints addObject:[self.pageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView]];
+            [constraints addObject:[self.pageView autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            [constraints addObject:[self.pageView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:-leftRightOffset]];
+            [constraints addObject:[self.pageView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            [constraints addObject:[self.pageView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:leftRightOffset]];
+            [constraints addObject:[self.pageView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
+            break;
+        default:
+            [constraints addObject:[self.pageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView]];
+            [constraints addObject:[self.pageView autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+            break;
+    }
+    
+    
+    self.pageViewConstraints = [constraints copy];
+}
+
+- (void) adjustCameraConstraintsForRatio:(SBCameraAspectRatio)ratio captureType:(SBCaptureType)captureType{
+    [self.cameraConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+    
+    [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
+    [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
+    
+    if (ratio == SBCameraAspectRatio4_3) {
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
+    } else {
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
+    }
+    
+    if (captureType == SBCaptureTypeVideo) {
+        [constraints addObjectsFromArray:[self.captureViewContainer autoCenterInSuperview]];
+        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+    } else {
+        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeTop toAttribute:ALAttributeBottom ofView:self.topContainerView]];
+        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeTop ofView:self.bottomContainerView]];
+        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+    }
+    
+    self.cameraConstraints = [constraints copy];
+}
+
+- (void) adjustOptionsMenuButtonHidden:(BOOL)isHidden {
+    //.00001 is a little tweak/hack to keep animation direction consistent
+    self.optionsMenuButton.transform = isHidden ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformMakeRotation(.00001);
+}
+- (void) adjustOptionsMenuConstraintsHidden:(BOOL)isHidden {
+    [self.optionsMenuConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+    
+    CGFloat height = 200;
+    CGFloat offset = 30;
+    [constraints addObject:[self.optionsMenuContianerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+    [constraints addObject:[self.optionsMenuContianerView autoSetDimension:ALDimensionHeight toSize:height]];
+    
+    self.optionsMenuContianerView.topRestriction = @(self.frame.size.height - height);
+    
+    if (!isHidden) {
+        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:offset]];
+    } else {
+        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self withOffset:1]];
+    }
+    
+    self.optionsMenuConstraints = [constraints copy];
 }
 
 @end
