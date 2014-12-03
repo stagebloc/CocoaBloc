@@ -41,14 +41,13 @@ extern NSString *SBAPIErrorResponseObjectKey;			// Deserialized JSON object from
 /*!
  Enqueue a network request with this client. Any configurations
  or authentications will be used for this request.
- 
- @param request the network request to enqueue
- 
+
  @return A "cold" signal that will actually enqueue and start the request
  		 upon subscription. It will send a "next" value of the response object
  		 if successful, or the network error if not.
  */
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request;
+- (RACSignal *)enqueueRequestOperation:(AFHTTPRequestOperation *)operation;
 
 - (RACSignal *)deserializeModelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)dictionary;
 

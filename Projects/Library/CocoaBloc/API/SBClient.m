@@ -50,10 +50,15 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
         return nil;
     }
     
-    BOOL cppDebug = NO;
+    BOOL cppDebug
+#ifdef DEBUG
+    = YES;
+#else
+    = NO;
+#endif
     
     NSString *ext = @"com";
-    if ([NSProcessInfo processInfo].environment[@"SB_LOCAL_DEV"] && !cppDebug) { // enforce .com on release builds
+    if ([NSProcessInfo processInfo].environment[@"SB_LOCAL_DEV"] && cppDebug) { // enforce .com on release builds
     	ext = @"dev";
     }
     NSString *urlString = [NSString stringWithFormat:@"https://api.stagebloc.%@/v1", ext];
@@ -71,8 +76,12 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 }
 
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request {
+    return [self enqueueRequestOperation:[self HTTPRequestOperationWithRequest:request success:nil failure:nil]];
+}
+
+- (RACSignal *)enqueueRequestOperation:(AFHTTPRequestOperation *)operation {
     return [RACSignal defer:^RACSignal *{
-        return [self rac_enqueueHTTPRequestOperation:[self HTTPRequestOperationWithRequest:request success:nil failure:nil]];
+        return [self rac_enqueueHTTPRequestOperation:operation];
     }];
 }
 

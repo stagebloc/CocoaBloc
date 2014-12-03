@@ -65,7 +65,7 @@ describe(@"Client", ^{
     beforeAll(^{
 		expect(^{ client = SBClient.new; }).to.raiseAny();
 		
-        [SBClient setClientID:TEST_SB_CID clientSecret:TEST_SB_CSE];
+        [SBClient setClientID:TEST_SB_CID clientSecret:TEST_SB_CSE redirectURI:@""];
 		client = SBClient.new;
 		
 		testProjectDirectory = @(TEST_PROJ_DIR);
