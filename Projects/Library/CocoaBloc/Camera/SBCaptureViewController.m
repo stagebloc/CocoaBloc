@@ -322,7 +322,9 @@
         return;
     }
     
-    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", NSTemporaryDirectory(), @"final", (long)[[NSDate date] timeIntervalSince1970]]];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@-%ld.mp4", documentsDirectory, @"final", (long)[[NSDate date] timeIntervalSince1970]]];
     [self showHudWithText:@"Processing video"];
     @weakify(self);
     [[self.captureManager.videoManager finalizeRecordingToFile:url] subscribeNext:^(NSURL *saveURL) {
@@ -397,6 +399,7 @@
 
 - (void) reviewController:(SBReviewController *)controller rejectedAsset:(SBAsset *)asset {
     [self.navigationController popViewControllerAnimated:YES];
+    [[NSFileManager defaultManager] removeItemAtURL:asset.fileURL error:nil];
 }
 
 #pragma mark - Status bar states
