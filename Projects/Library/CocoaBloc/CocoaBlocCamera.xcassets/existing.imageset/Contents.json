@@ -2,17 +2,19 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "existing.png"
+      "filename" : "choose-existing.pdf"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "existing@2x.png"
+      "filename" : "existing.png",
+      "unassigned" : true,
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "existing@2x.png",
+      "unassigned" : true,
+      "scale" : "2x"
     }
   ],
   "info" : {
