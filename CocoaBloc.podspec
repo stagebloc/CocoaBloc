@@ -39,6 +39,7 @@ Pod::Spec.new do |s|
       ss.dependency 'PureLayout'
       ss.dependency 'SDWebImage'
       ss.dependency 'CocoaBloc/Categories'
+      ss.dependency 'pop', '~>1.0.7'
       ss.source_files = 'Projects/Library/CocoaBloc/UI/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/UI'
       ss.resource_bundle = {'CocoaBlocUI' => 'Projects/Library/CocoaBloc/CocoaBlocUI.xcassets'}
@@ -55,7 +56,6 @@ Pod::Spec.new do |s|
       ss.dependency 'CocoaBloc/UI'
       ss.dependency 'CocoaBloc/Categories'
       ss.resource_bundle = {'CocoaBlocCamera' => 'Projects/Library/CocoaBloc/CocoaBlocCamera.xcassets'}
-      ss.dependency 'pop', '~>1.0.7'
       ss.source_files = 'Projects/Library/CocoaBloc/Camera/*.{h,m}'
       ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Camera'
     end

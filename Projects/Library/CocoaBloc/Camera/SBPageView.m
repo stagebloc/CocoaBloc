@@ -59,8 +59,8 @@
 //    baseLabel.layer.transform = CATransform3DMakeRotation(0, 1, 1, 1);
     
     //left of base label
-    int start = self.index-1;
-    for (int i = start; i >= 0; i--) {
+    long start = self.index-1;
+    for (long i = start; i >= 0; i--) {
         UILabel *pinLabel = i == start ? baseLabel : self.labels[i+1];
         UILabel *label = self.labels[i];
         label.textColor = [self.deselectedColor copy];
@@ -71,7 +71,7 @@
     }
     //right of base label
     start = self.index+1;
-    for (int i = start; i < count; i++) {
+    for (long i = start; i < count; i++) {
         UILabel *pinLabel = i == start ? baseLabel : self.labels[i-1];
         UILabel *label = self.labels[i];
         label.textColor = [self.deselectedColor copy];

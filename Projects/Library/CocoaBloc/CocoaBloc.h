@@ -26,5 +26,7 @@
 #import "SBAccount.h"
 #import "SBUser.h"
 #import "SBStoreItem.h"
+#import "SBVideoUpload.h"
+#import "SBAddress.h"
 
 #endif /* COCOABLOC_H */

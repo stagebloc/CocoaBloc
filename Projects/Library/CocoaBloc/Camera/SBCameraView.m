@@ -519,7 +519,7 @@
 
 -(void)animateHudHidden:(BOOL)hidden duration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
     CGFloat toValue = hidden ? 0 : 1.0f;
-    CGFloat bottomHudBGToValue = hidden ? 0 : .35f;
+//    CGFloat bottomHudBGToValue = hidden ? 0 : .35f;
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
         NSArray *bottomViews = [_bottomContainerView.subviews filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not SELF in %@", @[_recordButton, _chooseExistingButton]]];
         [bottomViews setValue:@(toValue) forKey:@"alpha"];
