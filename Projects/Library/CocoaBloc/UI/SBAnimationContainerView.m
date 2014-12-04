@@ -9,7 +9,9 @@
 #import "SBAnimationContainerView.h"
 #import <PureLayout/PureLayout.h>
 
-@implementation SBAnimationContainerView
+@implementation SBAnimationContainerView {
+    NSArray *centering;
+}
 
 + (instancetype)contain:(UIView *)animationView {
     SBAnimationContainerView *ret = [self new];
@@ -26,12 +28,14 @@
 
 - (void)setAnimationView:(UIView *)animationView {
     if (animationView != _animationView) {
-        [_animationView autoRemoveConstraintsAffectingView];
+        if (centering) {
+            [self removeConstraints:centering];
+        }
         [_animationView removeFromSuperview];
         
         _animationView = animationView;
         [self addSubview:animationView];
-        [animationView autoCenterInSuperview];
+        centering = [animationView autoCenterInSuperview];
         [self invalidateIntrinsicContentSize];
         [self setNeedsLayout];
     }

@@ -41,7 +41,7 @@
         case UIDeviceOrientationLandscapeRight:
             return UIInterfaceOrientationLandscapeRight;
         default:
-            return UIDeviceOrientationPortrait;
+            return UIInterfaceOrientationPortrait;
     }
 }
 - (UIInterfaceOrientation) interfaceOrientation {

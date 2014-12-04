@@ -45,7 +45,6 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     NSString *mime = SBVideoContentTypeForPathExtension([fileName.lastPathComponent componentsSeparatedByString:@"."].lastObject, &supported);
 
     if (!supported || !mime) {
-#warning make this a real error
         return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
     }
     
