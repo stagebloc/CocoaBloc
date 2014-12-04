@@ -25,23 +25,9 @@
     return self.captureLayer.session;
 }
 
-- (void) updateVideoConnectionWithOrientation:(AVCaptureVideoOrientation)orientation {
-    AVCaptureConnection *previewLayerConnection = self.captureLayer.connection;
-    if ([previewLayerConnection isVideoOrientationSupported])
-        [previewLayerConnection setVideoOrientation:orientation];
-}
-
 - (instancetype) initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super init]) {
         [self addSessionIfNeeded:session];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            
-            AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
-            if ((NSInteger)orientation != -1) {
-                [self updateVideoConnectionWithOrientation:orientation];
-            }
-        }];
     }
     return self;
 }
@@ -51,14 +37,14 @@
         return;
     self.captureLayer.session = nil;
     self.captureLayer.session = session;
+    
+    AVCaptureConnection *previewLayerConnection = self.captureLayer.connection;
+    if ([previewLayerConnection isVideoOrientationSupported])
+        [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
 }
 
 - (void) removeSession {
     self.captureLayer.session = nil;
-}
-
-- (void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
