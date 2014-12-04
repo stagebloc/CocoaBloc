@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "actor_1_1.png"
+      "filename" : "ration1_1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "actor_1_1@2x.png"
+      "filename" : "ration1_1@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "ration1_1@3x.png"
     }
   ],
   "info" : {
