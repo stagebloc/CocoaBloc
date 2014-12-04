@@ -400,8 +400,12 @@
 #pragma mark - SBReviewControllerDelegate
 - (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset title:(NSString *)title description:(NSString *)description {
     if ([self.delegate respondsToSelector:@selector(cameraController:acceptedAsset:)]) {
-        if (title) asset.title = title;
-        if (description) asset.caption = description;
+        if (title.length > 0) {
+            asset.title = title;
+            if (description.length > 0)
+                asset.caption = description;
+        }
+
         [self.delegate cameraController:self acceptedAsset:asset];
     }
 }
