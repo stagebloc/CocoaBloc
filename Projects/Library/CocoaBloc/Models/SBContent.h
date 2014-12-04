@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBAccount.h"
+#import "SBObject.h"
 
 @class SBUser;
+@class SBAccount;
+
 @interface SBContent : SBObject <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *title;

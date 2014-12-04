@@ -14,6 +14,7 @@
 #import "SBClient+User.h"
 #import "SBClient+Account.h"
 #import "SBClient+Store.h"
+#import "SBClient+Video.h"
 #import "SBClient+Audio.h"
 #import "SBObject.h"
 #import "SBNotification.h"
