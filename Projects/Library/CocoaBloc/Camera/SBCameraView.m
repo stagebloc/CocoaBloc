@@ -226,19 +226,35 @@
         _optionsMenuToolbar.barStyle = UIBarStyleBlack;
         _optionsMenuToolbar.translucent = YES;
 
-        CGSize size = CGSizeMake(30, 30);
-        CGPoint offset = CGPointMake(80, 20);
+        CGSize size = CGSizeMake(40, 40);
+        CGPoint offset = CGPointMake(60, 20);
+        
+        [_optionsMenuToolbar addSubview:self.toggleRatioButton];
+        [self.toggleRatioButton autoAlignAxis:ALAxisVertical toSameAxisOfView:_optionsMenuToolbar];
+        [self.toggleRatioButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_optionsMenuToolbar withOffset:offset.y];
+        [self.toggleRatioButton autoSetDimensionsToSize:size];
+        
         [_optionsMenuToolbar addSubview:self.toggleCameraButton];
-        [self.toggleCameraButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_optionsMenuToolbar withOffset:-offset.x];
+        [self.toggleCameraButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.toggleRatioButton withOffset:offset.x];
         [self.toggleCameraButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_optionsMenuToolbar withOffset:offset.y];
         [self.toggleCameraButton autoSetDimensionsToSize:size];
         
         [_optionsMenuToolbar addSubview:self.flashModeButton];
-        [self.flashModeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_optionsMenuToolbar withOffset:offset.x];
+        [self.flashModeButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.toggleRatioButton withOffset:-offset.x];
         [self.flashModeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_optionsMenuToolbar withOffset:offset.y];
         [self.flashModeButton autoSetDimensionsToSize:size];
     }
     return _optionsMenuToolbar;
+}
+
+- (UIButton*) toggleRatioButton {
+    if (!_toggleRatioButton) {
+        _toggleRatioButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _toggleRatioButton.frame = CGRectMake(CGRectGetWidth(_bottomContainerView.bounds)/2 - 15.f, 15.f, 30.0, 30.0);
+        [_toggleRatioButton setImage:[UIImage imageNamed:@"ratio_4_3"] forState:UIControlStateNormal];
+        _toggleRatioButton.imageView.contentMode = UIViewContentModeCenter;
+    }
+    return _toggleRatioButton;
 }
 
 - (UIButton*) toggleCameraButton {
@@ -374,7 +390,7 @@
         [self.captureViewContainer addSubview:self.captureView];
 
         [self initializeViews];
-        [self setVideoCaptureType];
+        [self setVideoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3];
         
         [self initGestures];
         
@@ -426,21 +442,34 @@
     }
 }
 
+- (void) setAspectRatio:(SBCameraAspectRatio)aspectRatio {
+    [self willChangeValueForKey:@"aspectRatio"];
+    _aspectRatio = aspectRatio;
+    [self didChangeValueForKey:@"aspectRatio"];
+    
+    switch (aspectRatio) {
+        case SBCameraAspectRatio1_1: [_toggleRatioButton setImage:[UIImage imageNamed:@"ratio_1_1"] forState:UIControlStateNormal]; break;
+        default: [_toggleRatioButton setImage:[UIImage imageNamed:@"ratio_4_3"] forState:UIControlStateNormal]; break;
+    }
+}
+
 - (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio {
-    _aspectRatio = ratio;
+    self.aspectRatio = ratio;
     _captureType = SBCaptureTypePhoto;
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     self.captureView.captureLayer.videoGravity = ratio == SBCameraAspectRatio1_1 ? AVLayerVideoGravityResizeAspectFill : AVLayerVideoGravityResizeAspect;
     [self animateAttribute:NSStringFromSelector(@selector(chooseExistingButton)) toAlpha:1 duration:0.3 completion:nil];
+    [self animateAttribute:NSStringFromSelector(@selector(toggleRatioButton)) toAlpha:0 duration:0.3 completion:nil];
     [self layoutSubviews];
 }
 
-- (void) setVideoCaptureType {
-    _aspectRatio = SBCameraAspectRatio4_3;
+- (void) setVideoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio {
+    self.aspectRatio = ratio;
     _captureType = SBCaptureTypeVideo;
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     self.captureView.captureLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [self animateAttribute:NSStringFromSelector(@selector(chooseExistingButton)) toAlpha:0 duration:0.3 completion:nil];
+    [self animateAttribute:NSStringFromSelector(@selector(toggleRatioButton)) toAlpha:1 duration:0.3 completion:nil];
     [self layoutSubviews];
 }
 
@@ -558,6 +587,12 @@
     }];
 }
 
+- (void) animateAttributes:(NSArray*)attributes toAlpha:(CGFloat)toAlpha duration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
+    [attributes enumerateObjectsUsingBlock:^(NSString *attribute, NSUInteger idx, BOOL *stop) {
+        [self animateAttribute:attribute toAlpha:toAlpha duration:duration completion:completion];
+    }];
+}
+
 - (void) animateAttribute:(NSString*)attribute toAlpha:(CGFloat)toAlpha duration:(NSTimeInterval)duration completion:(void(^)(BOOL finished))completion {
     UIView *view = [self valueForKey:attribute];
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
@@ -636,22 +671,24 @@
     [constraints addObjectsFromArray:[self.captureView autoCenterInSuperview]];
     [constraints addObject:[self.captureView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
     
-    if (ratio == SBCameraAspectRatio4_3) {
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
-    } else {
-        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
-    }
-    
     if (captureType == SBCaptureTypeVideo) {
         [constraints addObjectsFromArray:[self.captureViewContainer autoCenterInSuperview]];
         [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
         [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+        
+        [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
     } else {
         [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeTop toAttribute:ALAttributeBottom ofView:self.topContainerView]];
         [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeTop ofView:self.bottomContainerView]];
         [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+        
+        if (ratio == SBCameraAspectRatio4_3) {
+            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
+        } else {
+            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
+        }
+        
     }
-    
     self.cameraConstraints = [constraints copy];
 }
 

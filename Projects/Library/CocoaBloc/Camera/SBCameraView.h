@@ -43,6 +43,7 @@
 //Options menu
 @property (nonatomic, strong) SBDraggableView *optionsMenuContianerView;
 @property (nonatomic, strong) UIToolbar *optionsMenuToolbar;
+@property (nonatomic, strong) UIButton *toggleRatioButton;
 @property (nonatomic, strong) UIButton *toggleCameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
 
@@ -67,7 +68,7 @@
 - (BOOL)isHudHidden;
 
 - (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio;
-- (void) setVideoCaptureType;
+- (void) setVideoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio;
 
 - (RACSignal*) focusPointChangeSignal;
 - (RACSignal*) doubleTapSignal;

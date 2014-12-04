@@ -132,6 +132,8 @@
         });
     }];
     
+    //aspect ratio
+    
     //enable/disable record button when time is at max duration
     [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(NSNumber* value) {
         @strongify(self);
@@ -173,9 +175,8 @@
 #pragma mark - Camera state handling
 - (void) _updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
-    [self.cameraView setVideoCaptureType];
     switch (page) {
-        case 0: [self.cameraView setVideoCaptureType]; break;
+        case 0: [self.cameraView setVideoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
         case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
         case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
         default: break;
@@ -256,6 +257,7 @@
 }
 
 - (void) capturePhoto {
+    self.view.userInteractionEnabled = NO;
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
     @weakify(self);
     [[self.captureManager.photoManager captureImage] subscribeNext:^(UIImage *image) {
@@ -265,7 +267,11 @@
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     } error:^(NSError *error) {
-
+        @strongify(self);
+        self.view.userInteractionEnabled = YES;
+    } completed:^{
+        @strongify(self);
+        self.view.userInteractionEnabled = YES;
     }];
 }
 
@@ -399,6 +405,7 @@
 
 #pragma mark - SBReviewControllerDelegate
 - (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset title:(NSString *)title description:(NSString *)description {
+    
     if ([self.delegate respondsToSelector:@selector(cameraController:acceptedAsset:)]) {
         if (title.length > 0) {
             asset.title = title;
@@ -411,6 +418,7 @@
 }
 
 - (void) reviewController:(SBReviewController *)controller rejectedAsset:(SBAsset *)asset {
+    controller.view.userInteractionEnabled = NO;
     [self.navigationController popViewControllerAnimated:YES];
     [[NSFileManager defaultManager] removeItemAtURL:asset.fileURL error:nil];
 }
