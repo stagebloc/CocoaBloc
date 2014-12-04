@@ -10,10 +10,4 @@
 
 @interface SBVideoPlaybackView : UIView
 
-- (instancetype) initWithFrame:(CGRect)frame videoURL:(NSURL*)videoURL;
-
-- (void) play;
-- (void) pause;
-- (void) restart;
-
 @end
