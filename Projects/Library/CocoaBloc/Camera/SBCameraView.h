@@ -28,6 +28,9 @@
 
 @property (nonatomic, strong) UIView *shutterView;
 
+@property (nonatomic, strong) UIToolbar *topSquareToolbar;
+@property (nonatomic, strong) UIToolbar *bottomSquareToolbar;
+
 //Top HUD views
 @property (nonatomic, strong) UIView *topContainerView;
 @property (nonatomic, strong) UIButton *closeButton;
@@ -52,7 +55,7 @@
 
 //Change this property to adjust the aspectRatioButton image
 //use setPhotoCaptureTypeWithAspectRatio:
-@property (nonatomic, assign, readonly) SBCameraAspectRatio aspectRatio;
+@property (nonatomic, assign) SBCameraAspectRatio aspectRatio;
 
 //change this property to adjust the capture view
 //use setPhotoCaptureTypeWithAspectRatio: & setVideoCaptureType

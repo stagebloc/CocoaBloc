@@ -228,7 +228,8 @@
         }];
         
         self.stitcher.orientation = self.orientation;
-        [[self.stitcher exportTo:finalVideoLocationURL preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
+        BOOL isSquare = self.aspectRatio == SBCameraAspectRatio1_1 ? YES : NO;
+        [[self.stitcher exportTo:finalVideoLocationURL preset:self.captureSession.exportPreset square:isSquare] subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *error) {
             [subscriber sendError:error];

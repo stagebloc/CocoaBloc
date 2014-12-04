@@ -41,6 +41,7 @@
     if (!_overlayToolbar) {
         _overlayToolbar = [[UIToolbar alloc] init];
         _overlayToolbar.barStyle = UIBarStyleBlack;
+        _overlayToolbar.clipsToBounds = YES;
         _overlayToolbar.translucent = YES;
     }
     return _overlayToolbar;

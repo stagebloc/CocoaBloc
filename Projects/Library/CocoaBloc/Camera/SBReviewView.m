@@ -38,7 +38,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (UIButton*) acceptButton {
     if (!_acceptButton) {
         _acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_acceptButton setImage:[UIImage imageNamed:@"checkmark"] forState:UIControlStateNormal];
+        [_acceptButton setImage:[[UIImage imageNamed:@"checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         _acceptButton.tintColor = [UIColor colorWithRed:.078431373 green:.866666667 blue:.807843137 alpha:1];
         _acceptButton.imageView.contentMode = UIViewContentModeCenter;
         _acceptButton.backgroundColor = [UIColor whiteColor];

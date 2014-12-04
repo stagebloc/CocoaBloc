@@ -78,6 +78,10 @@
 }
 
 - (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset {
+    return [self exportTo:outputFileURL preset:preset square:NO];
+}
+
+- (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset square:(BOOL)isSquare {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
@@ -88,6 +92,29 @@
         exporter.outputURL = outputFileURL;
         exporter.outputFileType = AVFileTypeMPEG4;
         exporter.shouldOptimizeForNetworkUse = YES;
+
+        if (isSquare) {
+            // make it square
+            AVMutableVideoComposition* videoComposition = [AVMutableVideoComposition videoComposition];
+            videoComposition.renderSize = CGSizeMake(self.compositionVideoTrack.naturalSize.height, self.compositionVideoTrack.naturalSize.height);
+            videoComposition.frameDuration = CMTimeMake(1, 30);
+            
+            AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+            instruction.timeRange = CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(60, 30) );
+            
+            // rotate to portrait
+            AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:self.compositionVideoTrack];
+            CGAffineTransform t1 = CGAffineTransformMakeTranslation(self.compositionVideoTrack.naturalSize.height, -(self.compositionVideoTrack.naturalSize.width - self.compositionVideoTrack.naturalSize.height) /2 );
+            CGAffineTransform t2 = CGAffineTransformRotate(t1, M_PI_2);
+            
+            CGAffineTransform finalTransform = t2;
+            [transformer setTransform:finalTransform atTime:kCMTimeZero];
+            instruction.layerInstructions = [NSArray arrayWithObject:transformer];
+            videoComposition.instructions = [NSArray arrayWithObject: instruction];
+            
+            exporter.videoComposition = videoComposition;
+        }
+        
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             NSError *error = exporter.error;
             

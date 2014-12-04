@@ -66,6 +66,7 @@
         [_cameraView.flashModeButton addTarget:self action:@selector(flashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.nextButton addTarget:self action:@selector(nextButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.toggleRatioButton addTarget:self action:@selector(ratioToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cameraView;
 }
@@ -102,8 +103,8 @@
     @weakify(self);
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
-        [self performSelectorInBackground:@selector(updateUIForNewPage) withObject:nil];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateForNewPage) object:nil];
+        [self performSelectorInBackground:@selector(updateForNewPage) withObject:nil];
         [self showBlur];
     }];
     
@@ -159,6 +160,11 @@
         self.cameraView.nextButton.hidden = !shouldHidePageView;
     }];
     
+    [RACObserve(self.cameraView, captureType) subscribeNext:^(NSNumber *t) {
+        SBCaptureType type = (SBCaptureType) t.integerValue;
+        
+    }];
+    
     [self.captureManager.captureSession startRunning];
 }
 
@@ -173,17 +179,17 @@
 }
 
 #pragma mark - Camera state handling
-- (void) _updateUIForNewPage {
+- (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
-        case 0: [self.cameraView setVideoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
+        case 0: [self.cameraView setVideoCaptureTypeWithAspectRatio:self.captureManager.videoManager.aspectRatio]; break;
         case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
         case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
         default: break;
     }
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
-- (void) updateUIForNewPage {
+- (void) updateForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
         case 0:
@@ -203,8 +209,8 @@
         default:
             break;
     }
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_updateUIForNewPage) object:nil];
-    [self performSelectorOnMainThread:@selector(_updateUIForNewPage) withObject:nil waitUntilDone:NO];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
+    [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
 }
 
 -(void)switchCamera {
@@ -329,6 +335,18 @@
 
 -(void)cameraToggleButtonPressed:(UIButton *)sender {
     [self switchCamera];
+}
+
+- (void)ratioToggleButtonPressed:(UIButton*)sender {
+    //shouldn't happen - but just in case
+    if (self.cameraView.captureType != SBCaptureTypeVideo)
+        return;
+    
+    switch (self.captureManager.videoManager.aspectRatio) {
+        case SBCameraAspectRatio4_3: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatio1_1; break;
+        default: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatio4_3; break;
+    }
+    self.cameraView.aspectRatio = self.captureManager.videoManager.aspectRatio;
 }
 
 - (void) nextButtonPressed:(UIButton*)sender {
