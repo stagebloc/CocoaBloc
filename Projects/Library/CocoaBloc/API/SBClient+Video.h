@@ -7,6 +7,7 @@
 //
 
 #import "SBClient.h"
+#import "SBVideoUpload.h"
 
 @interface SBClient (Video)
 
