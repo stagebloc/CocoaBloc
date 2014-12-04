@@ -27,8 +27,10 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (UIButton*) rejectButton {
     if (!_rejectButton) {
         _rejectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rejectButton setImage:[UIImage imageNamed:@"close_circle"] forState:UIControlStateNormal];
+        [_rejectButton setImage:[[UIImage imageNamed:@"close"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        _rejectButton.tintColor = [UIColor colorWithRed:1 green:.294117647 blue:.376470588 alpha:1];
         _rejectButton.imageView.contentMode = UIViewContentModeCenter;
+        _rejectButton.backgroundColor = [UIColor whiteColor];
     }
     return _rejectButton;
 }
@@ -36,8 +38,10 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (UIButton*) acceptButton {
     if (!_acceptButton) {
         _acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_acceptButton setImage:[UIImage imageNamed:@"check_circle"] forState:UIControlStateNormal];
+        [_acceptButton setImage:[UIImage imageNamed:@"checkmark"] forState:UIControlStateNormal];
+        _acceptButton.tintColor = [UIColor colorWithRed:.078431373 green:.866666667 blue:.807843137 alpha:1];
         _acceptButton.imageView.contentMode = UIViewContentModeCenter;
+        _acceptButton.backgroundColor = [UIColor whiteColor];
     }
     return _acceptButton;
 }
@@ -203,6 +207,12 @@ static CGFloat const kAnimationVelocity = 0.5f;
 }
 
 #pragma mark - Layout
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    _acceptButton.layer.cornerRadius = CGRectGetHeight(_acceptButton.frame) / 2;
+    _rejectButton.layer.cornerRadius = CGRectGetHeight(_rejectButton.frame) / 2;
+}
+
 - (void) setCurrentLayout:(SBTextFieldLayout)currentLayout {
     [self willChangeValueForKey:@"currentLayout"];
     _currentLayout = currentLayout;
