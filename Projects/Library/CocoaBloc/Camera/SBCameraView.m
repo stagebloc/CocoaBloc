@@ -18,6 +18,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "UIDevice+Orientation.h"
+#import "UIView+AutoLayout.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
@@ -224,9 +225,7 @@
         _optionsMenuContianerView.dragDelegate = self;
         
         [_optionsMenuContianerView addSubview:self.optionsMenuToolbar];
-        [self.optionsMenuToolbar autoCenterInSuperview];
-        [self.optionsMenuToolbar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:_optionsMenuContianerView];
-        [self.optionsMenuToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:_optionsMenuContianerView];
+        [self.optionsMenuToolbar autoCenterInSuperviewWithMatchedDimensions];
     }
     return _optionsMenuContianerView;
 }
@@ -293,15 +292,11 @@
 - (void) initializeViews {
     //toolbar
     [self addSubview:self.stateToolbar];
-    [self.stateToolbar autoCenterInSuperview];
-    [self.stateToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-    [self.stateToolbar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
+    [self.stateToolbar autoCenterInSuperviewWithMatchedDimensions];
     
     //shutter view
     [self addSubview:self.shutterView];
-    [self.shutterView autoCenterInSuperview];
-    [self.shutterView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-    [self.shutterView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
+    [self.shutterView autoCenterInSuperviewWithMatchedDimensions];
     
     //add focus view
     [self.captureView addSubview:self.focusView];

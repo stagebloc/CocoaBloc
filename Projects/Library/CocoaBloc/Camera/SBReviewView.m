@@ -10,6 +10,7 @@
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
+#import "UIView+AutoLayout.h"
 
 static NSTimeInterval const kAnimationDuration = 0.35f;
 static CGFloat const kAnimationDamping = 1.0f;
@@ -120,14 +121,10 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [self.textContainerView addSubview:self.toolBarDescriptionField];
         
         [self.toolBarTitleField addSubview:self.titleField];
-        [self.titleField autoCenterInSuperview];
-        [self.titleField autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.toolBarTitleField];
-        [self.titleField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBarTitleField];
+        [self.titleField autoCenterInSuperviewWithMatchedDimensions];
         
         [self.toolBarDescriptionField addSubview:self.descriptionField];
-        [self.descriptionField autoCenterInSuperview];
-        [self.descriptionField autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.toolBarDescriptionField];
-        [self.descriptionField autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.toolBarDescriptionField];
+        [self.descriptionField autoCenterInSuperviewWithMatchedDimensions];
 
         [self adjustToolBarConstraints:SBTextFieldLayoutHidden];
         

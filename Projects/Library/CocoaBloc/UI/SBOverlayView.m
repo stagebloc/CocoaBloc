@@ -10,6 +10,7 @@
 #import "UIFont+FanClub.h"
 #import <pop/POP.h>
 #import <PureLayout/PureLayout.h>
+#import "UIView+AutoLayout.h"
 
 @interface SBOverlayView ()
 
@@ -51,9 +52,7 @@
 - (instancetype) initWithFrame:(CGRect)frame text:(NSString*)text {
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.overlayToolbar];
-        [self.overlayToolbar autoCenterInSuperview];
-        [self.overlayToolbar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
-        [self.overlayToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+        [self.overlayToolbar autoCenterInSuperviewWithMatchedDimensions];
         
         [self addSubview:self.activityIndicatorView];
         [self.activityIndicatorView autoCenterInSuperview];
@@ -77,14 +76,9 @@
 + (instancetype) showInView:(UIView*)superview text:(NSString*)text duration:(NSTimeInterval)duration {
     SBOverlayView *view = [[SBOverlayView alloc] initWithFrame:superview.frame text:text];
     [superview addSubview:view];
-    
-    [view autoCenterInSuperview];
-    [view autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:superview];
-    [view autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:superview];
-    
+    [view autoCenterInSuperviewWithMatchedDimensions];
     view.showDuration = duration;
     [view animateShowWithDuration:duration completion:nil];
-    
     return view;
 }
 
