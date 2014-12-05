@@ -338,7 +338,7 @@
     }];
     
     //Track orientation changes
-    self.orientation = AVCaptureVideoOrientationPortrait;
+    self.orientation = [[UIDevice currentDevice] videoOrientation] == -1 ? AVCaptureVideoOrientationPortrait : [[UIDevice currentDevice] videoOrientation];
     deviceOrientationDidChangeObserver = [notificationCenter addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
         if ((NSInteger)orientation != -1) {

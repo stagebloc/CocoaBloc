@@ -36,17 +36,21 @@
     self.compositionAudioTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
 }
 
-- (CGAffineTransform) tranformForOrientation {
+- (double) rotationForOrientation {
     switch (self.orientation) {
         case AVCaptureVideoOrientationPortrait:
-            return CGAffineTransformMakeRotation(M_PI_2);
-        case AVCaptureVideoOrientationLandscapeRight:
-            return CGAffineTransformMakeRotation(0);
+            return M_PI_2;
         case AVCaptureVideoOrientationPortraitUpsideDown:
-            return CGAffineTransformMakeRotation(M_PI_2);
+            return M_PI_2;
+        case AVCaptureVideoOrientationLandscapeRight:
+            return 0;
         default: //AVCaptureVideoOrientationLandscapeLeft
-            return CGAffineTransformMakeRotation(M_PI);
+            return M_PI;
     }
+}
+
+- (CGAffineTransform) tranformForOrientation {
+    return CGAffineTransformMakeRotation([self rotationForOrientation]);
 }
 
 - (RACSignal*)addAsset:(AVURLAsset *)asset {
@@ -147,10 +151,27 @@
         
         // rotate to portrait
         AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
-        CGAffineTransform t1 = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
-        CGAffineTransform t2 = CGAffineTransformRotate(t1, M_PI_2);
+        CGAffineTransform finalTransform;
         
-        CGAffineTransform finalTransform = t2;
+//        switch (self.orientation) {
+//            case AVCaptureVideoOrientationPortrait:
+                finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
+                finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
+//                break;
+//            case AVCaptureVideoOrientationPortraitUpsideDown:
+//                finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
+//                finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
+//                break;
+//            case AVCaptureVideoOrientationLandscapeRight:
+//                finalTransform = CGAffineTransformMakeTranslation(-(size.width - size.height), 0);
+//                finalTransform = CGAffineTransformRotate(finalTransform, 0);
+//                break;
+//            default: //AVCaptureVideoOrientationLandscapeLeft
+//                finalTransform = CGAffineTransformMakeTranslation((size.width - size.height) * (size.width / size.height) , size.height);
+//                finalTransform = CGAffineTransformRotate(finalTransform, M_PI);
+//                break;
+//        }
+
         [transformer setTransform:finalTransform atTime:kCMTimeZero];
         instruction.layerInstructions = [NSArray arrayWithObject:transformer];
         videoComposition.instructions = [NSArray arrayWithObject: instruction];

@@ -708,7 +708,7 @@
     NSMutableArray *constraints = [NSMutableArray array];
     
     CGFloat padding = 5;
-    CGFloat height = CGRectGetHeight(self.frame) / 4;
+    CGFloat height = (CGRectGetHeight(self.frame) - CGRectGetWidth(self.frame)) / 2;
     [constraints addObject:[self.topSquareToolbar autoSetDimension:ALDimensionHeight toSize:height+padding]];
     [constraints addObject:[self.bottomSquareToolbar autoSetDimension:ALDimensionHeight toSize:height+padding]];
     
