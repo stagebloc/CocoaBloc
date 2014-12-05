@@ -45,6 +45,10 @@
 
 @implementation SBVideoManager
 
+NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultAspectRatioKey";
+
+@synthesize aspectRatio = _aspectRatio;
+
 - (SBAssetStitcher*) stitcher {
     if (!_stitcher) {
         _stitcher = [[SBAssetStitcher alloc] init];
@@ -57,6 +61,15 @@
     return self.paused;
 }
 
+- (void) setAspectRatio:(SBCameraAspectRatio)aspectRatio {
+    [self willChangeValueForKey:@"aspectRatio"];
+    _aspectRatio = aspectRatio;
+    [self didChangeValueForKey:@"aspectRatio"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithUnsignedInteger:aspectRatio] forKey:kSBVideoManagerDefaultAspectRatioKey];
+    [defaults synchronize];
+}
+
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
         _temporaryFileURLs = [[NSMutableArray alloc] init];
@@ -65,7 +78,10 @@
         _maxDuration = 0;
         _currentWrites = 0;
         
-        self.aspectRatio = SBCameraAspectRatio1_1;
+        SBCameraAspectRatio defaultRatio =  (SBCameraAspectRatio) [[[NSUserDefaults standardUserDefaults] objectForKey:kSBVideoManagerDefaultAspectRatioKey] unsignedIntegerValue];
+        if (defaultRatio != SBCameraAspectRatio1_1 && defaultRatio != SBCameraAspectRatio4_3)
+            defaultRatio = SBCameraAspectRatio1_1;
+        self.aspectRatio = defaultRatio;
         
         self.currentFinalDurration = kCMTimeZero;
 
