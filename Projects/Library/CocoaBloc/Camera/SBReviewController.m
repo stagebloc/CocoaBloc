@@ -83,8 +83,8 @@
 }
 
 -(void)acceptButtonPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:title:description:)]) {
-        [self.delegate reviewController:self acceptedAsset:self.asset title:self.reviewView.titleField.text description:self.reviewView.descriptionField.text];
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:title:caption:)]) {
+        [self.delegate reviewController:self acceptedAsset:self.asset title:self.reviewView.titleField.text caption:self.reviewView.descriptionField.text];
     }
 }
 

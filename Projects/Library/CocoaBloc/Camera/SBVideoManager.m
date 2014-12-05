@@ -65,6 +65,8 @@
         _maxDuration = 0;
         _currentWrites = 0;
         
+        self.aspectRatio = SBCameraAspectRatio1_1;
+        
         self.currentFinalDurration = kCMTimeZero;
 
         self.devicePosition = AVCaptureDevicePositionBack;
