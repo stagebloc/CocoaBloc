@@ -39,6 +39,8 @@
 
 @property (nonatomic, assign) BOOL paused;
 
+@property (nonatomic, copy) NSString *specificSessionPreset;
+
 @end
 
 @implementation SBVideoManager
@@ -75,8 +77,9 @@
         [self reset];
         [self startNotificationObservers];
         
-        self.captureSession.sessionPreset = [self.captureSession bestSessionPreset];
-        
+        self.captureSession.sessionPreset = AVCaptureSessionPresetHigh;
+        self.specificSessionPreset = [self.captureSession bestSessionPreset];
+
         self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
         if([self.captureSession canAddInput:self.audioInput]) {
             [self.captureSession addInput:self.audioInput];
@@ -105,6 +108,18 @@
     }
 }
 
+//only updates specificSessionPreset to the lowest
+//quality used preset
+- (void) updateSpecificPreset {
+    CGSize currentRenderSize = [AVCaptureSession renderSizeForSessionPrest:self.specificSessionPreset];
+    
+    NSString *newSpecificPreset = [self.captureSession bestSessionPreset];
+    CGSize newRenderSize = [AVCaptureSession renderSizeForSessionPrest:newSpecificPreset];
+    if (newRenderSize.width < currentRenderSize.width || newRenderSize.height < currentRenderSize.height) {
+        self.specificSessionPreset = newSpecificPreset;
+    }
+}
+
 - (void)startRecording {
     [self.temporaryFileURLs removeAllObjects];
     
@@ -117,6 +132,8 @@
     
     NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
     [self.temporaryFileURLs addObject:outputFileURL];
+    
+    self.specificSessionPreset = [self.captureSession bestSessionPreset];
     
     self.movieFileOutput.maxRecordedDuration = (_maxDuration > 0) ? CMTimeMakeWithSeconds(_maxDuration, 600) : kCMTimeInvalid;
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
@@ -135,6 +152,8 @@
 - (BOOL) resumeRecording {
     if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.maxDuration)
         return NO;
+    
+    [self updateSpecificPreset];
     
     [self updateVideoConnectionWithOrientation:self.orientation];
     
@@ -228,7 +247,8 @@
         
         self.stitcher.orientation = self.orientation;
         BOOL isSquare = self.aspectRatio == SBCameraAspectRatio1_1 ? YES : NO;
-        [[self.stitcher exportTo:finalVideoLocationURL preset:self.captureSession.exportPreset square:isSquare] subscribeNext:^(NSURL *outputURL) {
+        NSString *exportPreset = isSquare ? [AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset] : AVAssetExportPresetHighestQuality;
+        [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *error) {
             [subscriber sendError:error];

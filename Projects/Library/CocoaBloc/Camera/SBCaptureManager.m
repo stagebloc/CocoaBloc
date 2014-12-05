@@ -62,7 +62,7 @@
                 self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
             break;
         case SBCaptureTypeVideo: {
-            NSString *preset = [self.captureSession bestSessionPreset];
+            NSString *preset = AVCaptureSessionPresetHigh;
             if ([self.captureSession canSetSessionPreset:preset])
                 self.captureSession.sessionPreset = preset;
             }

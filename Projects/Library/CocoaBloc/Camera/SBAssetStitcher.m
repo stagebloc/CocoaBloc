@@ -7,6 +7,7 @@
 //
 
 #import "SBAssetStitcher.h"
+#import "AVCaptureSession+Extension.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -86,14 +87,18 @@
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         
+        
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
 
         self.compositionVideoTrack.preferredTransform = [self tranformForOrientation];
+        
+        NSArray *array = [AVAssetExportSession exportPresetsCompatibleWithAsset:self.composition];
         
         AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
         exporter.outputURL = outputFileURL;
         exporter.outputFileType = AVFileTypeMPEG4;
         exporter.shouldOptimizeForNetworkUse = YES;
+        exporter.canPerformMultiplePassesOverSourceMediaData = YES;
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             NSError *error = exporter.error;
             
@@ -130,8 +135,7 @@
         AVURLAsset *asset = [AVURLAsset assetWithURL:fromURL];
         AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
         
-//        CGSize size = CGSizeMake(videoTrack.naturalSize.height, videoTrack.naturalSize.height);
-        CGSize size = CGSizeMake(1280, 720);
+        CGSize size = [AVCaptureSession renderSizeForExportPrest:preset];
         
         // make it square
         AVMutableVideoComposition* videoComposition = [AVMutableVideoComposition videoComposition];

@@ -10,10 +10,15 @@
 
 @interface AVCaptureSession (Extension)
 
+//@return's specific session preset
+//not general presets like AVCaptureSessionPresetHigh, etc.
 - (NSString*) bestSessionPreset;
 
 - (CGSize) renderSize;
++ (CGSize) renderSizeForSessionPrest:(NSString*)preset;
++ (CGSize) renderSizeForExportPrest:(NSString*)preset;
 
 - (NSString*) exportPreset;
++ (NSString*) exportPresetForSessionPreset:(NSString*)sessionPreset;
 
 @end
