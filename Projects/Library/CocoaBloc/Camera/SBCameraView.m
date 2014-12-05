@@ -25,8 +25,7 @@
 @property (nonatomic, strong) NSArray *squareToolbarConstraints;
 @property (nonatomic, strong) NSArray *cameraConstraints;
 @property (nonatomic, strong) NSArray *optionsMenuConstraints;
-@property (nonatomic, strong) NSArray *pageViewConstraints;
-@property (nonatomic, strong) NSArray *closeButtonConstraints;
+@property (nonatomic, strong) NSArray *topViewsConstraints;
 
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
@@ -48,9 +47,8 @@
 }
 
 - (SBProgressBar*) progressBar {
-    if (!_progressBar) {
+    if (!_progressBar)
         _progressBar = [[SBProgressBar alloc] initWithMinValue:0 maxValue:10];
-    }
     return _progressBar;
 }
 
@@ -103,10 +101,7 @@
         
         [_topContainerView addSubview:self.closeButton];
         [self.closeButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
-        
-        [_topContainerView addSubview:self.timeLabel];
-        [self.timeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:_topContainerView];
-        [self.timeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:_topContainerView];
+        [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_topContainerView withOffset:10];
     }
     return _topContainerView;
 }
@@ -298,6 +293,9 @@
 - (void) initializeViews {
     //toolbar
     [self addSubview:self.stateToolbar];
+    [self.stateToolbar autoCenterInSuperview];
+    [self.stateToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+    [self.stateToolbar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
     
     //shutter view
     [self addSubview:self.shutterView];
@@ -309,11 +307,8 @@
     [self.captureView addSubview:self.focusView];
     
     [self addSubview:self.topSquareToolbar];
-    [self.topSquareToolbar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
     [self.topSquareToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-
     [self addSubview:self.bottomSquareToolbar];
-    [self.bottomSquareToolbar autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self];
     [self.bottomSquareToolbar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
 
     //optinos menu
@@ -338,13 +333,14 @@
     
     //pageView
     [self addSubview:self.pageView];
+    [self addSubview:self.timeLabel];
     
     //progress bar
     [self addSubview:self.progressBar];
-    [self.progressBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.progressBar autoSetDimension:ALDimensionHeight toSize:5.0f];
+    [self.progressBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.progressBar autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
-    [self.progressBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:0];
+    [self.progressBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
 }
 
 - (void) initGestures {
@@ -421,8 +417,7 @@
         
         void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
             UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
-            [self adjustPageViewToOrientation:orientation];
-            [self adjustCloseButtonToOrientation:orientation];
+            [self adjustTopViewsToOrientation:orientation];
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
                 [self adjustViewsToOrientation:orientation];
                 [self layoutSubviews];
@@ -665,40 +660,20 @@
         case UIInterfaceOrientationPortraitUpsideDown: toVal = CGAffineTransformMakeRotation(M_PI); break;
         default: break;
     }
-    self.flashModeButton.transform = toVal;
-    self.toggleCameraButton.transform = toVal;
-    self.pageView.transform = toVal;
-    self.toggleRatioButton.transform = toVal;
+    NSArray *toTransform = @[self.flashModeButton, self.toggleCameraButton, self.pageView, self.toggleRatioButton, ];
+    [toTransform setValue:[NSValue valueWithCGAffineTransform:toVal] forKey:NSStringFromSelector(@selector(transform))];
 }
 
-- (void) adjustCloseButtonToOrientation:(UIInterfaceOrientation)orienation {
-    [self.closeButtonConstraints autoRemoveConstraints];
+- (void) adjustTopViewsToOrientation:(UIInterfaceOrientation)orientation {
+    [self.topViewsConstraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
     
-    CGPoint offset = CGPointMake(10, 10);
-    [constraints addObject:[self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_topContainerView withOffset:offset.y]];
-    if (orienation == UIInterfaceOrientationLandscapeLeft) {
-        [constraints addObject:[self.closeButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_topContainerView withOffset:-offset.x]];
-    } else {
-        [constraints addObject:[self.closeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_topContainerView withOffset:offset.x]];
-    }
-
-    self.closeButtonConstraints = [constraints copy];
-}
-
-- (void) adjustPageViewToOrientation:(UIInterfaceOrientation)orientation {
-    [self.pageViewConstraints autoRemoveConstraints];
-    NSMutableArray *constraints = [NSMutableArray array];
-    
+    //page view & time label & progress bar
     CGSize size = CGSizeMake(255, 40);
     CGPoint offset = CGPointMake(size.width/2-size.height/2, 5);
     [constraints addObjectsFromArray:[self.pageView autoSetDimensionsToSize:size]];
     
     switch (orientation) {
-        case UIInterfaceOrientationPortrait:
-            [constraints addObject:[self.pageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView withOffset:offset.y]];
-            [constraints addObject:[self.pageView autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
-            break;
         case UIInterfaceOrientationLandscapeRight:
             [constraints addObject:[self.pageView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:-offset.x]];
             [constraints addObject:[self.pageView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
@@ -713,19 +688,34 @@
             break;
     }
     
+    //time label
+    [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView withOffset:15]];
+    [constraints addObject:[self.timeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+
+    //close button
+    offset = CGPointMake(10, 10);
+    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        [constraints addObject:[self.closeButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:_topContainerView withOffset:-offset.x]];
+    } else {
+        [constraints addObject:[self.closeButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:_topContainerView withOffset:offset.x]];
+    }
     
-    self.pageViewConstraints = [constraints copy];
+    self.topViewsConstraints = [constraints copy];
 }
 
 - (void) adjustSquareToolbarConstraintsForAspectRatio:(SBCameraAspectRatio)ratio captureType:(SBCaptureType)captureType {
     [self.squareToolbarConstraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
     
+    CGFloat padding = 5;
+    CGFloat height = CGRectGetHeight(self.frame) / 4;
+    [constraints addObject:[self.topSquareToolbar autoSetDimension:ALDimensionHeight toSize:height+padding]];
+    [constraints addObject:[self.bottomSquareToolbar autoSetDimension:ALDimensionHeight toSize:height+padding]];
+    
     if (captureType == SBCaptureTypeVideo) {
         if (ratio == SBCameraAspectRatio1_1) {
-            CGFloat height = CGRectGetHeight(self.frame) / 4;
-            [constraints addObject:[self.topSquareToolbar autoSetDimension:ALDimensionHeight toSize:height]];
-            [constraints addObject:[self.bottomSquareToolbar autoSetDimension:ALDimensionHeight toSize:height]];
+            [constraints addObject:[self.topSquareToolbar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:-padding]];
+            [constraints addObject:[self.bottomSquareToolbar autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:padding]];
         } else {
             [constraints addObject:[self.topSquareToolbar autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self withOffset:-1]];
             [constraints addObject:[self.bottomSquareToolbar autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self withOffset:1]];

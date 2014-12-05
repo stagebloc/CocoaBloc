@@ -148,16 +148,38 @@
         return @(CMTimeGetSeconds([value CMTimeValue]));
     }];
 
+    CGFloat const alphaAnimDur = 0.3f;
     [RACObserve(self.cameraView.progressBar, value) subscribeNext:^(NSNumber *n) {
         @strongify(self);
         NSTimeInterval elapsed = n.floatValue;
         NSInteger mins = elapsed / 60;
         NSInteger secs = elapsed - mins;
         self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
-        BOOL shouldHidePageView = (elapsed > 0);
-        self.cameraView.pageView.hidden = shouldHidePageView;
-        self.cameraView.timeLabel.hidden = !shouldHidePageView;
-        self.cameraView.nextButton.hidden = !shouldHidePageView;
+        
+        
+        if (elapsed > 0 && self.cameraView.pageView.alpha == 1) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.pageView.alpha = 0;
+                self.cameraView.timeLabel.alpha = 1;
+                self.cameraView.nextButton.alpha = 1;
+            } completion:nil];
+        } else if (elapsed == 0 && self.cameraView.timeLabel.alpha == 1) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.pageView.alpha = 1;
+                self.cameraView.timeLabel.alpha = 0;
+                self.cameraView.nextButton.alpha = 0;
+            } completion:nil];
+        }
+        
+        if (elapsed > 0 && self.cameraView.toggleRatioButton.alpha == 1) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.toggleRatioButton.alpha = 0;
+            } completion:nil];
+        } else if (elapsed == 0 && self.cameraView.captureType == SBCaptureTypeVideo && self.cameraView.toggleRatioButton.alpha == 0) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.toggleRatioButton.alpha = 1;
+            } completion:nil];
+        }
     }];
     
     [RACObserve(self.cameraView, captureType) subscribeNext:^(NSNumber *t) {

@@ -86,35 +86,16 @@
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSURL *toURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@-%ld.mp4", documentsDirectory, @"final-square", (long)[[NSDate date] timeIntervalSince1970]]];
+        
         self.compositionVideoTrack.preferredTransform = [self tranformForOrientation];
         
         AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
         exporter.outputURL = outputFileURL;
         exporter.outputFileType = AVFileTypeMPEG4;
         exporter.shouldOptimizeForNetworkUse = YES;
-
-        if (isSquare) {
-            // make it square
-            AVMutableVideoComposition* videoComposition = [AVMutableVideoComposition videoComposition];
-            videoComposition.renderSize = CGSizeMake(self.compositionVideoTrack.naturalSize.height, self.compositionVideoTrack.naturalSize.height);
-            videoComposition.frameDuration = CMTimeMake(1, 30);
-            
-            AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
-            instruction.timeRange = CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(60, 30) );
-            
-            // rotate to portrait
-            AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:self.compositionVideoTrack];
-            CGAffineTransform t1 = CGAffineTransformMakeTranslation(self.compositionVideoTrack.naturalSize.height, -(self.compositionVideoTrack.naturalSize.width - self.compositionVideoTrack.naturalSize.height) /2 );
-            CGAffineTransform t2 = CGAffineTransformRotate(t1, M_PI_2);
-            
-            CGAffineTransform finalTransform = t2;
-            [transformer setTransform:finalTransform atTime:kCMTimeZero];
-            instruction.layerInstructions = [NSArray arrayWithObject:transformer];
-            videoComposition.instructions = [NSArray arrayWithObject: instruction];
-            
-            exporter.videoComposition = videoComposition;
-        }
-        
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             NSError *error = exporter.error;
             
@@ -126,7 +107,66 @@
                     [subscriber sendError:[NSError errorWithDomain:@"Export cancelled" code:100 userInfo:nil]];
                     break;
                 case AVAssetExportSessionStatusCompleted:
-                    [subscriber sendNext:outputFileURL];
+                    if (isSquare) {
+                        [[self reexportToSquareVideoFromURL:outputFileURL toURL:toURL preset:preset] subscribe:subscriber];
+                    } else {
+                        [subscriber sendNext:outputFileURL];
+                        [subscriber sendCompleted];
+                    }
+                    break;
+                default:
+                    [subscriber sendError:[NSError errorWithDomain:@"Unknown export error" code:100 userInfo:nil]];
+                    break;
+            }
+        }];
+        
+        return nil;
+    }];
+}
+
+- (RACSignal*)reexportToSquareVideoFromURL:(NSURL*)fromURL toURL:(NSURL*)toURL preset:(NSString*)preset {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        
+        AVURLAsset *asset = [AVURLAsset assetWithURL:fromURL];
+        AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
+        
+        // make it square
+        AVMutableVideoComposition* videoComposition = [AVMutableVideoComposition videoComposition];
+        videoComposition.renderSize = CGSizeMake(videoTrack.naturalSize.height, videoTrack.naturalSize.height);
+        videoComposition.frameDuration = CMTimeMake(1, 30);
+        
+        AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+        instruction.timeRange = CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(60, 30) );
+        
+        // rotate to portrait
+        AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
+        CGAffineTransform t1 = CGAffineTransformMakeTranslation(videoTrack.naturalSize.height, -(videoTrack.naturalSize.width - videoTrack.naturalSize.height) /2 );
+        CGAffineTransform t2 = CGAffineTransformRotate(t1, M_PI_2);
+        
+        CGAffineTransform finalTransform = t2;
+        [transformer setTransform:finalTransform atTime:kCMTimeZero];
+        instruction.layerInstructions = [NSArray arrayWithObject:transformer];
+        videoComposition.instructions = [NSArray arrayWithObject: instruction];
+
+        
+        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:preset];
+        exporter.videoComposition = videoComposition;
+        exporter.outputURL = toURL;
+        exporter.outputFileType = AVFileTypeMPEG4;
+        exporter.shouldOptimizeForNetworkUse = YES;
+        [exporter exportAsynchronouslyWithCompletionHandler:^{
+            NSError *error = exporter.error;
+            switch([exporter status]) {
+                case AVAssetExportSessionStatusFailed:
+                    [subscriber sendError:error];
+                    break;
+                case AVAssetExportSessionStatusCancelled:
+                    [subscriber sendError:[NSError errorWithDomain:@"Export cancelled" code:100 userInfo:nil]];
+                    break;
+                case AVAssetExportSessionStatusCompleted:
+                    [subscriber sendNext:toURL];
                     [subscriber sendCompleted];
                     break;
                 default:
