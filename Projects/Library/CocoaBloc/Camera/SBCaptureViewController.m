@@ -9,7 +9,6 @@
 #import "SBCaptureViewController.h"
 #import "SBCaptureManager.h"
 #import "SBCaptureView.h"
-#import "SBReviewController.h"
 #import "SBImagePickerController.h"
 #import "SBAssetsManager.h"
 #import "SBCameraView.h"
@@ -444,16 +443,9 @@
 }
 
 #pragma mark - SBReviewControllerDelegate
-- (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset title:(NSString *)title caption:(NSString *)caption {
-    
-    if ([self.delegate respondsToSelector:@selector(cameraController:acceptedAsset:)]) {
-        if (title.length > 0) {
-            asset.title = title;
-            if (caption.length > 0)
-                asset.caption = caption;
-        }
-
-        [self.delegate cameraController:self acceptedAsset:asset];
+- (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset {
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:)]) {
+        [self.delegate reviewController:controller acceptedAsset:asset];
     }
 }
 

@@ -83,8 +83,16 @@
 }
 
 -(void)acceptButtonPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:title:caption:)]) {
-        [self.delegate reviewController:self acceptedAsset:self.asset title:self.reviewView.titleField.text caption:self.reviewView.descriptionField.text];
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:)]) {
+        NSString *title = self.reviewView.titleField.text;
+        NSString *caption = self.reviewView.descriptionField.text;
+        if (title.length > 0) {
+            self.asset.title = title;
+            if (caption.length > 0)
+                self.asset.caption = caption;
+        }
+
+        [self.delegate reviewController:self acceptedAsset:self.asset];
     }
 }
 

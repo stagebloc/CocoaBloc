@@ -13,7 +13,7 @@
 
 @protocol SBReviewControllerDelegate <NSObject>
 @optional
-- (void) reviewController:(SBReviewController*)controller acceptedAsset:(SBAsset*)asset title:(NSString*)title caption:(NSString*)caption;
+- (void) reviewController:(SBReviewController*)controller acceptedAsset:(SBAsset*)asset;
 - (void) reviewController:(SBReviewController*)controller rejectedAsset:(SBAsset*)asset;
 @end
 
