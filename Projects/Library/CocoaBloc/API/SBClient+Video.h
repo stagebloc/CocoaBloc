@@ -7,6 +7,7 @@
 //
 
 #import "SBClient.h"
+#import "SBVideoUpload.h"
 
 @interface SBClient (Video)
 
@@ -26,6 +27,7 @@
                        description:(NSString *)description
                          toAccount:(SBAccount *)account
                          exclusive:(BOOL)exclusive
+                        fanContent:(BOOL)fanContent
                     progressSignal:(RACSignal **)progressSignal;
 
 /*!
@@ -36,6 +38,7 @@
                      description:(NSString *)description
                        toAccount:(SBAccount *)account
                        exclusive:(BOOL)exclusive
+                      fanContent:(BOOL)fanContent
                   progressSignal:(RACSignal **)progressSignal;
 
 @end

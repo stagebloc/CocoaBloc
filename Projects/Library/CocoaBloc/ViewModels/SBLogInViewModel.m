@@ -15,6 +15,14 @@
 
 @implementation SBLogInViewModel
 
+- (instancetype)initWithClient:(SBClient *)client {
+    if ((self = [self init])) {
+        self.client = client;
+    }
+    
+    return self;
+}
+
 - (id)init {
     if ((self = [super init])) {
         RAC(self, logInEnabled) = [RACSignal combineLatest:@[RACObserve(self, username),

@@ -26,12 +26,6 @@
 
 // Figure out MIME type based on extension
 static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension, BOOL *supportedAudioUpload) {
-    static NSArray *supportedAudioExtensions;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        supportedAudioExtensions = @[@"aif", @"aiff", @"wav", @"m4a"];
-    });
-    
     NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
     NSString *contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
     
@@ -60,7 +54,6 @@ static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension,
     NSString *mime = SBAudioContentTypeForPathExtension([fileName.lastPathComponent componentsSeparatedByString:@"."].lastObject, &supported);
     
     if (!supported || !mime) {
-#warning make this a real error
         return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
     }
     

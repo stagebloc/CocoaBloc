@@ -31,6 +31,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                        description:(NSString *)description
                          toAccount:(SBAccount *)account
                          exclusive:(BOOL)exclusive
+                        fanContent:(BOOL)fanContent
                     progressSignal:(RACSignal **)progressSignal {
     NSParameterAssert(videoData);
     NSParameterAssert(account);
@@ -45,11 +46,10 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     NSString *mime = SBVideoContentTypeForPathExtension([fileName.lastPathComponent componentsSeparatedByString:@"."].lastObject, &supported);
 
     if (!supported || !mime) {
-#warning make this a real error
         return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
     }
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive)] forKeys:@[@"title", @"exclusive"]];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive), @(fanContent)] forKeys:@[@"title", @"exclusive", @"fan_content"]];
     if (description) {
         params[@"description"] = description;
     }
@@ -97,6 +97,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                      description:(NSString *)description
                        toAccount:(SBAccount *)account
                        exclusive:(BOOL)exclusive
+                      fanContent:(BOOL)fanContent
                   progressSignal:(RACSignal **)progressSignal {
     NSParameterAssert(filePath);
     NSParameterAssert(title);
@@ -122,6 +123,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                                          description:description
                                            toAccount:account
                                            exclusive:exclusive
+                                          fanContent:fanContent
                                       progressSignal:progressSignal];
                 }];
 }
