@@ -18,7 +18,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "UIDevice+Orientation.h"
-#import "UIView+AutoLayout.h"
+#import "UIView+Extension.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
@@ -432,6 +432,11 @@
             }
         }];
         
+        [RACObserve(self.stateToolbar, hidden) subscribeNext:^(NSNumber *n) {
+            @strongify(self);
+            BOOL isHidden = n.boolValue;
+            self.captureView.hidden = !isHidden;
+        }];
     }
     return self;
 }
@@ -479,20 +484,20 @@
 - (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio {
     _captureType = SBCaptureTypePhoto;
     self.aspectRatio = ratio;
-    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     self.captureView.captureLayer.videoGravity = ratio == SBCameraAspectRatio1_1 ? AVLayerVideoGravityResizeAspectFill : AVLayerVideoGravityResizeAspect;
     [self animateView:self.chooseExistingButton toAlpha:1 duration:0.3 completion:nil];
     [self animateView:self.toggleRatioButton toAlpha:0 duration:0.3 completion:nil];
+    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     [self layoutSubviews];
 }
 
 - (void) setVideoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio {
     _captureType = SBCaptureTypeVideo;
     self.aspectRatio = ratio;
-    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     self.captureView.captureLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [self animateView:self.chooseExistingButton toAlpha:0 duration:0.3 completion:nil];
     [self animateView:self.toggleRatioButton toAlpha:1 duration:0.3 completion:nil];
+    [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
     [self layoutSubviews];
 }
 

@@ -10,7 +10,7 @@
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
-#import "UIView+AutoLayout.h"
+#import "UIView+Extension.h"
 
 @implementation SBPhotoReviewView
 

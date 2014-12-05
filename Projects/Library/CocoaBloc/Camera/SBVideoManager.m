@@ -77,7 +77,6 @@
         
         self.captureSession.sessionPreset = [self.captureSession bestSessionPreset];
         
-        
         self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
         if([self.captureSession canAddInput:self.audioInput]) {
             [self.captureSession addInput:self.audioInput];

@@ -13,7 +13,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "SBAsset.h"
-#import "UIView+AutoLayout.h"
+#import "UIView+Extension.h"
 
 #import "SBPhotoReviewView.h"
 #import "SBVideoReviewView.h"

@@ -10,7 +10,7 @@
 #import "UIFont+FanClub.h"
 #import <pop/POP.h>
 #import <PureLayout/PureLayout.h>
-#import "UIView+AutoLayout.h"
+#import "UIView+Extension.h"
 
 @interface SBOverlayView ()
 

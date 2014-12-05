@@ -1,5 +1,5 @@
 //
-//  UIView+AutoLayout.h
+//  UIView+Extension.h
 //  CocoaBloc
 //
 //  Created by Mark Glagola on 12/5/14.
@@ -19,5 +19,13 @@
  @return's NSLayoutConstraints array
  */
 - (NSArray*) autoCenterInSuperviewWithMatchedDimensions;
+
+@end
+
+
+@interface UIView (Screenshot)
+
+//takes screenshot of UIView
+- (UIImage*) snapshotImage;
 
 @end
