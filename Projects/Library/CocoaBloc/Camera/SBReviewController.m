@@ -13,6 +13,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "SBAsset.h"
+#import "UIView+Extension.h"
 
 #import "SBPhotoReviewView.h"
 #import "SBVideoReviewView.h"
@@ -54,9 +55,7 @@
     }
     
     [self.view addSubview:self.reviewView];
-    [self.reviewView autoCenterInSuperview];
-    [self.reviewView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
-    [self.reviewView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
+    [self.reviewView autoCenterInSuperviewWithMatchedDimensions];
     
     [self.reviewView.rejectButton addTarget:self action:@selector(rejectButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.reviewView.acceptButton addTarget:self action:@selector(acceptButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -84,8 +83,16 @@
 }
 
 -(void)acceptButtonPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:title:description:)]) {
-        [self.delegate reviewController:self acceptedAsset:self.asset title:self.reviewView.titleField.text description:self.reviewView.descriptionField.text];
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:)]) {
+        NSString *title = self.reviewView.titleField.text;
+        NSString *caption = self.reviewView.descriptionField.text;
+        if (title.length > 0) {
+            self.asset.title = title;
+            if (caption.length > 0)
+                self.asset.caption = caption;
+        }
+
+        [self.delegate reviewController:self acceptedAsset:self.asset];
     }
 }
 

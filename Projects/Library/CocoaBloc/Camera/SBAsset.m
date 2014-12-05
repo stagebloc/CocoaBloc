@@ -130,7 +130,6 @@
         _creationDate = [NSDate date];
         _modificationDate = [NSDate date];
         
-        self.title = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
         self.type = type;
     }
     return self;

@@ -9,7 +9,6 @@
 #import "SBCaptureViewController.h"
 #import "SBCaptureManager.h"
 #import "SBCaptureView.h"
-#import "SBReviewController.h"
 #import "SBImagePickerController.h"
 #import "SBAssetsManager.h"
 #import "SBCameraView.h"
@@ -66,6 +65,7 @@
         [_cameraView.flashModeButton addTarget:self action:@selector(flashModeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.toggleCameraButton addTarget:self action:@selector(cameraToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_cameraView.nextButton addTarget:self action:@selector(nextButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraView.toggleRatioButton addTarget:self action:@selector(ratioToggleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cameraView;
 }
@@ -102,8 +102,8 @@
     @weakify(self);
     [RACObserve(self.cameraView.pageView, index) subscribeNext:^(NSNumber *n) {
         @strongify(self);
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
-        [self performSelectorInBackground:@selector(updateUIForNewPage) withObject:nil];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateForNewPage) object:nil];
+        [self performSelectorInBackground:@selector(updateForNewPage) withObject:nil];
         [self showBlur];
     }];
     
@@ -132,6 +132,8 @@
         });
     }];
     
+    //aspect ratio
+    
     //enable/disable record button when time is at max duration
     [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(NSNumber* value) {
         @strongify(self);
@@ -145,16 +147,43 @@
         return @(CMTimeGetSeconds([value CMTimeValue]));
     }];
 
+    CGFloat const alphaAnimDur = 0.3f;
     [RACObserve(self.cameraView.progressBar, value) subscribeNext:^(NSNumber *n) {
         @strongify(self);
         NSTimeInterval elapsed = n.floatValue;
         NSInteger mins = elapsed / 60;
         NSInteger secs = elapsed - mins;
         self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
-        BOOL shouldHidePageView = (elapsed > 0);
-        self.cameraView.pageView.hidden = shouldHidePageView;
-        self.cameraView.timeLabel.hidden = !shouldHidePageView;
-        self.cameraView.nextButton.hidden = !shouldHidePageView;
+        
+        
+        if (elapsed > 0 && self.cameraView.pageView.alpha == 1) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.pageView.alpha = 0;
+                self.cameraView.timeLabel.alpha = 1;
+                self.cameraView.nextButton.alpha = 1;
+            } completion:nil];
+        } else if (elapsed == 0 && self.cameraView.timeLabel.alpha == 1) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.pageView.alpha = 1;
+                self.cameraView.timeLabel.alpha = 0;
+                self.cameraView.nextButton.alpha = 0;
+            } completion:nil];
+        }
+        
+        if (elapsed > 0 && self.cameraView.toggleRatioButton.alpha == 1) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.toggleRatioButton.alpha = 0;
+            } completion:nil];
+        } else if (elapsed == 0 && self.cameraView.captureType == SBCaptureTypeVideo && self.cameraView.toggleRatioButton.alpha == 0) {
+            [UIView animateWithDuration:alphaAnimDur delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.cameraView.toggleRatioButton.alpha = 1;
+            } completion:nil];
+        }
+    }];
+    
+    [RACObserve(self.cameraView, captureType) subscribeNext:^(NSNumber *t) {
+        SBCaptureType type = (SBCaptureType) t.integerValue;
+        
     }];
     
     [self.captureManager.captureSession startRunning];
@@ -171,18 +200,17 @@
 }
 
 #pragma mark - Camera state handling
-- (void) _updateUIForNewPage {
+- (void) updateUIForNewPage {
     NSInteger page = self.cameraView.pageView.index;
-    [self.cameraView setVideoCaptureType];
     switch (page) {
-        case 0: [self.cameraView setVideoCaptureType]; break;
+        case 0: [self.cameraView setVideoCaptureTypeWithAspectRatio:self.captureManager.videoManager.aspectRatio]; break;
         case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
         case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
         default: break;
     }
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
 }
-- (void) updateUIForNewPage {
+- (void) updateForNewPage {
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
         case 0:
@@ -202,8 +230,8 @@
         default:
             break;
     }
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_updateUIForNewPage) object:nil];
-    [self performSelectorOnMainThread:@selector(_updateUIForNewPage) withObject:nil waitUntilDone:NO];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateUIForNewPage) object:nil];
+    [self performSelectorOnMainThread:@selector(updateUIForNewPage) withObject:nil waitUntilDone:NO];
 }
 
 -(void)switchCamera {
@@ -256,6 +284,7 @@
 }
 
 - (void) capturePhoto {
+    self.view.userInteractionEnabled = NO;
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
     @weakify(self);
     [[self.captureManager.photoManager captureImage] subscribeNext:^(UIImage *image) {
@@ -265,7 +294,11 @@
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     } error:^(NSError *error) {
-
+        @strongify(self);
+        self.view.userInteractionEnabled = YES;
+    } completed:^{
+        @strongify(self);
+        self.view.userInteractionEnabled = YES;
     }];
 }
 
@@ -323,6 +356,18 @@
 
 -(void)cameraToggleButtonPressed:(UIButton *)sender {
     [self switchCamera];
+}
+
+- (void)ratioToggleButtonPressed:(UIButton*)sender {
+    //shouldn't happen - but just in case
+    if (self.cameraView.captureType != SBCaptureTypeVideo)
+        return;
+    
+    switch (self.captureManager.videoManager.aspectRatio) {
+        case SBCameraAspectRatio4_3: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatio1_1; break;
+        default: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatio4_3; break;
+    }
+    self.cameraView.aspectRatio = self.captureManager.videoManager.aspectRatio;
 }
 
 - (void) nextButtonPressed:(UIButton*)sender {
@@ -398,15 +443,14 @@
 }
 
 #pragma mark - SBReviewControllerDelegate
-- (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset title:(NSString *)title description:(NSString *)description {
-    if ([self.delegate respondsToSelector:@selector(cameraController:acceptedAsset:)]) {
-        asset.title = title;
-        asset.caption = description;
-        [self.delegate cameraController:self acceptedAsset:asset];
+- (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset {
+    if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:)]) {
+        [self.delegate reviewController:controller acceptedAsset:asset];
     }
 }
 
 - (void) reviewController:(SBReviewController *)controller rejectedAsset:(SBAsset *)asset {
+    controller.view.userInteractionEnabled = NO;
     [self.navigationController popViewControllerAnimated:YES];
     [[NSFileManager defaultManager] removeItemAtURL:asset.fileURL error:nil];
 }

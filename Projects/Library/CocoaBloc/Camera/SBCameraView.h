@@ -28,6 +28,9 @@
 
 @property (nonatomic, strong) UIView *shutterView;
 
+@property (nonatomic, strong) UIToolbar *topSquareToolbar;
+@property (nonatomic, strong) UIToolbar *bottomSquareToolbar;
+
 //Top HUD views
 @property (nonatomic, strong) UIView *topContainerView;
 @property (nonatomic, strong) UIButton *closeButton;
@@ -43,6 +46,7 @@
 //Options menu
 @property (nonatomic, strong) SBDraggableView *optionsMenuContianerView;
 @property (nonatomic, strong) UIToolbar *optionsMenuToolbar;
+@property (nonatomic, strong) UIButton *toggleRatioButton;
 @property (nonatomic, strong) UIButton *toggleCameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
 
@@ -51,7 +55,7 @@
 
 //Change this property to adjust the aspectRatioButton image
 //use setPhotoCaptureTypeWithAspectRatio:
-@property (nonatomic, assign, readonly) SBCameraAspectRatio aspectRatio;
+@property (nonatomic, assign) SBCameraAspectRatio aspectRatio;
 
 //change this property to adjust the capture view
 //use setPhotoCaptureTypeWithAspectRatio: & setVideoCaptureType
@@ -67,7 +71,7 @@
 - (BOOL)isHudHidden;
 
 - (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio;
-- (void) setVideoCaptureType;
+- (void) setVideoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio;
 
 - (RACSignal*) focusPointChangeSignal;
 - (RACSignal*) doubleTapSignal;

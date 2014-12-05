@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SBCaptureManager.h"
+#import "SBReviewController.h"
 
 @class SBCaptureViewController, SBAsset;
 
-@protocol SBCaptureViewControllerDelegate <NSObject>
+@protocol SBCaptureViewControllerDelegate <SBReviewControllerDelegate>
 @optional
-- (void) cameraController:(SBCaptureViewController*)controller acceptedAsset:(SBAsset*)asset;
 - (void) cameraControllerCancelled:(SBCaptureViewController*)controller;
 @end
 

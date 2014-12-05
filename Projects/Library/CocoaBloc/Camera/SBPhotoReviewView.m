@@ -10,6 +10,7 @@
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
+#import "UIView+Extension.h"
 
 @implementation SBPhotoReviewView
 
@@ -27,14 +28,10 @@
         self.scrollView.contentSize = self.scrollView.frame.size;
 
         [self insertSubview:self.scrollView atIndex:0];
-        [self.scrollView autoCenterInSuperview];
-        [self.scrollView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self];
-        [self.scrollView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+        [self.scrollView autoCenterInSuperviewWithMatchedDimensions];
         
         [self.scrollView addSubview:self.imageView];
-        [self.imageView autoCenterInSuperview];
-        [self.imageView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.scrollView];
-        [self.imageView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.scrollView];
+        [self.imageView autoCenterInSuperviewWithMatchedDimensions];
     }
     return self;
 }

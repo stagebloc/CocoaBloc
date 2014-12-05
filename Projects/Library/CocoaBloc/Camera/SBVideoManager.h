@@ -13,6 +13,8 @@
 
 @interface SBVideoManager : SBDeviceManager
 
+extern NSString* const kSBVideoManagerDefaultAspectRatioKey;
+
 @property (nonatomic, assign) CGFloat maxDuration;
 @property (nonatomic, assign) CGFloat minDuration;
 

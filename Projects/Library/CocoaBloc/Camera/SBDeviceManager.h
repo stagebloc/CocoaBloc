@@ -14,7 +14,14 @@
 @import AVFoundation;
 @import AssetsLibrary;
 
+typedef NS_ENUM(NSUInteger, SBCameraAspectRatio) {
+    SBCameraAspectRatio1_1 = 0,
+    SBCameraAspectRatio4_3 = 1,
+};
+
 @interface SBDeviceManager : NSObject
+
+@property (nonatomic, assign) SBCameraAspectRatio aspectRatio;
 
 @property (nonatomic, readonly, weak) AVCaptureSession *captureSession;
 @property (nonatomic, strong, readonly) AVCaptureDeviceInput *currentInput;

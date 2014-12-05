@@ -39,9 +39,15 @@
 
 @property (nonatomic, assign) BOOL paused;
 
+@property (nonatomic, copy) NSString *specificSessionPreset;
+
 @end
 
 @implementation SBVideoManager
+
+NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultAspectRatioKey";
+
+@synthesize aspectRatio = _aspectRatio;
 
 - (SBAssetStitcher*) stitcher {
     if (!_stitcher) {
@@ -55,6 +61,15 @@
     return self.paused;
 }
 
+- (void) setAspectRatio:(SBCameraAspectRatio)aspectRatio {
+    [self willChangeValueForKey:@"aspectRatio"];
+    _aspectRatio = aspectRatio;
+    [self didChangeValueForKey:@"aspectRatio"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithUnsignedInteger:aspectRatio] forKey:kSBVideoManagerDefaultAspectRatioKey];
+    [defaults synchronize];
+}
+
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
         _temporaryFileURLs = [[NSMutableArray alloc] init];
@@ -62,6 +77,11 @@
         self.paused = NO;
         _maxDuration = 0;
         _currentWrites = 0;
+        
+        SBCameraAspectRatio defaultRatio =  (SBCameraAspectRatio) [[[NSUserDefaults standardUserDefaults] objectForKey:kSBVideoManagerDefaultAspectRatioKey] unsignedIntegerValue];
+        if (defaultRatio != SBCameraAspectRatio1_1 && defaultRatio != SBCameraAspectRatio4_3)
+            defaultRatio = SBCameraAspectRatio1_1;
+        self.aspectRatio = defaultRatio;
         
         self.currentFinalDurration = kCMTimeZero;
 
@@ -75,9 +95,9 @@
         [self reset];
         [self startNotificationObservers];
         
-        self.captureSession.sessionPreset = [self.captureSession bestSessionPreset];
-        
-        
+        self.captureSession.sessionPreset = AVCaptureSessionPresetHigh;
+        self.specificSessionPreset = [self.captureSession bestSessionPreset];
+
         self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
         if([self.captureSession canAddInput:self.audioInput]) {
             [self.captureSession addInput:self.audioInput];
@@ -106,6 +126,18 @@
     }
 }
 
+//only updates specificSessionPreset to the lowest
+//quality used preset
+- (void) updateSpecificPreset {
+    CGSize currentRenderSize = [AVCaptureSession renderSizeForSessionPrest:self.specificSessionPreset];
+    
+    NSString *newSpecificPreset = [self.captureSession bestSessionPreset];
+    CGSize newRenderSize = [AVCaptureSession renderSizeForSessionPrest:newSpecificPreset];
+    if (newRenderSize.width < currentRenderSize.width || newRenderSize.height < currentRenderSize.height) {
+        self.specificSessionPreset = newSpecificPreset;
+    }
+}
+
 - (void)startRecording {
     [self.temporaryFileURLs removeAllObjects];
     
@@ -118,6 +150,8 @@
     
     NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
     [self.temporaryFileURLs addObject:outputFileURL];
+    
+    self.specificSessionPreset = [self.captureSession bestSessionPreset];
     
     self.movieFileOutput.maxRecordedDuration = (_maxDuration > 0) ? CMTimeMakeWithSeconds(_maxDuration, 600) : kCMTimeInvalid;
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
@@ -136,6 +170,8 @@
 - (BOOL) resumeRecording {
     if (CMTimeGetSeconds([self totalRecordingDuration]) >= self.maxDuration)
         return NO;
+    
+    [self updateSpecificPreset];
     
     [self updateVideoConnectionWithOrientation:self.orientation];
     
@@ -228,7 +264,9 @@
         }];
         
         self.stitcher.orientation = self.orientation;
-        [[self.stitcher exportTo:finalVideoLocationURL preset:self.captureSession.exportPreset] subscribeNext:^(NSURL *outputURL) {
+        BOOL isSquare = self.aspectRatio == SBCameraAspectRatio1_1 ? YES : NO;
+        NSString *exportPreset = isSquare ? [AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset] : AVAssetExportPresetHighestQuality;
+        [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *error) {
             [subscriber sendError:error];
@@ -318,7 +356,7 @@
     }];
     
     //Track orientation changes
-    self.orientation = AVCaptureVideoOrientationPortrait;
+    self.orientation = [[UIDevice currentDevice] videoOrientation] == -1 ? AVCaptureVideoOrientationPortrait : [[UIDevice currentDevice] videoOrientation];
     deviceOrientationDidChangeObserver = [notificationCenter addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
         if ((NSInteger)orientation != -1) {

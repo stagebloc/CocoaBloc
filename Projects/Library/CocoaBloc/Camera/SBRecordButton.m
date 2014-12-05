@@ -9,6 +9,7 @@
 #import "SBRecordButton.h"
 #import <PureLayout/PureLayout.h>
 #import "UIColor+FanClub.h"
+#import "UIView+Extension.h"
 
 @interface SBRecordButton ()
 

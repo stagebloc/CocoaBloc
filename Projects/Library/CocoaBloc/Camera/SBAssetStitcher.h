@@ -26,5 +26,6 @@
 - (RACSignal*)addAsset:(AVURLAsset *)asset;
 
 - (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset;
+- (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset square:(BOOL)isSquare;
 
 @end
