@@ -79,8 +79,8 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
         _currentWrites = 0;
         
         SBCameraAspectRatio defaultRatio =  (SBCameraAspectRatio) [[[NSUserDefaults standardUserDefaults] objectForKey:kSBVideoManagerDefaultAspectRatioKey] unsignedIntegerValue];
-        if (defaultRatio != SBCameraAspectRatio1_1 && defaultRatio != SBCameraAspectRatio4_3)
-            defaultRatio = SBCameraAspectRatio1_1;
+        if (defaultRatio != SBCameraAspectRatioSquare && defaultRatio != SBCameraAspectRatioNormal)
+            defaultRatio = SBCameraAspectRatioSquare;
         self.aspectRatio = defaultRatio;
         
         self.currentFinalDurration = kCMTimeZero;
@@ -264,7 +264,7 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
         }];
         
         self.stitcher.orientation = self.orientation;
-        BOOL isSquare = self.aspectRatio == SBCameraAspectRatio1_1 ? YES : NO;
+        BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare ? YES : NO;
         NSString *exportPreset = isSquare ? [AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset] : AVAssetExportPresetHighestQuality;
         [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];

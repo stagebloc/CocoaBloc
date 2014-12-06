@@ -21,7 +21,7 @@
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super init]) {
         _captureSession = session;
-        _aspectRatio = SBCameraAspectRatio4_3;
+        _aspectRatio = SBCameraAspectRatioNormal;
         [self updateCamera];
     }
     return self;

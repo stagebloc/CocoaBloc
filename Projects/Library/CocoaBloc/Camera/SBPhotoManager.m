@@ -18,7 +18,7 @@
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
-        self.aspectRatio = SBCameraAspectRatio4_3;
+        self.aspectRatio = SBCameraAspectRatioNormal;
         self.devicePosition = AVCaptureDevicePositionBack;
         
         if (!self.output || ![self.captureSession.outputs containsObject:self.output]) {
@@ -57,7 +57,7 @@
             }
             
             UIImage *image = [UIImage imageWithData:[AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer]];
-            if (self.aspectRatio == SBCameraAspectRatio1_1) {
+            if (self.aspectRatio == SBCameraAspectRatioSquare) {
                 image = [image resizeToSquare];
             }
             

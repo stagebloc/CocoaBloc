@@ -15,8 +15,8 @@
 @import AssetsLibrary;
 
 typedef NS_ENUM(NSUInteger, SBCameraAspectRatio) {
-    SBCameraAspectRatio1_1 = 0,
-    SBCameraAspectRatio4_3 = 1,
+    SBCameraAspectRatioSquare = 0,
+    SBCameraAspectRatioNormal = 1,
 };
 
 @interface SBDeviceManager : NSObject
