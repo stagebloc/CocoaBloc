@@ -181,10 +181,19 @@
         }
     }];
     
-    [RACObserve(self.cameraView, captureType) subscribeNext:^(NSNumber *t) {
-        SBCaptureType type = (SBCaptureType) t.integerValue;
-        
+    //listen for device position changes (rear & front)
+    [RACObserve(self.captureManager, devicePosition) subscribeNext:^(NSNumber *pos) {
+        @strongify(self);
+        AVCaptureDevicePosition position = (AVCaptureDevicePosition) pos.integerValue;
+        if (![self.captureManager.currentManager.currentCamera isFlashModeSupported:AVCaptureFlashModeOn]) {
+            self.cameraView.flashModeButton.alpha = .5;
+            self.cameraView.flashModeButton.enabled = NO;
+        } else {
+            self.cameraView.flashModeButton.alpha = 1;
+            self.cameraView.flashModeButton.enabled = YES;
+        }
     }];
+    
     
     [self.captureManager.captureSession startRunning];
 }
