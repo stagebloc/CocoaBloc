@@ -367,6 +367,7 @@
         
         CGFloat xTrans = 0;
         UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
+        if ((NSInteger)orientation == -1) orientation = UIInterfaceOrientationPortrait;
         switch (orientation) {
             case UIInterfaceOrientationPortraitUpsideDown:
                 xTrans = translation.x;
@@ -413,6 +414,9 @@
         
         void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
             UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
+            if ((NSInteger)orientation == -1)
+                return;
+            
             [self adjustTopViewsToOrientation:orientation];
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
                 [self adjustViewsToOrientation:orientation];
@@ -420,7 +424,6 @@
             } completion:nil];
         };
         orientationChange(nil);
-        [self adjustViewsToOrientation:[[UIDevice currentDevice] interfaceOrientation]];
         [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:orientationChange];
 
         @weakify(self);
