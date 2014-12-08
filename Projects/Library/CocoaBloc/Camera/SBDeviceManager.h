@@ -11,8 +11,7 @@
  */
 
 #import <Foundation/Foundation.h>
-@import AVFoundation;
-@import AssetsLibrary;
+#import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(NSUInteger, SBCameraAspectRatio) {
     SBCameraAspectRatioSquare = 0,

@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "SBPhotoManager.h"
 #import "SBCaptureManager.h"
 #import "SBDraggableView.h"
-
-@import AVFoundation.AVCaptureDevice;
 
 @class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView, RACSignal;
 

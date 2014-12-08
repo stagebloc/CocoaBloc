@@ -12,8 +12,7 @@
  */
 
 #import <UIKit/UIKit.h>
-
-@import AVFoundation.AVCaptureSession;
+#import <AVFoundation/AVFoundation.h>
 
 @interface SBCaptureView : UIView
 

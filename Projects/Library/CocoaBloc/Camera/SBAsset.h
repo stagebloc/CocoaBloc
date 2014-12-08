@@ -8,10 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <CoreLocation/CoreLocation.h>
 
-@import CoreLocation;
-
-@class PHAsset, ALAsset;
+@class PHAsset, ALAsset, CLLocation;
 
 typedef NS_ENUM(NSUInteger, SBAssetType) {
     SBAssetTypeUnknown = 0,
