@@ -9,6 +9,7 @@
 #import "SBPageView.h"
 #import <PureLayout/PureLayout.h>
 #import "UIColor+FanClub.h"
+#import "NSMutableAttributedString+Extensions.h"
 
 @interface SBPageView ()
 
@@ -20,13 +21,28 @@
 
 - (UIColor*) selectedColor {
     if (!_selectedColor)
-        _selectedColor = [UIColor fc_stageblocBlueColor];
+        _selectedColor = [UIColor whiteColor];
     return _selectedColor;
 }
 - (UIColor*) deselectedColor {
     if (!_deselectedColor)
         _deselectedColor = [UIColor whiteColor];
     return _deselectedColor;
+}
+
+- (CGFloat) alphaForCharPosition:(int)pos reverse:(BOOL)isReversed{
+    CGFloat toReturn = 0;
+    int const Max = 5.0;
+    CGFloat const MaxDiv = Max+2;
+    if (pos <= Max)
+        toReturn = (pos / (MaxDiv));
+    
+    if (isReversed) {
+        CGFloat const Reverse = Max / MaxDiv;
+        toReturn = Reverse - toReturn;
+    }
+    
+    return toReturn;
 }
 
 - (void) setIndex:(NSInteger)index {
@@ -46,17 +62,19 @@
 
 - (void) configureLayoutWithDuration:(NSTimeInterval)duration {
     [self.constraints autoRemoveConstraints];
-
+    
     CGFloat const Padding = 15;
     NSUInteger count = self.labels.count;
     
     NSMutableArray *layoutConstraints = [NSMutableArray array];
-
+    
     UILabel *baseLabel = self.labels[self.index];
     baseLabel.textColor = [self.selectedColor copy];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisVertical]];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
-//    baseLabel.layer.transform = CATransform3DMakeRotation(0, 1, 1, 1);
+    NSMutableAttributedString *baseString = [baseLabel.attributedText mutableCopy];
+    [baseString removeAllAttributes];
+    baseLabel.attributedText = baseString;
     
     //left of base label
     long start = self.index-1;
@@ -67,7 +85,20 @@
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:pinLabel withOffset:-Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
         
-//        label.layer.transform = CATransform3DMakeRotation(325 * M_PI / 180.0f, 0, 1, 0);
+        NSMutableAttributedString *attrString = [label.attributedText mutableCopy];
+        [attrString removeAllAttributes];
+        if (self.fadeOut) {
+            NSUInteger len = attrString.length;
+            if (i == start) {
+                for (int i = 0; i < len; i++) {
+                    CGFloat alpha = [self alphaForCharPosition:i reverse:NO];
+                    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:alpha] range:NSMakeRange(i, 1)];
+                }
+            } else {
+                [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:0] range:NSMakeRange(0, len)];
+            }
+            label.attributedText = attrString;
+        }
     }
     //right of base label
     start = self.index+1;
@@ -77,12 +108,25 @@
         label.textColor = [self.deselectedColor copy];
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:pinLabel withOffset:Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
-
-//        label.layer.transform = CATransform3DMakeRotation(35 * M_PI / 180.0f, 0, 1, 0);
+        
+        NSMutableAttributedString *attrString = [label.attributedText mutableCopy];
+        [attrString removeAllAttributes];
+        if (self.fadeOut) {
+            NSUInteger len = attrString.length;
+            if (i == start) {
+                for (int i = 0; i < len; i++) {
+                    CGFloat alpha = [self alphaForCharPosition:i reverse:YES];
+                    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:alpha] range:NSMakeRange(i, 1)];
+                }
+            } else {
+                [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:0] range:NSMakeRange(0, len)];
+            }
+            label.attributedText = attrString;
+        }
     }
     
     self.constraints = [layoutConstraints copy];
-
+    
     [UIView animateWithDuration:duration animations:^{
         [self layoutIfNeeded];
     }];
@@ -90,15 +134,16 @@
 
 - (id) initWithTitles:(NSArray*)titles {
     if (self = [super init]) {
+        self.fadeOut = YES;
         self.animationDuration = 0.4f;
         self.layer.masksToBounds = YES;
-
+        
         if (titles.count == 0)
             [NSException raise:NSInternalInconsistencyException format:@"initWithTitles: - titles must contain at least 1 NSString"];
         
         NSMutableArray *array = [NSMutableArray array];
         [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
-            UILabel *label = [self createLabelWithTitle:title];
+            UILabel *label = [self createLabelWithTitle:[[NSAttributedString alloc] initWithString:title]];
             [self addSubview:label];
             [array addObject:label];
         }];
@@ -109,9 +154,9 @@
     return self;
 }
 
-- (UILabel*) createLabelWithTitle:(NSString*)title{
+- (UILabel*) createLabelWithTitle:(NSAttributedString*)title{
     UILabel *label = [[UILabel alloc] init];
-    label.text = title;
+    label.attributedText = title;
     label.numberOfLines = 1;
     [label sizeToFit];
     return label;

@@ -59,6 +59,7 @@
 		4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B91A23AC7000D33D24 /* SBPhotoReviewView.m */; };
 		4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5BC1A23AC7B00D33D24 /* SBVideoReviewView.m */; };
 		4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */; };
+		4D83B16F1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83B16E1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m */; };
 		4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */; };
 		4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD161611A2E5AAA004C98CC /* SBDraggableView.m */; };
 		4DECC3021A3200FD0097ACA3 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */; };
@@ -237,6 +238,8 @@
 		4D76A5BC1A23AC7B00D33D24 /* SBVideoReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideoReviewView.m; sourceTree = "<group>"; };
 		4D83631E1A0B0E1F00A820B5 /* SBRecordButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBRecordButton.h; sourceTree = "<group>"; };
 		4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecordButton.m; sourceTree = "<group>"; };
+		4D83B16D1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Extensions.h"; sourceTree = "<group>"; };
+		4D83B16E1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Extensions.m"; sourceTree = "<group>"; };
 		4D98B9A61A22D1DE00F8D11B /* SBOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOverlayView.h; sourceTree = "<group>"; };
 		4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOverlayView.m; sourceTree = "<group>"; };
 		4DD161601A2E5AAA004C98CC /* SBDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDraggableView.h; sourceTree = "<group>"; };
@@ -564,6 +567,8 @@
 				4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */,
 				4DECC3001A3200FD0097ACA3 /* UIView+Extension.h */,
 				4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */,
+				4D83B16D1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.h */,
+				4D83B16E1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -914,6 +919,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
+				4D83B16F1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m in Sources */,
 				09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */,

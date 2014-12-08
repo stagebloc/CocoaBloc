@@ -10,6 +10,16 @@
 
 @interface SBPageView : UIView
 
+/*
+ YES to have the pageView fade out the labels
+ to the right and left of the selectedLabel
+ 
+ NO to have no label fading
+ 
+ Default is YES.
+ */
+@property (nonatomic, assign) BOOL fadeOut;
+
 @property (nonatomic, readonly, strong) NSArray *labels;
 
 /*
