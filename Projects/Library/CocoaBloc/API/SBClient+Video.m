@@ -28,7 +28,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
 - (RACSignal *)uploadVideoWithData:(NSData *)videoData
                           fileName:(NSString *)fileName
                              title:(NSString *)title
-                       description:(NSString *)description
+                           caption:(NSString *)caption
                          toAccount:(SBAccount *)account
                          exclusive:(BOOL)exclusive
                         fanContent:(BOOL)fanContent
@@ -50,8 +50,8 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     }
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive), @(fanContent)] forKeys:@[@"title", @"exclusive", @"fan_content"]];
-    if (description) {
-        params[@"description"] = description;
+    if (caption) {
+        params[@"description"] = caption;
     }
     
     // create the upload request
@@ -94,7 +94,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
 
 - (RACSignal *)uploadVideoAtPath:(NSString *)filePath
                            title:(NSString *)title
-                     description:(NSString *)description
+                         caption:(NSString *)caption
                        toAccount:(SBAccount *)account
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
@@ -120,7 +120,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                     return [self uploadVideoWithData:fileData
                                             fileName:filePath.lastPathComponent
                                                title:title
-                                         description:description
+                                             caption:caption
                                            toAccount:account
                                            exclusive:exclusive
                                           fanContent:fanContent

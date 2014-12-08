@@ -24,7 +24,7 @@
 - (RACSignal *)uploadVideoWithData:(NSData *)videoData
                           fileName:(NSString *)fileName
                              title:(NSString *)title
-                       description:(NSString *)description
+                           caption:(NSString *)caption
                          toAccount:(SBAccount *)account
                          exclusive:(BOOL)exclusive
                         fanContent:(BOOL)fanContent
@@ -35,7 +35,7 @@
  */
 - (RACSignal *)uploadVideoAtPath:(NSString *)filePath
                            title:(NSString *)title
-                     description:(NSString *)description
+                         caption:(NSString *)caption
                        toAccount:(SBAccount *)account
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
