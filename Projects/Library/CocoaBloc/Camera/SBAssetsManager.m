@@ -14,6 +14,9 @@
 #import "UIDevice+StageBloc.h"
 #import <ReactiveCocoa/RACEXTScope.h>
 
+@import Photos;
+@import AssetsLibrary;
+
 @interface SBAssetsManager ()
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 @end

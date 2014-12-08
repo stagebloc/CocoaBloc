@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-@import AVFoundation.AVCaptureSession;
+#import <AVFoundation/AVFoundation.h>
 
 @class SBVideoManager, SBPhotoManager, SBDeviceManager, RACSignal;
 

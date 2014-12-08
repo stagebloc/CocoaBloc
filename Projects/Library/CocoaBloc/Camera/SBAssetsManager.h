@@ -10,9 +10,6 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@import Photos;
-@import AssetsLibrary;
-
 @class SBAssetGroup;
 
 @interface SBAssetsManager : NSObject
