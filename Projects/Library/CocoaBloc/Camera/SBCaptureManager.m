@@ -22,14 +22,14 @@
 - (void) setDevicePosition:(AVCaptureDevicePosition)devicePosition {
     [self willChangeValueForKey:@"devicePosition"];
     _devicePosition = devicePosition;
-    [self didChangeValueForKey:@"devicePosition"];
     
     self.videoManager.devicePosition = devicePosition;
     self.photoManager.devicePosition = devicePosition;
     [self setCaptureType:self.captureType];
+    [self didChangeValueForKey:@"devicePosition"];
+    
 }
 
-//@return's YES if successful
 - (void) setFlashMode:(SBCaptureFlashMode)flashMode {
     BOOL didSet = NO;
     AVCaptureDevice *input = self.currentManager.currentCamera;

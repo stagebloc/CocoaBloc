@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
 
 @property (nonatomic, assign) AVCaptureDevicePosition devicePosition;
 
-@property (nonatomic, assign, readonly) SBCaptureFlashMode flashMode;
+@property (nonatomic, assign) SBCaptureFlashMode flashMode;
 
 - (SBDeviceManager*) currentManager;
 
@@ -50,13 +50,6 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
  @return's YES if successful, NO if unsuccessful
  */
 - (BOOL) setFocusMode:(AVCaptureFocusMode)mode pointOfInterest:(CGPoint)pointOfInterest;
-
-/*
- Attempts to set the flash mode of the currentManager's currentCamera
- Handles locking/unlocking
- @return's YES if successful, NO if unsuccessful
- */
-- (BOOL) setFlashMode:(SBCaptureFlashMode)flashMode;
 
 /*
  RACSignal helper methods

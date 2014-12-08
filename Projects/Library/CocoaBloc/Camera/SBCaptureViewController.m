@@ -181,10 +181,19 @@
         }
     }];
     
-    [RACObserve(self.cameraView, captureType) subscribeNext:^(NSNumber *t) {
-        SBCaptureType type = (SBCaptureType) t.integerValue;
-        
+    //listen for device position changes (rear & front)
+    [RACObserve(self.captureManager, devicePosition) subscribeNext:^(NSNumber *pos) {
+        @strongify(self);
+        AVCaptureDevicePosition position = (AVCaptureDevicePosition) pos.integerValue;
+        if (![self.captureManager.currentManager.currentCamera isFlashModeSupported:AVCaptureFlashModeOn]) {
+            self.cameraView.flashModeButton.alpha = .5;
+            self.cameraView.flashModeButton.enabled = NO;
+        } else {
+            self.cameraView.flashModeButton.alpha = 1;
+            self.cameraView.flashModeButton.enabled = YES;
+        }
     }];
+    
     
     [self.captureManager.captureSession startRunning];
 }
@@ -204,8 +213,8 @@
     NSInteger page = self.cameraView.pageView.index;
     switch (page) {
         case 0: [self.cameraView setVideoCaptureTypeWithAspectRatio:self.captureManager.videoManager.aspectRatio]; break;
-        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio4_3]; break;
-        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatio1_1]; break;
+        case 1: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatioNormal]; break;
+        case 2: [self.cameraView setPhotoCaptureTypeWithAspectRatio:SBCameraAspectRatioSquare]; break;
         default: break;
     }
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
@@ -219,12 +228,12 @@
             break;
         case 1:
             self.captureManager.captureType = SBCaptureTypePhoto;
-            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio4_3;
+            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatioNormal;
             self.cameraView.recordButton.allowHold = NO;
             break;
         case 2:
             self.captureManager.captureType = SBCaptureTypePhoto;
-            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatio1_1;
+            self.captureManager.photoManager.aspectRatio = SBCameraAspectRatioSquare;
             self.cameraView.recordButton.allowHold = NO;
             break;
         default:
@@ -364,8 +373,8 @@
         return;
     
     switch (self.captureManager.videoManager.aspectRatio) {
-        case SBCameraAspectRatio4_3: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatio1_1; break;
-        default: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatio4_3; break;
+        case SBCameraAspectRatioNormal: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatioSquare; break;
+        default: self.captureManager.videoManager.aspectRatio = SBCameraAspectRatioNormal; break;
     }
     self.cameraView.aspectRatio = self.captureManager.videoManager.aspectRatio;
 }
