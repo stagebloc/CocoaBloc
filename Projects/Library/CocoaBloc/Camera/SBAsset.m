@@ -24,7 +24,7 @@
 
 + (RACSignal*)createAssetFromPHAsset:(PHAsset*)phAsset {
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        
+
         RACDisposable *disposable = [[RACDisposable alloc] init];
         
         SBAssetType type = SBAssetTypeUnknown;

@@ -414,7 +414,7 @@
         
         void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
             UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
-            if ((NSInteger)orientation == -1)
+            if ((NSInteger)orientation == -1 && note != nil)
                 return;
             
             [self adjustTopViewsToOrientation:orientation];

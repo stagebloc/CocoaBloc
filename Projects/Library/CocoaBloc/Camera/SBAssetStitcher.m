@@ -153,24 +153,24 @@
         AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
         CGAffineTransform finalTransform;
         
-//        switch (self.orientation) {
-//            case AVCaptureVideoOrientationPortrait:
+        switch (self.orientation) {
+            case AVCaptureVideoOrientationPortrait:
                 finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
                 finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
-//                break;
-//            case AVCaptureVideoOrientationPortraitUpsideDown:
-//                finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
-//                finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
-//                break;
-//            case AVCaptureVideoOrientationLandscapeRight:
-//                finalTransform = CGAffineTransformMakeTranslation(-(size.width - size.height), 0);
-//                finalTransform = CGAffineTransformRotate(finalTransform, 0);
-//                break;
-//            default: //AVCaptureVideoOrientationLandscapeLeft
-//                finalTransform = CGAffineTransformMakeTranslation((size.width - size.height) * (size.width / size.height) , size.height);
-//                finalTransform = CGAffineTransformRotate(finalTransform, M_PI);
-//                break;
-//        }
+                break;
+            case AVCaptureVideoOrientationPortraitUpsideDown:
+                finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
+                finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
+                break;
+            case AVCaptureVideoOrientationLandscapeRight:
+                finalTransform = CGAffineTransformMakeTranslation(-(size.width - size.height), 0);
+                finalTransform = CGAffineTransformRotate(finalTransform, 0);
+                break;
+            default: //AVCaptureVideoOrientationLandscapeLeft
+                finalTransform = CGAffineTransformMakeTranslation((size.width - size.height) * (size.width / size.height) , size.height);
+                finalTransform = CGAffineTransformRotate(finalTransform, M_PI);
+                break;
+        }
 
         [transformer setTransform:finalTransform atTime:kCMTimeZero];
         instruction.layerInstructions = [NSArray arrayWithObject:transformer];
