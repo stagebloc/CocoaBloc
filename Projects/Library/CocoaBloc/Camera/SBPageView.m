@@ -10,6 +10,10 @@
 #import <PureLayout/PureLayout.h>
 #import "UIColor+FanClub.h"
 #import "NSMutableAttributedString+Extensions.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+
+#import "SBFadeLabel.h"
 
 @interface SBPageView ()
 
@@ -28,21 +32,6 @@
     if (!_deselectedColor)
         _deselectedColor = [UIColor whiteColor];
     return _deselectedColor;
-}
-
-- (CGFloat) alphaForCharPosition:(int)pos reverse:(BOOL)isReversed{
-    CGFloat toReturn = 0;
-    int const Max = 5.0;
-    CGFloat const MaxDiv = Max+2;
-    if (pos <= Max)
-        toReturn = (pos / (MaxDiv));
-    
-    if (isReversed) {
-        CGFloat const Reverse = Max / MaxDiv;
-        toReturn = Reverse - toReturn;
-    }
-    
-    return toReturn;
 }
 
 - (void) setIndex:(NSInteger)index {
@@ -68,60 +57,50 @@
     
     NSMutableArray *layoutConstraints = [NSMutableArray array];
     
-    UILabel *baseLabel = self.labels[self.index];
+    SBFadeLabel *baseLabel = self.labels[self.index];
     baseLabel.textColor = [self.selectedColor copy];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisVertical]];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
     NSMutableAttributedString *baseString = [baseLabel.attributedText mutableCopy];
-    [baseString removeAllAttributes];
+    [baseLabel setType:SBFadeLabelTypeFadeNone];
     baseLabel.attributedText = baseString;
     
     //left of base label
     long start = self.index-1;
     for (long i = start; i >= 0; i--) {
-        UILabel *pinLabel = i == start ? baseLabel : self.labels[i+1];
-        UILabel *label = self.labels[i];
+        SBFadeLabel *pinLabel = i == start ? baseLabel : self.labels[i+1];
+        SBFadeLabel *label = self.labels[i];
         label.textColor = [self.deselectedColor copy];
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:pinLabel withOffset:-Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
         
-        NSMutableAttributedString *attrString = [label.attributedText mutableCopy];
-        [attrString removeAllAttributes];
         if (self.fadeOut) {
-            NSUInteger len = attrString.length;
             if (i == start) {
-                for (int i = 0; i < len; i++) {
-                    CGFloat alpha = [self alphaForCharPosition:i reverse:NO];
-                    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:alpha] range:NSMakeRange(i, 1)];
-                }
+                [label setType:SBFadeLabelTypeFadeLeft];
             } else {
-                [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:0] range:NSMakeRange(0, len)];
+                [label setType:SBFadeLabelTypeFadeAll];
             }
-            label.attributedText = attrString;
+        } else {
+            [label setType:SBFadeLabelTypeFadeNone];
         }
     }
     //right of base label
     start = self.index+1;
     for (long i = start; i < count; i++) {
-        UILabel *pinLabel = i == start ? baseLabel : self.labels[i-1];
-        UILabel *label = self.labels[i];
+        SBFadeLabel *pinLabel = i == start ? baseLabel : self.labels[i-1];
+        SBFadeLabel *label = self.labels[i];
         label.textColor = [self.deselectedColor copy];
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:pinLabel withOffset:Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
         
-        NSMutableAttributedString *attrString = [label.attributedText mutableCopy];
-        [attrString removeAllAttributes];
         if (self.fadeOut) {
-            NSUInteger len = attrString.length;
             if (i == start) {
-                for (int i = 0; i < len; i++) {
-                    CGFloat alpha = [self alphaForCharPosition:i reverse:YES];
-                    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:alpha] range:NSMakeRange(i, 1)];
-                }
+                [label setType:SBFadeLabelTypeFadeRight];
             } else {
-                [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:0] range:NSMakeRange(0, len)];
+                [label setType:SBFadeLabelTypeFadeAll];
             }
-            label.attributedText = attrString;
+        } else {
+            [label setType:SBFadeLabelTypeFadeNone];
         }
     }
     
@@ -143,7 +122,7 @@
         
         NSMutableArray *array = [NSMutableArray array];
         [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
-            UILabel *label = [self createLabelWithTitle:[[NSAttributedString alloc] initWithString:title]];
+            UILabel *label = [[SBFadeLabel alloc] initWithAttributedText:[[NSAttributedString alloc] initWithString:title]];
             [self addSubview:label];
             [array addObject:label];
         }];
@@ -154,13 +133,6 @@
     return self;
 }
 
-- (UILabel*) createLabelWithTitle:(NSAttributedString*)title{
-    UILabel *label = [[UILabel alloc] init];
-    label.attributedText = title;
-    label.numberOfLines = 1;
-    [label sizeToFit];
-    return label;
-}
 
 - (void) translateToX:(CGFloat)xTranslation {
     CGRect lastLabelFrame = [self.labels.lastObject frame];
