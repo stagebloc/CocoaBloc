@@ -41,7 +41,7 @@
         case AVCaptureVideoOrientationPortrait:
             return M_PI_2;
         case AVCaptureVideoOrientationPortraitUpsideDown:
-            return M_PI_2;
+            return -M_PI_2;
         case AVCaptureVideoOrientationLandscapeRight:
             return 0;
         default: //AVCaptureVideoOrientationLandscapeLeft
@@ -159,8 +159,8 @@
                 finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
                 break;
             case AVCaptureVideoOrientationPortraitUpsideDown:
-                finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
-                finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
+                finalTransform = CGAffineTransformMakeTranslation(0, (size.width - size.height) * (size.width / size.height));
+                finalTransform = CGAffineTransformRotate(finalTransform, -M_PI_2);
                 break;
             case AVCaptureVideoOrientationLandscapeRight:
                 finalTransform = CGAffineTransformMakeTranslation(-(size.width - size.height), 0);
