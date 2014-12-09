@@ -15,42 +15,56 @@
 
 @implementation SBFadeLabel
 
+- (CAGradientLayer*) gradientMask {
+    return (CAGradientLayer*)self.layer.mask;
+}
+
 - (void) createMaskLayer:(SBFadeLabelType)type {
-    if (type == SBFadeLabelTypeFadeNone)
-        return;
-    
     CAGradientLayer *maskLayer = [CAGradientLayer layer];
     maskLayer.anchorPoint = CGPointZero;
-    maskLayer.startPoint = CGPointMake(0.0f, .5f);
-    maskLayer.endPoint = CGPointMake(1.f, .5f);
     
-    UIColor *leftColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-    UIColor *rightColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    NSDictionary *options = [self optionsForType:type];
     
-    switch (type) {
-        case SBFadeLabelTypeFadeLeft:
-            maskLayer.locations = @[@0.0, @0.15, @0.5, @1.0f];
-            leftColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-            rightColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-            break;
-        case SBFadeLabelTypeFadeRight:
-            maskLayer.locations = @[@0.0, @.5, @0.85f, @1.0f];
-            leftColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-            rightColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-            break;
-        case SBFadeLabelTypeFadeAll:
-            maskLayer.locations = @[@0.0, @0.25, @.75, @1.0f];
-            leftColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-            rightColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-            break;
-        default:
-            break;
-    }
+    maskLayer.startPoint = [[options objectForKey:@"startPoint"] CGPointValue];
+    maskLayer.endPoint = [[options objectForKey:@"endPoint"] CGPointValue];
     
-    maskLayer.colors = @[(id)leftColor.CGColor, (id)leftColor.CGColor, (id)rightColor.CGColor, (id)rightColor.CGColor];
+    UIColor *hideColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+    UIColor *halfColor = [UIColor colorWithWhite:1.0 alpha:0.3f];
+    UIColor *showColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    
+    maskLayer.locations =  [options objectForKey:@"locations"];
+    
+    maskLayer.colors = @[(id)hideColor.CGColor, (id)hideColor.CGColor, (id)halfColor.CGColor, (id)halfColor.CGColor, (id)showColor.CGColor, (id)showColor.CGColor];
     maskLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
     
     self.layer.mask = maskLayer;
+}
+
+- (NSDictionary*) optionsForType:(SBFadeLabelType)type {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    switch (type) {
+        case SBFadeLabelTypeFadeLeft:
+            [dictionary setObject:@[@0, @.2f, @.25f, @0.35f, @.6f, @1.0f] forKey:@"locations"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(0.0f, .5f)] forKey:@"startPoint"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(1.0f, .5f)] forKey:@"endPoint"];
+            break;
+        case SBFadeLabelTypeFadeRight:
+            [dictionary setObject:@[@0, @.2f, @.25f, @0.35f, @.6f, @1.0f] forKey:@"locations"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(1.0f, .5f)] forKey:@"startPoint"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(0.0f, .5f)] forKey:@"endPoint"];
+            break;
+        case SBFadeLabelTypeFadeAll:
+            [dictionary setObject:@[@0, @1.0f, @1.0f, @1.0f, @1.0f, @1.0f] forKey:@"locations"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(0.0f, .5f)] forKey:@"startPoint"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(1.0f, .5f)] forKey:@"endPoint"];
+            break;
+        default: //None
+            [dictionary setObject:@[@0, @0.0f, @0.0f, @0.0f, @0.0f, @1.0f] forKey:@"locations"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(0.0f, .5f)] forKey:@"startPoint"];
+            [dictionary setObject:[NSValue valueWithCGPoint:CGPointMake(1.0f, .5f)] forKey:@"endPoint"];
+            break;
+    }
+    return dictionary;
 }
 
 - (void) setType:(SBFadeLabelType)type {
@@ -58,13 +72,13 @@
     _type = type;
     [self didChangeValueForKey:@"type"];
     
-    self.layer.mask = nil;
-    [self createMaskLayer:type];
+    [self animateTypeChange:type];
 }
 
 - (instancetype) initWithText:(NSString*)text {
     if (self = [super init]) {
         self.text = text;
+        [self createMaskLayer:SBFadeLabelTypeFadeNone];
     }
     return self;
 }
@@ -72,6 +86,43 @@
 - (void) layoutSubviews {
     [super layoutSubviews];
     self.layer.mask.bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+}
+
+#pragma mark - Animations
+- (void) animateTypeChange:(SBFadeLabelType)type {
+    [CATransaction begin];
+    
+    NSDictionary *options = [self optionsForType:type];
+    NSTimeInterval duration = 1.5f;
+    
+    CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"locations"];
+    animation.fromValue = self.gradientMask.locations;
+    animation.toValue = [options objectForKey:@"locations"];
+    animation.duration = duration;
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    [self.layer.mask addAnimation:animation forKey:@"locations"];
+    
+    animation = [CABasicAnimation animationWithKeyPath:@"startPoint"];
+    animation.fromValue = [NSValue valueWithCGPoint:self.gradientMask.startPoint];
+    animation.toValue = [options objectForKey:@"startPoint"];
+    animation.duration = duration;
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    [self.layer.mask addAnimation:animation forKey:@"startPoint"];
+    
+    animation = [CABasicAnimation animationWithKeyPath:@"endPoint"];
+    animation.fromValue = [NSValue valueWithCGPoint:self.gradientMask.endPoint];
+    animation.toValue = [options objectForKey:@"endPoint"];
+    animation.duration = duration;
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    [self.layer.mask addAnimation:animation forKey:@"endPoint"];
+
+    [CATransaction commit];
 }
 
 @end
