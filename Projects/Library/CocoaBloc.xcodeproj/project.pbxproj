@@ -60,7 +60,6 @@
 		4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5BC1A23AC7B00D33D24 /* SBVideoReviewView.m */; };
 		4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */; };
 		4D83B16F1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83B16E1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m */; };
-		4D83B1721A364C4900F99B12 /* SBFadeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83B1711A364C4900F99B12 /* SBFadeLabel.m */; };
 		4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */; };
 		4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD161611A2E5AAA004C98CC /* SBDraggableView.m */; };
 		4DECC3021A3200FD0097ACA3 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */; };
@@ -241,8 +240,6 @@
 		4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecordButton.m; sourceTree = "<group>"; };
 		4D83B16D1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+Extensions.h"; sourceTree = "<group>"; };
 		4D83B16E1A3609CC00F99B12 /* NSMutableAttributedString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+Extensions.m"; sourceTree = "<group>"; };
-		4D83B1701A364C4900F99B12 /* SBFadeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFadeLabel.h; sourceTree = "<group>"; };
-		4D83B1711A364C4900F99B12 /* SBFadeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFadeLabel.m; sourceTree = "<group>"; };
 		4D98B9A61A22D1DE00F8D11B /* SBOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOverlayView.h; sourceTree = "<group>"; };
 		4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOverlayView.m; sourceTree = "<group>"; };
 		4DD161601A2E5AAA004C98CC /* SBDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDraggableView.h; sourceTree = "<group>"; };
@@ -630,8 +627,6 @@
 				4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */,
 				4D83631E1A0B0E1F00A820B5 /* SBRecordButton.h */,
 				4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */,
-				4D83B1701A364C4900F99B12 /* SBFadeLabel.h */,
-				4D83B1711A364C4900F99B12 /* SBFadeLabel.m */,
 				4D2242091A0D2D3D0065F172 /* SBPageView.h */,
 				4D22420A1A0D2D3D0065F172 /* SBPageView.m */,
 				4D76A5B71A23AC5400D33D24 /* SBReviewView */,
@@ -937,7 +932,6 @@
 				090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */,
 				09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */,
 				09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */,
-				4D83B1721A364C4900F99B12 /* SBFadeLabel.m in Sources */,
 				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
 				4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */,
 				0976370219BE3F4200E3CD45 /* SBClient+Audio.m in Sources */,

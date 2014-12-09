@@ -13,8 +13,6 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
-#import "SBFadeLabel.h"
-
 @interface SBPageView ()
 
 @property (nonatomic, strong) NSArray *constraints;
@@ -57,51 +55,28 @@
     
     NSMutableArray *layoutConstraints = [NSMutableArray array];
     
-    SBFadeLabel *baseLabel = self.labels[self.index];
+    UILabel *baseLabel = self.labels[self.index];
     baseLabel.textColor = [self.selectedColor copy];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisVertical]];
     [layoutConstraints addObject:[baseLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
-    NSMutableAttributedString *baseString = [baseLabel.attributedText mutableCopy];
-    [baseLabel setType:SBFadeLabelTypeFadeNone];
-    baseLabel.attributedText = baseString;
     
     //left of base label
     long start = self.index-1;
     for (long i = start; i >= 0; i--) {
-        SBFadeLabel *pinLabel = i == start ? baseLabel : self.labels[i+1];
-        SBFadeLabel *label = self.labels[i];
+        UILabel *pinLabel = i == start ? baseLabel : self.labels[i+1];
+        UILabel *label = self.labels[i];
         label.textColor = [self.deselectedColor copy];
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:pinLabel withOffset:-Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
-        
-        if (self.fadeOut) {
-            if (i == start) {
-                [label setType:SBFadeLabelTypeFadeLeft];
-            } else {
-                [label setType:SBFadeLabelTypeFadeAll];
-            }
-        } else {
-            [label setType:SBFadeLabelTypeFadeNone];
-        }
     }
     //right of base label
     start = self.index+1;
     for (long i = start; i < count; i++) {
-        SBFadeLabel *pinLabel = i == start ? baseLabel : self.labels[i-1];
-        SBFadeLabel *label = self.labels[i];
+        UILabel *pinLabel = i == start ? baseLabel : self.labels[i-1];
+        UILabel *label = self.labels[i];
         label.textColor = [self.deselectedColor copy];
         [layoutConstraints addObject:[label autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:pinLabel withOffset:Padding]];
         [layoutConstraints addObject:[label autoAlignAxisToSuperviewAxis:ALAxisHorizontal]];
-        
-        if (self.fadeOut) {
-            if (i == start) {
-                [label setType:SBFadeLabelTypeFadeRight];
-            } else {
-                [label setType:SBFadeLabelTypeFadeAll];
-            }
-        } else {
-            [label setType:SBFadeLabelTypeFadeNone];
-        }
     }
     
     self.constraints = [layoutConstraints copy];
@@ -122,50 +97,39 @@
         
         NSMutableArray *array = [NSMutableArray array];
         [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
-            UILabel *label = [[SBFadeLabel alloc] initWithText:title];
+            UILabel *label = [[UILabel alloc] init];
+            label.text = title;
             [self addSubview:label];
             [array addObject:label];
         }];
         _labels = [array copy];
         
         self.index = 0;
+        
+
+        //layer mask
+        UIColor *hideColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+        UIColor *halfColor = [UIColor colorWithWhite:1.0 alpha:0.3f];
+        UIColor *showColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+        
+        CAGradientLayer *maskLayer = [CAGradientLayer layer];
+        maskLayer.anchorPoint = CGPointZero;
+        maskLayer.startPoint = CGPointMake(0.0f, .5f);
+        maskLayer.endPoint = CGPointMake(1.0f, .5f);
+        maskLayer.locations =  @[@0, @.2f, @.35f, @0.65f, @.8f, @1.0f];;
+        
+        maskLayer.colors = @[(id)hideColor.CGColor, (id)halfColor.CGColor, (id)showColor.CGColor, (id)showColor.CGColor, (id)halfColor.CGColor, (id)hideColor.CGColor];;
+        maskLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+        
+        self.layer.mask = maskLayer;
     }
     return self;
 }
 
-
-- (void) translateToX:(CGFloat)xTranslation {
-    CGRect lastLabelFrame = [self.labels.lastObject frame];
-    CGRect firstLabelFrame = [self.labels.firstObject frame];
-    if (CGRectGetMinX(lastLabelFrame) - xTranslation > CGRectGetMaxX(self.frame)) {
-        xTranslation = 0;
-    } else if (CGRectGetMaxX(firstLabelFrame) - xTranslation < CGRectGetMinX(self.frame)) {
-        xTranslation = 0;
-    }
-    
-    [self.labels enumerateObjectsUsingBlock:^(UILabel *label, NSUInteger idx, BOOL *stop) {
-        CGRect frame = label.frame;
-        frame.origin.x -= xTranslation;
-        label.frame = frame;
-    }];
-}
-
-- (void) doneTranslating {
-    CGRect centerRect = CGRectMake(self.frame.size.width*.5f-20, 0, 40, self.frame.size.height);
-    __block BOOL didSetIndex = NO;
-    [self.labels enumerateObjectsUsingBlock:^(UILabel *label, NSUInteger idx, BOOL *stop) {
-        if (CGRectIntersectsRect(label.frame, centerRect)) {
-            didSetIndex = YES;
-            self.index = idx;
-        }
-    }];
-    if (!didSetIndex) {
-        CGRect firstLabelFrame = [self.labels.firstObject frame];
-        if (firstLabelFrame.origin.x >= centerRect.origin.x)
-            self.index = 0;
-        else if (firstLabelFrame.origin.x <= centerRect.origin.x)
-            self.index = self.labels.count-1;
-    }
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    CGRect bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+    self.layer.mask.bounds = bounds;
 }
 
 @end
