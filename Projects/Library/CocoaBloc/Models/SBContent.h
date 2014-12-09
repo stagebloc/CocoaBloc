@@ -13,6 +13,8 @@
 
 @interface SBContent : SBObject <MTLJSONSerializing>
 
++ (Class)modelClassForJSONContentType:(NSString *)contentType;
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *excerpt;
 @property (nonatomic, strong) NSDate *creationDate;

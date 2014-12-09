@@ -8,6 +8,8 @@
 
 #import "SBPhoto.h"
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
+#import <Mantle/MTLValueTransformer.h>
+#import "SBAccount.h"
 
 @implementation SBPhoto
 

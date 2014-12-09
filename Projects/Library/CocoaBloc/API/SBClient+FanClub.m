@@ -11,6 +11,7 @@
 #import <RACAFNetworking.h>
 #import <RACEXTScope.h>
 #import "SBClient+Private.h"
+#import "RACSignal+JSONDeserialization.h"
 
 @implementation SBClient (FanClub)
 
@@ -43,16 +44,18 @@
     params[@"filter"] = @"blog,photos,statuses";
     
     return [[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
-            	setNameWithFormat:@"Get "];
+            	setNameWithFormat:@"Get content from fan club (account: %@)", account];
 }
 
-- (RACSignal *)getRecentFanClubContentWithParameters:(NSDictionary *)parameters {
+- (RACSignal *)getContentFromFollowedFanClubsWithParameters:(NSDictionary *)parameters {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2 + 2 * parameters.count];
     
     [params addEntriesFromDictionary:parameters];
     params[@"expand"] = @"user,account,photo";
     
-    return [self rac_GET:@"account/fanclubs/following/content" parameters:[self requestParametersWithParameters:params]];
+    return [[[self rac_GET:@"account/fanclubs/following/content" parameters:[self requestParametersWithParameters:params]]
+                cb_deserializeContentArrayWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get recent fan club content"];
 }
 
 @end
