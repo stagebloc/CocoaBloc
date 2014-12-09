@@ -9,74 +9,69 @@
 #import "SBFadeLabel.h"
 #import "NSMutableAttributedString+Extensions.h"
 
+@interface SBFadeLabel ()
+
+@end
+
 @implementation SBFadeLabel
 
-- (CGFloat) alphaForCharPosition:(int)pos reverse:(BOOL)isReversed{
-    CGFloat toReturn = 0;
-    int const Max = self.maxCharsShown;
-    CGFloat const MaxDiv = Max+2;
-    if (pos <= Max)
-        toReturn = (pos / (MaxDiv));
+- (void) createMaskLayer:(SBFadeLabelType)type {
+    if (type == SBFadeLabelTypeFadeNone)
+        return;
     
-    if (isReversed) {
-        CGFloat const Reverse = Max / MaxDiv;
-        toReturn = Reverse - toReturn;
+    CAGradientLayer *maskLayer = [CAGradientLayer layer];
+    maskLayer.anchorPoint = CGPointZero;
+    maskLayer.startPoint = CGPointMake(0.0f, .5f);
+    maskLayer.endPoint = CGPointMake(1.f, .5f);
+    
+    UIColor *leftColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    UIColor *rightColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    
+    switch (type) {
+        case SBFadeLabelTypeFadeLeft:
+            maskLayer.locations = @[@0.0, @0.15, @0.5, @1.0f];
+            leftColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+            rightColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+            break;
+        case SBFadeLabelTypeFadeRight:
+            maskLayer.locations = @[@0.0, @.5, @0.85f, @1.0f];
+            leftColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+            rightColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+            break;
+        case SBFadeLabelTypeFadeAll:
+            maskLayer.locations = @[@0.0, @0.25, @.75, @1.0f];
+            leftColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+            rightColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+            break;
+        default:
+            break;
     }
     
-    return toReturn;
+    maskLayer.colors = @[(id)leftColor.CGColor, (id)leftColor.CGColor, (id)rightColor.CGColor, (id)rightColor.CGColor];
+    maskLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+    
+    self.layer.mask = maskLayer;
 }
 
 - (void) setType:(SBFadeLabelType)type {
-    [self setType:type duration:0];
-}
-
-- (void) setType:(SBFadeLabelType)type duration:(NSTimeInterval)duration {
     [self willChangeValueForKey:@"type"];
     _type = type;
     [self didChangeValueForKey:@"type"];
     
-    NSMutableAttributedString *attrString = [self.attributedText mutableCopy];
-    [attrString removeAllAttributes];
-    
-    NSUInteger const len = self.attributedText.length;
-    switch (type) {
-        case SBFadeLabelTypeFadeLeft: {
-            for (int i = 0; i < len; i++) {
-                CGFloat alpha = [self alphaForCharPosition:i reverse:NO];
-                [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:alpha] range:NSMakeRange(i, 1)];
-            }
-            break;
-        }
-       
-        case SBFadeLabelTypeFadeRight: {
-            for (int i = 0; i < len; i++) {
-                CGFloat alpha = [self alphaForCharPosition:i reverse:YES];
-                [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:alpha] range:NSMakeRange(i, 1)];
-            }
-            break;
-        }
-        
-        case SBFadeLabelTypeFadeAll: {
-            [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1 alpha:0] range:NSMakeRange(0, len)];
-            break;
-        }
-            
-        default:
-            [attrString removeAllAttributes];
-            self.textColor = [UIColor whiteColor];
-            break;
-    }
-    self.attributedText = attrString;
+    self.layer.mask = nil;
+    [self createMaskLayer:type];
 }
 
-- (instancetype) initWithAttributedText:(NSAttributedString*)attributedString {
+- (instancetype) initWithText:(NSString*)text {
     if (self = [super init]) {
-        self.maxCharsShown = 5;
-        self.attributedText = attributedString;
-        self.numberOfLines = 1;
-        [self sizeToFit];
+        self.text = text;
     }
     return self;
+}
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    self.layer.mask.bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
 }
 
 @end

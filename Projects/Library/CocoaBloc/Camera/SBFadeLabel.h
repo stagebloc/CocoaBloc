@@ -21,8 +21,6 @@ typedef NS_ENUM(NSUInteger, SBFadeLabelType) {
 
 @property (nonatomic, assign) SBFadeLabelType type;
 
-- (void) setType:(SBFadeLabelType)type toAlpha:(CGFloat)toAlpha duration:(NSTimeInterval)duration;
-
-- (instancetype) initWithAttributedText:(NSAttributedString*)attributedString;
+- (instancetype) initWithText:(NSString*)text;
 
 @end

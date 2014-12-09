@@ -122,7 +122,7 @@
         
         NSMutableArray *array = [NSMutableArray array];
         [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
-            UILabel *label = [[SBFadeLabel alloc] initWithAttributedText:[[NSAttributedString alloc] initWithString:title]];
+            UILabel *label = [[SBFadeLabel alloc] initWithText:title];
             [self addSubview:label];
             [array addObject:label];
         }];
