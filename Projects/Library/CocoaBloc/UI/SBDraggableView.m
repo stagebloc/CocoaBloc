@@ -7,6 +7,7 @@
 //
 
 #import "SBDraggableView.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface SBDraggableView () <UIGestureRecognizerDelegate>
 
@@ -61,12 +62,14 @@
     UIView *view = gesture.view;
     CGPoint translation = [gesture translationInView:view];
     
+    self.translatesAutoresizingMaskIntoConstraints = YES;
     CGRect frame = view.frame;
     if ([self canMoveInDirection:SBDraggableViewDirectionLeftRight])
         frame.origin.x += translation.x;
     if ([self canMoveInDirection:SBDraggableViewDirectionUpDown])
         frame.origin.y += translation.y;
     view.frame = frame;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     
     [gesture setTranslation:CGPointMake(0, 0) inView:view];
     

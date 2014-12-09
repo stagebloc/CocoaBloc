@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class SBDraggableView;
+@class SBDraggableView, RACSignal;
 
 typedef NS_OPTIONS(NSUInteger, SBDraggableViewDirection) {
     SBDraggableViewDirectionNone = (1 << 0),

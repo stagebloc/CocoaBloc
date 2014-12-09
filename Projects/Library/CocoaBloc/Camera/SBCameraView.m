@@ -780,8 +780,6 @@ BOOL isSmallScreen() {
             }
             
         }
-        
-        
     }
     self.cameraConstraints = [constraints copy];
 }
@@ -798,7 +796,8 @@ BOOL isSmallScreen() {
     CGFloat offset = 30;
     [constraints addObject:[self.optionsMenuContianerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
     [constraints addObject:[self.optionsMenuContianerView autoSetDimension:ALDimensionHeight toSize:height]];
-    
+    [constraints addObject:[self.optionsMenuContianerView autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+
     self.optionsMenuContianerView.topRestriction = @(self.frame.size.height - height);
     
     if (!isHidden) {
