@@ -108,16 +108,16 @@
 
         //layer mask
         UIColor *hideColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-        UIColor *halfColor = [UIColor colorWithWhite:1.0 alpha:0.3f];
+        UIColor *halfColor = [UIColor colorWithWhite:1.0 alpha:0.2f];
         UIColor *showColor = [UIColor colorWithWhite:1.0 alpha:1.0];
         
         CAGradientLayer *maskLayer = [CAGradientLayer layer];
         maskLayer.anchorPoint = CGPointZero;
         maskLayer.startPoint = CGPointMake(0.0f, .5f);
         maskLayer.endPoint = CGPointMake(1.0f, .5f);
-        maskLayer.locations =  @[@0, @.2f, @.35f, @0.65f, @.8f, @1.0f];;
+        maskLayer.locations =  @[@0, @.15f, @.25f, @.3f, @0.7f, @.75f, @0.85, @1.0f];
         
-        maskLayer.colors = @[(id)hideColor.CGColor, (id)halfColor.CGColor, (id)showColor.CGColor, (id)showColor.CGColor, (id)halfColor.CGColor, (id)hideColor.CGColor];;
+        maskLayer.colors = @[(id)hideColor.CGColor, (id)hideColor.CGColor, (id)halfColor.CGColor, (id)showColor.CGColor, (id)showColor.CGColor, (id)halfColor.CGColor, (id)hideColor.CGColor, (id)hideColor.CGColor];
         maskLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
         
         self.layer.mask = maskLayer;
