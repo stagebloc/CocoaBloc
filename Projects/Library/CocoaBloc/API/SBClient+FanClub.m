@@ -47,7 +47,7 @@
             	setNameWithFormat:@"Get content from fan club (account: %@)", account];
 }
 
-- (RACSignal *)getRecentFanClubContentWithParameters:(NSDictionary *)parameters {
+- (RACSignal *)getContentFromFollowedFanClubsWithParameters:(NSDictionary *)parameters {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2 + 2 * parameters.count];
     
     [params addEntriesFromDictionary:parameters];
