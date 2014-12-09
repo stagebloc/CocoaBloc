@@ -9,7 +9,6 @@
 #import "SBPageView.h"
 #import <PureLayout/PureLayout.h>
 #import "UIColor+FanClub.h"
-#import "NSMutableAttributedString+Extensions.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
