@@ -39,6 +39,11 @@
 
 @synthesize aspectRatio = _aspectRatio;
 
+BOOL isSmallScreen() {
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    return CGRectGetHeight(rect) <= 480 && CGRectGetWidth(rect) <= 480;
+}
+
 - (UIView*) captureViewContainer {
     if (!_captureViewContainer) {
         _captureViewContainer = [[UIView alloc] initWithFrame:self.bounds];
@@ -488,7 +493,11 @@
 - (void) setPhotoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio {
     _captureType = SBCaptureTypePhoto;
     self.aspectRatio = ratio;
-    self.captureView.captureLayer.videoGravity = ratio == SBCameraAspectRatioSquare ? AVLayerVideoGravityResizeAspectFill : AVLayerVideoGravityResizeAspect;
+    
+    NSString *videoGravity = ratio == SBCameraAspectRatioSquare ? AVLayerVideoGravityResizeAspectFill : AVLayerVideoGravityResizeAspect;
+    if (isSmallScreen()) videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.captureView.captureLayer.videoGravity = videoGravity;
+    
     [self animateView:self.chooseExistingButton toAlpha:1 duration:0.3 completion:nil];
     [self animateView:self.toggleRatioButton toAlpha:0 duration:0.3 completion:nil];
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
@@ -498,7 +507,11 @@
 - (void) setVideoCaptureTypeWithAspectRatio:(SBCameraAspectRatio)ratio {
     _captureType = SBCaptureTypeVideo;
     self.aspectRatio = ratio;
-    self.captureView.captureLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    
+    NSString *videoGravity = AVLayerVideoGravityResizeAspect;
+    if (isSmallScreen()) videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.captureView.captureLayer.videoGravity = videoGravity;
+    
     [self animateView:self.chooseExistingButton toAlpha:0 duration:0.3 completion:nil];
     [self animateView:self.toggleRatioButton toAlpha:1 duration:0.3 completion:nil];
     [self adjustCameraConstraintsForRatio:self.aspectRatio captureType:self.captureType];
@@ -748,15 +761,26 @@
         
         [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
     } else {
-        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeTop toAttribute:ALAttributeBottom ofView:self.topContainerView]];
-        [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeTop ofView:self.bottomContainerView]];
-        [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
         
-        if (ratio == SBCameraAspectRatioNormal) {
+        if (isSmallScreen() && ratio == SBCameraAspectRatioNormal) {
+            [constraints addObjectsFromArray:[self.captureViewContainer autoCenterInSuperview]];
+            [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+            [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+            
             [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
         } else {
-            [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
+            [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeTop toAttribute:ALAttributeBottom ofView:self.topContainerView]];
+            [constraints addObject:[self.captureViewContainer autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeTop ofView:self.bottomContainerView]];
+            [constraints addObject:[self.captureViewContainer autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+            
+            if (ratio == SBCameraAspectRatioNormal) {
+                [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.captureViewContainer]];
+            } else {
+                [constraints addObject:[self.captureView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.captureViewContainer]];
+            }
+            
         }
+        
         
     }
     self.cameraConstraints = [constraints copy];
