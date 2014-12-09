@@ -64,6 +64,7 @@
 		4DECC3021A3200FD0097ACA3 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */; };
 		4DEF29C51A2CFE0300316B88 /* SBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */; };
 		4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */; };
+		529FBDCD1A37A36E00E002B7 /* SBClient+Content.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FBDCC1A37A36E00E002B7 /* SBClient+Content.m */; };
 		529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */; };
 		529FC97E1A2F8DBC00F197C7 /* bball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 529FC97D1A2F8DBC00F197C7 /* bball.mov */; };
 		529FC9811A2F98DC00F197C7 /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9801A2F98DC00F197C7 /* SBVideo.m */; };
@@ -248,6 +249,8 @@
 		4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraViewController.m; sourceTree = "<group>"; };
 		4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraView.h; sourceTree = "<group>"; };
 		4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraView.m; sourceTree = "<group>"; };
+		529FBDCB1A37A36E00E002B7 /* SBClient+Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Content.h"; sourceTree = "<group>"; };
+		529FBDCC1A37A36E00E002B7 /* SBClient+Content.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Content.m"; sourceTree = "<group>"; };
 		529FC9781A2F6FAC00F197C7 /* SBClient+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Video.h"; sourceTree = "<group>"; };
 		529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Video.m"; sourceTree = "<group>"; };
 		529FC97D1A2F8DBC00F197C7 /* bball.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = bball.mov; path = "../../../../../../../../../Applications/Max 6.1/patches/media/bball.mov"; sourceTree = "<group>"; };
@@ -414,6 +417,8 @@
 				09A897F3197862AC00EE983C /* SBClient.m */,
 				0976370F19BE415200E3CD45 /* SBClient+Auth.h */,
 				0976371019BE415200E3CD45 /* SBClient+Auth.m */,
+				529FBDCB1A37A36E00E002B7 /* SBClient+Content.h */,
+				529FBDCC1A37A36E00E002B7 /* SBClient+Content.m */,
 				097636FD19BE3F2A00E3CD45 /* SBClient+Account.h */,
 				097636FE19BE3F2A00E3CD45 /* SBClient+Account.m */,
 				097636F419BE3EFC00E3CD45 /* SBClient+User.h */,
@@ -949,6 +954,7 @@
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */,
 				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
+				529FBDCD1A37A36E00E002B7 /* SBClient+Content.m in Sources */,
 				529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */,
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,

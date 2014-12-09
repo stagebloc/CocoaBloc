@@ -34,6 +34,20 @@
     return contentTypeToModelClassMap[contentType];
 }
 
++ (NSString *)URLPathContentType {
+    static NSDictionary *classToContentURLContentTypes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        classToContentURLContentTypes = @{NSStringFromClass([SBPhoto class])   : @"photo",
+                                          NSStringFromClass([SBBlog class])    : @"blog",
+                                          NSStringFromClass([SBStatus class])  : @"status",
+                                          NSStringFromClass([SBVideo class])   : @"video",
+                                          NSStringFromClass([SBAudio class])   : @"audio"};
+    });
+    
+    return classToContentURLContentTypes[NSStringFromClass(self)];
+}
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
 			@{@"commentCount" 	: @"comment_count",

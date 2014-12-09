@@ -14,6 +14,7 @@
 @interface SBContent : SBObject <MTLJSONSerializing>
 
 + (Class)modelClassForJSONContentType:(NSString *)contentType;
++ (NSString *)URLPathContentType;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *excerpt;
