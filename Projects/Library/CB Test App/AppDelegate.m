@@ -26,24 +26,14 @@
     self.window.rootViewController = [UIViewController new];
     [self.window makeKeyAndVisible];
     
-    [SBClient setClientID:@"hey" clientSecret:@"there" redirectURI:@"kooz://"];
+    [SBClient setClientID:@"c8c236517a0d31dd04abd3fd3a732b78" clientSecret:@"9d7d82bb65bd3aa9cfdeff2fe5f268b4" redirectURI:@"kooz://"];
     c = [SBClient new];
     __block RACSignal *prog;
 #warning put in password
-    [[[c logInWithUsername:@"hi@stagebloc.com" password:nil]
+    [[[c logInWithUsername:@"hi@stagebloc.com" password:@"starwars"]
         flattenMap:^RACStream *(SBUser *user) {
-            RACSignal *s = [c uploadVideoWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"bball" ofType:@"mov"]]
-                                 fileName:@"bball.mov"
-                                    title:@"no."
-                              description:@"yes"
-                                toAccount:user.adminAccounts.firstObject
-                                exclusive:NO
-                           progressSignal:&prog];
-            [prog subscribeNext:^(id x) {
-                NSLog(@"%@", x);
-            }];
             
-            return s;
+            return [c getRecentFanClubContentWithParameters:nil];
         }]
         subscribeNext:^(NSDictionary *response) {
             
