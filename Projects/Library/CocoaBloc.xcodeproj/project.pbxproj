@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */; };
-		090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudioUpload.m */; };
+		090EB8181987F1100081D406 /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudio.m */; };
 		09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09342DF21A014533006FF18E /* SBAuthenticationViewController.m */; };
 		09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */; };
 		0949513519EF261E00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513419EF261E00E3411E /* SBClient+Private.m */; };
@@ -66,7 +66,7 @@
 		4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */; };
 		529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */; };
 		529FC97E1A2F8DBC00F197C7 /* bball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 529FC97D1A2F8DBC00F197C7 /* bball.mov */; };
-		529FC9811A2F98DC00F197C7 /* SBVideoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9801A2F98DC00F197C7 /* SBVideoUpload.m */; };
+		529FC9811A2F98DC00F197C7 /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9801A2F98DC00F197C7 /* SBVideo.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
 		B486845E2F7045E0BC1CAEA7 /* libPods-CB Test App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7900987944179BCA76913 /* libPods-CB Test App.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
@@ -97,8 +97,8 @@
 /* Begin PBXFileReference section */
 		090A7BA119BF590D00AB0427 /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
 		090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObjects.m"; sourceTree = "<group>"; };
-		090EB8161987F1100081D406 /* SBAudioUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudioUpload.h; sourceTree = "<group>"; };
-		090EB8171987F1100081D406 /* SBAudioUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudioUpload.m; sourceTree = "<group>"; };
+		090EB8161987F1100081D406 /* SBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudio.h; sourceTree = "<group>"; };
+		090EB8171987F1100081D406 /* SBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudio.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
 		09342DF11A014533006FF18E /* SBAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAuthenticationViewController.h; sourceTree = "<group>"; };
 		09342DF21A014533006FF18E /* SBAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAuthenticationViewController.m; sourceTree = "<group>"; };
@@ -251,8 +251,8 @@
 		529FC9781A2F6FAC00F197C7 /* SBClient+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Video.h"; sourceTree = "<group>"; };
 		529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Video.m"; sourceTree = "<group>"; };
 		529FC97D1A2F8DBC00F197C7 /* bball.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = bball.mov; path = "../../../../../../../../../Applications/Max 6.1/patches/media/bball.mov"; sourceTree = "<group>"; };
-		529FC97F1A2F98DC00F197C7 /* SBVideoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideoUpload.h; sourceTree = "<group>"; };
-		529FC9801A2F98DC00F197C7 /* SBVideoUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideoUpload.m; sourceTree = "<group>"; };
+		529FC97F1A2F98DC00F197C7 /* SBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideo.h; sourceTree = "<group>"; };
+		529FC9801A2F98DC00F197C7 /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
 		5CA09BB3FDC7100CC628A1E4 /* Pods-CocoaBlocTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.debug.xcconfig"; sourceTree = "<group>"; };
 		77FB1ABA8A21E60816759167 /* Pods-CocoaBlocTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.release.xcconfig"; sourceTree = "<group>"; };
 		7EFD14D7DA05D8849CA59E07 /* Pods-CB Test App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CB Test App.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CB Test App/Pods-CB Test App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -449,10 +449,10 @@
 				09B5124C1979AE7000D62F67 /* SBNotification.m */,
 				09B512481979AE6000D62F67 /* SBFanClub.h */,
 				09B512491979AE6000D62F67 /* SBFanClub.m */,
-				090EB8161987F1100081D406 /* SBAudioUpload.h */,
-				090EB8171987F1100081D406 /* SBAudioUpload.m */,
-				529FC97F1A2F98DC00F197C7 /* SBVideoUpload.h */,
-				529FC9801A2F98DC00F197C7 /* SBVideoUpload.m */,
+				090EB8161987F1100081D406 /* SBAudio.h */,
+				090EB8171987F1100081D406 /* SBAudio.m */,
+				529FC97F1A2F98DC00F197C7 /* SBVideo.h */,
+				529FC9801A2F98DC00F197C7 /* SBVideo.m */,
 				09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */,
 				09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */,
 				09B512581979AED700D62F67 /* Content */,
@@ -923,7 +923,7 @@
 				4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */,
 				4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */,
 				0976370819BE3F5100E3CD45 /* SBClient+Blog.m in Sources */,
-				090EB8181987F1100081D406 /* SBAudioUpload.m in Sources */,
+				090EB8181987F1100081D406 /* SBAudio.m in Sources */,
 				09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */,
 				09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */,
 				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
@@ -942,7 +942,7 @@
 				09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */,
 				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,
 				4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */,
-				529FC9811A2F98DC00F197C7 /* SBVideoUpload.m in Sources */,
+				529FC9811A2F98DC00F197C7 /* SBVideo.m in Sources */,
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
 				097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */,
 				0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */,

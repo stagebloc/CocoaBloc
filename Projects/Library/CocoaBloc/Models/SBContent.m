@@ -15,6 +15,8 @@
 #import "SBPhoto.h"
 #import "SBBlog.h"
 #import "SBStatus.h"
+#import "SBVideo.h"
+#import "SBAudio.h"
 
 @implementation SBContent
 
@@ -24,7 +26,9 @@
     dispatch_once(&onceToken, ^{
         contentTypeToModelClassMap = @{@"photos"    : [SBPhoto class],
                                        @"blog"      : [SBBlog class],
-                                       @"statuses"  : [SBStatus class]};
+                                       @"statuses"  : [SBStatus class],
+                                       @"videos"    : [SBVideo class],
+                                       @"audio"     : [SBAudio class]};
     });
     
     return contentTypeToModelClassMap[contentType];

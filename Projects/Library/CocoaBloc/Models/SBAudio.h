@@ -8,7 +8,7 @@
 
 #import "SBObject.h"
 
-@interface SBAudioUpload : SBObject <MTLJSONSerializing>
+@interface SBAudio : SBObject <MTLJSONSerializing>
 
 @property (nonatomic) NSNumber *postingAccountID;
 @property (nonatomic) NSNumber *commentCount;

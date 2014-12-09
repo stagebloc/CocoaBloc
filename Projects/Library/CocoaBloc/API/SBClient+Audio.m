@@ -8,7 +8,7 @@
 
 #import "SBClient+Audio.h"
 #import "SBClient.h"
-#import "SBAudioUpload.h"
+#import "SBAudio.h"
 #import "SBClient+Private.h"
 #import "RACSignal+JSONDeserialization.h"
 #import <RACAFNetworking.h>
@@ -18,7 +18,7 @@
 
 - (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccount:(SBAccount *)account {
     return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", account.identifier.intValue, audioID.intValue] parameters:[self requestParametersWithParameters:nil]]
-             	cb_deserializeArrayWithClient:self modelClass:[SBAudioUpload class] keyPath:@"data"]
+             	cb_deserializeArrayWithClient:self modelClass:[SBAudio class] keyPath:@"data"]
             	setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", account.identifier.intValue, audioID.intValue];
 }
 
@@ -93,7 +93,7 @@ static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension,
     
     // use defer to turn "hot" enqueueing into cold signal
     return [[[self enqueueRequestOperation:op]
-                cb_deserializeWithClient:self modelClass:[SBAudioUpload class] keyPath:@"data"]
+                cb_deserializeWithClient:self modelClass:[SBAudio class] keyPath:@"data"]
                 setNameWithFormat:@"Upload audio (%@)", fileName];
 }
 

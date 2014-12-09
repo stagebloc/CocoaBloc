@@ -1,32 +1,32 @@
 //
-//  SBVideoUpload.m
+//  SBAudioUpload.m
 //  CocoaBloc
 //
-//  Created by John Heaton on 12/3/14.
+//  Created by John Heaton on 7/29/14.
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBVideoUpload.h"
+#import "SBAudio.h"
 #import "NSDateFormatter+CocoaBloc.h"
 #import "MTLValueTransformer+Convenience.h"
 #import <Mantle/Mantle.h>
 #import <EXTKeyPathCoding.h>
 
-@implementation SBVideoUpload
+@implementation SBAudio
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-            @{@"title"              : @"title",
-              @"descriptiveText"    : @"description",
-              @"shortURL" 		 	: @"short_url",
-              @"videoURL" 			: @"video_url",
+			@{@"postingAccountID" 	: @"account",
+              @"commentCount" 		: @"comment_count",
               @"creationDate" 		: @"created",
-              @"modificationDate"	: @"modified",
+              @"editURL" 			: @"edit_url",
+              @"exclusive" 		 	: @"exclusive",
               @"inModeration" 	 	: @"in_moderation",
-              @"inFanContent"       : @"in_fan_content",
-              @"commentCount"       : @"comment_count",
               @"likeCount" 		 	: @"like_count",
-//              @"exclusive" 		 	: @"exclusive",
+              @"modificationDate"	: @"modified",
+              @"shortURL" 		 	: @"short_url",
+              @"sticky" 			: @"sticky",
+              @"title" 				: @"title",
               @"userID" 			: @"user",
               @"userHasLiked" 	 	: @"user_has_liked"}];
 }
@@ -39,7 +39,7 @@
     return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
-+ (MTLValueTransformer *)videoURLJSONTransformer {
++ (MTLValueTransformer *)editURLJSONTransformer {
     return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 

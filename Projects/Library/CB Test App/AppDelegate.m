@@ -33,7 +33,7 @@
     [[[c logInWithUsername:@"hi@stagebloc.com" password:@"starwars"]
         flattenMap:^RACStream *(SBUser *user) {
             
-            return [c getRecentFanClubContentWithParameters:nil];
+            return [c getContentFromFollowedFanClubsWithParameters:nil];
         }]
         subscribeNext:^(NSDictionary *response) {
             
