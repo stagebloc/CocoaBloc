@@ -315,11 +315,10 @@
 -(void)chooseExistingButtonPressed:(id)sender {
     @weakify(self);
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
-    actionSheet.delegate = (id<UIActionSheetDelegate>)actionSheet;
-    [[actionSheet rac_signalForSelector:@selector(actionSheet:didDismissWithButtonIndex:) fromProtocol:@protocol(UIActionSheetDelegate)] subscribeNext:^(RACTuple *t) {
+    [[actionSheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *i) {
         @strongify(self);
-        UIActionSheet *a = t.first;
-        NSInteger index = [t.second integerValue];
+        UIActionSheet *a = actionSheet;
+        NSInteger index = i.integerValue;
         if (index != a.cancelButtonIndex) {
             if (index == 0) {
                 [[self.assetManager.fetchLastPhoto deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
@@ -331,6 +330,8 @@
                 } error:^(NSError *error) {
                     @strongify(self);
                     NSLog(@"ERROR: %@", error);
+                } completed:^{
+                    NSLog(@"completed fetch last photo");
                 }];
             } else {
                 SBImagePickerController *picker = [[SBImagePickerController alloc] init];

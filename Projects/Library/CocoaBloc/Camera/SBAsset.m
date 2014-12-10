@@ -92,20 +92,20 @@
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             SBAssetType type = SBAssetTypeUnknown;
-            NSString *alType = [alAsset valueForKey:ALAssetPropertyType];
+            NSString *alType = [alAsset valueForProperty:ALAssetPropertyType];
             if ([alType isEqualToString:ALAssetTypePhoto]) type = SBAssetTypeImage;
             else if ([alType isEqualToString:ALAssetTypeVideo]) type = SBAssetTypeVideo;
             
             ALAssetRepresentation *representation = alAsset.defaultRepresentation;
             CGImageRef imageRef = representation.fullScreenImage;
-            NSDate *creationDate = [alAsset valueForKey:ALAssetPropertyDate];
+            NSDate *creationDate = [alAsset valueForProperty:ALAssetPropertyDate];
             
             UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
             SBAsset *asset = [[SBAsset alloc] initWithImage:image type:type];
             asset.pixelWidth = CGImageGetWidth(imageRef);
             asset.pixelHeight = CGImageGetHeight(imageRef);
-            asset.location = [alAsset valueForKey:ALAssetPropertyLocation];
-            asset.duration = [[alAsset valueForKey:ALAssetPropertyDuration] floatValue];
+            asset.location = [alAsset valueForProperty:ALAssetPropertyLocation];
+            asset.duration = [[alAsset valueForProperty:ALAssetPropertyDuration] floatValue];
             asset.fileURL = [representation url];
             [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(creationDate))];
             [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(modificationDate))];

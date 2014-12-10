@@ -45,7 +45,7 @@
             [disposable dispose];
         } completed:^{
             SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
-            group.name = [assetGroup valueForKey:ALAssetsGroupPropertyName];
+            group.name = [assetGroup valueForProperty:ALAssetsGroupPropertyName];
             [subscriber sendNext:group];
             [subscriber sendCompleted];
             [disposable dispose];

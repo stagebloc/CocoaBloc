@@ -14,6 +14,8 @@
 #import "UIDevice+StageBloc.h"
 #import <ReactiveCocoa/RACEXTScope.h>
 
+#import "ALAssetsLibrary+RAC.h"
+
 @import Photos;
 @import AssetsLibrary;
 
@@ -38,7 +40,7 @@
 
 -(RACSignal *)fetchLastPhoto {
     return [[[self fetchAlbumsArray] map:^id(NSArray *albums) {
-        SBAssetGroup *group = nil;
+        SBAssetGroup *group = albums.firstObject;
         for (NSInteger i = 0; i < albums.count; i++) {
             SBAssetGroup *g = albums[i];
             if ([g.name isEqualToString:@"Camera Roll"]) {
@@ -120,33 +122,37 @@
                 }
             }
             
+            [[RACSignal merge:signals] subscribeNext:^(SBAssetGroup *group) {
+                [subscriber sendNext:group];
+            } error:^(NSError *error) {
+                [subscriber sendError:error];
+                [disposable dispose];
+            } completed:^{
+                [subscriber sendCompleted];
+                [disposable dispose];
+            }];
         }
         
         //ios 7 and lower
         else {
-            __block NSError *error = nil;
-            [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-                if (group && [group numberOfAssets] > 0)
-                    [signals addObject:[SBAssetGroup createGroupFromAssetGroup:group]];
-            } failureBlock:^(NSError *e) {
-                error = e;
-            }];
-            if (error) {
+            [[self.assetsLibrary fetchGroupsWithTypes:ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupSavedPhotos] subscribeNext:^(ALAssetsGroup *group) {
+                [signals addObject:[SBAssetGroup createGroupFromAssetGroup:group]];
+            } error:^(NSError *error) {
                 [subscriber sendError:error];
-                return nil;
-            }
+                [disposable dispose];
+            } completed:^{
+                [[RACSignal merge:signals] subscribeNext:^(SBAssetGroup *group) {
+                    [subscriber sendNext:group];
+                } error:^(NSError *error) {
+                    [subscriber sendError:error];
+                    [disposable dispose];
+                } completed:^{
+                    [subscriber sendCompleted];
+                    [disposable dispose];
+                }];
+            }];
         }
         
-        [[RACSignal merge:signals] subscribeNext:^(SBAssetGroup *group) {
-            [subscriber sendNext:group];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-            [disposable dispose];
-        } completed:^{
-            [subscriber sendCompleted];
-            [disposable dispose];
-        }];
         
         return disposable;
     }];
