@@ -9,7 +9,7 @@
 #import "SBClient+Video.h"
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Private.h"
-#import "SBVideoUpload.h"
+#import "SBVideo.h"
 
 // Figure out MIME type based on extension
 static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension, BOOL *supportedVideoUpload) {
@@ -88,7 +88,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     }
     
     return [[[self enqueueRequestOperation:op]
-                cb_deserializeWithClient:self modelClass:[SBVideoUpload class] keyPath:@"data"]
+                cb_deserializeWithClient:self modelClass:[SBVideo class] keyPath:@"data"]
                 setNameWithFormat:@"Upload video (%@)", fileName];
 }
 

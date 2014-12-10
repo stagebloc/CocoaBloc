@@ -10,14 +10,4 @@
 
 @implementation SBClient (Photo)
 
-- (RACSignal *)getUsersLikingPhoto:(SBPhoto *)photo {
-    return [RACSignal empty];
-#warning imp
-}
-
-- (RACSignal *)deletePhoto:(SBPhoto *)photo {
-    return [RACSignal empty];
-#warning imp
-}
-
 @end

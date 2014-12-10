@@ -8,7 +8,7 @@
 
 #import "SBClient.h"
 #import "SBClient+Auth.h"
-#import "SBAudioUpload.h"
+#import "SBAudio.h"
 
 #import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import <ReactiveCocoa/RACEXTScope.h>

@@ -15,6 +15,8 @@
 #import "SBPhoto.h"
 #import "SBBlog.h"
 #import "SBStatus.h"
+#import "SBVideo.h"
+#import "SBAudio.h"
 
 @implementation SBContent
 
@@ -24,10 +26,26 @@
     dispatch_once(&onceToken, ^{
         contentTypeToModelClassMap = @{@"photos"    : [SBPhoto class],
                                        @"blog"      : [SBBlog class],
-                                       @"statuses"  : [SBStatus class]};
+                                       @"statuses"  : [SBStatus class],
+                                       @"videos"    : [SBVideo class],
+                                       @"audio"     : [SBAudio class]};
     });
     
     return contentTypeToModelClassMap[contentType];
+}
+
++ (NSString *)URLPathContentType {
+    static NSDictionary *classToContentURLContentTypes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        classToContentURLContentTypes = @{NSStringFromClass([SBPhoto class])   : @"photo",
+                                          NSStringFromClass([SBBlog class])    : @"blog",
+                                          NSStringFromClass([SBStatus class])  : @"status",
+                                          NSStringFromClass([SBVideo class])   : @"video",
+                                          NSStringFromClass([SBAudio class])   : @"audio"};
+    });
+    
+    return classToContentURLContentTypes[NSStringFromClass(self)];
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {

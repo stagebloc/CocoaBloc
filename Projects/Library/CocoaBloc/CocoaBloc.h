@@ -16,6 +16,8 @@
 #import "SBClient+Store.h"
 #import "SBClient+FanClub.h"
 #import "SBClient+Video.h"
+#import "SBClient+Content.h"
+#import "SBClient+Comment.h"
 #import "SBClient+Audio.h"
 #import "SBObject.h"
 #import "SBNotification.h"
@@ -25,9 +27,10 @@
 #import "SBPhoto.h"
 #import "SBStatus.h"
 #import "SBAccount.h"
+#import "SBComment.h"
 #import "SBUser.h"
 #import "SBStoreItem.h"
-#import "SBVideoUpload.h"
+#import "SBVideo.h"
 #import "SBAddress.h"
 
 #endif /* COCOABLOC_H */
