@@ -15,5 +15,6 @@
 - (RACSignal *)getCommentsForContent:(SBContent *)content parameters:(NSDictionary *)parameters;
 
 - (RACSignal *)getRepliesToComment:(SBComment *)comment;
+- (RACSignal *)deleteComment:(SBComment *)comment;
 
 @end

@@ -31,4 +31,13 @@
                 setNameWithFormat:@"Get replies to comment: %@", comment];
 }
 
+- (RACSignal *)deleteComment:(SBComment *)comment {
+    NSParameterAssert(comment);
+    
+    return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/comment/%@", comment.accountID, comment.content.identifier, comment.identifier] parameters:[self requestParametersWithParameters:nil]]
+                cb_deserializeWithClient:self modelClass:[SBComment class] keyPath:@"data"]
+                setNameWithFormat:@"Delete comment: %@", comment];
+
+}
+
 @end
