@@ -13,10 +13,16 @@
 @implementation SBClient (Content)
 
 - (RACSignal *)likeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account {
+    NSParameterAssert(content);
+    NSParameterAssert(account);
+
     return [self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/like", account.identifier, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
 }
 
 - (RACSignal *)unlikeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account {
+    NSParameterAssert(content);
+    NSParameterAssert(account);
+    
     return [self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@/like", account.identifier, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
 }
 
