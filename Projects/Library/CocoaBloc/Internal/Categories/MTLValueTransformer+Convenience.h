@@ -13,5 +13,6 @@
 + (instancetype)reversibleStringToURLTransformer;
 + (instancetype)reversibleStringToDateTransformerWithFormatter:(NSDateFormatter *)dateFormatter;
 + (instancetype)reversibleModelIDOrJSONTransformerForClass:(Class)modelClass;
++ (instancetype)reversibleContentModelIDOrJSONTransformer;
 
 @end

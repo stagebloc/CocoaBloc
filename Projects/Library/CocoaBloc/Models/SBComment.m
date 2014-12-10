@@ -29,6 +29,10 @@
             }];
 }
 
++ (MTLValueTransformer *)contentJSONTransformer {
+    return [MTLValueTransformer reversibleContentModelIDOrJSONTransformer];
+}
+
 + (MTLValueTransformer *)accountOrAccountIDJSONTransformer {
     return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBAccount class]];
 }
