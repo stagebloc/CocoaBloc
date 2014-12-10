@@ -16,6 +16,8 @@
 #import "SBClient+Store.h"
 #import "SBClient+FanClub.h"
 #import "SBClient+Video.h"
+#import "SBClient+Content.h"
+#import "SBClient+Comment.h"
 #import "SBClient+Audio.h"
 #import "SBObject.h"
 #import "SBNotification.h"
