@@ -70,5 +70,8 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 - (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type;
 - (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type;
 
+//send's UIImage on sendNext:
+//send's error if no image can be created/found
+//completes after sending image object
 - (RACSignal*) fetchImage;
 @end
