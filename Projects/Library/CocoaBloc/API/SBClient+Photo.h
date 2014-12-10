@@ -10,7 +10,4 @@
 
 @interface SBClient (Photo)
 
-- (RACSignal *)getUsersLikingPhoto:(SBPhoto *)photo;
-- (RACSignal *)deletePhoto:(SBPhoto *)photo;
-
 @end

@@ -13,4 +13,7 @@
 - (RACSignal *)likeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account;
 - (RACSignal *)unlikeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account;
 
+// supports offset/limit
+- (RACSignal *)getUsersWhoLikeContent:(SBContent *)content;
+
 @end
