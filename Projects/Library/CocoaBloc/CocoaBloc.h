@@ -25,6 +25,7 @@
 #import "SBPhoto.h"
 #import "SBStatus.h"
 #import "SBAccount.h"
+#import "SBComment.h"
 #import "SBUser.h"
 #import "SBStoreItem.h"
 #import "SBVideo.h"

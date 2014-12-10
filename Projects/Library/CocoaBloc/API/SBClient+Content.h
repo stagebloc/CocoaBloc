@@ -14,6 +14,6 @@
 - (RACSignal *)unlikeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account;
 
 // supports offset/limit
-- (RACSignal *)getUsersWhoLikeContent:(SBContent *)content;
+- (RACSignal *)getUsersWhoLikeContent:(SBContent *)content parameters:(NSDictionary *)parameters;
 
 @end

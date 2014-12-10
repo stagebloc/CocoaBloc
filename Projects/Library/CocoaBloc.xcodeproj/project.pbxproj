@@ -64,6 +64,8 @@
 		4DECC3021A3200FD0097ACA3 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */; };
 		4DEF29C51A2CFE0300316B88 /* SBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */; };
 		4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */; };
+		528ED6461A38AFCC00A2FCC2 /* SBClient+Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 528ED6451A38AFCC00A2FCC2 /* SBClient+Comment.m */; };
+		528ED6491A38B1FF00A2FCC2 /* SBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 528ED6481A38B1FF00A2FCC2 /* SBComment.m */; };
 		529FBDCD1A37A36E00E002B7 /* SBClient+Content.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FBDCC1A37A36E00E002B7 /* SBClient+Content.m */; };
 		529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9791A2F6FAC00F197C7 /* SBClient+Video.m */; };
 		529FC97E1A2F8DBC00F197C7 /* bball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 529FC97D1A2F8DBC00F197C7 /* bball.mov */; };
@@ -249,6 +251,10 @@
 		4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraViewController.m; sourceTree = "<group>"; };
 		4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraView.h; sourceTree = "<group>"; };
 		4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraView.m; sourceTree = "<group>"; };
+		528ED6441A38AFCC00A2FCC2 /* SBClient+Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Comment.h"; sourceTree = "<group>"; };
+		528ED6451A38AFCC00A2FCC2 /* SBClient+Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Comment.m"; sourceTree = "<group>"; };
+		528ED6471A38B1FF00A2FCC2 /* SBComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBComment.h; sourceTree = "<group>"; };
+		528ED6481A38B1FF00A2FCC2 /* SBComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBComment.m; sourceTree = "<group>"; };
 		529FBDCB1A37A36E00E002B7 /* SBClient+Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Content.h"; sourceTree = "<group>"; };
 		529FBDCC1A37A36E00E002B7 /* SBClient+Content.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Content.m"; sourceTree = "<group>"; };
 		529FC9781A2F6FAC00F197C7 /* SBClient+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Video.h"; sourceTree = "<group>"; };
@@ -419,6 +425,8 @@
 				0976371019BE415200E3CD45 /* SBClient+Auth.m */,
 				529FBDCB1A37A36E00E002B7 /* SBClient+Content.h */,
 				529FBDCC1A37A36E00E002B7 /* SBClient+Content.m */,
+				528ED6441A38AFCC00A2FCC2 /* SBClient+Comment.h */,
+				528ED6451A38AFCC00A2FCC2 /* SBClient+Comment.m */,
 				097636FD19BE3F2A00E3CD45 /* SBClient+Account.h */,
 				097636FE19BE3F2A00E3CD45 /* SBClient+Account.m */,
 				097636F419BE3EFC00E3CD45 /* SBClient+User.h */,
@@ -444,6 +452,8 @@
 		09A897F4197862AC00EE983C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				528ED6471A38B1FF00A2FCC2 /* SBComment.h */,
+				528ED6481A38B1FF00A2FCC2 /* SBComment.m */,
 				09568EFB19F6CF7A00E57355 /* SBAddress.h */,
 				09568EFC19F6CF7A00E57355 /* SBAddress.m */,
 				09568EFD19F6CF7A00E57355 /* SBOrder.h */,
@@ -922,7 +932,9 @@
 				09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */,
+				528ED6461A38AFCC00A2FCC2 /* SBClient+Comment.m in Sources */,
 				09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */,
+				528ED6491A38B1FF00A2FCC2 /* SBComment.m in Sources */,
 				4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */,
 				097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */,
 				4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */,
