@@ -8,7 +8,7 @@
 
 #import "SBObject.h"
 
-@interface SBAddress : SBObject
+@interface SBAddress : SBObject <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *streetAddress;

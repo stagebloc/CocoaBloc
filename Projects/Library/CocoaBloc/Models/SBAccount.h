@@ -9,14 +9,14 @@
 #import "SBObject.h"
 #import "SBPhoto.h"
 
-@interface SBAccount : SBObject <MTLJSONSerializing>//, MTLManagedObjectSerializing>
+@interface SBAccount : SBObject <MTLJSONSerializing>
 
 @property (nonatomic, strong) NSNumber *identifier;
 @property (nonatomic, strong) NSNumber *verified;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *stageblocURL;
 @property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSString *URL;
+@property (nonatomic, copy) NSURL *URL;
 
 @property (nonatomic) SBPhoto *photo;
 

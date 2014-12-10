@@ -9,6 +9,7 @@
 #import "SBAccount.h"
 #import <Mantle/Mantle.h>
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
+#import "MTLValueTransformer+Convenience.h"
 
 @implementation SBAccount
 
@@ -23,11 +24,7 @@
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^SBPhoto *(NSDictionary *photoJSON) {
-        return [MTLJSONAdapter modelOfClass:[SBPhoto class] fromJSONDictionary:photoJSON error:nil];
-    } reverseBlock:^NSDictionary *(SBPhoto *photo) {
-        return [MTLJSONAdapter JSONDictionaryFromModel:photo];
-    }];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBPhoto class]];
 }
 
 @end

@@ -33,18 +33,9 @@
     NSParameterAssert(content);
     NSAssert([content isKindOfClass:[SBContent class]], @"Invalid content object. (Not an SBContent subclass)");
     
-    NSString *url = nil;
-    if ([content isKindOfClass:[SBPhoto class]]) {
-        url = [NSString stringWithFormat:@"account/%@/photo/%@/likers", content.account.identifier, content.identifier];
-    } else if ([content isKindOfClass:[SBStatus class]]) {
-        url = [NSString stringWithFormat:@"account/%@/status/%@/likers", content.account.identifier, content.identifier];
-    } else if ([content isKindOfClass:[SBBlog class]]) {
-        url = [NSString stringWithFormat:@"account/%@/blog/%@/likers", content.account.identifier, content.identifier];
-    } else {
-        [NSException raise:@"SBCocoaBlocUnsupportedContentParameterException" format:@"%@ objects are not yet supported for this endpoint", NSStringFromClass(content.class)];
-    }
+    NSString *urlContentType = [[content class] URLPathContentType];
     
-    return [[[self rac_GET:url parameters:[self requestParametersWithParameters:parameters]]
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/likers", content.accountID, urlContentType, content.identifier] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self modelClass:[SBUser class] keyPath:@"data"]
                 setNameWithFormat:@"Get users who like content: %@", content];
 }

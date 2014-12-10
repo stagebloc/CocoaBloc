@@ -7,10 +7,14 @@
 //
 
 #import "SBClient.h"
+#import "SBComment.h"
 
 @interface SBClient (Comment)
 
 // supports limit/offset
 - (RACSignal *)getCommentsForContent:(SBContent *)content parameters:(NSDictionary *)parameters;
+
+- (RACSignal *)getRepliesToComment:(SBComment *)comment;
+- (RACSignal *)deleteComment:(SBComment *)comment;
 
 @end

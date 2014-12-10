@@ -7,16 +7,13 @@
 //
 
 #import "SBContent.h"
+#import "SBPhoto.h"
 
-@class SBPhoto;
 @interface SBBlog : SBContent <MTLJSONSerializing>
 
-@property (nonatomic, strong) NSDate *dateModified;
-@property (nonatomic, strong, getter = isSticky) NSNumber *sticky;
-@property (nonatomic, strong, getter = isExclusive) NSNumber *exclusive;
 @property (nonatomic, copy) NSString *relatedContentTag;
 @property (nonatomic, copy) NSString *body;
 @property (nonatomic, copy) NSString *category;
-@property (nonatomic, strong) SBPhoto *photo;
+@property (nonatomic) SBPhoto *photo;
 
 @end

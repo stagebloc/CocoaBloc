@@ -8,9 +8,6 @@
 
 #import "SBObject.h"
 
-@class SBUser;
-@class SBAccount;
-
 @interface SBContent : SBObject <MTLJSONSerializing>
 
 + (Class)modelClassForJSONContentType:(NSString *)contentType;
@@ -18,15 +15,22 @@
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *excerpt;
-@property (nonatomic, strong) NSDate *creationDate;
-@property (nonatomic, strong) NSDate *publishDate;
-@property (nonatomic, strong) NSNumber *inModeration;
-@property (nonatomic, strong) NSNumber *userHasLiked;
-@property (nonatomic, strong) NSNumber *likeCount;
-@property (nonatomic, strong) NSNumber *commentCount;
-@property (nonatomic, strong) NSURL *shortURL;
+@property (nonatomic) NSDate *modificationDate;
+@property (nonatomic) NSDate *creationDate;
+@property (nonatomic) NSDate *publishDate;
+@property (nonatomic) NSNumber *inModeration;
+@property (nonatomic) NSNumber *isFanContent;
+@property (nonatomic) NSNumber *userHasLiked;
+@property (nonatomic) NSNumber *likeCount;
+@property (nonatomic) NSNumber *isSticky;
+@property (nonatomic) NSNumber *isExclusive;
+@property (nonatomic) NSNumber *commentCount;
+@property (nonatomic) NSURL *shortURL;
 
-@property (nonatomic, strong) SBAccount *account;
-@property (nonatomic, strong) SBUser *author;
+@property (nonatomic) id accountOrAccountID;
+@property (nonatomic) id authorOrAuthorUserID;
+
+- (NSNumber *)accountID;
+- (NSNumber *)authorUserID;
 
 @end
