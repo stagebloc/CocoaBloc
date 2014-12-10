@@ -44,9 +44,15 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     switch (self.asset.type) {
-        case SBAssetTypeImage:
-            self.reviewView = [[SBPhotoReviewView alloc] initWithFrame:self.view.bounds image:self.asset.image];
+        case SBAssetTypeImage: {
+            self.reviewView = [[SBPhotoReviewView alloc] initWithFrame:self.view.bounds];
+            @weakify(self);
+            [[self.asset fetchImage] subscribeNext:^(UIImage *image) {
+                @strongify(self);
+                [(SBPhotoReviewView*)self.reviewView setImage:image];
+            }];
             break;
+        }
         case SBAssetTypeVideo:
             self.reviewView = [[SBVideoReviewView alloc] initWithFrame:self.view.bounds videoURL:self.asset.fileURL];
             break;
@@ -64,6 +70,7 @@
     
     self.reviewView.drawButton.hidden = YES;
     self.reviewView.undoButton.hidden = YES;
+    
 }
 
 #pragma mark Actions

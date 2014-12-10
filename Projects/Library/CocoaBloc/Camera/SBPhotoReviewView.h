@@ -15,4 +15,6 @@
 
 - (instancetype) initWithFrame:(CGRect)frame image:(UIImage*)image;
 
+- (void) setImage:(UIImage*)image;
+
 @end

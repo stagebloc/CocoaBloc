@@ -25,36 +25,6 @@
     return [self createGroupFromPHAssets:temp name:assetCollection.localizedTitle];
 }
 
-+ (RACSignal*) createGroupFromAssetGroup:(ALAssetsGroup*)assetGroup {
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        RACDisposable *disposable = [[RACDisposable alloc] init];
-        
-        NSMutableArray *assets = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
-        NSMutableArray *signals = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
-        [assetGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            if (result) {
-                [signals addObject:[SBAsset createAssetFromALAsset:result]];
-            }
-        }];
-        
-        [[RACSignal merge:signals] subscribeNext:^(SBAsset *sbAsset) {
-            [assets addObject:sbAsset];
-        } error:^(NSError *error) {
-            NSLog(@"Error creating SBAsset from PHAsset - %@", error);
-            [subscriber sendError:error];
-            [disposable dispose];
-        } completed:^{
-            SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
-            group.name = [assetGroup valueForProperty:ALAssetsGroupPropertyName];
-            [subscriber sendNext:group];
-            [subscriber sendCompleted];
-            [disposable dispose];
-        }];
-        return disposable;
-    }];
-    
-}
-
 + (RACSignal*) createGroupFromPHAssets:(NSArray*)temp name:(NSString*)name {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         RACDisposable *disposable = [[RACDisposable alloc] init];
@@ -80,6 +50,36 @@
             [disposable dispose];
         }];
         
+        return disposable;
+    }];
+    
+}
+
++ (RACSignal*) createGroupFromAssetGroup:(ALAssetsGroup*)assetGroup {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        RACDisposable *disposable = [[RACDisposable alloc] init];
+        
+        NSMutableArray *assets = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
+        NSMutableArray *signals = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
+        [assetGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if (result) {
+                [signals addObject:[SBAsset createAssetFromALAsset:result]];
+            }
+        }];
+        
+        [[RACSignal merge:signals] subscribeNext:^(SBAsset *sbAsset) {
+            [assets addObject:sbAsset];
+        } error:^(NSError *error) {
+            NSLog(@"Error creating SBAsset from PHAsset - %@", error);
+            [subscriber sendError:error];
+            [disposable dispose];
+        } completed:^{
+            SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
+            group.name = [assetGroup valueForProperty:ALAssetsGroupPropertyName];
+            [subscriber sendNext:group];
+            [subscriber sendCompleted];
+            [disposable dispose];
+        }];
         return disposable;
     }];
     

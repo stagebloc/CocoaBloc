@@ -39,31 +39,24 @@
 }
 
 -(RACSignal *)fetchLastPhoto {
-    return [[[self fetchAlbumsArray] map:^id(NSArray *albums) {
-        SBAssetGroup *group = albums.firstObject;
-        for (NSInteger i = 0; i < albums.count; i++) {
-            SBAssetGroup *g = albums[i];
-            if ([g.name isEqualToString:@"Camera Roll"]) {
-                group = g;
-                break;
-            }
-        }
+    return [[[self fetchGroupsList] map:^SBAssetGroup*(NSArray *groups) {
+        SBAssetGroup *group = [[groups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name LIKE[c] %@", @"Camera Roll"]] firstObject];
         return group.assets;
-    }] map:^UIImage *(NSSet *assets) {
+    }] flattenMap:^RACStream *(NSSet *assets) {
         NSArray *array = [assets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]]];
         SBAsset *asset = array.firstObject;
-        return asset.image;
+        return asset.fetchImage;
     }];
 }
 
-- (RACSignal*) fetchAlbumsArray {
+- (RACSignal*) fetchGroupsList {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         RACDisposable *disposable = [[RACDisposable alloc] init];
         NSMutableArray *albums = [NSMutableArray array];
 
-        [[self fetchAlbums] subscribeNext:^(SBAssetGroup *group) {
+        [[self fetchGroups] subscribeNext:^(SBAssetGroup *group) {
             [albums addObject:group];
         } error:^(NSError *error) {
             [subscriber sendError:error];
@@ -78,7 +71,7 @@
     }];
 }
 
--(RACSignal *)fetchAlbums {
+-(RACSignal *)fetchGroups {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         RACDisposable *disposable = [[RACDisposable alloc] init];
 

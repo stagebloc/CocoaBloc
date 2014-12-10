@@ -13,10 +13,6 @@
 
 @interface SBAssetGroup : NSObject
 
-+ (RACSignal*) createGroupFromAssetCollection:(PHAssetCollection*)assetCollection;
-+ (RACSignal*) createGroupFromAssetGroup:(ALAssetsGroup*)assetGroup;
-+ (RACSignal*) createGroupFromPHAssets:(NSArray*)temp name:(NSString*)name;
-
 /**
  * Initialize an SBAssetGroup with an array of SBAsset objects.
  */
@@ -32,5 +28,11 @@
  * It is assumed that if you call initWithAssets, you are building a group from the Camera Roll, so this name will be "Camera Roll"
  */
 @property (nonatomic, copy) NSString *name;
+
+
++ (RACSignal*) createGroupFromAssetCollection:(PHAssetCollection*)assetCollection;
++ (RACSignal*) createGroupFromPHAssets:(NSArray*)temp name:(NSString*)name;
+
++ (RACSignal*) createGroupFromAssetGroup:(ALAssetsGroup*)assetGroup;
 
 @end

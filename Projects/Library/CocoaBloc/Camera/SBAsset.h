@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
  
  NO (Default) if the asset was not created from a PHAsset or ALAsset
  */
-@property (nonatomic, assign, readonly, getter=isLocalAsset) BOOL localAsset;
+@property (nonatomic, readonly) BOOL localAsset;
 
 //title is set to creationDate's time interval by default.
 @property (nonatomic, copy) NSString *title;
@@ -36,13 +36,6 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 @property (nonatomic, copy) NSString *caption;
 
 @property (nonatomic, assign) SBAssetType type;
-
-/*
- Depending on the @type property, this can be the image
- representation for the SBAssetTypeImage asset or a full 
- resolution thumbnail for a SBAssetTypeVideo.
- */
-@property (nonatomic, strong) UIImage *image;
 
 /*
  File URL that isn't guaranteed to be set for SBAssetTypeImage types
@@ -76,4 +69,6 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
 - (instancetype) initWithType:(SBAssetType)type;
 - (instancetype) initWithFileURL:(NSURL*)url type:(SBAssetType)type;
 - (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type;
+
+- (RACSignal*) fetchImage;
 @end
