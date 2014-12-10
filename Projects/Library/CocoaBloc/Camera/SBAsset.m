@@ -36,8 +36,6 @@
 
         SBAsset *asset = [[SBAsset alloc] initWithType:type];
         
-        asset.pixelHeight = phAsset.pixelHeight;
-        asset.pixelWidth = phAsset.pixelWidth;
         asset.location = phAsset.location;
         asset.duration = phAsset.duration;
         asset.phAsset = phAsset;
@@ -78,36 +76,27 @@
 }
 + (RACSignal*)createAssetFromALAsset:(ALAsset*)alAsset {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        RACDisposable *disposable = [[RACDisposable alloc] init];
-
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            SBAssetType type = SBAssetTypeUnknown;
-            NSString *alType = [alAsset valueForProperty:ALAssetPropertyType];
-            if ([alType isEqualToString:ALAssetTypePhoto]) type = SBAssetTypeImage;
-            else if ([alType isEqualToString:ALAssetTypeVideo]) type = SBAssetTypeVideo;
-            
-            ALAssetRepresentation *representation = alAsset.defaultRepresentation;
-            NSDate *creationDate = [alAsset valueForProperty:ALAssetPropertyDate];
+        SBAssetType type = SBAssetTypeUnknown;
+        NSString *alType = [alAsset valueForProperty:ALAssetPropertyType];
+        if ([alType isEqualToString:ALAssetTypePhoto]) type = SBAssetTypeImage;
+        else if ([alType isEqualToString:ALAssetTypeVideo]) type = SBAssetTypeVideo;
         
-            SBAsset *asset = [[SBAsset alloc] initWithType:type];
-
-            CGImageRef imageRef = representation.fullScreenImage;
-            asset.pixelHeight = CGImageGetHeight(imageRef);
-            asset.pixelWidth = CGImageGetWidth(imageRef);
-            
-            asset.location = [alAsset valueForProperty:ALAssetPropertyLocation];
-            asset.duration = [[alAsset valueForProperty:ALAssetPropertyDuration] floatValue];
-            asset.fileURL = [representation url];
-            asset.alAsset = alAsset;
-            [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(creationDate))];
-            [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(modificationDate))];
-
-            [subscriber sendNext:asset];
-            [subscriber sendCompleted];
-            [disposable dispose];
-        });
+        ALAssetRepresentation *representation = alAsset.defaultRepresentation;
+        NSDate *creationDate = [alAsset valueForProperty:ALAssetPropertyDate];
         
-        return disposable;
+        SBAsset *asset = [[SBAsset alloc] initWithType:type];
+        
+        asset.location = [alAsset valueForProperty:ALAssetPropertyLocation];
+        asset.duration = [[alAsset valueForProperty:ALAssetPropertyDuration] floatValue];
+        asset.fileURL = [representation url];
+        asset.alAsset = alAsset;
+        [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(creationDate))];
+        [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(modificationDate))];
+        
+        [subscriber sendNext:asset];
+        [subscriber sendCompleted];
+        
+        return nil;
     }];
 }
 
@@ -135,8 +124,6 @@
 - (instancetype) initWithImage:(UIImage *)image type:(SBAssetType)type {
     if (self = [self initWithType:type]) {
         self.image = image;
-        self.pixelHeight = image.size.height;
-        self.pixelWidth = image.size.width;
     }
     return self;
 }
@@ -165,7 +152,7 @@
         }
         
         else if (self.alAsset) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//            [[RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground] schedule:^{
                 ALAssetRepresentation *representation = self.alAsset.defaultRepresentation;
                 CGImageRef imageRef = representation.fullScreenImage;
                 UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
@@ -176,7 +163,7 @@
                 } else {
                     [subscriber sendError:[NSError errorWithDomain:@"Cannot create/find image from ALAsset" code:401 userInfo:nil]];
                 }
-            });
+//            }];
         }
         
         else {
@@ -184,7 +171,7 @@
         }
         
         return nil;
-    }];
+    }] ;
 }
 
 @end

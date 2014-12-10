@@ -42,13 +42,6 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
  */
 @property (nonatomic, copy) NSURL *fileURL;
 
-/*
- The pixel width/height of the asset.
- This may or amy not be set.
- */
-@property(nonatomic, assign) NSUInteger pixelWidth;
-@property(nonatomic, assign) NSUInteger pixelHeight;
-
 @property(nonatomic, strong, readonly) NSDate *creationDate;
 @property(nonatomic, strong, readonly) NSDate *modificationDate;
 

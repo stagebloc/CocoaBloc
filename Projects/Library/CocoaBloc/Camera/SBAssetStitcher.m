@@ -102,7 +102,8 @@
         exporter.outputURL = outputFileURL;
         exporter.outputFileType = AVFileTypeMPEG4;
         exporter.shouldOptimizeForNetworkUse = YES;
-        exporter.canPerformMultiplePassesOverSourceMediaData = YES;
+        if ([exporter respondsToSelector:@selector(canPerformMultiplePassesOverSourceMediaData)])
+            exporter.canPerformMultiplePassesOverSourceMediaData = YES;
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             NSError *error = exporter.error;
             

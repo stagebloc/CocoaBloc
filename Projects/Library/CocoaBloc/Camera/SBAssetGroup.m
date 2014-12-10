@@ -67,6 +67,7 @@
             }
         }];
         
+        
         [[RACSignal merge:signals] subscribeNext:^(SBAsset *sbAsset) {
             [assets addObject:sbAsset];
         } error:^(NSError *error) {
