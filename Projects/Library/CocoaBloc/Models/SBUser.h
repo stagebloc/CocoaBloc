@@ -17,7 +17,7 @@
 #define SBUserColor NSColor
 #endif
 
-@interface SBUser : SBObject <MTLJSONSerializing>//, MTLManagedObjectSerializing>
+@interface SBUser : SBObject <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *bio;
 @property (nonatomic, copy) NSDate *birthday;

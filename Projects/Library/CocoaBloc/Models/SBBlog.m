@@ -8,17 +8,20 @@
 
 #import "SBBlog.h"
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
+#import "MTLValueTransformer+Convenience.h"
 
 @implementation SBBlog
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"dateModified" 		: @"modified",
-			  @"sticky" 			: @"sticky",
-			  @"exclusive" 			: @"exclusive",
-			  @"relatedContentTag" 	: @"related_content_tag",
+			@{@"relatedContentTag" 	: @"related_content_tag",
 			  @"body" 				: @"body",
-			  @"category" 			: @"category"}];
+			  @"category" 			: @"category",
+              @"photo"              : @"photo"}];
+}
+
++ (MTLValueTransformer *)photoJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBPhoto class]];
 }
 
 @end

@@ -17,7 +17,7 @@
 - (RACSignal *)getCommentsForContent:(SBContent *)content parameters:(NSDictionary *)parameters {
     NSParameterAssert(content);
     
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/comments", content.account.identifier, [[content class] URLPathContentType], content.identifier]
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/comments", content.accountID, [[content class] URLPathContentType], content.identifier]
                 parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self modelClass:[SBComment class] keyPath:@"data"]
                 setNameWithFormat:@"Get comments for content: %@", content];

@@ -35,11 +35,11 @@
     
     NSString *url = nil;
     if ([content isKindOfClass:[SBPhoto class]]) {
-        url = [NSString stringWithFormat:@"account/%@/photo/%@/likers", content.account.identifier, content.identifier];
+        url = [NSString stringWithFormat:@"account/%@/photo/%@/likers", content.accountID, content.identifier];
     } else if ([content isKindOfClass:[SBStatus class]]) {
-        url = [NSString stringWithFormat:@"account/%@/status/%@/likers", content.account.identifier, content.identifier];
+        url = [NSString stringWithFormat:@"account/%@/status/%@/likers", content.accountID, content.identifier];
     } else if ([content isKindOfClass:[SBBlog class]]) {
-        url = [NSString stringWithFormat:@"account/%@/blog/%@/likers", content.account.identifier, content.identifier];
+        url = [NSString stringWithFormat:@"account/%@/blog/%@/likers", content.accountID, content.identifier];
     } else {
         [NSException raise:@"SBCocoaBlocUnsupportedContentParameterException" format:@"%@ objects are not yet supported for this endpoint", NSStringFromClass(content.class)];
     }

@@ -7,6 +7,7 @@
 //
 
 #import "MTLValueTransformer+Convenience.h"
+#import <Mantle/Mantle.h>
 
 @implementation MTLValueTransformer (Convenience)
 
@@ -26,6 +27,22 @@
 	} reverseBlock:^id(NSDate *date) {
 		return [dateFormatter stringFromDate:date];
 	}];
+}
+
++ (instancetype)reversibleModelIDOrJSONTransformerForClass:(Class)modelClass {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id value) {
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            return [MTLJSONAdapter modelOfClass:modelClass
+                             fromJSONDictionary:value
+                                          error:nil];
+        }
+        return value;
+    } reverseBlock:^id(id value) {
+        if ([value isKindOfClass:modelClass]) {
+            return [MTLJSONAdapter JSONDictionaryFromModel:value];
+        }
+        return value;
+    }];
 }
 
 @end

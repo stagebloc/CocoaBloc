@@ -7,9 +7,11 @@
 //
 
 #import "SBPhoto.h"
+#import "SBAccount.h"
+#import "MTLValueTransformer+Convenience.h"
+
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import <Mantle/MTLValueTransformer.h>
-#import "SBAccount.h"
 
 @implementation SBPhoto
 
@@ -22,6 +24,26 @@
               @"mediumURL"		: @"images.medium_url",
               @"largeURL"		: @"images.large_url",
               @"thumbnailURL"	: @"images.thumbnail_url"}];
+}
+
++ (MTLValueTransformer *)thumbnailURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)smallURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)mediumURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)largeURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)originalURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
 @end

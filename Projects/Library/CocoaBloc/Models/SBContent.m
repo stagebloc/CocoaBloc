@@ -11,12 +11,14 @@
 #import "NSDateFormatter+CocoaBloc.h"
 #import <Mantle/Mantle.h>
 
-#import "SBAccount.h"
 #import "SBPhoto.h"
 #import "SBBlog.h"
 #import "SBStatus.h"
 #import "SBVideo.h"
 #import "SBAudio.h"
+
+#import "SBUser.h"
+#import "SBAccount.h"
 
 @implementation SBContent
 
@@ -50,20 +52,27 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"commentCount" 	: @"comment_count",
-			  @"creationDate" 	: @"created",
-			  @"excerpt"		: @"excerpt",
-			  @"inModeration"	: @"in_moderation",
-			  @"likeCount"		: @"like_count",
-			  @"publishDate"	: @"published",
-			  @"shortURL"		: @"short_url",
-			  @"title"			: @"title",
-			  @"userHasLiked"	: @"user_has_liked",
-              @"account"        : @"account"}];
+			@{
+              @"title"                  : @"title",
+              @"excerpt"                : @"excerpt",
+              @"modificationDate"       : @"modified",
+              @"creationDate"           : @"created",
+              @"publishDate"            : @"published",
+              @"inModeration"           : @"in_moderation",
+              @"isFanContent"           : @"is_fan_content",
+              @"userHasLiked"           : @"user_has_liked",
+              @"likeCount"              : @"like_count",
+              @"isSticky"               : @"sticky",
+              @"isExclusive"            : @"exclusive",
+              @"commentCount"           : @"comment_count",
+			  @"shortURL"               : @"short_url",
+              @"accountOrAccountID"     : @"account",
+              @"authorOrAuthorUserID"   : @"user"
+            }];
 }
 
-+ (MTLValueTransformer *)shortURLJSONTransformer {
-	return [MTLValueTransformer reversibleStringToURLTransformer];
++ (NSValueTransformer *)modificationDateJSONTransformer {
+    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 + (NSValueTransformer *)creationDateJSONTransformer {
@@ -74,20 +83,24 @@
 	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
-+ (MTLValueTransformer *)accountJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id accountValue) {
-        if ([accountValue isKindOfClass:[NSDictionary class]]) {
-            return [MTLJSONAdapter modelOfClass:[SBAccount class]
-                             fromJSONDictionary:accountValue
-                                          error:nil];
-        }
-        return accountValue;
-    } reverseBlock:^id(id accountValue) {
-        if ([accountValue isKindOfClass:[SBAccount class]]) {
-            return [MTLJSONAdapter JSONDictionaryFromModel:accountValue];
-        }
-        return accountValue;
-    }];
++ (MTLValueTransformer *)shortURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)accountOrAccountIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBAccount class]];
+}
+
++ (MTLValueTransformer *)authorOrAuthorUserIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBUser class]];
+}
+
+- (NSNumber *)accountID {
+    return [self.accountOrAccountID isKindOfClass:[SBAccount class]] ? [self.accountOrAccountID identifier] : self.accountOrAccountID;
+}
+
+- (NSNumber *)authorUserID {
+    return [self.authorOrAuthorUserID isKindOfClass:[SBUser class]] ? [self.authorOrAuthorUserID identifier] : self.authorOrAuthorUserID;
 }
 
 @end

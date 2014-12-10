@@ -34,11 +34,7 @@
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^SBPhoto *(NSDictionary *photoJSON) {
-        return [MTLJSONAdapter modelOfClass:[SBPhoto class] fromJSONDictionary:photoJSON error:nil];
-    } reverseBlock:^NSDictionary *(SBPhoto *photo) {
-        return [MTLJSONAdapter JSONDictionaryFromModel:photo];
-    }];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBPhoto class]];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {
