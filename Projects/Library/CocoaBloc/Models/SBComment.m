@@ -49,4 +49,12 @@
     return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
+- (NSNumber *)accountID {
+    return [self.accountOrAccountID isKindOfClass:[SBAccount class]] ? [self.accountOrAccountID identifier] : self.accountOrAccountID;
+}
+
+- (NSNumber *)userID {
+    return [self.userOrUserID isKindOfClass:[SBUser class]] ? [self.userOrUserID identifier] : self.userOrUserID;
+}
+
 @end

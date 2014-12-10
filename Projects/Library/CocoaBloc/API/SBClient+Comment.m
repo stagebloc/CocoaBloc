@@ -23,4 +23,12 @@
                 setNameWithFormat:@"Get comments for content: %@", content];
 }
 
+- (RACSignal *)getRepliesToComment:(SBComment *)comment {
+    NSParameterAssert(comment);
+    
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/comment/%@/replies", comment.accountID, comment.content.identifier, comment.identifier] parameters:[self requestParametersWithParameters:nil]]
+                cb_deserializeArrayWithClient:self modelClass:[SBComment class] keyPath:@"data"]
+                setNameWithFormat:@"Get replies to comment: %@", comment];
+}
+
 @end

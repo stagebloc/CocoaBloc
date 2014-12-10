@@ -22,4 +22,7 @@
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic) id userOrUserID;
 
+- (NSNumber *)accountID;
+- (NSNumber *)userID;
+
 @end
