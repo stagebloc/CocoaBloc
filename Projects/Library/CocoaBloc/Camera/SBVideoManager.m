@@ -239,6 +239,10 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
 
 #pragma mark - Signals
 - (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL {
+    return [self finalizeRecordingToFile:finalVideoLocationURL takeUntil:nil];
+}
+
+- (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL takeUntil:(RACSignal*)takeUntil {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
@@ -271,7 +275,8 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
         self.stitcher.orientation = self.orientation;
         BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare ? YES : NO;
         NSString *exportPreset = isSquare ? [AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset] : AVAssetExportPresetHighestQuality;
-        [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] subscribeNext:^(NSURL *outputURL) {
+        RACSignal *stitchSignal = takeUntil == nil ? [self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] : [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] takeUntil:takeUntil];
+        [stitchSignal subscribeNext:^(NSURL *outputURL) {
             [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *error) {
             [subscriber sendError:error];

@@ -144,7 +144,6 @@
     }];
     
     RAC(self.cameraView.progressBar, value) = [[[self.captureManager.videoManager recordDurationChangeSignal] skip:1] map:^id(NSValue* value) {
-//        NSLog(@"%@", value);
         return @(CMTimeGetSeconds([value CMTimeValue]));
     }];
 
@@ -266,9 +265,11 @@
 }
 
 #pragma mark - HUD
-- (void) showHudWithText:(NSString*)text {
+- (SBOverlayView*) showHudWithText:(NSString*)text {
     [self.overlayHud dismiss];
-    self.overlayHud = [SBOverlayView showInView:self.view text:text];
+    self.overlayHud = [SBOverlayView showInView:self.view text:text dismissOnTap:YES];
+    self.overlayHud.dismissLabel.text = @"Tap to cancel";
+    return self.overlayHud;
 }
 
 #pragma mark - Camera Actions 
@@ -314,6 +315,7 @@
 -(void)chooseExistingButtonPressed:(id)sender {
     @weakify(self);
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
+    
     [[actionSheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *i) {
         @strongify(self);
         UIActionSheet *a = actionSheet;
@@ -388,24 +390,26 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@-%ld.mp4", documentsDirectory, @"final", (long)[[NSDate date] timeIntervalSince1970]]];
-    [self showHudWithText:@"Processing video"];
+    
     @weakify(self);
-    [[self.captureManager.videoManager finalizeRecordingToFile:url] subscribeNext:^(NSURL *saveURL) {
-        NSLog(@"Saved locally");
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            [self.overlayHud dismiss];
-            SBAsset *asset = [[SBAsset alloc] initWithFileURL:saveURL type:SBAssetTypeVideo];
-            SBReviewController *controller = [[SBReviewController alloc] initWithAsset:asset];
-            controller.delegate = self;
-            [self.navigationController pushViewController:controller animated:YES];
-        });
+    SBOverlayView *overlayView = [self showHudWithText:@"Processing video"];
+    [[[self.captureManager.videoManager finalizeRecordingToFile:url takeUntil:[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [overlayView setOnDismissTap:^{
+            [subscriber sendCompleted];
+        }];
+        return nil;
+    }]] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSURL *saveURL) {
+        @strongify(self);
+        SBAsset *asset = [[SBAsset alloc] initWithFileURL:saveURL type:SBAssetTypeVideo];
+        SBReviewController *controller = [[SBReviewController alloc] initWithAsset:asset];
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
     } error:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            [self.overlayHud dismissAfterError:@"Error processing video"];
-        });
-        NSLog(@"Failed to save locally - %@", error.localizedDescription);
+        @strongify(self);
+        [self.overlayHud dismissAfterError:@"Error processing video"];
+    } completed:^{
+        @strongify(self);
+        [self.overlayHud dismiss];
     }];
 }
 

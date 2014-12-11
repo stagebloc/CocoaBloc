@@ -11,11 +11,15 @@
 @interface SBOverlayView : UIView
 
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
+@property (nonatomic, strong, readonly) UILabel *dismissLabel;
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong, readonly) UIToolbar *overlayToolbar;
 
+@property (nonatomic, copy) void (^onDismissTap)(void);
+
 + (instancetype) showInView:(UIView*)superview text:(NSString*)text;
-+ (instancetype) showInView:(UIView*)superview text:(NSString*)text duration:(NSTimeInterval)duration;
++ (instancetype) showInView:(UIView*)superview text:(NSString*)text dismissOnTap:(BOOL)dismissOnTap;
++ (instancetype) showInView:(UIView*)superview text:(NSString*)text dismissOnTap:(BOOL)dismissOnTap duration:(NSTimeInterval)duration;
 
 - (instancetype) initWithFrame:(CGRect)frame text:(NSString*)text;
 

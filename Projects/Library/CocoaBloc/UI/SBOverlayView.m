@@ -10,6 +10,8 @@
 #import "UIFont+FanClub.h"
 #import <pop/POP.h>
 #import <PureLayout/PureLayout.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 #import "UIView+Extension.h"
 
 @interface SBOverlayView ()
@@ -20,7 +22,7 @@
 
 @implementation SBOverlayView
 
-@synthesize activityIndicatorView = _activityIndicatorView, overlayToolbar = _overlayToolbar, titleLabel = _titleLabel;
+@synthesize activityIndicatorView = _activityIndicatorView, overlayToolbar = _overlayToolbar, titleLabel = _titleLabel, dismissLabel= _dismissLabel;
 
 - (UILabel*) titleLabel {
     if (!_titleLabel) {
@@ -30,6 +32,16 @@
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLabel;
+}
+
+- (UILabel*) dismissLabel {
+    if (!_dismissLabel) {
+        _dismissLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _dismissLabel.font = [UIFont fc_fontWithSize:14];
+        _dismissLabel.textColor = [UIColor lightGrayColor];
+        _dismissLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _dismissLabel;
 }
 
 - (UIActivityIndicatorView*) activityIndicatorView {
@@ -64,21 +76,42 @@
         [self.titleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.activityIndicatorView withOffset:-30];
         [self.titleLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
         [self.titleLabel autoSetDimension:ALDimensionHeight toSize:30];
+        
+        self.dismissLabel.alpha = 0;
+        [self addSubview:self.dismissLabel];
+        self.dismissLabel.text = @"Tap to dismiss";
+        [self.dismissLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-15];
+        [self.dismissLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+        [self.dismissLabel autoSetDimension:ALDimensionHeight toSize:30];
+        
+        @weakify(self);
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+        [tapGesture.rac_gestureSignal subscribeNext:^(id x) {
+            @strongify(self);
+            if (self.dismissLabel.alpha == 1 && self.onDismissTap) {
+                self.onDismissTap();
+            }
+        }];
+        [self addGestureRecognizer:tapGesture];
     }
     return self;
 }
 
 #pragma mark - Show
 + (instancetype) showInView:(UIView*)superview text:(NSString*)text {
-    return [self showInView:superview text:text duration:0.5f];
+    return [self showInView:superview text:text dismissOnTap:NO];
 }
 
-+ (instancetype) showInView:(UIView*)superview text:(NSString*)text duration:(NSTimeInterval)duration {
++ (instancetype) showInView:(UIView*)superview text:(NSString*)text dismissOnTap:(BOOL)dismissOnTap{
+    return [self showInView:superview text:text dismissOnTap:dismissOnTap duration:0.5f];
+}
+
++ (instancetype) showInView:(UIView*)superview text:(NSString*)text dismissOnTap:(BOOL)dismissOnTap duration:(NSTimeInterval)duration {
     SBOverlayView *view = [[SBOverlayView alloc] initWithFrame:superview.frame text:text];
     [superview addSubview:view];
     [view autoCenterInSuperviewWithMatchedDimensions];
     view.showDuration = duration;
-    [view animateShowWithDuration:duration completion:nil];
+    [view animateShowWithDuration:duration showDismissDialog:dismissOnTap completion:nil];
     return view;
 }
 
@@ -116,7 +149,7 @@
 }
 
 #pragma mark - Animations
-- (void) animateShowWithDuration:(NSTimeInterval)duration completion:(void (^)(BOOL finished))completion{
+- (void) animateShowWithDuration:(NSTimeInterval)duration showDismissDialog:(BOOL)showDismissDialog completion:(void (^)(BOOL finished))completion{
     self.overlayToolbar.alpha = 0;
     [UIView animateWithDuration:duration/2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:.2f options:0 animations:^{
         self.overlayToolbar.alpha = 1;
@@ -130,6 +163,12 @@
         self.titleLabel.transform = transform;
         self.activityIndicatorView.transform = transform;
     } completion:completion];
+ 
+    if (showDismissDialog) {
+        [UIView animateWithDuration:duration delay:3 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+            self.dismissLabel.alpha = 1;
+        } completion:nil];
+    }
 }
 
 - (void) animateDismissWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay completion:(void (^)(BOOL finished))completion{

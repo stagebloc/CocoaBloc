@@ -91,7 +91,6 @@
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         
-        
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
 
         self.compositionVideoTrack.preferredTransform = [self tranformForOrientation];
@@ -126,7 +125,9 @@
             }
         }];
         
-        return nil;
+        return [RACDisposable disposableWithBlock:^{
+            [exporter cancelExport];
+        }];
     }];
 }
 
