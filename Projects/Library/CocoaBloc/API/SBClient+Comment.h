@@ -21,4 +21,6 @@
 - (RACSignal *)postCommentWithText:(NSString *)text onContent:(SBContent *)content;
 - (RACSignal *)postCommentWithText:(NSString *)text inReplyToComment:(SBComment *)comment;
 
+- (RACSignal *)getCommentWithID:(NSNumber *)commentID forContent:(SBContent *)content;
+
 @end

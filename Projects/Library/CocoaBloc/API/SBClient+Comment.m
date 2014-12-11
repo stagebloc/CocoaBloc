@@ -53,4 +53,12 @@
     return [self postCommentWithText:text onContent:comment.content];
 }
 
+- (RACSignal *)getCommentWithID:(NSNumber *)commentID forContent:(SBContent *)content {
+    NSParameterAssert(commentID);
+    NSParameterAssert(content);
+    
+    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/comment/%@", content.accountID, [[content class] URLPathContentType], commentID] parameters:[self requestParametersWithParameters:nil]]
+                setNameWithFormat:@"Get comment (id: %@) for content: %@", commentID, content];
+}
+
 @end
