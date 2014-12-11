@@ -333,6 +333,7 @@ BOOL isSmallScreen() {
     [self addSubview:self.pageView];
     [self addSubview:self.timeLabel];
     
+    //close button
     [self addSubview:self.closeButton];
     [self.closeButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
     [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_topContainerView withOffset:10];
@@ -692,7 +693,7 @@ BOOL isSmallScreen() {
     [constraints addObjectsFromArray:[self.pageView autoSetDimensionsToSize:size]];
     
     [self.timeLabel sizeToFit];
-    CGSize labelSize = CGSizeMake(CGRectGetWidth(self.timeLabel.frame)+15, CGRectGetWidth(self.timeLabel.frame)+15);
+    CGSize labelSize = CGSizeMake(CGRectGetWidth(self.timeLabel.frame)+15, 40);
     CGPoint labelOffset = CGPointMake(0, 5);
     [constraints addObjectsFromArray:[self.timeLabel autoSetDimensionsToSize:labelSize]];
     
