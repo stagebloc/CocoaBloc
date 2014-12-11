@@ -11,6 +11,8 @@
 #import "UIColor+FanClub.h"
 #import "UIView+Extension.h"
 
+#import <pop/POP.h>
+
 @interface SBRecordButton ()
 
 @property (nonatomic, strong) NSLayoutConstraint *verticalConstraint;
@@ -117,21 +119,18 @@
 
 #pragma mark - Animations
 - (void)scaleToBig {
-    self.transform = CGAffineTransformMakeScale(1, 1);
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-    } completion:^(BOOL finished) {
-        
-    }];
-    
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2, 1.2)];
+    scaleAnimation.springBounciness = 10.0f;
+    [self.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
 }
 
 - (void)scaleNormal {
-    [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:.5 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.transform = CGAffineTransformMakeScale(1, 1);
-    } completion:^(BOOL finished) {
-        
-    }];
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.0, 1.0)];
+    scaleAnimation.springBounciness = 10.0f;
+    
+    [self.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
 }
 
 @end

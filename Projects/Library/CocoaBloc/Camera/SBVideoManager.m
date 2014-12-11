@@ -213,7 +213,6 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
         return self.currentFinalDurration;
     
     if(CMTimeCompare(kCMTimeZero, self.currentFinalDurration) == 0 && ![self isReset]) {
-        NSLog(@"%@", [NSValue valueWithCMTime:self.movieFileOutput.recordedDuration]);
         return self.movieFileOutput.recordedDuration;
     } else if (!self.paused && self.movieFileOutput.isRecording) {
         CMTime returnTime = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
