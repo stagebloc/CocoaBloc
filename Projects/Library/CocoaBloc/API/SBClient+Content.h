@@ -10,8 +10,10 @@
 
 @interface SBClient (Content)
 
-- (RACSignal *)likeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account;
-- (RACSignal *)unlikeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account;
+- (RACSignal *)likeContent:(SBContent *)content;
+- (RACSignal *)unlikeContent:(SBContent *)content;
+
+- (RACSignal *)deleteContent:(SBContent *)content;
 
 // supports offset/limit
 - (RACSignal *)getUsersWhoLikeContent:(SBContent *)content parameters:(NSDictionary *)parameters;
