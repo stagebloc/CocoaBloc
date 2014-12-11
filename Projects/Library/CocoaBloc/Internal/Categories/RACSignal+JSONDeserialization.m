@@ -57,4 +57,17 @@
     }] take:1];
 }
 
+- (RACSignal *)cb_deserializeContentModelWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
+    @weakify(client);
+    
+    return [[self flattenMap:^RACStream *(NSDictionary *response) {
+        @strongify(client);
+        
+        NSDictionary *modelDict = !keyPath ? response : [response valueForKeyPath:keyPath];
+        NSString *contentTypeString = [modelDict objectForKey:@"content_type"];
+        
+        return [client deserializeModelOfClass:[SBContent modelClassForJSONContentType:contentTypeString] fromJSONDictionary:modelDict];
+    }] take:1];
+}
+
 @end
