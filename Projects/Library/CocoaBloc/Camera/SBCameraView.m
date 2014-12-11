@@ -104,10 +104,6 @@ BOOL isSmallScreen() {
         _topContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.0f)];
         
         [_topContainerView autoSetDimension:ALDimensionHeight toSize:40];
-        
-        [_topContainerView addSubview:self.closeButton];
-        [self.closeButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
-        [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_topContainerView withOffset:10];
     }
     return _topContainerView;
 }
@@ -336,6 +332,10 @@ BOOL isSmallScreen() {
     //pageView
     [self addSubview:self.pageView];
     [self addSubview:self.timeLabel];
+    
+    [self addSubview:self.closeButton];
+    [self.closeButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
+    [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_topContainerView withOffset:10];
     
     //progress bar
     [self addSubview:self.progressBar];
