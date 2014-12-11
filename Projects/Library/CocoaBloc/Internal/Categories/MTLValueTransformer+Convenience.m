@@ -24,7 +24,11 @@
 	NSParameterAssert(dateFormatter);
 	
 	return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSString *dateString) {
-		return [dateFormatter dateFromString:dateString];
+        if ([dateString isKindOfClass:[NSNumber class]]) {
+            return nil;
+        }
+
+        return !dateString ? nil : [dateFormatter dateFromString:dateString];
 	} reverseBlock:^id(NSDate *date) {
 		return [dateFormatter stringFromDate:date];
 	}];
