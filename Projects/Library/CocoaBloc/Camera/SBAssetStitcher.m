@@ -96,8 +96,6 @@
 
         self.compositionVideoTrack.preferredTransform = [self tranformForOrientation];
         
-        NSArray *array = [AVAssetExportSession exportPresetsCompatibleWithAsset:self.composition];
-        
         AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
         exporter.outputURL = outputFileURL;
         exporter.outputFileType = AVFileTypeMPEG4;
