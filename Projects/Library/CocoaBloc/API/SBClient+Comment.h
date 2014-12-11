@@ -16,5 +16,9 @@
 
 - (RACSignal *)getRepliesToComment:(SBComment *)comment;
 - (RACSignal *)deleteComment:(SBComment *)comment;
+- (RACSignal *)postCommentWithText:(NSString *)text inReplyToComment:(SBComment *)comment toAccount:(SBAccount *)account;
+
+- (RACSignal *)postCommentWithText:(NSString *)text onContent:(SBContent *)content;
+- (RACSignal *)postCommentWithText:(NSString *)text inReplyToComment:(SBComment *)comment;
 
 @end

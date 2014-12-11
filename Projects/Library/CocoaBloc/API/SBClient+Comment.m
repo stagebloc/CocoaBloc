@@ -9,6 +9,7 @@
 #import "SBClient+Comment.h"
 #import "SBClient+Private.h"
 #import "SBComment.h"
+#import "SBContent.h"
 #import "RACSignal+JSONDeserialization.h"
 #import <RACAFNetworking.h>
 
@@ -38,6 +39,18 @@
                 cb_deserializeWithClient:self modelClass:[SBComment class] keyPath:@"data"]
                 setNameWithFormat:@"Delete comment: %@", comment];
 
+}
+
+- (RACSignal *)postCommentWithText:(NSString *)text onContent:(SBContent *)content {
+    NSParameterAssert(text);
+    NSParameterAssert(content);
+    
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/comment", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]]
+                setNameWithFormat:@"Post comment (text: %@) to content: %@", text, content];
+}
+
+- (RACSignal *)postCommentWithText:(NSString *)text inReplyToComment:(SBComment *)comment {
+    return [self postCommentWithText:text onContent:comment.content];
 }
 
 @end
