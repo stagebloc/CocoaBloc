@@ -104,10 +104,6 @@ BOOL isSmallScreen() {
         _topContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 0.0f)];
         
         [_topContainerView autoSetDimension:ALDimensionHeight toSize:40];
-        
-        [_topContainerView addSubview:self.closeButton];
-        [self.closeButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
-        [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_topContainerView withOffset:10];
     }
     return _topContainerView;
 }
@@ -124,10 +120,11 @@ BOOL isSmallScreen() {
 
 - (UILabel*) timeLabel {
     if (!_timeLabel) {
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+        _timeLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.font = [UIFont fc_fontWithSize:19.0f];
         _timeLabel.text = @"0:00";
+        [_timeLabel sizeToFit];
     }
     return _timeLabel;
 }
@@ -335,6 +332,11 @@ BOOL isSmallScreen() {
     //pageView
     [self addSubview:self.pageView];
     [self addSubview:self.timeLabel];
+    
+    //close button
+    [self addSubview:self.closeButton];
+    [self.closeButton autoSetDimensionsToSize:CGSizeMake(30, 30)];
+    [self.closeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_topContainerView withOffset:10];
     
     //progress bar
     [self addSubview:self.progressBar];
@@ -677,7 +679,7 @@ BOOL isSmallScreen() {
         case UIInterfaceOrientationPortraitUpsideDown: toVal = CGAffineTransformMakeRotation(M_PI); break;
         default: break;
     }
-    NSArray *toTransform = @[self.flashModeButton, self.toggleCameraButton, self.pageView, self.toggleRatioButton, ];
+    NSArray *toTransform = @[self.flashModeButton, self.toggleCameraButton, self.pageView, self.toggleRatioButton, self.timeLabel];
     [toTransform setValue:[NSValue valueWithCGAffineTransform:toVal] forKey:NSStringFromSelector(@selector(transform))];
 }
 
@@ -690,25 +692,38 @@ BOOL isSmallScreen() {
     CGPoint offset = CGPointMake(size.width/2-size.height/2, 5);
     [constraints addObjectsFromArray:[self.pageView autoSetDimensionsToSize:size]];
     
+    [self.timeLabel sizeToFit];
+    CGSize labelSize = CGSizeMake(CGRectGetWidth(self.timeLabel.frame)+15, 40);
+    CGPoint labelOffset = CGPointMake(0, 7);
+    [constraints addObjectsFromArray:[self.timeLabel autoSetDimensionsToSize:labelSize]];
+    
     switch (orientation) {
         case UIInterfaceOrientationLandscapeRight:
             [constraints addObject:[self.pageView autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:-offset.x]];
             [constraints addObject:[self.pageView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
+            
+            //time label
+            [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:-labelOffset.x]];
+            [constraints addObject:[self.timeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
             break;
         case UIInterfaceOrientationLandscapeLeft:
             [constraints addObject:[self.pageView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:offset.x]];
             [constraints addObject:[self.pageView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
+            
+            //time label
+            [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:labelOffset.x]];
+            [constraints addObject:[self.timeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
             break;
         default:
             [constraints addObject:[self.pageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView withOffset:offset.y]];
             [constraints addObject:[self.pageView autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+            
+            //time label
+            [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView withOffset:labelOffset.y]];
+            [constraints addObject:[self.timeLabel autoAlignAxisToSuperviewAxis:ALAxisVertical]];
             break;
     }
     
-    //time label
-    [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView withOffset:15]];
-    [constraints addObject:[self.timeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
-
     //close button
     offset = CGPointMake(10, 10);
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationPortraitUpsideDown) {
