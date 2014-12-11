@@ -26,6 +26,7 @@
         _innerView.backgroundColor = [UIColor clearColor];
         _innerView.layer.borderColor = [UIColor fc_stageblocBlueColor].CGColor;
         _innerView.layer.borderWidth = 1.5f;
+        _innerView.userInteractionEnabled = NO;
     }
     return _innerView;
 }
@@ -53,6 +54,9 @@
         [self.innerView autoCenterInSuperview];
         [self.innerView autoSetDimension:ALDimensionWidth toSize:size];
         [self.innerView autoSetDimension:ALDimensionHeight toSize:size];
+        
+        [self addTarget:self action:@selector(touchedDown) forControlEvents:UIControlEventTouchDown ];
+        [self addTarget:self action:@selector(touchedUp) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     }
     return self;
 }
@@ -76,31 +80,14 @@
 }
 
 #pragma mark - Touch Methods
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    
+- (void) touchedDown {
     if (self.allowHold) {
         [self cancelHold];
         [self performSelector:@selector(didHold) withObject:nil afterDelay:self.holdingInterval];
     }
 }
 
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-}
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesEnded:touches withEvent:event];
-    [self touchesEndedOrCancelled:touches withEvent:event];
-}
-
-- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesCancelled:touches withEvent:event];
-    [self touchesEndedOrCancelled:touches withEvent:event];
-}
-
-//helper
-- (void) touchesEndedOrCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void) touchedUp {
     [self cancelHold];
     
     //hold
@@ -120,7 +107,6 @@
     
     self.holding = NO;
 }
-
 
 #pragma mark - Animations
 - (void)scaleToBig {
