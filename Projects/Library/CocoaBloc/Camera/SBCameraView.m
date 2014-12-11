@@ -694,7 +694,7 @@ BOOL isSmallScreen() {
     
     [self.timeLabel sizeToFit];
     CGSize labelSize = CGSizeMake(CGRectGetWidth(self.timeLabel.frame)+15, 40);
-    CGPoint labelOffset = CGPointMake(0, 5);
+    CGPoint labelOffset = CGPointMake(0, 7);
     [constraints addObjectsFromArray:[self.timeLabel autoSetDimensionsToSize:labelSize]];
     
     switch (orientation) {
