@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, SBRecordButtonState) {
 
 @interface SBRecordButton : UIControl
 
+@property (nonatomic, strong) NSLayoutConstraint *centerConstraint;
+
 @property (nonatomic, assign) BOOL holding;
 
 @property (nonatomic, assign) id<SCRecordButtonDelegate> delegate;
@@ -68,5 +70,7 @@ typedef NS_ENUM(NSUInteger, SBRecordButtonState) {
  Border color ring for button
  */
 - (void) setBorderColor:(UIColor*)borderColor;
+
+- (NSLayoutConstraint*) autoAlignVerticalAxisToSuperview;
 
 @end

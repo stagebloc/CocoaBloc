@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, SBProgressBarOptions) {
+    SBProgressBarOptionsLeftToRight = 1 << 0,
+    SBProgressBarOptionsRightToLeft = 1 << 1,
+    
+    SBProgressBarOptionsHorizontal = 1 << 2,
+    SBProgressBarOptionsVertical = 1 << 3
+};
+
 @class SBProgressBar;
 
 @interface SBProgressBar : UIView
@@ -17,6 +25,8 @@
 @property (nonatomic, readonly) CGFloat minValue;
 
 @property (nonatomic, strong, readonly) NSMutableSet *stopValues;
+
+@property (nonatomic, assign) SBProgressBarOptions options;
 
 - (id) initWithMinValue:(CGFloat)minValue maxValue:(CGFloat)maxValue;
 

@@ -13,6 +13,8 @@
 
 @interface SBRecordButton ()
 
+@property (nonatomic, strong) NSLayoutConstraint *verticalConstraint;
+
 @end
 
 @implementation SBRecordButton
@@ -57,17 +59,17 @@
         
         [self addTarget:self action:@selector(touchedDown) forControlEvents:UIControlEventTouchDown ];
         [self addTarget:self action:@selector(touchedUp) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+        
+        self.layer.cornerRadius = CGRectGetHeight(self.frame) / 2;
+        self.innerView.layer.cornerRadius = CGRectGetHeight(self.innerView.frame) / 2;
     }
     return self;
 }
 
-- (void) layoutSubviews {
-    [super layoutSubviews];
-    self.layer.cornerRadius = CGRectGetHeight(self.frame) / 2;
-    self.innerView.layer.cornerRadius = CGRectGetHeight(self.innerView.frame) / 2;
-}
-
 - (void) didHold {
+//    if (self.verticalConstraint)
+//        [self removeConstraint:self.verticalConstraint];
+    
     self.holding = YES;
     [self scaleToBig];
     if ([self.delegate respondsToSelector:@selector(recordButtonStartedHolding:)]) {
@@ -77,6 +79,14 @@
 
 - (void) cancelHold {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didHold) object:nil];
+//    if (self.verticalConstraint && ![self.constraints containsObject:self.verticalConstraint]) {
+//        [self addConstraint:self.verticalConstraint];
+//    }
+}
+
+- (NSLayoutConstraint*) autoAlignVerticalAxisToSuperview {
+    self.verticalConstraint = [self autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    return self.verticalConstraint;
 }
 
 #pragma mark - Touch Methods
@@ -92,15 +102,12 @@
     
     //hold
     if (self.allowHold && self.holding) {
-        NSLog(@"Did stop holding");
-        
         [self scaleNormal];
         if ([self.delegate respondsToSelector:@selector(recordButtonStoppedHolding:)])
             [self.delegate recordButtonStoppedHolding:self];
     }
     //tap
     else {
-        NSLog(@"Did tap");
         if ([self.delegate respondsToSelector:@selector(recordButtonTapped:)])
             [self.delegate recordButtonTapped:self];
     }
@@ -116,6 +123,7 @@
     } completion:^(BOOL finished) {
         
     }];
+    
 }
 
 - (void)scaleNormal {

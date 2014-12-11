@@ -272,7 +272,6 @@
 
 #pragma mark - Camera Actions 
 - (void) startRecording {
-    NSLog(@"Started recording");
     SBVideoManager *manager = self.captureManager.videoManager;
     if (manager.isPaused) {
         [manager resumeRecording];
