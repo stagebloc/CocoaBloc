@@ -15,18 +15,16 @@
 
 @implementation SBClient (Content)
 
-- (RACSignal *)likeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account {
+- (RACSignal *)likeContent:(SBContent *)content {
     NSParameterAssert(content);
-    NSParameterAssert(account);
 
-    return [self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/like", account.identifier, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
+    return [self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/like", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
 }
 
-- (RACSignal *)unlikeContent:(SBContent *)content onBehalfOfAccount:(SBAccount *)account {
+- (RACSignal *)unlikeContent:(SBContent *)content {
     NSParameterAssert(content);
-    NSParameterAssert(account);
     
-    return [self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@/like", account.identifier, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
+    return [self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@/like", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
 }
 
 - (RACSignal *)getUsersWhoLikeContent:(SBContent *)content parameters:(NSDictionary *)parameters {
@@ -38,6 +36,13 @@
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/likers", content.accountID, urlContentType, content.identifier] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self modelClass:[SBUser class] keyPath:@"data"]
                 setNameWithFormat:@"Get users who like content: %@", content];
+}
+
+- (RACSignal *)deleteContent:(SBContent *)content {
+    NSParameterAssert(content);
+    
+    return [[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]]
+                cb_deserializeContentModelWithClient:self keyPath:@"data"];
 }
 
 @end
