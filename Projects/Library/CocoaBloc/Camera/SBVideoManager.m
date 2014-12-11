@@ -11,6 +11,7 @@
 #import "SBAssetStitcher.h"
 #import "AVCaptureSession+Extension.h"
 #import "UIDevice+Orientation.h"
+#import "UIDevice+StageBloc.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -176,7 +177,6 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
     [self updateVideoConnectionWithOrientation:self.orientation];
     
     self.currentRecordingSegment++;
-    self.paused = NO;
     
     NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
     [self.temporaryFileURLs addObject:outputFileURL];
@@ -188,6 +188,8 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
     }
     
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
+    self.paused = NO;
+
     return YES;
 }
 
@@ -207,9 +209,13 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
 }
 
 - (CMTime)totalRecordingDuration {
+    if (self.currentWrites <= 0)
+        return self.currentFinalDurration;
+    
     if(CMTimeCompare(kCMTimeZero, self.currentFinalDurration) == 0 && ![self isReset]) {
+        NSLog(@"%@", [NSValue valueWithCMTime:self.movieFileOutput.recordedDuration]);
         return self.movieFileOutput.recordedDuration;
-    } else if ((!self.paused && self.movieFileOutput.isRecording)) {
+    } else if (!self.paused && self.movieFileOutput.isRecording) {
         CMTime returnTime = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
         return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDurration : returnTime;
     } else {
@@ -284,8 +290,10 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
 }
 
 - (RACSignal*) recordDurationChangeSignal {
+    @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [[[RACSignal interval:0.01f onScheduler:[RACScheduler mainThreadScheduler]] startWith:[NSDate date]] subscribeNext:^(id x) {
+            @strongify(self);
             [subscriber sendNext:[NSValue valueWithCMTime:[self totalRecordingDuration]]];
         }];
         return nil;

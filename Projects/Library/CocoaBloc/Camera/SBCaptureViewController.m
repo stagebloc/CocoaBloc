@@ -143,7 +143,8 @@
         self.cameraView.recordButton.enabled = enabled.boolValue;
     }];
     
-    RAC(self.cameraView.progressBar, value) = [[[self.captureManager.videoManager recordDurationChangeSignal] skip:1] map:^id(id value) {
+    RAC(self.cameraView.progressBar, value) = [[[self.captureManager.videoManager recordDurationChangeSignal] skip:1] map:^id(NSValue* value) {
+//        NSLog(@"%@", value);
         return @(CMTimeGetSeconds([value CMTimeValue]));
     }];
 
@@ -282,7 +283,6 @@
 }
 
 - (void) pauseRecording {
-    NSLog(@"Stopped recording");
     [self.captureManager.videoManager pauseRecording];
     [self.cameraView animateHudHidden:NO completion:nil];
 }
