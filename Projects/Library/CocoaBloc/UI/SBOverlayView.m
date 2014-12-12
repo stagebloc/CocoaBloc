@@ -39,6 +39,8 @@
         _dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:14];
         [_dismissButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [_dismissButton setTitle:@"Tap to dismiss" forState:UIControlStateNormal];
     }
     return _dismissButton;
 }
@@ -78,8 +80,8 @@
         
         self.dismissButton.alpha = 0;
         [self addSubview:self.dismissButton];
-        [self.dismissButton setTitle:@"Tap to dismiss" forState:UIControlStateNormal];
         [self.dismissButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-15];
+        [self.dismissButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
         [self.dismissButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
         [self.dismissButton autoSetDimension:ALDimensionHeight toSize:60];
         
@@ -152,15 +154,17 @@
         self.overlayToolbar.alpha = 1;
     } completion:nil];
     
-    CGAffineTransform transform = CGAffineTransformMakeScale(0, 0);
-    self.titleLabel.transform = transform;
-    self.activityIndicatorView.transform = transform;
-    transform = CGAffineTransformMakeScale(1, 1);
-    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:.8f initialSpringVelocity:0.2f options:0 animations:^{
-        self.titleLabel.transform = transform;
-        self.activityIndicatorView.transform = transform;
-    } completion:completion];
- 
+    
+    
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue = [NSValue valueWithCGSize:CGSizeMake(0, 0)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.0f, 1.0f)];
+    scaleAnimation.springBounciness = 10.0f;
+    scaleAnimation.springSpeed = 5.0;
+    [self.titleLabel.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
+    [self.activityIndicatorView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
+    
+    
     if (showDismissDialog) {
         [UIView animateWithDuration:duration delay:3 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
             self.dismissButton.alpha = 1;
@@ -173,13 +177,15 @@
         self.overlayToolbar.alpha = 0;
         self.titleLabel.alpha = 0;
         self.activityIndicatorView.alpha = 0;
-    } completion:nil];
-    
-    CGAffineTransform transform = CGAffineTransformMakeScale(0.2, 0.2);
-    [UIView animateWithDuration:duration delay:delay usingSpringWithDamping:.8f initialSpringVelocity:0.2f options:0 animations:^{
-        self.titleLabel.transform = transform;
-        self.activityIndicatorView.transform = transform;
+        self.dismissButton.alpha = 0;
     } completion:completion];
+    
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.fromValue = [NSValue valueWithCGSize:CGSizeMake(1, 1)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(0.2, 0.2)];
+    scaleAnimation.springBounciness = 10.0f;
+    [self.titleLabel.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
+    [self.activityIndicatorView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
 }
 
 - (void) animateError:(NSString*)error completion:(void (^)(BOOL finished))completion {
