@@ -11,8 +11,4 @@
 
 @interface SBClient (Status)
 
-- (RACSignal *)getStatusWithID:(NSNumber *)statusID;
-- (RACSignal *)getUsersLikingStatus:(SBStatus *)status;
-- (RACSignal *)deleteStatus:(SBStatus *)status;
-
 @end

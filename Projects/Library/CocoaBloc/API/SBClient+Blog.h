@@ -11,7 +11,4 @@
 
 @interface SBClient (Blog)
 
-- (RACSignal *)getUsersLikingBlog:(SBBlog *)blog;
-- (RACSignal *)deleteBlog:(SBBlog *)blog;
-
 @end
