@@ -22,7 +22,7 @@
 
 @implementation SBOverlayView
 
-@synthesize activityIndicatorView = _activityIndicatorView, overlayToolbar = _overlayToolbar, titleLabel = _titleLabel, dismissLabel= _dismissLabel;
+@synthesize activityIndicatorView = _activityIndicatorView, overlayToolbar = _overlayToolbar, titleLabel = _titleLabel, dismissButton= _dismissButton;
 
 - (UILabel*) titleLabel {
     if (!_titleLabel) {
@@ -34,14 +34,13 @@
     return _titleLabel;
 }
 
-- (UILabel*) dismissLabel {
-    if (!_dismissLabel) {
-        _dismissLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        _dismissLabel.font = [UIFont fc_fontWithSize:14];
-        _dismissLabel.textColor = [UIColor lightGrayColor];
-        _dismissLabel.textAlignment = NSTextAlignmentCenter;
+- (UIButton*) dismissButton {
+    if (!_dismissButton) {
+        _dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:14];
+        [_dismissButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
-    return _dismissLabel;
+    return _dismissButton;
 }
 
 - (UIActivityIndicatorView*) activityIndicatorView {
@@ -77,22 +76,20 @@
         [self.titleLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
         [self.titleLabel autoSetDimension:ALDimensionHeight toSize:30];
         
-        self.dismissLabel.alpha = 0;
-        [self addSubview:self.dismissLabel];
-        self.dismissLabel.text = @"Tap to dismiss";
-        [self.dismissLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-15];
-        [self.dismissLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-        [self.dismissLabel autoSetDimension:ALDimensionHeight toSize:30];
+        self.dismissButton.alpha = 0;
+        [self addSubview:self.dismissButton];
+        [self.dismissButton setTitle:@"Tap to dismiss" forState:UIControlStateNormal];
+        [self.dismissButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-15];
+        [self.dismissButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+        [self.dismissButton autoSetDimension:ALDimensionHeight toSize:60];
         
         @weakify(self);
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
-        [tapGesture.rac_gestureSignal subscribeNext:^(id x) {
+        [[self.dismissButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            if (self.dismissLabel.alpha == 1 && self.onDismissTap) {
+            if (self.dismissButton.alpha == 1 && self.onDismissTap) {
                 self.onDismissTap();
             }
         }];
-        [self addGestureRecognizer:tapGesture];
     }
     return self;
 }
@@ -166,7 +163,7 @@
  
     if (showDismissDialog) {
         [UIView animateWithDuration:duration delay:3 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
-            self.dismissLabel.alpha = 1;
+            self.dismissButton.alpha = 1;
         } completion:nil];
     }
 }

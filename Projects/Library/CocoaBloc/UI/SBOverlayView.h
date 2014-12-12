@@ -11,7 +11,7 @@
 @interface SBOverlayView : UIView
 
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
-@property (nonatomic, strong, readonly) UILabel *dismissLabel;
+@property (nonatomic, strong, readonly) UIButton *dismissButton;
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong, readonly) UIToolbar *overlayToolbar;
 
