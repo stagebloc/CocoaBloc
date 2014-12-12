@@ -7,6 +7,8 @@
 //
 
 #import "AVCaptureSession+Extension.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @implementation AVCaptureSession (Extension)
 
@@ -80,3 +82,4 @@
 }
 
 @end
+

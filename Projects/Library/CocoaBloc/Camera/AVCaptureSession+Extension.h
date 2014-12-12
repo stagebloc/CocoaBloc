@@ -8,6 +8,8 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+@class RACSignal;
+
 @interface AVCaptureSession (Extension)
 
 //@return's specific session preset

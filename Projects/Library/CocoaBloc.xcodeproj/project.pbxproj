@@ -56,6 +56,7 @@
 		4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SBPageView.m */; };
 		4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */; };
 		4D44DFA11A3B50E600E28C22 /* SBCameraAccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFA01A3B50E600E28C22 /* SBCameraAccessViewController.m */; };
+		4D44DFA71A3B6BF600E28C22 /* AVCaptureDevice+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFA61A3B6BF600E28C22 /* AVCaptureDevice+RAC.m */; };
 		4D617ECC1A38B04D0098869B /* ALAssetsLibrary+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D617ECB1A38B04D0098869B /* ALAssetsLibrary+RAC.m */; };
 		4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B51A23A8A700D33D24 /* SBReviewView.m */; };
 		4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B91A23AC7000D33D24 /* SBPhotoReviewView.m */; };
@@ -236,6 +237,8 @@
 		4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+StageBloc.m"; sourceTree = "<group>"; };
 		4D44DF9F1A3B50E600E28C22 /* SBCameraAccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraAccessViewController.h; sourceTree = "<group>"; };
 		4D44DFA01A3B50E600E28C22 /* SBCameraAccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraAccessViewController.m; sourceTree = "<group>"; };
+		4D44DFA51A3B6BF600E28C22 /* AVCaptureDevice+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVCaptureDevice+RAC.h"; sourceTree = "<group>"; };
+		4D44DFA61A3B6BF600E28C22 /* AVCaptureDevice+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureDevice+RAC.m"; sourceTree = "<group>"; };
 		4D617ECA1A38B04D0098869B /* ALAssetsLibrary+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+RAC.h"; sourceTree = "<group>"; };
 		4D617ECB1A38B04D0098869B /* ALAssetsLibrary+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+RAC.m"; sourceTree = "<group>"; };
 		4D76A5B41A23A8A700D33D24 /* SBReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBReviewView.h; sourceTree = "<group>"; };
@@ -598,6 +601,8 @@
 				4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */,
 				4D617ECA1A38B04D0098869B /* ALAssetsLibrary+RAC.h */,
 				4D617ECB1A38B04D0098869B /* ALAssetsLibrary+RAC.m */,
+				4D44DFA51A3B6BF600E28C22 /* AVCaptureDevice+RAC.h */,
+				4D44DFA61A3B6BF600E28C22 /* AVCaptureDevice+RAC.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -940,6 +945,7 @@
 			files = (
 				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
 				09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */,
+				4D44DFA71A3B6BF600E28C22 /* AVCaptureDevice+RAC.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */,
 				528ED6461A38AFCC00A2FCC2 /* SBClient+Comment.m in Sources */,

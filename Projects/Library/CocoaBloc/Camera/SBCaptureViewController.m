@@ -20,6 +20,8 @@
 #import "SBPhotoManager.h"
 #import "SBOverlayView.h"
 #import "SBAsset.h"
+#import "AVCaptureDevice+RAC.h"
+#import "SBCameraAccessViewController.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -192,6 +194,19 @@
             self.cameraView.flashModeButton.alpha = 1;
             self.cameraView.flashModeButton.enabled = YES;
         }
+    }];
+    
+    [[[RACSignal merge:@[[AVCaptureDevice rac_requestAccessForVideoMediaType], [AVCaptureDevice rac_requestAccessForAudioMediaType]]] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
+        //ignoring
+    } error:^(NSError *error) {
+        //don't have acess to media type -
+        @strongify(self);
+        NSString *type = error.userInfo[@"type"];
+        SBCameraAccessViewController *controller = [[SBCameraAccessViewController alloc] initWithMediaTypeDenied:type];
+        [controller.dismissButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationController pushViewController:controller animated:YES];
+    } completed:^{
+        //success!
     }];
     
     [self.captureManager.captureSession startRunning];

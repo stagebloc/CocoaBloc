@@ -8,22 +8,31 @@
 
 #import "SBCameraAccessViewController.h"
 #import "UIFont+FanClub.h"
-#import <PureLayout/PureLayout.h>
 #import "UIView+Extension.h"
 #import "UIDevice+StageBloc.h"
 
+#import <AVFoundation/AVFoundation.h>
+#import <PureLayout/PureLayout.h>
+
 @interface SBCameraAccessViewController ()
-
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIButton *detailsButton;
-@property (nonatomic, strong) UIButton *dismissButton;
-
 @end
 
 @implementation SBCameraAccessViewController
 
 - (BOOL) canOpenSettings {
     return (&UIApplicationOpenSettingsURLString != NULL);
+}
+
+- (void) setMediaType:(NSString *)mediaType {
+    [self willChangeValueForKey:@"mediaType"];
+    _mediaType = [mediaType copy];
+    [self didChangeValueForKey:@"mediaType"];
+    
+    if ([mediaType isEqualToString:AVMediaTypeAudio]) {
+        self.titleLabel.text = @"Audio permissions are required";
+    } else {
+        self.titleLabel.text = @"Camera permissions are required";
+    }
 }
 
 - (UILabel*) titleLabel {
@@ -61,15 +70,22 @@
         _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:14];
         [_dismissButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [_dismissButton setTitle:@"Tap to dismiss" forState:UIControlStateNormal];
+        [_dismissButton setTitle:@"Tap to close" forState:UIControlStateNormal];
     }
     return _dismissButton;
+}
+
+- (instancetype) initWithMediaTypeDenied:(NSString*)mediaType {
+    if (self = [super init]) {
+        self.mediaType = mediaType;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor darkGrayColor];
+    self.view.backgroundColor = [UIColor colorWithWhite:.1 alpha:1];
 
     CGSize size = CGSizeMake(280, [self canOpenSettings] ? 20 : 50);
     [self.view addSubview:self.detailsButton];
@@ -99,6 +115,28 @@
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         [[UIApplication sharedApplication] openURL:url];
     }
+}
+
+#pragma mark - Status bar states
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+#pragma mark - Orientation
+- (BOOL)shouldAutorotate {
+    return ([[UIDevice currentDevice] orientation] != UIDeviceOrientationPortrait);
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
 }
 
 @end
