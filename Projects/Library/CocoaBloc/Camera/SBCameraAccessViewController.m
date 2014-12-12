@@ -13,26 +13,36 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <PureLayout/PureLayout.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface SBCameraAccessViewController ()
+
+@property (nonatomic, strong) UIButton *titleButton;
+@property (nonatomic, strong) UIButton *detailsButton;
 
 @end
 
 @implementation SBCameraAccessViewController
 
-- (UILabel*) titleLabel {
-    if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.text = @"Camera permissions are required";
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.font = [UIFont fc_lightFontWithSize:24];
-        _titleLabel.numberOfLines = 0;
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+- (UIButton*) titleButton {
+    if (!_titleButton) {
+        _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _titleButton.titleLabel.font = [UIFont fc_lightFontWithSize:24];
+        _titleButton.titleLabel.numberOfLines = 0;
+        _titleButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_titleButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
+        [_titleButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [_titleButton setTitle:@"Camera permissions are required" forState:UIControlStateNormal];
+        [_titleButton addTarget:self action:@selector(openSettingsPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _titleButton.enabled = [self canOpenSettings];
     }
-    return _titleLabel;
+    return _titleButton;
 }
 
 - (UIButton*) detailsButton {
+    if ([self canOpenSettings])
+        return nil;
+    
     if (!_detailsButton) {
         _detailsButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _detailsButton.titleLabel.font = [UIFont fc_fontWithSize:16];
@@ -46,13 +56,12 @@
         [_detailsButton addTarget:self action:@selector(openSettingsPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _detailsButton;
-
 }
 
 - (UIButton*) dismissButton {
     if (!_dismissButton) {
         _dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:12];
+        _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:14];
         [_dismissButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [_dismissButton setTitle:@"close" forState:UIControlStateNormal];
@@ -70,9 +79,9 @@
     [self didChangeValueForKey:@"mediaType"];
     
     if ([mediaType isEqualToString:AVMediaTypeAudio]) {
-        self.titleLabel.text = @"Audio permissions are required";
+        [self.titleButton setTitle:@"Audio permissions are required" forState:UIControlStateNormal];
     } else {
-        self.titleLabel.text = @"Camera permissions are required";
+        [self.titleButton setTitle:@"Camera permissions are required" forState:UIControlStateNormal];
     }
 }
 
@@ -87,15 +96,17 @@
     [super viewDidLoad];
     
     CGSize size = CGSizeMake(280, [self canOpenSettings] ? 20 : 50);
-    [self.view addSubview:self.detailsButton];
-    [self.detailsButton autoCenterInSuperview];
-    [self.detailsButton autoSetDimensionsToSize:size];
+    if (self.detailsButton) {
+        [self.view addSubview:self.detailsButton];
+        [self.detailsButton autoCenterInSuperview];
+        [self.detailsButton autoSetDimensionsToSize:size];
+    }
     
     size = CGSizeMake(280, 70);
-    [self.view addSubview:self.titleLabel];
-    [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [self.titleLabel autoSetDimensionsToSize:size];
-    [self.titleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.detailsButton withOffset:-40];
+    [self.view addSubview:self.titleButton];
+    [self.titleButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    [self.titleButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.view withOffset:-110];
+    [self.titleButton autoSetDimensionsToSize:size];
     
     [self.view addSubview:self.dismissButton];
     [self.dismissButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.view withOffset:-15];
