@@ -91,12 +91,9 @@
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         
-        
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
 
         self.compositionVideoTrack.preferredTransform = [self tranformForOrientation];
-        
-        NSArray *array = [AVAssetExportSession exportPresetsCompatibleWithAsset:self.composition];
         
         AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
         exporter.outputURL = outputFileURL;
@@ -128,7 +125,9 @@
             }
         }];
         
-        return nil;
+        return [RACDisposable disposableWithBlock:^{
+            [exporter cancelExport];
+        }];
     }];
 }
 

@@ -31,6 +31,8 @@ extern NSString* const kSBVideoManagerDefaultAspectRatioKey;
 - (BOOL) isRecording;
 
 - (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL;
+- (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL takeUntil:(RACSignal*)takeUntil;
+
 - (RACSignal*)totalTimeRecordedSignal;
 
 /*

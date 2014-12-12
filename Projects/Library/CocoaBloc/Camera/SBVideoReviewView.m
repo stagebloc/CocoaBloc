@@ -53,14 +53,14 @@
             return value.floatValue == 0 ? @NO : @YES;
         }];
         
-        [self.tapSignal subscribeNext:^(UITapGestureRecognizer *gesture) {
-            @strongify(self);
-            if (self.isPlaying) {
-                [self.playerLayer.player pause];
-            } else {
-                [self.playerLayer.player play];
-            }
-        }];
+//        [self.tapSignal subscribeNext:^(UITapGestureRecognizer *gesture) {
+//            @strongify(self);
+//            if (self.isPlaying) {
+//                [self.playerLayer.player pause];
+//            } else {
+//                [self.playerLayer.player play];
+//            }
+//        }];
         
         [self play];
     }

@@ -60,7 +60,7 @@
     if ([self.currentController isKindOfClass:[SBCaptureViewController class]])
         return [self.currentController preferredInterfaceOrientationForPresentation];
     UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
-    return (NSInteger)orientation == -1 ? UIInterfaceOrientationMaskPortrait : orientation;
+    return (NSInteger)orientation == -1 ? UIInterfaceOrientationPortrait : orientation;
 }
 
 @end
