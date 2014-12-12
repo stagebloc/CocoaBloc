@@ -22,6 +22,10 @@
 
 @implementation SBCameraAccessViewController
 
+- (BOOL) canOpenSettings {
+    return (&UIApplicationOpenSettingsURLString != NULL);
+}
+
 - (UILabel*) titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
@@ -42,7 +46,7 @@
         _detailsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_detailsButton setTitleColor:[UIColor colorWithWhite:0.85 alpha:1] forState:UIControlStateNormal];
         [_detailsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        BOOL enabled = [[UIDevice currentDevice] isAtLeastiOS:8];
+        BOOL enabled = [self canOpenSettings];
         [_detailsButton setTitle:enabled ? @"Open settings" : @"Open Settings: Privacy: Camera and turn on camera access" forState:UIControlStateNormal];
         _detailsButton.enabled = enabled;
         [_detailsButton addTarget:self action:@selector(openSettingsPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -67,7 +71,7 @@
     
     self.view.backgroundColor = [UIColor darkGrayColor];
 
-    CGSize size = CGSizeMake(280, [[UIDevice currentDevice] isAtLeastiOS:8] ? 20 : 50);
+    CGSize size = CGSizeMake(280, [self canOpenSettings] ? 20 : 50);
     [self.view addSubview:self.detailsButton];
     [self.detailsButton autoCenterInSuperview];
     [self.detailsButton autoSetDimensionsToSize:size];
@@ -91,7 +95,7 @@
 
 #pragma mark - Actions
 - (void) openSettingsPressed:(UIButton*)sender {
-    if ((&UIApplicationOpenSettingsURLString != NULL)) {
+    if ([self canOpenSettings]) {
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         [[UIApplication sharedApplication] openURL:url];
     }
