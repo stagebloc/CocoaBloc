@@ -194,7 +194,6 @@
         }
     }];
     
-    
     [self.captureManager.captureSession startRunning];
 }
 
@@ -293,6 +292,9 @@
 }
 
 - (void) capturePhoto {
+    if (self.captureManager.captureType != SBCaptureTypePhoto)
+        return;
+    
     self.view.userInteractionEnabled = NO;
     [self.cameraView animateShutterWithDuration:.1 completion:nil];
     @weakify(self);
