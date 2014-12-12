@@ -60,7 +60,7 @@
                                    green:([colorComponents[1] floatValue] / 255)
                                     blue:([colorComponents[2] floatValue] / 255)
                                    alpha:1];
-    } reverseBlock:^NSString *(UIColor *color) {
+    } reverseBlock:^NSString *(SBUserColor *color) {
         CGFloat r,g,b,a;
         [color getRed:&r green:&g blue:&b alpha:&a];
         r *= 255;

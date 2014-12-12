@@ -9,17 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "SBClient.h"
+#import "SBAPIViewModel.h"
 
-@interface SBLogInViewModel : NSObject
-
-- (instancetype)initWithClient:(SBClient *)client;
+@interface SBLogInViewModel : NSObject <SBAPIViewModel>
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *password;
-@property (nonatomic, readonly) BOOL logInEnabled;
 
-@property (nonatomic, strong) SBClient *client;
-
-- (RACSignal *)logIn;
+@property (nonatomic, readonly) RACCommand *logInCommand;
 
 @end

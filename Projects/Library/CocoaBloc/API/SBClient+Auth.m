@@ -114,8 +114,6 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
 - (RACSignal *)logInWithUsername:(NSString *)username password:(NSString *)password {
     NSParameterAssert(username);
     NSParameterAssert(password);
-
-    @weakify(self);
     
     return [[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
                                                             @"username"					: username,

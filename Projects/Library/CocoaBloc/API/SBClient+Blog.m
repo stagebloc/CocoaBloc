@@ -10,14 +10,4 @@
 
 @implementation SBClient (Blog)
 
-- (RACSignal *)getUsersLikingBlog:(SBBlog *)blog {
-    return [RACSignal empty];
-#warning imp
-}
-
-- (RACSignal *)deleteBlog:(SBBlog *)blog {
-    return [RACSignal empty];
-#warning imp
-}
-
 @end
