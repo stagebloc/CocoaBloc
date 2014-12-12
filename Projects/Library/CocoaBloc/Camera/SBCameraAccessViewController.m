@@ -15,25 +15,10 @@
 #import <PureLayout/PureLayout.h>
 
 @interface SBCameraAccessViewController ()
+
 @end
 
 @implementation SBCameraAccessViewController
-
-- (BOOL) canOpenSettings {
-    return (&UIApplicationOpenSettingsURLString != NULL);
-}
-
-- (void) setMediaType:(NSString *)mediaType {
-    [self willChangeValueForKey:@"mediaType"];
-    _mediaType = [mediaType copy];
-    [self didChangeValueForKey:@"mediaType"];
-    
-    if ([mediaType isEqualToString:AVMediaTypeAudio]) {
-        self.titleLabel.text = @"Audio permissions are required";
-    } else {
-        self.titleLabel.text = @"Camera permissions are required";
-    }
-}
 
 - (UILabel*) titleLabel {
     if (!_titleLabel) {
@@ -75,6 +60,22 @@
     return _dismissButton;
 }
 
+- (BOOL) canOpenSettings {
+    return (&UIApplicationOpenSettingsURLString != NULL);
+}
+
+- (void) setMediaType:(NSString *)mediaType {
+    [self willChangeValueForKey:@"mediaType"];
+    _mediaType = [mediaType copy];
+    [self didChangeValueForKey:@"mediaType"];
+    
+    if ([mediaType isEqualToString:AVMediaTypeAudio]) {
+        self.titleLabel.text = @"Audio permissions are required";
+    } else {
+        self.titleLabel.text = @"Camera permissions are required";
+    }
+}
+
 - (instancetype) initWithMediaTypeDenied:(NSString*)mediaType {
     if (self = [super init]) {
         self.mediaType = mediaType;
@@ -85,8 +86,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:.1 alpha:1];
-
     CGSize size = CGSizeMake(280, [self canOpenSettings] ? 20 : 50);
     [self.view addSubview:self.detailsButton];
     [self.detailsButton autoCenterInSuperview];

@@ -17,7 +17,7 @@
 - (void) cameraControllerCancelled:(SBCaptureViewController*)controller;
 @end
 
-@interface SBCaptureViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface SBCaptureViewController : UIViewController <UIGestureRecognizerDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, weak) id<SBCaptureViewControllerDelegate> delegate;
 

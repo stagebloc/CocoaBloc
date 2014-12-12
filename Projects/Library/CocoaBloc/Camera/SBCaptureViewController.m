@@ -22,6 +22,8 @@
 #import "SBAsset.h"
 #import "AVCaptureDevice+RAC.h"
 #import "SBCameraAccessViewController.h"
+#import "SBToolBarAnimator.h"
+#import "UIDevice+StageBloc.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -39,9 +41,17 @@
 
 @property (nonatomic, strong) SBOverlayView *overlayHud;
 
+@property (nonatomic, strong) SBToolBarAnimator *animator;
+
 @end
 
 @implementation SBCaptureViewController
+
+- (SBToolBarAnimator*) animator {
+    if (!_animator)
+        _animator = [[SBToolBarAnimator alloc] init];
+    return _animator;
+}
 
 - (SBAssetsManager*) assetManager {
     if (!_assetManager)
@@ -89,6 +99,7 @@
     [super viewDidLoad];
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.navigationController.delegate = self;
 
     self.view.backgroundColor = [UIColor blackColor];
     
@@ -196,6 +207,13 @@
         }
     }];
     
+    [self.captureManager.captureSession startRunning];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    @weakify(self);
     [[[RACSignal merge:@[[AVCaptureDevice rac_requestAccessForVideoMediaType], [AVCaptureDevice rac_requestAccessForAudioMediaType]]] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
         //ignoring
     } error:^(NSError *error) {
@@ -204,12 +222,20 @@
         NSString *type = error.userInfo[@"type"];
         SBCameraAccessViewController *controller = [[SBCameraAccessViewController alloc] initWithMediaTypeDenied:type];
         [controller.dismissButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationController pushViewController:controller animated:YES];
+        if ([[UIDevice currentDevice] isAtLeastiOS:8]) {
+            controller.view.backgroundColor = [UIColor clearColor];
+            controller.transitioningDelegate = self;
+            controller.modalPresentationStyle = UIModalPresentationCustom;
+        } else {
+            controller.view.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1];
+        }
+        [self presentViewController:controller animated:YES completion:nil];
     } completed:^{
         //success!
     }];
-    
-    [self.captureManager.captureSession startRunning];
+}
+
+- (void) viewDisappeared {
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -419,7 +445,6 @@
         @strongify(self);
         SBAsset *asset = [[SBAsset alloc] initWithFileURL:saveURL type:SBAssetTypeVideo];
         SBReviewController *controller = [[SBReviewController alloc] initWithAsset:asset];
-        controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
     } error:^(NSError *error) {
         @strongify(self);
@@ -483,6 +508,17 @@
     controller.view.userInteractionEnabled = NO;
     [self.navigationController popViewControllerAnimated:YES];
     [[NSFileManager defaultManager] removeItemAtURL:asset.fileURL error:nil];
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    self.animator.type = SBAnimatorTypePresent;
+    return self.animator;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    self.animator.type = SBAnimatorTypeDismiss;
+    return self.animator;
 }
 
 #pragma mark - Status bar states
