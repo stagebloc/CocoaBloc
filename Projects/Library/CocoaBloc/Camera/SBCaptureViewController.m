@@ -308,7 +308,7 @@
 - (SBOverlayView*) showHudWithText:(NSString*)text {
     [self.overlayHud dismiss];
     self.overlayHud = [SBOverlayView showInView:self.view text:text dismissOnTap:YES];
-    [self.overlayHud.dismissButton setTitle:@"Tap to cancel" forState:UIControlStateNormal];
+    [self.overlayHud.dismissButton setTitle:@"cancel" forState:UIControlStateNormal];
     return self.overlayHud;
 }
 

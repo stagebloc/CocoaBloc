@@ -48,7 +48,6 @@
                                                    object:nil];
         
         
-        @weakify(self);
         RAC(self, playing) = [RACObserve(self.playerLayer.player, rate) map:^NSNumber*(NSNumber *value) {
             return value.floatValue == 0 ? @NO : @YES;
         }];

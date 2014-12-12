@@ -52,10 +52,10 @@
 - (UIButton*) dismissButton {
     if (!_dismissButton) {
         _dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:14];
+        _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:12];
         [_dismissButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [_dismissButton setTitle:@"Tap to close" forState:UIControlStateNormal];
+        [_dismissButton setTitle:@"close" forState:UIControlStateNormal];
     }
     return _dismissButton;
 }
