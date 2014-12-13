@@ -41,7 +41,7 @@
         _currentInput = input;
         [self.captureSession addInput:self.currentInput];
     } else {
-        NSLog(@"Error setting input to capture session - %@", error.localizedDescription);
+//        NSLog(@"Error setting input to capture session - %@", error.localizedDescription);
     }
 }
 

@@ -445,6 +445,7 @@
         @strongify(self);
         SBAsset *asset = [[SBAsset alloc] initWithFileURL:saveURL type:SBAssetTypeVideo];
         SBReviewController *controller = [[SBReviewController alloc] initWithAsset:asset];
+        controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
     } error:^(NSError *error) {
         @strongify(self);
