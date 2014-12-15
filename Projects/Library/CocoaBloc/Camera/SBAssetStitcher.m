@@ -8,6 +8,7 @@
 
 #import "SBAssetStitcher.h"
 #import "AVCaptureSession+Extension.h"
+#import "AVAssetExportSession+Extension.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -67,6 +68,7 @@
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
+        
         AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
         AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
         CMTimeRange timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration);
@@ -80,14 +82,13 @@
         
         error = nil;
         [self.compositionAudioTrack insertTimeRange:timeRange ofTrack:audioTrack atTime:kCMTimeZero error:&error];
-        
         if(error) {
             [subscriber sendError:error];
             return nil;
         }
         
         [subscriber sendCompleted];
-
+        
         return nil;
     }];
 }
@@ -111,28 +112,15 @@
         exporter.shouldOptimizeForNetworkUse = YES;
         if ([exporter respondsToSelector:@selector(canPerformMultiplePassesOverSourceMediaData)])
             exporter.canPerformMultiplePassesOverSourceMediaData = YES;
-        [exporter exportAsynchronouslyWithCompletionHandler:^{
-            NSError *error = exporter.error;
-            
-            switch([exporter status]) {
-                case AVAssetExportSessionStatusFailed:
-                    [subscriber sendError:error];
-                    break;
-                case AVAssetExportSessionStatusCancelled:
-                    [subscriber sendError:[NSError errorWithDomain:@"Export cancelled" code:100 userInfo:nil]];
-                    break;
-                case AVAssetExportSessionStatusCompleted:
-                    if (isSquare) {
-                        [[self exportToSquareVideoFromURL:outputFileURL toURL:outputFileURL preset:preset] subscribe:subscriber];
-                    } else {
-                        [subscriber sendNext:outputFileURL];
-                        [subscriber sendCompleted];
-                    }
-                    break;
-                default:
-                    [subscriber sendError:[NSError errorWithDomain:@"Unknown export error" code:100 userInfo:nil]];
-                    break;
+        [[exporter exportAsynchronously] subscribeNext:^(NSURL *savedToURL) {
+            if (isSquare) {
+                [[self exportToSquareVideoFromURL:savedToURL toURL:outputFileURL preset:preset] subscribe:subscriber];
+            } else {
+                [subscriber sendNext:savedToURL];
+                [subscriber sendCompleted];
             }
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
         }];
         
         return [RACDisposable disposableWithBlock:^{
@@ -193,23 +181,11 @@
         exporter.outputURL = toURL;
         exporter.outputFileType = AVFileTypeMPEG4;
         exporter.shouldOptimizeForNetworkUse = YES;
-        [exporter exportAsynchronouslyWithCompletionHandler:^{
-            NSError *error = exporter.error;
-            switch([exporter status]) {
-                case AVAssetExportSessionStatusFailed:
-                    [subscriber sendError:error];
-                    break;
-                case AVAssetExportSessionStatusCancelled:
-                    [subscriber sendError:[NSError errorWithDomain:@"Export cancelled" code:100 userInfo:nil]];
-                    break;
-                case AVAssetExportSessionStatusCompleted:
-                    [subscriber sendNext:toURL];
-                    [subscriber sendCompleted];
-                    break;
-                default:
-                    [subscriber sendError:[NSError errorWithDomain:@"Unknown export error" code:100 userInfo:nil]];
-                    break;
-            }
+        [[exporter exportAsynchronously] subscribeNext:^(NSURL *savedToURL) {
+            [subscriber sendNext:savedToURL];
+            [subscriber sendCompleted];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
         }];
         
         return nil;
