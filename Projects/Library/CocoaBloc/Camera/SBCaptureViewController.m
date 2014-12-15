@@ -458,7 +458,7 @@
 
 -(void)closeButtonPressed:(id)sender {
     if (CMTimeGetSeconds(self.captureManager.videoManager.totalRecordingDuration) > 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait!" message:@"Would you like to cancel your current recording?" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"This will delete your current recording" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
         [[alert rac_buttonClickedSignal] subscribeNext:^(NSNumber *buttonIndex) {
             if (alert.cancelButtonIndex == buttonIndex.integerValue)
                 return;
