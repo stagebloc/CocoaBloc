@@ -45,7 +45,7 @@
     
     if (!_detailsButton) {
         _detailsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _detailsButton.titleLabel.font = [UIFont fc_fontWithSize:16];
+        _detailsButton.titleLabel.font = [UIFont fc_fontWithSize:18];
         _detailsButton.titleLabel.numberOfLines = 0;
         _detailsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_detailsButton setTitleColor:[UIColor colorWithWhite:0.85 alpha:1] forState:UIControlStateNormal];
@@ -61,7 +61,7 @@
 - (UIButton*) dismissButton {
     if (!_dismissButton) {
         _dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:14];
+        _dismissButton.titleLabel.font = [UIFont fc_fontWithSize:16];
         [_dismissButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [_dismissButton setTitle:@"close" forState:UIControlStateNormal];
