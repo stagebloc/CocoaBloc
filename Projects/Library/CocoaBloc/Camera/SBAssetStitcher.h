@@ -14,6 +14,7 @@
 @interface SBAssetStitcher : NSObject
 
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
+@property (nonatomic, assign) AVCaptureDevicePosition devicePosition;
 
 /*
  Resets & clears the current state and it's assets.

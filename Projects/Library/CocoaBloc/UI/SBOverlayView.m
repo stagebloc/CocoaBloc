@@ -155,7 +155,6 @@
     } completion:nil];
     
     
-    
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue = [NSValue valueWithCGSize:CGSizeMake(0, 0)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.0f, 1.0f)];
@@ -181,6 +180,7 @@
     } completion:completion];
     
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.beginTime = CACurrentMediaTime() + delay;
     scaleAnimation.fromValue = [NSValue valueWithCGSize:CGSizeMake(1, 1)];
     scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(0.2, 0.2)];
     scaleAnimation.springBounciness = 10.0f;
