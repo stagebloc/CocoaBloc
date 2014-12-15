@@ -30,7 +30,7 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
  authenticated user's SBUser object. This is the same as the `authenticatedUser`
  property after signing in.
  */
-- (RACSignal *)getAuthenticatedUser;
+- (RACSignal *)getCurrentlyAuthenticatedUser;
 
 - (RACSignal *)updateAuthenticatedUserWithParameters:(NSDictionary *)parameters;
 
