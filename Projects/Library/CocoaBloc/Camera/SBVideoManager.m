@@ -28,8 +28,6 @@
 @property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
 
-@property (nonatomic, strong) NSMutableArray *temporaryFileURLs;
-
 @property (nonatomic, assign) NSTimeInterval uniqueTimestamp;
 @property (nonatomic, assign) NSInteger currentRecordingSegment;
 
@@ -42,6 +40,8 @@
 
 @property (nonatomic, copy) NSString *specificSessionPreset;
 
+@property (nonatomic, strong) NSMutableArray *assetSignals;
+
 @end
 
 @implementation SBVideoManager
@@ -49,6 +49,12 @@
 NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultAspectRatioKey";
 
 @synthesize aspectRatio = _aspectRatio;
+
+- (NSMutableArray*) assetSignals {
+    if (!_assetSignals)
+        _assetSignals = [[NSMutableArray alloc] init];
+    return _assetSignals;
+}
 
 - (SBAssetStitcher*) stitcher {
     if (!_stitcher) {
@@ -73,7 +79,6 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
-        _temporaryFileURLs = [[NSMutableArray alloc] init];
         _currentRecordingSegment = 0;
         self.paused = NO;
         _maxDuration = 0;
@@ -140,8 +145,9 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
 }
 
 - (void)startRecording {
-    [self.temporaryFileURLs removeAllObjects];
-    
+    [self.assetSignals removeAllObjects];
+    [self.stitcher reset];
+
     self.uniqueTimestamp = [[NSDate date] timeIntervalSince1970];
     self.currentRecordingSegment = 0;
     self.paused = NO;
@@ -149,11 +155,9 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
     
     [self updateVideoConnectionWithOrientation:self.orientation];
     
-    NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
-    [self.temporaryFileURLs addObject:outputFileURL];
-    
     self.specificSessionPreset = [self.captureSession bestSessionPreset];
     
+    NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
     self.movieFileOutput.maxRecordedDuration = (_maxDuration > 0) ? CMTimeMakeWithSeconds(_maxDuration, 600) : kCMTimeInvalid;
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
 }
@@ -178,15 +182,13 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
     
     self.currentRecordingSegment++;
     
-    NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
-    [self.temporaryFileURLs addObject:outputFileURL];
-    
     if(_maxDuration > 0) {
         self.movieFileOutput.maxRecordedDuration = CMTimeSubtract(CMTimeMakeWithSeconds(_maxDuration, 600), self.currentFinalDurration);
     } else {
         self.movieFileOutput.maxRecordedDuration = kCMTimeInvalid;
     }
     
+    NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
     self.paused = NO;
 
@@ -198,8 +200,7 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
         [self pauseRecording];
     }
     
-    [self cleanTemporaryFiles];
-    [self.temporaryFileURLs removeAllObjects];
+    [self.assetSignals removeAllObjects];
     [self.stitcher reset];
     self.currentFinalDurration = kCMTimeZero;
     
@@ -262,27 +263,27 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
             return nil;
         }
         
+        __block NSMutableArray *assetSignals = [NSMutableArray array];
         [self.stitcher reset];
-        [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *outputFileURL, NSUInteger idx, BOOL *stop) {
-            @strongify(self);
-            [[self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:outputFileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}]] subscribeError:^(NSError *error) {
-                if(error) {
-                    [subscriber sendError:error];
-                }
-            }];
-        }];
         
-        self.stitcher.orientation = self.orientation;
-        BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare ? YES : NO;
-        NSString *exportPreset = isSquare ? [AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset] : AVAssetExportPresetHighestQuality;
-        RACSignal *stitchSignal = takeUntil == nil ? [self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] : [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] takeUntil:takeUntil];
-        [stitchSignal subscribeNext:^(NSURL *outputURL) {
-            [subscriber sendNext:[outputURL copy]];
+        [[RACSignal merge:[[self.assetSignals reverseObjectEnumerator] allObjects]] subscribeNext:^(id x) {
+           //nothing
         } error:^(NSError *error) {
             [subscriber sendError:error];
         } completed:^{
-            [self reset];
-            [subscriber sendCompleted];
+            @strongify(self);
+            self.stitcher.orientation = self.orientation;
+            BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare ? YES : NO;
+            NSString *exportPreset = isSquare ? [AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset] : AVAssetExportPresetHighestQuality;
+            RACSignal *stitchSignal = takeUntil == nil ? [self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] : [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] takeUntil:takeUntil];
+            [stitchSignal subscribeNext:^(NSURL *outputURL) {
+                [subscriber sendNext:[outputURL copy]];
+            } error:^(NSError *error) {
+                [subscriber sendError:error];
+            } completed:^{
+                [self reset];
+                [subscriber sendCompleted];
+            }];
         }];
         
         return nil;
@@ -318,7 +319,10 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
     
     if(error){
         NSLog(@"Error capturing output: %@", error);
+    } else {
+        [self.assetSignals addObject:[self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:fileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}]]];
     }
+    
     self.currentWrites--;
 }
 
@@ -414,12 +418,6 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
 #pragma  mark - Temporary file handling functions
 - (NSString *)constructCurrentTemporaryFilename {
     return [NSString stringWithFormat:@"%@%@-%f-%d.mov", NSTemporaryDirectory(), @"recordingsegment", self.uniqueTimestamp, self.currentRecordingSegment];
-}
-
-- (void)cleanTemporaryFiles {
-    [self.temporaryFileURLs enumerateObjectsUsingBlock:^(NSURL *temporaryFiles, NSUInteger idx, BOOL *stop) {
-        [[NSFileManager defaultManager] removeItemAtURL:temporaryFiles error:nil];
-    }];
 }
 
 @end

@@ -18,6 +18,8 @@
 @property (nonatomic, strong) AVMutableCompositionTrack *compositionVideoTrack;
 @property (nonatomic, strong) AVMutableCompositionTrack *compositionAudioTrack;
 
+@property (nonatomic, strong) NSMutableArray *temporaryFileURLs;
+
 @end
 
 @implementation SBAssetStitcher
@@ -31,12 +33,19 @@
 }
 
 - (void) reset {
+    [self cleanTemporaryAssetFiles];
     self.composition = [AVMutableComposition composition];
     self.compositionVideoTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     self.compositionAudioTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
 }
 
-- (double) rotationForOrientation:(UIInterfaceOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
+- (void)cleanTemporaryAssetFiles {
+    [self.temporaryFileURLs enumerateObjectsUsingBlock:^(NSURL *temporaryFiles, NSUInteger idx, BOOL *stop) {
+        [[NSFileManager defaultManager] removeItemAtURL:temporaryFiles error:nil];
+    }];
+}
+
+- (double) rotationForOrientation:(AVCaptureVideoOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
     BOOL isFront = devicePosition == AVCaptureDevicePositionFront;
     switch (orientation) {
         case AVCaptureVideoOrientationPortrait:
@@ -50,7 +59,7 @@
     }
 }
 
-- (CGAffineTransform) tranformForOrientation:(UIInterfaceOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
+- (CGAffineTransform) tranformForOrientation:(AVCaptureVideoOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
     return CGAffineTransformMakeRotation([self rotationForOrientation:orientation devicePosition:devicePosition]);
 }
 
