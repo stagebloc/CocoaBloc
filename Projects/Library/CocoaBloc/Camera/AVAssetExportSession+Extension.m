@@ -11,6 +11,16 @@
 
 @implementation AVAssetExportSession (Extension)
 
++ (instancetype) exportSessionWithAsset:(AVAsset *)asset presetName:(NSString *)presetName outputURL:(NSURL*)outputURL {
+    AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:presetName];
+    exporter.outputURL = outputURL;
+    exporter.outputFileType = AVFileTypeMPEG4;
+    exporter.shouldOptimizeForNetworkUse = YES;
+//    if ([exporter respondsToSelector:@selector(canPerformMultiplePassesOverSourceMediaData)])
+//        exporter.canPerformMultiplePassesOverSourceMediaData = YES;
+    return exporter;
+}
+
 - (RACSignal*) exportAsynchronously {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [self exportAsynchronouslyWithCompletionHandler:^{

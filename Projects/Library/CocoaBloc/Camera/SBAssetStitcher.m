@@ -103,15 +103,9 @@
         @strongify(self);
         
         [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
-
         self.compositionVideoTrack.preferredTransform = [self tranformForOrientation:self.orientation devicePosition:self.devicePosition];
         
-        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset];
-        exporter.outputURL = outputFileURL;
-        exporter.outputFileType = AVFileTypeMPEG4;
-        exporter.shouldOptimizeForNetworkUse = YES;
-        if ([exporter respondsToSelector:@selector(canPerformMultiplePassesOverSourceMediaData)])
-            exporter.canPerformMultiplePassesOverSourceMediaData = YES;
+        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset outputURL:outputFileURL];
         [[exporter exportAsynchronously] subscribeNext:^(NSURL *savedToURL) {
             if (isSquare) {
                 [[self exportToSquareVideoFromURL:savedToURL toURL:outputFileURL preset:preset] subscribe:subscriber];
@@ -176,11 +170,8 @@
         
         [[NSFileManager defaultManager] removeItemAtURL:toURL error:nil];
         
-        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:preset];
+        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:preset outputURL:toURL];
         exporter.videoComposition = videoComposition;
-        exporter.outputURL = toURL;
-        exporter.outputFileType = AVFileTypeMPEG4;
-        exporter.shouldOptimizeForNetworkUse = YES;
         [[exporter exportAsynchronously] subscribeNext:^(NSURL *savedToURL) {
             [subscriber sendNext:savedToURL];
             [subscriber sendCompleted];

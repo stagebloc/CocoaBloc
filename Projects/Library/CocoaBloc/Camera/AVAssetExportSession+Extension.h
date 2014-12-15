@@ -12,6 +12,8 @@
 
 @interface AVAssetExportSession (Extension)
 
++ (instancetype) exportSessionWithAsset:(AVAsset *)asset presetName:(NSString *)presetName outputURL:(NSURL*)outputURL;
+
 - (RACSignal*) exportAsynchronously;
 
 @end
