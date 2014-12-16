@@ -28,10 +28,10 @@
 }
 
 - (CGSize) renderSize {
-    return [AVCaptureSession renderSizeForSessionPrest:self.sessionPreset];
+    return [AVCaptureSession renderSizeForSessionPreset:self.sessionPreset];
 }
 
-+ (CGSize) renderSizeForSessionPrest:(NSString*)preset {
++ (CGSize) renderSizeForSessionPreset:(NSString*)preset {
     if ([preset isEqualToString:AVCaptureSessionPreset1920x1080]) {
         return CGSizeMake(1920, 1080);
     } else if ([preset isEqualToString:AVCaptureSessionPreset1280x720]) {
@@ -46,7 +46,7 @@
     }
 }
 
-+ (CGSize) renderSizeForExportPrest:(NSString*)preset {
++ (CGSize) renderSizeForExportPreset:(NSString*)preset {
     if ([preset isEqualToString:AVAssetExportPreset1920x1080]) {
         return CGSizeMake(1920, 1080);
     } else if ([preset isEqualToString:AVAssetExportPreset1280x720]) {

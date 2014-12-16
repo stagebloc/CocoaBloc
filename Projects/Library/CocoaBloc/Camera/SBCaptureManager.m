@@ -9,6 +9,7 @@
 #import "SBCaptureManager.h"
 #import "SBVideoManager.h"
 #import "SBPhotoManager.h"
+#import "NSUserDefaults+Camera.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "AVCaptureSession+Extension.h"
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -28,6 +29,7 @@
     [self setCaptureType:self.captureType];
     [self didChangeValueForKey:@"devicePosition"];
     
+    [NSUserDefaults setDevicePosition:devicePosition];
 }
 
 - (void) setFlashMode:(SBCaptureFlashMode)flashMode {
@@ -84,7 +86,7 @@
         _videoManager = [[SBVideoManager alloc] initWithCaptureSession:captureSession];
         _photoManager = [[SBPhotoManager alloc] initWithCaptureSession:captureSession];
         self.captureType = self.captureType;
-        self.devicePosition = AVCaptureDevicePositionBack;
+        self.devicePosition = [NSUserDefaults devicePosition];
     }
     return self;
 }

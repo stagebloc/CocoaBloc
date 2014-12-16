@@ -41,7 +41,9 @@
                     break;
             }
         }];
-        return nil;
+        return [RACDisposable disposableWithBlock:^{
+            [self cancelExport];
+        }];
     }];
 }
 

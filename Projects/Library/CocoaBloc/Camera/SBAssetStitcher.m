@@ -9,17 +9,45 @@
 #import "SBAssetStitcher.h"
 #import "AVCaptureSession+Extension.h"
 #import "AVAssetExportSession+Extension.h"
+#import "SBComposition.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
+@implementation SBAssetStitcherOptions
++ (instancetype) optionsWithOrientation:(AVCaptureVideoOrientation)orientation
+                           exportPreset:(NSString*)exportPreset
+                             renderSize:(CGSize)renderSize {
+    SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:orientation exportPreset:exportPreset];
+    options.renderSize = renderSize;
+    return options;
+}
+
++ (instancetype) optionsWithOrientation:(AVCaptureVideoOrientation)orientation
+                           exportPreset:(NSString*)exportPreset {
+    SBAssetStitcherOptions *options = [[SBAssetStitcherOptions alloc] init];
+    options.orientation = orientation;
+    options.exportPreset = exportPreset;
+    options.renderSize = [AVCaptureSession renderSizeForExportPreset:exportPreset];
+    return options;
+}
+
+- (instancetype) init {
+    if (self = [super init]) {
+        self.orientation = AVCaptureVideoOrientationPortrait;
+        self.renderSize = CGSizeZero;
+        self.exportPreset = AVAssetExportPresetHighestQuality;
+    }
+    return self;
+}
+
+@end
+
+
 @interface SBAssetStitcher ()
 
-@property (nonatomic, strong) AVMutableComposition *composition;
-@property (nonatomic, strong) AVMutableCompositionTrack *compositionVideoTrack;
-@property (nonatomic, strong) AVMutableCompositionTrack *compositionAudioTrack;
-
 @property (nonatomic, strong) NSMutableArray *temporaryFileURLs;
+@property (nonatomic, strong) NSMutableArray *compositions;
 
 @end
 
@@ -27,7 +55,6 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.orientation = AVCaptureVideoOrientationPortrait;
         [self reset];
     }
     return self;
@@ -35,9 +62,8 @@
 
 - (void) reset {
     [self cleanTemporaryAssetFiles];
-    self.composition = [AVMutableComposition composition];
-    self.compositionVideoTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
-    self.compositionAudioTrack = [self.composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    self.temporaryFileURLs = [[NSMutableArray alloc] init];
+    self.compositions = [[NSMutableArray alloc] init];
 }
 
 - (void)cleanTemporaryAssetFiles {
@@ -46,142 +72,60 @@
     }];
 }
 
-- (double) rotationForOrientation:(AVCaptureVideoOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
-    BOOL isFront = devicePosition == AVCaptureDevicePositionFront;
-    switch (orientation) {
-        case AVCaptureVideoOrientationPortrait:
-            return M_PI_2;
-        case AVCaptureVideoOrientationPortraitUpsideDown:
-            return -M_PI_2;
-        case AVCaptureVideoOrientationLandscapeRight:
-            return isFront ? M_PI : 0;
-        default: //AVCaptureVideoOrientationLandscapeLeft
-            return isFront ? 0 : M_PI;
-    }
+- (void)addAsset:(AVURLAsset *)asset devicePosition:(AVCaptureDevicePosition)devicePosition{
+    SBComposition *comp = [[SBComposition alloc] initWithAsset:asset];
+    comp.devicePosition = devicePosition;
+
+    [self.temporaryFileURLs addObject:comp.outputURL];
+    [self.compositions addObject:comp];
 }
 
-- (CGAffineTransform) tranformForOrientation:(AVCaptureVideoOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
-    return CGAffineTransformMakeRotation([self rotationForOrientation:orientation devicePosition:devicePosition]);
-}
-
-- (RACSignal*)addAsset:(AVURLAsset *)asset {
+- (RACSignal*)exportTo:(NSURL *)outputFileURL options:(SBAssetStitcherOptions *)options {
+    NSMutableArray *assetSignals = [NSMutableArray array];
+    [self.compositions enumerateObjectsUsingBlock:^(SBComposition *comp, NSUInteger idx, BOOL *stop) {
+        comp.orientation = options.orientation;
+        comp.exportPreset = options.exportPreset;
+        comp.renderSize = options.renderSize;
+        [assetSignals addObject:comp.fetchAsset];
+    }];
+    
     @weakify(self);
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    return [[[RACSignal merge:assetSignals] concat:[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         
-        AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
-        AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
-        CMTimeRange timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration);
+        AVMutableComposition *composition = [AVMutableComposition composition];
+        AVMutableCompositionTrack* compositionVideoTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+        AVMutableCompositionTrack* compositionAudioTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
         
-        NSError *error;
-        [self.compositionVideoTrack insertTimeRange:timeRange ofTrack:videoTrack atTime:kCMTimeZero error:&error];
+        NSError *error = nil;
+        for (NSURL *assetURL in self.temporaryFileURLs) {
+            AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:assetURL options:nil];
+            AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
+            AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
+            CMTimeRange timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration);
+            
+            [compositionVideoTrack insertTimeRange:timeRange ofTrack:videoTrack atTime:kCMTimeZero error:&error];
+            if (error) break;
+            
+            [compositionAudioTrack insertTimeRange:timeRange ofTrack:audioTrack atTime:kCMTimeZero error:&error];
+            if(error) break;
+        }
+        
         if (error) {
             [subscriber sendError:error];
             return nil;
         }
         
-        error = nil;
-        [self.compositionAudioTrack insertTimeRange:timeRange ofTrack:audioTrack atTime:kCMTimeZero error:&error];
-        if(error) {
-            [subscriber sendError:error];
-            return nil;
-        }
-        
-        [subscriber sendCompleted];
-        
-        return nil;
-    }];
-}
-
-- (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset {
-    return [self exportTo:outputFileURL preset:preset square:NO];
-}
-
-- (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset square:(BOOL)isSquare {
-    @weakify(self);
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        @strongify(self);
-        
-        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
-        self.compositionVideoTrack.preferredTransform = [self tranformForOrientation:self.orientation devicePosition:self.devicePosition];
-        
-        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.composition presetName:preset outputURL:outputFileURL];
-        [[exporter exportAsynchronously] subscribeNext:^(NSURL *savedToURL) {
-            if (isSquare) {
-                [[self exportToSquareVideoFromURL:savedToURL toURL:outputFileURL preset:preset] subscribe:subscriber];
-            } else {
-                [subscriber sendNext:savedToURL];
-                [subscriber sendCompleted];
-            }
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        }];
+        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:composition presetName:options.exportPreset outputURL:outputFileURL];
+        [[exporter exportAsynchronously] subscribe:subscriber];
         
         return [RACDisposable disposableWithBlock:^{
             [exporter cancelExport];
         }];
+    }]] filter:^BOOL(id value) {
+        return [value isKindOfClass:[NSURL class]];
     }];
-}
-
-- (RACSignal*) exportToSquareVideoFromURL:(NSURL*)fromURL toURL:(NSURL*)toURL preset:(NSString*)preset {
-    @weakify(self);
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        @strongify(self);
-        
-        AVURLAsset *asset = [AVURLAsset assetWithURL:fromURL];
-        AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
-        
-        CGSize size = [AVCaptureSession renderSizeForExportPrest:preset];
-        
-        // make it square
-        AVMutableVideoComposition* videoComposition = [AVMutableVideoComposition videoComposition];
-        videoComposition.renderSize = CGSizeMake(size.height, size.height);
-        videoComposition.frameDuration = CMTimeMake(1, 30);
-        
-        AVMutableVideoCompositionInstruction *instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
-        instruction.timeRange = videoTrack.timeRange;
-        
-        // rotate to portrait
-        AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
-        CGAffineTransform finalTransform;
-        
-        switch (self.orientation) {
-            case AVCaptureVideoOrientationPortrait:
-                finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
-                finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
-                break;
-            case AVCaptureVideoOrientationPortraitUpsideDown:
-                finalTransform = CGAffineTransformMakeTranslation(0, (size.width - size.height) * (size.width / size.height));
-                finalTransform = CGAffineTransformRotate(finalTransform, -M_PI_2);
-                break;
-            case AVCaptureVideoOrientationLandscapeRight:
-                finalTransform = CGAffineTransformMakeTranslation(-(size.width - size.height), 0);
-                finalTransform = CGAffineTransformRotate(finalTransform, 0);
-                break;
-            default: //AVCaptureVideoOrientationLandscapeLeft
-                finalTransform = CGAffineTransformMakeTranslation((size.width - size.height) * (size.width / size.height) , size.height);
-                finalTransform = CGAffineTransformRotate(finalTransform, M_PI);
-                break;
-        }
-        
-        [transformer setTransform:finalTransform atTime:kCMTimeZero];
-        instruction.layerInstructions = [NSArray arrayWithObject:transformer];
-        videoComposition.instructions = [NSArray arrayWithObject: instruction];
-        
-        [[NSFileManager defaultManager] removeItemAtURL:toURL error:nil];
-        
-        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:preset outputURL:toURL];
-        exporter.videoComposition = videoComposition;
-        [[exporter exportAsynchronously] subscribeNext:^(NSURL *savedToURL) {
-            [subscriber sendNext:savedToURL];
-            [subscriber sendCompleted];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        }];
-        
-        return nil;
-    }];
-
+    
 }
 
 @end

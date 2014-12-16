@@ -12,6 +12,7 @@
 #import "AVCaptureSession+Extension.h"
 #import "UIDevice+Orientation.h"
 #import "UIDevice+StageBloc.h"
+#import "NSUserDefaults+Camera.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -40,27 +41,15 @@
 
 @property (nonatomic, copy) NSString *specificSessionPreset;
 
-@property (nonatomic, strong) NSMutableArray *assetSignals;
-
 @end
 
 @implementation SBVideoManager
 
-NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultAspectRatioKey";
-
 @synthesize aspectRatio = _aspectRatio;
 
-- (NSMutableArray*) assetSignals {
-    if (!_assetSignals)
-        _assetSignals = [[NSMutableArray alloc] init];
-    return _assetSignals;
-}
-
 - (SBAssetStitcher*) stitcher {
-    if (!_stitcher) {
+    if (!_stitcher)
         _stitcher = [[SBAssetStitcher alloc] init];
-        _stitcher.orientation = self.orientation;
-    }
     return _stitcher;
 }
 
@@ -72,9 +61,7 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
     [self willChangeValueForKey:@"aspectRatio"];
     _aspectRatio = aspectRatio;
     [self didChangeValueForKey:@"aspectRatio"];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithUnsignedInteger:aspectRatio] forKey:kSBVideoManagerDefaultAspectRatioKey];
-    [defaults synchronize];
+    [NSUserDefaults setAspectRatio:aspectRatio];
 }
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
@@ -84,10 +71,7 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
         _maxDuration = 0;
         _currentWrites = 0;
         
-        SBCameraAspectRatio defaultRatio =  (SBCameraAspectRatio) [[[NSUserDefaults standardUserDefaults] objectForKey:kSBVideoManagerDefaultAspectRatioKey] unsignedIntegerValue];
-        if (defaultRatio != SBCameraAspectRatioSquare && defaultRatio != SBCameraAspectRatioNormal)
-            defaultRatio = SBCameraAspectRatioSquare;
-        self.aspectRatio = defaultRatio;
+        self.aspectRatio = [NSUserDefaults aspectRatio];
         
         self.currentFinalDurration = kCMTimeZero;
 
@@ -135,17 +119,16 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
 //only updates specificSessionPreset to the lowest
 //quality used preset
 - (void) updateSpecificPreset {
-    CGSize currentRenderSize = [AVCaptureSession renderSizeForSessionPrest:self.specificSessionPreset];
+    CGSize currentRenderSize = [AVCaptureSession renderSizeForSessionPreset:self.specificSessionPreset];
     
     NSString *newSpecificPreset = [self.captureSession bestSessionPreset];
-    CGSize newRenderSize = [AVCaptureSession renderSizeForSessionPrest:newSpecificPreset];
+    CGSize newRenderSize = [AVCaptureSession renderSizeForSessionPreset:newSpecificPreset];
     if (newRenderSize.width < currentRenderSize.width || newRenderSize.height < currentRenderSize.height) {
         self.specificSessionPreset = newSpecificPreset;
     }
 }
 
 - (void)startRecording {
-    [self.assetSignals removeAllObjects];
     [self.stitcher reset];
 
     self.uniqueTimestamp = [[NSDate date] timeIntervalSince1970];
@@ -200,7 +183,6 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
         [self pauseRecording];
     }
     
-    [self.assetSignals removeAllObjects];
     [self.stitcher reset];
     self.currentFinalDurration = kCMTimeZero;
     
@@ -263,27 +245,18 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
             return nil;
         }
         
-        __block NSMutableArray *assetSignals = [NSMutableArray array];
-        [self.stitcher reset];
-        
-        [[RACSignal merge:[[self.assetSignals reverseObjectEnumerator] allObjects]] subscribeNext:^(id x) {
-           //nothing
+        SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.orientation
+                                                                            exportPreset:[AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset]];
+        RACSignal *exportSignal = [self.stitcher exportTo:finalVideoLocationURL options:options];
+        if (takeUntil) exportSignal = [exportSignal takeUntil:takeUntil];
+
+        [exportSignal subscribeNext:^(NSURL *outputURL) {
+            [subscriber sendNext:[outputURL copy]];
         } error:^(NSError *error) {
             [subscriber sendError:error];
         } completed:^{
-            @strongify(self);
-            self.stitcher.orientation = self.orientation;
-            BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare ? YES : NO;
-            NSString *exportPreset = isSquare ? [AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset] : AVAssetExportPresetHighestQuality;
-            RACSignal *stitchSignal = takeUntil == nil ? [self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] : [[self.stitcher exportTo:finalVideoLocationURL preset:exportPreset square:isSquare] takeUntil:takeUntil];
-            [stitchSignal subscribeNext:^(NSURL *outputURL) {
-                [subscriber sendNext:[outputURL copy]];
-            } error:^(NSError *error) {
-                [subscriber sendError:error];
-            } completed:^{
-                [self reset];
-                [subscriber sendCompleted];
-            }];
+            [self reset];
+            [subscriber sendCompleted];
         }];
         
         return nil;
@@ -320,7 +293,7 @@ NSString* const kSBVideoManagerDefaultAspectRatioKey = @"kSBVideoManagerDefaultA
     if(error){
         NSLog(@"Error capturing output: %@", error);
     } else {
-        [self.assetSignals addObject:[self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:fileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}]]];
+        [self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:fileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}] devicePosition:self.devicePosition];
     }
     
     self.currentWrites--;

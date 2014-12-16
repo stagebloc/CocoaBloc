@@ -17,8 +17,8 @@
 - (NSString*) bestSessionPreset;
 
 - (CGSize) renderSize;
-+ (CGSize) renderSizeForSessionPrest:(NSString*)preset;
-+ (CGSize) renderSizeForExportPrest:(NSString*)preset;
++ (CGSize) renderSizeForSessionPreset:(NSString*)preset;
++ (CGSize) renderSizeForExportPreset:(NSString*)preset;
 
 - (NSString*) exportPreset;
 + (NSString*) exportPresetForSessionPreset:(NSString*)sessionPreset;

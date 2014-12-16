@@ -11,11 +11,24 @@
 
 @class RACSignal;
 
-@interface SBAssetStitcher : NSObject
+@interface SBAssetStitcherOptions : NSObject
 
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
-@property (nonatomic, assign) AVCaptureDevicePosition devicePosition;
+@property (nonatomic, assign) CGSize renderSize;
+@property (nonatomic, copy) NSString *exportPreset;
 
++ (instancetype) optionsWithOrientation:(AVCaptureVideoOrientation)orientation
+                           exportPreset:(NSString*)exportPreset
+                             renderSize:(CGSize)renderSize;
+
+//auto sets renderSize via the exportPreset
+//see #import "AVCaptureSession+Extension.h"
++ (instancetype) optionsWithOrientation:(AVCaptureVideoOrientation)orientation
+                           exportPreset:(NSString*)exportPreset;
+
+@end
+
+@interface SBAssetStitcher : NSObject
 /*
  Resets & clears the current state and it's assets.
  This is not called automatically after exporting.
@@ -24,9 +37,8 @@
  */
 - (void) reset;
 
-- (RACSignal*)addAsset:(AVURLAsset *)asset;
+- (void)addAsset:(AVURLAsset *)asset devicePosition:(AVCaptureDevicePosition)devicePosition;
 
-- (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset;
-- (RACSignal*)exportTo:(NSURL *)outputFileURL preset:(NSString *)preset square:(BOOL)isSquare;
+- (RACSignal*)exportTo:(NSURL *)outputFileURL options:(SBAssetStitcherOptions *)options;
 
 @end
