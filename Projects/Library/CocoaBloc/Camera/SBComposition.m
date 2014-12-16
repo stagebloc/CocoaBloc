@@ -14,28 +14,23 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @interface SBComposition ()
-
 @end
 
 @implementation SBComposition
 
-- (instancetype) initWithAsset:(AVURLAsset *)asset {
+- (instancetype) initWithAsset:(AVAsset *)asset {
     if (self = [super init]) {
         _asset = asset;
-        _outputURL = asset.URL;
+        if ([asset respondsToSelector:@selector(URL)])
+            _outputURL = ((AVURLAsset*)asset).URL;
         _orientation = AVCaptureVideoOrientationPortrait;
         _devicePosition = AVCaptureDevicePositionBack;
         
         AVAssetTrack *videoTrack = [[self.asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
         _renderSize = videoTrack.naturalSize;
+        _naturalSize = videoTrack.naturalSize;
     }
     return self;
-}
-
-- (CGSize) renderSizeFromOrientation:(AVCaptureVideoOrientation)orientation {
-    if(orientation == AVCaptureVideoOrientationPortrait || orientation == AVCaptureVideoOrientationPortraitUpsideDown)
-        return CGSizeMake(self.renderSize.height, self.renderSize.width);
-    return self.renderSize;
 }
 
 - (AVCaptureVideoOrientation) invertOrienation:(AVCaptureVideoOrientation)orientation {
@@ -44,43 +39,57 @@
     return (AVCaptureVideoOrientation)orien;
 }
 
-- (CGAffineTransform) transformWithSize:(CGSize)size {
-    CGAffineTransform finalTransform;
-    AVCaptureVideoOrientation orientation = self.orientation;
+- (CGAffineTransform) transformTranslationFromNaturalSize:(CGSize)naturalSize
+                                             toRenderSize:(CGSize)toRenderSize
+                                              orientation:(AVCaptureVideoOrientation)orientation {
+    switch (orientation) {
+        case AVCaptureVideoOrientationPortrait:
+            return CGAffineTransformMakeTranslation(toRenderSize.width, -(naturalSize.height-toRenderSize.height)/2);
+        case AVCaptureVideoOrientationPortraitUpsideDown:
+            return CGAffineTransformMakeTranslation(0, toRenderSize.height);
+        case AVCaptureVideoOrientationLandscapeRight:
+            return CGAffineTransformMakeTranslation(0, 0);
+        default: //AVCaptureVideoOrientationLandscapeLeft
+            return CGAffineTransformMakeTranslation(toRenderSize.width, toRenderSize.height);
+    }
+}
 
+- (double) rotationFromOrientation:(AVCaptureVideoOrientation)orientation {
+    switch (orientation) {
+        case AVCaptureVideoOrientationPortrait:
+            return M_PI_2;
+        case AVCaptureVideoOrientationPortraitUpsideDown:
+            return -M_PI_2;
+        case AVCaptureVideoOrientationLandscapeRight:
+            return 0;
+        default: //AVCaptureVideoOrientationLandscapeLeft
+            return M_PI;
+    }
+}
+
+- (CGAffineTransform) transformFromNaturalSize:(CGSize)naturalSize toRenderSize:(CGSize)toRenderSize {
     //front cam is the opposite transforms of back camera
     //so we trick the switch statement in doing the opposite
     //transform by inverting the orientation
     //i.e. AVCaptureVideoOrientationLandscapeLeft = AVCaptureVideoOrientationLandscapeRight
     //when the camera is front facing
+    AVCaptureVideoOrientation orientation = self.orientation;
     if (self.devicePosition == AVCaptureDevicePositionFront && (orientation == AVCaptureVideoOrientationLandscapeLeft || orientation == AVCaptureVideoOrientationLandscapeRight))
         orientation = [self invertOrienation:orientation];
     
-    switch (orientation) {
-        case AVCaptureVideoOrientationPortrait:
-            finalTransform = CGAffineTransformMakeTranslation(size.width, 0);
-            finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
-            break;
-        case AVCaptureVideoOrientationPortraitUpsideDown:
-            finalTransform = CGAffineTransformMakeTranslation(0, size.height);
-            finalTransform = CGAffineTransformRotate(finalTransform, -M_PI_2);
-            break;
-        case AVCaptureVideoOrientationLandscapeRight:
-            finalTransform = CGAffineTransformMakeTranslation(0, 0);
-            finalTransform = CGAffineTransformRotate(finalTransform, 0);
-            break;
-        default: //AVCaptureVideoOrientationLandscapeLeft
-            finalTransform = CGAffineTransformMakeTranslation(size.width, size.height);
-            finalTransform = CGAffineTransformRotate(finalTransform, M_PI);
-            break;
-    }
-    return finalTransform;
+    CGAffineTransform trans = [self transformTranslationFromNaturalSize:naturalSize toRenderSize:toRenderSize orientation:orientation];
+    return CGAffineTransformRotate(trans, [self rotationFromOrientation:orientation]);
 }
 
-#pragma mark - Signals
-- (RACSignal*) fetchAsset {
+- (AVAssetExportSession*) exporter {
+    CGSize orientatedRenderSize = [AVCaptureSession size:self.renderSize fromOrientation:self.orientation];
+    CGSize orientatedNaturalSize = [AVCaptureSession size:self.naturalSize fromOrientation:self.orientation];
+    return [self exporterWithTransform:[self transformFromNaturalSize:orientatedNaturalSize toRenderSize:orientatedRenderSize]];
+}
+
+- (AVAssetExportSession*) exporterWithTransform:(CGAffineTransform)transform {
     AVAssetTrack *videoTrack = [[self.asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
-    CGSize size = [self renderSizeFromOrientation:self.orientation];
+    CGSize size = [AVCaptureSession size:self.renderSize fromOrientation:self.orientation];
     
     // make it square
     AVMutableVideoComposition* videoComposition = [AVMutableVideoComposition videoComposition];
@@ -92,15 +101,20 @@
     
     // rotate to portrait
     AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
-    [transformer setTransform:[self transformWithSize:size] atTime:kCMTimeZero];
-    instruction.layerInstructions = [NSArray arrayWithObject:transformer];
-    videoComposition.instructions = [NSArray arrayWithObject: instruction];
+    [transformer setTransform:transform atTime:kCMTimeZero];
+    instruction.layerInstructions = @[transformer];
+    videoComposition.instructions = @[instruction];
     
     [[NSFileManager defaultManager] removeItemAtURL:self.outputURL error:nil];
     
     AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.asset presetName:self.exportPreset outputURL:self.outputURL];
     exporter.videoComposition = videoComposition;
-    
+    return exporter;
+}
+
+#pragma mark - Signals
+- (RACSignal*) createAsset {
+    AVAssetExportSession *exporter = [self exporter];
     return [[exporter exportAsynchronously] map:^AVAsset*(NSURL *savedToURL) {
         return [[AVURLAsset alloc] initWithURL:savedToURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}];
     }];

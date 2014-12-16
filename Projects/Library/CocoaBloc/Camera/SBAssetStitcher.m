@@ -16,26 +16,20 @@
 
 @implementation SBAssetStitcherOptions
 + (instancetype) optionsWithOrientation:(AVCaptureVideoOrientation)orientation
-                           exportPreset:(NSString*)exportPreset
-                             renderSize:(CGSize)renderSize {
-    SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:orientation exportPreset:exportPreset];
-    options.renderSize = renderSize;
-    return options;
-}
-
-+ (instancetype) optionsWithOrientation:(AVCaptureVideoOrientation)orientation
                            exportPreset:(NSString*)exportPreset {
     SBAssetStitcherOptions *options = [[SBAssetStitcherOptions alloc] init];
     options.orientation = orientation;
     options.exportPreset = exportPreset;
-    options.renderSize = [AVCaptureSession renderSizeForExportPreset:exportPreset];
+    __weak typeof(options)weakOptions = options;
+    [options setRenderSizeHandler:^CGSize(SBComposition *comp) {
+        return [AVCaptureSession renderSizeForExportPreset:weakOptions.exportPreset];
+    }];
     return options;
 }
 
 - (instancetype) init {
     if (self = [super init]) {
         self.orientation = AVCaptureVideoOrientationPortrait;
-        self.renderSize = CGSizeZero;
         self.exportPreset = AVAssetExportPresetHighestQuality;
     }
     return self;
@@ -85,8 +79,7 @@
     [self.compositions enumerateObjectsUsingBlock:^(SBComposition *comp, NSUInteger idx, BOOL *stop) {
         comp.orientation = options.orientation;
         comp.exportPreset = options.exportPreset;
-//        comp.renderSize = options.renderSize;
-        [assetSignals addObject:comp.fetchAsset];
+        [assetSignals addObject:comp.createAsset];
     }];
     
     @weakify(self);
@@ -116,9 +109,33 @@
             return nil;
         }
         
-        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:composition presetName:options.exportPreset outputURL:outputFileURL];
-        [[exporter exportAsynchronously] subscribe:subscriber];
+        SBComposition *finalComposition = [[SBComposition alloc] initWithAsset:composition];
+        finalComposition.outputURL = outputFileURL;
+        finalComposition.orientation = AVCaptureVideoOrientationLandscapeRight; //don't rotate this composition
+        finalComposition.exportPreset = options.exportPreset;
         
+        
+        if (options.renderSizeHandler) {
+            finalComposition.renderSize = options.renderSizeHandler(finalComposition);
+        }
+
+        //square it
+        CGSize size = finalComposition.renderSize;
+        CGAffineTransform trans;
+        CGSize renderSize = finalComposition.renderSize;
+        CGSize naturalSize = finalComposition.naturalSize;
+        switch (options.orientation) {
+            case AVCaptureVideoOrientationPortrait:
+            case  AVCaptureVideoOrientationPortraitUpsideDown:
+                trans = CGAffineTransformMakeTranslation(0, -(naturalSize.height-renderSize.height)/2);
+                break;
+            default:
+                trans = CGAffineTransformMakeTranslation(-(naturalSize.width-renderSize.width)/2, 0);
+                break;
+        }
+        
+        AVAssetExportSession *exporter = [finalComposition exporterWithTransform:trans];
+        [[exporter exportAsynchronously] subscribe:subscriber];
         return [RACDisposable disposableWithBlock:^{
             [exporter cancelExport];
         }];

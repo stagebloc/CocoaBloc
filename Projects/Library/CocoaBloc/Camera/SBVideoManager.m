@@ -13,6 +13,7 @@
 #import "UIDevice+Orientation.h"
 #import "UIDevice+StageBloc.h"
 #import "NSUserDefaults+Camera.h"
+#import "SBComposition.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -247,6 +248,15 @@
         
         SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.orientation
                                                                             exportPreset:[AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset]];
+        BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare;
+        [options setRenderSizeHandler:^CGSize(SBComposition *comp) {
+            if (isSquare) {
+                CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
+                return CGSizeMake(min, min);
+            }
+            return comp.naturalSize;
+        }];
+        
         RACSignal *exportSignal = [self.stitcher exportTo:finalVideoLocationURL options:options];
         if (takeUntil) exportSignal = [exportSignal takeUntil:takeUntil];
 

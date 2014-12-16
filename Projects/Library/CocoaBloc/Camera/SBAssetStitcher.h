@@ -9,17 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-@class RACSignal;
+@class RACSignal, SBComposition;
 
 @interface SBAssetStitcherOptions : NSObject
 
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
-@property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, copy) NSString *exportPreset;
 
-+ (instancetype) optionsWithOrientation:(AVCaptureVideoOrientation)orientation
-                           exportPreset:(NSString*)exportPreset
-                             renderSize:(CGSize)renderSize;
+@property (nonatomic, copy) CGSize (^renderSizeHandler)(SBComposition *composition);
 
 //auto sets renderSize via the exportPreset
 //see #import "AVCaptureSession+Extension.h"

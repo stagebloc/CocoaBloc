@@ -12,6 +12,12 @@
 
 @implementation AVCaptureSession (Extension)
 
++ (CGSize) size:(CGSize)size fromOrientation:(AVCaptureVideoOrientation)orientation {
+    if(orientation == AVCaptureVideoOrientationPortrait || orientation == AVCaptureVideoOrientationPortraitUpsideDown)
+        return CGSizeMake(size.height, size.width);
+    return size;
+}
+
 - (NSString*) bestSessionPreset {
     if ([self canSetSessionPreset:AVCaptureSessionPreset1920x1080]) {
         return AVCaptureSessionPreset1920x1080;

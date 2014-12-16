@@ -12,6 +12,8 @@
 
 @interface AVCaptureSession (Extension)
 
++ (CGSize) size:(CGSize)size fromOrientation:(AVCaptureVideoOrientation)orientation;
+
 //@return's specific session preset
 //not general presets like AVCaptureSessionPresetHigh, etc.
 - (NSString*) bestSessionPreset;
