@@ -85,7 +85,7 @@
     [self.compositions enumerateObjectsUsingBlock:^(SBComposition *comp, NSUInteger idx, BOOL *stop) {
         comp.orientation = options.orientation;
         comp.exportPreset = options.exportPreset;
-        comp.renderSize = options.renderSize;
+//        comp.renderSize = options.renderSize;
         [assetSignals addObject:comp.fetchAsset];
     }];
     
@@ -97,19 +97,19 @@
         AVMutableCompositionTrack* compositionVideoTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
         AVMutableCompositionTrack* compositionAudioTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
         
-        NSError *error = nil;
-        for (NSURL *assetURL in self.temporaryFileURLs) {
+        __block NSError *error = nil;
+        [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *assetURL, NSUInteger idx, BOOL *stop) {
             AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:assetURL options:nil];
             AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
             AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
             CMTimeRange timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration);
             
             [compositionVideoTrack insertTimeRange:timeRange ofTrack:videoTrack atTime:kCMTimeZero error:&error];
-            if (error) break;
+            if (!error)
+                [compositionAudioTrack insertTimeRange:timeRange ofTrack:audioTrack atTime:kCMTimeZero error:&error];
             
-            [compositionAudioTrack insertTimeRange:timeRange ofTrack:audioTrack atTime:kCMTimeZero error:&error];
-            if(error) break;
-        }
+            if(error) *stop = YES;
+        }];
         
         if (error) {
             [subscriber sendError:error];

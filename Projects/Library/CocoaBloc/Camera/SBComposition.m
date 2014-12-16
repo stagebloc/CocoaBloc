@@ -25,33 +25,62 @@
         _outputURL = asset.URL;
         _orientation = AVCaptureVideoOrientationPortrait;
         _devicePosition = AVCaptureDevicePositionBack;
-        _renderSize = CGSizeZero;
+        
+        AVAssetTrack *videoTrack = [[self.asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
+        _renderSize = videoTrack.naturalSize;
     }
     return self;
 }
 
-- (double) rotationForOrientation:(AVCaptureVideoOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
-    BOOL isFront = devicePosition == AVCaptureDevicePositionFront;
-    switch (orientation) {
-        case AVCaptureVideoOrientationPortrait:
-            return M_PI_2;
-        case AVCaptureVideoOrientationPortraitUpsideDown:
-            return -M_PI_2;
-        case AVCaptureVideoOrientationLandscapeRight:
-            return isFront ? M_PI : 0;
-        default: //AVCaptureVideoOrientationLandscapeLeft
-            return isFront ? 0 : M_PI;
-    }
+- (CGSize) renderSizeFromOrientation:(AVCaptureVideoOrientation)orientation {
+    if(orientation == AVCaptureVideoOrientationPortrait || orientation == AVCaptureVideoOrientationPortraitUpsideDown)
+        return CGSizeMake(self.renderSize.height, self.renderSize.width);
+    return self.renderSize;
 }
 
-- (CGAffineTransform) tranformForOrientation:(AVCaptureVideoOrientation)orientation devicePosition:(AVCaptureDevicePosition)devicePosition {
-    return CGAffineTransformMakeRotation([self rotationForOrientation:orientation devicePosition:devicePosition]);
+- (AVCaptureVideoOrientation) invertOrienation:(AVCaptureVideoOrientation)orientation {
+    NSInteger orien = (NSInteger)orientation;
+    if (orien % 2 == 0) orien--; else orien++;
+    return (AVCaptureVideoOrientation)orien;
+}
+
+- (CGAffineTransform) transformWithSize:(CGSize)size {
+    CGAffineTransform finalTransform;
+    AVCaptureVideoOrientation orientation = self.orientation;
+
+    //front cam is the opposite transforms of back camera
+    //so we trick the switch statement in doing the opposite
+    //transform by inverting the orientation
+    //i.e. AVCaptureVideoOrientationLandscapeLeft = AVCaptureVideoOrientationLandscapeRight
+    //when the camera is front facing
+    if (self.devicePosition == AVCaptureDevicePositionFront && (orientation == AVCaptureVideoOrientationLandscapeLeft || orientation == AVCaptureVideoOrientationLandscapeRight))
+        orientation = [self invertOrienation:orientation];
+    
+    switch (orientation) {
+        case AVCaptureVideoOrientationPortrait:
+            finalTransform = CGAffineTransformMakeTranslation(size.width, 0);
+            finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
+            break;
+        case AVCaptureVideoOrientationPortraitUpsideDown:
+            finalTransform = CGAffineTransformMakeTranslation(0, size.height);
+            finalTransform = CGAffineTransformRotate(finalTransform, -M_PI_2);
+            break;
+        case AVCaptureVideoOrientationLandscapeRight:
+            finalTransform = CGAffineTransformMakeTranslation(0, 0);
+            finalTransform = CGAffineTransformRotate(finalTransform, 0);
+            break;
+        default: //AVCaptureVideoOrientationLandscapeLeft
+            finalTransform = CGAffineTransformMakeTranslation(size.width, size.height);
+            finalTransform = CGAffineTransformRotate(finalTransform, M_PI);
+            break;
+    }
+    return finalTransform;
 }
 
 #pragma mark - Signals
 - (RACSignal*) fetchAsset {
     AVAssetTrack *videoTrack = [[self.asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
-    CGSize size = self.renderSize;
+    CGSize size = [self renderSizeFromOrientation:self.orientation];
     
     // make it square
     AVMutableVideoComposition* videoComposition = [AVMutableVideoComposition videoComposition];
@@ -63,35 +92,14 @@
     
     // rotate to portrait
     AVMutableVideoCompositionLayerInstruction* transformer = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
-    CGAffineTransform finalTransform;
-    
-    switch (self.orientation) {
-        case AVCaptureVideoOrientationPortrait:
-            finalTransform = CGAffineTransformMakeTranslation(size.height, -(size.width - size.height) /2 );
-            finalTransform = CGAffineTransformRotate(finalTransform, M_PI_2);
-            break;
-        case AVCaptureVideoOrientationPortraitUpsideDown:
-            finalTransform = CGAffineTransformMakeTranslation(0, (size.width - size.height) * (size.width / size.height));
-            finalTransform = CGAffineTransformRotate(finalTransform, -M_PI_2);
-            break;
-        case AVCaptureVideoOrientationLandscapeRight:
-            finalTransform = CGAffineTransformMakeTranslation(-(size.width - size.height), 0);
-            finalTransform = CGAffineTransformRotate(finalTransform, 0);
-            break;
-        default: //AVCaptureVideoOrientationLandscapeLeft
-            finalTransform = CGAffineTransformMakeTranslation((size.width - size.height) * (size.width / size.height) , size.height);
-            finalTransform = CGAffineTransformRotate(finalTransform, M_PI);
-            break;
-    }
-    
-    [transformer setTransform:finalTransform atTime:kCMTimeZero];
+    [transformer setTransform:[self transformWithSize:size] atTime:kCMTimeZero];
     instruction.layerInstructions = [NSArray arrayWithObject:transformer];
     videoComposition.instructions = [NSArray arrayWithObject: instruction];
     
     [[NSFileManager defaultManager] removeItemAtURL:self.outputURL error:nil];
     
     AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.asset presetName:self.exportPreset outputURL:self.outputURL];
-//    exporter.videoComposition = videoComposition;
+    exporter.videoComposition = videoComposition;
     
     return [[exporter exportAsynchronously] map:^AVAsset*(NSURL *savedToURL) {
         return [[AVURLAsset alloc] initWithURL:savedToURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}];
