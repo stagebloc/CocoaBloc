@@ -10,6 +10,7 @@
 #import "AVCaptureSession+Extension.h"
 #import "AVAssetExportSession+Extension.h"
 #import "SBComposition.h"
+#import "NSURL+Camera.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -42,7 +43,7 @@
 
 @interface SBAssetStitcher ()
 
-@property (nonatomic, strong) NSMutableArray *temporaryFileURLs;
+@property (nonatomic, strong) NSMutableArray *compositionFileURLs; //retains the order
 @property (nonatomic, strong) NSMutableArray *compositions;
 
 @end
@@ -58,21 +59,25 @@
 
 - (void) reset {
     [self cleanTemporaryAssetFiles];
-    self.temporaryFileURLs = [[NSMutableArray alloc] init];
+    self.compositionFileURLs = [[NSMutableArray alloc] init];
     self.compositions = [[NSMutableArray alloc] init];
 }
 
 - (void)cleanTemporaryAssetFiles {
-    [self.temporaryFileURLs enumerateObjectsUsingBlock:^(NSURL *temporaryFiles, NSUInteger idx, BOOL *stop) {
+    [self.compositionFileURLs enumerateObjectsUsingBlock:^(NSURL *temporaryFiles, NSUInteger idx, BOOL *stop) {
         [[NSFileManager defaultManager] removeItemAtURL:temporaryFiles error:nil];
+    }];
+    [self.compositions enumerateObjectsUsingBlock:^(SBComposition *comp, NSUInteger idx, BOOL *stop) {
+        [[NSFileManager defaultManager] removeItemAtURL:comp.outputURL error:nil];
     }];
 }
 
 - (void)addAsset:(AVURLAsset *)asset devicePosition:(AVCaptureDevicePosition)devicePosition{
     SBComposition *comp = [[SBComposition alloc] initWithAsset:asset];
     comp.devicePosition = devicePosition;
+    comp.outputURL = [NSURL randomTemporaryMP4FileURLWithPrefix:@"composition"];
 
-    [self.temporaryFileURLs addObject:comp.outputURL];
+    [self.compositionFileURLs addObject:comp.outputURL];
     [self.compositions addObject:comp];
 }
 
@@ -97,7 +102,7 @@
         AVMutableCompositionTrack* compositionAudioTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
         
         __block NSError *error = nil;
-        [self.temporaryFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *assetURL, NSUInteger idx, BOOL *stop) {
+        [self.compositionFileURLs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSURL *assetURL, NSUInteger idx, BOOL *stop) {
             AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:assetURL options:nil];
             AVAssetTrack *videoTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] firstObject];
             AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];

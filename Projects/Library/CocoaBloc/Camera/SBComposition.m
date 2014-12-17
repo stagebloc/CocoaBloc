@@ -79,8 +79,6 @@
     
     CGAffineTransform trans = [self transformTranslationFromNaturalSize:naturalSize toRenderSize:toRenderSize orientation:orientation];
     trans = CGAffineTransformRotate(trans, [self rotationFromOrientation:orientation]);
-//    CGFloat min = MIN(self.naturalSize.width, self.naturalSize.height);
-//    trans = CGAffineTransformScale(trans, toRenderSize.width/min, toRenderSize.height/min);
     return trans;
 }
 
@@ -107,8 +105,6 @@
     [transformer setTransform:transform atTime:kCMTimeZero];
     instruction.layerInstructions = @[transformer];
     videoComposition.instructions = @[instruction];
-    
-    [[NSFileManager defaultManager] removeItemAtURL:self.outputURL error:nil];
     
     AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:self.asset presetName:self.exportPreset outputURL:self.outputURL];
     exporter.videoComposition = videoComposition;

@@ -16,8 +16,6 @@
     exporter.outputURL = outputURL;
     exporter.outputFileType = AVFileTypeMPEG4;
     exporter.shouldOptimizeForNetworkUse = YES;
-//    if ([exporter respondsToSelector:@selector(canPerformMultiplePassesOverSourceMediaData)])
-//        exporter.canPerformMultiplePassesOverSourceMediaData = YES;
     return exporter;
 }
 

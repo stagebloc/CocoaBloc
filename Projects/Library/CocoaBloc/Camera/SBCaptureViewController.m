@@ -24,6 +24,7 @@
 #import "SBCameraAccessViewController.h"
 #import "SBToolBarAnimator.h"
 #import "UIDevice+StageBloc.h"
+#import "NSURL+Camera.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -430,13 +431,9 @@
         return;
     }
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@-%ld.mp4", documentsDirectory, @"final", (long)[[NSDate date] timeIntervalSince1970]]];
-    
     @weakify(self);
     SBOverlayView *overlayView = [self showHudWithText:@"Processing video"];
-    [[[self.captureManager.videoManager finalizeRecordingToFile:url takeUntil:[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    [[[self.captureManager.videoManager finalizeRecordingToFile:[NSURL randomDocumentsFileURLWithPrefix:@"final" extension:@"mp4"] takeUntil:[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [overlayView setOnDismissTap:^{
             [subscriber sendCompleted];
         }];

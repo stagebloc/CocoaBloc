@@ -14,6 +14,7 @@
 #import "UIDevice+StageBloc.h"
 #import "NSUserDefaults+Camera.h"
 #import "SBComposition.h"
+#import "NSURL+Camera.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
@@ -34,7 +35,6 @@ CGFloat aspectRatio(CGSize size) {
 @property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
 
-@property (nonatomic, assign) NSTimeInterval uniqueTimestamp;
 @property (nonatomic, assign) NSInteger currentRecordingSegment;
 
 @property (nonatomic, assign) CMTime currentFinalDurration;
@@ -136,7 +136,6 @@ CGFloat aspectRatio(CGSize size) {
 - (void)startRecording {
     [self.stitcher reset];
 
-    self.uniqueTimestamp = [[NSDate date] timeIntervalSince1970];
     self.currentRecordingSegment = 0;
     self.paused = NO;
     self.currentFinalDurration = kCMTimeZero;
@@ -145,7 +144,7 @@ CGFloat aspectRatio(CGSize size) {
     
     self.specificSessionPreset = [self.captureSession bestSessionPreset];
     
-    NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
+    NSURL *outputFileURL = [NSURL randomTemporaryMP4FileURLWithPrefix:@"recordingsegment"];
     self.movieFileOutput.maxRecordedDuration = (_maxDuration > 0) ? CMTimeMakeWithSeconds(_maxDuration, 600) : kCMTimeInvalid;
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
 }
@@ -176,7 +175,7 @@ CGFloat aspectRatio(CGSize size) {
         self.movieFileOutput.maxRecordedDuration = kCMTimeInvalid;
     }
     
-    NSURL *outputFileURL = [NSURL fileURLWithPath:[self constructCurrentTemporaryFilename]];
+    NSURL *outputFileURL = [NSURL randomTemporaryMP4FileURLWithPrefix:@"recordingsegment"];
     [self.movieFileOutput startRecordingToOutputFileURL:outputFileURL recordingDelegate:self];
     self.paused = NO;
 
@@ -420,11 +419,6 @@ CGFloat aspectRatio(CGSize size) {
         }];
     }];
     return foundConnection;
-}
-
-#pragma  mark - Temporary file handling functions
-- (NSString *)constructCurrentTemporaryFilename {
-    return [NSString stringWithFormat:@"%@%@-%f-%d.mov", NSTemporaryDirectory(), @"recordingsegment", self.uniqueTimestamp, self.currentRecordingSegment];
 }
 
 @end
