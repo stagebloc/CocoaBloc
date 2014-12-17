@@ -13,6 +13,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "UIView+Extension.h"
+#import "UIDevice+StageBloc.h"
 
 @interface SBOverlayView ()
 
@@ -149,11 +150,11 @@
 
 #pragma mark - Animations
 - (void) animateShowWithDuration:(NSTimeInterval)duration showDismissDialog:(BOOL)showDismissDialog completion:(void (^)(BOOL finished))completion{
-    self.overlayToolbar.alpha = 0;
+    NSArray *views = @[self.overlayToolbar, self.titleLabel, self.activityIndicatorView];
+    [views setValue:@0 forKey:NSStringFromSelector(@selector(alpha))];
     [UIView animateWithDuration:duration/2 delay:0 usingSpringWithDamping:1 initialSpringVelocity:.2f options:0 animations:^{
-        self.overlayToolbar.alpha = 1;
+        [views setValue:@1 forKey:NSStringFromSelector(@selector(alpha))];
     } completion:nil];
-    
     
     POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     scaleAnimation.fromValue = [NSValue valueWithCGSize:CGSizeMake(0, 0)];
@@ -161,13 +162,17 @@
     scaleAnimation.springBounciness = 10.0f;
     scaleAnimation.springSpeed = 5.0;
     [self.titleLabel.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
-    [self.activityIndicatorView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
-    
+    //issue on ios 7
+    if ([[UIDevice currentDevice] isAtLeastiOS:8])
+        [self.activityIndicatorView.layer pop_addAnimation:scaleAnimation forKey:@"scaleAnimation"];
     
     if (showDismissDialog) {
+        self.dismissButton.enabled = NO;
         [UIView animateWithDuration:duration delay:3 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
             self.dismissButton.alpha = 1;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            self.dismissButton.enabled = YES;
+        }];
     }
 }
 
