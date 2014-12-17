@@ -18,6 +18,10 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
+CGFloat aspectRatio(CGSize size) {
+    return size.width / size.height;
+}
+
 @interface SBVideoManager () <AVCaptureFileOutputRecordingDelegate> {
     id deviceConnectedObserver;
     id deviceDisconnectedObserver;
@@ -249,12 +253,28 @@
         SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.orientation
                                                                             exportPreset:[AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset]];
         BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare;
+        CGSize lowestRenderSize = [AVCaptureSession renderSizeForSessionPreset:self.specificSessionPreset];
+        CGFloat lowestAspectRatio = aspectRatio(lowestRenderSize);
         [options setRenderSizeHandler:^CGSize(SBComposition *comp) {
-            if (isSquare) {
-                CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
-                return CGSizeMake(min, min);
+            CGFloat compAspectRatio = aspectRatio(comp.naturalSize);
+            //ignore aspect ratio modification if lowestAspectRatio is > compAspectRatio
+            if (lowestAspectRatio >= compAspectRatio) {
+                if (isSquare) {
+                    CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
+                    return CGSizeMake(min, min);
+                }
+                return comp.naturalSize;
             }
-            return comp.naturalSize;
+            
+            //aspect ratio not equal, must make same aspect ratio
+            CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
+            CGFloat max = MAX(comp.naturalSize.width, comp.naturalSize.height);
+            
+            if (max == comp.naturalSize.width) {
+                return CGSizeMake(max / lowestAspectRatio, min);
+            } else {
+                return CGSizeMake(min, max / lowestAspectRatio);
+            }
         }];
         
         RACSignal *exportSignal = [self.stitcher exportTo:finalVideoLocationURL options:options];

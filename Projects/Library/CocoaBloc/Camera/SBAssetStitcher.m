@@ -79,6 +79,10 @@
     [self.compositions enumerateObjectsUsingBlock:^(SBComposition *comp, NSUInteger idx, BOOL *stop) {
         comp.orientation = options.orientation;
         comp.exportPreset = options.exportPreset;
+        
+        if (options.renderSizeHandler)
+            comp.renderSize = options.renderSizeHandler(comp);
+        
         [assetSignals addObject:comp.createAsset];
     }];
     
@@ -114,10 +118,9 @@
         finalComposition.orientation = AVCaptureVideoOrientationLandscapeRight; //don't rotate this composition
         finalComposition.exportPreset = options.exportPreset;
         
-        
-        if (options.renderSizeHandler) {
-            finalComposition.renderSize = options.renderSizeHandler(finalComposition);
-        }
+//        if (options.renderSizeHandler) {
+//            finalComposition.renderSize = options.renderSizeHandler(finalComposition);
+//        }
 
         //square it
         CGSize size = finalComposition.renderSize;
