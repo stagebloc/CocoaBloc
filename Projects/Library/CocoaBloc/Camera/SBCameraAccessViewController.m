@@ -32,7 +32,8 @@
         _titleButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
         [_titleButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [_titleButton setTitle:@"Camera permissions are required" forState:UIControlStateNormal];
+        NSString *title = @"Camera permissions are required";
+        [_titleButton setTitle:title forState:UIControlStateNormal];
         [_titleButton addTarget:self action:@selector(openSettingsPressed:) forControlEvents:UIControlEventTouchUpInside];
         _titleButton.enabled = [self canOpenSettings];
     }
@@ -78,11 +79,14 @@
     _mediaType = [mediaType copy];
     [self didChangeValueForKey:@"mediaType"];
     
+    NSString *title = @"Camera permissions are required";
     if ([mediaType isEqualToString:AVMediaTypeAudio]) {
-        [self.titleButton setTitle:@"Audio permissions are required" forState:UIControlStateNormal];
-    } else {
-        [self.titleButton setTitle:@"Camera permissions are required" forState:UIControlStateNormal];
+        title = @"Audio permissions are required";
     }
+    if ([self canOpenSettings])
+        title = [title stringByAppendingString:@"\n\nTap to update"];
+    
+    [self.titleButton setTitle:title forState:UIControlStateNormal];
 }
 
 - (instancetype) initWithMediaTypeDenied:(NSString*)mediaType {
