@@ -20,10 +20,6 @@
     SBAssetStitcherOptions *options = [[SBAssetStitcherOptions alloc] init];
     options.orientation = orientation;
     options.exportPreset = exportPreset;
-    __weak typeof(options)weakOptions = options;
-    [options setRenderSizeHandler:^CGSize(SBComposition *comp) {
-        return [AVCaptureSession renderSizeForExportPreset:weakOptions.exportPreset];
-    }];
     return options;
 }
 
@@ -31,6 +27,12 @@
     if (self = [super init]) {
         self.orientation = AVCaptureVideoOrientationPortrait;
         self.exportPreset = AVAssetExportPresetHighestQuality;
+        [self setRenderSizeHandler:^CGSize(SBComposition *comp) {
+            return comp.naturalSize;
+        }];
+        [self setFinalCompositionRenderSizeHandler:^CGSize(SBComposition *comp) {
+            return comp.naturalSize;
+        }];
     }
     return self;
 }
@@ -118,9 +120,9 @@
         finalComposition.orientation = AVCaptureVideoOrientationLandscapeRight; //don't rotate this composition
         finalComposition.exportPreset = options.exportPreset;
         
-//        if (options.renderSizeHandler) {
-//            finalComposition.renderSize = options.renderSizeHandler(finalComposition);
-//        }
+        if (options.finalCompositionRenderSizeHandler) {
+            finalComposition.renderSize = options.finalCompositionRenderSizeHandler(finalComposition);
+        }
 
         //square it
         CGSize size = finalComposition.renderSize;

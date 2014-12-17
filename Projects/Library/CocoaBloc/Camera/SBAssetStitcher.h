@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *exportPreset;
 
 @property (nonatomic, copy) CGSize (^renderSizeHandler)(SBComposition *composition);
+@property (nonatomic, copy) CGSize (^finalCompositionRenderSizeHandler)(SBComposition *composition);
 
 //auto sets renderSize via the exportPreset
 //see #import "AVCaptureSession+Extension.h"

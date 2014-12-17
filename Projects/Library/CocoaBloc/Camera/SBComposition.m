@@ -78,7 +78,10 @@
         orientation = [self invertOrienation:orientation];
     
     CGAffineTransform trans = [self transformTranslationFromNaturalSize:naturalSize toRenderSize:toRenderSize orientation:orientation];
-    return CGAffineTransformRotate(trans, [self rotationFromOrientation:orientation]);
+    trans = CGAffineTransformRotate(trans, [self rotationFromOrientation:orientation]);
+//    CGFloat min = MIN(self.naturalSize.width, self.naturalSize.height);
+//    trans = CGAffineTransformScale(trans, toRenderSize.width/min, toRenderSize.height/min);
+    return trans;
 }
 
 - (AVAssetExportSession*) exporter {

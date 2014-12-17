@@ -258,13 +258,8 @@ CGFloat aspectRatio(CGSize size) {
         [options setRenderSizeHandler:^CGSize(SBComposition *comp) {
             CGFloat compAspectRatio = aspectRatio(comp.naturalSize);
             //ignore aspect ratio modification if lowestAspectRatio is > compAspectRatio
-            if (lowestAspectRatio >= compAspectRatio) {
-                if (isSquare) {
-                    CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
-                    return CGSizeMake(min, min);
-                }
+            if (lowestAspectRatio >= compAspectRatio)
                 return comp.naturalSize;
-            }
             
             //aspect ratio not equal, must make same aspect ratio
             CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
@@ -276,6 +271,15 @@ CGFloat aspectRatio(CGSize size) {
                 return CGSizeMake(min, max / lowestAspectRatio);
             }
         }];
+        
+        [options setFinalCompositionRenderSizeHandler:^CGSize(SBComposition *finalComp) {
+            if (isSquare) {
+                CGFloat min = MIN(finalComp.naturalSize.width, finalComp.naturalSize.height);
+                return CGSizeMake(min, min);
+            }
+            return finalComp.naturalSize;
+        }];
+        
         
         RACSignal *exportSignal = [self.stitcher exportTo:finalVideoLocationURL options:options];
         if (takeUntil) exportSignal = [exportSignal takeUntil:takeUntil];
