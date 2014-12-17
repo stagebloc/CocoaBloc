@@ -79,9 +79,9 @@
     _mediaType = [mediaType copy];
     [self didChangeValueForKey:@"mediaType"];
     
-    NSString *title = @"Camera permissions are required";
+    NSString *title = @"Camera permissions\nare required";
     if ([mediaType isEqualToString:AVMediaTypeAudio]) {
-        title = @"Audio permissions are required";
+        title = @"Audio permissions\nare required";
     }
     if ([self canOpenSettings])
         title = [title stringByAppendingString:@"\n\nTap to update"];
@@ -106,7 +106,7 @@
         [self.detailsButton autoSetDimensionsToSize:size];
     }
     
-    size = CGSizeMake(280, 70);
+    size = CGSizeMake(280, [self canOpenSettings] ? 110 : 70);
     [self.view addSubview:self.titleButton];
     [self.titleButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [self.titleButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.view withOffset:-110];

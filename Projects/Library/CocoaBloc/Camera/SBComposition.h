@@ -31,6 +31,10 @@
 //natural height of the original asset
 @property (nonatomic, readonly, assign) CGSize naturalSize;
 
+//offset the bottom translation
+//default is 0, no offset translation
+@property (nonatomic, assign) CGFloat offsetBottom;
+
 //Original asset that is being manipulated
 @property (nonatomic, readonly, strong) AVAsset *asset;
 

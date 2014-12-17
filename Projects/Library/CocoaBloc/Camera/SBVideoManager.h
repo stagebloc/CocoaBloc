@@ -13,6 +13,9 @@
 
 @interface SBVideoManager : SBDeviceManager
 
+@property (nonatomic, assign) CGFloat squareVideoSize;
+@property (nonatomic, assign) CGFloat squareVideoOffsetBottom;
+
 @property (nonatomic, assign) CGFloat maxDuration;
 @property (nonatomic, assign) CGFloat minDuration;
 

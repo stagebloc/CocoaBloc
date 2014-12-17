@@ -71,6 +71,8 @@ CGFloat aspectRatio(CGSize size) {
 
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)session {
     if (self = [super initWithCaptureSession:session]) {
+        self.squareVideoOffsetBottom = 20;
+        
         _currentRecordingSegment = 0;
         self.paused = NO;
         _maxDuration = 0;
@@ -252,9 +254,11 @@ CGFloat aspectRatio(CGSize size) {
         SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.orientation
                                                                             exportPreset:[AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset]];
         BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare;
+        
+        //Individual Composition construction handling
         CGSize lowestRenderSize = [AVCaptureSession renderSizeForSessionPreset:self.specificSessionPreset];
         CGFloat lowestAspectRatio = aspectRatio(lowestRenderSize);
-        [options setRenderSizeHandler:^CGSize(SBComposition *comp) {
+        CGSize (^individualRenderSizeHandler)(SBComposition *comp) = ^(SBComposition *comp) {
             CGFloat compAspectRatio = aspectRatio(comp.naturalSize);
             //ignore aspect ratio modification if lowestAspectRatio is > compAspectRatio
             if (lowestAspectRatio >= compAspectRatio)
@@ -269,16 +273,29 @@ CGFloat aspectRatio(CGSize size) {
             } else {
                 return CGSizeMake(min, max / lowestAspectRatio);
             }
+        };
+        [options setIndividualCompositionHandler:^(SBComposition *comp) {
+            comp.renderSize = individualRenderSizeHandler(comp);
+            
+            if (isSquare) {
+                @strongify(self);
+                CGFloat ptsToPixels = comp.renderSize.width / self.squareVideoSize;
+                CGFloat offsetInPixels = self.squareVideoOffsetBottom * ptsToPixels;
+                comp.offsetBottom = offsetInPixels;
+            }
         }];
         
-        [options setFinalCompositionRenderSizeHandler:^CGSize(SBComposition *finalComp) {
+        //Final Composition construction handling
+        CGSize (^finalRenderSizeHandler)(SBComposition *comp) = ^(SBComposition *comp) {
             if (isSquare) {
-                CGFloat min = MIN(finalComp.naturalSize.width, finalComp.naturalSize.height);
+                CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
                 return CGSizeMake(min, min);
             }
-            return finalComp.naturalSize;
+            return comp.naturalSize;
+        };
+        [options setFinalCompositionHandler:^(SBComposition *comp) {
+            comp.renderSize = finalRenderSizeHandler(comp);
         }];
-        
         
         RACSignal *exportSignal = [self.stitcher exportTo:finalVideoLocationURL options:options];
         if (takeUntil) exportSignal = [exportSignal takeUntil:takeUntil];

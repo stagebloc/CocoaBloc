@@ -16,6 +16,8 @@
 
 @interface SBCameraView : UIView <SBDraggableViewDelegate, UIGestureRecognizerDelegate>
 
+@property (nonatomic, assign) CGFloat squareVideoOffsetBottom;
+
 @property (nonatomic, strong) UIView *captureViewContainer;
 @property (nonatomic, strong) SBCaptureView *captureView;
 

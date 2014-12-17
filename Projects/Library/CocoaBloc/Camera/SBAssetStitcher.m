@@ -28,12 +28,11 @@
     if (self = [super init]) {
         self.orientation = AVCaptureVideoOrientationPortrait;
         self.exportPreset = AVAssetExportPresetHighestQuality;
-        [self setRenderSizeHandler:^CGSize(SBComposition *comp) {
-            return comp.naturalSize;
-        }];
-        [self setFinalCompositionRenderSizeHandler:^CGSize(SBComposition *comp) {
-            return comp.naturalSize;
-        }];
+        void (^tempHandler) (SBComposition *comp) = ^(SBComposition *comp) {
+            comp.renderSize = comp.naturalSize;
+        };
+        [self setIndividualCompositionHandler:tempHandler];
+        [self setFinalCompositionHandler:tempHandler];
     }
     return self;
 }
@@ -87,8 +86,8 @@
         comp.orientation = options.orientation;
         comp.exportPreset = options.exportPreset;
         
-        if (options.renderSizeHandler)
-            comp.renderSize = options.renderSizeHandler(comp);
+        if (options.individualCompositionHandler)
+            options.individualCompositionHandler(comp);
         
         [assetSignals addObject:comp.createAsset];
     }];
@@ -125,22 +124,20 @@
         finalComposition.orientation = AVCaptureVideoOrientationLandscapeRight; //don't rotate this composition
         finalComposition.exportPreset = options.exportPreset;
         
-        if (options.finalCompositionRenderSizeHandler) {
-            finalComposition.renderSize = options.finalCompositionRenderSizeHandler(finalComposition);
-        }
-
-        //square it
-        CGSize size = finalComposition.renderSize;
+        if (options.finalCompositionHandler)
+            options.finalCompositionHandler(finalComposition);
+        
+        CGFloat squareOffsetBottom = finalComposition.offsetBottom * (options.orientation == AVCaptureVideoOrientationPortraitUpsideDown || options.orientation == AVCaptureVideoOrientationLandscapeLeft ? -1 : 1);
         CGAffineTransform trans;
         CGSize renderSize = finalComposition.renderSize;
         CGSize naturalSize = finalComposition.naturalSize;
         switch (options.orientation) {
             case AVCaptureVideoOrientationPortrait:
             case  AVCaptureVideoOrientationPortraitUpsideDown:
-                trans = CGAffineTransformMakeTranslation(0, -(naturalSize.height-renderSize.height)/2);
+                trans = CGAffineTransformMakeTranslation(0, (-(naturalSize.height-renderSize.height)/2)+squareOffsetBottom);
                 break;
             default:
-                trans = CGAffineTransformMakeTranslation(-(naturalSize.width-renderSize.width)/2, 0);
+                trans = CGAffineTransformMakeTranslation((-(naturalSize.width-renderSize.width)/2)+squareOffsetBottom, 0);
                 break;
         }
         

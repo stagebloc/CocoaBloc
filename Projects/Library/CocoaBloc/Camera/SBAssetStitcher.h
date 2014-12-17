@@ -16,8 +16,9 @@
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
 @property (nonatomic, copy) NSString *exportPreset;
 
-@property (nonatomic, copy) CGSize (^renderSizeHandler)(SBComposition *composition);
-@property (nonatomic, copy) CGSize (^finalCompositionRenderSizeHandler)(SBComposition *composition);
+//use these to set specific attributes to the compositions.
+@property (nonatomic, copy) void (^individualCompositionHandler)(SBComposition *composition);
+@property (nonatomic, copy) void (^finalCompositionHandler)(SBComposition *composition);
 
 //auto sets renderSize via the exportPreset
 //see #import "AVCaptureSession+Extension.h"

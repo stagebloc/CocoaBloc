@@ -208,6 +208,13 @@
         }
     }];
     
+    RAC(self.cameraView, squareVideoOffsetBottom) = RACObserve(self.captureManager.videoManager, squareVideoOffsetBottom);
+    RAC(self.captureManager.videoManager, squareVideoSize) = [RACObserve(self.cameraView, frame) map:^NSNumber*(NSValue *value) {
+        CGRect frame = [value CGRectValue];
+        CGFloat min = MIN(frame.size.width, frame.size.height);
+        return @(min);
+    }];
+    
     [self.captureManager.captureSession startRunning];
 }
 
@@ -455,7 +462,7 @@
 
 -(void)closeButtonPressed:(id)sender {
     if (CMTimeGetSeconds(self.captureManager.videoManager.totalRecordingDuration) > 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"This will delete your current recording" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"This will delete your current recording" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
         [[alert rac_buttonClickedSignal] subscribeNext:^(NSNumber *buttonIndex) {
             if (alert.cancelButtonIndex == buttonIndex.integerValue)
                 return;

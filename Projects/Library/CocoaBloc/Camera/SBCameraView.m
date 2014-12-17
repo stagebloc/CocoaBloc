@@ -405,6 +405,9 @@ BOOL isSmallScreen() {
 
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager {
     if (self = [super initWithFrame:frame]) {
+        
+        self.squareVideoOffsetBottom = 20;
+        
         //capture view container
         [self addSubview:self.captureViewContainer];
         self.captureView = [[SBCaptureView alloc] initWithCaptureSession:captureManager.captureSession];
@@ -760,8 +763,10 @@ BOOL isSmallScreen() {
     
     CGFloat padding = 5;
     CGFloat height = (CGRectGetHeight(self.frame) - CGRectGetWidth(self.frame)) / 2;
-    [constraints addObject:[self.topSquareToolbar autoSetDimension:ALDimensionHeight toSize:height+padding]];
-    [constraints addObject:[self.bottomSquareToolbar autoSetDimension:ALDimensionHeight toSize:height+padding]];
+    CGFloat heightBottom = height + self.squareVideoOffsetBottom;
+    CGFloat heightTop = height - self.squareVideoOffsetBottom;
+    [constraints addObject:[self.topSquareToolbar autoSetDimension:ALDimensionHeight toSize:heightTop+padding]];
+    [constraints addObject:[self.bottomSquareToolbar autoSetDimension:ALDimensionHeight toSize:heightBottom+padding]];
     
     if (captureType == SBCaptureTypeVideo) {
         if (ratio == SBCameraAspectRatioSquare) {

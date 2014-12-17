@@ -42,15 +42,16 @@
 - (CGAffineTransform) transformTranslationFromNaturalSize:(CGSize)naturalSize
                                              toRenderSize:(CGSize)toRenderSize
                                               orientation:(AVCaptureVideoOrientation)orientation {
+    CGFloat offset = self.offsetBottom; //* (self.devicePosition == AVCaptureDevicePositionFront ? -1 : 1);
     switch (orientation) {
         case AVCaptureVideoOrientationPortrait:
-            return CGAffineTransformMakeTranslation(toRenderSize.width, -(naturalSize.height-toRenderSize.height)/2);
+            return CGAffineTransformMakeTranslation(toRenderSize.width, -(naturalSize.height-toRenderSize.height)/2 + offset);
         case AVCaptureVideoOrientationPortraitUpsideDown:
-            return CGAffineTransformMakeTranslation(0, toRenderSize.height);
+            return CGAffineTransformMakeTranslation(0, toRenderSize.height - offset);
         case AVCaptureVideoOrientationLandscapeRight:
-            return CGAffineTransformMakeTranslation(0, 0);
+            return CGAffineTransformMakeTranslation(0 + offset, 0);
         default: //AVCaptureVideoOrientationLandscapeLeft
-            return CGAffineTransformMakeTranslation(toRenderSize.width, toRenderSize.height);
+            return CGAffineTransformMakeTranslation(toRenderSize.width - offset, toRenderSize.height);
     }
 }
 
