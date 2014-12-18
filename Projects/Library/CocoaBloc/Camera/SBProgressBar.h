@@ -20,6 +20,8 @@ typedef NS_ENUM(NSUInteger, SBProgressBarOptions) {
 
 @interface SBProgressBar : UIView
 
+extern SBProgressBarOptions SBProgressBarOptionsFromOrientation(UIInterfaceOrientation orietnation);
+
 @property (nonatomic, assign) CGFloat value;
 @property (nonatomic, readonly) CGFloat maxValue;
 @property (nonatomic, readonly) CGFloat minValue;

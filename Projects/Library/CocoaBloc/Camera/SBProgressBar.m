@@ -16,6 +16,12 @@
 
 @synthesize minValue = _minValue, maxValue = _maxValue, stopValues = _stopValues;
 
+SBProgressBarOptions SBProgressBarOptionsFromOrientation(UIInterfaceOrientation orientation) {
+    SBProgressBarOptions vH = orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight ? SBProgressBarOptionsVertical : SBProgressBarOptionsHorizontal;
+    SBProgressBarOptions lR = orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationPortraitUpsideDown ? SBProgressBarOptionsRightToLeft : SBProgressBarOptionsLeftToRight;
+    return vH | lR;
+}
+
 - (NSMutableSet*) stopValues {
     if (!_stopValues)
         _stopValues = [[NSMutableSet alloc] init];

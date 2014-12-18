@@ -27,11 +27,14 @@
 @property (nonatomic, strong) NSArray *cameraConstraints;
 @property (nonatomic, strong) NSArray *optionsMenuConstraints;
 @property (nonatomic, strong) NSArray *topViewsConstraints;
+@property (nonatomic, strong) NSArray *progressBarConstraints;
 
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+
+@property (nonatomic, assign) UIInterfaceOrientation orientation;
 
 @end
 
@@ -418,21 +421,26 @@ BOOL isSmallScreen() {
         
         [self initGestures];
         
+        @weakify(self);
         void (^orientationChange) (NSNotification*) = ^(NSNotification *note) {
+            @strongify(self);
             UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
             if ((NSInteger)orientation == -1 && note != nil)
                 return;
             
             [self adjustTopViewsToOrientation:orientation];
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
-                [self adjustViewsToOrientation:orientation];
+                [self adjustViewTransformsToOrientation:orientation];
                 [self layoutSubviews];
             } completion:nil];
+            
+            
+            [self adjustAndAnimateProgressBarWithDuration:.8tf delayBetween:.3f fromOrientation:self.orientation toOrientation:orientation];
+            self.orientation = orientation;
         };
         orientationChange(nil);
         [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:orientationChange];
 
-        @weakify(self);
         [[self.recordButton rac_valuesAndChangesForKeyPath:NSStringFromSelector(@selector(holding)) options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld observer:nil] subscribeNext:^(RACTuple *tuple) {
             @strongify(self);
             BOOL isNowHolding = [tuple.first boolValue];
@@ -669,7 +677,7 @@ BOOL isSmallScreen() {
     [self adjustSquareToolbarConstraintsForAspectRatio:self.aspectRatio captureType:self.captureType];
 }
 
-- (void) adjustViewsToOrientation:(UIInterfaceOrientation)orientation {
+- (void) adjustViewTransformsToOrientation:(UIInterfaceOrientation)orientation {
     CGAffineTransform toVal = self.flashModeButton.transform;
     switch (orientation) {
         case UIInterfaceOrientationPortrait: toVal = CGAffineTransformMakeRotation(0); break;
@@ -704,12 +712,6 @@ BOOL isSmallScreen() {
             //time label
             [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:-labelOffset.x]];
             [constraints addObject:[self.timeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
-            
-            //progress bar
-            [constraints addObject:[self.progressBar autoSetDimension:ALDimensionWidth toSize:5.0f]];
-            [constraints addObject:[self.progressBar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
-            [constraints addObject:[self.progressBar autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
-            [constraints addObject:[self.progressBar autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self]];
             break;
         case UIInterfaceOrientationLandscapeLeft:
             [constraints addObject:[self.pageView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:offset.x]];
@@ -718,12 +720,6 @@ BOOL isSmallScreen() {
             //time label
             [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:labelOffset.x]];
             [constraints addObject:[self.timeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
-            
-            //progress bar
-            [constraints addObject:[self.progressBar autoSetDimension:ALDimensionWidth toSize:5.0f]];
-            [constraints addObject:[self.progressBar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
-            [constraints addObject:[self.progressBar autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
-            [constraints addObject:[self.progressBar autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self]];
             break;
         default:
             [constraints addObject:[self.pageView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView withOffset:offset.y]];
@@ -732,19 +728,8 @@ BOOL isSmallScreen() {
             //time label
             [constraints addObject:[self.timeLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.topContainerView withOffset:labelOffset.y]];
             [constraints addObject:[self.timeLabel autoAlignAxisToSuperviewAxis:ALAxisVertical]];
-            
-            //progress bar
-            [constraints addObject:[self.progressBar autoSetDimension:ALDimensionHeight toSize:5.0f]];
-            [constraints addObject:[self.progressBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-            [constraints addObject:[self.progressBar autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
-            [constraints addObject:[self.progressBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self]];
             break;
     }
-    
-    SBProgressBarOptions vH = orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight ? SBProgressBarOptionsVertical : SBProgressBarOptionsHorizontal;
-    SBProgressBarOptions lR = orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationPortraitUpsideDown ? SBProgressBarOptionsRightToLeft : SBProgressBarOptionsLeftToRight;
-    self.progressBar.options = vH | lR;
-    [self.progressBar setNeedsDisplay];
     
     //close button
     offset = CGPointMake(10, 10);
@@ -755,6 +740,66 @@ BOOL isSmallScreen() {
     }
     
     self.topViewsConstraints = [constraints copy];
+}
+
+- (void) adjustProgressBarToOrientation:(UIInterfaceOrientation)orientation withPinOffset:(CGFloat)offset{
+    [self.progressBarConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+    switch (orientation) {
+        case UIInterfaceOrientationLandscapeRight:
+            [constraints addObject:[self.progressBar autoSetDimension:ALDimensionWidth toSize:5.0f]];
+            [constraints addObject:[self.progressBar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+            [constraints addObject:[self.progressBar autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
+            [constraints addObject:[self.progressBar autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:offset]];
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            [constraints addObject:[self.progressBar autoSetDimension:ALDimensionWidth toSize:5.0f]];
+            [constraints addObject:[self.progressBar autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self]];
+            [constraints addObject:[self.progressBar autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self]];
+            [constraints addObject:[self.progressBar autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-offset]];
+            break;
+        default:
+            [constraints addObject:[self.progressBar autoSetDimension:ALDimensionHeight toSize:5.0f]];
+            [constraints addObject:[self.progressBar autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+            [constraints addObject:[self.progressBar autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+            [constraints addObject:[self.progressBar autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:offset]];
+            break;
+    }
+    
+    self.progressBar.options = SBProgressBarOptionsFromOrientation(orientation);
+    [self.progressBar setNeedsDisplay];
+    
+    self.progressBarConstraints = [constraints copy];
+}
+
+- (void) adjustAndAnimateProgressBarWithDuration:(NSTimeInterval)duration delayBetween:(NSTimeInterval)delay fromOrientation:(UIInterfaceOrientation)fromOrientation toOrientation:(UIInterfaceOrientation)toOrientation {
+    if (fromOrientation == toOrientation || toOrientation == UIDeviceOrientationUnknown)
+        return;
+    
+    if (fromOrientation == UIDeviceOrientationUnknown) {
+        [self adjustProgressBarToOrientation:toOrientation withPinOffset:0];
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:.8 initialSpringVelocity:0 options:0 animations:^{
+            [self layoutSubviews];
+        } completion:nil];
+        return;
+    }
+    
+    duration /= 2;
+    CGFloat min = MIN(CGRectGetWidth(self.progressBar.frame), CGRectGetHeight(self.progressBar.frame));
+    [self adjustProgressBarToOrientation:fromOrientation withPinOffset:-min];
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+        [self layoutSubviews];
+    } completion:^(BOOL finished) {
+        self.progressBar.hidden = YES;
+        [self adjustProgressBarToOrientation:toOrientation withPinOffset:-min];
+        [self layoutSubviews];
+        
+        [self adjustProgressBarToOrientation:toOrientation withPinOffset:0];
+        self.progressBar.hidden = NO;
+        [UIView animateWithDuration:duration delay:delay usingSpringWithDamping:.8 initialSpringVelocity:0 options:0 animations:^{
+            [self layoutSubviews];
+        } completion:nil];
+    }];
 }
 
 - (void) adjustSquareToolbarConstraintsForAspectRatio:(SBCameraAspectRatio)ratio captureType:(SBCaptureType)captureType {
