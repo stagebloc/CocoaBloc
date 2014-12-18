@@ -29,4 +29,49 @@
     }];
 }
 
++ (BOOL) isThereAuthStatusDetermined:(NSError**)error {
+    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+    switch (status) {
+        case ALAuthorizationStatusAuthorized:
+            *error = nil;
+            return YES;
+        case ALAuthorizationStatusDenied:
+            *error = [NSError errorWithDomain:@"Access Denied" code:101 userInfo:nil];
+            return YES;
+        case ALAuthorizationStatusRestricted:
+            *error = [NSError errorWithDomain:@"Access Restricted" code:101 userInfo:nil];
+            return YES;
+        default:
+            *error = nil;
+            return NO;
+    }
+}
+
++ (RACSignal*)rac_requestAccess {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+       
+        NSError *error = nil;
+        if (![self isThereAuthStatusDetermined:&error]) {
+            //access not determined
+            [[[ALAssetsLibrary alloc] init] enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                [subscriber sendNext:nil];
+                [subscriber sendCompleted];
+                *stop = YES; //access enabled
+            } failureBlock:^(NSError *e) {
+                [subscriber sendError:error];
+            }];
+        } else if (!error) {
+            [subscriber sendNext:nil];
+            [subscriber sendCompleted];
+        }
+        
+        if (error) {
+            [subscriber sendError:error];
+            return nil;
+        }
+        
+        return nil;
+    }];
+}
+
 @end

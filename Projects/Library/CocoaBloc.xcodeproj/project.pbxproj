@@ -49,6 +49,8 @@
 		09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36819B8FA41000D32DE /* UIFont+FanClub.m */; };
 		09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */; };
 		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
+		4D02B81B1A432148006C811B /* PHPhotoLibrary+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D02B81A1A432148006C811B /* PHPhotoLibrary+RAC.m */; };
+		4D02B81E1A4326AB006C811B /* UIApplication+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D02B81D1A4326AB006C811B /* UIApplication+Extension.m */; };
 		4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */; };
 		4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA881A16665700EE3926 /* SBAssetStitcher.m */; };
 		4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */; };
@@ -202,6 +204,10 @@
 		11A398D28A974B2194750E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		242377E7D60F4866BB3F698B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37A35845661D234A8627BBDC /* Pods-CocoaBloc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc.debug.xcconfig"; sourceTree = "<group>"; };
+		4D02B8191A432148006C811B /* PHPhotoLibrary+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHPhotoLibrary+RAC.h"; sourceTree = "<group>"; };
+		4D02B81A1A432148006C811B /* PHPhotoLibrary+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHPhotoLibrary+RAC.m"; sourceTree = "<group>"; };
+		4D02B81C1A4326AB006C811B /* UIApplication+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Extension.h"; sourceTree = "<group>"; };
+		4D02B81D1A4326AB006C811B /* UIApplication+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Extension.m"; sourceTree = "<group>"; };
 		4D06DA841A165F9F00EE3926 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		4D06DA871A16665700EE3926 /* SBAssetStitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAssetStitcher.h; sourceTree = "<group>"; };
@@ -610,6 +616,8 @@
 				4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */,
 				4DECC3001A3200FD0097ACA3 /* UIView+Extension.h */,
 				4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */,
+				4D02B81C1A4326AB006C811B /* UIApplication+Extension.h */,
+				4D02B81D1A4326AB006C811B /* UIApplication+Extension.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -631,6 +639,8 @@
 				4D2577891A40A48100147E66 /* NSUserDefaults+Camera.m */,
 				4D78BEAA1A42001500C0D19A /* NSURL+Camera.h */,
 				4D78BEAB1A42001500C0D19A /* NSURL+Camera.m */,
+				4D02B8191A432148006C811B /* PHPhotoLibrary+RAC.h */,
+				4D02B81A1A432148006C811B /* PHPhotoLibrary+RAC.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -988,6 +998,7 @@
 			files = (
 				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
 				09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */,
+				4D02B81B1A432148006C811B /* PHPhotoLibrary+RAC.m in Sources */,
 				4D44DFA71A3B6BF600E28C22 /* AVCaptureDevice+RAC.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */,
@@ -1041,6 +1052,7 @@
 				4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */,
 				4D44DFAB1A3B739000E28C22 /* SBAnimator.m in Sources */,
 				0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */,
+				4D02B81E1A4326AB006C811B /* UIApplication+Extension.m in Sources */,
 				09B5124D1979AE7000D62F67 /* SBNotification.m in Sources */,
 				4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */,
 				0949513519EF261E00E3411E /* SBClient+Private.m in Sources */,

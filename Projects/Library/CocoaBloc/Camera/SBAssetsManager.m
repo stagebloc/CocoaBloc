@@ -76,7 +76,7 @@
         RACDisposable *disposable = [[RACDisposable alloc] init];
 
         NSMutableArray *signals = [NSMutableArray array];
-
+        
         if ([[UIDevice currentDevice] isAtLeastiOS:8]) {
             if (![PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
                 // TODO: Improve returned error

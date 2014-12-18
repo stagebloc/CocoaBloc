@@ -10,6 +10,7 @@
 #import "UIFont+FanClub.h"
 #import "UIView+Extension.h"
 #import "UIDevice+StageBloc.h"
+#import "UIApplication+Extension.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <PureLayout/PureLayout.h>
@@ -37,13 +38,13 @@
         NSString *title = @"Camera permissions are required";
         [_titleButton setTitle:title forState:UIControlStateNormal];
         [_titleButton addTarget:self action:@selector(openSettingsPressed:) forControlEvents:UIControlEventTouchUpInside];
-        _titleButton.enabled = [self canOpenSettings];
+        _titleButton.enabled = [UIApplication canOpenSettings];
     }
     return _titleButton;
 }
 
 - (UIButton*) detailsButton {
-    if ([self canOpenSettings])
+    if ([UIApplication canOpenSettings])
         return nil;
     
     if (!_detailsButton) {
@@ -53,7 +54,7 @@
         _detailsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_detailsButton setTitleColor:[UIColor colorWithWhite:0.85 alpha:1] forState:UIControlStateNormal];
         [_detailsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        BOOL enabled = [self canOpenSettings];
+        BOOL enabled = [UIApplication canOpenSettings];
         [_detailsButton setTitle:enabled ? @"Open settings" : @"Open Settings: Privacy: Camera and turn on camera access" forState:UIControlStateNormal];
         _detailsButton.enabled = enabled;
         [_detailsButton addTarget:self action:@selector(openSettingsPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -82,10 +83,6 @@
     return _toolbar;
 }
 
-- (BOOL) canOpenSettings {
-    return (&UIApplicationOpenSettingsURLString != NULL);
-}
-
 - (void) setMediaType:(NSString *)mediaType {
     [self willChangeValueForKey:@"mediaType"];
     _mediaType = [mediaType copy];
@@ -95,7 +92,7 @@
     if ([mediaType isEqualToString:AVMediaTypeAudio]) {
         title = @"Audio permissions\nare required";
     }
-    if ([self canOpenSettings])
+    if ([UIApplication canOpenSettings])
         title = [title stringByAppendingString:@"\n\nTap to update"];
     
     [self.titleButton setTitle:title forState:UIControlStateNormal];
@@ -114,14 +111,14 @@
     [self.view addSubview:self.toolbar];
     [self.toolbar autoCenterInSuperviewWithMatchedDimensions];
     
-    CGSize size = CGSizeMake(280, [self canOpenSettings] ? 20 : 50);
+    CGSize size = CGSizeMake(280, [UIApplication canOpenSettings] ? 20 : 50);
     if (self.detailsButton) {
         [self.view addSubview:self.detailsButton];
         [self.detailsButton autoCenterInSuperview];
         [self.detailsButton autoSetDimensionsToSize:size];
     }
     
-    size = CGSizeMake(280, [self canOpenSettings] ? 110 : 70);
+    size = CGSizeMake(280, [UIApplication canOpenSettings] ? 110 : 70);
     [self.view addSubview:self.titleButton];
     [self.titleButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [self.titleButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.view withOffset:-110];
@@ -140,9 +137,8 @@
 
 #pragma mark - Actions
 - (void) openSettingsPressed:(UIButton*)sender {
-    if ([self canOpenSettings]) {
-        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        [[UIApplication sharedApplication] openURL:url];
+    if ([UIApplication canOpenSettings]) {
+        [[UIApplication sharedApplication] openSettings];
     }
 }
 

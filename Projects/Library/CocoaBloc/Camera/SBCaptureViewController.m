@@ -25,12 +25,16 @@
 #import "SBToolBarAnimator.h"
 #import "UIDevice+StageBloc.h"
 #import "NSURL+Camera.h"
+#import "UIApplication+Extension.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
 #import <AVFoundation/AVFoundation.h>
+
+#import "PHPhotoLibrary+RAC.h"
+#import "ALAssetsLibrary+RAC.h"
 
 @interface SBCaptureViewController () <UIActionSheetDelegate, SCRecordButtonDelegate, SBReviewControllerDelegate>
 
@@ -90,7 +94,7 @@
         _accessController = [[SBCameraAccessViewController alloc] initWithMediaTypeDenied:AVMediaTypeAudio];
         [_accessController.dismissButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _accessController.view.backgroundColor = [UIColor clearColor];
-//        _accessController.view.alpha = 0;
+        _accessController.view.alpha = 0;
     }
     return _accessController;
 }
@@ -383,8 +387,24 @@
 }
 
 #pragma mark - User Actions
--(void)chooseExistingButtonPressed:(id)sender {
+- (void) launchNeedPhotosAccess {
+    UIAlertView *alert;
+    if ([UIApplication canOpenSettings]) {
+        alert = [[UIAlertView alloc] initWithTitle:@"Photo permission are required" message:nil delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:@"Update", nil];
+    } else {
+        alert = [[UIAlertView alloc] initWithTitle:@"Photo permission are required" message:nil delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+    }
+    [[alert rac_buttonClickedSignal] subscribeNext:^(NSNumber *buttonIndex) {
+        if (alert.cancelButtonIndex == buttonIndex.integerValue)
+            return;
+        [[UIApplication sharedApplication] openSettings];
+    }];
+    [alert show];
+}
+
+- (void) launchChooseExistingSheet {
     @weakify(self);
+    
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
     
     [[actionSheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *i) {
@@ -431,6 +451,26 @@
     [actionSheet showInView:self.view];
 }
 
+-(void)chooseExistingButtonPressed:(id)sender {
+    @weakify(self);
+    
+    //use responds too
+    RACSignal *signal;
+    if ([[UIDevice currentDevice] isAtLeastiOS:8]) {
+        signal = [PHPhotoLibrary rac_requestAccess];
+    } else {
+        signal = [ALAssetsLibrary rac_requestAccess];
+    }
+    
+    [[signal deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id _) {
+    } error:^(NSError *error) {
+        @strongify(self);
+        [self launchNeedPhotosAccess];
+    } completed:^{
+        @strongify(self);
+        [self launchChooseExistingSheet];
+    }];
+}
 
 -(void)flashModeButtonPressed:(UIButton *)sender {
     [self.captureManager cycleFlashMode];
