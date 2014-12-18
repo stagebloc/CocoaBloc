@@ -27,8 +27,6 @@
 
 + (RACSignal*) createGroupFromPHAssets:(NSArray*)temp name:(NSString*)name {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        RACDisposable *disposable = [[RACDisposable alloc] init];
-
         NSMutableArray *assets = [NSMutableArray arrayWithCapacity:temp.count];
         NSMutableArray *signals = [NSMutableArray arrayWithCapacity:temp.count];
         for (PHAsset *a in temp) {
@@ -41,24 +39,20 @@
         } error:^(NSError *error) {
             NSLog(@"Error creating SBAsset from PHAsset - %@", error);
             [subscriber sendError:error];
-            [disposable dispose];
         } completed:^{
             SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
             group.name = name;
             [subscriber sendNext:group];
             [subscriber sendCompleted];
-            [disposable dispose];
         }];
         
-        return disposable;
+        return nil;
     }];
     
 }
 
 + (RACSignal*) createGroupFromAssetGroup:(ALAssetsGroup*)assetGroup {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        RACDisposable *disposable = [[RACDisposable alloc] init];
-        
         NSMutableArray *assets = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
         NSMutableArray *signals = [NSMutableArray arrayWithCapacity:assetGroup.numberOfAssets];
         [assetGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
@@ -73,15 +67,13 @@
         } error:^(NSError *error) {
             NSLog(@"Error creating SBAsset from PHAsset - %@", error);
             [subscriber sendError:error];
-            [disposable dispose];
         } completed:^{
             SBAssetGroup *group = [[SBAssetGroup alloc] initWithAssets:assets];
             group.name = [assetGroup valueForProperty:ALAssetsGroupPropertyName];
             [subscriber sendNext:group];
             [subscriber sendCompleted];
-            [disposable dispose];
         }];
-        return disposable;
+        return nil;
     }];
     
 }

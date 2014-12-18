@@ -25,79 +25,61 @@
 
 
 + (RACSignal*)createAssetFromPHAsset:(PHAsset*)phAsset {
-    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        SBAssetType type = SBAssetTypeUnknown;
-        switch (phAsset.mediaType) {
-            case PHAssetMediaTypeImage: type = SBAssetTypeImage; break;
-            case PHAssetMediaTypeVideo: type = SBAssetTypeVideo; break;
-            case PHAssetMediaTypeAudio: type = SBAssetTypeAudio; break;
-            default: break;
-        }
+    SBAssetType type = SBAssetTypeUnknown;
+    switch (phAsset.mediaType) {
+        case PHAssetMediaTypeImage: type = SBAssetTypeImage; break;
+        case PHAssetMediaTypeVideo: type = SBAssetTypeVideo; break;
+        case PHAssetMediaTypeAudio: type = SBAssetTypeAudio; break;
+        default: break;
+    }
+    
+    SBAsset *asset = [[SBAsset alloc] initWithType:type];
+    asset.location = phAsset.location;
+    asset.duration = phAsset.duration;
+    asset.phAsset = phAsset;
+    [asset setValue:phAsset.creationDate forKey:NSStringFromSelector(@selector(creationDate))];
+    [asset setValue:phAsset.modificationDate forKey:NSStringFromSelector(@selector(modificationDate))];
 
-        SBAsset *asset = [[SBAsset alloc] initWithType:type];
-        
-        asset.location = phAsset.location;
-        asset.duration = phAsset.duration;
-        asset.phAsset = phAsset;
-        [asset setValue:phAsset.creationDate forKey:NSStringFromSelector(@selector(creationDate))];
-        [asset setValue:phAsset.modificationDate forKey:NSStringFromSelector(@selector(modificationDate))];
-        
-        [subscriber sendNext:asset];
-        [subscriber sendCompleted];
-        
-        return nil;
-    }]
-            
-    flattenMap:^RACStream *(SBAsset *asset) {
-        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            if (asset.type != SBAssetTypeAudio || asset.type != SBAssetTypeVideo) {
+    RACSignal *assetSignal = [RACSignal return:asset];
+    if (type != SBAssetTypeAudio || type != SBAssetTypeVideo) {
+        return assetSignal;
+    }
+    
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+        options.version = PHVideoRequestOptionsVersionCurrent;
+        options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
+        [[PHImageManager defaultManager] requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset *avAsset, AVAudioMix *audioMix, NSDictionary *info) {
+            if ([avAsset isKindOfClass:[AVURLAsset class]]) {
+                asset.fileURL = ([(AVURLAsset*)avAsset URL]);
                 [subscriber sendNext:asset];
                 [subscriber sendCompleted];
-                return nil;
+            } else {
+                [subscriber sendError:[NSError errorWithDomain:@"Cannot get URL from AVAsset" code:101 userInfo:nil]];
             }
-
-            RACDisposable *disposable = [[RACDisposable alloc] init];
-            PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
-            options.version = PHVideoRequestOptionsVersionCurrent;
-            options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
-            [[PHImageManager defaultManager] requestAVAssetForVideo:phAsset options:options resultHandler:^(AVAsset *avAsset, AVAudioMix *audioMix, NSDictionary *info) {
-                if ([avAsset isKindOfClass:[AVURLAsset class]]) {
-                    asset.fileURL = ([(AVURLAsset*)avAsset URL]);
-                    [subscriber sendNext:asset];
-                    [subscriber sendCompleted];
-                } else {
-                    [subscriber sendError:[NSError errorWithDomain:@"Cannot get URL from AVAsset" code:101 userInfo:nil]];
-                }
-                [disposable dispose];
-            }];
-            return disposable;
         }];
+        return nil;
     }];
 }
 + (RACSignal*)createAssetFromALAsset:(ALAsset*)alAsset {
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        SBAssetType type = SBAssetTypeUnknown;
-        NSString *alType = [alAsset valueForProperty:ALAssetPropertyType];
-        if ([alType isEqualToString:ALAssetTypePhoto]) type = SBAssetTypeImage;
-        else if ([alType isEqualToString:ALAssetTypeVideo]) type = SBAssetTypeVideo;
-        
-        ALAssetRepresentation *representation = alAsset.defaultRepresentation;
-        NSDate *creationDate = [alAsset valueForProperty:ALAssetPropertyDate];
-        
-        SBAsset *asset = [[SBAsset alloc] initWithType:type];
-        
-        asset.location = [alAsset valueForProperty:ALAssetPropertyLocation];
-        asset.duration = [[alAsset valueForProperty:ALAssetPropertyDuration] floatValue];
-        asset.fileURL = [representation url];
-        asset.alAsset = alAsset;
-        [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(creationDate))];
-        [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(modificationDate))];
-        
-        [subscriber sendNext:asset];
-        [subscriber sendCompleted];
-        
-        return nil;
-    }];
+    SBAssetType type = SBAssetTypeUnknown;
+    NSString *alType = [alAsset valueForProperty:ALAssetPropertyType];
+    if ([alType isEqualToString:ALAssetTypePhoto]) type = SBAssetTypeImage;
+    else if ([alType isEqualToString:ALAssetTypeVideo]) type = SBAssetTypeVideo;
+    
+    ALAssetRepresentation *representation = alAsset.defaultRepresentation;
+    NSDate *creationDate = [alAsset valueForProperty:ALAssetPropertyDate];
+    
+    SBAsset *asset = [[SBAsset alloc] initWithType:type];
+    
+    asset.location = [alAsset valueForProperty:ALAssetPropertyLocation];
+    asset.duration = [[alAsset valueForProperty:ALAssetPropertyDuration] floatValue];
+    asset.fileURL = [representation url];
+    asset.alAsset = alAsset;
+    [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(creationDate))];
+    [asset setValue:[creationDate copy] forKey:NSStringFromSelector(@selector(modificationDate))];
+    
+    return [RACSignal return:asset];
 }
 
 - (BOOL) localAsset {
@@ -129,15 +111,19 @@
 }
 
 - (RACSignal*) fetchImage {
-    @weakify(self);
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        if (self.image) {
-            [subscriber sendNext:self.image];
-            [subscriber sendCompleted];
-            return nil;
-        }
-        
-        if (self.phAsset) {
+    if (self.image)
+        return [RACSignal return:self.image];
+    
+    if (self.alAsset) {
+        ALAssetRepresentation *representation = self.alAsset.defaultRepresentation;
+        CGImageRef imageRef = representation.fullScreenImage;
+        UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
+        if (image) return [RACSignal return:image];
+        else return [RACSignal error:[NSError errorWithDomain:@"Cannot parse ALAsset" code:101 userInfo:nil]];
+    }
+    
+    if (self.phAsset) {
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             PHImageRequestOptions *options = [PHImageRequestOptions new];
             options.resizeMode = PHImageRequestOptionsResizeModeExact;
             options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -149,29 +135,11 @@
                     [subscriber sendError:[NSError errorWithDomain:@"Cannot parse PHAsset" code:101 userInfo:nil]];
                 }
             }];
-        }
-        
-        else if (self.alAsset) {
-//            [[RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground] schedule:^{
-                ALAssetRepresentation *representation = self.alAsset.defaultRepresentation;
-                CGImageRef imageRef = representation.fullScreenImage;
-                UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
-                
-                if (image) {
-                    [subscriber sendNext:image];
-                    [subscriber sendCompleted];
-                } else {
-                    [subscriber sendError:[NSError errorWithDomain:@"Cannot create/find image from ALAsset" code:401 userInfo:nil]];
-                }
-//            }];
-        }
-        
-        else {
-            [subscriber sendError:[NSError errorWithDomain:@"No image to fetch" code:101 userInfo:nil]];
-        }
-        
-        return nil;
-    }] ;
+            return nil;
+        }];
+    }
+    
+    return [RACSignal error:[NSError errorWithDomain:@"No image to fetch" code:101 userInfo:nil]];
 }
 
 @end
