@@ -435,7 +435,7 @@ BOOL isSmallScreen() {
             } completion:nil];
             
             
-            [self adjustAndAnimateProgressBarWithDuration:.8tf delayBetween:.3f fromOrientation:self.orientation toOrientation:orientation];
+            [self adjustAndAnimateProgressBarWithDuration:.8f delayBetween:.3f fromOrientation:self.orientation toOrientation:orientation];
             self.orientation = orientation;
         };
         orientationChange(nil);
