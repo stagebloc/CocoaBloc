@@ -18,6 +18,9 @@ typedef NS_ENUM(NSUInteger, SBCameraAspectRatio) {
     SBCameraAspectRatioNormal = 1,
 };
 
+/*!
+ This is an abstract class that contains shared and boilerplate for SBVideoManager & SBPhotoManager.
+ */
 @interface SBDeviceManager : NSObject
 
 @property (nonatomic, assign) SBCameraAspectRatio aspectRatio;

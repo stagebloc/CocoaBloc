@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/*!
+ This controller is responsible for handling if the user has denied the app access `AVMediaTypeAudio` & `AVMediaTypeCamera`. It will present instructions to reenable access if the user desires
+ */
 @interface SBCameraAccessViewController : UIViewController
 
 @property (nonatomic, strong) UIButton *dismissButton;

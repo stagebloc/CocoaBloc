@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+/*!
+ Simple subclass of `UIImagePickerController`.
+ */
 @interface SBImagePickerController : UIImagePickerController
 
 - (RACSignal*) imageSelectSignal;
