@@ -55,7 +55,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
             	setNameWithFormat:@"Get user with ID: %d", userID.intValue];
 }
 
-- (RACSignal *)getAuthenticatedUser {
+- (RACSignal *)getCurrentlyAuthenticatedUser {
     @weakify(self);
     return [[[[self rac_GET:@"users/me" parameters:[self requestParametersWithParameters:nil]]
             	cb_deserializeWithClient:self modelClass:[SBUser class] keyPath:@"data"]

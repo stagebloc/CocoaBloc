@@ -29,6 +29,10 @@ static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension,
     NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
     NSString *contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
     
+    if (!contentType && [extension isEqualToString:@"flac"]) {
+        contentType = @"audio/flac";
+    }
+    
     if (supportedAudioUpload) {
         *supportedAudioUpload = contentType != nil;
     }
