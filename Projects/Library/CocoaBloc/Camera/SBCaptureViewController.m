@@ -44,6 +44,8 @@
 
 @property (nonatomic, strong) SBToolBarAnimator *animator;
 
+@property (nonatomic, strong) SBCameraAccessViewController *accessController;
+
 @end
 
 @implementation SBCaptureViewController
@@ -83,6 +85,16 @@
     return _cameraView;
 }
 
+- (SBCameraAccessViewController*) accessController {
+    if (!_accessController) {
+        _accessController = [[SBCameraAccessViewController alloc] initWithMediaTypeDenied:AVMediaTypeAudio];
+        [_accessController.dismissButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _accessController.view.backgroundColor = [UIColor clearColor];
+//        _accessController.view.alpha = 0;
+    }
+    return _accessController;
+}
+
 - (instancetype) init {
     return [self initWithCaptureType:SBCaptureTypeVideo];
 }
@@ -108,6 +120,9 @@
     [self.cameraView autoCenterInSuperview];
     [self.cameraView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
+    
+    [self addChildViewController:self.accessController];
+    [self.cameraView addSubview:self.accessController.view];
     
     //set current index to match capture type
     NSInteger page = self.captureManager.captureType == SBCaptureTypeVideo ? 0 : 1;
@@ -145,8 +160,6 @@
             self.cameraView.flashMode = mode;
         });
     }];
-    
-    //aspect ratio
     
     //enable/disable record button when time is at max duration
     [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(NSNumber* value) {
@@ -218,34 +231,6 @@
     [self.captureManager.captureSession startRunning];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    @weakify(self);
-    [[[RACSignal merge:@[[AVCaptureDevice rac_requestAccessForVideoMediaType], [AVCaptureDevice rac_requestAccessForAudioMediaType]]] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
-        //ignoring
-    } error:^(NSError *error) {
-        //don't have acess to media type -
-        @strongify(self);
-        NSString *type = error.userInfo[@"type"];
-        SBCameraAccessViewController *controller = [[SBCameraAccessViewController alloc] initWithMediaTypeDenied:type];
-        [controller.dismissButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        if ([[UIDevice currentDevice] isAtLeastiOS:8]) {
-            controller.view.backgroundColor = [UIColor clearColor];
-            controller.transitioningDelegate = self;
-            controller.modalPresentationStyle = UIModalPresentationCustom;
-        } else {
-            controller.view.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1];
-        }
-        [self presentViewController:controller animated:YES completion:nil];
-    } completed:^{
-        //success!
-    }];
-}
-
-- (void) viewDisappeared {
-}
-
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self.cameraView.captureView addSessionIfNeeded:self.captureManager.captureSession];
@@ -266,6 +251,41 @@
         default: break;
     }
     [self.cameraView.recordButton setBorderColor:page == 0 ? [UIColor redColor] : [UIColor fc_stageblocBlueColor]];
+    
+    
+    RACSignal *permissionsSignal;
+    if (page == 0) {
+        permissionsSignal = [RACSignal merge:@[[AVCaptureDevice rac_requestAccessForVideoMediaType], [AVCaptureDevice rac_requestAccessForAudioMediaType]]];
+    } else {
+        permissionsSignal = [AVCaptureDevice rac_requestAccessForVideoMediaType];
+    }
+    
+    @weakify(self);
+    [[permissionsSignal deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
+        //ignoring
+    } error:^(NSError *error) {
+        //don't have acess to media type -
+        @strongify(self);
+        NSString *type = error.userInfo[@"type"];
+        self.accessController.mediaType = type;
+        
+        if ([type isEqualToString:AVMediaTypeAudio]) {
+            [self.cameraView.gestureRecognizers setValue:@YES forKey:NSStringFromSelector(@selector(enabled))];
+            [self.cameraView bringSubviewToFront:self.cameraView.pageView];
+        } else {
+            [self.cameraView.gestureRecognizers setValue:@NO forKey:NSStringFromSelector(@selector(enabled))];
+            [self.cameraView bringSubviewToFront:self.accessController.view];
+        }
+        
+        [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+            self.accessController.view.alpha = 1;
+        } completion:nil];
+    } completed:^{
+        [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+            self.accessController.view.alpha = 0;
+        } completion:nil];
+    }];
+    
 }
 - (void) updateForNewPage {
     NSInteger page = self.cameraView.pageView.index;

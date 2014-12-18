@@ -20,6 +20,8 @@
 @property (nonatomic, strong) UIButton *titleButton;
 @property (nonatomic, strong) UIButton *detailsButton;
 
+@property (nonatomic, strong) UIToolbar *toolbar;
+
 @end
 
 @implementation SBCameraAccessViewController
@@ -70,6 +72,16 @@
     return _dismissButton;
 }
 
+- (UIToolbar*) toolbar {
+    if (!_toolbar) {
+        _toolbar = [[UIToolbar alloc] initWithFrame:self.view.bounds];
+        _toolbar.barStyle = UIBarStyleBlack;
+        _toolbar.clipsToBounds = YES;
+        _toolbar.translucent = YES;
+    }
+    return _toolbar;
+}
+
 - (BOOL) canOpenSettings {
     return (&UIApplicationOpenSettingsURLString != NULL);
 }
@@ -98,6 +110,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view addSubview:self.toolbar];
+    [self.toolbar autoCenterInSuperviewWithMatchedDimensions];
     
     CGSize size = CGSizeMake(280, [self canOpenSettings] ? 20 : 50);
     if (self.detailsButton) {
