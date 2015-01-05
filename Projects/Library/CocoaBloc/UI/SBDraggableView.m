@@ -41,18 +41,38 @@
     else if (self.bottomRestriction && frame.origin.y + frame.size.height >= self.bottomRestriction.floatValue)
         frame.origin.y = self.bottomRestriction.floatValue - frame.size.height;
     
+    
+    [self moved];
     if ([self.dragDelegate respondsToSelector:@selector(draggableViewDidMove:)])
         [self.dragDelegate draggableViewDidMove:self];
+    
     
     [super setFrame:frame];
 }
 
+- (void) initDefaults {
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+    pan.maximumNumberOfTouches = 1;
+    pan.delegate = self;
+    [self addGestureRecognizer:pan];
+}
+
 - (instancetype) init {
     if (self = [super init]) {
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
-        pan.maximumNumberOfTouches = 1;
-        pan.delegate = self;
-        [self addGestureRecognizer:pan];
+        [self initDefaults];
+    }
+    return self;
+}
+- (instancetype) initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initDefaults];
+    }
+    return self;
+}
+
+- (instancetype) initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self initDefaults];
     }
     return self;
 }
@@ -81,6 +101,7 @@
         if ([self.dragDelegate respondsToSelector:@selector(draggableViewDidMove:)]) {
             [self.dragDelegate draggableViewDidMove:self];
         }
+        [self moved];
     }
     
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled ||
@@ -88,10 +109,11 @@
         
         CGPoint velGest = [gesture velocityInView:view];
         CGPoint origin = frame.origin;
-        CGPoint veloicty = CGPointMake(origin.x == 0 ? 0 : velGest.x / frame.origin.x , origin.y == 0 ? 0 : velGest.y / frame.origin.y) ;
+        CGPoint velocity = CGPointMake(origin.x == 0 ? 0 : velGest.x / frame.origin.x , origin.y == 0 ? 0 : velGest.y / frame.origin.y) ;
         if ([self.dragDelegate respondsToSelector:@selector(draggableViewDidStopMoving:velocity:)]) {
-            [self.dragDelegate draggableViewDidStopMoving:self velocity:veloicty];
+            [self.dragDelegate draggableViewDidStopMoving:self velocity:velocity];
         }
+        [self stoppedMovingWithVelocity:velocity];
         
         self.panStarted = nil;
     }
@@ -108,6 +130,18 @@
     if ([self canMoveInDirection:SBDraggableViewDirectionLeftRight] || [self canMoveInDirection:SBDraggableViewDirectionUpDown])
         return YES;
     return NO;
+}
+
+@end
+
+@implementation SBDraggableView (Subclassing)
+
+- (void) moved {
+    
+}
+
+- (void) stoppedMovingWithVelocity:(CGPoint)velocity {
+    
 }
 
 @end

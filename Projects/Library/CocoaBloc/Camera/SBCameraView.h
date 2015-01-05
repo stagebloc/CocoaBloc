@@ -10,11 +10,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SBPhotoManager.h"
 #import "SBCaptureManager.h"
-#import "SBDraggableView.h"
+#import "SBBottomViewContrainer.h"
 
 @class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView, RACSignal;
 
-@interface SBCameraView : UIView <SBDraggableViewDelegate, UIGestureRecognizerDelegate>
+@interface SBCameraView : UIView <SBBottomViewContrainerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) CGFloat squareVideoOffsetBottom;
 
@@ -45,7 +45,7 @@
 @property (nonatomic, strong) UIButton *nextButton;
 
 //Options menu
-@property (nonatomic, strong) SBDraggableView *optionsMenuContianerView;
+@property (nonatomic, strong) SBBottomViewContrainer *optionsMenuContianerView;
 @property (nonatomic, strong) UIToolbar *optionsMenuToolbar;
 @property (nonatomic, strong) UIButton *toggleRatioButton;
 @property (nonatomic, strong) UIButton *toggleCameraButton;

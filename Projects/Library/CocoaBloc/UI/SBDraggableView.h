@@ -25,7 +25,7 @@ typedef NS_OPTIONS(NSUInteger, SBDraggableViewDirection) {
 @interface SBDraggableView : UIView
 
 @property (nonatomic) SBDraggableViewDirection dragDirection;
-@property (nonatomic) id <SBDraggableViewDelegate> dragDelegate;
+@property (nonatomic, weak) id <SBDraggableViewDelegate> dragDelegate;
 
 /*
  The following attributes are optional and a nil value indicates
@@ -35,5 +35,15 @@ typedef NS_OPTIONS(NSUInteger, SBDraggableViewDirection) {
 @property (nonatomic) NSNumber *rightRestriction; //(x + width) won't go past this value
 @property (nonatomic) NSNumber *topRestriction; //(y) won't go past this value
 @property (nonatomic) NSNumber *bottomRestriction; //(y + height) won't go past this value
+
+- (void) initDefaults;
+
+@end
+
+@interface SBDraggableView (Subclassing)
+
+//same as delegate calls
+- (void) moved;
+- (void) stoppedMovingWithVelocity:(CGPoint)velocity;
 
 @end

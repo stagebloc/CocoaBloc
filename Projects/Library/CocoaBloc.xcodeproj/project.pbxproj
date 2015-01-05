@@ -65,6 +65,7 @@
 		4D44DFAB1A3B739000E28C22 /* SBAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFAA1A3B739000E28C22 /* SBAnimator.m */; };
 		4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFAD1A3B7F3800E28C22 /* SBToolBarAnimator.m */; };
 		4D44DFB11A3B814700E28C22 /* SBMarginAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFB01A3B814700E28C22 /* SBMarginAnimator.m */; };
+		4D54992F1A5AF12A0003D276 /* SBBottomViewContrainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D54992E1A5AF12A0003D276 /* SBBottomViewContrainer.m */; };
 		4D617ECC1A38B04D0098869B /* ALAssetsLibrary+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D617ECB1A38B04D0098869B /* ALAssetsLibrary+RAC.m */; };
 		4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B51A23A8A700D33D24 /* SBReviewView.m */; };
 		4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B91A23AC7000D33D24 /* SBPhotoReviewView.m */; };
@@ -264,6 +265,8 @@
 		4D44DFAD1A3B7F3800E28C22 /* SBToolBarAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBToolBarAnimator.m; sourceTree = "<group>"; };
 		4D44DFAF1A3B814700E28C22 /* SBMarginAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMarginAnimator.h; sourceTree = "<group>"; };
 		4D44DFB01A3B814700E28C22 /* SBMarginAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMarginAnimator.m; sourceTree = "<group>"; };
+		4D54992D1A5AF12A0003D276 /* SBBottomViewContrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBottomViewContrainer.h; sourceTree = "<group>"; };
+		4D54992E1A5AF12A0003D276 /* SBBottomViewContrainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBottomViewContrainer.m; sourceTree = "<group>"; };
 		4D617ECA1A38B04D0098869B /* ALAssetsLibrary+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+RAC.h"; sourceTree = "<group>"; };
 		4D617ECB1A38B04D0098869B /* ALAssetsLibrary+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+RAC.m"; sourceTree = "<group>"; };
 		4D76A5B41A23A8A700D33D24 /* SBReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBReviewView.h; sourceTree = "<group>"; };
@@ -688,6 +691,8 @@
 				4D224DDC1A0919B6007DF1D1 /* SBProgressBar.m */,
 				4DF6EFE01A099F1600A5CFEC /* SBCameraView.h */,
 				4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */,
+				4D54992D1A5AF12A0003D276 /* SBBottomViewContrainer.h */,
+				4D54992E1A5AF12A0003D276 /* SBBottomViewContrainer.m */,
 				4D83631E1A0B0E1F00A820B5 /* SBRecordButton.h */,
 				4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */,
 				4D2242091A0D2D3D0065F172 /* SBPageView.h */,
@@ -1031,6 +1036,7 @@
 				4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */,
 				09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */,
 				4D2577871A406DAD00147E66 /* SBComposition.m in Sources */,
+				4D54992F1A5AF12A0003D276 /* SBBottomViewContrainer.m in Sources */,
 				09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */,
 				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,
 				4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */,

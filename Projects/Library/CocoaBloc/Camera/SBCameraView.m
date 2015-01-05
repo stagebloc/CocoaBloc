@@ -25,7 +25,6 @@
 @interface SBCameraView ()
 @property (nonatomic, strong) NSArray *squareToolbarConstraints;
 @property (nonatomic, strong) NSArray *cameraConstraints;
-@property (nonatomic, strong) NSArray *optionsMenuConstraints;
 @property (nonatomic, strong) NSArray *topViewsConstraints;
 @property (nonatomic, strong) NSArray *progressBarConstraints;
 
@@ -223,14 +222,16 @@ BOOL isSmallScreen() {
 }
 
 #pragma mark - Options Menu
-- (SBDraggableView*) optionsMenuContianerView {
+- (SBBottomViewContrainer*) optionsMenuContianerView {
     if (!_optionsMenuContianerView) {
-        _optionsMenuContianerView = [[SBDraggableView alloc] init];
+        _optionsMenuContianerView = [[SBBottomViewContrainer alloc] init];
         _optionsMenuContianerView.dragDirection = SBDraggableViewDirectionUpDown;
         _optionsMenuContianerView.dragDelegate = self;
         
         [_optionsMenuContianerView addSubview:self.optionsMenuToolbar];
         [self.optionsMenuToolbar autoCenterInSuperviewWithMatchedDimensions];
+        
+        _optionsMenuContianerView.rotateViews = @[self.optionsMenuToolbar.subviews];
     }
     return _optionsMenuContianerView;
 }
@@ -314,7 +315,7 @@ BOOL isSmallScreen() {
 
     //optinos menu
     [self addSubview:self.optionsMenuContianerView];
-    [self adjustOptionsMenuConstraintsHidden:YES];
+    [self.optionsMenuContianerView adjustConstraintsHidden:YES];
     
     //BOTTOM HUD (contains subviews)
     [self addSubview:self.bottomContainerView];
@@ -533,10 +534,7 @@ BOOL isSmallScreen() {
 
 #pragma mark - Actions
 - (void)optionsMenuButtonPressed:(id)sender {
-    BOOL shouldHide = !(self.optionsMenuContianerView.frame.origin.y > self.bounds.size.height);
-    [self adjustOptionsMenuConstraintsHidden:shouldHide];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:0 animations:^{
-        [self layoutSubviews];
+    [self.optionsMenuContianerView toggleHiddenWithCustomAnimations:^(BOOL shouldHide) {
         [self adjustOptionsMenuButtonHidden:shouldHide];
     } completion:nil];
 }
@@ -653,14 +651,11 @@ BOOL isSmallScreen() {
     } completion:completion];
 }
 
-#pragma mark - SBDraggableViewDelegate
-- (void) draggableViewDidStopMoving:(SBDraggableView*)view velocity:(CGPoint)velocity{
-    BOOL shouldHide = velocity.y == 0 ? !(view.frame.origin.y <= view.topRestriction.floatValue + view.frame.size.height*.2f) : velocity.y > 0;
-    [self adjustOptionsMenuConstraintsHidden:shouldHide];
-    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:1 initialSpringVelocity:velocity.y options:0 animations:^{
-        [self layoutSubviews];
+#pragma mark - SBBottomViewContrainerDelegate
+- (SBBottomViewContrainerCustomAnimations) bottomViewContainerDidStopMoving:(SBBottomViewContrainer *)view {
+    return ^ (CGPoint velocity, BOOL shouldHide) {
         [self adjustOptionsMenuButtonHidden:shouldHide];
-    } completion:nil];
+    };
 }
 
 - (void) draggableViewDidMove:(SBDraggableView *)view {
@@ -871,26 +866,6 @@ BOOL isSmallScreen() {
 - (void) adjustOptionsMenuButtonHidden:(BOOL)isHidden {
     //.00001 is a little tweak/hack to keep animation direction consistent
     self.optionsMenuButton.transform = isHidden ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformMakeRotation(.00001);
-}
-- (void) adjustOptionsMenuConstraintsHidden:(BOOL)isHidden {
-    [self.optionsMenuConstraints autoRemoveConstraints];
-    NSMutableArray *constraints = [NSMutableArray array];
-    
-    CGFloat height = 200;
-    CGFloat offset = 30;
-    [constraints addObject:[self.optionsMenuContianerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
-    [constraints addObject:[self.optionsMenuContianerView autoSetDimension:ALDimensionHeight toSize:height]];
-    [constraints addObject:[self.optionsMenuContianerView autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
-
-    self.optionsMenuContianerView.topRestriction = @(self.frame.size.height - height);
-    
-    if (!isHidden) {
-        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:offset]];
-    } else {
-        [constraints addObject:[self.optionsMenuContianerView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self withOffset:1]];
-    }
-    
-    self.optionsMenuConstraints = [constraints copy];
 }
 
 @end
