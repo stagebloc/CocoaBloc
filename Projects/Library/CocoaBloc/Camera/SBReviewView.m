@@ -12,6 +12,7 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "UIView+Extension.h"
 #import "SBCaptionButton.h"
+#import "SBOptionsChevronButton.h"
 
 static NSTimeInterval const kAnimationDuration = 0.35f;
 static CGFloat const kAnimationDamping = 1.0f;
@@ -20,6 +21,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
 @interface SBReviewView ()
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+
+@property (nonatomic, strong) NSArray *optionsConstraints;
 
 @end
 
@@ -113,19 +116,14 @@ static CGFloat const kAnimationVelocity = 0.5f;
     return _descriptionField;
 }
 
-#pragma mark - Options Menu
 - (SBBottomViewContrainer*) optionsViewContainer {
     if (!_optionsViewContainer) {
         _optionsViewContainer = [[SBBottomViewContrainer alloc] init];
         _optionsViewContainer.dragDirection = SBDraggableViewDirectionUpDown;
         _optionsViewContainer.dragDelegate = self;
-        _optionsViewContainer.height = 230;
-        
-        CGSize size = CGSizeMake(70, 60);
-        CGPoint offset = CGPointMake(60, 20);
+        _optionsViewContainer.height = 250;
         
         UIToolbar *optionsMenuToolbar = _optionsViewContainer.toolbar;
-        
         _officialButton = [[SBCaptionButton alloc] init];
         _officialButton.offImage = [UIImage imageNamed:@"official_off"];
         _officialButton.onImage = [UIImage imageNamed:@"official_on"];
@@ -133,9 +131,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
         _officialButton.imageView.contentMode = UIViewContentModeCenter;
         _officialButton.captionLabel.text = @"Official";
         [optionsMenuToolbar addSubview:_officialButton];
-        [self.officialButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:optionsMenuToolbar withOffset:50];
-        [self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y];
-        [self.officialButton autoSetDimensionsToSize:size];
 
         _exclusiveButton = [[SBCaptionButton alloc] init];
         _exclusiveButton.offImage = [UIImage imageNamed:@"exclusive_off"];
@@ -144,12 +139,16 @@ static CGFloat const kAnimationVelocity = 0.5f;
         _exclusiveButton.on = NO;
         _exclusiveButton.captionLabel.text = @"Exclusive";
         [optionsMenuToolbar addSubview:_exclusiveButton];
-        [self.exclusiveButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:optionsMenuToolbar withOffset:-50];
-        [self.exclusiveButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y];
-        [self.exclusiveButton autoSetDimensionsToSize:size];
     }
     return _optionsViewContainer;
 }
+
+- (SBOptionsChevronButton*) optionsMenuButton {
+    if (!_optionsMenuButton)
+        _optionsMenuButton = [[SBOptionsChevronButton alloc] init];
+    return _optionsMenuButton;
+}
+
 
 #pragma mark - View State
 - (instancetype) initWithFrame:(CGRect)frame{
@@ -171,6 +170,13 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [self addSubview:self.optionsViewContainer];
         [self.optionsViewContainer adjustConstraintsHidden:NO];
         
+        //options menu button
+        [self addSubview:self.optionsMenuButton];
+        self.optionsMenuButton.bottomContainerView = self.optionsViewContainer;
+        [self.optionsMenuButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+        [self.optionsMenuButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-10];
+        [self.optionsMenuButton autoSetDimensionsToSize:CGSizeMake(50, 50)];
+        
         //buttons
         [self addSubview:self.acceptButton];
         [self addSubview:self.rejectButton];
@@ -187,6 +193,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [self.undoButton autoSetDimensionsToSize:buttonSize];
         [self.undoButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.textContainerView withOffset:buttonOffset.y];
         [self.undoButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:buttonOffset.x];
+        
         
         //notifications
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -239,6 +246,11 @@ static CGFloat const kAnimationVelocity = 0.5f;
                 [self.descriptionField becomeFirstResponder];
             }
         }];
+        
+        [RACObserve(self.officialButton, on) subscribeNext:^(NSNumber *value) {
+            @strongify(self);
+            [self adjustOptionsButtonsForIsOfficialOn:value.boolValue];
+        }];
     }
     return self;
 }
@@ -249,7 +261,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
 
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    return !(touch.view == self.optionsViewContainer || touch.view == self.exclusiveButton || touch.view == self.officialButton);
+    return !(touch.view == self.optionsViewContainer || touch.view == self.exclusiveButton || touch.view == self.officialButton || self.optionsMenuButton);
 }
 
 #pragma mark - Layout
@@ -323,6 +335,37 @@ static CGFloat const kAnimationVelocity = 0.5f;
     [constraints addObject:[self.rejectButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:buttonOffset.x]];
     
     self.bottomButtonConstraints = [constraints copy];
+}
+
+- (void) adjustOptionsButtonsForIsOfficialOn:(BOOL)isOn {
+    [self.optionsConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+
+    CGSize size = CGSizeMake(70, 60);
+    CGPoint offset = CGPointMake(60, 20);
+    UIToolbar *optionsMenuToolbar = _optionsViewContainer.toolbar;
+
+    if (isOn) {
+        [constraints addObject:[self.officialButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:optionsMenuToolbar withOffset:50]];
+        [constraints addObject:[self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+        [constraints addObjectsFromArray:[self.officialButton autoSetDimensionsToSize:size]];
+        
+        [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:optionsMenuToolbar withOffset:-50]];
+        [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+        [constraints addObjectsFromArray:[self.exclusiveButton autoSetDimensionsToSize:size]];
+    } else {
+        [constraints addObject:[self.officialButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+        [constraints addObject:[self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+        [constraints addObjectsFromArray:[self.officialButton autoSetDimensionsToSize:size]];
+    }
+    
+    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+        self.exclusiveButton.alpha = isOn ? 1 : 0;
+        [self.superview layoutSubviews];
+    } completion:nil];
+
+    
+    self.optionsConstraints = [constraints copy];
 }
 
 #pragma mark - Signals

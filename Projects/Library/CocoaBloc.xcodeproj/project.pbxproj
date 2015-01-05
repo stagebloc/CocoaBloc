@@ -61,6 +61,8 @@
 		4D2577871A406DAD00147E66 /* SBComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2577861A406DAD00147E66 /* SBComposition.m */; };
 		4D25778A1A40A48100147E66 /* NSUserDefaults+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2577891A40A48100147E66 /* NSUserDefaults+Camera.m */; };
 		4D326F7C1A5B0FB200574408 /* SBCaptionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D326F7B1A5B0FB200574408 /* SBCaptionButton.m */; };
+		4D326F7F1A5B3AEF00574408 /* SBOptionsChevronButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D326F7E1A5B3AEF00574408 /* SBOptionsChevronButton.m */; };
+		4D326F821A5B3C4100574408 /* SBImageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D326F811A5B3C4100574408 /* SBImageControl.m */; };
 		4D44DFA11A3B50E600E28C22 /* SBCameraAccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFA01A3B50E600E28C22 /* SBCameraAccessViewController.m */; };
 		4D44DFA71A3B6BF600E28C22 /* AVCaptureDevice+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFA61A3B6BF600E28C22 /* AVCaptureDevice+RAC.m */; };
 		4D44DFAB1A3B739000E28C22 /* SBAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFAA1A3B739000E28C22 /* SBAnimator.m */; };
@@ -258,6 +260,10 @@
 		4D2577891A40A48100147E66 /* NSUserDefaults+Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Camera.m"; sourceTree = "<group>"; };
 		4D326F7A1A5B0FB200574408 /* SBCaptionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCaptionButton.h; sourceTree = "<group>"; };
 		4D326F7B1A5B0FB200574408 /* SBCaptionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCaptionButton.m; sourceTree = "<group>"; };
+		4D326F7D1A5B3AEF00574408 /* SBOptionsChevronButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOptionsChevronButton.h; sourceTree = "<group>"; };
+		4D326F7E1A5B3AEF00574408 /* SBOptionsChevronButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOptionsChevronButton.m; sourceTree = "<group>"; };
+		4D326F801A5B3C4100574408 /* SBImageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageControl.h; sourceTree = "<group>"; };
+		4D326F811A5B3C4100574408 /* SBImageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageControl.m; sourceTree = "<group>"; };
 		4D44DF9F1A3B50E600E28C22 /* SBCameraAccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraAccessViewController.h; sourceTree = "<group>"; };
 		4D44DFA01A3B50E600E28C22 /* SBCameraAccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCameraAccessViewController.m; sourceTree = "<group>"; };
 		4D44DFA51A3B6BF600E28C22 /* AVCaptureDevice+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVCaptureDevice+RAC.h"; sourceTree = "<group>"; };
@@ -362,6 +368,8 @@
 				4DD161611A2E5AAA004C98CC /* SBDraggableView.m */,
 				4D326F7A1A5B0FB200574408 /* SBCaptionButton.h */,
 				4D326F7B1A5B0FB200574408 /* SBCaptionButton.m */,
+				4D326F801A5B3C4100574408 /* SBImageControl.h */,
+				4D326F811A5B3C4100574408 /* SBImageControl.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -698,6 +706,8 @@
 				4DF6EFE11A099F1600A5CFEC /* SBCameraView.m */,
 				4D54992D1A5AF12A0003D276 /* SBBottomViewContrainer.h */,
 				4D54992E1A5AF12A0003D276 /* SBBottomViewContrainer.m */,
+				4D326F7D1A5B3AEF00574408 /* SBOptionsChevronButton.h */,
+				4D326F7E1A5B3AEF00574408 /* SBOptionsChevronButton.m */,
 				4D83631E1A0B0E1F00A820B5 /* SBRecordButton.h */,
 				4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */,
 				4D2242091A0D2D3D0065F172 /* SBPageView.h */,
@@ -1060,6 +1070,7 @@
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				4D78BEAC1A42001500C0D19A /* NSURL+Camera.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
+				4D326F821A5B3C4100574408 /* SBImageControl.m in Sources */,
 				4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */,
 				4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */,
 				4D44DFAB1A3B739000E28C22 /* SBAnimator.m in Sources */,
@@ -1072,6 +1083,7 @@
 				4DECC3021A3200FD0097ACA3 /* UIView+Extension.m in Sources */,
 				4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */,
 				0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */,
+				4D326F7F1A5B3AEF00574408 /* SBOptionsChevronButton.m in Sources */,
 				094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */,
 				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
 			);

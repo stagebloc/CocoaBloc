@@ -19,6 +19,7 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "UIDevice+Orientation.h"
 #import "UIView+Extension.h"
+#import "SBOptionsChevronButton.h"
 
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
@@ -200,14 +201,9 @@ BOOL isSmallScreen() {
     return _chooseExistingButton;
 }
 
-- (UIButton*) optionsMenuButton {
-    if (!_optionsMenuButton) {
-        _optionsMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_optionsMenuButton setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
-        _optionsMenuButton.layer.masksToBounds = YES;
-        _optionsMenuButton.imageView.contentMode = UIViewContentModeCenter;
-        [_optionsMenuButton addTarget:self action:@selector(optionsMenuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    }
+- (SBOptionsChevronButton*) optionsMenuButton {
+    if (!_optionsMenuButton)
+        _optionsMenuButton = [[SBOptionsChevronButton alloc] init];
     return _optionsMenuButton;
 }
 
@@ -226,7 +222,6 @@ BOOL isSmallScreen() {
     if (!_optionsMenuContianerView) {
         _optionsMenuContianerView = [[SBBottomViewContrainer alloc] init];
         _optionsMenuContianerView.dragDirection = SBDraggableViewDirectionUpDown;
-        _optionsMenuContianerView.dragDelegate = self;
 
         CGSize size = CGSizeMake(64, 40);
         CGPoint offset = CGPointMake(60, 20);
@@ -310,7 +305,8 @@ BOOL isSmallScreen() {
     [self.bottomContainerView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [self.bottomContainerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.bottomContainerView autoSetDimension:ALDimensionHeight toSize:100];
-    [self adjustOptionsMenuButtonHidden:YES];
+    [self.optionsMenuButton rotateToHidden:YES];
+    self.optionsMenuButton.bottomContainerView = self.optionsMenuContianerView;
 
     //TOP HUD (contains subviews)
     [self addSubview:self.topContainerView];
@@ -519,12 +515,6 @@ BOOL isSmallScreen() {
 }
 
 #pragma mark - Actions
-- (void)optionsMenuButtonPressed:(id)sender {
-    [self.optionsMenuContianerView toggleHiddenWithCustomAnimations:^(BOOL shouldHide) {
-        [self adjustOptionsMenuButtonHidden:shouldHide];
-    } completion:nil];
-}
-
 - (void) swipedLeft:(UIPanGestureRecognizer*)sender {
     if (self.progressBar.value > 0) return;
     if (self.pageView.index + 1 <= self.pageView.labels.count-1) self.pageView.index++;
@@ -635,21 +625,6 @@ BOOL isSmallScreen() {
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:.5 options:0 animations:^{
         [view setValue:@(toAlpha) forKey:NSStringFromSelector(@selector(alpha))];
     } completion:completion];
-}
-
-#pragma mark - SBBottomViewContrainerDelegate
-- (SBBottomViewContrainerCustomAnimations) bottomViewContainerDidStopMoving:(SBBottomViewContrainer *)view {
-    return ^ (CGPoint velocity, BOOL shouldHide) {
-        [self adjustOptionsMenuButtonHidden:shouldHide];
-    };
-}
-
-- (void) draggableViewDidMove:(SBDraggableView *)view {
-    CGFloat bottomRestriction = (self.frame.size.height+1) - view.topRestriction.floatValue;
-    CGFloat percentage = (view.frame.origin.y - view.topRestriction.floatValue) / bottomRestriction;
-    CGFloat angle = M_PI * percentage;
-    if (angle <= 0) angle = .00001;
-    self.optionsMenuButton.transform = CGAffineTransformMakeRotation(angle);
 }
 
 #pragma mark - View layout adjusting
@@ -847,11 +822,6 @@ BOOL isSmallScreen() {
         }
     }
     self.cameraConstraints = [constraints copy];
-}
-
-- (void) adjustOptionsMenuButtonHidden:(BOOL)isHidden {
-    //.00001 is a little tweak/hack to keep animation direction consistent
-    self.optionsMenuButton.transform = isHidden ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformMakeRotation(.00001);
 }
 
 @end

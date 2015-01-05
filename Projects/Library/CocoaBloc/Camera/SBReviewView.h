@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SBBottomViewContrainer.h"
 
-@class RACSignal, SBCaptionButton;
+@class RACSignal, SBCaptionButton, SBOptionsChevronButton;
 
 typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
     SBTextFieldLayoutHidden = 0,
@@ -32,6 +32,8 @@ typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
 @property (strong, nonatomic) UIToolbar *toolBarDescriptionField;
 @property (strong, nonatomic) UITextField *descriptionField;
 @property (strong, nonatomic) NSArray *toolbarConstraints;
+
+@property (nonatomic, strong) SBOptionsChevronButton *optionsMenuButton;
 
 @property (nonatomic, strong) SBBottomViewContrainer *optionsViewContainer;
 @property (nonatomic, strong) SBCaptionButton *officialButton;

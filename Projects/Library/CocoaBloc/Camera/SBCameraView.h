@@ -12,9 +12,9 @@
 #import "SBCaptureManager.h"
 #import "SBBottomViewContrainer.h"
 
-@class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView, RACSignal;
+@class SBProgressBar, SBCaptureView, SBCaptureManager, SBRecordButton, SBPageView, RACSignal, SBOptionsChevronButton;
 
-@interface SBCameraView : UIView <SBBottomViewContrainerDelegate, UIGestureRecognizerDelegate>
+@interface SBCameraView : UIView <UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) CGFloat squareVideoOffsetBottom;
 
@@ -41,7 +41,7 @@
 //Bottom HUD views
 @property (nonatomic, strong) UIView *bottomContainerView;
 @property (nonatomic, strong) UIButton *chooseExistingButton;
-@property (nonatomic, strong) UIButton *optionsMenuButton;
+@property (nonatomic, strong) SBOptionsChevronButton *optionsMenuButton;
 @property (nonatomic, strong) UIButton *nextButton;
 
 //Options menu

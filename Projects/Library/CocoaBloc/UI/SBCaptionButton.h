@@ -6,11 +6,10 @@
 //  Copyright (c) 2015 StageBloc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SBImageControl.h"
 
-@interface SBCaptionButton : UIControl
+@interface SBCaptionButton : SBImageControl
 
-@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *captionLabel;
 
 @property (nonatomic, strong) UIImage *onImage;
