@@ -8,6 +8,7 @@
 
 #import "SBBottomViewContrainer.h"
 #import <PureLayout/PureLayout.h>
+#import "UIView+Extension.h"
 
 @interface SBBottomViewContrainer ()
 
@@ -17,11 +18,25 @@
 
 @implementation SBBottomViewContrainer
 
+- (void) initDefaults {
+    [super initDefaults];
+    
+    self.height = 200;
+    
+    _toolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
+    _toolbar.barStyle = UIBarStyleBlack;
+    _toolbar.clipsToBounds = YES;
+    _toolbar.translucent = YES;
+
+    [self addSubview:_toolbar];
+    [_toolbar autoCenterInSuperviewWithMatchedDimensions];
+}
+
 - (void) adjustConstraintsHidden:(BOOL)isHidden {
     [self.constraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
     
-    CGFloat height = 200;
+    CGFloat height = self.height;
     CGFloat offset = 30;
     [constraints addObject:[self autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.superview]];
     [constraints addObject:[self autoSetDimension:ALDimensionHeight toSize:height]];

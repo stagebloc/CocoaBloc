@@ -227,42 +227,28 @@ BOOL isSmallScreen() {
         _optionsMenuContianerView = [[SBBottomViewContrainer alloc] init];
         _optionsMenuContianerView.dragDirection = SBDraggableViewDirectionUpDown;
         _optionsMenuContianerView.dragDelegate = self;
-        
-        [_optionsMenuContianerView addSubview:self.optionsMenuToolbar];
-        [self.optionsMenuToolbar autoCenterInSuperviewWithMatchedDimensions];
-        
-        _optionsMenuContianerView.rotateViews = @[self.optionsMenuToolbar.subviews];
-    }
-    return _optionsMenuContianerView;
-}
-
-- (UIToolbar*) optionsMenuToolbar {
-    if (!_optionsMenuToolbar) {
-        _optionsMenuToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
-        _optionsMenuToolbar.barStyle = UIBarStyleBlack;
-        _optionsMenuToolbar.clipsToBounds = YES;
-        _optionsMenuToolbar.translucent = YES;
 
         CGSize size = CGSizeMake(64, 40);
         CGPoint offset = CGPointMake(60, 20);
         
-        [_optionsMenuToolbar addSubview:self.toggleRatioButton];
-        [self.toggleRatioButton autoAlignAxis:ALAxisVertical toSameAxisOfView:_optionsMenuToolbar];
-        [self.toggleRatioButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_optionsMenuToolbar withOffset:offset.y];
+        UIToolbar *optionsMenuToolbar = _optionsMenuContianerView.toolbar;
+        [optionsMenuToolbar addSubview:self.toggleRatioButton];
+        [self.toggleRatioButton autoAlignAxis:ALAxisVertical toSameAxisOfView:optionsMenuToolbar];
+        [self.toggleRatioButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y];
         [self.toggleRatioButton autoSetDimensionsToSize:size];
         
         size = CGSizeMake(40, 40);
-        [_optionsMenuToolbar addSubview:self.toggleCameraButton];
+        [optionsMenuToolbar addSubview:self.toggleCameraButton];
         [self.toggleCameraButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.toggleRatioButton withOffset:offset.x];
-        [self.toggleCameraButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_optionsMenuToolbar withOffset:offset.y];
+        [self.toggleCameraButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y];
         [self.toggleCameraButton autoSetDimensionsToSize:size];
         
-        [_optionsMenuToolbar addSubview:self.flashModeButton];
+        [optionsMenuToolbar addSubview:self.flashModeButton];
         [self.flashModeButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.toggleRatioButton withOffset:-offset.x];
-        [self.flashModeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:_optionsMenuToolbar withOffset:offset.y];
+        [self.flashModeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y];
         [self.flashModeButton autoSetDimensionsToSize:size];
     }
-    return _optionsMenuToolbar;
+    return _optionsMenuContianerView;
 }
 
 - (UIButton*) toggleRatioButton {

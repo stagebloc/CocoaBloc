@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SBBottomViewContrainer.h"
 
-@class RACSignal;
+@class RACSignal, SBCaptionButton;
 
 typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
     SBTextFieldLayoutHidden = 0,
@@ -16,7 +17,7 @@ typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
     SBTextFieldLayoutTitleDescription
 };
 
-@interface SBReviewView : UIView
+@interface SBReviewView : UIView <SBBottomViewContrainerDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) UIButton *rejectButton;
 @property (strong, nonatomic) UIButton *acceptButton;
@@ -31,6 +32,10 @@ typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
 @property (strong, nonatomic) UIToolbar *toolBarDescriptionField;
 @property (strong, nonatomic) UITextField *descriptionField;
 @property (strong, nonatomic) NSArray *toolbarConstraints;
+
+@property (nonatomic, strong) SBBottomViewContrainer *optionsViewContainer;
+@property (nonatomic, strong) SBCaptionButton *officialButton;
+@property (nonatomic, strong) SBCaptionButton *exclusiveButton;
 
 @property (nonatomic, assign) SBTextFieldLayout currentLayout;
 

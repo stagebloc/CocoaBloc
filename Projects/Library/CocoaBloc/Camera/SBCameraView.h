@@ -46,7 +46,6 @@
 
 //Options menu
 @property (nonatomic, strong) SBBottomViewContrainer *optionsMenuContianerView;
-@property (nonatomic, strong) UIToolbar *optionsMenuToolbar;
 @property (nonatomic, strong) UIButton *toggleRatioButton;
 @property (nonatomic, strong) UIButton *toggleCameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;

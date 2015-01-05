@@ -19,9 +19,12 @@ typedef void (^SBBottomViewContrainerCustomAnimations)(CGPoint velocity, BOOL sh
 
 @interface SBBottomViewContrainer : SBDraggableView
 
-@property (nonatomic, strong) NSArray *rotateViews;
-
+@property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, weak) id<SBBottomViewContrainerDelegate>dragDelegate;
+
+//default = 200
+@property (nonatomic, assign) CGFloat height;
+
 
 - (void) toggleHidden;
 - (void) toggleHiddenWithCustomAnimations:(void(^)(BOOL shouldHide))customAnimations completion:(void(^)(BOOL finished))completion;

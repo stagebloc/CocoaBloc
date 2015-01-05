@@ -11,6 +11,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "UIView+Extension.h"
+#import "SBCaptionButton.h"
 
 static NSTimeInterval const kAnimationDuration = 0.35f;
 static CGFloat const kAnimationDamping = 1.0f;
@@ -112,6 +113,44 @@ static CGFloat const kAnimationVelocity = 0.5f;
     return _descriptionField;
 }
 
+#pragma mark - Options Menu
+- (SBBottomViewContrainer*) optionsViewContainer {
+    if (!_optionsViewContainer) {
+        _optionsViewContainer = [[SBBottomViewContrainer alloc] init];
+        _optionsViewContainer.dragDirection = SBDraggableViewDirectionUpDown;
+        _optionsViewContainer.dragDelegate = self;
+        _optionsViewContainer.height = 230;
+        
+        CGSize size = CGSizeMake(70, 60);
+        CGPoint offset = CGPointMake(60, 20);
+        
+        UIToolbar *optionsMenuToolbar = _optionsViewContainer.toolbar;
+        
+        _officialButton = [[SBCaptionButton alloc] init];
+        _officialButton.offImage = [UIImage imageNamed:@"official_off"];
+        _officialButton.onImage = [UIImage imageNamed:@"official_on"];
+        _officialButton.on = NO;
+        _officialButton.imageView.contentMode = UIViewContentModeCenter;
+        _officialButton.captionLabel.text = @"Official";
+        [optionsMenuToolbar addSubview:_officialButton];
+        [self.officialButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:optionsMenuToolbar withOffset:50];
+        [self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y];
+        [self.officialButton autoSetDimensionsToSize:size];
+
+        _exclusiveButton = [[SBCaptionButton alloc] init];
+        _exclusiveButton.offImage = [UIImage imageNamed:@"exclusive_off"];
+        _exclusiveButton.onImage = [UIImage imageNamed:@"exclusive_on"];
+        _exclusiveButton.imageView.contentMode = UIViewContentModeCenter;
+        _exclusiveButton.on = NO;
+        _exclusiveButton.captionLabel.text = @"Exclusive";
+        [optionsMenuToolbar addSubview:_exclusiveButton];
+        [self.exclusiveButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:optionsMenuToolbar withOffset:-50];
+        [self.exclusiveButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y];
+        [self.exclusiveButton autoSetDimensionsToSize:size];
+    }
+    return _optionsViewContainer;
+}
+
 #pragma mark - View State
 - (instancetype) initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
@@ -127,6 +166,10 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [self.descriptionField autoCenterInSuperviewWithMatchedDimensions];
 
         [self adjustToolBarConstraints:SBTextFieldLayoutHidden];
+        
+        //options menu
+        [self addSubview:self.optionsViewContainer];
+        [self.optionsViewContainer adjustConstraintsHidden:NO];
         
         //buttons
         [self addSubview:self.acceptButton];
@@ -154,6 +197,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
         
         //gestures
         self.tapGesture = [[UITapGestureRecognizer alloc] init];
+        self.tapGesture.delegate = self;
         [self addGestureRecognizer:self.tapGesture];
         [[self.tapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
             @strongify(self);
@@ -201,6 +245,11 @@ static CGFloat const kAnimationVelocity = 0.5f;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return !(touch.view == self.optionsViewContainer || touch.view == self.exclusiveButton || touch.view == self.officialButton);
 }
 
 #pragma mark - Layout
