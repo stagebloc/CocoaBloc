@@ -375,6 +375,7 @@
         @strongify(self);
         SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
         SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
+        vc.reviewOptions = self.reviewOptions;
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     } error:^(NSError *error) {
@@ -417,6 +418,7 @@
                     @strongify(self);
                     SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
                     SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
+                    vc.reviewOptions = self.reviewOptions;
                     vc.delegate = self;
                     [self.navigationController pushViewController:vc animated:YES];
                 } error:^(NSError *error) {
@@ -432,6 +434,7 @@
                     if ([image  isKindOfClass:[UIImage class]]) {
                         SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
                         SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
+                        vc.reviewOptions = self.reviewOptions;
                         vc.delegate = self;
                         [self.navigationController pushViewController:vc animated:NO];
                         [self dismissViewControllerAnimated:YES completion:nil];
@@ -509,6 +512,7 @@
         @strongify(self);
         SBAsset *asset = [[SBAsset alloc] initWithFileURL:saveURL type:SBAssetTypeVideo];
         SBReviewController *controller = [[SBReviewController alloc] initWithAsset:asset];
+        controller.reviewOptions = self.reviewOptions;
         controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
     } error:^(NSError *error) {
@@ -564,6 +568,8 @@
 
 #pragma mark - SBReviewControllerDelegate
 - (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset {
+    _isOfficialEnabled = controller.isOfficialEnabled;
+    _isExclusiveEnabled = controller.isExclusiveEnabled;
     if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:)]) {
         [self.delegate reviewController:controller acceptedAsset:asset];
     }

@@ -18,6 +18,8 @@
 #import "SBPhotoReviewView.h"
 #import "SBVideoReviewView.h"
 
+#import "SBCaptionButton.h"
+
 @interface SBReviewController ()
 
 @property (nonatomic, strong) SBReviewView *reviewView;
@@ -26,10 +28,19 @@
 
 @implementation SBReviewController
 
+- (BOOL) isOfficialEnabled {
+    return self.reviewView.officialButton.isOn;
+}
+
+- (BOOL) isExclusiveEnabled {
+    return self.reviewView.exclusiveButton.isOn;
+}
+
 #pragma mark - Init methods
 
 - (instancetype) initWithAsset:(SBAsset *)asset {
     if (self = [super init]) {
+        self.reviewOptions = SBReviewViewOptionsDoNotShow;
         _asset = asset;
     }
     return self;
@@ -71,6 +82,7 @@
     self.reviewView.drawButton.hidden = YES;
     self.reviewView.undoButton.hidden = YES;
     
+    RAC(self.reviewView, options) = RACObserve(self, reviewOptions);
 }
 
 #pragma mark Actions

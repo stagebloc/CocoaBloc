@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "SBReviewView.h"
 
-@class SBReviewController, SBAsset;
+@class SBReviewController, SBAsset, SBReviewView;
 
 @protocol SBReviewControllerDelegate <NSObject>
 @optional
@@ -30,6 +31,25 @@
 /*!
  This delegate will be responsibile to handling rejections and acceptions of the `asset`. */
 @property (nonatomic, weak) id <SBReviewControllerDelegate> delegate;
+
+/*!
+ This is responsible for handling how the options menu in the review step
+ of the camera module is shown.
+ 
+ SBReviewViewOptionsDoNotShow = Hides the options menu all together.
+ SBReviewViewOptionsShowOfficialButton = Only shows the official option button,
+ SBReviewViewOptionsShowExclusiveButton = Only shows the exclusive option button,
+ SBReviewViewOptionsShowOfficialButton | SBReviewViewOptionsShowExclusiveButton = Shows both buttons in the options menu.
+ 
+ DEFAULT is SBReviewViewOptionsDoNotShow
+ */
+@property (nonatomic, assign) SBReviewViewOptions reviewOptions;
+
+/*!Whether or not the user enabled the `official` button*/
+@property (nonatomic, assign, readonly) BOOL isOfficialEnabled;
+
+/*!Whether or not the user enabled the `exclusive` button*/
+@property (nonatomic, assign, readonly) BOOL isExclusiveEnabled;
 
 /*!
  This init method is required in order to utilize this class*/

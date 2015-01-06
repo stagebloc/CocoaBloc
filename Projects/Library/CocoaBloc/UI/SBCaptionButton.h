@@ -15,8 +15,6 @@
 @property (nonatomic, strong) UIImage *onImage;
 @property (nonatomic, strong) UIImage *offImage;
 
-@property (nonatomic, assign) BOOL on;
-
-@property (nonatomic, assign) CGSize autolayoutDimensions;
+@property (nonatomic, assign, getter=isOn) BOOL on;
 
 @end

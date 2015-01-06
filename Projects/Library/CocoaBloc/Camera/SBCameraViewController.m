@@ -31,12 +31,17 @@
 }
 
 - (instancetype) init {
-    return [self initWithCaptureType:SBCaptureTypeVideo];
+    return [self initWithReviewOptions:SBReviewViewOptionsDoNotShow];
 }
 
-- (instancetype) initWithCaptureType:(SBCaptureType)captureType {
+- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options {
+    return [self initWithReviewOptions:options captureType:SBCaptureTypeVideo];
+}
+
+- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options captureType:(SBCaptureType)captureType {
     if (self = [super init]) {
         SBCaptureViewController *controller = [[SBCaptureViewController alloc] initWithCaptureType:captureType];
+        controller.reviewOptions = options;
         [self setViewControllers:@[controller]];
     }
     return self;

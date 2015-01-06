@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SBReviewView.h"
 #import "SBCaptureViewController.h"
 
 /*!
@@ -22,9 +23,14 @@
 @property (nonatomic, weak) id<SBCaptureViewControllerDelegate> captureDelegate;
 
 /*!
- Sets initial capture type to start with for the controller
- Default (from `init` method) is SBCaptureTypeVideo
+ Sets the review step options
  */
-- (instancetype) initWithCaptureType:(SBCaptureType)captureType;
+- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options;
+
+/*!
+ Sets the review step options and
+ Sets initial capture type to start with for the controller
+ */
+- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options captureType:(SBCaptureType)captureType;
 
 @end
