@@ -24,6 +24,7 @@
 		0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976370A19BE3F6500E3CD45 /* SBClient+Photo.m */; };
 		0976370E19BE3F8200E3CD45 /* SBClient+Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976370D19BE3F8200E3CD45 /* SBClient+Status.m */; };
 		0976371119BE415200E3CD45 /* SBClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0976371019BE415200E3CD45 /* SBClient+Auth.m */; };
+		099010C71A5C3A0500EB03D0 /* SBClient+Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 099010C61A5C3A0500EB03D0 /* SBClient+Notification.m */; };
 		09A897C01978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
 		09A897CF1978536000EE983C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897BF1978536000EE983C /* Foundation.framework */; };
 		09A897D11978536000EE983C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A897D01978536000EE983C /* UIKit.framework */; };
@@ -150,6 +151,8 @@
 		0976370F19BE415200E3CD45 /* SBClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Auth.h"; sourceTree = "<group>"; };
 		0976371019BE415200E3CD45 /* SBClient+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Auth.m"; sourceTree = "<group>"; };
 		098CF5EE197AE051001A5B0B /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
+		099010C51A5C3A0500EB03D0 /* SBClient+Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Notification.h"; sourceTree = "<group>"; };
+		099010C61A5C3A0500EB03D0 /* SBClient+Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Notification.m"; sourceTree = "<group>"; };
 		09A897BC1978536000EE983C /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A897BF1978536000EE983C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09A897C31978536000EE983C /* CocoaBloc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaBloc-Prefix.pch"; sourceTree = "<group>"; };
@@ -483,6 +486,8 @@
 				097636FE19BE3F2A00E3CD45 /* SBClient+Account.m */,
 				097636F419BE3EFC00E3CD45 /* SBClient+User.h */,
 				097636F519BE3EFC00E3CD45 /* SBClient+User.m */,
+				099010C51A5C3A0500EB03D0 /* SBClient+Notification.h */,
+				099010C61A5C3A0500EB03D0 /* SBClient+Notification.m */,
 				097636FA19BE3F1400E3CD45 /* SBClient+Store.h */,
 				097636FB19BE3F1400E3CD45 /* SBClient+Store.m */,
 				097636F719BE3F0B00E3CD45 /* SBClient+FanClub.h */,
@@ -1046,6 +1051,7 @@
 				097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */,
 				09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */,
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
+				099010C71A5C3A0500EB03D0 /* SBClient+Notification.m in Sources */,
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				4D326F7C1A5B0FB200574408 /* SBCaptionButton.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
