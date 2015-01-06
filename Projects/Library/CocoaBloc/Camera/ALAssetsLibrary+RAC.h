@@ -14,4 +14,6 @@
 
 - (RACSignal*) fetchGroupsWithTypes:(ALAssetsGroupType)types;
 
++ (RACSignal*) rac_requestAccess;
+
 @end

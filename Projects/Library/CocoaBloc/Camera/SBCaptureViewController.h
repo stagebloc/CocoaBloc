@@ -17,8 +17,15 @@
 - (void) cameraControllerCancelled:(SBCaptureViewController*)controller;
 @end
 
+/*!
+ This class is responsible for controlling and utilizing the camera to output an `SBAsset` to the `SBReviewController`.
+ See `SBCameraViewController` as it is preferred to be used & instantiated than manually instantiating this controller.
+ */
 @interface SBCaptureViewController : UIViewController <UIGestureRecognizerDelegate, UIViewControllerTransitioningDelegate>
 
+/*!
+ Set this delegate to handle dismissals and when an SBAsset is accepted by the user.
+ */
 @property (nonatomic, weak) id<SBCaptureViewControllerDelegate> delegate;
 
 /*

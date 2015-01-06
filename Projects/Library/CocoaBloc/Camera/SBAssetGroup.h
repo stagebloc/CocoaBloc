@@ -25,7 +25,6 @@
 
 /**
  * The name of the assets group. 
- * It is assumed that if you call initWithAssets, you are building a group from the Camera Roll, so this name will be "Camera Roll"
  */
 @property (nonatomic, copy) NSString *name;
 

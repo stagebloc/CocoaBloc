@@ -14,16 +14,24 @@
 
 @interface SBAssetsManager : NSObject
 
+/*!
+ Fetches the last photo taken by the user
+ from their local photos.
+ */
 -(RACSignal *)fetchLastPhoto;
 
-//sendNext is NSArray of SBAssetGroup objects
-//and has only one sendNext: call followed by
-//sendCompletion
+/*!
+ Fetches all the user's local SBAssetGroups
+ and sendNext: sends an NSArray of the fetched
+ SBAsset groups.
+ */
 -(RACSignal*)fetchGroupsList;
 
-//sendNext: is SBAssetGroup object and will
-//continue to sendNext: until completion block
-//is called
+/*!
+ Fetches all the user's local SBAssetGroups
+ and sendNext: sends the next SBAssetGroup that
+ was just fetched.
+ */
 -(RACSignal *)fetchGroups;
 
 @end

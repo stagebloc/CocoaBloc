@@ -21,6 +21,9 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
     SBCaptureFlashModeAuto = 2, //AVCaptureFlashModeAuto & AVCaptureTorchModeAuto
 };
 
+/*! 
+ This class is responsible for controlling both SBVideoManager & SBPhotoManager to keep them in sync.
+ */
 @interface SBCaptureManager : NSObject
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;

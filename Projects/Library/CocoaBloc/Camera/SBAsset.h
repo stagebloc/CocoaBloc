@@ -19,38 +19,49 @@ typedef NS_ENUM(NSUInteger, SBAssetType) {
     SBAssetTypeAudio,
 };
 
+/*!
+SBAsset is an object containing information on a file either in the file system or in memory. The specific file type can be found via the type property. */
 @interface SBAsset : NSObject
 
-/*
- YES if the asset was created from a PHAsset or ALAsset
- (createAssetFromPHAsset: & createAssetFromALAsset:)
- 
+/*!
+ YES if the asset was created from a PHAsset or ALAsset (createAssetFromPHAsset: & createAssetFromALAsset:)
  NO (Default) if the asset was not created from a PHAsset or ALAsset
  */
 @property (nonatomic, readonly) BOOL localAsset;
 
-//title is set to creationDate's time interval by default.
+/*!
+ title is set to creationDate's time interval by default.
+ */
 @property (nonatomic, copy) NSString *title;
 
-//caption is not set by default.
+/*!
+ caption is not set by default.
+ */
 @property (nonatomic, copy) NSString *caption;
 
 @property (nonatomic, assign) SBAssetType type;
 
-/*
+/*!
  File URL that isn't guaranteed to be set for SBAssetTypeImage types
  */
 @property (nonatomic, copy) NSURL *fileURL;
 
+/*!
+ The date at which the asset was created.
+ */
 @property(nonatomic, strong, readonly) NSDate *creationDate;
+
+/*!
+ The date at which the asset was created.
+ */
 @property(nonatomic, strong, readonly) NSDate *modificationDate;
 
-/*
+/*!
  The location where the asset was captured
  */
 @property(nonatomic, strong) CLLocation *location;
 
-/*
+/*!
  Duration of the asset if it is a video.
  Duration is always 0 for non videos.
  */
