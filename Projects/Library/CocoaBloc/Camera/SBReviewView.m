@@ -237,7 +237,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
         self.tapGesture = [[UITapGestureRecognizer alloc] init];
         self.tapGesture.delegate = self;
         [self addGestureRecognizer:self.tapGesture];
-        [[self.tapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
+        
+        [[[self.tapGesture rac_gestureSignal] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UITapGestureRecognizer *gesture) {
             @strongify(self);
             
             if (self.descriptionField.isEditing || self.titleField.isEditing) {
@@ -304,7 +305,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
 
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    return !(touch.view == self.optionsViewContainer || touch.view == self.exclusiveButton || touch.view == self.officialButton || self.optionsMenuButton);
+    return !(touch.view == self.optionsViewContainer || touch.view == self.exclusiveButton || touch.view == self.officialButton || touch.view == self.optionsMenuButton);
 }
 
 #pragma mark - Layout
@@ -446,7 +447,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
 
 - (void) animateLayoutChangeWithDuration:(NSTimeInterval)duration damping:(CGFloat)damping velocity:(CGFloat)velocity{
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:velocity options:0 animations:^{
-        [self layoutSubviews];
+        [self.superview layoutIfNeeded];
     } completion:nil];
 }
 
