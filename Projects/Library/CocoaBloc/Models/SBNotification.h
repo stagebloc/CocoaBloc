@@ -10,4 +10,10 @@
 
 @interface SBNotification : SBObject <MTLJSONSerializing>
 
+@property (nonatomic) NSDate *creationDate;
+@property (nonatomic, copy) NSString *HTMLText;
+@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy) NSString *route;
+@property (nonatomic) id accountOrAccountID;
+
 @end
