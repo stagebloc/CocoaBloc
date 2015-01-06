@@ -15,6 +15,8 @@
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong, readonly) UIToolbar *overlayToolbar;
 
+@property (nonatomic, assign) BOOL manualOrientation;
+
 @property (nonatomic, copy) void (^onDismissTap)(void);
 
 + (instancetype) showInView:(UIView*)superview text:(NSString*)text;
@@ -32,7 +34,5 @@
 
 - (void) animateError:(NSString*)error completion:(void (^)(BOOL finished))completion;
 - (void) animateText:(NSString*)text completion:(void (^)(BOOL finished))completion;
-
-
 
 @end

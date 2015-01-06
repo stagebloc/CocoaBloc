@@ -182,7 +182,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [self addSubview:self.textContainerView];
         [self.textContainerView addSubview:self.toolBarTitleField];
         [self.textContainerView addSubview:self.toolBarDescriptionField];
-        
+
         [self.toolBarTitleField addSubview:self.titleField];
         [self.titleField autoCenterInSuperviewWithMatchedDimensions];
         
@@ -261,7 +261,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
             }
         }];
         
-        [[self.titleField.rac_textSignal skip:1] subscribeNext:^(NSString *text) {
+        [[[self.titleField.rac_textSignal skip:1] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSString *text) {
             @strongify(self);
             if (text.length == 0) {
                 self.currentLayout = SBTextFieldLayoutTitle;
@@ -318,9 +318,9 @@ static CGFloat const kAnimationVelocity = 0.5f;
 - (void) setCurrentLayout:(SBTextFieldLayout)currentLayout {
     [self willChangeValueForKey:@"currentLayout"];
     _currentLayout = currentLayout;
+    if (currentLayout != SBTextFieldLayoutTitleDescription) self.descriptionField.text = @"";
     [self didChangeValueForKey:@"currentLayout"];
     [self adjustToolBarConstraints:currentLayout];
-    [self animateLayoutChange];
 }
 
 - (void) adjustToolBarConstraints:(SBTextFieldLayout)layoutType {
@@ -328,26 +328,39 @@ static CGFloat const kAnimationVelocity = 0.5f;
     
     NSMutableArray *constraints = [NSMutableArray array];
     
+    void (^animations)(void) = nil;
+    
     CGFloat height = 105;
     CGFloat offset = height - 100;
     CGFloat titleOffset = offset;
-    self.toolBarDescriptionField.hidden = NO;
-    self.toolBarTitleField.hidden = NO;
+    
+    self.toolBarDescriptionField.alpha = 1;
+    self.toolBarTitleField.alpha = 1;
+    
+    NSInteger const Top = 10;
+    NSInteger const Bottom = 9;
+    self.toolBarDescriptionField.layer.zPosition = Bottom;
+    self.toolBarTitleField.layer.zPosition = Top;
+
     switch (layoutType) {
-        case SBTextFieldLayoutTitle:
+        case SBTextFieldLayoutTitle: {
             height = 50 + offset;
-            self.toolBarDescriptionField.hidden = YES;
+            animations = ^ {
+                self.toolBarDescriptionField.alpha = 0;
+            };
             break;
+        }
         case SBTextFieldLayoutTitleDescription:
+            self.toolBarDescriptionField.layer.zPosition = Top;
+            self.toolBarTitleField.layer.zPosition = Bottom;
             break;
-        default: //hidden
+        default: {//hidden
             offset = height;
             titleOffset = 50;
-            self.toolBarDescriptionField.hidden = YES;
-            self.toolBarTitleField.hidden = YES;
             break;
+        }
     }
-    
+
     [constraints addObject:[self.textContainerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
     [constraints addObject:[self.textContainerView autoSetDimension:ALDimensionHeight toSize:height]];
     [constraints addObject:[self.textContainerView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self withOffset:-offset]]; //hidden
@@ -361,6 +374,9 @@ static CGFloat const kAnimationVelocity = 0.5f;
     [constraints addObject:[self.toolBarDescriptionField autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.textContainerView]];
         
     self.toolbarConstraints = [constraints copy];
+    
+    [self animateLayoutChangeWithDuration:kAnimationDuration damping:kAnimationDamping velocity:kAnimationVelocity completion:nil];
+    [UIView animateWithDuration:kAnimationDuration delay:kAnimationDuration usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:animations completion:nil];
 }
 
 - (void) adjustBottomButtonConstraintsWithBottomOffset:(CGFloat)bottomOffset {
@@ -441,14 +457,14 @@ static CGFloat const kAnimationVelocity = 0.5f;
 }
 
 #pragma mark - Animations
-- (void) animateLayoutChange {
-    [self animateLayoutChangeWithDuration:kAnimationDuration damping:kAnimationDamping velocity:kAnimationVelocity];
+- (void) animateLayoutChangeWithCompletion:(void(^)(BOOL finished))completion {
+    [self animateLayoutChangeWithDuration:kAnimationDuration damping:kAnimationDamping velocity:kAnimationVelocity completion:completion];
 }
 
-- (void) animateLayoutChangeWithDuration:(NSTimeInterval)duration damping:(CGFloat)damping velocity:(CGFloat)velocity{
+- (void) animateLayoutChangeWithDuration:(NSTimeInterval)duration damping:(CGFloat)damping velocity:(CGFloat)velocity completion:(void(^)(BOOL finished))completion{
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:velocity options:0 animations:^{
-        [self.superview layoutIfNeeded];
-    } completion:nil];
+        [self.superview.superview layoutIfNeeded];
+    } completion:completion];
 }
 
 #pragma mark - Button animation methods
@@ -469,7 +485,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
     finalKeyboardFrame = [self convertRect:finalKeyboardFrame fromView:self.window];
     if (isHiding) [self adjustBottomButtonConstraintsWithBottomOffset:-40];
     else [self adjustBottomButtonConstraintsWithBottomOffset:-finalKeyboardFrame.size.height - 20];
-    [self animateLayoutChangeWithDuration:animationDuration damping:.95 velocity:.5];
+    [self animateLayoutChangeWithDuration:animationDuration damping:.95 velocity:.5 completion:nil];
 }
 
 @end
