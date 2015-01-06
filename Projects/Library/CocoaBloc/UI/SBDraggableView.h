@@ -12,8 +12,8 @@
 
 typedef NS_OPTIONS(NSUInteger, SBDraggableViewDirection) {
     SBDraggableViewDirectionNone = (1 << 0),
-    SBDraggableViewDirectionUpDown = (1 << 2),
-    SBDraggableViewDirectionLeftRight = (1 << 3),
+    SBDraggableViewDirectionUpDown = (1 << 1),
+    SBDraggableViewDirectionLeftRight = (1 << 2),
 };
 
 @protocol SBDraggableViewDelegate <NSObject>

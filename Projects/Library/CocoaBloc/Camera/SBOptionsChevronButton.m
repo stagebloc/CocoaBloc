@@ -26,7 +26,7 @@
     [super initDefaults];
     self.imageView.image = [UIImage imageNamed:@"arrow_down"];
     self.imageView.contentMode = UIViewContentModeCenter;
-    
+    [self rotateToHidden:YES];
     [self addTarget:self action:@selector(pressed) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -53,7 +53,7 @@
 }
 
 - (void) draggableViewDidMove:(SBDraggableView *)view {
-    CGFloat bottomRestriction = (self.frame.size.height+1) - view.topRestriction.floatValue;
+    CGFloat bottomRestriction = (self.superview.superview.frame.size.height+1) - view.topRestriction.floatValue;
     CGFloat percentage = (view.frame.origin.y - view.topRestriction.floatValue) / bottomRestriction;
     CGFloat angle = M_PI * percentage;
     if (angle <= 0) angle = .00001;

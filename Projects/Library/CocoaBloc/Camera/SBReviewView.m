@@ -24,6 +24,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
 
 @property (nonatomic, strong) NSArray *optionsConstraints;
 
+@property (nonatomic, strong) UIView *centerOptionsSpacerView;
+
 @end
 
 @implementation SBReviewView
@@ -139,6 +141,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
         _exclusiveButton.on = NO;
         _exclusiveButton.captionLabel.text = @"Exclusive";
         [optionsMenuToolbar addSubview:_exclusiveButton];
+        
+        [optionsMenuToolbar addSubview:self.centerOptionsSpacerView];
     }
     return _optionsViewContainer;
 }
@@ -149,10 +153,31 @@ static CGFloat const kAnimationVelocity = 0.5f;
     return _optionsMenuButton;
 }
 
+- (UIView*) centerOptionsSpacerView {
+    if (!_centerOptionsSpacerView) {
+        _centerOptionsSpacerView = [[UIView alloc] init];
+        _centerOptionsSpacerView.backgroundColor = [UIColor clearColor];
+        _centerOptionsSpacerView.userInteractionEnabled = NO;
+    }
+    return _centerOptionsSpacerView;
+}
+
+#pragma mark - Enum
+- (BOOL) optionsContain:(SBReviewViewOptions)option {
+    return (self.options  & option) != 0;
+}
+- (BOOL) shouldShowOptions {
+    return ![self optionsContain:SBReviewViewOptionsDoNotShow];
+}
+- (BOOL) shouldShowButton:(SBReviewViewOptions)option {
+    return [self optionsContain:option];
+}
 
 #pragma mark - View State
 - (instancetype) initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        self.options = SBReviewViewOptionsDoNotShow;
+        
         //toolbar
         [self addSubview:self.textContainerView];
         [self.textContainerView addSubview:self.toolBarTitleField];
@@ -168,7 +193,13 @@ static CGFloat const kAnimationVelocity = 0.5f;
         
         //options menu
         [self addSubview:self.optionsViewContainer];
-        [self.optionsViewContainer adjustConstraintsHidden:NO];
+        [self.optionsViewContainer adjustConstraintsHidden:YES];
+        CGSize size = CGSizeMake(70, 60);
+        [self.officialButton autoSetDimensionsToSize:size];
+        [self.exclusiveButton autoSetDimensionsToSize:size];
+        [self.centerOptionsSpacerView autoSetDimensionsToSize:size];
+        [self.centerOptionsSpacerView autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+        [self.centerOptionsSpacerView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.optionsViewContainer.toolbar];
         
         //options menu button
         [self addSubview:self.optionsMenuButton];
@@ -246,10 +277,22 @@ static CGFloat const kAnimationVelocity = 0.5f;
                 [self.descriptionField becomeFirstResponder];
             }
         }];
-        
-        [RACObserve(self.officialButton, on) subscribeNext:^(NSNumber *value) {
+                
+        [[RACObserve(self.officialButton, on) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSNumber *value) {
             @strongify(self);
-            [self adjustOptionsButtonsForIsOfficialOn:value.boolValue];
+            BOOL isOn = value.boolValue;
+            [self adjustOptionsButtonsAndAnimate];
+            
+            if (!isOn) {
+                self.exclusiveButton.on = NO;
+            }
+        }];
+        
+        [[RACObserve(self, options) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSNumber *opts) {
+            @strongify(self);
+            SBReviewViewOptions options = opts.unsignedIntegerValue;
+            self.optionsMenuButton.hidden = ![self shouldShowOptions];
+            [self adjustOptionsButtonsAndAnimate];
         }];
     }
     return self;
@@ -337,31 +380,54 @@ static CGFloat const kAnimationVelocity = 0.5f;
     self.bottomButtonConstraints = [constraints copy];
 }
 
-- (void) adjustOptionsButtonsForIsOfficialOn:(BOOL)isOn {
+- (void) adjustOptionsButtonsAndAnimate {
+    //don't care, ignore
+    if (![self shouldShowOptions])
+        return;
+
     [self.optionsConstraints autoRemoveConstraints];
     NSMutableArray *constraints = [NSMutableArray array];
 
-    CGSize size = CGSizeMake(70, 60);
-    CGPoint offset = CGPointMake(60, 20);
+    CGPoint offset = CGPointMake(10, 30);
     UIToolbar *optionsMenuToolbar = _optionsViewContainer.toolbar;
+    BOOL isOfficialOn = self.officialButton.on;
 
-    if (isOn) {
-        [constraints addObject:[self.officialButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:optionsMenuToolbar withOffset:50]];
-        [constraints addObject:[self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
-        [constraints addObjectsFromArray:[self.officialButton autoSetDimensionsToSize:size]];
-        
-        [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:optionsMenuToolbar withOffset:-50]];
-        [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
-        [constraints addObjectsFromArray:[self.exclusiveButton autoSetDimensionsToSize:size]];
+    BOOL bothButtonsEnabled = [self shouldShowButton:SBReviewViewOptionsShowOfficialButton] && [self shouldShowButton:SBReviewViewOptionsShowExclusiveButton];
+    if (bothButtonsEnabled) {
+        if (isOfficialOn) {
+            [constraints addObject:[self.officialButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.centerOptionsSpacerView withOffset:--offset.x]];
+            [constraints addObject:[self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+
+            [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.centerOptionsSpacerView withOffset:offset.x]];
+            [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+        } else {
+            [constraints addObject:[self.officialButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+            [constraints addObject:[self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+            
+            [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:optionsMenuToolbar withOffset:5]];
+            [constraints addObject:[self.exclusiveButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+        }
     } else {
-        [constraints addObject:[self.officialButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
-        [constraints addObject:[self.officialButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
-        [constraints addObjectsFromArray:[self.officialButton autoSetDimensionsToSize:size]];
+        NSArray *buttons = @[self.officialButton, self.exclusiveButton];
+        for (UIView *button in buttons) {
+            [constraints addObject:[button autoAlignAxis:ALAxisVertical toSameAxisOfView:self]];
+            [constraints addObject:[button autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:optionsMenuToolbar withOffset:offset.y]];
+        }
     }
     
-    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
-        self.exclusiveButton.alpha = isOn ? 1 : 0;
-        [self.superview layoutSubviews];
+    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:0 animations:^{
+        if (bothButtonsEnabled) {
+            self.exclusiveButton.alpha = isOfficialOn ? 1 : 0;
+        } else {
+            if ([self shouldShowButton:SBReviewViewOptionsShowExclusiveButton]) {
+                self.exclusiveButton.alpha = 1;
+                self.officialButton.alpha = 0;
+            } else {
+                self.officialButton.alpha = 1;
+                self.exclusiveButton.alpha = 0;
+            }
+        }
+        [self.superview layoutIfNeeded];
     } completion:nil];
 
     

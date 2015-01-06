@@ -17,4 +17,6 @@
 
 @property (nonatomic, assign) BOOL on;
 
+@property (nonatomic, assign) CGSize autolayoutDimensions;
+
 @end

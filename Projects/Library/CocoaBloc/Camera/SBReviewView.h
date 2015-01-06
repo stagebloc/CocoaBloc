@@ -17,7 +17,15 @@ typedef NS_ENUM(NSUInteger, SBTextFieldLayout) {
     SBTextFieldLayoutTitleDescription
 };
 
+typedef NS_OPTIONS(NSUInteger, SBReviewViewOptions) {
+    SBReviewViewOptionsDoNotShow = 1 << 0,
+    SBReviewViewOptionsShowOfficialButton = 1 << 1,
+    SBReviewViewOptionsShowExclusiveButton = 1 << 2,
+};
+
 @interface SBReviewView : UIView <SBBottomViewContrainerDelegate, UIGestureRecognizerDelegate>
+
+@property (nonatomic, assign) SBReviewViewOptions options;
 
 @property (strong, nonatomic) UIButton *rejectButton;
 @property (strong, nonatomic) UIButton *acceptButton;

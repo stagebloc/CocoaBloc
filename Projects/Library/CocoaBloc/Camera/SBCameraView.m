@@ -305,7 +305,6 @@ BOOL isSmallScreen() {
     [self.bottomContainerView autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self];
     [self.bottomContainerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.bottomContainerView autoSetDimension:ALDimensionHeight toSize:100];
-    [self.optionsMenuButton rotateToHidden:YES];
     self.optionsMenuButton.bottomContainerView = self.optionsMenuContianerView;
 
     //TOP HUD (contains subviews)
