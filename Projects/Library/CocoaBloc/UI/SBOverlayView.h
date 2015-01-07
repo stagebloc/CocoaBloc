@@ -15,7 +15,8 @@
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, strong, readonly) UIToolbar *overlayToolbar;
 
-@property (nonatomic, assign) BOOL manualOrientation;
+@property (nonatomic, strong) NSArray *showConstraints;
+@property (nonatomic, strong) NSArray *overlayConstraints;
 
 @property (nonatomic, copy) void (^onDismissTap)(void);
 
@@ -34,5 +35,8 @@
 
 - (void) animateError:(NSString*)error completion:(void (^)(BOOL finished))completion;
 - (void) animateText:(NSString*)text completion:(void (^)(BOOL finished))completion;
+
+- (void) setDefaultAutolayout;
+- (void) setDefaultAutolayoutWithCloseButtonOffset:(CGFloat)offset;
 
 @end

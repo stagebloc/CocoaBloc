@@ -66,25 +66,17 @@
 - (instancetype) initWithFrame:(CGRect)frame text:(NSString*)text {
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.overlayToolbar];
-        [self.overlayToolbar autoCenterInSuperviewWithMatchedDimensions];
-        
+
         [self addSubview:self.activityIndicatorView];
-        [self.activityIndicatorView autoCenterInSuperview];
-        [self.activityIndicatorView autoSetDimensionsToSize:CGSizeMake(30, 30)];
         [self.activityIndicatorView startAnimating];
         
         [self addSubview:self.titleLabel];
         self.titleLabel.text = text;
-        [self.titleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.activityIndicatorView withOffset:-30];
-        [self.titleLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-        [self.titleLabel autoSetDimension:ALDimensionHeight toSize:30];
         
         self.dismissButton.alpha = 0;
         [self addSubview:self.dismissButton];
-        [self.dismissButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:-15];
-        [self.dismissButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
-        [self.dismissButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-        [self.dismissButton autoSetDimension:ALDimensionHeight toSize:60];
+        
+        [self setDefaultAutolayout];
         
         @weakify(self);
         [[self.dismissButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
@@ -95,6 +87,32 @@
         }];
     }
     return self;
+}
+
+- (void) setDefaultAutolayout {
+    [self setDefaultAutolayoutWithCloseButtonOffset:-15];
+}
+
+- (void) setDefaultAutolayoutWithCloseButtonOffset:(CGFloat)offset {
+    [self.overlayConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+    
+    [constraints addObjectsFromArray:[self.overlayToolbar autoCenterInSuperviewWithMatchedDimensions]];
+    
+    [constraints addObjectsFromArray:[self.activityIndicatorView autoCenterInSuperview]];
+    [constraints addObjectsFromArray:[self.activityIndicatorView autoSetDimensionsToSize:CGSizeMake(30, 30)]];
+    
+    [constraints addObject:[self.titleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.activityIndicatorView withOffset:-30]];
+    [constraints addObject:[self.titleLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+    [constraints addObject:[self.titleLabel autoSetDimension:ALDimensionHeight toSize:30]];
+    [constraints addObject:[self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisVertical]];
+    
+    [constraints addObject:[self.dismissButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:offset]];
+    [constraints addObject:[self.dismissButton autoAlignAxisToSuperviewAxis:ALAxisVertical]];
+    [constraints addObject:[self.dismissButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self]];
+    [constraints addObject:[self.dismissButton autoSetDimension:ALDimensionHeight toSize:60]];
+    
+    self.overlayConstraints = [constraints copy];
 }
 
 #pragma mark - Show
@@ -109,7 +127,7 @@
 + (instancetype) showInView:(UIView*)superview text:(NSString*)text dismissOnTap:(BOOL)dismissOnTap duration:(NSTimeInterval)duration {
     SBOverlayView *view = [[SBOverlayView alloc] initWithFrame:superview.frame text:text];
     [superview addSubview:view];
-    [view autoCenterInSuperviewWithMatchedDimensions];
+    view.showConstraints = [view autoCenterInSuperviewWithMatchedDimensions];
     view.showDuration = duration;
     [view animateShowWithDuration:duration showDismissDialog:dismissOnTap completion:nil];
     return view;

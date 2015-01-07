@@ -17,4 +17,11 @@
 + (UIInterfaceOrientation) interfaceOrientationFrom:(UIDeviceOrientation)deviceOrientation;
 - (UIInterfaceOrientation) interfaceOrientation;
 
+
+- (void) sb_setOrientation:(UIInterfaceOrientation)orientation;
+- (void) forceOrientationChange;
+
++ (double) rotationForInterfaceOrientation:(UIInterfaceOrientation)orientation;
+- (double) rotationForInterfaceOrientation;
+
 @end

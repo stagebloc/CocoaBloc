@@ -47,4 +47,35 @@
 - (UIInterfaceOrientation) interfaceOrientation {
     return [UIDevice interfaceOrientationFrom:[[UIDevice currentDevice] orientation]];
 }
+
+- (void) sb_setOrientation:(UIInterfaceOrientation)orientation {
+    [self setValue:@(orientation) forKey:NSStringFromSelector(@selector(orientation))];
+}
+
+- (void) forceOrientationChange {
+    NSInteger orientation = [[UIDevice currentDevice] interfaceOrientation];
+    if (orientation != -1) {
+        [self sb_setOrientation:orientation];
+    }
+}
+
++ (double) rotationForInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    switch (orientation) {
+        case UIInterfaceOrientationPortraitUpsideDown:
+            return M_PI;
+        case UIInterfaceOrientationLandscapeLeft:
+            return M_PI_2;
+        case UIInterfaceOrientationLandscapeRight:
+            return -M_PI_2;
+        default:
+            return 0;
+    }
+}
+
+- (double) rotationForInterfaceOrientation {
+    return [UIDevice rotationForInterfaceOrientation:[self interfaceOrientation]];
+}
+
+
+
 @end

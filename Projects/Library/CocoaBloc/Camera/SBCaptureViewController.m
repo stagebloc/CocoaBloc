@@ -26,6 +26,7 @@
 #import "UIDevice+StageBloc.h"
 #import "NSURL+Camera.h"
 #import "UIApplication+Extension.h"
+#import "UIDevice+Orientation.h"
 
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
@@ -341,6 +342,51 @@
     [self.overlayHud dismiss];
     self.overlayHud = [SBOverlayView showInView:self.view text:text dismissOnTap:YES];
     [self.overlayHud.dismissButton setTitle:@"cancel" forState:UIControlStateNormal];
+    
+    @weakify(self);
+    void (^ notificationHandler)(NSNotification*) = ^(NSNotification *note) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
+            if (orientation == -1 || self.overlayHud.superview == nil)
+                return;
+            
+            ALDimension height;
+            ALDimension width;
+            switch (orientation) {
+                case UIInterfaceOrientationLandscapeLeft:
+                case UIInterfaceOrientationLandscapeRight:
+                    height = ALDimensionWidth;
+                    width = ALDimensionHeight;
+                    break;
+                default:
+                    height = ALDimensionHeight;
+                    width = ALDimensionWidth;
+                    break;
+            }
+            
+            CGFloat offset = 0;
+            [self.overlayHud.showConstraints autoRemoveConstraints];
+            NSMutableArray *constraints = [NSMutableArray array];
+            [constraints addObjectsFromArray:[self.overlayHud autoCenterInSuperview]];
+            [constraints addObject:[self.overlayHud autoMatchDimension:ALDimensionHeight toDimension:height ofView:self.view withOffset:offset]];
+            [constraints addObject:[self.overlayHud autoMatchDimension:ALDimensionWidth toDimension:width ofView:self.view withOffset:offset]];
+            self.overlayHud.showConstraints = [constraints copy];
+            
+            [self.overlayHud setDefaultAutolayoutWithCloseButtonOffset:-(15 + offset)];
+            
+            NSTimeInterval duration = 0.5f;
+            if ([note isKindOfClass:[NSDictionary class]]) duration = [[note valueForKey:@"duration"] floatValue];
+            
+            [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+                self.overlayHud.transform = CGAffineTransformMakeRotation([UIDevice rotationForInterfaceOrientation:orientation]);
+                [self.view layoutIfNeeded];
+            } completion:nil];
+        });
+    };
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:notificationHandler];
+    notificationHandler(@{@"duration":@(0)});
+    
     return self.overlayHud;
 }
 
