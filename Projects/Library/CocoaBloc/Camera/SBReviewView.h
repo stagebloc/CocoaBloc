@@ -23,7 +23,7 @@ typedef NS_OPTIONS(NSUInteger, SBReviewViewOptions) {
     SBReviewViewOptionsShowExclusiveButton = 1 << 2,
 };
 
-@interface SBReviewView : UIView <SBBottomViewContrainerDelegate, UIGestureRecognizerDelegate>
+@interface SBReviewView : UIView <SBDraggableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) SBReviewViewOptions options;
 

@@ -23,6 +23,7 @@
 #import "AVCaptureDevice+RAC.h"
 #import "SBCameraAccessViewController.h"
 #import "SBToolBarAnimator.h"
+#import "SBPushAnimator.h"
 #import "UIDevice+StageBloc.h"
 #import "NSURL+Camera.h"
 #import "UIApplication+Extension.h"
@@ -48,6 +49,7 @@
 @property (nonatomic, strong) SBOverlayView *overlayHud;
 
 @property (nonatomic, strong) SBToolBarAnimator *animator;
+@property (nonatomic, strong) SBPushAnimator *navAnimator;
 
 @property (nonatomic, strong) SBCameraAccessViewController *accessController;
 
@@ -59,6 +61,11 @@
     if (!_animator)
         _animator = [[SBToolBarAnimator alloc] init];
     return _animator;
+}
+- (SBPushAnimator*) navAnimator {
+    if (!_navAnimator)
+        _navAnimator = [[SBPushAnimator alloc] init];
+    return _navAnimator;
 }
 
 - (SBAssetsManager*) assetManager {
@@ -345,44 +352,42 @@
     
     @weakify(self);
     void (^ notificationHandler)(NSNotification*) = ^(NSNotification *note) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
-            if (orientation == -1 || self.overlayHud.superview == nil)
-                return;
-            
-            ALDimension height;
-            ALDimension width;
-            switch (orientation) {
-                case UIInterfaceOrientationLandscapeLeft:
-                case UIInterfaceOrientationLandscapeRight:
-                    height = ALDimensionWidth;
-                    width = ALDimensionHeight;
-                    break;
-                default:
-                    height = ALDimensionHeight;
-                    width = ALDimensionWidth;
-                    break;
-            }
-            
-            CGFloat offset = 0;
-            [self.overlayHud.showConstraints autoRemoveConstraints];
-            NSMutableArray *constraints = [NSMutableArray array];
-            [constraints addObjectsFromArray:[self.overlayHud autoCenterInSuperview]];
-            [constraints addObject:[self.overlayHud autoMatchDimension:ALDimensionHeight toDimension:height ofView:self.view withOffset:offset]];
-            [constraints addObject:[self.overlayHud autoMatchDimension:ALDimensionWidth toDimension:width ofView:self.view withOffset:offset]];
-            self.overlayHud.showConstraints = [constraints copy];
-            
-            [self.overlayHud setDefaultAutolayoutWithCloseButtonOffset:-(15 + offset)];
-            
-            NSTimeInterval duration = 0.5f;
-            if ([note isKindOfClass:[NSDictionary class]]) duration = [[note valueForKey:@"duration"] floatValue];
-            
-            [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
-                self.overlayHud.transform = CGAffineTransformMakeRotation([UIDevice rotationForInterfaceOrientation:orientation]);
-                [self.view layoutIfNeeded];
-            } completion:nil];
-        });
+        @strongify(self);
+        UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
+        if (orientation == -1 || self.overlayHud.superview == nil)
+            return;
+        
+        ALDimension height;
+        ALDimension width;
+        switch (orientation) {
+            case UIInterfaceOrientationLandscapeLeft:
+            case UIInterfaceOrientationLandscapeRight:
+                height = ALDimensionWidth;
+                width = ALDimensionHeight;
+                break;
+            default:
+                height = ALDimensionHeight;
+                width = ALDimensionWidth;
+                break;
+        }
+        
+        CGFloat offset = 0;
+        [self.overlayHud.showConstraints autoRemoveConstraints];
+        NSMutableArray *constraints = [NSMutableArray array];
+        [constraints addObjectsFromArray:[self.overlayHud autoCenterInSuperview]];
+        [constraints addObject:[self.overlayHud autoMatchDimension:ALDimensionHeight toDimension:height ofView:self.view withOffset:offset]];
+        [constraints addObject:[self.overlayHud autoMatchDimension:ALDimensionWidth toDimension:width ofView:self.view withOffset:offset]];
+        self.overlayHud.showConstraints = [constraints copy];
+        
+        [self.overlayHud setDefaultAutolayoutWithCloseButtonOffset:-(15 + offset)];
+        
+        NSTimeInterval duration = 0.5f;
+        if ([note isKindOfClass:[NSDictionary class]]) duration = [[note valueForKey:@"duration"] floatValue];
+        
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
+            self.overlayHud.transform = CGAffineTransformMakeRotation([UIDevice rotationForInterfaceOrientation:orientation]);
+            [self.view layoutIfNeeded];
+        } completion:nil];
     };
     [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:notificationHandler];
     notificationHandler(@{@"duration":@(0)});
@@ -637,6 +642,40 @@
     self.animator.type = SBAnimatorTypeDismiss;
     return self.animator;
 }
+
+#pragma mark - UINavigationViewControllerDelegate
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    switch (operation) {
+        case UINavigationControllerOperationPop:
+            self.navAnimator.type = SBAnimatorTypePop;
+            break;
+        case UINavigationControllerOperationPush:
+            self.navAnimator.type = SBAnimatorTypePush;
+            break;
+        default:
+            break;
+    }
+    UIInterfaceOrientation orietnation = [[UIDevice currentDevice] interfaceOrientation];
+    if ((NSInteger)orietnation == -1) orietnation = UIInterfaceOrientationPortrait;
+    switch (orietnation) {
+        case UIInterfaceOrientationPortrait:
+            self.navAnimator.direction = SBPushAnimatorDirectionRight;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            self.navAnimator.direction = SBPushAnimatorDirectionDown;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            self.navAnimator.direction = SBPushAnimatorDirectionUp;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            self.navAnimator.direction = SBPushAnimatorDirectionLeft;
+            break;
+        default:
+            break;
+    }
+    return self.navAnimator;
+}
+
 
 #pragma mark - Status bar states
 -(UIStatusBarStyle)preferredStatusBarStyle{

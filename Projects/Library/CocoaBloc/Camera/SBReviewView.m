@@ -230,9 +230,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         
-        
         @weakify(self)
-        
         //gestures
         self.tapGesture = [[UITapGestureRecognizer alloc] init];
         self.tapGesture.delegate = self;
@@ -253,9 +251,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
                     self.currentLayout = SBTextFieldLayoutTitle;
                 }
             }
-//            else {
-//                self.currentLayout = SBTextFieldLayoutHidden;
-//            }
             else if (self.currentLayout == SBTextFieldLayoutTitle && self.titleField.text.length == 0){
                 self.currentLayout = SBTextFieldLayoutHidden;
             }
@@ -345,16 +340,17 @@ static CGFloat const kAnimationVelocity = 0.5f;
     switch (layoutType) {
         case SBTextFieldLayoutTitle: {
             height = 50 + offset;
-            animations = ^ {
-                self.toolBarDescriptionField.alpha = 0;
-            };
             break;
         }
         case SBTextFieldLayoutTitleDescription:
             self.toolBarDescriptionField.layer.zPosition = Top;
             self.toolBarTitleField.layer.zPosition = Bottom;
             break;
-        default: {//hidden
+        default: { //hidden
+            animations = ^ {
+                self.toolBarDescriptionField.alpha = 0;
+                self.toolBarTitleField.alpha = 0;
+            };
             offset = height;
             titleOffset = 50;
             break;

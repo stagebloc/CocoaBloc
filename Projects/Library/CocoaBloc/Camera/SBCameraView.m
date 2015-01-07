@@ -686,6 +686,11 @@ BOOL isSmallScreen() {
             break;
     }
     
+    
+    [self.nextButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.recordButton withOffset:10];
+    [self.nextButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomContainerView withOffset:-offset.y];
+    [self.nextButton autoSetDimensionsToSize:size];
+    
     //close button
     offset = CGPointMake(10, 10);
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationPortraitUpsideDown) {

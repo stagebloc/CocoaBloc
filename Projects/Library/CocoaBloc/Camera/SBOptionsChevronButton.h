@@ -9,12 +9,10 @@
 #import "SBImageControl.h"
 #import "SBBottomViewContrainer.h"
 
-@class SBBottomViewContrainer;
-
 /*!
  a button used for controlling a SBBottomViewContrainer instance
  */
-@interface SBOptionsChevronButton : SBImageControl <SBBottomViewContrainerDelegate>
+@interface SBOptionsChevronButton : SBImageControl <SBDraggableViewDelegate>
 
 //will set it's dragDelegate to self & do other magical stuff
 @property (nonatomic, weak) SBBottomViewContrainer *bottomContainerView;

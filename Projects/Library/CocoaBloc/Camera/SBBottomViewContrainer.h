@@ -12,25 +12,21 @@
 
 typedef void (^SBBottomViewContrainerCustomAnimations)(CGPoint velocity, BOOL shouldHide);
 
-@protocol SBBottomViewContrainerDelegate <SBDraggableViewDelegate>
-@optional
-- (SBBottomViewContrainerCustomAnimations) bottomViewContainerDidStopMoving:(SBBottomViewContrainer*)view;
-@end
-
 @interface SBBottomViewContrainer : SBDraggableView
 
 @property (nonatomic, strong) UIToolbar *toolbar;
-@property (nonatomic, weak) id<SBBottomViewContrainerDelegate>dragDelegate;
+
+@property (nonatomic, copy) void (^stoppedMovingAnimations)(BOOL shouldHide);
+@property (nonatomic, copy) void (^stoppedMovingCompletion)(BOOL finished);
 
 //default = 200
 @property (nonatomic, assign) CGFloat height;
 
+- (BOOL) isVisible;
 
 - (void) toggleHidden;
 - (void) toggleHiddenWithCustomAnimations:(void(^)(BOOL shouldHide))customAnimations completion:(void(^)(BOOL finished))completion;
 
 - (void) adjustConstraintsHidden:(BOOL)isHidden;
-
--(void)animateHidden:(BOOL)hidden duration:(NSTimeInterval)duration customAnimations:(void(^)(CGFloat toValue))customAnimations completion:(void(^)(BOOL finished))completion;
 
 @end

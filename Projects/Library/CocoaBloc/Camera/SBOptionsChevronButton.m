@@ -20,6 +20,12 @@
     _bottomContainerView = bottomContainerView;
     _bottomContainerView.dragDelegate = self;
     [self didChangeValueForKey:@"bottomContainerView"];
+    
+    @weakify(self);
+    [_bottomContainerView setStoppedMovingAnimations:^(BOOL shouldHide) {
+        @strongify(self);
+        [self rotateToHidden:shouldHide];
+    }];
 }
 
 - (void) initDefaults {
@@ -45,13 +51,7 @@
     self.transform = isHidden ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformMakeRotation(.00001);
 }
 
-#pragma mark - SBBottomViewContrainerDelegate
-- (SBBottomViewContrainerCustomAnimations) bottomViewContainerDidStopMoving:(SBBottomViewContrainer *)view {
-    return ^ (CGPoint velocity, BOOL shouldHide) {
-        [self rotateToHidden:shouldHide];
-    };
-}
-
+#pragma mark - SBDraggableViewDelegate
 - (void) draggableViewDidMove:(SBDraggableView *)view {
     CGFloat bottomRestriction = (self.superview.superview.frame.size.height+1) - view.topRestriction.floatValue;
     CGFloat percentage = (view.frame.origin.y - view.topRestriction.floatValue) / bottomRestriction;

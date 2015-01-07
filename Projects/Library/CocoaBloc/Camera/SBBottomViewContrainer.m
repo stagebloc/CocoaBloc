@@ -18,6 +18,10 @@
 
 @implementation SBBottomViewContrainer
 
+- (BOOL) isVisible {
+    return !(self.frame.origin.y > self.superview.bounds.size.height);
+}
+
 - (void) initDefaults {
     [super initDefaults];
     
@@ -30,6 +34,8 @@
 
     [self addSubview:_toolbar];
     [_toolbar autoCenterInSuperviewWithMatchedDimensions];
+    
+    self.hidden = YES;
 }
 
 - (void) adjustConstraintsHidden:(BOOL)isHidden {
@@ -50,6 +56,10 @@
         [constraints addObject:[self autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.superview withOffset:1]];
     }
     
+    if (!isHidden) {
+        self.hidden = NO;
+    }
+    
     self.constraints = [constraints copy];
 }
 
@@ -58,16 +68,14 @@
 }
 
 - (void) toggleHiddenWithCustomAnimations:(void(^)(BOOL shouldHide))customAnimations completion:(void(^)(BOOL finished))completion {
-    BOOL shouldHide = !(self.frame.origin.y > self.superview.bounds.size.height);
+    BOOL shouldHide = [self isVisible];
     [self adjustConstraintsHidden:shouldHide];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:0 animations:^{
         [self.superview layoutSubviews];
         if (customAnimations) customAnimations(shouldHide);
-    } completion:nil];
-}
-
--(void)animateHidden:(BOOL)hidden duration:(NSTimeInterval)duration customAnimations:(void(^)(CGFloat toValue))customAnimations completion:(void(^)(BOOL finished))completion {
-    
+    } completion:^(BOOL finished) {
+        if (![self isVisible]) self.hidden = YES;
+    }];
 }
 
 #pragma mark - Subclassing
@@ -76,13 +84,11 @@
     [self adjustConstraintsHidden:shouldHide];
     [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:1 initialSpringVelocity:velocity.y options:0 animations:^{
         [self.superview layoutSubviews];
-        if ([self.dragDelegate respondsToSelector:@selector(bottomViewContainerDidStopMoving:)]) {
-            SBBottomViewContrainerCustomAnimations animations = [self.dragDelegate bottomViewContainerDidStopMoving:self];
-            if (animations) {
-                animations(velocity, shouldHide);
-            }
-        }
-    } completion:nil];
+        if (self.stoppedMovingAnimations) self.stoppedMovingAnimations(shouldHide);
+    } completion:^(BOOL finished) {
+        if (![self isVisible]) self.hidden = YES;
+        if (self.stoppedMovingCompletion) self.stoppedMovingCompletion(finished);
+    }];
 }
 
 @end
