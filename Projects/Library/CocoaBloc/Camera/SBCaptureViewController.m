@@ -661,14 +661,14 @@
         case UIInterfaceOrientationPortrait:
             self.navAnimator.direction = SBPushAnimatorDirectionRight;
             break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            self.navAnimator.direction = SBPushAnimatorDirectionLeft;
+            break;
         case UIInterfaceOrientationLandscapeLeft:
             self.navAnimator.direction = SBPushAnimatorDirectionDown;
             break;
         case UIInterfaceOrientationLandscapeRight:
             self.navAnimator.direction = SBPushAnimatorDirectionUp;
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            self.navAnimator.direction = SBPushAnimatorDirectionLeft;
             break;
         default:
             break;

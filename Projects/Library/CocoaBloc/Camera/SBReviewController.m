@@ -20,6 +20,8 @@
 
 #import "SBCaptionButton.h"
 
+#import "UIDevice+Orientation.h"
+
 @interface SBReviewController ()
 
 @property (nonatomic, strong) SBReviewView *reviewView;
@@ -49,7 +51,7 @@
 #pragma mark - View State
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     self.view.backgroundColor = [UIColor blackColor];
@@ -83,6 +85,11 @@
     self.reviewView.undoButton.hidden = YES;
     
     RAC(self.reviewView, options) = RACObserve(self, reviewOptions);
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [UIViewController attemptRotationToDeviceOrientation];
 }
 
 #pragma mark Actions

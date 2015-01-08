@@ -49,7 +49,7 @@
 }
 
 - (void) sb_setOrientation:(UIInterfaceOrientation)orientation {
-    [self setValue:@(orientation) forKey:NSStringFromSelector(@selector(orientation))];
+    [self setValue:[NSNumber numberWithInteger:orientation] forKey:NSStringFromSelector(@selector(orientation))];
 }
 
 - (void) forceOrientationChange {
