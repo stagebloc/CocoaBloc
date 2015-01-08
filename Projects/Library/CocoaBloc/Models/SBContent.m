@@ -22,20 +22,6 @@
 
 @implementation SBContent
 
-+ (Class)modelClassForJSONContentType:(NSString *)contentType {
-    static NSDictionary *contentTypeToModelClassMap = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        contentTypeToModelClassMap = @{@"photos"    : [SBPhoto class],
-                                       @"blog"      : [SBBlog class],
-                                       @"statuses"  : [SBStatus class],
-                                       @"videos"    : [SBVideo class],
-                                       @"audio"     : [SBAudio class]};
-    });
-    
-    return contentTypeToModelClassMap[contentType];
-}
-
 + (NSString *)URLPathContentType {
     static NSDictionary *classToContentURLContentTypes = nil;
     static dispatch_once_t onceToken;
@@ -88,11 +74,11 @@
 }
 
 + (MTLValueTransformer *)accountOrAccountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBAccount class]];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 + (MTLValueTransformer *)authorOrAuthorUserIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBUser class]];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 - (NSNumber *)accountID {

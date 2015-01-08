@@ -12,17 +12,17 @@
 
 @implementation RACSignal (JSONDeserialization)
 
-- (RACSignal *)cb_deserializeWithClient:(SBClient *)client modelClass:(Class)modelClass keyPath:(NSString *)keyPath {
+- (RACSignal *)cb_deserializeWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
     @weakify(client);
     
     return [[self flattenMap:^RACStream *(NSDictionary *response) {
         @strongify(client);
         
-        return [client deserializeModelOfClass:modelClass fromJSONDictionary:!keyPath ? response : [response valueForKeyPath:keyPath]];
+        return [client deserializeModelFromJSONDictionary:!keyPath ? response : [response valueForKeyPath:keyPath]];
     }] take:1];
 }
 
-- (RACSignal *)cb_deserializeArrayWithClient:(SBClient *)client modelClass:(Class)modelClass keyPath:(NSString *)keyPath {
+- (RACSignal *)cb_deserializeArrayWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
     @weakify(client);
     
     return [[self flattenMap:^RACStream *(NSDictionary *response) {
@@ -30,43 +30,11 @@
         
         NSMutableArray *signals = [NSMutableArray new];
         for (NSDictionary *item in !keyPath ? response : [response valueForKeyPath:keyPath]) {
-            [signals addObject:[[RACSignal return:item] cb_deserializeWithClient:client modelClass:modelClass keyPath:nil]];
+            [signals addObject:[[RACSignal return:item] cb_deserializeWithClient:client keyPath:nil]];
         }
         return [[[RACSignal combineLatest:signals] take:1] map:^id (RACTuple *models) {
             return models.allObjects;
         }];
-    }] take:1];
-}
-
-- (RACSignal *)cb_deserializeContentArrayWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
-    @weakify(client);
-    
-    return [[self flattenMap:^RACStream *(NSDictionary *response) {
-        @strongify(client);
-        
-        NSMutableArray *signals = [NSMutableArray new];
-        for (NSDictionary *item in !keyPath ? response : [response valueForKeyPath:keyPath]) {
-            Class modelClass = [SBContent modelClassForJSONContentType:item[@"content_type"]];
-            if (modelClass != nil) {
-                [signals addObject:[[RACSignal return:item] cb_deserializeWithClient:client modelClass:modelClass keyPath:nil]];
-            }
-        }
-        return [[[RACSignal combineLatest:signals] take:1] map:^id (RACTuple *models) {
-            return models.allObjects;
-        }];
-    }] take:1];
-}
-
-- (RACSignal *)cb_deserializeContentModelWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
-    @weakify(client);
-    
-    return [[self flattenMap:^RACStream *(NSDictionary *response) {
-        @strongify(client);
-        
-        NSDictionary *modelDict = !keyPath ? response : [response valueForKeyPath:keyPath];
-        NSString *contentTypeString = [modelDict objectForKey:@"content_type"];
-        
-        return [client deserializeModelOfClass:[SBContent modelClassForJSONContentType:contentTypeString] fromJSONDictionary:modelDict];
     }] take:1];
 }
 

@@ -35,6 +35,22 @@
 	}];
 }
 
++ (instancetype)reversibleModelIDOrJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id value) {
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            return [MTLJSONAdapter modelOfClass:[SBObject class]
+                             fromJSONDictionary:value
+                                          error:nil];
+        }
+        return value;
+    } reverseBlock:^id(id value) {
+        if ([value isKindOfClass:[SBObject class]]) {
+            return [MTLJSONAdapter JSONDictionaryFromModel:value];
+        }
+        return value;
+    }];
+}
+
 + (instancetype)reversibleModelIDOnlyTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id object) {
         if ([object isKindOfClass:[NSNumber class]]) {
@@ -47,46 +63,14 @@
     }];
 }
 
-+ (instancetype)reversibleModelOnlyTransformerWithClass:(Class)modelClass {
++ (instancetype)reversibleModelJSONOnlyTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id object) {
         if (![object isKindOfClass:[NSDictionary class]]) {
             return nil;
         }
-        return [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:object error:nil];
+        return [MTLJSONAdapter modelOfClass:[SBObject class] fromJSONDictionary:object error:nil];
     } reverseBlock:^id(id object) {
         return object == nil ? nil : [MTLJSONAdapter JSONDictionaryFromModel:object];
-    }];
-}
-
-+ (instancetype)reversibleModelIDOrJSONTransformerForClass:(Class)modelClass {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id value) {
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            return [MTLJSONAdapter modelOfClass:modelClass
-                             fromJSONDictionary:value
-                                          error:nil];
-        }
-        return value;
-    } reverseBlock:^id(id value) {
-        if ([value isKindOfClass:modelClass]) {
-            return [MTLJSONAdapter JSONDictionaryFromModel:value];
-        }
-        return value;
-    }];
-}
-
-+ (instancetype)reversibleContentModelIDOrJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id value) {
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            return [MTLJSONAdapter modelOfClass:[SBContent modelClassForJSONContentType:[value objectForKey:@"content_type"]]
-                             fromJSONDictionary:value
-                                          error:nil];
-        }
-        return value;
-    } reverseBlock:^id(id value) {
-        if ([value isKindOfClass:[SBContent modelClassForJSONContentType:[value objectForKey:@"content_type"]]]) {
-            return [MTLJSONAdapter JSONDictionaryFromModel:value];
-        }
-        return value;
     }];
 }
 

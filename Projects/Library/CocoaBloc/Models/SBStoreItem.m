@@ -73,39 +73,11 @@
 }
 
 + (MTLValueTransformer *)photosJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id photosValue) {
-        if ([photosValue isKindOfClass:[NSNumber class]]) {
-            return photosValue;
-        } else {
-            return [MTLJSONAdapter modelsOfClass:[SBPhoto class]
-                                   fromJSONArray:photosValue
-                                           error:nil];
-        }
-    } reverseBlock:^id(id photosValue) {
-        if ([photosValue isKindOfClass:[NSNumber class]]) {
-            return photosValue;
-        } else {
-            return [MTLJSONAdapter JSONArrayFromModels:photosValue];
-        }
-    }];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 + (MTLValueTransformer *)photoIDJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id photoValue) {
-        if ([photoValue isKindOfClass:[NSNumber class]]) {
-            return photoValue;
-        } else {
-            return [MTLJSONAdapter modelOfClass:[SBPhoto class]
-                             fromJSONDictionary:photoValue
-                                          error:nil];
-        }
-    } reverseBlock:^id(id photoValue) {
-        if ([photoValue isKindOfClass:[NSNumber class]]) {
-            return photoValue;
-        } else {
-            return [MTLJSONAdapter JSONDictionaryFromModel:photoValue];
-        }
-    }];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {
@@ -121,23 +93,11 @@
 }
 
 + (MTLValueTransformer *)optionsJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSArray *options) {
-        return [MTLJSONAdapter modelsOfClass:[SBStoreItemOption class]
-                               fromJSONArray:options
-                                       error:nil];
-    } reverseBlock:^id(NSArray *optionModels) {
-        return [MTLJSONAdapter JSONArrayFromModels:optionModels];
-    }];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)priceConfigurationsJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSArray *jsonArray) {
-        return [MTLJSONAdapter modelsOfClass:[SBStoreItemPriceConfiguration class]
-                               fromJSONArray:jsonArray
-                                       error:nil];
-    } reverseBlock:^id(NSArray *modelArray) {
-        return [MTLJSONAdapter JSONArrayFromModels:modelArray];
-    }];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 @end

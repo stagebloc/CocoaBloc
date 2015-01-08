@@ -29,7 +29,7 @@
 }
 
 + (MTLValueTransformer *)accountOrAccountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBAccount class]];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 @end

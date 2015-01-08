@@ -18,7 +18,7 @@
     NSParameterAssert(accountID);
 
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@", accountID] parameters:[self requestParametersWithParameters:nil]]
-            	cb_deserializeWithClient:self modelClass:[SBAccount class] keyPath:@"data"]
+            	cb_deserializeWithClient:self keyPath:@"data"]
             	setNameWithFormat:@"Get account with ID: %@", accountID];
 }
 
@@ -35,7 +35,7 @@
     if (urlString)		dict[@"stagebloc_url"] = urlString.copy;
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", account.identifier] parameters:[self requestParametersWithParameters:dict]]
-            	cb_deserializeWithClient:self modelClass:[SBAccount class] keyPath:@"data"]
+            	cb_deserializeWithClient:self keyPath:@"data"]
             	setNameWithFormat:@"Update account (%@)", account];
 }
 
@@ -52,7 +52,7 @@
     NSParameterAssert(accountId);
 
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/children/%@", accountId, (nil == type ? @"" : type)] parameters:[self requestParametersWithParameters:nil]]
-             cb_deserializeArrayWithClient:self modelClass:[SBAccount class] keyPath:@"data.child_accounts"]
+             cb_deserializeArrayWithClient:self keyPath:@"data.child_accounts"]
             setNameWithFormat:@"Get children accounts (accountID: %d])", accountId.intValue];
 }
 

@@ -12,10 +12,11 @@
 
 + (instancetype)reversibleStringToURLTransformer;
 + (instancetype)reversibleStringToDateTransformerWithFormatter:(NSDateFormatter *)dateFormatter;
-+ (instancetype)reversibleModelIDOrJSONTransformerForClass:(Class)modelClass;
-+ (instancetype)reversibleContentModelIDOrJSONTransformer;
 
-+ (instancetype)reversibleModelOnlyTransformerWithClass:(Class)modelClass;
+// Models
++ (instancetype)reversibleModelIDOrJSONTransformer;
+
++ (instancetype)reversibleModelJSONOnlyTransformer;
 + (instancetype)reversibleModelIDOnlyTransformer;
 
 @end

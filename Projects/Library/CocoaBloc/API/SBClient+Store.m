@@ -17,7 +17,7 @@
 
 - (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccount:(SBAccount *)account {
     return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/store/items/%d", account.identifier.intValue, storeItemID.intValue] parameters:[self requestParametersWithParameters:nil]]
-             	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
+             	cb_deserializeArrayWithClient:self keyPath:@"data"]
             	setNameWithFormat:@"Get store item (accountID: %d, audioID: %d)", account.identifier.intValue, storeItemID.intValue];
 }
 
@@ -32,7 +32,7 @@
     SAFE_ASSIGN(@"expand");
 #undef SAFE_ASSIGN
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:[self requestParametersWithParameters:p]]
-             	cb_deserializeArrayWithClient:self modelClass:[SBStoreItem class] keyPath:@"data"]
+             	cb_deserializeArrayWithClient:self keyPath:@"data"]
 				setNameWithFormat:@"Get store items for account (%@)", account];
 }
 
@@ -71,7 +71,7 @@
     }
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase", accountId] parameters:[self requestParametersWithParameters:params]]
-            	cb_deserializeWithClient:self modelClass:[SBOrder class] keyPath:@"data"]
+            	cb_deserializeWithClient:self keyPath:@"data"]
             setNameWithFormat:@"Purchase items: %@", itemsToPurchase];
 }
 

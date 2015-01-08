@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, SBCocoaBlocErrorCode) {
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request;
 - (RACSignal *)enqueueRequestOperation:(AFHTTPRequestOperation *)operation;
 
-- (RACSignal *)deserializeModelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)dictionary;
+- (RACSignal *)deserializeModelFromJSONDictionary:(NSDictionary *)dictionary;
 
 /// The scheduler on which work will be done when converting JSON data into models.
 /// Default = background scheduler

@@ -84,7 +84,7 @@
 }
 
 + (MTLValueTransformer *)contentJSONTransformer {
-    return [MTLValueTransformer reversibleContentModelIDOrJSONTransformer];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 + (MTLValueTransformer *)accountIDJSONTransformer {
@@ -92,7 +92,7 @@
 }
 
 + (MTLValueTransformer *)accountJSONTransformer {
-    return [MTLValueTransformer reversibleModelOnlyTransformerWithClass:[SBAccount class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)userIDJSONTransformer {
@@ -100,7 +100,7 @@
 }
 
 + (MTLValueTransformer *)userJSONTransformer {
-    return [MTLValueTransformer reversibleModelOnlyTransformerWithClass:[SBUser class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {

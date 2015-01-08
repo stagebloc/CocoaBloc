@@ -24,7 +24,7 @@
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBPhoto class]];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 @end

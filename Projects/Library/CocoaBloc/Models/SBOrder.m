@@ -29,15 +29,15 @@
 }
 
 + (MTLValueTransformer *)customerOrCustomerUserIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBUser class]];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 + (MTLValueTransformer *)accountOrAccountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBAccount class]];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 + (MTLValueTransformer *)addressJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBAddress class]];
+    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
 }
 
 + (MTLValueTransformer *)dateOrderedJSONTransformer {

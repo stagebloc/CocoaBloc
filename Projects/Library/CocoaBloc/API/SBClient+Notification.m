@@ -25,7 +25,7 @@
                 map:^id(NSDictionary *response) {
                     return @{@"data" : response[@"data"][@"notifications"]};
                 }]
-                cb_deserializeArrayWithClient:self modelClass:[SBNotification class] keyPath:@"data"]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get notifications (account: %@)", accountOrNil];
 }
 

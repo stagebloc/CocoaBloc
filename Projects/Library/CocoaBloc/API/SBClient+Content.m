@@ -34,7 +34,7 @@
     NSString *urlContentType = [[content class] URLPathContentType];
     
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/likers", content.accountID, urlContentType, content.identifier] parameters:[self requestParametersWithParameters:parameters]]
-                cb_deserializeArrayWithClient:self modelClass:[SBUser class] keyPath:@"data"]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get users who like content: %@", content];
 }
 
@@ -42,7 +42,7 @@
     NSParameterAssert(content);
     
     return [[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeContentModelWithClient:self keyPath:@"data"];
+                cb_deserializeWithClient:self keyPath:@"data"];
 }
 
 @end
