@@ -60,8 +60,9 @@
 }
 
 - (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters {
-    return [[[self rac_GET:@"account/fanclubs/following" parameters:[self requestParametersWithParameters:parameters]] cb_deserializeArrayWithClient:self modelClass:[SBFanClub class] keyPath:@"data"]
-            setNameWithFormat:@"Get followed fan clubs"];
+    return [[[self rac_GET:@"account/fanclubs/following" parameters:[self requestParametersWithParameters:parameters]]
+                cb_deserializeArrayWithClient:self modelClass:[SBFanClub class] keyPath:@"data"]
+                setNameWithFormat:@"Get followed fan clubs"];
 }
 
 @end
