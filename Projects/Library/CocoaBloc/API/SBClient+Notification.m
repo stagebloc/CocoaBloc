@@ -21,9 +21,9 @@
         p[@"account_id"] = accountOrNil.identifier;
     }
     
-    return [[[self rac_GET:@"users/me/notifications" parameters:[self requestParametersWithParameters:p]]
-                cb_deserializeArrayWithClient:self modelClass:[SBNotification class] keyPath:@"data"]
-                setNameWithFormat:@"Get notifications (account: %@)", accountOrNil];
+    return [[[[self rac_GET:@"users/me/notifications" parameters:[self requestParametersWithParameters:p]] map:^id(NSDictionary *response) {
+        return @{@"data" : response[@"data"][@"notifications"]};
+    }] cb_deserializeArrayWithClient:self modelClass:[SBNotification class] keyPath:@"data"] setNameWithFormat:@"Get notifications (account: %@)", accountOrNil];
 }
 
 @end
