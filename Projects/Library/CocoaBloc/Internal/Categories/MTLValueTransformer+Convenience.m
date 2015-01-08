@@ -9,6 +9,7 @@
 #import "MTLValueTransformer+Convenience.h"
 #import <Mantle/Mantle.h>
 #import "SBContent.h"
+#import <RACEXTScope.h>
 
 @implementation MTLValueTransformer (Convenience)
 
@@ -32,6 +33,29 @@
 	} reverseBlock:^id(NSDate *date) {
 		return [dateFormatter stringFromDate:date];
 	}];
+}
+
++ (instancetype)reversibleModelIDOnlyTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id object) {
+        if ([object isKindOfClass:[NSNumber class]]) {
+            return object;
+        }
+        
+        return [object objectForKey:@"id"];
+    } reverseBlock:^id(id object) {
+        return object;
+    }];
+}
+
++ (instancetype)reversibleModelOnlyTransformerWithClass:(Class)modelClass {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id object) {
+        if (![object isKindOfClass:[NSDictionary class]]) {
+            return nil;
+        }
+        return [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:object error:nil];
+    } reverseBlock:^id(id object) {
+        return object == nil ? nil : [MTLJSONAdapter JSONDictionaryFromModel:object];
+    }];
 }
 
 + (instancetype)reversibleModelIDOrJSONTransformerForClass:(Class)modelClass {

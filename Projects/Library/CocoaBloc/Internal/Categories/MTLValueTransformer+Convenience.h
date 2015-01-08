@@ -15,4 +15,7 @@
 + (instancetype)reversibleModelIDOrJSONTransformerForClass:(Class)modelClass;
 + (instancetype)reversibleContentModelIDOrJSONTransformer;
 
++ (instancetype)reversibleModelOnlyTransformerWithClass:(Class)modelClass;
++ (instancetype)reversibleModelIDOnlyTransformer;
+
 @end
