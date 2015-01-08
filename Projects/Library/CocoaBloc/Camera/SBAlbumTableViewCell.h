@@ -10,8 +10,8 @@
 
 @interface SBAlbumTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *albumNameLabel;
-@property (nonatomic, strong) UILabel *photoCountLabel;
-@property (nonatomic, strong) UIImageView *albumThumbnail;
+@property (nonatomic) UILabel *albumNameLabel;
+@property (nonatomic) UILabel *photoCountLabel;
+@property (nonatomic) UIImageView *albumThumbnail;
 
 @end

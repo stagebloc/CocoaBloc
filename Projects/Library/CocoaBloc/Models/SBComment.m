@@ -84,7 +84,7 @@
 }
 
 + (MTLValueTransformer *)contentJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)accountIDJSONTransformer {

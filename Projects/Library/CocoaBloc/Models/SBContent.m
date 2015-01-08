@@ -19,8 +19,57 @@
 
 #import "SBUser.h"
 #import "SBAccount.h"
+#import <RACCommand.h>
+#import "SBClient+Account.h"
+#import "SBClient+User.h"
+#import <RACEXTScope.h>
+
+@interface SBContent ()
+@property (nonatomic) SBAccount *account;
+@property (nonatomic) SBUser *authorUser;
+@property (nonatomic, readonly) RACCommand *fetchAccount;
+@property (nonatomic, readonly) RACCommand *fetchAuthorUser;
+@end
 
 @implementation SBContent
+
+- (RACSignal *)getAccount {
+    return [self.fetchAccount execute:nil];
+}
+
+- (RACSignal *)getAuthorUser {
+    return [self.fetchAuthorUser execute:nil];
+}
+
+- (id)init {
+    if ((self = [super init])) {
+        @weakify(self);
+        
+        _fetchAuthorUser = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+            @strongify(self);
+            
+            return self.authorUser != nil
+            ? [RACSignal return:self.authorUser]
+            : [[[SBClient new] getAccountWithID:self.authorUserID]
+               doNext:^(SBUser *user) {
+                   self.authorUser = user;
+               }];
+        }];
+
+        
+        _fetchAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+            @strongify(self);
+            
+            return self.account != nil
+            ? [RACSignal return:self.account]
+            : [[[SBClient new] getAccountWithID:self.accountID]
+               doNext:^(SBAccount *account) {
+                   self.account = account;
+               }];
+        }];
+    }
+    return self;
+}
 
 + (NSString *)URLPathContentType {
     static NSDictionary *classToContentURLContentTypes = nil;
@@ -38,8 +87,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{
-              @"title"                  : @"title",
+			@{@"title"                  : @"title",
               @"excerpt"                : @"excerpt",
               @"modificationDate"       : @"modified",
               @"creationDate"           : @"created",
@@ -52,9 +100,10 @@
               @"isExclusive"            : @"exclusive",
               @"commentCount"           : @"comment_count",
 			  @"shortURL"               : @"short_url",
-              @"accountOrAccountID"     : @"account",
-              @"authorOrAuthorUserID"   : @"user"
-            }];
+              @"accountID"              : @"account",
+              @"account"                : @"account",
+              @"authorUser"             : @"user",
+              @"authorUserID"           : @"user"}];
 }
 
 + (NSValueTransformer *)modificationDateJSONTransformer {
@@ -73,20 +122,20 @@
     return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
-+ (MTLValueTransformer *)accountOrAccountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
++ (MTLValueTransformer *)accountIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
-+ (MTLValueTransformer *)authorOrAuthorUserIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
++ (MTLValueTransformer *)accountJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
-- (NSNumber *)accountID {
-    return [self.accountOrAccountID isKindOfClass:[SBAccount class]] ? [self.accountOrAccountID identifier] : self.accountOrAccountID;
++ (MTLValueTransformer *)authorUserIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
-- (NSNumber *)authorUserID {
-    return [self.authorOrAuthorUserID isKindOfClass:[SBUser class]] ? [self.authorOrAuthorUserID identifier] : self.authorOrAuthorUserID;
++ (MTLValueTransformer *)authorUserJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 @end

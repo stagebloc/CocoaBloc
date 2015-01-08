@@ -20,11 +20,11 @@ static CGFloat const kAnimationVelocity = 0.5f;
 
 @interface SBReviewView ()
 
-@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@property (nonatomic) UITapGestureRecognizer *tapGesture;
 
-@property (nonatomic, strong) NSArray *optionsConstraints;
+@property (nonatomic) NSArray *optionsConstraints;
 
-@property (nonatomic, strong) UIView *centerOptionsSpacerView;
+@property (nonatomic) UIView *centerOptionsSpacerView;
 
 @end
 

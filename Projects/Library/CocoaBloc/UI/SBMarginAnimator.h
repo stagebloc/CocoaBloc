@@ -12,7 +12,7 @@
 
 @property (nonatomic) NSArray *constraints;
 
-@property (nonatomic, strong) UIView *bgView;
+@property (nonatomic) UIView *bgView;
 @property (nonatomic) UIEdgeInsets margins;
 
 - (void) addMarginConstraintsToContainerView:(UIView*)containerView modalView:(UIView*)modalView;

@@ -42,8 +42,8 @@
 
 @interface SBAssetStitcher ()
 
-@property (nonatomic, strong) NSMutableArray *compositionFileURLs; //retains the order
-@property (nonatomic, strong) NSMutableArray *compositions;
+@property (nonatomic) NSMutableArray *compositionFileURLs; //retains the order
+@property (nonatomic) NSMutableArray *compositions;
 
 @end
 

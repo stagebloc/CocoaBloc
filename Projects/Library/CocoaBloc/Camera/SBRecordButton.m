@@ -15,7 +15,7 @@
 
 @interface SBRecordButton ()
 
-@property (nonatomic, strong) NSLayoutConstraint *verticalConstraint;
+@property (nonatomic) NSLayoutConstraint *verticalConstraint;
 
 @end
 

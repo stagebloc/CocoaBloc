@@ -12,8 +12,38 @@
 #import "MTLValueTransformer+Convenience.h"
 #import "NSDateFormatter+CocoaBloc.h"
 #import "SBAccount.h"
+#import <RACEXTScope.h>
+#import "SBClient+Account.h"
+#import <RACCommand.h>
+
+@interface SBNotification ()
+@property (nonatomic) SBAccount *account;
+@property (nonatomic, readonly) RACCommand *fetchAccount;
+@end
 
 @implementation SBNotification
+
+- (id)init {
+    if ((self = [super init])) {
+        @weakify(self);
+        
+        _fetchAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+            @strongify(self);
+            
+            return self.account != nil
+            ? [RACSignal return:self.account]
+            : [[[SBClient new] getAccountWithID:self.accountID]
+               doNext:^(SBAccount *account) {
+                   self.account = account;
+               }];
+        }];
+    }
+    return self;
+}
+
+- (RACSignal *)getAccount {
+    return [self.fetchAccount execute:nil];
+}
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
@@ -21,15 +51,20 @@
               @"HTMLText"                   : @"html_message",
               @"text"                       : @"message",
               @"route"                      : @"route",
-              @"accountOrAccountID"         : @"account"}];
+              @"accountID"                  : @"account",
+              @"account"                    : @"account"}];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {
     return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
-+ (MTLValueTransformer *)accountOrAccountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformer];
++ (MTLValueTransformer *)accountJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+}
+
++ (MTLValueTransformer *)accountIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 @end

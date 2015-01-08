@@ -24,15 +24,15 @@
 @import AVFoundation.AVCaptureVideoPreviewLayer;
 
 @interface SBCameraView ()
-@property (nonatomic, strong) NSArray *squareToolbarConstraints;
-@property (nonatomic, strong) NSArray *cameraConstraints;
-@property (nonatomic, strong) NSArray *topViewsConstraints;
-@property (nonatomic, strong) NSArray *progressBarConstraints;
+@property (nonatomic) NSArray *squareToolbarConstraints;
+@property (nonatomic) NSArray *cameraConstraints;
+@property (nonatomic) NSArray *topViewsConstraints;
+@property (nonatomic) NSArray *progressBarConstraints;
 
-@property (nonatomic, strong) UITapGestureRecognizer *doubleTapGesture;
-@property (nonatomic, strong) UITapGestureRecognizer *singleTapGesture;
+@property (nonatomic) UITapGestureRecognizer *doubleTapGesture;
+@property (nonatomic) UITapGestureRecognizer *singleTapGesture;
 
-@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+@property (nonatomic) UIPanGestureRecognizer *panGesture;
 
 @property (nonatomic, assign) UIInterfaceOrientation orientation;
 

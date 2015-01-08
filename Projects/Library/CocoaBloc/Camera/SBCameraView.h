@@ -18,37 +18,37 @@
 
 @property (nonatomic, assign) CGFloat squareVideoOffsetBottom;
 
-@property (nonatomic, strong) UIView *captureViewContainer;
-@property (nonatomic, strong) SBCaptureView *captureView;
+@property (nonatomic) UIView *captureViewContainer;
+@property (nonatomic) SBCaptureView *captureView;
 
-@property (nonatomic, strong) SBRecordButton *recordButton;
-@property (nonatomic, strong) SBProgressBar *progressBar;
-@property (nonatomic, strong) UIToolbar *stateToolbar;
+@property (nonatomic) SBRecordButton *recordButton;
+@property (nonatomic) SBProgressBar *progressBar;
+@property (nonatomic) UIToolbar *stateToolbar;
 
-@property (nonatomic, strong) UIView *focusView;
+@property (nonatomic) UIView *focusView;
 
-@property (nonatomic, strong) UIView *shutterView;
+@property (nonatomic) UIView *shutterView;
 
-@property (nonatomic, strong) UIToolbar *topSquareToolbar;
-@property (nonatomic, strong) UIToolbar *bottomSquareToolbar;
+@property (nonatomic) UIToolbar *topSquareToolbar;
+@property (nonatomic) UIToolbar *bottomSquareToolbar;
 
 //Top HUD views
-@property (nonatomic, strong) UIView *topContainerView;
-@property (nonatomic, strong) UIButton *closeButton;
-@property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, strong) SBPageView *pageView;
+@property (nonatomic) UIView *topContainerView;
+@property (nonatomic) UIButton *closeButton;
+@property (nonatomic) UILabel *timeLabel;
+@property (nonatomic) SBPageView *pageView;
 
 //Bottom HUD views
-@property (nonatomic, strong) UIView *bottomContainerView;
-@property (nonatomic, strong) UIButton *chooseExistingButton;
-@property (nonatomic, strong) SBOptionsChevronButton *optionsMenuButton;
-@property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic) UIView *bottomContainerView;
+@property (nonatomic) UIButton *chooseExistingButton;
+@property (nonatomic) SBOptionsChevronButton *optionsMenuButton;
+@property (nonatomic) UIButton *nextButton;
 
 //Options menu
-@property (nonatomic, strong) SBBottomViewContrainer *optionsMenuContianerView;
-@property (nonatomic, strong) UIButton *toggleRatioButton;
-@property (nonatomic, strong) UIButton *toggleCameraButton;
-@property (nonatomic, strong) UIButton *flashModeButton;
+@property (nonatomic) SBBottomViewContrainer *optionsMenuContianerView;
+@property (nonatomic) UIButton *toggleRatioButton;
+@property (nonatomic) UIButton *toggleCameraButton;
+@property (nonatomic) UIButton *flashModeButton;
 
 //Change this property to adjust the flashModeButton image
 @property (nonatomic, assign) SBCaptureFlashMode flashMode;

@@ -14,6 +14,5 @@
 @property (nonatomic, copy) NSString *relatedContentTag;
 @property (nonatomic, copy) NSString *body;
 @property (nonatomic, copy) NSString *category;
-@property (nonatomic) SBPhoto *photo;
 
 @end

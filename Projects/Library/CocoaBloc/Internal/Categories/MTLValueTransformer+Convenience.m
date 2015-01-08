@@ -35,22 +35,6 @@
 	}];
 }
 
-+ (instancetype)reversibleModelIDOrJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id value) {
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            return [MTLJSONAdapter modelOfClass:[SBObject class]
-                             fromJSONDictionary:value
-                                          error:nil];
-        }
-        return value;
-    } reverseBlock:^id(id value) {
-        if ([value isKindOfClass:[SBObject class]]) {
-            return [MTLJSONAdapter JSONDictionaryFromModel:value];
-        }
-        return value;
-    }];
-}
-
 + (instancetype)reversibleModelIDOnlyTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id object) {
         if ([object isKindOfClass:[NSNumber class]]) {

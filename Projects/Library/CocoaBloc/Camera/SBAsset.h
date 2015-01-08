@@ -49,17 +49,17 @@ SBAsset is an object containing information on a file either in the file system 
 /*!
  The date at which the asset was created.
  */
-@property(nonatomic, strong, readonly) NSDate *creationDate;
+@property(nonatomic, readonly) NSDate *creationDate;
 
 /*!
  The date at which the asset was created.
  */
-@property(nonatomic, strong, readonly) NSDate *modificationDate;
+@property(nonatomic, readonly) NSDate *modificationDate;
 
 /*!
  The location where the asset was captured
  */
-@property(nonatomic, strong) CLLocation *location;
+@property(nonatomic) CLLocation *location;
 
 /*!
  Duration of the asset if it is a video.

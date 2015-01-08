@@ -61,6 +61,6 @@ typedef NS_ENUM(NSInteger, SBCocoaBlocErrorCode) {
 /// Default = background scheduler
 @property (nonatomic) RACScheduler *deserializationScheduler;
 
-@property (nonatomic, strong, readonly) SBUser *authenticatedUser;
+@property (nonatomic, readonly) SBUser *authenticatedUser;
 
 @end

@@ -10,13 +10,13 @@
 
 @interface SBOverlayView : UIView
 
-@property (nonatomic, strong, readonly) UILabel *titleLabel;
-@property (nonatomic, strong, readonly) UIButton *dismissButton;
-@property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicatorView;
-@property (nonatomic, strong, readonly) UIToolbar *overlayToolbar;
+@property (nonatomic, readonly) UILabel *titleLabel;
+@property (nonatomic, readonly) UIButton *dismissButton;
+@property (nonatomic, readonly) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, readonly) UIToolbar *overlayToolbar;
 
-@property (nonatomic, strong) NSArray *showConstraints;
-@property (nonatomic, strong) NSArray *overlayConstraints;
+@property (nonatomic) NSArray *showConstraints;
+@property (nonatomic) NSArray *overlayConstraints;
 
 @property (nonatomic, copy) void (^onDismissTap)(void);
 

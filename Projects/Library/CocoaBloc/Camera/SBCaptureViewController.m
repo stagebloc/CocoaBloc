@@ -41,17 +41,17 @@
 @interface SBCaptureViewController () <UIActionSheetDelegate, SCRecordButtonDelegate, SBReviewControllerDelegate>
 
 @property (nonatomic, assign) BOOL recording;
-@property (nonatomic, strong) SBCaptureManager *captureManager;
-@property (nonatomic, strong) SBCameraView *cameraView;
+@property (nonatomic) SBCaptureManager *captureManager;
+@property (nonatomic) SBCameraView *cameraView;
 
-@property (nonatomic, strong) SBAssetsManager *assetManager;
+@property (nonatomic) SBAssetsManager *assetManager;
 
-@property (nonatomic, strong) SBOverlayView *overlayHud;
+@property (nonatomic) SBOverlayView *overlayHud;
 
-@property (nonatomic, strong) SBToolBarAnimator *animator;
-@property (nonatomic, strong) SBPushAnimator *navAnimator;
+@property (nonatomic) SBToolBarAnimator *animator;
+@property (nonatomic) SBPushAnimator *navAnimator;
 
-@property (nonatomic, strong) SBCameraAccessViewController *accessController;
+@property (nonatomic) SBCameraAccessViewController *accessController;
 
 @end
 

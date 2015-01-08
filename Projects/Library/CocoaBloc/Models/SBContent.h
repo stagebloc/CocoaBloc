@@ -7,6 +7,7 @@
 //
 
 #import "SBObject.h"
+#import <ReactiveCocoa/RACSignal.h>
 
 @interface SBContent : SBObject <MTLJSONSerializing>
 
@@ -26,10 +27,10 @@
 @property (nonatomic) NSNumber *commentCount;
 @property (nonatomic) NSURL *shortURL;
 
-@property (nonatomic) id accountOrAccountID;
-@property (nonatomic) id authorOrAuthorUserID;
+@property (nonatomic) NSNumber *accountID;
+@property (nonatomic) NSNumber *authorUserID;
 
-- (NSNumber *)accountID;
-- (NSNumber *)authorUserID;
+- (RACSignal *)getAccount;
+- (RACSignal *)getAuthorUser;
 
 @end

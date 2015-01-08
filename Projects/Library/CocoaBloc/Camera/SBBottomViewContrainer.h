@@ -14,7 +14,7 @@ typedef void (^SBBottomViewContrainerCustomAnimations)(CGPoint velocity, BOOL sh
 
 @interface SBBottomViewContrainer : SBDraggableView
 
-@property (nonatomic, strong) UIToolbar *toolbar;
+@property (nonatomic) UIToolbar *toolbar;
 
 @property (nonatomic, copy) void (^stoppedMovingAnimations)(BOOL shouldHide);
 @property (nonatomic, copy) void (^stoppedMovingCompletion)(BOOL finished);

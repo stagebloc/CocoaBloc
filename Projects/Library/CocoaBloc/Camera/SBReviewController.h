@@ -26,7 +26,7 @@
 
 /*! 
  The asset the controller will be presenting to the user to manipulate. */
-@property (nonatomic, strong, readonly) SBAsset *asset;
+@property (nonatomic, readonly) SBAsset *asset;
 
 /*!
  This delegate will be responsibile to handling rejections and acceptions of the `asset`. */

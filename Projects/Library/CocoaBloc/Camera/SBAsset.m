@@ -15,9 +15,9 @@
 
 @interface SBAsset ()
 
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) PHAsset *phAsset;
-@property (nonatomic, strong) ALAsset *alAsset;
+@property (nonatomic) UIImage *image;
+@property (nonatomic) PHAsset *phAsset;
+@property (nonatomic) ALAsset *alAsset;
 
 @end
 

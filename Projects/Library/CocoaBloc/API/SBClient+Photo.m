@@ -7,7 +7,16 @@
 //
 
 #import "SBClient+Photo.h"
+#import <RACAFNetworking.h>
+#import "SBClient+Private.h"
+#import "RACSignal+JSONDeserialization.h"
 
 @implementation SBClient (Photo)
+
+- (RACSignal *)getPhotoWithID:(NSNumber *)photoID forAccount:(SBAccount *)account {
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/photo/%@", account.identifier, photoID] parameters:[self requestParametersWithParameters:nil]]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get photo (id: %@, accountID: %@)", photoID, account.identifier];
+}
 
 @end

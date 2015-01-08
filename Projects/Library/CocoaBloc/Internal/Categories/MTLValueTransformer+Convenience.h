@@ -14,8 +14,6 @@
 + (instancetype)reversibleStringToDateTransformerWithFormatter:(NSDateFormatter *)dateFormatter;
 
 // Models
-+ (instancetype)reversibleModelIDOrJSONTransformer;
-
 + (instancetype)reversibleModelJSONOnlyTransformer;
 + (instancetype)reversibleModelIDOnlyTransformer;
 

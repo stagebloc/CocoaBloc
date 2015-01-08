@@ -24,7 +24,7 @@
 
 @interface SBReviewController ()
 
-@property (nonatomic, strong) SBReviewView *reviewView;
+@property (nonatomic) SBReviewView *reviewView;
 
 @end
 

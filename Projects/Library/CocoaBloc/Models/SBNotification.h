@@ -7,6 +7,7 @@
 //
 
 #import "SBObject.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface SBNotification : SBObject <MTLJSONSerializing>
 
@@ -14,6 +15,9 @@
 @property (nonatomic, copy) NSString *HTMLText;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *route;
-@property (nonatomic) id accountOrAccountID;
+
+@property (nonatomic) NSNumber *accountID;
+
+- (RACSignal *)getAccount;
 
 @end
