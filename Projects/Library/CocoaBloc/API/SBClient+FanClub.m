@@ -12,6 +12,7 @@
 #import <RACEXTScope.h>
 #import "SBClient+Private.h"
 #import "RACSignal+JSONDeserialization.h"
+#import "SBFanClub.h"
 
 @implementation SBClient (FanClub)
 
@@ -56,6 +57,11 @@
     return [[[self rac_GET:@"account/fanclubs/following/content" parameters:[self requestParametersWithParameters:params]]
                 cb_deserializeContentArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get recent fan club content"];
+}
+
+- (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters {
+    return [[[self rac_GET:@"account/fanclubs/following" parameters:[self requestParametersWithParameters:parameters]] cb_deserializeArrayWithClient:self modelClass:[SBFanClub class] keyPath:@"data"]
+            setNameWithFormat:@"Get followed fan clubs"];
 }
 
 @end

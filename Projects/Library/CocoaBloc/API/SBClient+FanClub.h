@@ -46,4 +46,9 @@
  */
 - (RACSignal *)getContentFromFollowedFanClubsWithParameters:(NSDictionary *)parameters;
 
+/*!
+ Retrieves the user's fan club following list.
+ */
+- (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters;
+
 @end
