@@ -79,10 +79,6 @@
     return [self.fetchCoverPhoto execute:nil];
 }
 
-- (RACSignal *)getPhotos {
-    return [self.fetchPhotos execute:nil];
-}
-
 - (id)init {
     if ((self = [super init])) {
         @weakify(self);
@@ -146,6 +142,7 @@
       @"modifyingAccountID"	: @"modified_by",
       @"modifyingUser"      : @"modified_by",
       @"numberOfPhotos"     : @"photos",
+      @"photos"				: @"photos",
       @"category"			: @"category",
       @"creationDate"		: @"created",
       @"exclusive"			: @"exclusive",
@@ -155,7 +152,6 @@
       @"modificationDate"	: @"modified",
       @"onSale"				: @"on_sale",
       @"options"			: @"options",
-      @"photos"				: @"photos",
       @"priceConfigurations": @"prices",
       @"shortURL"			: @"short_url",
       @"soldOut"			: @"sold_out",
