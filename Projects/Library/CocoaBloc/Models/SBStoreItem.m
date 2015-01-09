@@ -53,12 +53,6 @@
 @property (nonatomic) RACCommand *fetchModifyingUser;
 @property (nonatomic) RACCommand *fetchPhotos;
 @property (nonatomic) RACCommand *fetchCoverPhoto;
-
-@property (nonatomic) SBUser *authorUser;
-@property (nonatomic) SBAccount *postingAccount;
-@property (nonatomic) SBUser *modifyingUser;
-@property (nonatomic) NSArray *photos;
-@property (nonatomic) SBPhoto *coverPhoto;
 @end
 
 @implementation SBStoreItem

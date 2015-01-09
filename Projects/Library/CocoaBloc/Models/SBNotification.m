@@ -17,7 +17,6 @@
 #import <RACCommand.h>
 
 @interface SBNotification ()
-@property (nonatomic) SBAccount *account;
 @property (nonatomic, readonly) RACCommand *fetchAccount;
 @end
 

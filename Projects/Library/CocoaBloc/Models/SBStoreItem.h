@@ -10,6 +10,7 @@
 #import <Mantle/MTLJSONAdapter.h>
 #import "SBAccount.h"
 #import "SBPhoto.h"
+#import "SBUser.h"
 
 @interface SBStoreItemPriceConfiguration : MTLModel <MTLJSONSerializing>
 
@@ -53,6 +54,12 @@
 @property (nonatomic) NSString *type;
 
 @property (nonatomic) NSNumber *numberOfPhotos;
+
+@property (nonatomic) SBUser *authorUser;
+@property (nonatomic) SBAccount *postingAccount;
+@property (nonatomic) SBUser *modifyingUser;
+@property (nonatomic) NSArray *photos;
+@property (nonatomic) SBPhoto *coverPhoto;
 
 @property (nonatomic) NSNumber *authorUserID;
 @property (nonatomic) NSNumber *postingAccountID;

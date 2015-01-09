@@ -25,6 +25,9 @@
 @property (nonatomic) NSNumber *accountID;
 @property (nonatomic) NSNumber *customerUserID;
 
+@property (nonatomic) SBAccount *account;
+@property (nonatomic) SBUser *customerUser;
+
 - (RACSignal *)getAccount;
 - (RACSignal *)getCustomerUser;
 

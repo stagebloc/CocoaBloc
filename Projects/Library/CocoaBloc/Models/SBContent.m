@@ -25,8 +25,6 @@
 #import <RACEXTScope.h>
 
 @interface SBContent ()
-@property (nonatomic) SBAccount *account;
-@property (nonatomic) SBUser *authorUser;
 @property (nonatomic, readonly) RACCommand *fetchAccount;
 @property (nonatomic, readonly) RACCommand *fetchAuthorUser;
 @end

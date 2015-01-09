@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import <RACCommand.h>
 
+@class SBUser;
+
 @interface SBComment : SBObject <MTLJSONSerializing>
 
 @property (nonatomic) SBContent *content;
@@ -23,6 +25,9 @@
 
 @property (nonatomic) NSNumber *userID;
 @property (nonatomic) NSNumber *accountID;
+
+@property (nonatomic) SBUser *user;
+@property (nonatomic) SBAccount *account;
 
 - (RACSignal *)getUser;
 - (RACSignal *)getAccount;

@@ -9,6 +9,7 @@
 #import "SBObject.h"
 #import <ReactiveCocoa/RACSignal.h>
 
+@class SBUser, SBAccount;
 @interface SBContent : SBObject <MTLJSONSerializing>
 
 + (NSString *)URLPathContentType;
@@ -29,6 +30,9 @@
 
 @property (nonatomic) NSNumber *accountID;
 @property (nonatomic) NSNumber *authorUserID;
+
+@property (nonatomic) SBAccount *account;
+@property (nonatomic) SBUser *authorUser;
 
 - (RACSignal *)getAccount;
 - (RACSignal *)getAuthorUser;

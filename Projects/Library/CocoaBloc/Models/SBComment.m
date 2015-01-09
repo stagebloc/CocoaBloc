@@ -19,9 +19,6 @@
 #import <RACEXTScope.h>
 
 @interface SBComment ()
-@property (nonatomic) SBUser *user;
-@property (nonatomic) SBAccount *account;
-
 // Fetches the user for the model's user ID. MUST be executed with an SBClient as the parameter
 @property (nonatomic, readonly) RACCommand *fetchUser;
 @property (nonatomic, readonly) RACCommand *fetchAccount;

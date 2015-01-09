@@ -19,8 +19,6 @@
 #import "SBClient+User.h"
 
 @interface SBOrder ()
-@property (nonatomic) SBAccount *account;
-@property (nonatomic) SBUser *customerUser;
 @property (nonatomic, readonly) RACCommand *fetchCustomerUser;
 @property (nonatomic, readonly) RACCommand *fetchAccount;
 @end
