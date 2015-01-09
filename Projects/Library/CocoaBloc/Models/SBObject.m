@@ -37,7 +37,7 @@
     if (JSONDictionary[@"stripe_charge_id"] != nil) {
         return [SBOrder class];
     }
-    if (JSONDictionary[@"route"] != nil) {
+    if (JSONDictionary[@"html_message"] != nil) {
         return [SBNotification class];
     }
     if (JSONDictionary[@"userTier"] != nil) {
