@@ -44,8 +44,9 @@
     [params addEntriesFromDictionary:parameters];
     params[@"filter"] = @"blog,photos,statuses";
     
-    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
-            	setNameWithFormat:@"Get content from fan club (account: %@)", account];
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
+            	cb_deserializeContentArrayWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get content from fan club (account: %@)", account];
 }
 
 - (RACSignal *)getContentFromFollowedFanClubsWithParameters:(NSDictionary *)parameters {
