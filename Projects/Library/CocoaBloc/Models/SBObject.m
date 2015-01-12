@@ -31,18 +31,21 @@
     static NSMutableDictionary *_kindModelMap =;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _kindModelMap = @{ @"user" : [SBUser class],
-                           @"account" : [SBAccount class],
-                           @"order" : [SBOrder class],
-                           @"store_item" : [SBStoreItem class],
-                           @"fan_club" : [SBFanClub class],
-                           @"photo" : [SBPhoto class],
-                           @"audio" : [SBAudio class],
-                           @"blog" : [SBBlog class],
-                           @"status" : [SBStatus class],
-                           @"video" : [SBVideo class],
-                           @"comment" : [SBComment class],
-                           @"notification" : [SBNotification class] };
+        _kindModelMap = @{ @"user"          : [SBUser class],
+                           @"account"       : [SBAccount class],
+                           @"order"         : [SBOrder class],
+                           @"store_item"    : [SBStoreItem class],
+                           @"fan_club"      : [SBFanClub class],
+                           @"photo"         : [SBPhoto class],
+                           @"audio"         : [SBAudio class],
+                           @"blog"          : [SBBlog class],
+                           @"status"        : [SBStatus class],
+                           @"video"         : [SBVideo class],
+                           @"comment"       : [SBComment class],
+                           @"notification"  : [SBNotification class],
+                           @"address"       : [SBAddress class],
+                           @"store_item_option" : [SBStoreItemOption class],
+                           @"store_item_shipping_price_handler" : [SBStoreItemPriceConfiguration class] };
     });
     
     return _kindModelMap[JSONDictionary[@"kind"]];
