@@ -65,8 +65,8 @@ SBAuthenticationViewController *authVC = [SBAuthenticationViewController new];
           // Handle error
       }
       completed:^{
-          // Signal completed. This will always happen, but if no
-          // error or next value has been sent yet, this means that the
+          // Signal completed. This will happen if there is no error, but if no
+          // next value has been sent yet, this means that the
           // user pressed cancel and dismissed log in view.
       }];
 ```
