@@ -41,14 +41,10 @@
 
 - (RACSignal *)getActivityStreamForAccount:(SBAccount *)account parameters:(NSDictionary*)parameters{
     NSParameterAssert(account);
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:parameters.count+1];
-    [params addEntriesFromDictionary:parameters];
-    params[@"filter"] = @"blog,photos,statuses";
 
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/content", account.identifier] parameters:[self requestParametersWithParameters:parameters]]
-             cb_deserializeArrayWithClient:self keyPath:@"data"]
-            setNameWithFormat:@"Get activity stream for account %@", account.name];
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get activity stream for account %@", account.name];
 }
 
 - (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId withType:(NSString *)type {
