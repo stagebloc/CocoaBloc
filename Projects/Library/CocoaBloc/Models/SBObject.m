@@ -28,7 +28,7 @@
 }
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    static NSMutableDictionary *_kindModelMap =;
+    static NSDictionary *_kindModelMap;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _kindModelMap = @{ @"user"          : [SBUser class],
