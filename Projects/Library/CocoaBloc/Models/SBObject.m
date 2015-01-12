@@ -28,53 +28,24 @@
 }
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    if (JSONDictionary[@"reply_to"] != nil) {
-        return [SBComment class];
-    }
-    if (JSONDictionary[@"street_address"] != nil) {
-        return [SBAddress class];
-    }
-    if (JSONDictionary[@"stripe_charge_id"] != nil) {
-        return [SBOrder class];
-    }
-    if (JSONDictionary[@"html_message"] != nil) {
-        return [SBNotification class];
-    }
-    if (JSONDictionary[@"userTier"] != nil) {
-        return [SBFanClub class];
-    }
-    if (JSONDictionary[@"video_url"] != nil) {
-        return [SBVideo class];
-    }
-    if (JSONDictionary[@"edit_url"] != nil) {
-        return [SBAudio class];
-    }
-    if (JSONDictionary[@"sold_out"] != nil) {
-        return [SBStoreItem class];
-    }
-    if (JSONDictionary[@"upc"] != nil) {
-        return [SBStoreItemOption class];
-    }
-    if (JSONDictionary[@"currency"] != nil) {
-        return [SBStoreItemPriceConfiguration class];
-    }
-    if (JSONDictionary[@"body"] != nil) {
-        return [SBBlog class];
-    }
-    if (JSONDictionary[@"text"] != nil) {
-        return [SBStatus class];
-    }
-    if (JSONDictionary[@"images"] != nil) {
-        return [SBPhoto class];
-    }
-    if (JSONDictionary[@"verified"] != nil) {
-        return [SBAccount class];
-    }
-    if (JSONDictionary[@"username"] != nil) {
-        return [SBUser class];
-    }
+    static NSMutableDictionary *_kindModelMap =;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _kindModelMap = @{ @"user" : [SBUser class],
+                           @"account" : [SBAccount class],
+                           @"order" : [SBOrder class],
+                           @"store_item" : [SBStoreItem class],
+                           @"fan_club" : [SBFanClub class],
+                           @"photo" : [SBPhoto class],
+                           @"audio" : [SBAudio class],
+                           @"blog" : [SBBlog class],
+                           @"status" : [SBStatus class],
+                           @"video" : [SBVideo class],
+                           @"comment" : [SBComment class],
+                           @"notification" : [SBNotification class] };
+    });
     
-    return nil;
+    return _kindModelMap[JSONDictionary[@"kind"]];
 }
 
 @end

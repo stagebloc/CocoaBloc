@@ -15,7 +15,7 @@ extern NSString *SBClientID;
 @implementation SBClient (Private)
 
 - (NSDictionary *)requestParametersWithParameters:(NSDictionary *)parameters {
-    return self.authenticated ? parameters : [(parameters ?: @{}) mtl_dictionaryByAddingEntriesFromDictionary:@{@"client_id":SBClientID}];
+    return self.authenticated ? parameters : [(parameters ?: @{}) mtl_dictionaryByAddingEntriesFromDictionary:@{@"client_id":SBClientID, @"expand":@"kind"}];
 }
 
 @end
