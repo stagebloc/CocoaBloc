@@ -15,7 +15,24 @@ extern NSString *SBClientID;
 @implementation SBClient (Private)
 
 - (NSDictionary *)requestParametersWithParameters:(NSDictionary *)parameters {
-    return self.authenticated ? parameters : [(parameters ?: @{}) mtl_dictionaryByAddingEntriesFromDictionary:@{@"client_id":SBClientID}];
+    NSMutableDictionary *p = parameters.mutableCopy ?: [NSMutableDictionary new];
+    
+    // Add client_id if not authenticated
+    if (!self.authenticated) {
+        p[@"client_id"] = SBClientID;
+    }
+    
+    NSString *expanded;
+    if ((expanded = p[@"expand"]) != nil) {
+        // if expands exist already, add kind on (if needed)
+        if (![expanded containsString:@"kind"]) {
+            p[@"expand"] = [expanded stringByAppendingString:@",kind"];
+        }
+    } else {
+        p[@"expand"] = @"kind";
+    }
+    
+    return p;
 }
 
 @end

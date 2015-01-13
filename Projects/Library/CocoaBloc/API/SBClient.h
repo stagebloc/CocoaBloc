@@ -19,6 +19,7 @@ extern NSString *SBAPIMethodParameterResultLimit;		// NSNumber
 extern NSString *SBAPIMethodParameterResultOffset;		// NSNumber
 extern NSString *SBAPIMethodParameterResultOrderBy;		// NSString, "created" / "modified" / "price"
 extern NSString *SBAPIMethodParameterResultDirection;	// NSSring, "ASC" or "DESC"
+extern NSString *SBAPIMethodParameterResultExpandedProperties; // @"user", @"account", etc. No whitespace, and comma-separated string
 
 /// Fan club tier info dictionary keys
 extern NSString *SBFanClubTierInfoName;
@@ -55,12 +56,12 @@ typedef NS_ENUM(NSInteger, SBCocoaBlocErrorCode) {
 - (RACSignal *)enqueueRequest:(NSURLRequest *)request;
 - (RACSignal *)enqueueRequestOperation:(AFHTTPRequestOperation *)operation;
 
-- (RACSignal *)deserializeModelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)dictionary;
+- (RACSignal *)deserializeModelFromJSONDictionary:(NSDictionary *)dictionary;
 
 /// The scheduler on which work will be done when converting JSON data into models.
 /// Default = background scheduler
 @property (nonatomic) RACScheduler *deserializationScheduler;
 
-@property (nonatomic, strong, readonly) SBUser *authenticatedUser;
+@property (nonatomic, readonly) SBUser *authenticatedUser;
 
 @end

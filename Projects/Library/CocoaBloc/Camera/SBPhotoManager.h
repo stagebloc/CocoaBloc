@@ -16,10 +16,10 @@
 @interface SBPhotoManager : SBDeviceManager
 
 /*!image output*/
-@property (nonatomic, strong) AVCaptureStillImageOutput *output;
+@property (nonatomic) AVCaptureStillImageOutput *output;
 
 /*!Contains the image that was taken, nil if none*/
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic) UIImage *image;
 
 /**
  * Captures still image

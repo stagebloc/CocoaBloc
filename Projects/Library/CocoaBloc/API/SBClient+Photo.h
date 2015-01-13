@@ -10,4 +10,9 @@
 
 @interface SBClient (Photo)
 
+/*!
+ Get a single SBPhoto, given its identifier and the associated account.
+ */
+- (RACSignal *)getPhotoWithID:(NSNumber *)photoID forAccount:(SBAccount *)account;
+
 @end

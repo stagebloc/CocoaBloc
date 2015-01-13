@@ -34,7 +34,7 @@
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBPhoto class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {

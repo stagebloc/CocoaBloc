@@ -7,20 +7,28 @@
 //
 
 #import "SBObject.h"
+#import <ReactiveCocoa/RACSignal.h>
 
 @class SBAddress;
 @class SBAccount;
 @class SBUser;
 @interface SBOrder : SBObject <MTLJSONSerializing>
 
-@property (nonatomic, strong) NSDate *dateOrdered;
-@property (nonatomic, strong) NSDate *dateShipped;
-@property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *stripeChargeId;
-@property (nonatomic, strong) NSNumber *totalUsd;
+@property (nonatomic) NSDate *dateOrdered;
+@property (nonatomic) NSDate *dateShipped;
+@property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSString *stripeChargeId;
+@property (nonatomic) NSNumber *totalUsd;
 
-@property (nonatomic, strong) SBAddress *address;
-@property (nonatomic, strong) id accountOrAccountID; // SBAccount or NSNumber
-@property (nonatomic, strong) id customerOrCustomerUserID; // SBUser or NSNumber
+@property (nonatomic) SBAddress *address;
+
+@property (nonatomic) NSNumber *accountID;
+@property (nonatomic) NSNumber *customerUserID;
+
+@property (nonatomic) SBAccount *account;
+@property (nonatomic) SBUser *customerUser;
+
+- (RACSignal *)getAccount;
+- (RACSignal *)getCustomerUser;
 
 @end

@@ -11,6 +11,6 @@
 
 @interface SBObject : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, strong) NSNumber *identifier;
+@property (nonatomic) NSNumber *identifier;
 
 @end

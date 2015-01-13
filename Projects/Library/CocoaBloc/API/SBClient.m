@@ -17,6 +17,7 @@ NSString *SBAPIMethodParameterResultLimit = @"limit";
 NSString *SBAPIMethodParameterResultOffset = @"offset";
 NSString *SBAPIMethodParameterResultDirection = @"direction";
 NSString *SBAPIMethodParameterResultOrderBy = @"order_by";
+NSString *SBAPIMethodParameterResultExpandedProperties = @"expand";
 
 NSString *SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
 NSString *SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
@@ -86,13 +87,13 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     }];
 }
 
-- (RACSignal *)deserializeModelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)dictionary {
+- (RACSignal *)deserializeModelFromJSONDictionary:(NSDictionary *)dictionary {
     NSParameterAssert(dictionary);
     
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         return [self.deserializationScheduler schedule:^{
             NSError *error;
-            id model = [MTLJSONAdapter modelOfClass:modelClass
+            id model = [MTLJSONAdapter modelOfClass:[SBObject class]
                                  fromJSONDictionary:dictionary
                                               error:&error];
             
@@ -103,7 +104,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
                 [subscriber sendCompleted];
             }
         }];
-    }] setNameWithFormat:@"JSON Deserialization (Model class: %@)", NSStringFromClass(modelClass)];
+    }] setNameWithFormat:@"JSON Deserialization"];
 }
 
 @end

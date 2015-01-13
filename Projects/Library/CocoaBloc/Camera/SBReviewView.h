@@ -31,8 +31,8 @@ typedef NS_OPTIONS(NSUInteger, SBReviewViewOptions) {
 @property (strong, nonatomic) UIButton *acceptButton;
 @property (strong, nonatomic) NSArray *bottomButtonConstraints;
 
-@property (nonatomic, strong) UIButton *drawButton;
-@property (nonatomic, strong) UIButton *undoButton;
+@property (nonatomic) UIButton *drawButton;
+@property (nonatomic) UIButton *undoButton;
 
 @property (strong, nonatomic) UIView *textContainerView;
 @property (strong, nonatomic) UIToolbar *toolBarTitleField;
@@ -41,11 +41,11 @@ typedef NS_OPTIONS(NSUInteger, SBReviewViewOptions) {
 @property (strong, nonatomic) UITextField *descriptionField;
 @property (strong, nonatomic) NSArray *toolbarConstraints;
 
-@property (nonatomic, strong) SBOptionsChevronButton *optionsMenuButton;
+@property (nonatomic) SBOptionsChevronButton *optionsMenuButton;
 
-@property (nonatomic, strong) SBBottomViewContrainer *optionsViewContainer;
-@property (nonatomic, strong) SBCaptionButton *officialButton;
-@property (nonatomic, strong) SBCaptionButton *exclusiveButton;
+@property (nonatomic) SBBottomViewContrainer *optionsViewContainer;
+@property (nonatomic) SBCaptionButton *officialButton;
+@property (nonatomic) SBCaptionButton *exclusiveButton;
 
 @property (nonatomic, assign) SBTextFieldLayout currentLayout;
 

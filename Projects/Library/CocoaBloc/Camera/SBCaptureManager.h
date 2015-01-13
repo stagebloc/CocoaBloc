@@ -26,10 +26,10 @@ typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {
  */
 @interface SBCaptureManager : NSObject
 
-@property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic) AVCaptureSession *captureSession;
 
-@property (nonatomic, strong, readonly) SBVideoManager *videoManager;
-@property (nonatomic, strong, readonly) SBPhotoManager *photoManager;
+@property (nonatomic, readonly) SBVideoManager *videoManager;
+@property (nonatomic, readonly) SBPhotoManager *photoManager;
 
 @property (nonatomic, assign) SBCaptureType captureType;
 

@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, SBCameraAspectRatio) {
 @property (nonatomic, assign) SBCameraAspectRatio aspectRatio;
 
 @property (nonatomic, readonly, weak) AVCaptureSession *captureSession;
-@property (nonatomic, strong, readonly) AVCaptureDeviceInput *currentInput;
+@property (nonatomic, readonly) AVCaptureDeviceInput *currentInput;
 
 @property (nonatomic, assign) AVCaptureDevicePosition devicePosition;
 

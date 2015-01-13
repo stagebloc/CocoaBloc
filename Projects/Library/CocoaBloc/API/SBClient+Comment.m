@@ -20,7 +20,7 @@
     
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/comments", content.accountID, [[content class] URLPathContentType], content.identifier]
                 parameters:[self requestParametersWithParameters:parameters]]
-                cb_deserializeArrayWithClient:self modelClass:[SBComment class] keyPath:@"data"]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get comments for content: %@", content];
 }
 
@@ -28,7 +28,7 @@
     NSParameterAssert(comment);
     
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/comment/%@/replies", comment.accountID, comment.content.identifier, comment.identifier] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeArrayWithClient:self modelClass:[SBComment class] keyPath:@"data"]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get replies to comment: %@", comment];
 }
 
@@ -36,7 +36,7 @@
     NSParameterAssert(comment);
     
     return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/comment/%@", comment.accountID, comment.content.identifier, comment.identifier] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeWithClient:self modelClass:[SBComment class] keyPath:@"data"]
+                cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Delete comment: %@", comment];
 
 }
@@ -46,7 +46,7 @@
     NSParameterAssert(content);
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/comment", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeWithClient:self modelClass:[SBComment class] keyPath:@"data"]
+                cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Post comment (text: %@) to content: %@", text, content];
 }
 
@@ -59,7 +59,7 @@
     NSParameterAssert(content);
     
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/comment/%@", content.accountID, [[content class] URLPathContentType], commentID] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeWithClient:self modelClass:[SBComment class] keyPath:@"data"]
+                cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get comment (id: %@) for content: %@", commentID, content];
 }
 

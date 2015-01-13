@@ -10,8 +10,8 @@
 
 @interface SBImageControl : UIControl
 
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) CALayer *maskLayer;
+@property (nonatomic) UIImageView *imageView;
+@property (nonatomic) CALayer *maskLayer;
 
 - (void) initDefaults;
 

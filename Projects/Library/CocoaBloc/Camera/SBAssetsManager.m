@@ -20,7 +20,7 @@
 @import AssetsLibrary;
 
 @interface SBAssetsManager ()
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+@property (nonatomic) ALAssetsLibrary *assetsLibrary;
 @end
 
 @implementation SBAssetsManager

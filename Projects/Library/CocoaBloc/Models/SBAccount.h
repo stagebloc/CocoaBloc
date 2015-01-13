@@ -11,8 +11,8 @@
 
 @interface SBAccount : SBObject <MTLJSONSerializing>
 
-@property (nonatomic, strong) NSNumber *identifier;
-@property (nonatomic, strong) NSNumber *verified;
+@property (nonatomic) NSNumber *identifier;
+@property (nonatomic) NSNumber *verified;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *stageblocURL;
 @property (nonatomic, copy) NSString *type;

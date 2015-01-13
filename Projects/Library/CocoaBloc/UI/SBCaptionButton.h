@@ -10,10 +10,10 @@
 
 @interface SBCaptionButton : SBImageControl
 
-@property (nonatomic, strong) UILabel *captionLabel;
+@property (nonatomic) UILabel *captionLabel;
 
-@property (nonatomic, strong) UIImage *onImage;
-@property (nonatomic, strong) UIImage *offImage;
+@property (nonatomic) UIImage *onImage;
+@property (nonatomic) UIImage *offImage;
 
 @property (nonatomic, assign, getter=isOn) BOOL on;
 

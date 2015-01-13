@@ -15,7 +15,7 @@
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @interface SBCaptionButton ()
-@property (nonatomic, strong) NSArray *captionConstraints;
+@property (nonatomic) NSArray *captionConstraints;
 @end
 
 @implementation SBCaptionButton

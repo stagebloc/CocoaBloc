@@ -10,6 +10,7 @@
 #import <Mantle/Mantle.h>
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "MTLValueTransformer+Convenience.h"
+#import <RACCommand.h>
 
 @implementation SBAccount
 
@@ -24,7 +25,7 @@
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOrJSONTransformerForClass:[SBPhoto class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 @end

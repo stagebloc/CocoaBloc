@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, SBRecordButtonState) {
 
 @interface SBRecordButton : UIControl
 
-@property (nonatomic, strong) NSLayoutConstraint *centerConstraint;
+@property (nonatomic) NSLayoutConstraint *centerConstraint;
 
 @property (nonatomic, assign) BOOL holding;
 

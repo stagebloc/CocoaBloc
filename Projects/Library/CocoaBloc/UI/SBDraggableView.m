@@ -11,7 +11,7 @@
 
 @interface SBDraggableView () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) NSDate *panStarted;
+@property (nonatomic) NSDate *panStarted;
 
 @end
 

@@ -14,7 +14,7 @@
 
 @interface SBPageView ()
 
-@property (nonatomic, strong) NSArray *constraints;
+@property (nonatomic) NSArray *constraints;
 
 @end
 

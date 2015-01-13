@@ -30,7 +30,6 @@
     if (tierInfo) {
         params[@"tier_info"] = tierInfo;
     }
-    params[@"expand"] = @"account,photo";
     
     return [[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:[self requestParametersWithParameters:params]]
             	setNameWithFormat:@"Create %lu-tier fan club \"%@\" (account: %@)", (unsigned long)tierInfo.allKeys.count, title, account];
@@ -38,24 +37,13 @@
 
 - (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
                                     parameters:(NSDictionary *)parameters {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:(4 + parameters.count)];
-    
-    params[@"expand"] = @"user,photo";
-    [params addEntriesFromDictionary:parameters];
-    params[@"filter"] = @"blog,photos,statuses";
-    
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
             	cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get content from fan club (account: %@)", account];
 }
 
 - (RACSignal *)getContentFromFollowedFanClubsWithParameters:(NSDictionary *)parameters {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2 + 2 * parameters.count];
-    
-    [params addEntriesFromDictionary:parameters];
-    params[@"expand"] = @"user,account,photo";
-    
-    return [[[self rac_GET:@"account/fanclubs/following/content" parameters:[self requestParametersWithParameters:params]]
+    return [[[self rac_GET:@"account/fanclubs/following/content" parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get recent fan club content"];
 }

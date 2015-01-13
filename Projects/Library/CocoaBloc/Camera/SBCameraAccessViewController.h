@@ -13,7 +13,7 @@
  */
 @interface SBCameraAccessViewController : UIViewController
 
-@property (nonatomic, strong) UIButton *dismissButton;
+@property (nonatomic) UIButton *dismissButton;
 @property (nonatomic, copy) NSString *mediaType;
 
 - (instancetype) initWithMediaTypeDenied:(NSString*)mediaType;

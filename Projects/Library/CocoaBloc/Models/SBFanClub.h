@@ -12,11 +12,11 @@
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *descriptiveText;
-@property (nonatomic, strong) NSNumber *canPostBlogs;
-@property (nonatomic, strong) NSNumber *canPostPhotos;
-@property (nonatomic, strong) NSNumber *canPostStatuses;
-@property (nonatomic, strong) NSNumber *userTier;
-@property (nonatomic, strong, getter = isModerated) NSNumber *moderated;
-@property (nonatomic, strong) NSArray *tiers;
+@property (nonatomic) NSNumber *canPostBlogs;
+@property (nonatomic) NSNumber *canPostPhotos;
+@property (nonatomic) NSNumber *canPostStatuses;
+@property (nonatomic) NSNumber *userTier;
+@property (nonatomic, getter = isModerated) NSNumber *moderated;
+@property (nonatomic) NSArray *tiers;
 
 @end

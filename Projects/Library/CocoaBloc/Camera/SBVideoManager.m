@@ -29,10 +29,10 @@ CGFloat aspectRatio(CGSize size) {
     id deviceOrientationDidChangeObserver;
 }
 
-@property (nonatomic, strong) AVCaptureDeviceInput *videoInput;
-@property (nonatomic, strong) AVCaptureDeviceInput *audioInput;
+@property (nonatomic) AVCaptureDeviceInput *videoInput;
+@property (nonatomic) AVCaptureDeviceInput *audioInput;
 
-@property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
+@property (nonatomic) AVCaptureMovieFileOutput *movieFileOutput;
 @property (nonatomic, assign) AVCaptureVideoOrientation orientation;
 
 @property (nonatomic, assign) NSInteger currentRecordingSegment;
@@ -40,7 +40,7 @@ CGFloat aspectRatio(CGSize size) {
 @property (nonatomic, assign) CMTime currentFinalDurration;
 @property (nonatomic, assign) NSInteger currentWrites;
 
-@property (nonatomic, strong) SBAssetStitcher *stitcher;
+@property (nonatomic) SBAssetStitcher *stitcher;
 
 @property (nonatomic, assign) BOOL paused;
 

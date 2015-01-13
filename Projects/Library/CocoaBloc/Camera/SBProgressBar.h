@@ -26,7 +26,7 @@ extern SBProgressBarOptions SBProgressBarOptionsFromOrientation(UIInterfaceOrien
 @property (nonatomic, readonly) CGFloat maxValue;
 @property (nonatomic, readonly) CGFloat minValue;
 
-@property (nonatomic, strong, readonly) NSMutableSet *stopValues;
+@property (nonatomic, readonly) NSMutableSet *stopValues;
 
 @property (nonatomic, assign) SBProgressBarOptions options;
 

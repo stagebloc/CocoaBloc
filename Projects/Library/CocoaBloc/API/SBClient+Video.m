@@ -88,7 +88,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     }
     
     return [[[self enqueueRequestOperation:op]
-                cb_deserializeWithClient:self modelClass:[SBVideo class] keyPath:@"data"]
+                cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Upload video (%@)", fileName];
 }
 

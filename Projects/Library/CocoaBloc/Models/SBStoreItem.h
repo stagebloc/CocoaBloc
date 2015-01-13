@@ -9,6 +9,8 @@
 #import "SBObject.h"
 #import <Mantle/MTLJSONAdapter.h>
 #import "SBAccount.h"
+#import "SBPhoto.h"
+#import "SBUser.h"
 
 @interface SBStoreItemPriceConfiguration : MTLModel <MTLJSONSerializing>
 
@@ -23,37 +25,50 @@
 @property (nonatomic) NSNumber *length;
 @property (nonatomic) NSNumber *width;
 @property (nonatomic) NSNumber *lowStockThreshold;
-@property (nonatomic) NSString *name;
 @property (nonatomic) NSNumber *quantity;
-@property (nonatomic) NSString *sku;
 @property (nonatomic) NSNumber *soldOut;
 @property (nonatomic) NSNumber *unlimited;
-@property (nonatomic) NSString *weightUnit;
 @property (nonatomic) NSNumber *weight;
-@property (nonatomic) NSString *upc;
+@property (nonatomic, copy) NSString *sku;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *weightUnit;
+@property (nonatomic, copy) NSString *upc;
 
 @end
 
 @interface SBStoreItem : SBObject <MTLJSONSerializing>
 
-@property (nonatomic) NSNumber *postingAccountID;
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic) NSDate *creationDate;
-@property (nonatomic) NSNumber *authorUserID;
 @property (nonatomic, getter=isExclusive) NSNumber *exclusive;
 @property (nonatomic) NSNumber *fansNamePrice;
 @property (nonatomic, getter=isFeatured) NSNumber *featured;
 @property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic) NSDate *modificationDate;
-@property (nonatomic) NSNumber *modifyingAccountID;
 @property (nonatomic, getter=isOnSale) NSNumber *onSale;
 @property (nonatomic) NSArray *options; // [SBStoreItemOptions]
-@property (nonatomic) id photos; // NSNumber OR NSArray
-@property (nonatomic) NSNumber *photoID;
 @property (nonatomic) NSURL *shortURL;
 @property (nonatomic) NSNumber *soldOut;
 @property (nonatomic) NSArray *priceConfigurations;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) NSString *type;
+
+@property (nonatomic) NSNumber *numberOfPhotos;
+
+@property (nonatomic) SBUser *authorUser;
+@property (nonatomic) SBAccount *postingAccount;
+@property (nonatomic) SBUser *modifyingUser;
+@property (nonatomic) NSArray *photos;
+@property (nonatomic) SBPhoto *coverPhoto;
+
+@property (nonatomic) NSNumber *authorUserID;
+@property (nonatomic) NSNumber *postingAccountID;
+@property (nonatomic) NSNumber *modifyingUserID;
+@property (nonatomic) NSNumber *coverPhotoID;
+
+- (RACSignal *)getAuthorUser;
+- (RACSignal *)getPostingAccount;
+- (RACSignal *)getModifyingUser;
+- (RACSignal *)getCoverPhoto;
 
 @end

@@ -18,10 +18,10 @@
 
 @interface SBCameraAccessViewController ()
 
-@property (nonatomic, strong) UIButton *titleButton;
-@property (nonatomic, strong) UIButton *detailsButton;
+@property (nonatomic) UIButton *titleButton;
+@property (nonatomic) UIButton *detailsButton;
 
-@property (nonatomic, strong) UIToolbar *toolbar;
+@property (nonatomic) UIToolbar *toolbar;
 
 @end
 

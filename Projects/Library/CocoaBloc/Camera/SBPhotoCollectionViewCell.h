@@ -10,6 +10,6 @@
 
 @interface SBPhotoCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic) UIImageView *imageView;
 
 @end

@@ -15,7 +15,7 @@
 #import "NSObject+AssociatedObjects.h"
 
 @interface SBClient (AuthInternal)
-@property (nonatomic, strong, readwrite) SBUser *authenticatedUser;
+@property (nonatomic, readwrite) SBUser *authenticatedUser;
 @end
 
 @implementation RACSignal (SBClientPrivate)
