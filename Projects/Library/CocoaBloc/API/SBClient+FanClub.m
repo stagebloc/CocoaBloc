@@ -37,7 +37,7 @@
 
 - (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
                                     parameters:(NSDictionary *)parameters {
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:parameters]]
             	cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get content from fan club (account: %@)", account];
 }
