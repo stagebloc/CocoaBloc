@@ -38,7 +38,7 @@
 /*!
  Get an activity stream of recent content for an account.
  */
-- (RACSignal *)getActivityStreamForAccount:(SBAccount *)account;
+- (RACSignal *)getActivityStreamForAccount:(SBAccount *)account parameters:(NSDictionary*)parameters;
 
 /*!
  

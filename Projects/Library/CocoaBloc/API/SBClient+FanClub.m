@@ -44,8 +44,9 @@
     [params addEntriesFromDictionary:parameters];
     params[@"filter"] = @"blog,photos,statuses";
     
-    return [[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
-            	setNameWithFormat:@"Get content from fan club (account: %@)", account];
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:params]]
+            	cb_deserializeArrayWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get content from fan club (account: %@)", account];
 }
 
 - (RACSignal *)getContentFromFollowedFanClubsWithParameters:(NSDictionary *)parameters {
@@ -55,13 +56,13 @@
     params[@"expand"] = @"user,account,photo";
     
     return [[[self rac_GET:@"account/fanclubs/following/content" parameters:[self requestParametersWithParameters:params]]
-                cb_deserializeContentArrayWithClient:self keyPath:@"data"]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get recent fan club content"];
 }
 
 - (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters {
     return [[[self rac_GET:@"account/fanclubs/following" parameters:[self requestParametersWithParameters:parameters]]
-                cb_deserializeArrayWithClient:self modelClass:[SBFanClub class] keyPath:@"data"]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get followed fan clubs"];
 }
 
