@@ -17,6 +17,7 @@ NSString *SBAPIMethodParameterResultLimit = @"limit";
 NSString *SBAPIMethodParameterResultOffset = @"offset";
 NSString *SBAPIMethodParameterResultDirection = @"direction";
 NSString *SBAPIMethodParameterResultOrderBy = @"order_by";
+NSString *SBAPIMethodParameterResultExpandedProperties = @"expand";
 
 NSString *SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
 NSString *SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
