@@ -52,8 +52,8 @@
     NSParameterAssert(accountId);
 
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/children/%@", accountId, (nil == type ? @"" : type)] parameters:[self requestParametersWithParameters:nil]]
-             cb_deserializeArrayWithClient:self keyPath:@"data.child_accounts"]
-            setNameWithFormat:@"Get children accounts (accountID: %d])", accountId.intValue];
+                cb_deserializeArrayWithClient:self keyPath:@"data.child_accounts"]
+                setNameWithFormat:@"Get children accounts (accountID: %d])", accountId.intValue];
 }
 
 @end
