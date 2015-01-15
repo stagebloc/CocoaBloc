@@ -30,7 +30,7 @@
  fan club object (SBFanClub).
  
  */
-- (RACSignal *)createFanClubForAccount:(SBAccount *)account
+- (RACSignal *)createFanClubForAccountIdentifier:(NSNumber *)accountIdentifier
                                  title:(NSString *)title
                            description:(NSString *)description
                               tierInfo:(NSDictionary *)tierInfo;
@@ -54,6 +54,6 @@
 /*!
  Retrieves the fan club details for the account.
  */
-- (RACSignal*)getFanClubForAccount:(SBAccount*)account parameters:(NSDictionary *)parameters;
+- (RACSignal*)getFanClubForAccountIdentifier:(NSNumber*)accountIdentifier parameters:(NSDictionary *)parameters;
 
 @end
