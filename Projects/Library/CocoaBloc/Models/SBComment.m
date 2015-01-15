@@ -69,7 +69,7 @@
             @{@"accountID"          : @"account",
               @"account"            : @"account",
               @"content"            : @"content",
-              @"creationDate"       : @"text",
+              @"creationDate"       : @"created",
               @"inModeration"       : @"in_moderation",
               @"replyCount"         : @"reply_count",
               @"parentCommentID"    : @"reply_to",

@@ -133,7 +133,7 @@
       @"postingAccount"     : @"account",
       @"authorUserID"		: @"created_by",
       @"authorUser"         : @"created_by",
-      @"modifyingAccountID"	: @"modified_by",
+      @"modifyingUserID"    : @"modified_by",
       @"modifyingUser"      : @"modified_by",
       @"numberOfPhotos"     : @"photos",
       @"photos"				: @"photos",

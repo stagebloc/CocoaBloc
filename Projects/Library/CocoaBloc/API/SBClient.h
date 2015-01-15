@@ -18,7 +18,7 @@
 extern NSString *SBAPIMethodParameterResultLimit;		// NSNumber
 extern NSString *SBAPIMethodParameterResultOffset;		// NSNumber
 extern NSString *SBAPIMethodParameterResultOrderBy;		// NSString, "created" / "modified" / "price"
-extern NSString *SBAPIMethodParameterResultDirection;	// NSSring, "ASC" or "DESC"
+extern NSString *SBAPIMethodParameterResultDirection;	// NSString, "ASC" or "DESC"
 extern NSString *SBAPIMethodParameterResultExpandedProperties; // @"user", @"account", etc. No whitespace, and comma-separated string
 
 /// Fan club tier info dictionary keys
