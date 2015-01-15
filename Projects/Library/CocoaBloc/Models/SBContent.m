@@ -46,9 +46,11 @@
         _fetchAuthorUser = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+            
             return self.authorUser != nil
             ? [RACSignal return:self.authorUser]
-            : [[[SBClient new] getAccountWithID:self.authorUserID]
+            : [[client getAccountWithID:self.authorUserID]
                doNext:^(SBUser *user) {
                    self.authorUser = user;
                }];
@@ -58,9 +60,11 @@
         _fetchAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+
             return self.account != nil
             ? [RACSignal return:self.account]
-            : [[[SBClient new] getAccountWithID:self.accountID]
+            : [[client getAccountWithID:self.accountID]
                doNext:^(SBAccount *account) {
                    self.account = account;
                }];
