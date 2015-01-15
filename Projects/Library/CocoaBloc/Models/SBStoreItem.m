@@ -222,11 +222,11 @@
 }
 
 + (MTLValueTransformer *)optionsJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBStoreItemOption class]];
 }
 
 + (MTLValueTransformer *)priceConfigurationsJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBStoreItemPriceConfiguration class]];
 }
 
 @end

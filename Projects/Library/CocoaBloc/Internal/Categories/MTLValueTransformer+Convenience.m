@@ -48,12 +48,23 @@
 }
 
 + (instancetype)reversibleModelJSONOnlyTransformer {
+    return [self reversibleModelJSONOnlyTransformerForModelClass:[SBObject class]];
+}
+
++ (instancetype)reversibleModelJSONOnlyTransformerForModelClass:(Class)modelClass {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id object) {
-        if (![object isKindOfClass:[NSDictionary class]]) {
-            return nil;
+        if ([object isKindOfClass:[NSDictionary class]]) {
+            return [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:object error:nil];
+        } else if ([object isKindOfClass:[NSArray class]]) {
+            return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:object error:nil];
         }
-        return [MTLJSONAdapter modelOfClass:[SBObject class] fromJSONDictionary:object error:nil];
+        
+        return nil;
     } reverseBlock:^id(id object) {
+        if ([object isKindOfClass:[NSArray class]]) {
+            return [MTLJSONAdapter JSONArrayFromModels:object];
+        }
+        
         return object == nil ? nil : [MTLJSONAdapter JSONDictionaryFromModel:object];
     }];
 }

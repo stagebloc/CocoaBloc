@@ -15,6 +15,8 @@
 
 // Models
 + (instancetype)reversibleModelJSONOnlyTransformer;
++ (instancetype)reversibleModelJSONOnlyTransformerForModelClass:(Class)modelClass; // only use if you need to
+
 + (instancetype)reversibleModelIDOnlyTransformer;
 
 @end

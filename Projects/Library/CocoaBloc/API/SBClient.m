@@ -87,8 +87,29 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     }];
 }
 
+- (RACSignal *)deserializeModelsFromJSONArray:(NSArray *)array {
+    NSParameterAssert([array isKindOfClass:[NSArray class]]);
+    
+    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        return [self.deserializationScheduler schedule:^{
+            NSError *error;
+            id models = [MTLJSONAdapter modelsOfClass:[SBObject class]
+                                        fromJSONArray:array
+                                                error:&error];
+            
+            if (error) {
+                [subscriber sendError:error];
+            } else {
+                [subscriber sendNext:models];
+                [subscriber sendCompleted];
+            }
+        }];
+    }] setNameWithFormat:@"JSON Array Deserialization"];
+
+}
+
 - (RACSignal *)deserializeModelFromJSONDictionary:(NSDictionary *)dictionary {
-    NSParameterAssert(dictionary);
+    NSParameterAssert([dictionary isKindOfClass:[NSDictionary class]]);
     
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         return [self.deserializationScheduler schedule:^{
@@ -104,7 +125,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
                 [subscriber sendCompleted];
             }
         }];
-    }] setNameWithFormat:@"JSON Deserialization"];
+    }] setNameWithFormat:@"JSON Dictionary Deserialization"];
 }
 
 @end

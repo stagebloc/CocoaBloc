@@ -15,27 +15,21 @@
 - (RACSignal *)cb_deserializeWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
     @weakify(client);
     
-    return [[self flattenMap:^RACStream *(NSDictionary *response) {
+    return [self flattenMap:^RACStream *(NSDictionary *response) {
         @strongify(client);
         
         return [client deserializeModelFromJSONDictionary:!keyPath ? response : [response valueForKeyPath:keyPath]];
-    }] take:1];
+    }];
 }
 
 - (RACSignal *)cb_deserializeArrayWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
     @weakify(client);
     
-    return [[self flattenMap:^RACStream *(NSDictionary *response) {
+    return [self flattenMap:^RACStream *(NSDictionary *response) {
         @strongify(client);
         
-        NSMutableArray *signals = [NSMutableArray new];
-        for (NSDictionary *item in !keyPath ? response : [response valueForKeyPath:keyPath]) {
-            [signals addObject:[[RACSignal return:item] cb_deserializeWithClient:client keyPath:nil]];
-        }
-        return [[[RACSignal combineLatest:signals] take:1] map:^id (RACTuple *models) {
-            return models.allObjects;
-        }];
-    }] take:1];
+        return [client deserializeModelsFromJSONArray:!keyPath ? response : [response valueForKeyPath:keyPath]];
+    }];
 }
 
 @end
