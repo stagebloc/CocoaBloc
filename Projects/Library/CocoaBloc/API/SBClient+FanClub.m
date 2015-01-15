@@ -16,7 +16,7 @@
 
 @implementation SBClient (FanClub)
 
-- (RACSignal *)createFanClubForAccount:(SBAccount *)account
+- (RACSignal *)createFanClubForAccountIdentifier:(NSNumber *)accountIdentifier
                                  title:(NSString *)title
                            description:(NSString *)description
                               tierInfo:(NSDictionary *)tierInfo {
@@ -31,8 +31,8 @@
         params[@"tier_info"] = tierInfo;
     }
     
-    return [[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:[self requestParametersWithParameters:params]]
-            	setNameWithFormat:@"Create %lu-tier fan club \"%@\" (account: %@)", (unsigned long)tierInfo.allKeys.count, title, account];
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", accountIdentifier.intValue] parameters:[self requestParametersWithParameters:params]]
+            	setNameWithFormat:@"Create %lu-tier fan club \"%@\" (account: %@)", (unsigned long)tierInfo.allKeys.count, title, accountIdentifier];
 }
 
 - (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
@@ -48,10 +48,16 @@
                 setNameWithFormat:@"Get recent fan club content"];
 }
 
-- (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters {
+- (RACSignal*)getFollowedFanClubsWithParameters:(NSDictionary*)parameters {
     return [[[self rac_GET:@"account/fanclubs/following" parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get followed fan clubs"];
+}
+
+- (RACSignal*)getFanClubForAccountIdentifier:(NSNumber*)accountIdentifier parameters:(NSDictionary *)parameters {
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub", accountIdentifier.intValue] parameters:[self requestParametersWithParameters:parameters]]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get fan club details"];
 }
 
 @end

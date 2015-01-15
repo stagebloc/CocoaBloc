@@ -7,18 +7,37 @@
 //
 
 #import "SBFanClub.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
+#import <Mantle/Mantle.h>
+#import "MTLValueTransformer+Convenience.h"
+#import "SBTier.h"
 
 @implementation SBFanClub
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"title" 				: @"title",
-			  @"descriptiveText" 	: @"moderation_queue",
-			  @"userTier" 			: @"user_tier",
-			  @"canPostStatuses" 	: @"allowed_content_sections.statuses",
-			  @"canPostPhotos" 		: @"allowed_content_sections.photos",
-			  @"canPostBlogs" 		: @"allowed_content_sections.blog"}];
+    return @{@"identifier"          : @"account",
+             @"title" 				: @"title",
+             @"descriptiveText" 	: @"description",
+             @"userTier" 			: @"user_tier",
+             @"canPostStatuses" 	: @"allowed_content_sections.statuses",
+             @"canPostPhotos" 		: @"allowed_content_sections.photos",
+             @"canPostBlogs" 		: @"allowed_content_sections.blog",
+             @"canPostVideos" 		: @"allowed_content_sections.videos",
+             @"canPostAudio" 		: @"allowed_content_sections.audio",
+             @"moderated"           : @"moderation_queue",
+             @"tierOne"              : @"tier_info.1",
+             @"tierTwo"              : @"tier_info.2",
+             @"tierThree"            : @"tier_info.3",
+             };
+}
+
++ (NSValueTransformer*) tierOneJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+}
++ (NSValueTransformer*) tierTwoJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+}
++ (NSValueTransformer*) tierThreeJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
 }
 
 @end

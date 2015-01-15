@@ -77,6 +77,7 @@
 		4D78BEAC1A42001500C0D19A /* NSURL+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D78BEAB1A42001500C0D19A /* NSURL+Camera.m */; };
 		4D8363201A0B0E1F00A820B5 /* SBRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */; };
 		4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */; };
+		4DCC633F1A68532B007C26D6 /* SBTier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCC633E1A68532B007C26D6 /* SBTier.m */; };
 		4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD161611A2E5AAA004C98CC /* SBDraggableView.m */; };
 		4DECC3021A3200FD0097ACA3 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */; };
 		4DEF29C51A2CFE0300316B88 /* SBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */; };
@@ -294,6 +295,8 @@
 		4D83631F1A0B0E1F00A820B5 /* SBRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecordButton.m; sourceTree = "<group>"; };
 		4D98B9A61A22D1DE00F8D11B /* SBOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOverlayView.h; sourceTree = "<group>"; };
 		4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOverlayView.m; sourceTree = "<group>"; };
+		4DCC633D1A68532B007C26D6 /* SBTier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTier.h; sourceTree = "<group>"; };
+		4DCC633E1A68532B007C26D6 /* SBTier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTier.m; sourceTree = "<group>"; };
 		4DD161601A2E5AAA004C98CC /* SBDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDraggableView.h; sourceTree = "<group>"; };
 		4DD161611A2E5AAA004C98CC /* SBDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDraggableView.m; sourceTree = "<group>"; };
 		4DD161641A2FAA06004C98CC /* CocoaBlocCamera.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CocoaBlocCamera.xcassets; path = CocoaBloc/CocoaBlocCamera.xcassets; sourceTree = SOURCE_ROOT; };
@@ -522,14 +525,13 @@
 				09B512401979ADDF00D62F67 /* SBObject.m */,
 				09B5124B1979AE7000D62F67 /* SBNotification.h */,
 				09B5124C1979AE7000D62F67 /* SBNotification.m */,
-				09B512481979AE6000D62F67 /* SBFanClub.h */,
-				09B512491979AE6000D62F67 /* SBFanClub.m */,
 				090EB8161987F1100081D406 /* SBAudio.h */,
 				090EB8171987F1100081D406 /* SBAudio.m */,
 				529FC97F1A2F98DC00F197C7 /* SBVideo.h */,
 				529FC9801A2F98DC00F197C7 /* SBVideo.m */,
 				09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */,
 				09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */,
+				4DCC63401A68535C007C26D6 /* FanClub */,
 				09B512581979AED700D62F67 /* Content */,
 				09B5124E1979AE8900D62F67 /* People */,
 			);
@@ -783,6 +785,17 @@
 				4D76A5BC1A23AC7B00D33D24 /* SBVideoReviewView.m */,
 			);
 			name = SBReviewView;
+			sourceTree = "<group>";
+		};
+		4DCC63401A68535C007C26D6 /* FanClub */ = {
+			isa = PBXGroup;
+			children = (
+				09B512481979AE6000D62F67 /* SBFanClub.h */,
+				09B512491979AE6000D62F67 /* SBFanClub.m */,
+				4DCC633D1A68532B007C26D6 /* SBTier.h */,
+				4DCC633E1A68532B007C26D6 /* SBTier.m */,
+			);
+			name = FanClub;
 			sourceTree = "<group>";
 		};
 		87FBAF30143597866B1808B6 /* Pods */ = {
@@ -1065,6 +1078,7 @@
 				4D2577871A406DAD00147E66 /* SBComposition.m in Sources */,
 				4D54992F1A5AF12A0003D276 /* SBBottomViewContrainer.m in Sources */,
 				09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */,
+				4DCC633F1A68532B007C26D6 /* SBTier.m in Sources */,
 				09D2A2E119B8B452000D32DE /* SBActionButton.m in Sources */,
 				4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */,
 				4D44DFA11A3B50E600E28C22 /* SBCameraAccessViewController.m in Sources */,
