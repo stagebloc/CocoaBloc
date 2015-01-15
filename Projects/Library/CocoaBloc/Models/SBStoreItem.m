@@ -48,36 +48,36 @@
 @end
 
 @interface SBStoreItem ()
-@property (nonatomic) RACCommand *fetchAuthorUser;
-@property (nonatomic) RACCommand *fetchPostingAccount;
-@property (nonatomic) RACCommand *fetchModifyingUser;
-@property (nonatomic) RACCommand *fetchPhotos;
-@property (nonatomic) RACCommand *fetchCoverPhoto;
+@property (nonatomic) RACCommand *fetchAuthorUserCommand;
+@property (nonatomic) RACCommand *fetchPostingAccountCommand;
+@property (nonatomic) RACCommand *fetchModifyingUserCommand;
+@property (nonatomic) RACCommand *fetchPhotosCommand;
+@property (nonatomic) RACCommand *fetchCoverPhotoCommand;
 @end
 
 @implementation SBStoreItem
 
-- (RACSignal *)getAuthorUser {
-    return [self.fetchAuthorUser execute:nil];
+- (RACSignal *)fetchAuthorUser {
+    return [self.fetchAuthorUserCommand execute:nil];
 }
 
-- (RACSignal *)getPostingAccount {
-    return [self.fetchPostingAccount execute:nil];
+- (RACSignal *)fetchPostingAccount {
+    return [self.fetchPostingAccountCommand execute:nil];
 }
 
-- (RACSignal *)getModifyingUser {
-    return [self.fetchModifyingUser execute:nil];
+- (RACSignal *)fetchModifyingUser {
+    return [self.fetchModifyingUserCommand execute:nil];
 }
 
-- (RACSignal *)getCoverPhoto {
-    return [self.fetchCoverPhoto execute:nil];
+- (RACSignal *)fetchCoverPhoto {
+    return [self.fetchCoverPhotoCommand execute:nil];
 }
 
 - (id)init {
     if ((self = [super init])) {
         @weakify(self);
         
-        _fetchAuthorUser = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchAuthorUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.authorUser != nil
@@ -88,7 +88,7 @@
                 }];
         }];
         
-        _fetchPostingAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchPostingAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.postingAccount != nil
@@ -99,7 +99,7 @@
                 }];
         }];
         
-        _fetchModifyingUser = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchModifyingUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.modifyingUser != nil
@@ -110,12 +110,12 @@
                 }];
         }];
         
-        _fetchCoverPhoto = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchCoverPhotoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.coverPhoto != nil
             ? [RACSignal return:self.coverPhoto]
-            : [[self.getPostingAccount
+            : [[self.fetchPostingAccount
                     flattenMap:^RACStream *(SBAccount *account) {
                         return [[SBClient new] getPhotoWithID:self.coverPhotoID forAccount:account];
                     }]
@@ -131,6 +131,8 @@
     NSDictionary *map =
     @{@"postingAccountID" 	: @"account",
       @"postingAccount"     : @"account",
+      @"coverPhotoID"       : @"photo",
+      @"coverPhoto"         : @"photo",
       @"authorUserID"		: @"created_by",
       @"authorUser"         : @"created_by",
       @"modifyingUserID"    : @"modified_by",
@@ -150,7 +152,13 @@
       @"shortURL"			: @"short_url",
       @"soldOut"			: @"sold_out",
       @"title"				: @"title",
-      @"type"				: @"type"};
+      @"type"				: @"type",
+      @"fetchAuthorUserCommand" : [NSNull null],
+      @"fetchPostingAccountCommand" : [NSNull null],
+      @"fetchModifyingUserCommand" : [NSNull null],
+      @"fetchPhotosCommand" : [NSNull null],
+      @"fetchCoverPhotoCommand" : [NSNull null],
+      };
     
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:map];
 }
@@ -166,6 +174,14 @@
 }
 
 + (MTLValueTransformer *)photosJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+}
+
++ (MTLValueTransformer *)coverPhotoIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+}
+
++ (MTLValueTransformer *)coverPhotoJSONTransformer {
     return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 

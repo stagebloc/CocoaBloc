@@ -34,7 +34,7 @@
 @property (nonatomic) SBAccount *account;
 @property (nonatomic) SBUser *authorUser;
 
-- (RACSignal *)getAccount;
-- (RACSignal *)getAuthorUser;
+- (RACSignal *)fetchAccount;
+- (RACSignal *)fetchAuthorUser;
 
 @end

@@ -25,25 +25,25 @@
 #import <RACEXTScope.h>
 
 @interface SBContent ()
-@property (nonatomic, readonly) RACCommand *fetchAccount;
-@property (nonatomic, readonly) RACCommand *fetchAuthorUser;
+@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
+@property (nonatomic, readonly) RACCommand *fetchAuthorUserCommand;
 @end
 
 @implementation SBContent
 
-- (RACSignal *)getAccount {
-    return [self.fetchAccount execute:nil];
+- (RACSignal *)fetchAccount {
+    return [self.fetchAccountCommand execute:nil];
 }
 
-- (RACSignal *)getAuthorUser {
-    return [self.fetchAuthorUser execute:nil];
+- (RACSignal *)fetchAuthorUser {
+    return [self.fetchAuthorUserCommand execute:nil];
 }
 
 - (id)init {
     if ((self = [super init])) {
         @weakify(self);
         
-        _fetchAuthorUser = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchAuthorUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             client = client ?: [SBClient new];
@@ -57,7 +57,7 @@
         }];
 
         
-        _fetchAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             client = client ?: [SBClient new];
@@ -89,7 +89,8 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"title"                  : @"title",
+            @{
+              @"title"                  : @"title",
               @"excerpt"                : @"excerpt",
               @"modificationDate"       : @"modified",
               @"creationDate"           : @"created",
@@ -101,11 +102,14 @@
               @"isSticky"               : @"sticky",
               @"isExclusive"            : @"exclusive",
               @"commentCount"           : @"comment_count",
-			  @"shortURL"               : @"short_url",
+              @"shortURL"               : @"short_url",
               @"accountID"              : @"account",
               @"account"                : @"account",
               @"authorUser"             : @"user",
-              @"authorUserID"           : @"user"}];
+              @"authorUserID"           : @"user",
+              @"fetchAuthorUserCommand" : [NSNull null],
+              @"fetchAccountCommand"    : [NSNull null]}
+            ];
 }
 
 + (NSValueTransformer *)modificationDateJSONTransformer {

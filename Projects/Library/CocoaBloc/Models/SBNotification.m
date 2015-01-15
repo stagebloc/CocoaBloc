@@ -17,7 +17,7 @@
 #import <RACCommand.h>
 
 @interface SBNotification ()
-@property (nonatomic, readonly) RACCommand *fetchAccount;
+@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
 @end
 
 @implementation SBNotification
@@ -26,7 +26,7 @@
     if ((self = [super init])) {
         @weakify(self);
         
-        _fetchAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.account != nil
@@ -40,8 +40,8 @@
     return self;
 }
 
-- (RACSignal *)getAccount {
-    return [self.fetchAccount execute:nil];
+- (RACSignal *)fetchAccount {
+    return [self.fetchAccountCommand execute:nil];
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -51,7 +51,9 @@
               @"text"                       : @"message",
               @"route"                      : @"route",
               @"accountID"                  : @"account",
-              @"account"                    : @"account"}];
+              @"account"                    : @"account",
+              @"fetchAccountCommand"        : [NSNull null]
+              }];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {

@@ -19,25 +19,25 @@
 #import "SBClient+User.h"
 
 @interface SBOrder ()
-@property (nonatomic, readonly) RACCommand *fetchCustomerUser;
-@property (nonatomic, readonly) RACCommand *fetchAccount;
+@property (nonatomic, readonly) RACCommand *fetchCustomerUserCommand;
+@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
 @end
 
 @implementation SBOrder
 
-- (RACSignal *)getCustomerUser {
-    return [self.fetchCustomerUser execute:nil];
+- (RACSignal *)fetchCustomerUser {
+    return [self.fetchCustomerUserCommand execute:nil];
 }
 
-- (RACSignal *)getAccount {
-    return [self.fetchAccount execute:nil];
+- (RACSignal *)fetchAccount {
+    return [self.fetchAccountCommand execute:nil];
 }
 
 - (id)init {
     if ((self = [super init])) {
         @weakify(self);
         
-        _fetchCustomerUser = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchCustomerUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.customerUser != nil
@@ -48,7 +48,7 @@
                }];
         }];
         
-        _fetchAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.account != nil
@@ -73,7 +73,10 @@
               @"account"                    : @"account",
               @"address"                    : @"address",
               @"stripeChargeId"             : @"stripe_charge_id",
-              @"totalUsd"                   : @"total_usd"}];
+              @"totalUsd"                   : @"total_usd",
+              @"fetchAccountCommand"        : [NSNull null],
+              @"fetchCustomerUser"          : [NSNull null]
+              }];
 }
 
 + (MTLValueTransformer *)customerIDJSONTransformer {

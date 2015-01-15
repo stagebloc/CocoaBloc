@@ -66,9 +66,9 @@
 @property (nonatomic) NSNumber *modifyingUserID;
 @property (nonatomic) NSNumber *coverPhotoID;
 
-- (RACSignal *)getAuthorUser;
-- (RACSignal *)getPostingAccount;
-- (RACSignal *)getModifyingUser;
-- (RACSignal *)getCoverPhoto;
+- (RACSignal *)fetchAuthorUser;
+- (RACSignal *)fetchPostingAccount;
+- (RACSignal *)fetchModifyingUser;
+- (RACSignal *)fetchCoverPhoto;
 
 @end

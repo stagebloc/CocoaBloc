@@ -20,26 +20,26 @@
 
 @interface SBComment ()
 // Fetches the user for the model's user ID. MUST be executed with an SBClient as the parameter
-@property (nonatomic, readonly) RACCommand *fetchUser;
-@property (nonatomic, readonly) RACCommand *fetchAccount;
+@property (nonatomic, readonly) RACCommand *fetchUserCommand;
+@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
 
 @end
 
 @implementation SBComment
 
-- (RACSignal *)getUser {
-    return [self.fetchUser execute:nil];
+- (RACSignal *)fetchUser {
+    return [self.fetchUserCommand execute:nil];
 }
 
-- (RACSignal *)getAccount {
-    return [self.fetchAccount execute:nil];
+- (RACSignal *)fetchAccount {
+    return [self.fetchAccountCommand execute:nil];
 }
 
 - (id)init {
     if ((self = [super init])) {
         @weakify(self);
         
-        _fetchUser = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
 
             return self.user != nil
@@ -50,7 +50,7 @@
                 }];
         }];
         
-        _fetchAccount = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
             return self.account != nil
@@ -76,7 +76,9 @@
               @"shortURL"           : @"short_url",
               @"text"               : @"text",
               @"userID"             : @"user",
-              @"user"               : @"user"
+              @"user"               : @"user",
+              @"fetchUserCommand"   : [NSNull null],
+              @"fetchAccountCommand": [NSNull null]
             }];
 }
 

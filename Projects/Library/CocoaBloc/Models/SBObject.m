@@ -20,6 +20,7 @@
 #import "SBPhoto.h"
 #import "SBUser.h"
 #import "SBAccount.h"
+#import <MTLModel+NSCoding.h>
 
 @implementation SBObject
 

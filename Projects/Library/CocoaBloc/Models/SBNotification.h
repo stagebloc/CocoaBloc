@@ -20,6 +20,6 @@
 @property (nonatomic) SBAccount *account;
 @property (nonatomic) NSNumber *accountID;
 
-- (RACSignal *)getAccount;
+- (RACSignal *)fetchAccount;
 
 @end
