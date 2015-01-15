@@ -332,10 +332,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
     self.toolBarDescriptionField.alpha = 1;
     self.toolBarTitleField.alpha = 1;
     
-    NSInteger const Top = 10;
-    NSInteger const Bottom = 9;
-    self.toolBarDescriptionField.layer.zPosition = Bottom;
-    self.toolBarTitleField.layer.zPosition = Top;
+    [self.textContainerView sendSubviewToBack:self.toolBarDescriptionField];
 
     switch (layoutType) {
         case SBTextFieldLayoutTitle: {
@@ -343,8 +340,7 @@ static CGFloat const kAnimationVelocity = 0.5f;
             break;
         }
         case SBTextFieldLayoutTitleDescription:
-            self.toolBarDescriptionField.layer.zPosition = Top;
-            self.toolBarTitleField.layer.zPosition = Bottom;
+            [self.textContainerView sendSubviewToBack:self.toolBarTitleField];
             break;
         default: { //hidden
             animations = ^ {
