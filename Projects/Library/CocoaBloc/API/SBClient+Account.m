@@ -55,4 +55,16 @@
                 setNameWithFormat:@"Get children accounts (accountID: %d])", accountId.intValue];
 }
 
+- (RACSignal*)followAccountWithIdentifier:(NSNumber*)identifier {
+    NSParameterAssert(identifier);
+    
+    return [self rac_POST:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]];
+}
+
+- (RACSignal*)unfollowAccountWithIdentifier:(NSNumber*)identifier {
+    NSParameterAssert(identifier);
+    
+    return [self rac_DELETE:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]];
+}
+
 @end
