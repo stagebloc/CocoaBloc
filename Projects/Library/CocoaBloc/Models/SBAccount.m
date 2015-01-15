@@ -15,13 +15,15 @@
 @implementation SBAccount
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{@"identifier"	: @"id",
-             @"verified"	: @"verified",
-             @"name"	 	: @"name",
-             @"stageblocURL": @"stagebloc_url",
-             @"type"		: @"type",
-             @"URL"			: @"url",
-             @"photo"       : @"photo"};
+    return @{@"identifier"	  : @"id",
+             @"verified"	  : @"verified",
+             @"name"	 	  : @"name",
+             @"stageblocURL"  : @"stagebloc_url",
+             @"type"		  : @"type",
+             @"URL"			  : @"url",
+             @"photo"         : @"photo",
+             @"stripeEnabled" : @"stripe_enabled"
+             };
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {

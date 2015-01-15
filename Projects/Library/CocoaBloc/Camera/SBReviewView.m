@@ -286,7 +286,6 @@ static CGFloat const kAnimationVelocity = 0.5f;
         
         [[RACObserve(self, options) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSNumber *opts) {
             @strongify(self);
-            SBReviewViewOptions options = opts.unsignedIntegerValue;
             self.optionsMenuButton.hidden = ![self shouldShowOptions];
             [self adjustOptionsButtonsAndAnimate];
         }];
