@@ -156,7 +156,13 @@
 }
 
 + (MTLValueTransformer *)numberOfPhotosJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer]; // this works because it thinks it's an identifier
+    return [MTLValueTransformer reversibleTransformerWithBlock:^id(id photosObject) {
+        if ([photosObject isKindOfClass:[NSArray class]]) {
+            return @([photosObject count]);
+        }
+        
+        return photosObject;
+    }];
 }
 
 + (MTLValueTransformer *)photosJSONTransformer {
