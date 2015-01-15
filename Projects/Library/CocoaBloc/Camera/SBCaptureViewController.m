@@ -457,6 +457,7 @@
 - (void) launchChooseExistingSheet {
     @weakify(self);
     
+    /* Not using this for now - may be used in future
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Taken", @"All Photos", nil];
     
     [[actionSheet rac_buttonClickedSignal] subscribeNext:^(NSNumber *i) {
@@ -503,6 +504,28 @@
         }
     }];
     [actionSheet showInView:self.view];
+    */
+    
+    SBImagePickerController *picker = [[SBImagePickerController alloc] init];
+    [[picker imageSelectSignal] subscribeNext:^(UIImage *image) {
+        @strongify(self);
+        if ([image  isKindOfClass:[UIImage class]]) {
+            SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
+            SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
+            vc.reviewOptions = self.reviewOptions;
+            vc.delegate = self;
+            [self.navigationController pushViewController:vc animated:NO];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    } error:^(NSError *error) {
+        @strongify(self);
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } completed:^{
+        @strongify(self);
+        if (self.presentedViewController)
+            [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 -(void)chooseExistingButtonPressed:(id)sender {
