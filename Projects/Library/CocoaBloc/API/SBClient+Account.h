@@ -47,4 +47,15 @@
  */
 - (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId withType:(NSString *)type;
 
+/*!
+ Follow an account with its associated identifier
+ */
+- (RACSignal*)followAccountWithIdentifier:(NSNumber*)identifier;
+
+/*!
+ Unfollow an account with its associated identifier
+ */
+- (RACSignal*)unfollowAccountWithIdentifier:(NSNumber*)identifier;
+
+
 @end
