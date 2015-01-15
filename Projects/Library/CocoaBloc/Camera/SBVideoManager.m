@@ -121,6 +121,9 @@ CGFloat aspectRatio(CGSize size) {
     if ([videoConnection isVideoOrientationSupported]) {
         videoConnection.videoOrientation = orientation;
     }
+    if (videoConnection.supportsVideoStabilization) {
+        videoConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
+    }
 }
 
 //only updates specificSessionPreset to the lowest
