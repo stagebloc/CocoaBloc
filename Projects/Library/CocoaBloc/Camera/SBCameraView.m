@@ -184,9 +184,6 @@ BOOL isSmallScreen() {
         [self.recordButton autoSetDimensionsToSize:size];
         [self.recordButton autoAlignVerticalAxisToSuperview];
         [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomContainerView withOffset:-offset.y];
-        
-        [_bottomContainerView addSubview:self.nextButton];
-        [self.nextButton autoSetDimensionsToSize:size];
     }
     return _bottomContainerView;
 }
@@ -306,6 +303,11 @@ BOOL isSmallScreen() {
     [self.bottomContainerView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
     [self.bottomContainerView autoSetDimension:ALDimensionHeight toSize:100];
     self.optionsMenuButton.bottomContainerView = self.optionsMenuContianerView;
+    
+    //next button
+    [self addSubview:self.nextButton];
+    [self.nextButton autoSetDimensionsToSize:CGSizeMake(64, 64)];
+    [self adjustNextButtonToOrientation:UIInterfaceOrientationPortrait];
 
     //TOP HUD (contains subviews)
     [self addSubview:self.topContainerView];
