@@ -27,6 +27,7 @@
 @property (nonatomic) NSArray *squareToolbarConstraints;
 @property (nonatomic) NSArray *cameraConstraints;
 @property (nonatomic) NSArray *topViewsConstraints;
+@property (nonatomic) NSArray *nextButtonConstraints;
 @property (nonatomic) NSArray *progressBarConstraints;
 
 @property (nonatomic) UITapGestureRecognizer *doubleTapGesture;
@@ -162,6 +163,7 @@ BOOL isSmallScreen() {
 - (UIView*) bottomContainerView {
     if (!_bottomContainerView) {
         _bottomContainerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds), CGRectGetWidth(self.bounds), 0.0f)];
+        _bottomContainerView.clipsToBounds = NO;
         
         CGSize size = CGSizeMake(50, 50);
         CGPoint offset = CGPointMake(10, 10);
@@ -184,8 +186,6 @@ BOOL isSmallScreen() {
         [self.recordButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomContainerView withOffset:-offset.y];
         
         [_bottomContainerView addSubview:self.nextButton];
-        [self.nextButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.recordButton withOffset:10];
-        [self.nextButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomContainerView withOffset:-offset.y];
         [self.nextButton autoSetDimensionsToSize:size];
     }
     return _bottomContainerView;
@@ -411,9 +411,10 @@ BOOL isSmallScreen() {
                 return;
             
             [self adjustTopViewsToOrientation:orientation];
+            [self adjustNextButtonToOrientation:orientation];
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0.0 options:0 animations:^{
                 [self adjustViewTransformsToOrientation:orientation];
-                [self layoutSubviews];
+                [self.superview layoutIfNeeded];
             } completion:nil];
             
             
@@ -565,7 +566,7 @@ BOOL isSmallScreen() {
 
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    return !(touch.view == self.recordButton || touch.view == self.bottomContainerView || touch.view == self.topContainerView);
+    return !(touch.view == self.recordButton || touch.view == self.bottomContainerView || touch.view == self.topContainerView || touch.view == self.nextButton);
 }
 
 #pragma mark - Animations
@@ -641,7 +642,7 @@ BOOL isSmallScreen() {
         case UIInterfaceOrientationPortraitUpsideDown: toVal = CGAffineTransformMakeRotation(M_PI); break;
         default: break;
     }
-    NSArray *toTransform = @[self.flashModeButton, self.toggleCameraButton, self.pageView, self.toggleRatioButton, self.timeLabel];
+    NSArray *toTransform = @[self.flashModeButton, self.toggleCameraButton, self.pageView, self.toggleRatioButton, self.timeLabel, self.nextButton];
     [toTransform setValue:[NSValue valueWithCGAffineTransform:toVal] forKey:NSStringFromSelector(@selector(transform))];
 }
 
@@ -686,11 +687,6 @@ BOOL isSmallScreen() {
             break;
     }
     
-    
-    [self.nextButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.recordButton withOffset:10];
-    [self.nextButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:_bottomContainerView withOffset:-offset.y];
-    [self.nextButton autoSetDimensionsToSize:size];
-    
     //close button
     offset = CGPointMake(10, 10);
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationPortraitUpsideDown) {
@@ -700,6 +696,29 @@ BOOL isSmallScreen() {
     }
     
     self.topViewsConstraints = [constraints copy];
+}
+
+- (void)adjustNextButtonToOrientation:(UIInterfaceOrientation)orientation {
+    [self.nextButtonConstraints autoRemoveConstraints];
+    NSMutableArray *constraints = [NSMutableArray array];
+    
+    CGPoint offset = CGPointMake(10, 20);
+    switch (orientation) {
+        case UIInterfaceOrientationPortraitUpsideDown:
+            [constraints addObject:[self.nextButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.recordButton withOffset:-offset.x]];
+            [constraints addObject:[self.nextButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.bottomContainerView withOffset:-offset.y]];
+            break;
+        case UIInterfaceOrientationPortrait:
+            [constraints addObject:[self.nextButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.recordButton withOffset:offset.x]];
+            [constraints addObject:[self.nextButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.bottomContainerView withOffset:-offset.y]];
+            break;
+        default:
+            [constraints addObject:[self.nextButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.recordButton withOffset:-5]];
+            [constraints addObject:[self.nextButton autoAlignAxisToSuperviewAxis:ALAxisVertical]];
+            break;
+    }
+
+    self.nextButtonConstraints = [constraints copy];
 }
 
 - (void) adjustProgressBarToOrientation:(UIInterfaceOrientation)orientation withPinOffset:(CGFloat)offset{
