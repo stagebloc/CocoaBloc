@@ -48,10 +48,16 @@
                 setNameWithFormat:@"Get recent fan club content"];
 }
 
-- (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters {
+- (RACSignal*)getFollowedFanClubsWithParameters:(NSDictionary*)parameters {
     return [[[self rac_GET:@"account/fanclubs/following" parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get followed fan clubs"];
+}
+
+- (RACSignal*)getFanClubForAccount:(SBAccount*)account parameters:(NSDictionary *)parameters {
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub", account.identifier.intValue] parameters:[self requestParametersWithParameters:parameters]]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get fan club details"];
 }
 
 @end

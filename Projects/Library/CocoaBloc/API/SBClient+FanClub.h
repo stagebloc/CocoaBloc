@@ -51,4 +51,9 @@
  */
 - (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters;
 
+/*!
+ Retrieves the fan club details for the account.
+ */
+- (RACSignal*)getFanClubForAccount:(SBAccount*)account parameters:(NSDictionary *)parameters;
+
 @end
