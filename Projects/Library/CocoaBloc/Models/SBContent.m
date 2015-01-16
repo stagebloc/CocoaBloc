@@ -24,11 +24,6 @@
 #import "SBClient+User.h"
 #import <RACEXTScope.h>
 
-@interface SBContent ()
-@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
-@property (nonatomic, readonly) RACCommand *fetchAuthorUserCommand;
-@end
-
 @implementation SBContent
 
 - (RACSignal *)fetchAccount {

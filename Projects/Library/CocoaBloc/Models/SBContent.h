@@ -34,7 +34,13 @@
 @property (nonatomic) SBAccount *account;
 @property (nonatomic) SBUser *authorUser;
 
+@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
+@property (nonatomic, readonly) RACCommand *fetchAuthorUserCommand;
+
+/*! Executes `fetchAccountCommand` with a new SBClient instance */
 - (RACSignal *)fetchAccount;
+
+/*! Executes `fetchAuthorUserCommand` with a new SBClient instance */
 - (RACSignal *)fetchAuthorUser;
 
 @end

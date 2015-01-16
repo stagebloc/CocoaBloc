@@ -13,10 +13,6 @@
 #import "SBClient+Account.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SBFanClub ()
-@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
-@end
-
 @implementation SBFanClub
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -47,7 +43,7 @@
     return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
 }
 
-- (RACSignal *)fetchAccount {
+- (RACSignal*)fetchAccount {
     return [self.fetchAccountCommand execute:nil];
 }
 
