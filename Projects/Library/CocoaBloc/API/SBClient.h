@@ -15,11 +15,13 @@
 /// @name Globals
 
 /// API method parameter dictionary keys
-extern NSString *SBAPIMethodParameterResultLimit;		// NSNumber
-extern NSString *SBAPIMethodParameterResultOffset;		// NSNumber
-extern NSString *SBAPIMethodParameterResultOrderBy;		// NSString, "created" / "modified" / "price"
-extern NSString *SBAPIMethodParameterResultDirection;	// NSString, "ASC" or "DESC"
-extern NSString *SBAPIMethodParameterResultExpandedProperties; // @"user", @"account", etc. No whitespace, and comma-separated string
+extern NSString *SBAPIMethodParameterResultLimit;                 // NSNumber
+extern NSString *SBAPIMethodParameterResultOffset;                // NSNumber
+extern NSString *SBAPIMethodParameterResultOrderBy;               // NSString "created" / "modified" / "price"
+extern NSString *SBAPIMethodParameterResultDirection;             // NSString "ASC" or "DESC"
+extern NSString *SBAPIMethodParameterResultExpandedProperties;    // NSString @"user", @"account", etc. No whitespace, and comma-separated string
+extern NSString *SBAPIMethodParameterResultFilter;                // NSString @"blog",@"blog,photos,statuses", etc. No whitespace, and comma-separated string
+extern NSString *SBAPIMethodParameterResultIncludeAdminAccounts;  // NSString @"true", @"false"
 
 /// Fan club tier info dictionary keys
 extern NSString *SBFanClubTierInfoName;
