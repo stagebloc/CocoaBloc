@@ -51,6 +51,12 @@
  */
 - (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters;
 
+/*! Retrieves the user's recent fan clubs list. */
+- (RACSignal*)getRecentFanClubsWithParameters:(NSDictionary*)parameters;
+
+/*! Retrieves the user's featured fan clubs list. */
+- (RACSignal*)getFeaturedFanClubsWithParameters:(NSDictionary*)parameters;
+
 /*!
  Retrieves the fan club details for the account.
  */
