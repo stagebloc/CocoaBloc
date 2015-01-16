@@ -9,7 +9,7 @@
 #import "SBObject.h"
 #import <ReactiveCocoa/RACSignal.h>
 
-@class SBUser, SBAccount;
+@class SBUser, SBAccount, RACCommand;
 @interface SBContent : SBObject <MTLJSONSerializing>
 
 + (NSString *)URLPathContentType;
