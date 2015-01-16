@@ -8,9 +8,11 @@
 
 #import "SBObject.h"
 
-@class SBTier;
+@class SBTier, SBAccount, RACSignal;
 
 @interface SBFanClub : SBObject <MTLJSONSerializing>
+
+//`identifier` is not guaranteed to be set.
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *descriptiveText;
@@ -25,5 +27,12 @@
 @property (nonatomic) SBTier *tierOne;
 @property (nonatomic) SBTier *tierTwo;
 @property (nonatomic) SBTier *tierThree;
+
+@property (nonatomic) NSNumber *accountID;
+
+/*!May or may not be nil, use `fetchAccount` for assurance.*/
+@property (nonatomic, strong) SBAccount *account;
+
+- (RACSignal*)fetchAccount;
 
 @end
