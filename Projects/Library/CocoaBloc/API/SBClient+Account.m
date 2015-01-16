@@ -59,7 +59,7 @@
     NSParameterAssert(identifier);
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeArrayWithClient:self keyPath:nil]
+                cb_deserializeWithClient:self keyPath:@"account"]
                 setNameWithFormat:@"Follow account %@", identifier.intValue];
 }
 
@@ -67,7 +67,7 @@
     NSParameterAssert(identifier);
     
     return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeArrayWithClient:self keyPath:nil]
+                cb_deserializeWithClient:self keyPath:@"account"]
                 setNameWithFormat:@"Unfollow account %@", identifier.intValue];
 }
 
