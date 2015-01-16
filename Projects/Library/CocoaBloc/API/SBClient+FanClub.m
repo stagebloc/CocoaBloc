@@ -54,6 +54,19 @@
                 setNameWithFormat:@"Get followed fan clubs"];
 }
 
+- (RACSignal*)getRecentFanClubsWithParameters:(NSDictionary*)parameters {
+    return [[[self rac_GET:@"account/fanclubs/recent" parameters:[self requestParametersWithParameters:parameters]]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get followed fan clubs"];
+}
+
+- (RACSignal*)getFeaturedFanClubsWithParameters:(NSDictionary*)parameters {
+    return [[[self rac_GET:@"account/fanclubs/featured" parameters:[self requestParametersWithParameters:parameters]]
+             cb_deserializeArrayWithClient:self keyPath:@"data"]
+            setNameWithFormat:@"Get followed fan clubs"];
+}
+
+
 - (RACSignal*)getFanClubForAccountIdentifier:(NSNumber*)accountIdentifier parameters:(NSDictionary *)parameters {
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%d/fanclub", accountIdentifier.intValue] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeWithClient:self keyPath:@"data"]
