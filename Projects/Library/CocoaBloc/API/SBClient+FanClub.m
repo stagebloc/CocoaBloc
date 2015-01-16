@@ -31,7 +31,8 @@
         params[@"tier_info"] = tierInfo;
     }
     
-    return [[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", accountIdentifier.intValue] parameters:[self requestParametersWithParameters:params]]
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/fanclub", accountIdentifier.intValue] parameters:[self requestParametersWithParameters:params]]
+                cb_deserializeWithClient:self keyPath:@"data"]
             	setNameWithFormat:@"Create %lu-tier fan club \"%@\" (account: %@)", (unsigned long)tierInfo.allKeys.count, title, accountIdentifier];
 }
 

@@ -22,7 +22,8 @@
              @"type"		  : @"type",
              @"URL"			  : @"url",
              @"photo"         : @"photo",
-             @"stripeEnabled" : @"stripe_enabled"
+             @"stripeEnabled" : @"stripe_enabled",
+             @"userIsAdmin"   : @"user_is_admin",
              };
 }
 
