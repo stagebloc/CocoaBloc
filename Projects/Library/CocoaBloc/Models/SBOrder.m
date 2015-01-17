@@ -75,7 +75,7 @@
               @"stripeChargeId"             : @"stripe_charge_id",
               @"totalUsd"                   : @"total_usd",
               @"fetchAccountCommand"        : [NSNull null],
-              @"fetchCustomerUser"          : [NSNull null]
+              @"fetchCustomerUserCommand"   : [NSNull null]
               }];
 }
 

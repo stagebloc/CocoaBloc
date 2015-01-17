@@ -67,7 +67,7 @@
                          @"shipping": shippingDetails
                     }];
     
-    [params addEntriesFromDictionary:params];
+    [params addEntriesFromDictionary:parameters];
 
     if (email == nil) {
         if (!self.authenticatedUser) {
@@ -90,7 +90,15 @@
                                                   token:(NSString *)token
                                               accountID:(NSNumber *)accountID
                                              parameters:(NSDictionary *)parameters {
-    return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase/split", accountID.stringValue] parameters:[self requestParametersWithParameters:parameters]];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    
+    if (token != nil) {
+        params[@"token"] = token;
+    }
+    params[@"amount"] = amount;
+    params[@"orderId"] = orderID;
+    
+    return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase/split", accountID.stringValue] parameters:[self requestParametersWithParameters:params]];
 }
 
 @end
