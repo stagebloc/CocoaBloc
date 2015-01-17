@@ -26,6 +26,13 @@
                       totals:(NSDictionary *)totals
                        notes:(NSString *)notes
                     andEmail:(NSString *)email
-                  forAccount:(NSNumber *)accountId;
+                  forAccount:(NSNumber *)accountId
+                  parameters:(NSDictionary *)parameters;
+
+- (RACSignal *)addPaymentForSplitPurchaseForOrderWithID:(NSNumber *)orderID
+                                                 amount:(NSDecimalNumber *)amount
+                                                  token:(NSString *)token
+                                              accountID:(NSNumber *)accountID
+                                             parameters:(NSDictionary *)parameters;
 
 @end

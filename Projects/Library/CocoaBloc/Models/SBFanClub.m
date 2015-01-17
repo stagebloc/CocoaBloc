@@ -11,6 +11,7 @@
 #import "MTLValueTransformer+Convenience.h"
 #import "SBTier.h"
 #import "SBClient+Account.h"
+#import <RACEXTScope.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface SBFanClub ()
@@ -55,14 +56,12 @@
     if ((self = [super init])) {
         @weakify(self);
         
-        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
+        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id _) {
             @strongify(self);
-            
-            client = client ?: [SBClient new];
             
             return self.account != nil
             ? [RACSignal return:self.account]
-            : [[client getAccountWithID:self.accountID]
+            : [[[SBClient new] getAccountWithID:self.accountID]
                doNext:^(SBAccount *account) {
                    self.account = account;
                }];
