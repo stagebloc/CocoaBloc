@@ -58,17 +58,17 @@
 - (RACSignal*)followAccountWithIdentifier:(NSNumber*)identifier {
     NSParameterAssert(identifier);
     
-    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/follow", identifier.stringValue] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeArrayWithClient:self keyPath:nil]
-                setNameWithFormat:@"Follow account %@", identifier.stringValue];
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
+                cb_deserializeWithClient:self keyPath:@"account"]
+                setNameWithFormat:@"Follow account %d", identifier.intValue];
 }
 
 - (RACSignal*)unfollowAccountWithIdentifier:(NSNumber*)identifier {
     NSParameterAssert(identifier);
     
-    return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%@/follow", identifier.stringValue] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeArrayWithClient:self keyPath:nil]
-                setNameWithFormat:@"Unfollow account %@", identifier.stringValue];
+    return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
+                cb_deserializeWithClient:self keyPath:@"account"]
+                setNameWithFormat:@"Unfollow account %d", identifier.intValue];
 }
 
 @end

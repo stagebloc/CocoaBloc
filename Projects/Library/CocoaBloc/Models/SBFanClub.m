@@ -14,10 +14,6 @@
 #import <RACEXTScope.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface SBFanClub ()
-@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
-@end
-
 @implementation SBFanClub
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -39,16 +35,16 @@
 }
 
 + (NSValueTransformer*) tierOneJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 + (NSValueTransformer*) tierTwoJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 + (NSValueTransformer*) tierThreeJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
-- (RACSignal *)fetchAccount {
+- (RACSignal*)fetchAccount {
     return [self.fetchAccountCommand execute:nil];
 }
 
