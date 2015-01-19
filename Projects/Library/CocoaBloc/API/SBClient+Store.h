@@ -35,4 +35,6 @@
                                               accountID:(NSNumber *)accountID
                                              parameters:(NSDictionary *)parameters;
 
+- (RACSignal*)requestStripeAuthorizationWithToken:(NSString*)requestToken forAccountWithID:(NSNumber*)accountID;
+
 @end

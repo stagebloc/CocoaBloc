@@ -101,4 +101,10 @@
     return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase/split", accountID.stringValue] parameters:[self requestParametersWithParameters:params]];
 }
 
+- (RACSignal*)requestStripeAuthorizationWithToken:(NSString *)requestToken forAccountWithID:(NSNumber *)accountID {
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/store/stripe", accountID.intValue] parameters:@{@"token":requestToken}]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Request stripe auth with token %@ for account %@", requestToken, accountID.stringValue];
+}
+
 @end

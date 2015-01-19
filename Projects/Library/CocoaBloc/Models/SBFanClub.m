@@ -52,12 +52,14 @@
     if ((self = [super init])) {
         @weakify(self);
         
-        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id _) {
+        _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
+            
+            client ?: [SBClient new];
             
             return self.account != nil
             ? [RACSignal return:self.account]
-            : [[[SBClient new] getAccountWithID:self.accountID]
+            : [[client getAccountWithID:self.accountID]
                doNext:^(SBAccount *account) {
                    self.account = account;
                }];
