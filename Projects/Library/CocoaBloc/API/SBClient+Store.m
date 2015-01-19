@@ -101,4 +101,10 @@
     return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase/split", accountID.stringValue] parameters:[self requestParametersWithParameters:params]];
 }
 
+- (RACSignal*)requestStripeAuthorizationWithToken:(NSString *)requestToken forAccountWithID:(NSNumber *)accountID {
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%d/store/stripe", accountID.intValue] parameters:@{@"token":requestToken}] map:^id(id value) {
+        return value;
+    }];
+}
+
 @end
