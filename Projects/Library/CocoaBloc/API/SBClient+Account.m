@@ -60,7 +60,7 @@
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
                 cb_deserializeWithClient:self keyPath:@"account"]
-                setNameWithFormat:@"Follow account %@", identifier.intValue];
+                setNameWithFormat:@"Follow account %d", identifier.intValue];
 }
 
 - (RACSignal*)unfollowAccountWithIdentifier:(NSNumber*)identifier {
@@ -68,7 +68,7 @@
     
     return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
                 cb_deserializeWithClient:self keyPath:@"account"]
-                setNameWithFormat:@"Unfollow account %@", identifier.intValue];
+                setNameWithFormat:@"Unfollow account %d", identifier.intValue];
 }
 
 @end

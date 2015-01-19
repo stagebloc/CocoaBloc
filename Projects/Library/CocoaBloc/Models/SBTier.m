@@ -21,8 +21,4 @@
              };
 }
 
-+ (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    return [SBTier class];
-}
-
 @end

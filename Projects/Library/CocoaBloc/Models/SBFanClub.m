@@ -35,13 +35,13 @@
 }
 
 + (NSValueTransformer*) tierOneJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 + (NSValueTransformer*) tierTwoJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 + (NSValueTransformer*) tierThreeJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBTier class]];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 - (RACSignal*)fetchAccount {
