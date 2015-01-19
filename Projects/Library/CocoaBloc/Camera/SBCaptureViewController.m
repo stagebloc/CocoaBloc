@@ -174,9 +174,9 @@
     }];
     
     //enable/disable record button when time is at max duration
-    [[[self.captureManager.videoManager totalTimeRecordedSignal] map:^NSNumber*(NSNumber* value) {
+    [[[[self.captureManager.videoManager totalTimeRecordedSignal] deliverOn:[RACScheduler mainThreadScheduler]] map:^NSNumber*(NSValue* value) {
         @strongify(self);
-        return @(!(CMTimeGetSeconds([value CMTimeValue]) >= self.captureManager.videoManager.maxDuration));
+        return @(CMTimeGetSeconds([value CMTimeValue]) < self.captureManager.videoManager.maxDuration);
     }] subscribeNext:^(NSNumber *enabled) {
         @strongify(self);
         self.cameraView.recordButton.enabled = enabled.boolValue;
@@ -241,6 +241,13 @@
     }];
     
     [self.captureManager.captureSession startRunning];
+}
+
+- (void) pushReviewControllerWithAsset:(SBAsset*)asset {
+    SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
+    vc.reviewOptions = self.reviewOptions;
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -425,10 +432,7 @@
     [[self.captureManager.photoManager captureImage] subscribeNext:^(UIImage *image) {
         @strongify(self);
         SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
-        SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
-        vc.reviewOptions = self.reviewOptions;
-        vc.delegate = self;
-        [self.navigationController pushViewController:vc animated:YES];
+        [self pushReviewControllerWithAsset:asset];
     } error:^(NSError *error) {
         @strongify(self);
         self.view.userInteractionEnabled = YES;
@@ -469,10 +473,7 @@
                 [[self.assetManager.fetchLastPhoto deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(UIImage *image) {
                     @strongify(self);
                     SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
-                    SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
-                    vc.reviewOptions = self.reviewOptions;
-                    vc.delegate = self;
-                    [self.navigationController pushViewController:vc animated:YES];
+                    [self pushReviewControllerWithAsset:asset];
                 } error:^(NSError *error) {
                     @strongify(self);
                     NSLog(@"ERROR: %@", error);
@@ -485,10 +486,7 @@
                     @strongify(self);
                     if ([image  isKindOfClass:[UIImage class]]) {
                         SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
-                        SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
-                        vc.reviewOptions = self.reviewOptions;
-                        vc.delegate = self;
-                        [self.navigationController pushViewController:vc animated:NO];
+                        [self pushReviewControllerWithAsset:asset];
                         [self dismissViewControllerAnimated:YES completion:nil];
                     }
                 } error:^(NSError *error) {
@@ -511,10 +509,7 @@
         @strongify(self);
         if ([image  isKindOfClass:[UIImage class]]) {
             SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
-            SBReviewController *vc = [[SBReviewController alloc] initWithAsset:asset];
-            vc.reviewOptions = self.reviewOptions;
-            vc.delegate = self;
-            [self.navigationController pushViewController:vc animated:NO];
+            [self pushReviewControllerWithAsset:asset];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     } error:^(NSError *error) {
@@ -585,23 +580,23 @@
     }]] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSURL *saveURL) {
         @strongify(self);
         SBAsset *asset = [[SBAsset alloc] initWithFileURL:saveURL type:SBAssetTypeVideo];
-        SBReviewController *controller = [[SBReviewController alloc] initWithAsset:asset];
-        controller.reviewOptions = self.reviewOptions;
-        controller.delegate = self;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self pushReviewControllerWithAsset:asset];
     } error:^(NSError *error) {
         @strongify(self);
         [self.overlayHud dismissAfterError:@"Error processing video"];
     } completed:^{
         @strongify(self);
         [self.overlayHud dismiss];
+        [self.captureManager.videoManager reset];
     }];
 }
 
 -(void)closeButtonPressed:(id)sender {
     if (CMTimeGetSeconds(self.captureManager.videoManager.totalRecordingDuration) > 0) {
+        @weakify(self);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"This will delete your current recording" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
         [[alert rac_buttonClickedSignal] subscribeNext:^(NSNumber *buttonIndex) {
+            @strongify(self);
             if (alert.cancelButtonIndex == buttonIndex.integerValue)
                 return;
             [self.captureManager.videoManager reset];
@@ -642,8 +637,6 @@
 
 #pragma mark - SBReviewControllerDelegate
 - (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset {
-    _isOfficialEnabled = controller.isOfficialEnabled;
-    _isExclusiveEnabled = controller.isExclusiveEnabled;
     if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:)]) {
         [self.delegate reviewController:controller acceptedAsset:asset];
     }

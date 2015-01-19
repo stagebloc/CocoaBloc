@@ -37,7 +37,7 @@ CGFloat aspectRatio(CGSize size) {
 
 @property (nonatomic, assign) NSInteger currentRecordingSegment;
 
-@property (nonatomic, assign) CMTime currentFinalDurration;
+@property (nonatomic, assign) CMTime currentFinalDuration;
 @property (nonatomic, assign) NSInteger currentWrites;
 
 @property (nonatomic) SBAssetStitcher *stitcher;
@@ -80,7 +80,7 @@ CGFloat aspectRatio(CGSize size) {
         
         self.aspectRatio = [NSUserDefaults aspectRatio];
         
-        self.currentFinalDurration = kCMTimeZero;
+        self.currentFinalDuration = kCMTimeZero;
 
         self.devicePosition = AVCaptureDevicePositionBack;
         
@@ -143,7 +143,7 @@ CGFloat aspectRatio(CGSize size) {
 
     self.currentRecordingSegment = 0;
     self.paused = NO;
-    self.currentFinalDurration = kCMTimeZero;
+    self.currentFinalDuration = kCMTimeZero;
     
     [self updateVideoConnectionWithOrientation:self.orientation];
     
@@ -160,7 +160,7 @@ CGFloat aspectRatio(CGSize size) {
     
     self.paused = YES;
     [self.movieFileOutput stopRecording];
-    self.currentFinalDurration = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
+    self.currentFinalDuration = CMTimeAdd(self.currentFinalDuration, self.movieFileOutput.recordedDuration);
     [self updateVideoConnectionWithOrientation:self.orientation];
 }
 
@@ -175,7 +175,7 @@ CGFloat aspectRatio(CGSize size) {
     self.currentRecordingSegment++;
     
     if(_maxDuration > 0) {
-        self.movieFileOutput.maxRecordedDuration = CMTimeSubtract(CMTimeMakeWithSeconds(_maxDuration, 600), self.currentFinalDurration);
+        self.movieFileOutput.maxRecordedDuration = CMTimeSubtract(CMTimeMakeWithSeconds(_maxDuration, 600), self.currentFinalDuration);
     } else {
         self.movieFileOutput.maxRecordedDuration = kCMTimeInvalid;
     }
@@ -193,7 +193,7 @@ CGFloat aspectRatio(CGSize size) {
     }
     
     [self.stitcher reset];
-    self.currentFinalDurration = kCMTimeZero;
+    self.currentFinalDuration = kCMTimeZero;
     
     self.paused = NO;
     
@@ -201,16 +201,17 @@ CGFloat aspectRatio(CGSize size) {
 }
 
 - (CMTime)totalRecordingDuration {
-    if (self.currentWrites <= 0)
-        return self.currentFinalDurration;
+    if (self.currentWrites <= 0) {
+        return self.currentFinalDuration;
+    }
     
-    if(CMTimeCompare(kCMTimeZero, self.currentFinalDurration) == 0 && ![self isReset]) {
+    if(CMTimeCompare(kCMTimeZero, self.currentFinalDuration) == 0 && ![self isReset]) {
         return self.movieFileOutput.recordedDuration;
     } else if (!self.paused && self.movieFileOutput.isRecording) {
-        CMTime returnTime = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
-        return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDurration : returnTime;
+        CMTime returnTime = CMTimeAdd(self.currentFinalDuration, self.movieFileOutput.recordedDuration);
+        return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDuration : returnTime;
     } else {
-        return self.currentFinalDurration;
+        return self.currentFinalDuration;
     }
 }
 
@@ -236,88 +237,75 @@ CGFloat aspectRatio(CGSize size) {
 
 - (RACSignal*)finalizeRecordingToFile:(NSURL *)finalVideoLocationURL takeUntil:(RACSignal*)takeUntil {
     @weakify(self);
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        @strongify(self);
-        
-        //pause just in case
-        if (self.isRecording) {
-            [self pauseRecording];
-        }
-        
-        if([finalVideoLocationURL checkResourceIsReachableAndReturnError:nil]) {
-            [subscriber sendError:[NSError errorWithDomain:@"Output file already exists." code:104 userInfo:nil]];
-            return nil;
-        }
-        
-        if(self.currentWrites != 0) {
-            [subscriber sendError:[NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]];
-            return nil;
-        }
-        
-        SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.orientation
-                                                                            exportPreset:[AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset]];
-        BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare;
-        
-        //Individual Composition construction handling
-        CGSize lowestRenderSize = [AVCaptureSession renderSizeForSessionPreset:self.specificSessionPreset];
-        CGFloat lowestAspectRatio = aspectRatio(lowestRenderSize);
-        CGSize (^individualRenderSizeHandler)(SBComposition *comp) = ^(SBComposition *comp) {
-            CGFloat compAspectRatio = aspectRatio(comp.naturalSize);
-            //ignore aspect ratio modification if lowestAspectRatio is > compAspectRatio
-            if (lowestAspectRatio >= compAspectRatio)
-                return comp.naturalSize;
-            
-            //aspect ratio not equal, must make same aspect ratio
-            CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
-            CGFloat max = MAX(comp.naturalSize.width, comp.naturalSize.height);
-            
-            if (max == comp.naturalSize.width) {
-                return CGSizeMake(max / lowestAspectRatio, min);
-            } else {
-                return CGSizeMake(min, max / lowestAspectRatio);
-            }
-        };
-        [options setIndividualCompositionHandler:^(SBComposition *comp) {
-            comp.renderSize = individualRenderSizeHandler(comp);
-            
-            if (isSquare) {
-                @strongify(self);
-                CGFloat ptsToPixels = comp.renderSize.width / self.squareVideoSize;
-                CGFloat offsetInPixels = self.squareVideoOffsetBottom * ptsToPixels;
-                comp.offsetBottom = offsetInPixels;
-            }
-        }];
-        
-        //Final Composition construction handling
-        CGSize (^finalRenderSizeHandler)(SBComposition *comp) = ^(SBComposition *comp) {
-            if (isSquare) {
-                CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
-                return CGSizeMake(min, min);
-            }
-            return comp.naturalSize;
-        };
-        [options setFinalCompositionHandler:^(SBComposition *comp) {
-            comp.renderSize = finalRenderSizeHandler(comp);
-        }];
-        
-        RACSignal *exportSignal = [self.stitcher exportTo:finalVideoLocationURL options:options];
-        if (takeUntil) exportSignal = [exportSignal takeUntil:takeUntil];
+    
+    //pause just in case
+    if (self.isRecording) {
+        [self pauseRecording];
+    }
+    
+    if([finalVideoLocationURL checkResourceIsReachableAndReturnError:nil]) {
+        return [RACSignal error:[NSError errorWithDomain:@"Output file already exists." code:104 userInfo:nil]];
+    }
+    
+    if(self.currentWrites != 0) {
+        return [RACSignal error:[NSError errorWithDomain:@"Can't finalize recording unless all sub-recorings are finished." code:106 userInfo:nil]];
+    }
 
-        [exportSignal subscribeNext:^(NSURL *outputURL) {
-            [subscriber sendNext:[outputURL copy]];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } completed:^{
-            [self reset];
-            [subscriber sendCompleted];
-        }];
+
+    SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.orientation
+                                                                        exportPreset:[AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset]];
+    BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare;
+    
+    //Individual Composition construction handling
+    CGSize lowestRenderSize = [AVCaptureSession renderSizeForSessionPreset:self.specificSessionPreset];
+    CGFloat lowestAspectRatio = aspectRatio(lowestRenderSize);
+    CGSize (^individualRenderSizeHandler)(SBComposition *comp) = ^(SBComposition *comp) {
+        CGFloat compAspectRatio = aspectRatio(comp.naturalSize);
+        //ignore aspect ratio modification if lowestAspectRatio is > compAspectRatio
+        if (lowestAspectRatio >= compAspectRatio)
+            return comp.naturalSize;
         
-        return nil;
+        //aspect ratio not equal, must make same aspect ratio
+        CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
+        CGFloat max = MAX(comp.naturalSize.width, comp.naturalSize.height);
+        
+        if (max == comp.naturalSize.width) {
+            return CGSizeMake(max / lowestAspectRatio, min);
+        } else {
+            return CGSizeMake(min, max / lowestAspectRatio);
+        }
+    };
+    [options setIndividualCompositionHandler:^(SBComposition *comp) {
+        comp.renderSize = individualRenderSizeHandler(comp);
+        
+        if (isSquare) {
+            @strongify(self);
+            CGFloat ptsToPixels = comp.renderSize.width / self.squareVideoSize;
+            CGFloat offsetInPixels = self.squareVideoOffsetBottom * ptsToPixels;
+            comp.offsetBottom = offsetInPixels;
+        }
     }];
+    
+    //Final Composition construction handling
+    CGSize (^finalRenderSizeHandler)(SBComposition *comp) = ^(SBComposition *comp) {
+        if (isSquare) {
+            CGFloat min = MIN(comp.naturalSize.width, comp.naturalSize.height);
+            return CGSizeMake(min, min);
+        }
+        return comp.naturalSize;
+    };
+    [options setFinalCompositionHandler:^(SBComposition *comp) {
+        comp.renderSize = finalRenderSizeHandler(comp);
+    }];
+    
+    RACSignal *exportSignal = [self.stitcher exportTo:finalVideoLocationURL options:options];
+    if (takeUntil) exportSignal = [exportSignal takeUntil:takeUntil];
+
+    return exportSignal;
 }
 
 - (RACSignal*)totalTimeRecordedSignal {
-    return RACObserve(self, currentFinalDurration);
+    return RACObserve(self, currentFinalDuration);
 }
 
 - (RACSignal*) recordDurationChangeSignal {
@@ -343,7 +331,7 @@ CGFloat aspectRatio(CGSize size) {
         [self pauseRecording];
     }
     
-    if(error){
+    if(!fileURL){
         NSLog(@"Error capturing output: %@", error);
     } else {
         [self.stitcher addAsset:[[AVURLAsset alloc] initWithURL:fileURL options:@{AVURLAssetPreferPreciseDurationAndTimingKey:@YES}] devicePosition:self.devicePosition];
