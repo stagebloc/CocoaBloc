@@ -8,7 +8,7 @@
 
 #import "SBObject.h"
 
-@class SBTier, SBAccount, RACSignal;
+@class SBTier, SBAccount, RACSignal, RACCommand;
 
 @interface SBFanClub : SBObject <MTLJSONSerializing>
 
@@ -33,6 +33,9 @@
 /*!May or may not be nil, use `fetchAccount` for assurance.*/
 @property (nonatomic, strong) SBAccount *account;
 
+@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
+
+/*! Executes `fetchAccountCommand` with a new SBClient instance */
 - (RACSignal*)fetchAccount;
 
 @end

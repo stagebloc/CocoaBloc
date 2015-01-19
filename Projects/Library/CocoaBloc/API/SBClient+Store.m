@@ -67,7 +67,7 @@
                          @"shipping": shippingDetails
                     }];
     
-    [params addEntriesFromDictionary:params];
+    [params addEntriesFromDictionary:parameters];
 
     if (email == nil) {
         if (!self.authenticatedUser) {
@@ -90,7 +90,21 @@
                                                   token:(NSString *)token
                                               accountID:(NSNumber *)accountID
                                              parameters:(NSDictionary *)parameters {
-    return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase/split", accountID.stringValue] parameters:[self requestParametersWithParameters:parameters]];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    
+    if (token != nil) {
+        params[@"token"] = token;
+    }
+    params[@"amount"] = amount;
+    params[@"orderId"] = orderID;
+    
+    return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase/split", accountID.stringValue] parameters:[self requestParametersWithParameters:params]];
+}
+
+- (RACSignal*)requestStripeAuthorizationWithToken:(NSString *)requestToken forAccountWithID:(NSNumber *)accountID {
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/store/stripe", accountID.intValue] parameters:@{@"token":requestToken}]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Request stripe auth with token %@ for account %@", requestToken, accountID.stringValue];
 }
 
 @end

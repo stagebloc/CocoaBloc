@@ -20,6 +20,7 @@
 #import "SBPhoto.h"
 #import "SBUser.h"
 #import "SBAccount.h"
+#import "SBTier.h"
 #import <MTLModel+NSCoding.h>
 
 @implementation SBObject
@@ -37,6 +38,7 @@
                            @"order"         : [SBOrder class],
                            @"store_item"    : [SBStoreItem class],
                            @"fan_club"      : [SBFanClub class],
+                           @"fan_club_tier" : [SBTier class],
                            @"photo"         : [SBPhoto class],
                            @"audio"         : [SBAudio class],
                            @"blog"          : [SBBlog class],

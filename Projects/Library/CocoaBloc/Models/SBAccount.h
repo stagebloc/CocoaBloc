@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic) NSNumber *stripeEnabled;
+@property (nonatomic) NSNumber *userIsAdmin;
 
 @property (nonatomic) SBPhoto *photo;
 
