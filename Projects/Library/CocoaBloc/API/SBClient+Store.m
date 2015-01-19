@@ -48,7 +48,15 @@
             setNameWithFormat:@"Shipping rates for items: %@", itemsToPurchase];
 }
 
-- (RACSignal *)purchaseItems:(NSDictionary *)itemsToPurchase usingToken:(NSString *)purchaseToken withAddress:(SBAddress *)address shippingDetails:(NSDictionary *)shippingDetails totals:(NSDictionary *)totals notes:(NSString *)notes andEmail:(NSString *)email forAccount:(NSNumber *)accountId {
+- (RACSignal *)purchaseItems:(NSDictionary *)itemsToPurchase
+                  usingToken:(NSString *)purchaseToken
+                 withAddress:(SBAddress *)address
+             shippingDetails:(NSDictionary *)shippingDetails
+                      totals:(NSDictionary *)totals
+                       notes:(NSString *)notes
+                    andEmail:(NSString *)email
+                  forAccount:(NSNumber *)accountId
+                  parameters:(NSDictionary *)parameters {
     NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                          @"cart": @{@"store": itemsToPurchase},
@@ -58,6 +66,8 @@
                          @"address": JSONaddress,
                          @"shipping": shippingDetails
                     }];
+    
+    [params addEntriesFromDictionary:parameters];
 
     if (email == nil) {
         if (!self.authenticatedUser) {
@@ -72,7 +82,23 @@
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase", accountId] parameters:[self requestParametersWithParameters:params]]
             	cb_deserializeWithClient:self keyPath:@"data"]
-            setNameWithFormat:@"Purchase items: %@", itemsToPurchase];
+                setNameWithFormat:@"Purchase items: %@", itemsToPurchase];
+}
+
+- (RACSignal *)addPaymentForSplitPurchaseForOrderWithID:(NSNumber *)orderID
+                                                 amount:(NSDecimalNumber *)amount
+                                                  token:(NSString *)token
+                                              accountID:(NSNumber *)accountID
+                                             parameters:(NSDictionary *)parameters {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    
+    if (token != nil) {
+        params[@"token"] = token;
+    }
+    params[@"amount"] = amount;
+    params[@"orderId"] = orderID;
+    
+    return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase/split", accountID.stringValue] parameters:[self requestParametersWithParameters:params]];
 }
 
 @end
