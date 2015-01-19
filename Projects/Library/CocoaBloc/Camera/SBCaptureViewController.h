@@ -41,12 +41,6 @@
  */
 @property (nonatomic, weak) id<SBCaptureViewControllerDelegate> delegate;
 
-/*!Whether or not the user enabled the `official` button*/
-@property (nonatomic, assign, readonly) BOOL isOfficialEnabled;
-
-/*!Whether or not the user enabled the `exclusive` button*/
-@property (nonatomic, assign, readonly) BOOL isExclusiveEnabled;
-
 /*
  Sets initial capture type to start with for the controller
  */

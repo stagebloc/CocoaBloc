@@ -637,8 +637,6 @@
 
 #pragma mark - SBReviewControllerDelegate
 - (void) reviewController:(SBReviewController *)controller acceptedAsset:(SBAsset *)asset {
-    _isOfficialEnabled = controller.isOfficialEnabled;
-    _isExclusiveEnabled = controller.isExclusiveEnabled;
     if ([self.delegate respondsToSelector:@selector(reviewController:acceptedAsset:)]) {
         [self.delegate reviewController:controller acceptedAsset:asset];
     }
