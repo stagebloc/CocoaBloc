@@ -43,6 +43,7 @@
                            @"status"        : [SBStatus class],
                            @"video"         : [SBVideo class],
                            @"comment"       : [SBComment class],
+                           @"user_photo"    : [SBPhoto class],
                            @"notification"  : [SBNotification class],
                            @"address"       : [SBAddress class],
                            @"store_item_option" : [SBStoreItemOption class],

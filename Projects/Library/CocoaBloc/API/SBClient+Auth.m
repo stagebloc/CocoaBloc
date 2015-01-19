@@ -33,10 +33,10 @@
              map:^id(NSDictionary *response) {
                  // deserialize the user
                  SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
-                                          fromJSONDictionary:response[@"data"][@"user"]
+                                          fromJSONDictionary:[response valueForKeyPath:@"data.user"]
                                                        error:nil];
                  user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
-                                                      fromJSONArray:response[@"data"][@"admin_accounts"]
+                                                      fromJSONArray:[response valueForKeyPath:@"data.admin_accounts"]
                                                               error:nil];
                  
                  return user;
@@ -115,13 +115,13 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
     NSParameterAssert(username);
     NSParameterAssert(password);
     
-    return [[[self rac_POST:@"oauth2/token" parameters:@{@"grant_type"				: @"password",
-                                                            @"username"					: username,
-                                                            @"password"					: password,
-                                                            @"client_secret"			: SBClientSecret,
-                                                            @"client_id"				: SBClientID,
-                                                            @"expand"					: @"user",
-                                                            @"include_admin_accounts" 	: @"true"}]
+    return [[[self rac_POST:@"oauth2/token" parameters:[self requestParametersWithParameters: @{@"grant_type"				: @"password",
+                                                                                                @"username"					: username,
+                                                                                                @"password"					: password,
+                                                                                                @"client_secret"			: SBClientSecret,
+                                                                                                @"client_id"				: SBClientID,
+                                                                                                @"expand"					: @"user",
+                                                                                                @"include_admin_accounts" 	: @"true"}]]
 				_processedAuthSignalForClient:self]
             	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
 }
