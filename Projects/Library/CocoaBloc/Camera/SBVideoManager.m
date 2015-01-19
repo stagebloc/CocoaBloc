@@ -37,7 +37,7 @@ CGFloat aspectRatio(CGSize size) {
 
 @property (nonatomic, assign) NSInteger currentRecordingSegment;
 
-@property (nonatomic, assign) CMTime currentFinalDurration;
+@property (nonatomic, assign) CMTime currentFinalDuration;
 @property (nonatomic, assign) NSInteger currentWrites;
 
 @property (nonatomic) SBAssetStitcher *stitcher;
@@ -80,7 +80,7 @@ CGFloat aspectRatio(CGSize size) {
         
         self.aspectRatio = [NSUserDefaults aspectRatio];
         
-        self.currentFinalDurration = kCMTimeZero;
+        self.currentFinalDuration = kCMTimeZero;
 
         self.devicePosition = AVCaptureDevicePositionBack;
         
@@ -143,7 +143,7 @@ CGFloat aspectRatio(CGSize size) {
 
     self.currentRecordingSegment = 0;
     self.paused = NO;
-    self.currentFinalDurration = kCMTimeZero;
+    self.currentFinalDuration = kCMTimeZero;
     
     [self updateVideoConnectionWithOrientation:self.orientation];
     
@@ -160,7 +160,7 @@ CGFloat aspectRatio(CGSize size) {
     
     self.paused = YES;
     [self.movieFileOutput stopRecording];
-    self.currentFinalDurration = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
+    self.currentFinalDuration = CMTimeAdd(self.currentFinalDuration, self.movieFileOutput.recordedDuration);
     [self updateVideoConnectionWithOrientation:self.orientation];
 }
 
@@ -175,7 +175,7 @@ CGFloat aspectRatio(CGSize size) {
     self.currentRecordingSegment++;
     
     if(_maxDuration > 0) {
-        self.movieFileOutput.maxRecordedDuration = CMTimeSubtract(CMTimeMakeWithSeconds(_maxDuration, 600), self.currentFinalDurration);
+        self.movieFileOutput.maxRecordedDuration = CMTimeSubtract(CMTimeMakeWithSeconds(_maxDuration, 600), self.currentFinalDuration);
     } else {
         self.movieFileOutput.maxRecordedDuration = kCMTimeInvalid;
     }
@@ -193,7 +193,7 @@ CGFloat aspectRatio(CGSize size) {
     }
     
     [self.stitcher reset];
-    self.currentFinalDurration = kCMTimeZero;
+    self.currentFinalDuration = kCMTimeZero;
     
     self.paused = NO;
     
@@ -202,16 +202,16 @@ CGFloat aspectRatio(CGSize size) {
 
 - (CMTime)totalRecordingDuration {
     if (self.currentWrites <= 0) {
-        return self.currentFinalDurration;
+        return self.currentFinalDuration;
     }
     
-    if(CMTimeCompare(kCMTimeZero, self.currentFinalDurration) == 0 && ![self isReset]) {
+    if(CMTimeCompare(kCMTimeZero, self.currentFinalDuration) == 0 && ![self isReset]) {
         return self.movieFileOutput.recordedDuration;
     } else if (!self.paused && self.movieFileOutput.isRecording) {
-        CMTime returnTime = CMTimeAdd(self.currentFinalDurration, self.movieFileOutput.recordedDuration);
-        return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDurration : returnTime;
+        CMTime returnTime = CMTimeAdd(self.currentFinalDuration, self.movieFileOutput.recordedDuration);
+        return CMTIME_IS_INVALID(returnTime) ? self.currentFinalDuration : returnTime;
     } else {
-        return self.currentFinalDurration;
+        return self.currentFinalDuration;
     }
 }
 
@@ -305,7 +305,7 @@ CGFloat aspectRatio(CGSize size) {
 }
 
 - (RACSignal*)totalTimeRecordedSignal {
-    return RACObserve(self, currentFinalDurration);
+    return RACObserve(self, currentFinalDuration);
 }
 
 - (RACSignal*) recordDurationChangeSignal {
