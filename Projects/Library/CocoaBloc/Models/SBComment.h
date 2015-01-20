@@ -30,6 +30,9 @@
 @property (nonatomic) SBAccount *account;
 
 - (RACSignal *)fetchUser;
+- (RACSignal *)fetchUserWithClient:(SBClient*)client;
+
 - (RACSignal *)fetchAccount;
+- (RACSignal *)fetchAccountWithClient:(SBClient*)client;
 
 @end

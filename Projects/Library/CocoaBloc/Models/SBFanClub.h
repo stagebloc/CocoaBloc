@@ -7,8 +7,10 @@
 //
 
 #import "SBObject.h"
+#import <ReactiveCocoa/RACSignal.h>
+#import <ReactiveCocoa/RACCommand.h>
 
-@class SBTier, SBAccount, RACSignal, RACCommand;
+@class SBTier, SBAccount, SBClient;
 
 @interface SBFanClub : SBObject <MTLJSONSerializing>
 
@@ -33,9 +35,7 @@
 /*!May or may not be nil, use `fetchAccount` for assurance.*/
 @property (nonatomic, strong) SBAccount *account;
 
-@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
-
-/*! Executes `fetchAccountCommand` with a new SBClient instance */
-- (RACSignal*)fetchAccount;
+- (RACSignal *)fetchAccount;
+- (RACSignal *)fetchAccountWithClient:(SBClient*)client;
 
 @end

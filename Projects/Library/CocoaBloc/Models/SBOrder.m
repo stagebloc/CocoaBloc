@@ -17,6 +17,7 @@
 #import <RACEXTScope.h>
 #import "SBClient+Account.h"
 #import "SBClient+User.h"
+#import <ReactiveCocoa/RACSignal.h>
 
 @interface SBOrder ()
 @property (nonatomic, readonly) RACCommand *fetchCustomerUserCommand;
@@ -26,11 +27,17 @@
 @implementation SBOrder
 
 - (RACSignal *)fetchCustomerUser {
-    return [self.fetchCustomerUserCommand execute:nil];
+    return [self fetchCustomerUserWithClient:nil];
+}
+- (RACSignal *)fetchCustomerUserWithClient:(SBClient*)client {
+    return [self.fetchCustomerUserCommand execute:client];
 }
 
 - (RACSignal *)fetchAccount {
-    return [self.fetchAccountCommand execute:nil];
+    return [self fetchAccountWithClient:nil];
+}
+- (RACSignal *)fetchAccountWithClient:(SBClient*)client {
+    return [self.fetchAccountCommand execute:client];
 }
 
 - (id)init {
@@ -40,9 +47,11 @@
         _fetchCustomerUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+            
             return self.customerUser != nil
             ? [RACSignal return:self.customerUser]
-            : [[[SBClient new] getUserWithID:self.customerUserID]
+            : [[client getUserWithID:self.customerUserID]
                doNext:^(SBUser *user) {
                    self.customerUser = user;
                }];
@@ -51,9 +60,11 @@
         _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+            
             return self.account != nil
             ? [RACSignal return:self.account]
-            : [[[SBClient new] getAccountWithID:self.accountID]
+            : [[client getAccountWithID:self.accountID]
                doNext:^(SBAccount *account) {
                    self.account = account;
                }];
