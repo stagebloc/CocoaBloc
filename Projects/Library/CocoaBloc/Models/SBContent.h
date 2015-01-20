@@ -8,8 +8,10 @@
 
 #import "SBObject.h"
 #import <ReactiveCocoa/RACSignal.h>
+#import <ReactiveCocoa/RACCommand.h>
 
-@class SBUser, SBAccount, RACCommand;
+@class SBUser, SBAccount, SBClient;
+
 @interface SBContent : SBObject <MTLJSONSerializing>
 
 + (NSString *)URLPathContentType;
@@ -34,13 +36,10 @@
 @property (nonatomic) SBAccount *account;
 @property (nonatomic) SBUser *authorUser;
 
-@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
-@property (nonatomic, readonly) RACCommand *fetchAuthorUserCommand;
-
-/*! Executes `fetchAccountCommand` with a new SBClient instance */
 - (RACSignal *)fetchAccount;
+- (RACSignal *)fetchAccountWithClient:(SBClient*)client;
 
-/*! Executes `fetchAuthorUserCommand` with a new SBClient instance */
 - (RACSignal *)fetchAuthorUser;
+- (RACSignal *)fetchAuthorUserWithClient:(SBClient*)client;
 
 @end

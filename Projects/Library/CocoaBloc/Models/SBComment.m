@@ -28,11 +28,16 @@
 @implementation SBComment
 
 - (RACSignal *)fetchUser {
-    return [self.fetchUserCommand execute:nil];
+    return [self fetchUserWithClient:nil];
 }
-
+- (RACSignal*)fetchUserWithClient:(SBClient*)client {
+    return [self.fetchUserCommand execute:client];
+}
 - (RACSignal *)fetchAccount {
-    return [self.fetchAccountCommand execute:nil];
+    return [self fetchAccountWithClient:nil];
+}
+- (RACSignal*)fetchAccountWithClient:(SBClient*)client {
+    return [self.fetchAccountCommand execute:client];
 }
 
 - (id)init {
@@ -41,10 +46,12 @@
         
         _fetchUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
+            
+            client = client ?: [SBClient new];
 
             return self.user != nil
             ? [RACSignal return:self.user]
-            : [[[SBClient new] getUserWithID:self.userID]
+            : [[client getUserWithID:self.userID]
                 doNext:^(SBUser *user) {
                     self.user = user;
                 }];
@@ -53,9 +60,11 @@
         _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+            
             return self.account != nil
             ? [RACSignal return:self.account]
-            : [[[SBClient new] getAccountWithID:self.accountID]
+            : [[client getAccountWithID:self.accountID]
                 doNext:^(SBAccount *account) {
                     self.account = account;
                 }];

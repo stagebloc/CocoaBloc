@@ -67,8 +67,15 @@
 @property (nonatomic) NSNumber *coverPhotoID;
 
 - (RACSignal *)fetchAuthorUser;
+- (RACSignal *)fetchAuthorUserWithClient:(SBClient*)client;
+
 - (RACSignal *)fetchPostingAccount;
+- (RACSignal *)fetchPostingAccountWithClient:(SBClient*)client;
+
 - (RACSignal *)fetchModifyingUser;
+- (RACSignal *)fetchModifyingUserWithClient:(SBClient*)client;
+
 - (RACSignal *)fetchCoverPhoto;
+- (RACSignal *)fetchCoverPhotoWithClient:(SBClient*)client;
 
 @end

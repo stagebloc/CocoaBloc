@@ -7,11 +7,9 @@
 //
 
 #import "SBObject.h"
-#import <ReactiveCocoa/RACSignal.h>
 
-@class SBAddress;
-@class SBAccount;
-@class SBUser;
+@class SBAddress, SBAccount, SBUser, SBClient, RACSignal;
+
 @interface SBOrder : SBObject <MTLJSONSerializing>
 
 @property (nonatomic) NSDate *dateOrdered;
@@ -28,7 +26,10 @@
 @property (nonatomic) SBAccount *account;
 @property (nonatomic) SBUser *customerUser;
 
-- (RACSignal *)fetchAccount;
 - (RACSignal *)fetchCustomerUser;
+- (RACSignal *)fetchCustomerUserWithClient:(SBClient*)client;
+
+- (RACSignal *)fetchAccount;
+- (RACSignal *)fetchAccountWithClient:(SBClient*)client;
 
 @end

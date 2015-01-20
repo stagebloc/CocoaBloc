@@ -58,19 +58,32 @@
 @implementation SBStoreItem
 
 - (RACSignal *)fetchAuthorUser {
-    return [self.fetchAuthorUserCommand execute:nil];
+    return [self fetchAuthorUserWithClient:nil];
+}
+- (RACSignal *)fetchAuthorUserWithClient:(SBClient*)client {
+    return [self.fetchAuthorUserCommand execute:client];
 }
 
 - (RACSignal *)fetchPostingAccount {
-    return [self.fetchPostingAccountCommand execute:nil];
+    return [self fetchPostingAccountWithClient:nil];
+}
+- (RACSignal *)fetchPostingAccountWithClient:(SBClient*)client {
+    return [self.fetchPostingAccountCommand execute:client];
 }
 
 - (RACSignal *)fetchModifyingUser {
-    return [self.fetchModifyingUserCommand execute:nil];
+    return [self fetchModifyingUserWithClient:nil];
+}
+- (RACSignal *)fetchModifyingUserWithClient:(SBClient*)client {
+    return [self.fetchModifyingUserCommand execute:client];
 }
 
 - (RACSignal *)fetchCoverPhoto {
-    return [self.fetchCoverPhotoCommand execute:nil];
+    return [self fetchCoverPhotoWithClient:nil];
+}
+
+- (RACSignal *)fetchCoverPhotoWithClient:(SBClient*)client {
+    return [self.fetchCoverPhotoCommand execute:client];
 }
 
 - (id)init {
@@ -80,9 +93,11 @@
         _fetchAuthorUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+            
             return self.authorUser != nil
             ? [RACSignal return:self.authorUser]
-            : [[[SBClient new] getUserWithID:self.authorUserID]
+            : [[client getUserWithID:self.authorUserID]
                 doNext:^(SBUser *user) {
                     self.authorUser = user;
                 }];
@@ -91,9 +106,11 @@
         _fetchPostingAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+            
             return self.postingAccount != nil
             ? [RACSignal return:self.postingAccount]
-            : [[[SBClient new] getAccountWithID:self.postingAccountID]
+            : [[client getAccountWithID:self.postingAccountID]
                 doNext:^(SBAccount *account) {
                     self.postingAccount = account;
                 }];
@@ -101,10 +118,12 @@
         
         _fetchModifyingUserCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
-            
+
+            client = client ?: [SBClient new];
+
             return self.modifyingUser != nil
             ? [RACSignal return:self.modifyingUser]
-            : [[[SBClient new] getUserWithID:self.modifyingUserID]
+            : [[client getUserWithID:self.modifyingUserID]
                 doNext:^(SBUser *user) {
                     self.modifyingUser = user;
                 }];
@@ -112,12 +131,14 @@
         
         _fetchCoverPhotoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
-            
+
+            client = client ?: [SBClient new];
+
             return self.coverPhoto != nil
             ? [RACSignal return:self.coverPhoto]
             : [[self.fetchPostingAccount
                     flattenMap:^RACStream *(SBAccount *account) {
-                        return [[SBClient new] getPhotoWithID:self.coverPhotoID forAccount:account];
+                        return [client getPhotoWithID:self.coverPhotoID forAccount:account];
                     }]
                     doNext:^(SBPhoto *photo) {
                         self.coverPhoto = photo;

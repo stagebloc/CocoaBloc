@@ -8,8 +8,10 @@
 
 #import "SBObject.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACSignal.h>
 
-@class SBAccount;
+@class SBAccount, SBClient;
+
 @interface SBNotification : SBObject <MTLJSONSerializing>
 
 @property (nonatomic) NSDate *creationDate;
@@ -21,5 +23,6 @@
 @property (nonatomic) NSNumber *accountID;
 
 - (RACSignal *)fetchAccount;
+- (RACSignal *)fetchAccountWithClient:(SBClient*)client;
 
 @end

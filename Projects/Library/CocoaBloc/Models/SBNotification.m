@@ -22,6 +22,13 @@
 
 @implementation SBNotification
 
+- (RACSignal *)fetchAccount {
+    return [self fetchAccountWithClient:nil];
+}
+- (RACSignal *)fetchAccountWithClient:(SBClient*)client {
+    return [self.fetchAccountCommand execute:client];
+}
+
 - (id)init {
     if ((self = [super init])) {
         @weakify(self);
@@ -29,19 +36,17 @@
         _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+            client = client ?: [SBClient new];
+            
             return self.account != nil
             ? [RACSignal return:self.account]
-            : [[[SBClient new] getAccountWithID:self.accountID]
+            : [[client getAccountWithID:self.accountID]
                doNext:^(SBAccount *account) {
                    self.account = account;
                }];
         }];
     }
     return self;
-}
-
-- (RACSignal *)fetchAccount {
-    return [self.fetchAccountCommand execute:nil];
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
