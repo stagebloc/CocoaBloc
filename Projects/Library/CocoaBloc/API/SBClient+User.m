@@ -103,18 +103,6 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
     NSAssert(parameters || photoData , @"Parameters or photoData must not be nil");
     if (parameters) NSAssert(parameters.count != 0, @"Passing an empty parameters dictionary is not allowed.");
     
-    // This is done so that we ensure only the keys we accept are in this dictionary.
-    NSMutableDictionary *p = [NSMutableDictionary dictionaryWithCapacity:parameters.count];
-    id val;
-#define SAFE_ASSIGN(key) if((val = parameters[key])) p[key] = val;
-    SAFE_ASSIGN(SBClientUserProfileUpdateParameterBio);
-    SAFE_ASSIGN(SBClientUserProfileUpdateParameterUsername);
-    SAFE_ASSIGN(SBClientUserProfileUpdateParameterName);
-    SAFE_ASSIGN(SBClientUserProfileUpdateParameterGender);
-    SAFE_ASSIGN(SBClientUserProfileUpdateParameterEmailAddress);
-    SAFE_ASSIGN(SBClientUserProfileUpdateParameterBirthday);
-#undef SAFE_ASSIGN
-    
     @weakify(self);
     void (^saveUser)(SBUser*) = ^(SBUser *user) {
         @strongify(self);
@@ -133,7 +121,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
     };
     
     if (!photoData) {
-        return [[[[self rac_POST:@"users/me" parameters:[self requestParametersWithParameters:p]]
+        return [[[[self rac_POST:@"users/me" parameters:[self requestParametersWithParameters:parameters]]
                     cb_deserializeWithClient:self keyPath:@"data"]
                     doNext:saveUser]
                     setNameWithFormat:@"Update authenticated user (%@)", self.authenticatedUser];
@@ -157,7 +145,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
                      fileName:fileName
                      mimeType:mime
                           url:endpointLocation
-                   parameters:[p copy]
+                   parameters:parameters
                         error:&err
                progressSignal:photoProgressSignal];
     
