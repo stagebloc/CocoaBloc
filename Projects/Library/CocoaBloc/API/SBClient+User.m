@@ -100,8 +100,8 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
 }
 
 - (RACSignal *)updateAuthenticatedUserWithParameters:(NSDictionary *)parameters photoData:(NSData*)photoData photoProgressSignal:(RACSignal**)photoProgressSignal {
-    NSParameterAssert(parameters);
-    NSAssert(parameters.count != 0, @"Passing an empty parameters dictionary is not allowed.");
+    NSAssert(parameters || photoData , @"Parameters or photoData must not be nil");
+    if (parameters) NSAssert(parameters.count != 0, @"Passing an empty parameters dictionary is not allowed.");
     
     // This is done so that we ensure only the keys we accept are in this dictionary.
     NSMutableDictionary *p = [NSMutableDictionary dictionaryWithCapacity:parameters.count];
@@ -153,7 +153,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
     NSError *err;
     AFHTTPRequestOperation *op =
     [self fileRequestFromData:photoData
-                         name:@"photo"
+                         name:@"photo_data"
                      fileName:fileName
                      mimeType:mime
                           url:endpointLocation
