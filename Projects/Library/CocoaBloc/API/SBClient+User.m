@@ -115,8 +115,27 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
     SAFE_ASSIGN(SBClientUserProfileUpdateParameterBirthday);
 #undef SAFE_ASSIGN
     
+    @weakify(self);
+    void (^saveUser)(SBUser*) = ^(SBUser *user) {
+        @strongify(self);
+        
+        SBUser *oldMe = self.authenticatedUser;
+        
+        // set the new user
+        self.authenticatedUser = user;
+        
+        // if it's the same user, use the new response data
+        // and add in the current admin acccounts
+        // Why? this response doesn't return admin accounts
+        if ([oldMe.identifier isEqual:user.identifier]) {
+            self.authenticatedUser.adminAccounts = oldMe.adminAccounts;
+        }
+    };
+    
     if (!photoData) {
-        return [[self rac_POST:@"users/me" parameters:[self requestParametersWithParameters:p]]
+        return [[[[self rac_POST:@"users/me" parameters:[self requestParametersWithParameters:p]]
+                    cb_deserializeWithClient:self keyPath:@"data"]
+                    doNext:saveUser]
                     setNameWithFormat:@"Update authenticated user (%@)", self.authenticatedUser];
     }
     
@@ -146,8 +165,9 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
         return [RACSignal error:err];
     }
     
-    return [[[self enqueueRequestOperation:op]
+    return [[[[self enqueueRequestOperation:op]
                 cb_deserializeWithClient:self keyPath:@"data"]
+                doNext:saveUser]
                 setNameWithFormat:@"Update authenticated user (%@) with new photo", self.authenticatedUser];
 }
 
