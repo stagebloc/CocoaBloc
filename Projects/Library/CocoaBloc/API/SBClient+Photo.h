@@ -26,16 +26,4 @@
                    fanContent:(BOOL)fanContent
                progressSignal:(RACSignal **)progressSignal;
 
-/*!
- Helper that converts
- @param image into NSData and calls `uploadPhotoData` method
- */
-- (RACSignal*)uploadPhoto:(UIImage*)image
-                    title:(NSString*)title
-                  caption:(NSString*)caption
-  toAccountWithIdentifier:(NSNumber*)accountIdentifier
-                exclusive:(BOOL)exclusive
-               fanContent:(BOOL)fanContent
-           progressSignal:(RACSignal **)progressSignal;
-
 @end

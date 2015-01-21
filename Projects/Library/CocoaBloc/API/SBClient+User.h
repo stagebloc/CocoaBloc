@@ -33,7 +33,8 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
 - (RACSignal *)getCurrentlyAuthenticatedUser;
 
 - (RACSignal *)updateAuthenticatedUserWithParameters:(NSDictionary *)parameters;
-
+- (RACSignal *)updateAuthenticatedUserWithPhotoData:(NSData*)photoData progressSignal:(RACSignal**)progressSignal;
+- (RACSignal *)updateAuthenticatedUserWithParameters:(NSDictionary *)parameters photoData:(NSData*)photoData photoProgressSignal:(RACSignal**)photoProgressSignal;
 
 - (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress;
 

@@ -10,24 +10,8 @@
 #import <RACAFNetworking.h>
 #import "SBClient+Private.h"
 #import "RACSignal+JSONDeserialization.h"
-
-static inline NSString * SBPhotoContentTypeForPathExtension(NSData *imageData) {
-    uint8_t c;
-    [imageData getBytes:&c length:1];
-    switch (c) {
-        case 0xff:
-            return @"image/jpeg";
-        case 0x89:
-            return @"image/png";
-        case 0x47:
-            return @"image/gif";
-        case 0x49:
-        case 0x4d:
-            return @"image/tiff";
-        default:
-            return nil;
-    }
-}
+#import "AFHTTPRequestOperationManager+File.h"
+#import "NSData+Mime.h"
 
 @implementation SBClient (Photo)
 
@@ -54,7 +38,7 @@ static inline NSString * SBPhotoContentTypeForPathExtension(NSData *imageData) {
     NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%@/photo", accountIdentifier]].absoluteString;
     
     // verify that the mime type is valid and supported by us
-    NSString *mime = SBPhotoContentTypeForPathExtension(data);
+    NSString *mime = [data photoMime];
     if (!mime) {
         return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
     }
@@ -67,57 +51,23 @@ static inline NSString * SBPhotoContentTypeForPathExtension(NSData *imageData) {
     
     // create the upload request
     NSError *err;
-    NSMutableURLRequest *req =
-    [self.requestSerializer multipartFormRequestWithMethod:@"POST"
-                                                 URLString:endpointLocation
-                                                parameters:[self requestParametersWithParameters:params]
-                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                     [formData appendPartWithFileData:data name:@"photo" fileName:fileName mimeType:mime];
-                                 } error:&err];
+    AFHTTPRequestOperation *op =
+    [self fileRequestFromData:data
+                         name:@"photo"
+                     fileName:fileName
+                     mimeType:mime
+                          url:endpointLocation
+                   parameters:params
+                        error:&err
+               progressSignal:progressSignal];
     
     if (err) {
         return [RACSignal error:err];
     }
     
-    AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
-    if (progressSignal) {
-        
-        // progress signal is still cold. beautiful!
-        *progressSignal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [op setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                [subscriber sendNext:@((double)totalBytesWritten * 100 / totalBytesExpectedToWrite)];
-                
-                if (totalBytesWritten >= totalBytesExpectedToWrite) {
-                    [subscriber sendCompleted];
-                }
-            }];
-            
-            return [RACDisposable disposableWithBlock:^{
-                [op setUploadProgressBlock:nil];
-            }];
-        }] setNameWithFormat:@"Upload photo %@ progress (%@)", title, fileName];
-    }
-    
     return [[[self enqueueRequestOperation:op]
              cb_deserializeWithClient:self keyPath:@"data"]
             setNameWithFormat:@"Upload photo %@ to account %@", title, accountIdentifier];
-}
-
-- (RACSignal*)uploadPhoto:(UIImage*)image
-                    title:(NSString*)title
-                  caption:(NSString*)caption
-  toAccountWithIdentifier:(NSNumber*)accountIdentifier
-                exclusive:(BOOL)exclusive
-               fanContent:(BOOL)fanContent
-           progressSignal:(RACSignal **)progressSignal {
-   
-    return [self uploadPhotoData:UIImageJPEGRepresentation(image, 1)
-                           title:title
-                         caption:caption
-         toAccountWithIdentifier:accountIdentifier
-                       exclusive:exclusive
-                      fanContent:fanContent
-                  progressSignal:progressSignal];
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Private.h"
 #import "SBVideo.h"
+#import "AFHTTPRequestOperationManager+File.h"
 
 // Figure out MIME type based on extension
 static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension, BOOL *supportedVideoUpload) {
@@ -56,35 +57,18 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     
     // create the upload request
     NSError *err;
-    NSMutableURLRequest *req =
-    [self.requestSerializer multipartFormRequestWithMethod:@"POST"
-                                                 URLString:endpointLocation
-                                                parameters:[self requestParametersWithParameters:params]
-                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                     [formData appendPartWithFileData:videoData name:@"video" fileName:fileName mimeType:mime];
-                                 } error:&err];
+    AFHTTPRequestOperation *op =
+    [self fileRequestFromData:videoData
+                         name:@"video"
+                     fileName:fileName
+                     mimeType:mime
+                          url:endpointLocation
+                   parameters:params
+                        error:&err
+               progressSignal:progressSignal];
     
     if (err) {
         return [RACSignal error:err];
-    }
-    
-    AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
-    if (progressSignal) {
-        
-        // progress signal is still cold. beautiful!
-        *progressSignal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [op setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                [subscriber sendNext:@((double)totalBytesWritten * 100 / totalBytesExpectedToWrite)];
-                
-                if (totalBytesWritten >= totalBytesExpectedToWrite) {
-                    [subscriber sendCompleted];
-                }
-            }];
-            
-            return [RACDisposable disposableWithBlock:^{
-                [op setUploadProgressBlock:nil];
-            }];
-        }] setNameWithFormat:@"Upload audio progress (%@)", fileName];
     }
     
     return [[[self enqueueRequestOperation:op]
