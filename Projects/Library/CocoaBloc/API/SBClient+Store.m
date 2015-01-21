@@ -61,11 +61,13 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                          @"cart": @{@"store": itemsToPurchase},
                          @"notes": notes,
-                         @"token": purchaseToken,
                          @"totals": totals,
                          @"address": JSONaddress,
                          @"shipping": shippingDetails
                     }];
+    if (nil != purchaseToken) {
+        [params setObject:purchaseToken forKey:@"token"];
+    }
     
     [params addEntriesFromDictionary:parameters];
 
