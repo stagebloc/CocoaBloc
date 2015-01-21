@@ -38,7 +38,7 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
 
 - (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress;
 
-- (RACSignal *)updateUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates;
+- (RACSignal *)updateAuthenticatedUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates;
 
 /*!
  Request the StageBloc user by their user id.

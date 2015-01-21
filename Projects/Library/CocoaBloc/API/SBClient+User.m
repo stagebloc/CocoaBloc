@@ -86,7 +86,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
             	setNameWithFormat:@"Password reset (%@)", emailAddress];
 }
 
-- (RACSignal *)updateUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates {
+- (RACSignal *)updateAuthenticatedUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates {
     return [[self rac_POST:@"users/me/location/update" parameters:[self requestParametersWithParameters:@{@"latitude":@(coordinates.latitude),@"longitude":@(coordinates.longitude)}]]
             	setNameWithFormat:@"Update coordinates"];
 }
