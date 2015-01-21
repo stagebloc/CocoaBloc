@@ -11,8 +11,60 @@
 #import "SBClient+Private.h"
 #import "SBAccount.h"
 #import "RACSignal+JSONDeserialization.h"
+#import "AFHTTPRequestOperationManager+File.h"
+#import "NSData+Mime.h"
 
 @implementation SBClient (Account)
+
+- (RACSignal *)createAccountWithName:(NSString*)name url:(NSString*)url type:(NSString*)type {
+    return [self createAccountWithName:name url:url type:type photoData:nil photoProgressSignal:nil];
+}
+
+- (RACSignal *)createAccountWithName:(NSString*)name url:(NSString*)url type:(NSString*)type photoData:(NSData*)photoData photoProgressSignal:(RACSignal**)photoProgressSignal {
+    NSParameterAssert(name);
+    NSParameterAssert(url);
+    NSParameterAssert(type);
+    
+    NSAssert(name.length != 0, @"Name must have character length > 0");
+    NSAssert(url.length != 0, @"Name must have character length > 0");
+    NSAssert(type.length != 0, @"Name must have character length > 0");
+
+    NSDictionary *params = @{@"name"            : name,
+                             @"stagebloc_url"   : url,
+                             @"type"            : type
+                             };
+
+    if (!photoData) {
+        return [[[self rac_POST:@"account" parameters:[self requestParametersWithParameters:params]]
+                    cb_deserializeWithClient:self keyPath:@"data"]
+                    setNameWithFormat:@"Create account %@", name];
+    }
+    
+    NSString *mime = [photoData photoMime];
+    if (!mime) {
+        return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
+    }
+    
+    NSError *err;
+    AFHTTPRequestOperation *op =
+    [self fileRequestFromData:photoData
+                         name:@"image"
+                     fileName:[NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]]
+                     mimeType:mime
+                          url:[self.baseURL URLByAppendingPathComponent:@"account"].absoluteString
+                   parameters:params
+                        error:&err
+               progressSignal:photoProgressSignal];
+    
+    if (err) {
+        return [RACSignal error:err];
+    }
+    
+    return [[[self enqueueRequestOperation:op]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Create account %@", name];
+
+}
 
 - (RACSignal *)getAccountWithID:(NSNumber *)accountID {
     NSParameterAssert(accountID);
