@@ -24,27 +24,25 @@
 #import "SBClient+User.h"
 #import <RACEXTScope.h>
 
-@interface SBContent ()
-
-@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
-@property (nonatomic, readonly) RACCommand *fetchAuthorUserCommand;
-
-@end
-
-@implementation SBContent
+@implementation SBContent {
+    RACCommand *_fetchAccountCommand;
+    RACCommand *_fetchAuthorUserCommand;
+}
 
 - (RACSignal *)fetchAccount {
     return [self fetchAccountWithClient:nil];
 }
+
 - (RACSignal *)fetchAccountWithClient:(SBClient*)client {
-    return [self.fetchAccountCommand execute:client];
+    return [_fetchAccountCommand execute:client];
 }
 
 - (RACSignal *)fetchAuthorUser {
     return [self fetchAuthorUserWithClient:nil];
 }
+
 - (RACSignal *)fetchAuthorUserWithClient:(SBClient*)client {
-    return [self.fetchAuthorUserCommand execute:client];
+    return [_fetchAuthorUserCommand execute:client];
 }
 
 - (id)init {
@@ -68,6 +66,7 @@
         _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
+#warning mark change this
             client = client ?: [SBClient new];
 
             return self.account != nil
@@ -114,9 +113,7 @@
               @"accountID"              : @"account",
               @"account"                : @"account",
               @"authorUser"             : @"user",
-              @"authorUserID"           : @"user",
-              @"fetchAuthorUserCommand" : [NSNull null],
-              @"fetchAccountCommand"    : [NSNull null]}
+              @"authorUserID"           : @"user"}
             ];
 }
 

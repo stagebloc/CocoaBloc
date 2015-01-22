@@ -47,35 +47,36 @@
 
 @end
 
-@interface SBStoreItem ()
-@property (nonatomic) RACCommand *fetchAuthorUserCommand;
-@property (nonatomic) RACCommand *fetchPostingAccountCommand;
-@property (nonatomic) RACCommand *fetchModifyingUserCommand;
-@property (nonatomic) RACCommand *fetchPhotosCommand;
-@property (nonatomic) RACCommand *fetchCoverPhotoCommand;
-@end
-
-@implementation SBStoreItem
+@implementation SBStoreItem {
+    RACCommand *_fetchAuthorUserCommand;
+    RACCommand *_fetchPostingAccountCommand;
+    RACCommand *_fetchModifyingUserCommand;
+    RACCommand *_fetchPhotosCommand;
+    RACCommand *_fetchCoverPhotoCommand;
+}
 
 - (RACSignal *)fetchAuthorUser {
     return [self fetchAuthorUserWithClient:nil];
 }
+
 - (RACSignal *)fetchAuthorUserWithClient:(SBClient*)client {
-    return [self.fetchAuthorUserCommand execute:client];
+    return [_fetchAuthorUserCommand execute:client];
 }
 
 - (RACSignal *)fetchPostingAccount {
     return [self fetchPostingAccountWithClient:nil];
 }
+
 - (RACSignal *)fetchPostingAccountWithClient:(SBClient*)client {
-    return [self.fetchPostingAccountCommand execute:client];
+    return [_fetchPostingAccountCommand execute:client];
 }
 
 - (RACSignal *)fetchModifyingUser {
     return [self fetchModifyingUserWithClient:nil];
 }
+
 - (RACSignal *)fetchModifyingUserWithClient:(SBClient*)client {
-    return [self.fetchModifyingUserCommand execute:client];
+    return [_fetchModifyingUserCommand execute:client];
 }
 
 - (RACSignal *)fetchCoverPhoto {
@@ -83,7 +84,7 @@
 }
 
 - (RACSignal *)fetchCoverPhotoWithClient:(SBClient*)client {
-    return [self.fetchCoverPhotoCommand execute:client];
+    return [_fetchCoverPhotoCommand execute:client];
 }
 
 - (id)init {
@@ -173,13 +174,7 @@
       @"shortURL"			: @"short_url",
       @"soldOut"			: @"sold_out",
       @"title"				: @"title",
-      @"type"				: @"type",
-      @"fetchAuthorUserCommand" : [NSNull null],
-      @"fetchPostingAccountCommand" : [NSNull null],
-      @"fetchModifyingUserCommand" : [NSNull null],
-      @"fetchPhotosCommand" : [NSNull null],
-      @"fetchCoverPhotoCommand" : [NSNull null],
-      };
+      @"type"				: @"type"};
     
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:map];
 }

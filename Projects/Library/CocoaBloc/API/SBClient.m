@@ -38,7 +38,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
         NSMutableDictionary *userInfo = (*error).userInfo.mutableCopy;
         userInfo[SBAPIErrorResponseObjectKey] = obj;
         
-        *error = [NSError errorWithDomain:(*error).domain code:(*error).code userInfo:userInfo];
+        *error = [NSError errorWithDomain:SBCocoaBlocErrorDomain code:(*error).code userInfo:userInfo];
     }
     return obj;
 }

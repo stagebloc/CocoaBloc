@@ -19,25 +19,25 @@
 #import "SBClient+User.h"
 #import <ReactiveCocoa/RACSignal.h>
 
-@interface SBOrder ()
-@property (nonatomic, readonly) RACCommand *fetchCustomerUserCommand;
-@property (nonatomic, readonly) RACCommand *fetchAccountCommand;
-@end
-
-@implementation SBOrder
+@implementation SBOrder {
+    RACCommand *_fetchCustomerUserCommand;
+    RACCommand *_fetchAccountCommand;
+}
 
 - (RACSignal *)fetchCustomerUser {
     return [self fetchCustomerUserWithClient:nil];
 }
+
 - (RACSignal *)fetchCustomerUserWithClient:(SBClient*)client {
-    return [self.fetchCustomerUserCommand execute:client];
+    return [_fetchCustomerUserCommand execute:client];
 }
 
 - (RACSignal *)fetchAccount {
     return [self fetchAccountWithClient:nil];
 }
+
 - (RACSignal *)fetchAccountWithClient:(SBClient*)client {
-    return [self.fetchAccountCommand execute:client];
+    return [_fetchAccountCommand execute:client];
 }
 
 - (id)init {
@@ -84,9 +84,7 @@
               @"account"                    : @"account",
               @"address"                    : @"address",
               @"stripeChargeId"             : @"stripe_charge_id",
-              @"totalUsd"                   : @"total_usd",
-              @"fetchAccountCommand"        : [NSNull null],
-              @"fetchCustomerUserCommand"   : [NSNull null]
+              @"totalUsd"                   : @"total_usd"
               }];
 }
 
