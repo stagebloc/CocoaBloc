@@ -15,6 +15,6 @@
  
  @param parameters Accepted values: SBAPIMethodParameterResultLimit, SBAPIMethodParameterResultOffset
  */
-- (RACSignal *)getNotificationsForAccount:(SBAccount *)accountOrNil parameters:(NSDictionary *)parameters;
+- (RACSignal *)getNotificationsForAccountWithIdentifier:(NSNumber *)accountIdentifierOrNil parameters:(NSDictionary *)parameters;
 
 @end

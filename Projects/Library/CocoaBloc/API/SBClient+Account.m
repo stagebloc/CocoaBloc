@@ -74,11 +74,11 @@
             	setNameWithFormat:@"Get account with ID: %@", accountID];
 }
 
-- (RACSignal *)updateAccount:(SBAccount *)account
-                        name:(NSString *)name
-                 description:(NSString *)description
-                stageBlocURL:(NSString *)urlString {
-    NSParameterAssert(account);
+- (RACSignal *)updateAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                      name:(NSString *)name
+                               description:(NSString *)description
+                              stageBlocURL:(NSString *)urlString {
+    NSParameterAssert(accountIdentifier);
     NSAssert(name != nil || description != nil || urlString != nil, @"To update the account, provide at least one property to update.");
     
     NSMutableDictionary *dict = [NSMutableDictionary new];
@@ -86,17 +86,17 @@
     if (description) 	dict[@"description"] = description.copy;
     if (urlString)		dict[@"stagebloc_url"] = urlString.copy;
     
-    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", account.identifier] parameters:[self requestParametersWithParameters:dict]]
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", accountIdentifier] parameters:[self requestParametersWithParameters:dict]]
             	cb_deserializeWithClient:self keyPath:@"data"]
-            	setNameWithFormat:@"Update account (%@)", account];
+            	setNameWithFormat:@"Update account (%@)", accountIdentifier];
 }
 
-- (RACSignal *)getActivityStreamForAccount:(SBAccount *)account parameters:(NSDictionary*)parameters{
-    NSParameterAssert(account);
+- (RACSignal *)getActivityStreamForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary*)parameters {
+    NSParameterAssert(accountIdentifier);
 
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/content", account.identifier] parameters:[self requestParametersWithParameters:parameters]]
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/content", accountIdentifier] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
-                setNameWithFormat:@"Get activity stream for account %@", account.name];
+                setNameWithFormat:@"Get activity stream for account %@", accountIdentifier];
 }
 
 - (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId withType:(NSString *)type {

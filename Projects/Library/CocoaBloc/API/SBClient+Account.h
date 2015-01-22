@@ -54,15 +54,15 @@
  @return 	a cold signal that will perform the request on subscription,
             or nil if all of the parameters are nil.
  */
-- (RACSignal *)updateAccount:(SBAccount *)account
-                        name:(NSString *)name
-                 description:(NSString *)description
-                stageBlocURL:(NSString *)urlString;
+- (RACSignal *)updateAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                      name:(NSString *)name
+                               description:(NSString *)description
+                              stageBlocURL:(NSString *)urlString;
 
 /*!
  Get an activity stream of recent content for an account.
  */
-- (RACSignal *)getActivityStreamForAccount:(SBAccount *)account parameters:(NSDictionary*)parameters;
+- (RACSignal *)getActivityStreamForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary*)parameters;
 
 /*!
  

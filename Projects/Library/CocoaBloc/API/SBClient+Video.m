@@ -30,17 +30,17 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                           fileName:(NSString *)fileName
                              title:(NSString *)title
                            caption:(NSString *)caption
-                         toAccount:(SBAccount *)account
+           toAccountWithIdentifier:(NSNumber *)accountIdentifier
                          exclusive:(BOOL)exclusive
                         fanContent:(BOOL)fanContent
                     progressSignal:(RACSignal **)progressSignal {
     NSParameterAssert(videoData);
-    NSParameterAssert(account);
+    NSParameterAssert(accountIdentifier);
     NSParameterAssert(title);
     NSParameterAssert(fileName);
     
     // create endpoint location string
-    NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%@/video", account.identifier]].absoluteString;
+    NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%@/video", accountIdentifier]].absoluteString;
     
     // verify that the mime type is valid and supported by us
     BOOL supported;
@@ -79,13 +79,13 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
 - (RACSignal *)uploadVideoAtPath:(NSString *)filePath
                            title:(NSString *)title
                          caption:(NSString *)caption
-                       toAccount:(SBAccount *)account
+         toAccountWithIdentifier:(NSNumber *)accountIdentifier
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
                   progressSignal:(RACSignal **)progressSignal {
     NSParameterAssert(filePath);
     NSParameterAssert(title);
-    NSParameterAssert(account);
+    NSParameterAssert(accountIdentifier);
     
     RACSignal *(^signalFromPath)() = ^RACSignal * {
         NSData *fileData;
@@ -105,7 +105,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                                             fileName:filePath.lastPathComponent
                                                title:title
                                              caption:caption
-                                           toAccount:account
+                             toAccountWithIdentifier:accountIdentifier
                                            exclusive:exclusive
                                           fanContent:fanContent
                                       progressSignal:progressSignal];

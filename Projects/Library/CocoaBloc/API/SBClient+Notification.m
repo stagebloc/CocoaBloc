@@ -15,10 +15,10 @@
 
 @implementation SBClient (Notification)
 
-- (RACSignal *)getNotificationsForAccount:(SBAccount *)accountOrNil parameters:(NSDictionary *)parameters {
+- (RACSignal *)getNotificationsForAccountWithIdentifier:(NSNumber *)accountIdentifierOrNil parameters:(NSDictionary *)parameters {
     NSMutableDictionary *p = (NSMutableDictionary *)parameters;
-    if (accountOrNil != nil) {
-        (p = p.mutableCopy)[@"account_id"] = accountOrNil.identifier;
+    if (accountIdentifierOrNil != nil) {
+        (p = p.mutableCopy)[@"account_id"] = accountIdentifierOrNil;
     }
     
     return [[[[self rac_GET:@"users/me/notifications" parameters:[self requestParametersWithParameters:p]]
@@ -26,7 +26,7 @@
                     return @{@"data" : response[@"data"][@"notifications"]};
                 }]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
-                setNameWithFormat:@"Get notifications (account: %@)", accountOrNil];
+                setNameWithFormat:@"Get notifications (account: %@)", accountIdentifierOrNil];
 }
 
 @end

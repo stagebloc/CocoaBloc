@@ -25,7 +25,7 @@
                           fileName:(NSString *)fileName
                              title:(NSString *)title
                            caption:(NSString *)caption
-                         toAccount:(SBAccount *)account
+           toAccountWithIdentifier:(NSNumber *)accountIdentifier
                          exclusive:(BOOL)exclusive
                         fanContent:(BOOL)fanContent
                     progressSignal:(RACSignal **)progressSignal;
@@ -36,7 +36,7 @@
 - (RACSignal *)uploadVideoAtPath:(NSString *)filePath
                            title:(NSString *)title
                          caption:(NSString *)caption
-                       toAccount:(SBAccount *)account
+         toAccountWithIdentifier:(NSNumber *)accountIdentifier
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
                   progressSignal:(RACSignal **)progressSignal;

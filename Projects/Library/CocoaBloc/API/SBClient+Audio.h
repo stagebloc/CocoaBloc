@@ -22,8 +22,7 @@
  The subscribed signal will send a "next" value of the
  requested track's SBAudioUpload object.
  */
-- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID
-                        forAccount:(SBAccount *)account;
+- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccountWithIdentifier:(NSNumber *)accountIdentifier;
 
 /*!
  

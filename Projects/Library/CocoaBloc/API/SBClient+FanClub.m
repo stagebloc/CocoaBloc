@@ -36,11 +36,11 @@
             	setNameWithFormat:@"Create %lu-tier fan club \"%@\" (account: %@)", (unsigned long)tierInfo.allKeys.count, title, accountIdentifier];
 }
 
-- (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
-                                    parameters:(NSDictionary *)parameters {
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", account.identifier] parameters:[self requestParametersWithParameters:parameters]]
+- (RACSignal *)getContentFromFanClubForAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                                  parameters:(NSDictionary *)parameters {
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/content", accountIdentifier] parameters:[self requestParametersWithParameters:parameters]]
             	cb_deserializeArrayWithClient:self keyPath:@"data"]
-                setNameWithFormat:@"Get content from fan club (account: %@)", account];
+                setNameWithFormat:@"Get content from fan club (account: %@)", accountIdentifier];
 }
 
 - (RACSignal *)getContentFromFollowedFanClubsWithParameters:(NSDictionary *)parameters {
