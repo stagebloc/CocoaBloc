@@ -57,7 +57,7 @@
                      fileName:fileName
                      mimeType:mime
                           url:endpointLocation
-                   parameters:params
+                   parameters:[self requestParametersWithParameters:params]
                         error:&err
                progressSignal:progressSignal];
     

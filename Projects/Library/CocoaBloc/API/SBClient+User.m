@@ -145,7 +145,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
                      fileName:fileName
                      mimeType:mime
                           url:endpointLocation
-                   parameters:parameters
+                   parameters:[self requestParametersWithParameters:parameters]
                         error:&err
                progressSignal:photoProgressSignal];
     

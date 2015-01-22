@@ -52,7 +52,7 @@
                      fileName:[NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]]
                      mimeType:mime
                           url:[self.baseURL URLByAppendingPathComponent:@"account"].absoluteString
-                   parameters:params
+                   parameters:[self requestParametersWithParameters:params]
                         error:&err
                progressSignal:photoProgressSignal];
     

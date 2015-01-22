@@ -71,7 +71,7 @@ static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension,
                      fileName:fileName
                      mimeType:mime
                           url:endpointLocation
-                   parameters:@{@"title":title}
+                   parameters:[self requestParametersWithParameters:@{@"title":title}]
                         error:&err
                progressSignal:progressSignal];
 
