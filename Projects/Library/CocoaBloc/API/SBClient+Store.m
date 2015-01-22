@@ -15,13 +15,15 @@
 
 @implementation SBClient (Store)
 
-- (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccount:(SBAccount *)account {
-    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/store/items/%d", account.identifier.intValue, storeItemID.intValue] parameters:[self requestParametersWithParameters:nil]]
+- (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccountWithIdentifier:(NSNumber *)accountIdentifier {
+    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%@/store/items/%d", accountIdentifier, storeItemID.intValue] parameters:[self requestParametersWithParameters:nil]]
              	cb_deserializeArrayWithClient:self keyPath:@"data"]
-            	setNameWithFormat:@"Get store item (accountID: %d, audioID: %d)", account.identifier.intValue, storeItemID.intValue];
+            	setNameWithFormat:@"Get store item (accountID: %@, audioID: %d)", accountIdentifier, storeItemID.intValue];
 }
 
-- (RACSignal *)getStoreItemsForAccount:(SBAccount *)account parameters:(NSDictionary *)parameters {
+- (RACSignal *)getStoreItemsForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters {
+    NSParameterAssert(accountIdentifier);
+    
     NSMutableDictionary *p = [NSMutableDictionary dictionaryWithCapacity:8];
     id val;
 #define SAFE_ASSIGN(key) if((val = parameters[key])) p[key] = val;
@@ -31,9 +33,9 @@
     SAFE_ASSIGN(SBAPIMethodParameterResultOrderBy);
     SAFE_ASSIGN(@"expand");
 #undef SAFE_ASSIGN
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", account.identifier] parameters:[self requestParametersWithParameters:p]]
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", accountIdentifier] parameters:[self requestParametersWithParameters:p]]
              	cb_deserializeArrayWithClient:self keyPath:@"data"]
-				setNameWithFormat:@"Get store items for account (%@)", account];
+				setNameWithFormat:@"Get store items for account (%@)", accountIdentifier];
 }
 
 - (RACSignal *)getShippingRatesForItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address

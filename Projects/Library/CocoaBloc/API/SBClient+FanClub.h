@@ -31,15 +31,15 @@
  
  */
 - (RACSignal *)createFanClubForAccountIdentifier:(NSNumber *)accountIdentifier
-                                 title:(NSString *)title
-                           description:(NSString *)description
-                              tierInfo:(NSDictionary *)tierInfo;
+                                           title:(NSString *)title
+                                     description:(NSString *)description
+                                        tierInfo:(NSDictionary *)tierInfo;
 
 /*!
  
  */
-- (RACSignal *)getContentFromFanClubForAccount:(SBAccount *)account
-                                    parameters:(NSDictionary *)parameters;
+- (RACSignal *)getContentFromFanClubForAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                                  parameters:(NSDictionary *)parameters;
 
 /*!
  Retrieves the content for fan clubs that the user follows.
@@ -49,7 +49,7 @@
 /*!
  Retrieves the user's fan club following list.
  */
-- (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters;
+- (RACSignal*)getFollowedFanClubsWithParameters:(NSDictionary*)parameters;
 
 /*! Retrieves the user's recent fan clubs list. */
 - (RACSignal*)getRecentFanClubsWithParameters:(NSDictionary*)parameters;

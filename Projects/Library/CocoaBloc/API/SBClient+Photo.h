@@ -15,4 +15,15 @@
  */
 - (RACSignal *)getPhotoWithID:(NSNumber *)photoID forAccount:(SBAccount *)account;
 
+/*!
+ Upload a photo directly to the specified account
+ */
+- (RACSignal*)uploadPhotoData:(NSData*)data
+                        title:(NSString*)title
+                      caption:(NSString*)caption
+      toAccountWithIdentifier:(NSNumber*)accountIdentifier
+                    exclusive:(BOOL)exclusive
+                   fanContent:(BOOL)fanContent
+               progressSignal:(RACSignal **)progressSignal;
+
 @end

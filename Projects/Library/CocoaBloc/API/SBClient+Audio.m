@@ -13,13 +13,14 @@
 #import "RACSignal+JSONDeserialization.h"
 #import <RACAFNetworking.h>
 #import <RACEXTScope.h>
+#import "AFHTTPRequestOperationManager+File.h"
 
 @implementation SBClient (Audio)
 
-- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccount:(SBAccount *)account {
-    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%d/audio/%d", account.identifier.intValue, audioID.intValue] parameters:[self requestParametersWithParameters:nil]]
+- (RACSignal *)getAudioTrackWithID:(NSNumber *)audioID forAccountWithIdentifier:(NSNumber *)accountIdentifier {
+    return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%@/audio/%d", accountIdentifier, audioID.intValue] parameters:[self requestParametersWithParameters:nil]]
              	cb_deserializeArrayWithClient:self keyPath:@"data"]
-            	setNameWithFormat:@"Get audio track (accountID: %d, audioID: %d)", account.identifier.intValue, audioID.intValue];
+            	setNameWithFormat:@"Get audio track (accountID: %@, audioID: %d)", accountIdentifier, audioID.intValue];
 }
 
 
@@ -63,38 +64,22 @@ static inline NSString * SBAudioContentTypeForPathExtension(NSString *extension,
     
     // create the upload request
     NSError *err;
-    NSMutableURLRequest *req =
-    [self.requestSerializer multipartFormRequestWithMethod:@"POST"
-                                                 URLString:endpointLocation
-                                                parameters:[self requestParametersWithParameters:@{@"title" : title}]
-                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                     [formData appendPartWithFileData:data name:@"audio" fileName:fileName mimeType:mime];
-                                 } error:&err];
+    
+    AFHTTPRequestOperation *op =
+    [self fileRequestFromData:data
+                         name:@"audio"
+                     fileName:fileName
+                     mimeType:mime
+                          url:endpointLocation
+                   parameters:[self requestParametersWithParameters:@{@"title":title}]
+                        error:&err
+               progressSignal:progressSignal];
+
     
     if (err) {
         return [RACSignal error:err];
     }
-    
-    AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
-    if (progressSignal) {
-        
-        // progress signal is still cold. beautiful!
-        *progressSignal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [op setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                [subscriber sendNext:@((double)totalBytesWritten * 100 / totalBytesExpectedToWrite)];
-                
-                if (totalBytesWritten >= totalBytesExpectedToWrite) {
-                    [subscriber sendCompleted];
-                }
-            }];
-            
-            return [RACDisposable disposableWithBlock:^{
-                [op setUploadProgressBlock:nil];
-            }];
-        }] setNameWithFormat:@"Upload audio progress (%@)", fileName];
-        
-    }
-    
+
     // use defer to turn "hot" enqueueing into cold signal
     return [[[self enqueueRequestOperation:op]
                 cb_deserializeWithClient:self keyPath:@"data"]

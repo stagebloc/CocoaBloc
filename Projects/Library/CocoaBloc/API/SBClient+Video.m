@@ -10,6 +10,7 @@
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Private.h"
 #import "SBVideo.h"
+#import "AFHTTPRequestOperationManager+File.h"
 
 // Figure out MIME type based on extension
 static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension, BOOL *supportedVideoUpload) {
@@ -29,17 +30,17 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                           fileName:(NSString *)fileName
                              title:(NSString *)title
                            caption:(NSString *)caption
-                         toAccount:(SBAccount *)account
+           toAccountWithIdentifier:(NSNumber *)accountIdentifier
                          exclusive:(BOOL)exclusive
                         fanContent:(BOOL)fanContent
                     progressSignal:(RACSignal **)progressSignal {
     NSParameterAssert(videoData);
-    NSParameterAssert(account);
+    NSParameterAssert(accountIdentifier);
     NSParameterAssert(title);
     NSParameterAssert(fileName);
     
     // create endpoint location string
-    NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%@/video", account.identifier]].absoluteString;
+    NSString *endpointLocation = [self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%@/video", accountIdentifier]].absoluteString;
     
     // verify that the mime type is valid and supported by us
     BOOL supported;
@@ -56,35 +57,18 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     
     // create the upload request
     NSError *err;
-    NSMutableURLRequest *req =
-    [self.requestSerializer multipartFormRequestWithMethod:@"POST"
-                                                 URLString:endpointLocation
-                                                parameters:[self requestParametersWithParameters:params]
-                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                     [formData appendPartWithFileData:videoData name:@"video" fileName:fileName mimeType:mime];
-                                 } error:&err];
+    AFHTTPRequestOperation *op =
+    [self fileRequestFromData:videoData
+                         name:@"video"
+                     fileName:fileName
+                     mimeType:mime
+                          url:endpointLocation
+                   parameters:[self requestParametersWithParameters:params]
+                        error:&err
+               progressSignal:progressSignal];
     
     if (err) {
         return [RACSignal error:err];
-    }
-    
-    AFHTTPRequestOperation *op = [self HTTPRequestOperationWithRequest:req success:nil failure:nil];
-    if (progressSignal) {
-        
-        // progress signal is still cold. beautiful!
-        *progressSignal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [op setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                [subscriber sendNext:@((double)totalBytesWritten * 100 / totalBytesExpectedToWrite)];
-                
-                if (totalBytesWritten >= totalBytesExpectedToWrite) {
-                    [subscriber sendCompleted];
-                }
-            }];
-            
-            return [RACDisposable disposableWithBlock:^{
-                [op setUploadProgressBlock:nil];
-            }];
-        }] setNameWithFormat:@"Upload audio progress (%@)", fileName];
     }
     
     return [[[self enqueueRequestOperation:op]
@@ -95,13 +79,13 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
 - (RACSignal *)uploadVideoAtPath:(NSString *)filePath
                            title:(NSString *)title
                          caption:(NSString *)caption
-                       toAccount:(SBAccount *)account
+         toAccountWithIdentifier:(NSNumber *)accountIdentifier
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
                   progressSignal:(RACSignal **)progressSignal {
     NSParameterAssert(filePath);
     NSParameterAssert(title);
-    NSParameterAssert(account);
+    NSParameterAssert(accountIdentifier);
     
     RACSignal *(^signalFromPath)() = ^RACSignal * {
         NSData *fileData;
@@ -121,7 +105,7 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                                             fileName:filePath.lastPathComponent
                                                title:title
                                              caption:caption
-                                           toAccount:account
+                             toAccountWithIdentifier:accountIdentifier
                                            exclusive:exclusive
                                           fanContent:fanContent
                                       progressSignal:progressSignal];

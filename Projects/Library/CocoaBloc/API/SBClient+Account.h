@@ -13,6 +13,30 @@
 /// @methodgroup Account
 
 /*!
+ Creates an account with
+ @param name of the new account
+ @param url - the url which this account can be found
+ @param type - type of the account being created
+*/
+- (RACSignal *)createAccountWithName:(NSString*)name
+                                 url:(NSString*)url
+                                type:(NSString*)type;
+
+/*!
+ Creates an account with
+ @param name of the new account
+ @param url - the url which this account can be found
+ @param type - type of the account being created
+ @param photoData - the profile photo of the account
+ @param photoProgressSignal - the photo progress upload signal
+ */
+- (RACSignal *)createAccountWithName:(NSString*)name
+                                 url:(NSString*)url
+                                type:(NSString*)type
+                           photoData:(NSData*)photoData
+                 photoProgressSignal:(RACSignal**)photoProgressSignal;
+
+/*!
  Get an account based on an account ID.
  
  @return a cold signal that will perform the request on subscription.
@@ -30,15 +54,15 @@
  @return 	a cold signal that will perform the request on subscription,
             or nil if all of the parameters are nil.
  */
-- (RACSignal *)updateAccount:(SBAccount *)account
-                        name:(NSString *)name
-                 description:(NSString *)description
-                stageBlocURL:(NSString *)urlString;
+- (RACSignal *)updateAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                      name:(NSString *)name
+                               description:(NSString *)description
+                              stageBlocURL:(NSString *)urlString;
 
 /*!
  Get an activity stream of recent content for an account.
  */
-- (RACSignal *)getActivityStreamForAccount:(SBAccount *)account parameters:(NSDictionary*)parameters;
+- (RACSignal *)getActivityStreamForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary*)parameters;
 
 /*!
  
