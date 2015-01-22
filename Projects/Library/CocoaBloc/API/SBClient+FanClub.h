@@ -49,7 +49,7 @@
 /*!
  Retrieves the user's fan club following list.
  */
-- (RACSignal*) getFollowedFanClubsWithParameters:(NSDictionary*)parameters;
+- (RACSignal*)getFollowedFanClubsWithParameters:(NSDictionary*)parameters;
 
 /*! Retrieves the user's recent fan clubs list. */
 - (RACSignal*)getRecentFanClubsWithParameters:(NSDictionary*)parameters;
