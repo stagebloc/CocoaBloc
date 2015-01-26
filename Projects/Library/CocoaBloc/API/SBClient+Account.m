@@ -13,6 +13,7 @@
 #import "RACSignal+JSONDeserialization.h"
 #import "AFHTTPRequestOperationManager+File.h"
 #import "NSData+Mime.h"
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @implementation SBClient (Account)
 
@@ -132,6 +133,7 @@
     if ([[parameters objectForKey:@"admin"] boolValue]) {
         @weakify(self);
         [requestSignal doNext:^(NSArray *accounts) {
+            @strongify(self);
             self.authenticatedUser.adminAccounts = accounts;
         }];
     }

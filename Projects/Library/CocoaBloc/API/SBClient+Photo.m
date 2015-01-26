@@ -44,7 +44,7 @@
     }
     
     //should check file type here
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive), @(fanContent)] forKeys:@[@"title", @"exclusive", @"fan_content"]];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive), @(fanContent)] forKeys:@[@"title", @"exclusive", SBAPIMethodParameterResultFanContent]];
     if (caption) {
         params[@"description"] = caption;
     }

@@ -20,6 +20,7 @@ NSString *SBAPIMethodParameterResultOrderBy = @"order_by";
 NSString *SBAPIMethodParameterResultExpandedProperties = @"expand";
 NSString *SBAPIMethodParameterResultFilter = @"filter";
 NSString *SBAPIMethodParameterResultIncludeAdminAccounts = @"include_admin_accounts";
+NSString *SBAPIMethodParameterResultFanContent = @"fan_content";
 
 
 NSString *SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";

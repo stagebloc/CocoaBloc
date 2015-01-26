@@ -7,8 +7,27 @@
 //
 
 #import "SBClient.h"
-#import "SBStatus.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface SBClient (Status)
+
+/*!
+ Post status to account. Convenience method for posting statuses
+ */
+- (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber*)accountIdentifier fanContent:(BOOL)fanContent;
+
+/*!
+ Post status to account. Convenience method for posting statuses w/ coordinate information
+ */
+- (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber*)accountIdentifier fanContent:(BOOL)fanContent coordinates:(CLLocationCoordinate2D)coordinates;
+
+/*!
+ Post status to account.
+ */
+- (RACSignal *)postStatus:(NSString *)status
+  toAccountWithIdentifier:(NSNumber*)accountIdentifier
+               fanContent:(BOOL)fanContent
+                 latitude:(NSNumber*)latitude
+                longitude:(NSNumber*)longitude;
 
 @end
