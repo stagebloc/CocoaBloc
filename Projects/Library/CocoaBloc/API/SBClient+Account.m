@@ -123,4 +123,20 @@
                 setNameWithFormat:@"Unfollow account %d", identifier.intValue];
 }
 
+- (RACSignal *)getAuthenticatedUserAccountsWithParameters:(NSDictionary*)parameters {
+    
+    RACSignal *requestSignal = [[self rac_GET:@"accounts" parameters:[self requestParametersWithParameters:parameters]]
+                                 cb_deserializeArrayWithClient:self keyPath:@"data"];
+
+    //if we are getting admin accounts, save them
+    if ([[parameters objectForKey:@"admin"] boolValue]) {
+        @weakify(self);
+        [requestSignal doNext:^(NSArray *accounts) {
+            self.authenticatedUser.adminAccounts = accounts;
+        }];
+    }
+        
+    return [requestSignal setNameWithFormat:@"Get authenticated user accounts"];
+}
+
 @end
