@@ -121,7 +121,7 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
                                                                                                 @"client_secret"			: SBClientSecret,
                                                                                                 @"client_id"				: SBClientID,
                                                                                                 @"expand"					: @"user",
-                                                                                                @"include_admin_accounts" 	: @"true"}]]
+                                                                                                @"include_admin_accounts" 	: @YES}]]
 				_processedAuthSignalForClient:self]
             	setNameWithFormat:@"Log In (username: %@, password: %@)", username, password];
 }
@@ -133,7 +133,7 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
             [self requestParametersWithParameters:@{@"code"					: authorizationCode,
                                                      @"client_secret"			: SBClientSecret,
                                                      @"expand"					: @"user",
-                                                     @"include_admin_accounts"	: @"true",
+                                                     @"include_admin_accounts"	: @YES,
                                                      @"grant_type"				: @"authorization_code"}]]
             	_processedAuthSignalForClient:self];
 }

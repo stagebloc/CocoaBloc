@@ -21,6 +21,7 @@
 #import "SBClient+Audio.h"
 #import "SBClient+Photo.h"
 #import "SBClient+Push.h"
+#import "SBClient+Status.h"
 #import "SBObject.h"
 #import "SBNotification.h"
 #import "SBFanClub.h"

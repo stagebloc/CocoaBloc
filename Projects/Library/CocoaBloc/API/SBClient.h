@@ -22,7 +22,7 @@ extern NSString *SBAPIMethodParameterResultDirection;             // NSString "A
 extern NSString *SBAPIMethodParameterResultExpandedProperties;    // NSString @"user", @"account", etc. No whitespace, and comma-separated string
 extern NSString *SBAPIMethodParameterResultFilter;                // NSString @"blog",@"blog,photos,statuses", etc. No whitespace, and comma-separated string
 extern NSString *SBAPIMethodParameterResultIncludeAdminAccounts;  // NSString @"true", @"false"
-extern NSString *SBAPIMethodParameterResultFanContent;            // NSString @"true", @"false"
+extern NSString *SBAPIMethodParameterResultFanContent;            // NSNumber @YES, @NO
 
 /// Fan club tier info dictionary keys
 extern NSString *SBFanClubTierInfoName;

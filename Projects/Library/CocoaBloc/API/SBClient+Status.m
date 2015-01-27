@@ -18,10 +18,6 @@
     return [self postStatus:status toAccountWithIdentifier:accountIdentifier fanContent:fanContent latitude:nil longitude:nil];
 }
 
-- (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber*)accountIdentifier fanContent:(BOOL)fanContent coordinates:(CLLocationCoordinate2D)coordinates {
-    return [self postStatus:status toAccountWithIdentifier:accountIdentifier fanContent:fanContent latitude:@(coordinates.latitude) longitude:@(coordinates.longitude)];
-}
-
 - (RACSignal *)postStatus:(NSString *)status
   toAccountWithIdentifier:(NSNumber*)accountIdentifier
                fanContent:(BOOL)fanContent
