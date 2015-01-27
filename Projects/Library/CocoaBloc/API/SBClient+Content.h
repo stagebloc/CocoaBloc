@@ -18,4 +18,12 @@
 // supports offset/limit
 - (RACSignal *)getUsersWhoLikeContent:(SBContent *)content parameters:(NSDictionary *)parameters;
 
+/*!
+ Gets a content object.
+ @param identifier - content's id
+ @param type - type of content (i.e. blog, photo, etc)
+ @param accountIdentifier - account content is posted to
+ */
+- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString*)type forAccountWithIdentifier:(NSNumber *)accountIdentifier;
+
 @end

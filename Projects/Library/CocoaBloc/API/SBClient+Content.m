@@ -45,4 +45,14 @@
                 cb_deserializeWithClient:self keyPath:@"data"];
 }
 
+- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString*)type forAccountWithIdentifier:(NSNumber *)accountIdentifier {
+    NSParameterAssert(identifier);
+    NSParameterAssert(accountIdentifier);
+    NSParameterAssert(type);
+    
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@", identifier, type, accountIdentifier] parameters:nil]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get %@ (%@) for account %@", type, identifier, accountIdentifier];
+}
+
 @end
