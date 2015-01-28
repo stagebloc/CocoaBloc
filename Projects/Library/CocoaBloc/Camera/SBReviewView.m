@@ -289,6 +289,8 @@ static CGFloat const kAnimationVelocity = 0.5f;
             self.optionsMenuButton.hidden = ![self shouldShowOptions];
             [self adjustOptionsButtonsAndAnimate];
         }];
+        
+        self.currentLayout = SBTextFieldLayoutTitle;
     }
     return self;
 }
