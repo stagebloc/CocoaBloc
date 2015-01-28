@@ -13,7 +13,7 @@
 
 @implementation SBClient (Push)
 
-- (RACSignal *)setPushTokenForAuthenticatedUser:(NSString*)token {
+- (RACSignal *)setPushTokenForAuthenticatedUser:(NSString *)token {
     NSParameterAssert(token);
     
     NSDictionary *params = @{@"token":token};

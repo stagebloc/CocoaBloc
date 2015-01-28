@@ -14,7 +14,7 @@
 
 @implementation SBClient (Status)
 
-- (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber*)accountIdentifier fanContent:(BOOL)fanContent {
+- (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber *)accountIdentifier fanContent:(BOOL)fanContent {
     return [self postStatus:status toAccountWithIdentifier:accountIdentifier fanContent:fanContent latitude:nil longitude:nil];
 }
 

@@ -52,7 +52,7 @@ NSString * const SBAPIMethodParameterFlagContentValueDuplicate = @"duplicate";
                 cb_deserializeWithClient:self keyPath:@"data"];
 }
 
-- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString*)type forAccountWithIdentifier:(NSNumber *)accountIdentifier {
+- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString *)type forAccountWithIdentifier:(NSNumber *)accountIdentifier {
     NSParameterAssert(identifier);
     NSParameterAssert(accountIdentifier);
     NSParameterAssert(type);

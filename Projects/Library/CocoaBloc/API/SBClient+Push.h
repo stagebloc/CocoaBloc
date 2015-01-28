@@ -10,6 +10,6 @@
 
 @interface SBClient (Push)
 
-- (RACSignal *)setPushTokenForAuthenticatedUser:(NSString*)token;
+- (RACSignal *)setPushTokenForAuthenticatedUser:(NSString *)token;
 
 @end

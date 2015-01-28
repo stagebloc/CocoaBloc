@@ -14,15 +14,15 @@
 /*!
  Post status to account. Convenience method for posting statuses
  */
-- (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber*)accountIdentifier fanContent:(BOOL)fanContent;
+- (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber *)accountIdentifier fanContent:(BOOL)fanContent;
 
 /*!
  Post status to account.
  */
 - (RACSignal *)postStatus:(NSString *)status
-  toAccountWithIdentifier:(NSNumber*)accountIdentifier
+  toAccountWithIdentifier:(NSNumber *)accountIdentifier
                fanContent:(BOOL)fanContent
-                 latitude:(NSNumber*)latitude
-                longitude:(NSNumber*)longitude;
+                 latitude:(NSNumber *)latitude
+                longitude:(NSNumber *)longitude;
 
 @end
