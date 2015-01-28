@@ -19,15 +19,14 @@
 }
 
 - (RACSignal *)postStatus:(NSString *)status
-  toAccountWithIdentifier:(NSNumber*)accountIdentifier
+  toAccountWithIdentifier:(NSNumber *)accountIdentifier
                fanContent:(BOOL)fanContent
-                 latitude:(NSNumber*)latitude
-                longitude:(NSNumber*)longitude {
+                 latitude:(NSNumber *)latitude
+                longitude:(NSNumber *)longitude {
     NSParameterAssert(status);
     NSParameterAssert(accountIdentifier);
     
-    NSMutableDictionary *params = @{@"text" : status,
-                                    SBAPIMethodParameterResultFanContent : @(fanContent)}.mutableCopy;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[status, @(fanContent)] forKeys:@[@"text", SBAPIMethodParameterResultFanContent]];
     
     if (latitude && longitude) {
         [params setObject:latitude forKey:@"latitude"];

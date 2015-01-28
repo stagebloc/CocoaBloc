@@ -74,17 +74,17 @@
 /*!
  Follow an account with its associated identifier
  */
-- (RACSignal *)followAccountWithIdentifier:(NSNumber*)identifier;
+- (RACSignal *)followAccountWithIdentifier:(NSNumber *)identifier;
 
 /*!
  Unfollow an account with its associated identifier
  */
-- (RACSignal *)unfollowAccountWithIdentifier:(NSNumber*)identifier;
+- (RACSignal *)unfollowAccountWithIdentifier:(NSNumber *)identifier;
 
 /*!
  Get the currently authenticated user's accounts.
  */
-- (RACSignal *)getAuthenticatedUserAccountsWithParameters:(NSDictionary*)parameters;
+- (RACSignal *)getAuthenticatedUserAccountsWithParameters:(NSDictionary *)parameters;
 
 
 @end

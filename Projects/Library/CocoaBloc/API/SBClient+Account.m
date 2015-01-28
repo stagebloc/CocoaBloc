@@ -108,7 +108,7 @@
                 setNameWithFormat:@"Get children accounts (accountID: %d])", accountId.intValue];
 }
 
-- (RACSignal*)followAccountWithIdentifier:(NSNumber*)identifier {
+- (RACSignal *)followAccountWithIdentifier:(NSNumber *)identifier {
     NSParameterAssert(identifier);
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
@@ -116,7 +116,7 @@
                 setNameWithFormat:@"Follow account %d", identifier.intValue];
 }
 
-- (RACSignal*)unfollowAccountWithIdentifier:(NSNumber*)identifier {
+- (RACSignal *)unfollowAccountWithIdentifier:(NSNumber *)identifier {
     NSParameterAssert(identifier);
     
     return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
@@ -124,7 +124,7 @@
                 setNameWithFormat:@"Unfollow account %d", identifier.intValue];
 }
 
-- (RACSignal *)getAuthenticatedUserAccountsWithParameters:(NSDictionary*)parameters {
+- (RACSignal *)getAuthenticatedUserAccountsWithParameters:(NSDictionary *)parameters {
     
     RACSignal *requestSignal = [[self rac_GET:@"accounts" parameters:[self requestParametersWithParameters:parameters]]
                                  cb_deserializeArrayWithClient:self keyPath:@"data"];
