@@ -132,7 +132,7 @@
     //if we are getting admin accounts, save them
     if ([[parameters objectForKey:@"admin"] boolValue]) {
         @weakify(self);
-        [requestSignal doNext:^(NSArray *accounts) {
+        requestSignal = [requestSignal doNext:^(NSArray *accounts) {
             @strongify(self);
             self.authenticatedUser.adminAccounts = accounts;
         }];
