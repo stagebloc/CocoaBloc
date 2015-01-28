@@ -13,6 +13,7 @@
 #import "RACSignal+JSONDeserialization.h"
 #import "AFHTTPRequestOperationManager+File.h"
 #import "NSData+Mime.h"
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @implementation SBClient (Account)
 
@@ -107,7 +108,7 @@
                 setNameWithFormat:@"Get children accounts (accountID: %d])", accountId.intValue];
 }
 
-- (RACSignal*)followAccountWithIdentifier:(NSNumber*)identifier {
+- (RACSignal *)followAccountWithIdentifier:(NSNumber *)identifier {
     NSParameterAssert(identifier);
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
@@ -115,12 +116,29 @@
                 setNameWithFormat:@"Follow account %d", identifier.intValue];
 }
 
-- (RACSignal*)unfollowAccountWithIdentifier:(NSNumber*)identifier {
+- (RACSignal *)unfollowAccountWithIdentifier:(NSNumber *)identifier {
     NSParameterAssert(identifier);
     
     return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%d/follow", identifier.intValue] parameters:[self requestParametersWithParameters:nil]]
                 cb_deserializeWithClient:self keyPath:@"account"]
                 setNameWithFormat:@"Unfollow account %d", identifier.intValue];
+}
+
+- (RACSignal *)getAuthenticatedUserAccountsWithParameters:(NSDictionary *)parameters {
+    
+    RACSignal *requestSignal = [[self rac_GET:@"accounts" parameters:[self requestParametersWithParameters:parameters]]
+                                 cb_deserializeArrayWithClient:self keyPath:@"data"];
+
+    //if we are getting admin accounts, save them
+    if ([[parameters objectForKey:@"admin"] boolValue]) {
+        @weakify(self);
+        requestSignal = [requestSignal doNext:^(NSArray *accounts) {
+            @strongify(self);
+            self.authenticatedUser.adminAccounts = accounts;
+        }];
+    }
+        
+    return [requestSignal setNameWithFormat:@"Get authenticated user accounts"];
 }
 
 @end
