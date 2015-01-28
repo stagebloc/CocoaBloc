@@ -8,6 +8,17 @@
 
 #import "SBClient.h"
 
+extern NSString * const SBAPIMethodParameterFlagContent;
+
+/*
+ SBAPIMethodParameterFlagContent preset values which can be used for
+ reasons why someone flagged a piece of content
+*/
+extern NSString * const SBAPIMethodParameterFlagContentValueOffensive;
+extern NSString * const SBAPIMethodParameterFlagContentValuePrejudice;
+extern NSString * const SBAPIMethodParameterFlagContentValueCopyright;
+extern NSString * const SBAPIMethodParameterFlagContentValueDuplicate;
+
 @interface SBClient (Content)
 
 - (RACSignal *)likeContent:(SBContent *)content;
@@ -25,5 +36,12 @@
  @param accountIdentifier - account content is posted to
  */
 - (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString*)type forAccountWithIdentifier:(NSNumber *)accountIdentifier;
+
+- (RACSignal *)flagContent:(SBContent *)content reason:(NSString *)reason;
+
+- (RACSignal *)flagContentWithIdentifier:(NSNumber *)contentIdentifier
+                             contentType:(NSString *)contentType
+                forAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                  reason:(NSString *)reason;
 
 @end

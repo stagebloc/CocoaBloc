@@ -13,6 +13,13 @@
 #import "RACSignal+JSONDeserialization.h"
 #import <RACAFNetworking.h>
 
+NSString * const SBAPIMethodParameterFlagContent = @"type";
+
+NSString * const SBAPIMethodParameterFlagContentValueOffensive = @"offensive";
+NSString * const SBAPIMethodParameterFlagContentValuePrejudice = @"prejudice";
+NSString * const SBAPIMethodParameterFlagContentValueCopyright = @"copyright";
+NSString * const SBAPIMethodParameterFlagContentValueDuplicate = @"duplicate";
+
 @implementation SBClient (Content)
 
 - (RACSignal *)likeContent:(SBContent *)content {
@@ -53,6 +60,26 @@
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@", identifier, type, accountIdentifier] parameters:nil]
                 cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get %@ (%@) for account %@", type, identifier, accountIdentifier];
+}
+
+- (RACSignal *)flagContent:(SBContent *)content reason:(NSString *)reason {
+    return [self flagContentWithIdentifier:content.identifier contentType:[[content class] URLPathContentType] forAccountWithIdentifier:content.accountID reason:reason];
+}
+
+- (RACSignal *)flagContentWithIdentifier:(NSNumber *)contentIdentifier contentType:(NSString *)contentType forAccountWithIdentifier:(NSNumber *)accountIdentifier reason:(NSString *)reason {
+    NSParameterAssert(contentIdentifier);
+    NSParameterAssert(contentType);
+    NSParameterAssert(accountIdentifier);
+    
+    if (!reason) {
+        reason = SBAPIMethodParameterFlagContentValueOffensive;
+    }
+    
+    NSDictionary *params = @{SBAPIMethodParameterFlagContent: reason};
+    
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/like", contentIdentifier, contentType, accountIdentifier] parameters:[self requestParametersWithParameters:params]]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Flagging %@ %@ for account %@ because %@", contentType, contentIdentifier, accountIdentifier, reason];
 }
 
 @end
