@@ -8,6 +8,8 @@
 
 #import "SBObject.h"
 #import "SBPhoto.h"
+#import "SBNotificationSettings.h"
+
 
 @interface SBAccount : SBObject <MTLJSONSerializing>
 
@@ -21,5 +23,11 @@
 @property (nonatomic) NSNumber *userIsAdmin;
 
 @property (nonatomic) SBPhoto *photo;
+
+@property (nonatomic) SBNotificationSettings *commentSettings;
+@property (nonatomic) SBNotificationSettings *eventRSVPSettings;
+@property (nonatomic) SBNotificationSettings *generalSettings;
+@property (nonatomic) SBNotificationSettings *likeSettings;
+@property (nonatomic) SBNotificationSettings *followSettings;
 
 @end

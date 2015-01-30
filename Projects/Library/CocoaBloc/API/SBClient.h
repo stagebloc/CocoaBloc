@@ -15,24 +15,32 @@
 /// @name Globals
 
 /// API method parameter dictionary keys
-extern NSString *SBAPIMethodParameterResultLimit;                 // NSNumber
-extern NSString *SBAPIMethodParameterResultOffset;                // NSNumber
-extern NSString *SBAPIMethodParameterResultOrderBy;               // NSString "created" / "modified" / "price"
-extern NSString *SBAPIMethodParameterResultDirection;             // NSString "ASC" or "DESC"
-extern NSString *SBAPIMethodParameterResultExpandedProperties;    // NSString @"user", @"account", etc. No whitespace, and comma-separated string
-extern NSString *SBAPIMethodParameterResultFilter;                // NSString @"blog",@"blog,photos,statuses", etc. No whitespace, and comma-separated string
-extern NSString *SBAPIMethodParameterResultIncludeAdminAccounts;  // NSString @"true", @"false"
-extern NSString *SBAPIMethodParameterResultFanContent;            // NSNumber @YES, @NO
+extern NSString * const SBAPIMethodParameterResultLimit;                 // NSNumber
+extern NSString * const SBAPIMethodParameterResultOffset;                // NSNumber
+extern NSString * const SBAPIMethodParameterResultOrderBy;               // NSString "created" / "modified" / "price"
+extern NSString * const SBAPIMethodParameterResultDirection;             // NSString "ASC" or "DESC"
+extern NSString * const SBAPIMethodParameterResultExpandedProperties;    // NSString @"user", @"account", etc. No whitespace, and comma-separated string
+extern NSString * const SBAPIMethodParameterResultFilter;                // NSString @"blog",@"blog,photos,statuses", etc. No whitespace, and comma-separated string
+extern NSString * const SBAPIMethodParameterResultIncludeAdminAccounts;  // NSString @"true", @"false"
+extern NSString * const SBAPIMethodParameterResultFanContent;            // NSNumber @YES, @NO
 
-/// Fan club tier info dictionary keys
-extern NSString *SBFanClubTierInfoName;
-extern NSString *SBFanClubTierInfoCanSubmitContent;
-extern NSString *SBFanClubTierInfoPrice;
-extern NSString *SBFanClubTierInfoDescription;
+
+
+/*
+ SBAPIMethodParameterFlagContent preset values which can be used for
+ reasons why someone flagged a piece of `SBContent` or `SBComment`
+ */
+extern NSString * const SBAPIMethodParameterFlagContent;
+extern NSString * const SBAPIMethodParameterFlagContentValueOffensive;
+extern NSString * const SBAPIMethodParameterFlagContentValuePrejudice;
+extern NSString * const SBAPIMethodParameterFlagContentValueCopyright;
+extern NSString * const SBAPIMethodParameterFlagContentValueDuplicate;
+
 
 // Error handling
-extern NSString *SBAPIErrorResponseObjectKey;			// Deserialized JSON object from server
-extern NSString *SBCocoaBlocErrorDomain;                // Error domain for CB-generated errors
+extern NSString * const SBAPIErrorResponseObjectKey;			// Deserialized JSON object from server
+extern NSString * const SBCocoaBlocErrorDomain;                // Error domain for CB-generated errors
+
 
 // CocoaBloc error codes
 typedef NS_ENUM(NSInteger, SBCocoaBlocErrorCode) {

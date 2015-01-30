@@ -63,4 +63,27 @@
                 setNameWithFormat:@"Get comment (id: %@) for content: %@", commentID, content];
 }
 
+- (RACSignal *)flagComment:(SBComment *)comment reason:(NSString *)reason {
+    return [self flagCommentWithIdentifier:comment.identifier contentType:[[comment.content class] URLPathContentType] forAccountWithIdentifier:comment.accountID reason:reason];
+}
+
+- (RACSignal *)flagCommentWithIdentifier:(NSNumber *)commentIdentifier
+                             contentType:(NSString *)contentType
+                forAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                  reason:(NSString *)reason {
+    NSParameterAssert(commentIdentifier);
+    NSParameterAssert(contentType);
+    NSParameterAssert(accountIdentifier);
+    
+    if (!reason) {
+        reason = SBAPIMethodParameterFlagContentValueOffensive;
+    }
+    
+    NSDictionary *params = @{SBAPIMethodParameterFlagContent: reason};
+    
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/comment/%@/flag", accountIdentifier, contentType, commentIdentifier] parameters:[self requestParametersWithParameters:params]]
+             cb_deserializeWithClient:self keyPath:@"data"]
+            setNameWithFormat:@"Flagging comment %@ %@ for account %@ because %@", commentIdentifier, contentType, accountIdentifier, reason];
+}
+
 @end

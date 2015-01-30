@@ -72,6 +72,7 @@
 		4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFAD1A3B7F3800E28C22 /* SBToolBarAnimator.m */; };
 		4D44DFB11A3B814700E28C22 /* SBMarginAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44DFB01A3B814700E28C22 /* SBMarginAnimator.m */; };
 		4D54992F1A5AF12A0003D276 /* SBBottomViewContrainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D54992E1A5AF12A0003D276 /* SBBottomViewContrainer.m */; };
+		4D5913571A7ABE000035DDD7 /* SBNotificationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5913561A7ABE000035DDD7 /* SBNotificationSettings.m */; };
 		4D617ECC1A38B04D0098869B /* ALAssetsLibrary+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D617ECB1A38B04D0098869B /* ALAssetsLibrary+RAC.m */; };
 		4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B51A23A8A700D33D24 /* SBReviewView.m */; };
 		4D76A5BA1A23AC7000D33D24 /* SBPhotoReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76A5B91A23AC7000D33D24 /* SBPhotoReviewView.m */; };
@@ -288,6 +289,8 @@
 		4D44DFB01A3B814700E28C22 /* SBMarginAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMarginAnimator.m; sourceTree = "<group>"; };
 		4D54992D1A5AF12A0003D276 /* SBBottomViewContrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBottomViewContrainer.h; sourceTree = "<group>"; };
 		4D54992E1A5AF12A0003D276 /* SBBottomViewContrainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBottomViewContrainer.m; sourceTree = "<group>"; };
+		4D5913551A7ABE000035DDD7 /* SBNotificationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNotificationSettings.h; sourceTree = "<group>"; };
+		4D5913561A7ABE000035DDD7 /* SBNotificationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNotificationSettings.m; sourceTree = "<group>"; };
 		4D617ECA1A38B04D0098869B /* ALAssetsLibrary+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+RAC.h"; sourceTree = "<group>"; };
 		4D617ECB1A38B04D0098869B /* ALAssetsLibrary+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+RAC.m"; sourceTree = "<group>"; };
 		4D76A5B41A23A8A700D33D24 /* SBReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBReviewView.h; sourceTree = "<group>"; };
@@ -542,9 +545,11 @@
 				529FC9801A2F98DC00F197C7 /* SBVideo.m */,
 				09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */,
 				09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */,
+				09A897FA19786D7F00EE983C /* SBUser.h */,
+				09A897FB19786D7F00EE983C /* SBUser.m */,
+				4D5913541A7ABDD80035DDD7 /* Accounts */,
 				4DCC63401A68535C007C26D6 /* FanClub */,
 				09B512581979AED700D62F67 /* Content */,
-				09B5124E1979AE8900D62F67 /* People */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -566,17 +571,6 @@
 				09C54FF919F0221700CB0C81 /* SBLogInViewModel.m */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		09B5124E1979AE8900D62F67 /* People */ = {
-			isa = PBXGroup;
-			children = (
-				09A897F71978630800EE983C /* SBAccount.h */,
-				09A897F81978630800EE983C /* SBAccount.m */,
-				09A897FA19786D7F00EE983C /* SBUser.h */,
-				09A897FB19786D7F00EE983C /* SBUser.m */,
-			);
-			name = People;
 			sourceTree = "<group>";
 		};
 		09B512581979AED700D62F67 /* Content */ = {
@@ -787,6 +781,17 @@
 				4DF24B491A5DCB43006D968B /* SBPushAnimator.m */,
 			);
 			name = Animators;
+			sourceTree = "<group>";
+		};
+		4D5913541A7ABDD80035DDD7 /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				09A897F71978630800EE983C /* SBAccount.h */,
+				09A897F81978630800EE983C /* SBAccount.m */,
+				4D5913551A7ABE000035DDD7 /* SBNotificationSettings.h */,
+				4D5913561A7ABE000035DDD7 /* SBNotificationSettings.m */,
+			);
+			name = Accounts;
 			sourceTree = "<group>";
 		};
 		4D76A5B71A23AC5400D33D24 /* SBReviewView */ = {
@@ -1073,6 +1078,7 @@
 				0976370819BE3F5100E3CD45 /* SBClient+Blog.m in Sources */,
 				090EB8181987F1100081D406 /* SBAudio.m in Sources */,
 				09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */,
+				4D5913571A7ABE000035DDD7 /* SBNotificationSettings.m in Sources */,
 				09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */,
 				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
 				4D617ECC1A38B04D0098869B /* ALAssetsLibrary+RAC.m in Sources */,

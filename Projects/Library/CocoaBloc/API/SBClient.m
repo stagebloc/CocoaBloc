@@ -13,18 +13,26 @@
 #import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
-NSString *SBAPIMethodParameterResultLimit = @"limit";
-NSString *SBAPIMethodParameterResultOffset = @"offset";
-NSString *SBAPIMethodParameterResultDirection = @"direction";
-NSString *SBAPIMethodParameterResultOrderBy = @"order_by";
-NSString *SBAPIMethodParameterResultExpandedProperties = @"expand";
-NSString *SBAPIMethodParameterResultFilter = @"filter";
-NSString *SBAPIMethodParameterResultIncludeAdminAccounts = @"include_admin_accounts";
-NSString *SBAPIMethodParameterResultFanContent = @"fan_content";
+NSString * const SBAPIMethodParameterResultLimit = @"limit";
+NSString * const SBAPIMethodParameterResultOffset = @"offset";
+NSString * const SBAPIMethodParameterResultDirection = @"direction";
+NSString * const SBAPIMethodParameterResultOrderBy = @"order_by";
+NSString * const SBAPIMethodParameterResultExpandedProperties = @"expand";
+NSString * const SBAPIMethodParameterResultFilter = @"filter";
+NSString * const SBAPIMethodParameterResultIncludeAdminAccounts = @"include_admin_accounts";
+NSString * const SBAPIMethodParameterResultFanContent = @"fan_content";
+NSString * const SBAPIMethodParameterResultFollowing = @"following";
 
 
-NSString *SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
-NSString *SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
+NSString * const SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
+NSString * const SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
+
+//Comment and Content flagging
+NSString * const SBAPIMethodParameterFlagContent = @"type";
+NSString * const SBAPIMethodParameterFlagContentValueOffensive = @"offensive";
+NSString * const SBAPIMethodParameterFlagContentValuePrejudice = @"prejudice";
+NSString * const SBAPIMethodParameterFlagContentValueCopyright = @"copyright";
+NSString * const SBAPIMethodParameterFlagContentValueDuplicate = @"duplicate";
 
 extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 

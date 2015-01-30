@@ -8,6 +8,8 @@
 
 #import "SBClient.h"
 
+extern NSString * const SBAPIMethodParameterResultFollowing;
+
 @interface SBClient (Account)
 
 /// @methodgroup Account
