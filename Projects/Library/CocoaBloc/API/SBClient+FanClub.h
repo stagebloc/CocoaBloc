@@ -19,11 +19,7 @@
  @param title		the title for the fan club
  @param description	the description for the fan club
  @param tierInfo	a dictionary with any of the following tier info keys,
- or nil, to use the default values (determined server-side):
- SBFanClubTierInfoName
- SBFanClubTierInfoCanSubmitContent
- SBFanClubTierInfoPrice
- SBFanClubTierInfoDescription
+ or nil
  
  @return A "cold" signal that will perform the creation upon subscription.
  The subscribed signal will send a "next" value of the newly created
