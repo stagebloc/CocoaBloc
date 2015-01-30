@@ -32,6 +32,7 @@ extern NSString *SBFanClubTierInfoDescription;
 
 // Error handling
 extern NSString *SBAPIErrorResponseObjectKey;			// Deserialized JSON object from server
+extern NSString *SBAPIErrorResponseLocalizedErrorString;// User-presentable string from the server
 extern NSString *SBCocoaBlocErrorDomain;                // Error domain for CB-generated errors
 
 // CocoaBloc error codes

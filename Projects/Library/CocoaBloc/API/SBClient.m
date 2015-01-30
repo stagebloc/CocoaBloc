@@ -25,6 +25,7 @@ NSString *SBAPIMethodParameterResultFanContent = @"fan_content";
 
 NSString *SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
 NSString *SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
+NSString *SBAPIErrorResponseLocalizedErrorString = @"SBAPIErrorResponseLocalizedErrorString";
 
 extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 
@@ -38,6 +39,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     if (*error != nil && obj != nil) {
         NSMutableDictionary *userInfo = (*error).userInfo.mutableCopy;
         userInfo[SBAPIErrorResponseObjectKey] = obj;
+        userInfo[SBAPIErrorResponseLocalizedErrorString] = obj[@"metadata"][@"error"];
         
         *error = [NSError errorWithDomain:SBCocoaBlocErrorDomain code:(*error).code userInfo:userInfo];
     }
