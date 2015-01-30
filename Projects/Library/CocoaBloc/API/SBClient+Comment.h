@@ -14,11 +14,11 @@
 // supports limit/offset
 - (RACSignal *)getCommentsForContent:(SBContent *)content parameters:(NSDictionary *)parameters;
 
-- (RACSignal *)getRepliesToComment:(SBComment *)comment;
+- (RACSignal *)getRepliesToComment:(SBComment *)comment parameters:(NSDictionary *)parameters;
 - (RACSignal *)deleteComment:(SBComment *)comment;
 
-- (RACSignal *)postCommentWithText:(NSString *)text onContent:(SBContent *)content;
-- (RACSignal *)postCommentWithText:(NSString *)text inReplyToComment:(SBComment *)comment;
+- (RACSignal *)postCommentWithText:(NSString *)text onContent:(SBContent *)content parameters:(NSDictionary *)parameters;
+- (RACSignal *)postCommentWithText:(NSString *)text inReplyToComment:(SBComment *)comment parameters:(NSDictionary *)parameters;
 
 - (RACSignal *)getCommentWithID:(NSNumber *)commentID forContent:(SBContent *)content;
 

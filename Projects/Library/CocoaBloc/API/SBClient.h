@@ -25,7 +25,6 @@ extern NSString * const SBAPIMethodParameterResultIncludeAdminAccounts;  // NSSt
 extern NSString * const SBAPIMethodParameterResultFanContent;            // NSNumber @YES, @NO
 
 
-
 /*
  SBAPIMethodParameterFlagContent preset values which can be used for
  reasons why someone flagged a piece of `SBContent` or `SBComment`
@@ -36,11 +35,10 @@ extern NSString * const SBAPIMethodParameterFlagContentValuePrejudice;
 extern NSString * const SBAPIMethodParameterFlagContentValueCopyright;
 extern NSString * const SBAPIMethodParameterFlagContentValueDuplicate;
 
-
 // Error handling
-extern NSString * const SBAPIErrorResponseObjectKey;			// Deserialized JSON object from server
-extern NSString * const SBCocoaBlocErrorDomain;                // Error domain for CB-generated errors
-
+extern NSString * const SBAPIErrorResponseObjectKey;            // Deserialized JSON object from server
+extern NSString * const SBCocoaBlocErrorDomain;                 // Error domain for CB-generated errors
+extern NSString * const SBAPIErrorResponseLocalizedErrorString;        // User-presentable string from the server
 
 // CocoaBloc error codes
 typedef NS_ENUM(NSInteger, SBCocoaBlocErrorCode) {
