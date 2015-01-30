@@ -14,7 +14,7 @@
 // supports limit/offset
 - (RACSignal *)getCommentsForContent:(SBContent *)content parameters:(NSDictionary *)parameters;
 
-- (RACSignal *)getRepliesToComment:(SBComment *)comment;
+- (RACSignal *)getRepliesToComment:(SBComment *)comment parameters:(NSDictionary *)parameters;
 - (RACSignal *)deleteComment:(SBComment *)comment;
 
 - (RACSignal *)postCommentWithText:(NSString *)text onContent:(SBContent *)content parameters:(NSDictionary *)parameters;
