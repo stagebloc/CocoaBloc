@@ -24,14 +24,46 @@ NSString * const SBAPIMethodParameterFlagContentValueDuplicate = @"duplicate";
 
 - (RACSignal *)likeContent:(SBContent *)content {
     NSParameterAssert(content);
-
-    return [self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/like", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
+    
+    return [[[[[RACSignal return:content]
+                doNext:^(SBContent *c) {
+                    if (!c.userHasLiked.boolValue) {
+                        c.userHasLiked = @(YES);
+                        c.likeCount = @(c.likeCount.integerValue + 1);
+                    }
+                }]
+                flattenMap:^RACStream *(SBContent *c) {
+                    return [self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/like", c.accountID, [[c class] URLPathContentType], c.identifier] parameters:[self requestParametersWithParameters:nil]];
+                }]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                doError:^(NSError *error) {
+                    if (content.userHasLiked.boolValue) {
+                        content.userHasLiked = @(NO);
+                        content.likeCount = @(content.likeCount.integerValue - 1);
+                    }
+                }];
 }
 
 - (RACSignal *)unlikeContent:(SBContent *)content {
     NSParameterAssert(content);
     
-    return [self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@/like", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
+    return [[[[[RACSignal return:content]
+                doNext:^(SBContent *c) {
+                    if (c.userHasLiked.boolValue) {
+                        c.userHasLiked = @(NO);
+                        c.likeCount = @(c.likeCount.integerValue - 1);
+                    }
+                }]
+                flattenMap:^RACStream *(SBContent *c) {
+                    return [self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@/like", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]];
+                }]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                doError:^(NSError *error) {
+                    if (!content.userHasLiked.boolValue) {
+                        content.userHasLiked = @(YES);
+                        content.likeCount = @(content.likeCount.integerValue + 1);
+                    }
+                }];
 }
 
 - (RACSignal *)getUsersWhoLikeContent:(SBContent *)content parameters:(NSDictionary *)parameters {
@@ -40,8 +72,17 @@ NSString * const SBAPIMethodParameterFlagContentValueDuplicate = @"duplicate";
     
     NSString *urlContentType = [[content class] URLPathContentType];
     
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/likers", content.accountID, urlContentType, content.identifier] parameters:[self requestParametersWithParameters:parameters]]
+    return [[[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/likers", content.accountID, urlContentType, content.identifier] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
+                doNext:^(NSArray *users) {
+                    content.likeCount = @(users.count);
+                    
+                    SBUser *authdUser = [users.rac_sequence objectPassingTest:^BOOL(SBUser *candidate) {
+                        return [candidate.identifier isEqualToNumber:self.authenticatedUser.identifier];
+                    }];
+                    
+                    content.userHasLiked = @(authdUser != nil);
+                }]
                 setNameWithFormat:@"Get users who like content: %@", content];
 }
 
