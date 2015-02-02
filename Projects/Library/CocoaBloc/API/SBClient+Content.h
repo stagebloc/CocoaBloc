@@ -8,17 +8,6 @@
 
 #import "SBClient.h"
 
-extern NSString * const SBAPIMethodParameterFlagContent;
-
-/*
- SBAPIMethodParameterFlagContent preset values which can be used for
- reasons why someone flagged a piece of content
-*/
-extern NSString * const SBAPIMethodParameterFlagContentValueOffensive;
-extern NSString * const SBAPIMethodParameterFlagContentValuePrejudice;
-extern NSString * const SBAPIMethodParameterFlagContentValueCopyright;
-extern NSString * const SBAPIMethodParameterFlagContentValueDuplicate;
-
 @interface SBClient (Content)
 
 - (RACSignal *)likeContent:(SBContent *)content;

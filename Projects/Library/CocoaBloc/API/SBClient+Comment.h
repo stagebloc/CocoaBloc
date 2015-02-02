@@ -22,4 +22,10 @@
 
 - (RACSignal *)getCommentWithID:(NSNumber *)commentID forContent:(SBContent *)content;
 
+- (RACSignal *)flagComment:(SBComment *)comment reason:(NSString *)reason;
+- (RACSignal *)flagCommentWithIdentifier:(NSNumber *)commentIdentifier
+                             contentType:(NSString *)contentType
+                forAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                  reason:(NSString *)reason;
+
 @end
