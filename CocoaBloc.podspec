@@ -35,6 +35,13 @@ Pod::Spec.new do |s|
       ss.private_header_files = 'Projects/Library/CocoaBloc/Internal/**/*.h'
     end
 
+    s.subspec 'ModelActivities' do |ss|
+        ss.dependency 'CocoaBloc/API'
+        ss.header_mappings_dir = 'Projects/Library/CocoaBloc/ModelActivities'
+        ss.source_files = 'Projects/Library/CocoaBloc/ModelActivities/*.{h,m}'
+        ss.resource_bundle = {'CocoaBlocModelActivities' => 'Projects/Library/CocoaBloc/CocoaBlocModelActivities.xcassets'}
+    end
+
     s.subspec 'UI' do |ss|
       ss.dependency 'PureLayout'
       ss.dependency 'SDWebImage'

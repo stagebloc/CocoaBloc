@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */; };
 		090EB8181987F1100081D406 /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudio.m */; };
+		0921AFF31A7C3190009101B3 /* SBStatus+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */; };
+		0921AFF81A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */; };
+		0921AFFE1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */; };
 		09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09342DF21A014533006FF18E /* SBAuthenticationViewController.m */; };
 		09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */; };
 		0949513519EF261E00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513419EF261E00E3411E /* SBClient+Private.m */; };
@@ -32,6 +35,7 @@
 		09A897DA1978536000EE983C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09A897D81978536000EE983C /* InfoPlist.strings */; };
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
+		09AD64621A7C38CF005375EC /* SBDeleteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AD64611A7C38CF005375EC /* SBDeleteActivity.m */; };
 		09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */; };
 		09B512411979ADDF00D62F67 /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512401979ADDF00D62F67 /* SBObject.m */; };
 		09B512471979AE4900D62F67 /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512461979AE4900D62F67 /* SBContent.m */; };
@@ -125,6 +129,14 @@
 		090EB8161987F1100081D406 /* SBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudio.h; sourceTree = "<group>"; };
 		090EB8171987F1100081D406 /* SBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudio.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
+		091D1DDD1A7C3ACD00AAB54F /* CocoaBlocModelActivities.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CocoaBlocModelActivities.xcassets; path = CocoaBloc/CocoaBlocModelActivities.xcassets; sourceTree = "<group>"; };
+		0921AFF11A7C3190009101B3 /* SBStatus+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBStatus+UIActivityItemSource.h"; sourceTree = "<group>"; };
+		0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBStatus+UIActivityItemSource.m"; sourceTree = "<group>"; };
+		0921AFF41A7C31BA009101B3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0921AFF61A7C32FE009101B3 /* SBBlog+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBBlog+UIActivityItemSource.h"; sourceTree = "<group>"; };
+		0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBBlog+UIActivityItemSource.m"; sourceTree = "<group>"; };
+		0921AFFC1A7C34D7009101B3 /* SBComment+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBComment+UIActivityItemSource.h"; sourceTree = "<group>"; };
+		0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBComment+UIActivityItemSource.m"; sourceTree = "<group>"; };
 		09342DF11A014533006FF18E /* SBAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAuthenticationViewController.h; sourceTree = "<group>"; };
 		09342DF21A014533006FF18E /* SBAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAuthenticationViewController.m; sourceTree = "<group>"; };
 		09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreItem.h; sourceTree = "<group>"; };
@@ -173,6 +185,8 @@
 		09A897F81978630800EE983C /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
 		09A897FA19786D7F00EE983C /* SBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUser.h; sourceTree = "<group>"; };
 		09A897FB19786D7F00EE983C /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
+		09AD64601A7C38CF005375EC /* SBDeleteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDeleteActivity.h; sourceTree = "<group>"; };
+		09AD64611A7C38CF005375EC /* SBDeleteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDeleteActivity.m; sourceTree = "<group>"; };
 		09B3152E19BA35EC0005CEDD /* SBAnimationContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAnimationContainerView.h; sourceTree = "<group>"; };
 		09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAnimationContainerView.m; sourceTree = "<group>"; };
 		09B5123F1979ADDF00D62F67 /* SBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBObject.h; sourceTree = "<group>"; };
@@ -371,6 +385,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0921AFF01A7C3190009101B3 /* ModelActivities */ = {
+			isa = PBXGroup;
+			children = (
+				09AD645F1A7C38BB005375EC /* Activities */,
+				09AD645E1A7C38AA005375EC /* Content Item Sources */,
+			);
+			path = ModelActivities;
+			sourceTree = "<group>";
+		};
 		097636F219BE375F00E3CD45 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +429,7 @@
 			children = (
 				09D2A2E219B8C6B0000D32DE /* CocoaBloc.podspec */,
 				09D2A2E319B8C6F8000D32DE /* CocoaBlocUI.xcassets */,
+				091D1DDD1A7C3ACD00AAB54F /* CocoaBlocModelActivities.xcassets */,
 				09E19ECB19E6EDDE00D75927 /* Guidelines.txt */,
 				09A897C11978536000EE983C /* CocoaBloc */,
 				09A897D51978536000EE983C /* CocoaBlocTests */,
@@ -430,6 +454,7 @@
 		09A897BE1978536000EE983C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0921AFF41A7C31BA009101B3 /* UIKit.framework */,
 				09A897BF1978536000EE983C /* Foundation.framework */,
 				09A897CD1978536000EE983C /* XCTest.framework */,
 				09A897D01978536000EE983C /* UIKit.framework */,
@@ -452,6 +477,7 @@
 				09A897F1197862AC00EE983C /* API */,
 				09A897F4197862AC00EE983C /* Models */,
 				4D224DBF1A0919B6007DF1D1 /* Camera */,
+				0921AFF01A7C3190009101B3 /* ModelActivities */,
 				09A897F5197862AC00EE983C /* UI */,
 				09A897C21978536000EE983C /* Supporting Files */,
 			);
@@ -557,6 +583,28 @@
 				097636F219BE375F00E3CD45 /* Views */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		09AD645E1A7C38AA005375EC /* Content Item Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0921AFF11A7C3190009101B3 /* SBStatus+UIActivityItemSource.h */,
+				0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */,
+				0921AFF61A7C32FE009101B3 /* SBBlog+UIActivityItemSource.h */,
+				0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */,
+				0921AFFC1A7C34D7009101B3 /* SBComment+UIActivityItemSource.h */,
+				0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */,
+			);
+			name = "Content Item Sources";
+			sourceTree = "<group>";
+		};
+		09AD645F1A7C38BB005375EC /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				09AD64601A7C38CF005375EC /* SBDeleteActivity.h */,
+				09AD64611A7C38CF005375EC /* SBDeleteActivity.m */,
+			);
+			name = Activities;
 			sourceTree = "<group>";
 		};
 		09B51235197985D800D62F67 /* ViewModels */ = {
@@ -1056,6 +1104,7 @@
 			files = (
 				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
 				09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */,
+				09AD64621A7C38CF005375EC /* SBDeleteActivity.m in Sources */,
 				4D02B81B1A432148006C811B /* PHPhotoLibrary+RAC.m in Sources */,
 				4D44DFA71A3B6BF600E28C22 /* AVCaptureDevice+RAC.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
@@ -1078,6 +1127,7 @@
 				4D617ECC1A38B04D0098869B /* ALAssetsLibrary+RAC.m in Sources */,
 				4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */,
 				0976370219BE3F4200E3CD45 /* SBClient+Audio.m in Sources */,
+				0921AFFE1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m in Sources */,
 				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,
 				4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */,
 				09D2A36619B8F796000D32DE /* UIColor+FanClub.m in Sources */,
@@ -1113,6 +1163,7 @@
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				4D78BEAC1A42001500C0D19A /* NSURL+Camera.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
+				0921AFF31A7C3190009101B3 /* SBStatus+UIActivityItemSource.m in Sources */,
 				4D326F821A5B3C4100574408 /* SBImageControl.m in Sources */,
 				4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */,
 				4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */,
@@ -1130,6 +1181,7 @@
 				4D326F7F1A5B3AEF00574408 /* SBOptionsChevronButton.m in Sources */,
 				094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */,
 				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
+				0921AFF81A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
