@@ -48,27 +48,32 @@ NSString *const SBDeleteActivityType = @"SBDeleteActivity";
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-    // only allow deleting 1 item at a time, and make sure it's a supported class
-    
-    return activityItems.count == 1 &&
-    [activityItems filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        return !([evaluatedObject isKindOfClass:[SBContent class]] || [evaluatedObject isKindOfClass:[SBComment class]]);
-    }]].count == 0;
+    return activityItems.count == 1;
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
+    NSAssert([activityItems.firstObject isKindOfClass:[SBComment class]]
+             || [activityItems.firstObject isKindOfClass:[SBContent class]], @"Activity item is not a supported class");
+    
     self.contentOrComment = [activityItems firstObject];
 }
 
 - (UIViewController *)activityViewController {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete Content" message:@"Are you sure you want to do this?" preferredStyle:UIAlertControllerStyleActionSheet];
+    NSString *title;
+    RACSignal *start;
+    
+    if ([self.contentOrComment isKindOfClass:[SBContent class]]) {
+        title = @"Delete Content";
+        start = [self.client deleteContent:self.contentOrComment];
+    } else if ([self.contentOrComment isKindOfClass:[SBComment class]]) {
+        title = @"Delete Comment";
+        start = [self.client deleteComment:self.contentOrComment];
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:@"Are you sure you want to do this?" preferredStyle:UIAlertControllerStyleActionSheet];
     
     @weakify(self);
     [alert addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        RACSignal *start = [self.contentOrComment isKindOfClass:[SBContent class]]
-                                ? [self.client deleteContent:self.contentOrComment]
-                                : [self.client deleteComment:self.contentOrComment];
-        
         [[start
             deliverOn:[RACScheduler mainThreadScheduler]]
             subscribeError:^(NSError *error) {

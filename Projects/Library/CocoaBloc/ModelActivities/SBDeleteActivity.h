@@ -15,5 +15,4 @@
 
 @end
 
-
 extern NSString *const SBDeleteActivityType;
