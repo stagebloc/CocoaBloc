@@ -89,6 +89,8 @@
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/comment/%@/flag", accountIdentifier, contentType, commentIdentifier] parameters:[self requestParametersWithParameters:params]]
              cb_deserializeWithClient:self keyPath:@"data"]
             setNameWithFormat:@"Flagging comment %@ %@ for account %@ because %@", commentIdentifier, contentType, accountIdentifier, reason];
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Flagging comment %@ %@ for account %@ because %@", commentIdentifier, contentType, accountIdentifier, reason];
 }
 
 @end

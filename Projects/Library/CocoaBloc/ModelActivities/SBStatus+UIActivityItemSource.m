@@ -8,6 +8,7 @@
 
 #import "SBStatus+UIActivityItemSource.h"
 #import "SBDeleteActivity.h"
+#import "SBFlagActivity.h"
 
 @implementation SBStatus (UIActivityItemSource)
 
@@ -16,7 +17,7 @@
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
-    if ([activityType isEqualToString:SBDeleteActivityType]) {
+    if ([activityType isEqualToString:SBDeleteActivityType] || [activityType isEqualToString:SBFlagActivityType]) {
         return self;
     }
     
