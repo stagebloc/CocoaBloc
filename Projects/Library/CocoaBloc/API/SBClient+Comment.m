@@ -35,8 +35,8 @@
 - (RACSignal *)deleteComment:(SBComment *)comment {
     NSParameterAssert(comment);
     
-    return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/comment/%@", comment.accountID, comment.content.identifier, comment.identifier] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeWithClient:self keyPath:@"data"]
+    return [[[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/comment/%@", comment.accountID, [comment.content.class URLPathContentType], comment.identifier] parameters:[self requestParametersWithParameters:nil]]
+                ignoreValues]
                 setNameWithFormat:@"Delete comment: %@", comment];
 }
 
@@ -87,8 +87,6 @@
     NSDictionary *params = @{SBAPIMethodParameterFlagContent: reason};
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/comment/%@/flag", accountIdentifier, contentType, commentIdentifier] parameters:[self requestParametersWithParameters:params]]
-             cb_deserializeWithClient:self keyPath:@"data"]
-            setNameWithFormat:@"Flagging comment %@ %@ for account %@ because %@", commentIdentifier, contentType, accountIdentifier, reason];
                 cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Flagging comment %@ %@ for account %@ because %@", commentIdentifier, contentType, accountIdentifier, reason];
 }

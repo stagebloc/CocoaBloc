@@ -84,7 +84,7 @@
     NSParameterAssert(content);
     
     return [[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeWithClient:self keyPath:@"data"];
+                ignoreValues];
 }
 
 - (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString *)type forAccountWithIdentifier:(NSNumber *)accountIdentifier {
