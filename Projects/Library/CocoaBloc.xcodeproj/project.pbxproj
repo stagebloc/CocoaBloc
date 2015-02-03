@@ -12,6 +12,8 @@
 		0921AFF31A7C3190009101B3 /* SBStatus+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */; };
 		0921AFF81A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */; };
 		0921AFFE1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */; };
+		093227DE1A81477400F233C5 /* SBFlagActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 093227DB1A81477400F233C5 /* SBFlagActivity.m */; };
+		093227DF1A81477400F233C5 /* SBPhotoActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 093227DD1A81477400F233C5 /* SBPhotoActivityItemProvider.m */; };
 		09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09342DF21A014533006FF18E /* SBAuthenticationViewController.m */; };
 		09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */; };
 		0949513519EF261E00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513419EF261E00E3411E /* SBClient+Private.m */; };
@@ -138,6 +140,10 @@
 		0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBBlog+UIActivityItemSource.m"; sourceTree = "<group>"; };
 		0921AFFC1A7C34D7009101B3 /* SBComment+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBComment+UIActivityItemSource.h"; sourceTree = "<group>"; };
 		0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBComment+UIActivityItemSource.m"; sourceTree = "<group>"; };
+		093227DA1A81477400F233C5 /* SBFlagActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFlagActivity.h; sourceTree = "<group>"; };
+		093227DB1A81477400F233C5 /* SBFlagActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFlagActivity.m; sourceTree = "<group>"; };
+		093227DC1A81477400F233C5 /* SBPhotoActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhotoActivityItemProvider.h; sourceTree = "<group>"; };
+		093227DD1A81477400F233C5 /* SBPhotoActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhotoActivityItemProvider.m; sourceTree = "<group>"; };
 		09342DF11A014533006FF18E /* SBAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAuthenticationViewController.h; sourceTree = "<group>"; };
 		09342DF21A014533006FF18E /* SBAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAuthenticationViewController.m; sourceTree = "<group>"; };
 		09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreItem.h; sourceTree = "<group>"; };
@@ -593,6 +599,8 @@
 		09AD645E1A7C38AA005375EC /* Content Item Sources */ = {
 			isa = PBXGroup;
 			children = (
+				093227DC1A81477400F233C5 /* SBPhotoActivityItemProvider.h */,
+				093227DD1A81477400F233C5 /* SBPhotoActivityItemProvider.m */,
 				0921AFF11A7C3190009101B3 /* SBStatus+UIActivityItemSource.h */,
 				0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */,
 				0921AFF61A7C32FE009101B3 /* SBBlog+UIActivityItemSource.h */,
@@ -606,6 +614,8 @@
 		09AD645F1A7C38BB005375EC /* Activities */ = {
 			isa = PBXGroup;
 			children = (
+				093227DA1A81477400F233C5 /* SBFlagActivity.h */,
+				093227DB1A81477400F233C5 /* SBFlagActivity.m */,
 				09AD64601A7C38CF005375EC /* SBDeleteActivity.h */,
 				09AD64611A7C38CF005375EC /* SBDeleteActivity.m */,
 			);
@@ -1125,6 +1135,7 @@
 				4D44DFB11A3B814700E28C22 /* SBMarginAnimator.m in Sources */,
 				4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */,
 				0976370819BE3F5100E3CD45 /* SBClient+Blog.m in Sources */,
+				093227DF1A81477400F233C5 /* SBPhotoActivityItemProvider.m in Sources */,
 				090EB8181987F1100081D406 /* SBAudio.m in Sources */,
 				09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */,
 				4D5913571A7ABE000035DDD7 /* SBNotificationSettings.m in Sources */,
@@ -1138,6 +1149,7 @@
 				4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */,
 				09D2A36619B8F796000D32DE /* UIColor+FanClub.m in Sources */,
 				097636FF19BE3F2A00E3CD45 /* SBClient+Account.m in Sources */,
+				093227DE1A81477400F233C5 /* SBFlagActivity.m in Sources */,
 				097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */,
 				09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */,
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
