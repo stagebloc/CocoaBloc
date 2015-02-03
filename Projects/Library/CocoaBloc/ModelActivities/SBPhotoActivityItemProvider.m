@@ -13,7 +13,7 @@
 @implementation SBPhotoActivityItemProvider
 
 - (instancetype)initWithPhoto:(SBPhoto *)photo URLToFetch:(NSURL *)photoURL {
-    if(!(self = [super initWithPlaceholderItem:[UIImage new]])) {
+    if((self = [super initWithPlaceholderItem:[UIImage new]])) {
         _photo = photo;
         _photoURL = photoURL;
     }
