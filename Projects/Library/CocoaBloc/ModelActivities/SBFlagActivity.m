@@ -85,7 +85,18 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
             deliverOn:[RACScheduler mainThreadScheduler]]
             subscribeError:^(NSError *error) {
                 @strongify(self);
-             
+                
+                NSString *reason;
+                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
+                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
+                } else {
+                    reason = error.localizedDescription;
+                }
+                
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
+                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
+                
                 [self activityDidFinish:NO];
             }
             completed:^{
@@ -104,9 +115,20 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
         [[start
             deliverOn:[RACScheduler mainThreadScheduler]]
             subscribeError:^(NSError *error) {
-             @strongify(self);
+                @strongify(self);
              
-             [self activityDidFinish:NO];
+                NSString *reason;
+                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
+                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
+                } else {
+                    reason = error.localizedDescription;
+                }
+                
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
+                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
+                
+                [self activityDidFinish:NO];
             }
             completed:^{
                 @strongify(self);
@@ -125,6 +147,17 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
             deliverOn:[RACScheduler mainThreadScheduler]]
             subscribeError:^(NSError *error) {
                 @strongify(self);
+                
+                NSString *reason;
+                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
+                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
+                } else {
+                    reason = error.localizedDescription;
+                }
+                
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
+                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
                 
                 [self activityDidFinish:NO];
             }
@@ -145,6 +178,17 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
             deliverOn:[RACScheduler mainThreadScheduler]]
             subscribeError:^(NSError *error) {
                 @strongify(self);
+                
+                NSString *reason;
+                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
+                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
+                } else {
+                    reason = error.localizedDescription;
+                }
+                
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
+                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
                 
                 [self activityDidFinish:NO];
             }

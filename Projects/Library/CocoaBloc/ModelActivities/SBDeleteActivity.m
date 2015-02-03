@@ -79,6 +79,17 @@ NSString *const SBDeleteActivityType = @"SBDeleteActivity";
             subscribeError:^(NSError *error) {
                 @strongify(self);
                 
+                NSString *reason;
+                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
+                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
+                } else {
+                    reason = error.localizedDescription;
+                }
+                
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Deletion Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
+                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
+                
                 [self activityDidFinish:NO];
             }
             completed:^{
