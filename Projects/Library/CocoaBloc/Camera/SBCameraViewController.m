@@ -16,7 +16,7 @@
 
 @implementation SBCameraViewController
 
-- (UIViewController*) currentController {
+- (UIViewController*)currentController {
     return [self.viewControllers lastObject];
 }
 
@@ -25,29 +25,33 @@
     controller.delegate = captureDelegate;
 }
 
-- (id<SBCaptureViewControllerDelegate>) captureDelegate {
+- (id<SBCaptureViewControllerDelegate>)captureDelegate {
     SBCaptureViewController *controller = [self.viewControllers firstObject];
     return controller.delegate;
 }
 
-- (instancetype) init {
+- (instancetype)init {
     return [self initWithReviewOptions:SBReviewViewOptionsDoNotShow];
 }
 
-- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options {
-    return [self initWithReviewOptions:options captureType:SBCaptureTypeVideo];
+- (instancetype)initWithReviewOptions:(SBReviewViewOptions)options {
+    return [self initWithReviewOptions:options initialCaptureType:SBCaptureTypeVideo];
 }
 
-- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options captureType:(SBCaptureType)captureType {
+- (instancetype)initWithReviewOptions:(SBReviewViewOptions)options initialCaptureType:(SBCaptureType)captureType {
+    return [self initWithReviewOptions:options initialCaptureType:captureType allowedCaptureTypes:SBCaptureTypePhoto | SBCaptureTypeVideo];
+}
+
+- (instancetype)initWithReviewOptions:(SBReviewViewOptions)options initialCaptureType:(SBCaptureType)captureType allowedCaptureTypes:(SBCaptureType)allowedCaptureTypes {
     if (self = [super init]) {
-        SBCaptureViewController *controller = [[SBCaptureViewController alloc] initWithCaptureType:captureType];
+        SBCaptureViewController *controller = [[SBCaptureViewController alloc] initWithInitialCaptureType:captureType allowedCaptureTypes:allowedCaptureTypes];
         controller.reviewOptions = options;
         [self setViewControllers:@[controller]];
     }
     return self;
 }
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.view.layer.masksToBounds = YES;
 }

@@ -107,13 +107,39 @@
     return _accessController;
 }
 
-- (instancetype) init {
-    return [self initWithCaptureType:SBCaptureTypeVideo];
+- (instancetype)init {
+    return [self initWithInitialCaptureType:SBCaptureTypeVideo];
 }
 
-- (instancetype) initWithCaptureType:(SBCaptureType)captureType {
+- (instancetype)initWithInitialCaptureType:(SBCaptureType)captureType {
+    return [self initWithInitialCaptureType:captureType allowedCaptureTypes:SBCaptureTypePhoto | SBCaptureTypeVideo];
+}
+
+- (instancetype)initWithInitialCaptureType:(SBCaptureType)captureType allowedCaptureTypes:(SBCaptureType)allowedCaptureTypes {
     if (self = [super init]) {
-        self.captureManager.captureType = captureType;
+
+        BOOL allowsPhoto = (allowedCaptureTypes & SBCaptureTypePhoto) != 0;
+        BOOL allowsVideo = (allowedCaptureTypes & SBCaptureTypeVideo) != 0;
+        
+        //photo only - force capture type = photo
+        if (allowsPhoto && !allowsVideo) {
+            self.captureManager.captureType = SBCaptureTypePhoto;
+        }
+        
+        //video only - force capture type = video
+        else if (!allowsPhoto && allowsVideo) {
+            self.captureManager.captureType = SBCaptureTypeVideo;
+        }
+        
+        else {
+            self.captureManager.captureType = captureType;
+            
+            //just in case we don't know that the hell the user put for allowed capture types,
+            //just default to both video and photo
+            allowedCaptureTypes = SBCaptureTypePhoto | SBCaptureTypeVideo;
+        }
+        
+        _allowedCaptureTypes = allowedCaptureTypes;
     }
     return self;
 }
@@ -132,6 +158,17 @@
     [self.cameraView autoCenterInSuperview];
     [self.cameraView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.view];
     [self.cameraView autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.view];
+    
+    BOOL allowsPhoto = (self.allowedCaptureTypes & SBCaptureTypePhoto) != 0;
+    BOOL allowsVideo = (self.allowedCaptureTypes & SBCaptureTypeVideo) != 0;
+    NSArray *pageViewLabels = self.cameraView.pageView.labels;
+    if (allowsPhoto && !allowsVideo) {
+        ((UILabel *)pageViewLabels[0]).hidden = YES;
+    } else if (!allowsPhoto && allowsVideo) {
+        ((UILabel *)pageViewLabels[1]).hidden = YES;
+        ((UILabel *)pageViewLabels[2]).hidden = YES;
+    }
+    
     
     [self addChildViewController:self.accessController];
     [self.cameraView addSubview:self.accessController.view];
@@ -157,6 +194,14 @@
     [self.cameraView setShouldUpdateFocusPosition:^BOOL(CGPoint toPosition) {
         @strongify(self)
         return [self.captureManager isFocusModeAvailable:AVCaptureFocusModeAutoFocus];
+    }];
+    [self.cameraView setShouldAllowPageViewIndexChange:^BOOL(NSInteger fromIndex, NSInteger toIndex) {
+        @strongify(self);
+        BOOL allowPhoto = (self.allowedCaptureTypes & SBCaptureTypePhoto) != 0;
+        BOOL allowVideo = (self.allowedCaptureTypes & SBCaptureTypeVideo) != 0;
+        return  (allowPhoto && allowVideo) || //allow all indexes if all enabled
+                (allowPhoto && toIndex != 0) || //allow photo indexes if photo enabled
+                (allowVideo && toIndex == 0); //allow video index if video enabled
     }];
     
     [[self.cameraView doubleTapSignal] subscribeNext:^(id _) {

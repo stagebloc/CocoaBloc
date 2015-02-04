@@ -36,6 +36,13 @@
  */
 @property (nonatomic, assign) SBReviewViewOptions reviewOptions;
 
+/*!
+ The allowed capture types. 
+ The DEFAULT is both video and photo capture types (SBCaptureTypePhoto | SBCaptureTypeVideo).
+ Set this property via `initWithCaptureType:allowedCaptureTypes:`
+ */
+@property (nonatomic, readonly) SBCaptureType allowedCaptureTypes;
+
 
 /*!
  Set this delegate to handle dismissals and when an SBAsset is accepted by the user.
@@ -45,6 +52,16 @@
 /*
  Sets initial capture type to start with for the controller
  */
-- (instancetype) initWithCaptureType:(SBCaptureType)captureType;
+- (instancetype)initWithInitialCaptureType:(SBCaptureType)captureType;
+
+/*
+ Sets initial capture type to start with for the controller
+ and the allowed capture types.
+ 
+ NOTE: initialCaptureType depends on allowedCaptureTypes. If an initialCaptureType
+ is set that isn't supported in allowedCaptureTypes, then the initialCaptureType will
+ be overridden.
+ */
+- (instancetype)initWithInitialCaptureType:(SBCaptureType)captureType allowedCaptureTypes:(SBCaptureType)allowedCaptureTypes;
 
 @end

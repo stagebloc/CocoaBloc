@@ -10,9 +10,9 @@
 
 @class SBVideoManager, SBPhotoManager, SBDeviceManager, RACSignal;
 
-typedef NS_ENUM(NSUInteger, SBCaptureType) {
-    SBCaptureTypePhoto = 0,
-    SBCaptureTypeVideo = 1,
+typedef NS_OPTIONS(NSUInteger, SBCaptureType) {
+    SBCaptureTypePhoto = 1 << 1,
+    SBCaptureTypeVideo = 1 << 2,
 };
 
 typedef NS_ENUM(NSUInteger, SBCaptureFlashMode) {

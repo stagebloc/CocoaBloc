@@ -517,13 +517,25 @@ BOOL isSmallScreen() {
 }
 
 #pragma mark - Actions
-- (void) swipedLeft:(UIPanGestureRecognizer*)sender {
-    if (self.progressBar.value > 0) return;
-    if (self.pageView.index + 1 <= self.pageView.labels.count-1) self.pageView.index++;
+- (void)swipeToIndex:(NSInteger)toIndex {
+    if (toIndex >= 0 && toIndex <= self.pageView.labels.count-1) {
+        if (self.shouldAllowPageViewIndexChange) {
+            if (self.shouldAllowPageViewIndexChange(self.pageView.index, toIndex)) {
+                self.pageView.index = toIndex;
+            }
+        } else {
+            self.pageView.index = toIndex;
+        }
+    }
 }
-- (void) swipedRight:(UIPanGestureRecognizer*)sender {
+
+- (void)swipedLeft:(UIPanGestureRecognizer*)sender {
     if (self.progressBar.value > 0) return;
-    if (self.pageView.index - 1 >= 0) self.pageView.index--;
+    [self swipeToIndex:self.pageView.index+1];
+}
+- (void)swipedRight:(UIPanGestureRecognizer*)sender {
+    if (self.progressBar.value > 0) return;
+    [self swipeToIndex:self.pageView.index-1];
 }
 
 #pragma mark - RAC

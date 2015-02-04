@@ -24,13 +24,29 @@
 
 /*!
  Sets the review step options
+ Sets initial capture type to SBCaptureTypeVideo
+ Sets the DEFAULT allowed capture types = SBCaptureTypePhoto | SBCaptureTypeVideo
  */
 - (instancetype) initWithReviewOptions:(SBReviewViewOptions)options;
 
 /*!
  Sets the review step options and
  Sets initial capture type to start with for the controller
+ Sets the DEFAULT allowed capture types = SBCaptureTypePhoto | SBCaptureTypeVideo
  */
-- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options captureType:(SBCaptureType)captureType;
+- (instancetype) initWithReviewOptions:(SBReviewViewOptions)options initialCaptureType:(SBCaptureType)captureType;
+
+/*!
+ Sets the review step options and
+ Sets initial capture type to start with for the controller
+ Sets the allowed capture types for controller.
+ 
+ NOTE: initialCaptureType depends on allowedCaptureTypes. If an initialCaptureType
+ is set that isn't supported in allowedCaptureTypes, then the initialCaptureType will
+ be overridden.
+ */
+- (instancetype)initWithReviewOptions:(SBReviewViewOptions)options
+                   initialCaptureType:(SBCaptureType)captureType
+                  allowedCaptureTypes:(SBCaptureType)allowedCaptureTypes;
 
 @end
