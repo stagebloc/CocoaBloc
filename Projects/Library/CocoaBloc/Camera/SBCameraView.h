@@ -63,6 +63,8 @@
 
 @property (nonatomic, copy) BOOL (^shouldUpdateFocusPosition)(CGPoint toPosition);
 
+@property (nonatomic, copy) BOOL (^shouldAllowPageViewIndexChange)(NSInteger fromPosition, NSInteger toPosition);
+
 - (instancetype) initWithFrame:(CGRect)frame captureManager:(SBCaptureManager*)captureManager;
 
 /*
