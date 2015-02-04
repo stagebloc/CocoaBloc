@@ -20,6 +20,7 @@
 		094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */; };
 		09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFC19F6CF7A00E57355 /* SBAddress.m */; };
 		09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFE19F6CF7A00E57355 /* SBOrder.m */; };
+		096B53E41A8150E700B6F76F /* SBFlagActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096B53E31A8150E700B6F76F /* SBFlagActivityViewController.m */; };
 		097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F519BE3EFC00E3CD45 /* SBClient+User.m */; };
 		097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */; };
 		097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636FB19BE3F1400E3CD45 /* SBClient+Store.m */; };
@@ -100,6 +101,7 @@
 		529FC97E1A2F8DBC00F197C7 /* bball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 529FC97D1A2F8DBC00F197C7 /* bball.mov */; };
 		529FC9811A2F98DC00F197C7 /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9801A2F98DC00F197C7 /* SBVideo.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
+		6A522370C568881CC6236D65 /* SBPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ABE12014CE6DC2FDDD77EB1 /* SBPlaceholderTextView.m */; };
 		B486845E2F7045E0BC1CAEA7 /* libPods-CB Test App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7900987944179BCA76913 /* libPods-CB Test App.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
@@ -156,6 +158,8 @@
 		09568EFC19F6CF7A00E57355 /* SBAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAddress.m; sourceTree = "<group>"; };
 		09568EFD19F6CF7A00E57355 /* SBOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrder.h; sourceTree = "<group>"; };
 		09568EFE19F6CF7A00E57355 /* SBOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOrder.m; sourceTree = "<group>"; };
+		096B53E21A8150E700B6F76F /* SBFlagActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFlagActivityViewController.h; sourceTree = "<group>"; };
+		096B53E31A8150E700B6F76F /* SBFlagActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFlagActivityViewController.m; sourceTree = "<group>"; };
 		097636F419BE3EFC00E3CD45 /* SBClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+User.h"; sourceTree = "<group>"; };
 		097636F519BE3EFC00E3CD45 /* SBClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+User.m"; sourceTree = "<group>"; };
 		097636F719BE3F0B00E3CD45 /* SBClient+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+FanClub.h"; sourceTree = "<group>"; };
@@ -352,6 +356,8 @@
 		529FC97F1A2F98DC00F197C7 /* SBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideo.h; sourceTree = "<group>"; };
 		529FC9801A2F98DC00F197C7 /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
 		5CA09BB3FDC7100CC628A1E4 /* Pods-CocoaBlocTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6ABE12014CE6DC2FDDD77EB1 /* SBPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlaceholderTextView.m; sourceTree = "<group>"; };
+		6AD19DEF40A61996B56777DA /* SBPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlaceholderTextView.h; sourceTree = "<group>"; };
 		77FB1ABA8A21E60816759167 /* Pods-CocoaBlocTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.release.xcconfig"; sourceTree = "<group>"; };
 		7EFD14D7DA05D8849CA59E07 /* Pods-CB Test App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CB Test App.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CB Test App/Pods-CB Test App.debug.xcconfig"; sourceTree = "<group>"; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -397,10 +403,20 @@
 		0921AFF01A7C3190009101B3 /* ModelActivities */ = {
 			isa = PBXGroup;
 			children = (
+				096B53E51A8150F300B6F76F /* UI */,
 				09AD645F1A7C38BB005375EC /* Activities */,
 				09AD645E1A7C38AA005375EC /* Content Item Sources */,
 			);
 			path = ModelActivities;
+			sourceTree = "<group>";
+		};
+		096B53E51A8150F300B6F76F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				096B53E21A8150E700B6F76F /* SBFlagActivityViewController.h */,
+				096B53E31A8150E700B6F76F /* SBFlagActivityViewController.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 		097636F219BE375F00E3CD45 /* Views */ = {
@@ -420,6 +436,8 @@
 				4D326F7B1A5B0FB200574408 /* SBCaptionButton.m */,
 				4D326F801A5B3C4100574408 /* SBImageControl.h */,
 				4D326F811A5B3C4100574408 /* SBImageControl.m */,
+				6ABE12014CE6DC2FDDD77EB1 /* SBPlaceholderTextView.m */,
+				6AD19DEF40A61996B56777DA /* SBPlaceholderTextView.h */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1149,6 +1167,7 @@
 				4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */,
 				09D2A36619B8F796000D32DE /* UIColor+FanClub.m in Sources */,
 				097636FF19BE3F2A00E3CD45 /* SBClient+Account.m in Sources */,
+				096B53E41A8150E700B6F76F /* SBFlagActivityViewController.m in Sources */,
 				093227DE1A81477400F233C5 /* SBFlagActivity.m in Sources */,
 				097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */,
 				09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */,
@@ -1200,6 +1219,7 @@
 				094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */,
 				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
 				0921AFF81A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m in Sources */,
+				6A522370C568881CC6236D65 /* SBPlaceholderTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
