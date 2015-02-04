@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */; };
 		090EB8181987F1100081D406 /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudio.m */; };
+		091DC6601A825E880080C1AE /* SBFlagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 091DC65F1A825E880080C1AE /* SBFlagViewController.m */; };
 		0921AFF31A7C3190009101B3 /* SBStatus+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */; };
 		0921AFF81A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */; };
 		0921AFFE1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */; };
@@ -133,6 +134,8 @@
 		090EB8171987F1100081D406 /* SBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudio.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
 		091D1DDD1A7C3ACD00AAB54F /* CocoaBlocModelActivities.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CocoaBlocModelActivities.xcassets; path = CocoaBloc/CocoaBlocModelActivities.xcassets; sourceTree = "<group>"; };
+		091DC65E1A825E880080C1AE /* SBFlagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFlagViewController.h; sourceTree = "<group>"; };
+		091DC65F1A825E880080C1AE /* SBFlagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFlagViewController.m; sourceTree = "<group>"; };
 		0921AFF11A7C3190009101B3 /* SBStatus+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBStatus+UIActivityItemSource.h"; sourceTree = "<group>"; };
 		0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBStatus+UIActivityItemSource.m"; sourceTree = "<group>"; };
 		0921AFF41A7C31BA009101B3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -394,9 +397,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		091DC65D1A825E420080C1AE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				091DC65E1A825E880080C1AE /* SBFlagViewController.h */,
+				091DC65F1A825E880080C1AE /* SBFlagViewController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		0921AFF01A7C3190009101B3 /* ModelActivities */ = {
 			isa = PBXGroup;
 			children = (
+				091DC65D1A825E420080C1AE /* UI */,
 				09AD645F1A7C38BB005375EC /* Activities */,
 				09AD645E1A7C38AA005375EC /* Content Item Sources */,
 			);
@@ -1156,6 +1169,7 @@
 				099010C71A5C3A0500EB03D0 /* SBClient+Notification.m in Sources */,
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				4D326F7C1A5B0FB200574408 /* SBCaptionButton.m in Sources */,
+				091DC6601A825E880080C1AE /* SBFlagViewController.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
 				4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */,
 				09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */,

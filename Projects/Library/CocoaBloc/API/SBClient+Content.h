@@ -26,11 +26,12 @@
  */
 - (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString*)type forAccountWithIdentifier:(NSNumber *)accountIdentifier;
 
-- (RACSignal *)flagContent:(SBContent *)content reason:(NSString *)reason;
+- (RACSignal *)flagContent:(SBContent *)content type:(NSString *)type reason:(NSString *)reason;
 
 - (RACSignal *)flagContentWithIdentifier:(NSNumber *)contentIdentifier
                              contentType:(NSString *)contentType
                 forAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                    type:(NSString *)type
                                   reason:(NSString *)reason;
 
 @end

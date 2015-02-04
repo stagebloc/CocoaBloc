@@ -14,10 +14,11 @@
 #import "SBClient+Comment.h"
 #import "SBClient+Content.h"
 #import <RACEXTScope.h>
+#import "SBFlagViewController.h"
 
 NSString *const SBFlagActivityType = @"SBFlagActivityType";
 
-@interface SBFlagActivity ()
+@interface SBFlagActivity () <SBFlagViewControllerDelegate>
 @property (nonatomic) SBClient *client;
 @property (nonatomic) id contentOrComment;
 @end
@@ -59,150 +60,32 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
     self.contentOrComment = [activityItems firstObject];
 }
 
-- (UIViewController *)activityViewController {
-    NSString *title;
-    
+- (void)flagViewControllerCancelled:(SBFlagViewController *)controller {
+    [self activityDidFinish:NO];
+}
+
+- (void)flagViewControllerFinishedWithType:(NSString *)type reason:(NSString *)reason {
     BOOL isContent = [self.contentOrComment isKindOfClass:[SBContent class]];
-    BOOL isComment = [self.contentOrComment isKindOfClass:[SBComment class]];
     
-    if (isContent) {
-        title = @"Flag Content";
-    } else if (isComment) {
-        title = @"Flag Comment";
-    }
+    RACSignal *start = isContent
+        ? [self.client flagContent:self.contentOrComment type:type reason:reason]
+        : [self.client flagComment:self.contentOrComment type:type reason:reason];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:@"Please choose the reason why you're flagging this." preferredStyle:UIAlertControllerStyleActionSheet];
+    [[start
+        deliverOn:[RACScheduler mainThreadScheduler]]
+        subscribeError:^(NSError *error) {
+            [self activityDidFinish:NO];
+        }
+        completed:^{
+            [self activityDidFinish:YES];
+        }];
+}
+
+- (UIViewController *)activityViewController {
+    SBFlagViewController *flag = [[SBFlagViewController alloc] init];
+    flag.delegate = self;
     
-    @weakify(self);
-    [alert addAction:[UIAlertAction actionWithTitle:@"Offensive" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        @strongify(self);
-        
-        RACSignal *start = isContent
-            ? [self.client flagContent:self.contentOrComment reason:SBAPIMethodParameterFlagContentValueOffensive]
-            : [self.client flagComment:self.contentOrComment reason:SBAPIMethodParameterFlagContentValueOffensive];
-        
-        [[start
-            deliverOn:[RACScheduler mainThreadScheduler]]
-            subscribeError:^(NSError *error) {
-                @strongify(self);
-                
-                NSString *reason;
-                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
-                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
-                } else {
-                    reason = error.localizedDescription;
-                }
-                
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
-                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
-                
-                [self activityDidFinish:NO];
-            }
-            completed:^{
-                @strongify(self);
-             
-                [self activityDidFinish:YES];
-            }];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Prejudice" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        @strongify(self);
-        
-        RACSignal *start = isContent
-        ? [self.client flagContent:self.contentOrComment reason:SBAPIMethodParameterFlagContentValuePrejudice]
-        : [self.client flagComment:self.contentOrComment reason:SBAPIMethodParameterFlagContentValuePrejudice];
-        
-        [[start
-            deliverOn:[RACScheduler mainThreadScheduler]]
-            subscribeError:^(NSError *error) {
-                @strongify(self);
-             
-                NSString *reason;
-                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
-                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
-                } else {
-                    reason = error.localizedDescription;
-                }
-                
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
-                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
-                
-                [self activityDidFinish:NO];
-            }
-            completed:^{
-                @strongify(self);
-             
-                [self activityDidFinish:YES];
-            }];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Copyright" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        @strongify(self);
-        
-        RACSignal *start = isContent
-        ? [self.client flagContent:self.contentOrComment reason:SBAPIMethodParameterFlagContentValueCopyright]
-        : [self.client flagComment:self.contentOrComment reason:SBAPIMethodParameterFlagContentValueCopyright];
-        
-        [[start
-            deliverOn:[RACScheduler mainThreadScheduler]]
-            subscribeError:^(NSError *error) {
-                @strongify(self);
-                
-                NSString *reason;
-                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
-                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
-                } else {
-                    reason = error.localizedDescription;
-                }
-                
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
-                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
-                
-                [self activityDidFinish:NO];
-            }
-            completed:^{
-                @strongify(self);
-                
-                [self activityDidFinish:YES];
-            }];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Duplicate" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        @strongify(self);
-        
-        RACSignal *start = isContent
-        ? [self.client flagContent:self.contentOrComment reason:SBAPIMethodParameterFlagContentValueDuplicate]
-        : [self.client flagComment:self.contentOrComment reason:SBAPIMethodParameterFlagContentValueDuplicate];
-        
-        [[start
-            deliverOn:[RACScheduler mainThreadScheduler]]
-            subscribeError:^(NSError *error) {
-                @strongify(self);
-                
-                NSString *reason;
-                if ([error.domain isEqualToString:SBCocoaBlocErrorDomain]) {
-                    reason = error.userInfo[SBAPIErrorResponseLocalizedErrorString];
-                } else {
-                    reason = error.localizedDescription;
-                }
-                
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Flagging Error" message:reason preferredStyle:UIAlertControllerStyleAlert];
-                [errorAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
-                
-                [self activityDidFinish:NO];
-            }
-            completed:^{
-                @strongify(self);
-                
-                [self activityDidFinish:YES];
-            }];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self activityDidFinish:NO];
-    }]];
-    
-    return alert;
+    return [[UINavigationController alloc] initWithRootViewController:flag];
 }
 
 @end
