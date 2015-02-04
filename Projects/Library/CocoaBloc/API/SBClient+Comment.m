@@ -68,26 +68,27 @@
                 setNameWithFormat:@"Get comment (id: %@) for content: %@", commentID, content];
 }
 
-- (RACSignal *)flagComment:(SBComment *)comment reason:(NSString *)reason {
-    return [self flagCommentWithIdentifier:comment.identifier contentType:[[comment.content class] URLPathContentType] forAccountWithIdentifier:comment.accountID reason:reason];
+- (RACSignal *)flagComment:(SBComment *)comment type:(NSString *)type reason:(NSString *)reason {
+    return [self flagCommentWithIdentifier:comment.identifier contentType:[[comment.content class] URLPathContentType] forAccountWithIdentifier:comment.accountID type:type reason:reason];
 }
 
 - (RACSignal *)flagCommentWithIdentifier:(NSNumber *)commentIdentifier
                              contentType:(NSString *)contentType
                 forAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                    type:(NSString *)type
                                   reason:(NSString *)reason {
     NSParameterAssert(commentIdentifier);
     NSParameterAssert(contentType);
     NSParameterAssert(accountIdentifier);
+    NSParameterAssert(reason);
     
-    if (!reason) {
-        reason = SBAPIMethodParameterFlagContentValueOffensive;
+    if (!type) {
+        type = SBAPIMethodParameterFlagContentValueOffensive;
     }
     
-    NSDictionary *params = @{SBAPIMethodParameterFlagContent: reason};
+    NSDictionary *params = @{@"type": type, @"reason": reason};
     
-    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/comment/%@/flag", accountIdentifier, contentType, commentIdentifier] parameters:[self requestParametersWithParameters:params]]
-                cb_deserializeWithClient:self keyPath:@"data"]
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/comment/%@/flag", accountIdentifier, contentType, commentIdentifier] parameters:[self requestParametersWithParameters:params]]
                 setNameWithFormat:@"Flagging comment %@ %@ for account %@ because %@", commentIdentifier, contentType, accountIdentifier, reason];
 }
 

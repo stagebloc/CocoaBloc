@@ -13,12 +13,12 @@
 #import "SBBlog.h"
 #import "SBClient+Comment.h"
 #import "SBClient+Content.h"
-#import "SBFlagActivityViewController.h"
 #import <RACEXTScope.h>
+#import "SBFlagViewController.h"
 
 NSString *const SBFlagActivityType = @"SBFlagActivityType";
 
-@interface SBFlagActivity ()
+@interface SBFlagActivity () <SBFlagViewControllerDelegate>
 @property (nonatomic) SBClient *client;
 @property (nonatomic) id contentOrComment;
 @end
@@ -60,22 +60,32 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
     self.contentOrComment = [activityItems firstObject];
 }
 
-- (UIViewController *)activityViewController {
-    NSString *title;
-    
+- (void)flagViewControllerCancelled:(SBFlagViewController *)controller {
+    [self activityDidFinish:NO];
+}
+
+- (void)flagViewControllerFinishedWithType:(NSString *)type reason:(NSString *)reason {
     BOOL isContent = [self.contentOrComment isKindOfClass:[SBContent class]];
-    BOOL isComment = [self.contentOrComment isKindOfClass:[SBComment class]];
     
-    if (isContent) {
-        title = @"Flag Content";
-    } else if (isComment) {
-        title = @"Flag Comment";
-    }
+    RACSignal *start = isContent
+        ? [self.client flagContent:self.contentOrComment type:type reason:reason]
+        : [self.client flagComment:self.contentOrComment type:type reason:reason];
     
-    SBFlagActivityViewController *flag = [[SBFlagActivityViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:flag];
+    [[start
+        deliverOn:[RACScheduler mainThreadScheduler]]
+        subscribeError:^(NSError *error) {
+            [self activityDidFinish:NO];
+        }
+        completed:^{
+            [self activityDidFinish:YES];
+        }];
+}
+
+- (UIViewController *)activityViewController {
+    SBFlagViewController *flag = [[SBFlagViewController alloc] init];
+    flag.delegate = self;
     
-    return flag;
+    return [[UINavigationController alloc] initWithRootViewController:flag];
 }
 
 @end
