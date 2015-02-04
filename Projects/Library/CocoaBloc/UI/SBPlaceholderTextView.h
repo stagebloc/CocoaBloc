@@ -5,8 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface SBPlaceholderTextView : NSObject
+@interface SBPlaceholderTextView : UITextView
 
 @property (nonatomic) UILabel *placeholderLabel;
 
