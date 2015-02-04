@@ -28,8 +28,7 @@ NSString * const SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
 NSString * const SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
 NSString * const SBAPIErrorResponseLocalizedErrorString = @"SBAPIErrorResponseLocalizedErrorString";
 
-//Comment and Content flagging
-NSString * const SBAPIMethodParameterFlagContent = @"type";
+/// Comment and Content flagging type
 NSString * const SBAPIMethodParameterFlagContentValueOffensive = @"offensive";
 NSString * const SBAPIMethodParameterFlagContentValuePrejudice = @"prejudice";
 NSString * const SBAPIMethodParameterFlagContentValueCopyright = @"copyright";

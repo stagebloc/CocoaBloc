@@ -84,7 +84,7 @@
     NSParameterAssert(content);
     
     return [[self rac_DELETE:[NSString stringWithFormat:@"account/%@/%@/%@", content.accountID, [[content class] URLPathContentType], content.identifier] parameters:[self requestParametersWithParameters:nil]]
-                cb_deserializeWithClient:self keyPath:@"data"];
+                ignoreValues];
 }
 
 - (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString *)type forAccountWithIdentifier:(NSNumber *)accountIdentifier {
@@ -97,23 +97,27 @@
                 setNameWithFormat:@"Get %@ (%@) for account %@", type, identifier, accountIdentifier];
 }
 
-- (RACSignal *)flagContent:(SBContent *)content reason:(NSString *)reason {
-    return [self flagContentWithIdentifier:content.identifier contentType:[[content class] URLPathContentType] forAccountWithIdentifier:content.accountID reason:reason];
+- (RACSignal *)flagContent:(SBContent *)content type:(NSString *)type reason:(NSString *)reason {
+    return [self flagContentWithIdentifier:content.identifier contentType:[[content class] URLPathContentType] forAccountWithIdentifier:content.accountID type:type reason:reason];
 }
 
-- (RACSignal *)flagContentWithIdentifier:(NSNumber *)contentIdentifier contentType:(NSString *)contentType forAccountWithIdentifier:(NSNumber *)accountIdentifier reason:(NSString *)reason {
+- (RACSignal *)flagContentWithIdentifier:(NSNumber *)contentIdentifier
+                             contentType:(NSString *)contentType
+                forAccountWithIdentifier:(NSNumber *)accountIdentifier
+                                    type:(NSString *)type
+                                  reason:(NSString *)reason {
     NSParameterAssert(contentIdentifier);
     NSParameterAssert(contentType);
     NSParameterAssert(accountIdentifier);
+    NSParameterAssert(reason);
     
-    if (!reason) {
-        reason = SBAPIMethodParameterFlagContentValueOffensive;
+    if (!type) {
+        type = SBAPIMethodParameterFlagContentValueOffensive;
     }
     
-    NSDictionary *params = @{SBAPIMethodParameterFlagContent: reason};
+    NSDictionary *params = @{@"type": type, @"reason": reason};
     
-    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/flag", accountIdentifier, contentType, contentIdentifier] parameters:[self requestParametersWithParameters:params]]
-                cb_deserializeWithClient:self keyPath:@"data"]
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/%@/%@/flag", accountIdentifier, contentType, contentIdentifier] parameters:[self requestParametersWithParameters:params]]
                 setNameWithFormat:@"Flagging %@ %@ for account %@ because %@", contentType, contentIdentifier, accountIdentifier, reason];
 }
 

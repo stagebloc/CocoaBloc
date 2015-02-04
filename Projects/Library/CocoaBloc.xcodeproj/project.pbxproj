@@ -9,12 +9,19 @@
 /* Begin PBXBuildFile section */
 		090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 090A7BA219BF590D00AB0427 /* NSObject+AssociatedObjects.m */; };
 		090EB8181987F1100081D406 /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 090EB8171987F1100081D406 /* SBAudio.m */; };
+		091DC6601A825E880080C1AE /* SBFlagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 091DC65F1A825E880080C1AE /* SBFlagViewController.m */; };
+		0921AFF31A7C3190009101B3 /* SBStatus+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */; };
+		0921AFF81A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */; };
+		0921AFFE1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */; };
+		093227DE1A81477400F233C5 /* SBFlagActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 093227DB1A81477400F233C5 /* SBFlagActivity.m */; };
+		093227DF1A81477400F233C5 /* SBPhotoActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 093227DD1A81477400F233C5 /* SBPhotoActivityItemProvider.m */; };
 		09342DF31A014533006FF18E /* SBAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09342DF21A014533006FF18E /* SBAuthenticationViewController.m */; };
 		09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */; };
 		0949513519EF261E00E3411E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949513419EF261E00E3411E /* SBClient+Private.m */; };
 		094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D917919E44CCB00254DD8 /* RACSignal+JSONDeserialization.m */; };
 		09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFC19F6CF7A00E57355 /* SBAddress.m */; };
 		09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 09568EFE19F6CF7A00E57355 /* SBOrder.m */; };
+		096B53E41A8150E700B6F76F /* SBFlagActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096B53E31A8150E700B6F76F /* SBFlagActivityViewController.m */; };
 		097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F519BE3EFC00E3CD45 /* SBClient+User.m */; };
 		097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636F819BE3F0B00E3CD45 /* SBClient+FanClub.m */; };
 		097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 097636FB19BE3F1400E3CD45 /* SBClient+Store.m */; };
@@ -32,6 +39,7 @@
 		09A897DA1978536000EE983C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09A897D81978536000EE983C /* InfoPlist.strings */; };
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
+		09AD64621A7C38CF005375EC /* SBDeleteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AD64611A7C38CF005375EC /* SBDeleteActivity.m */; };
 		09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */; };
 		09B512411979ADDF00D62F67 /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512401979ADDF00D62F67 /* SBObject.m */; };
 		09B512471979AE4900D62F67 /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512461979AE4900D62F67 /* SBContent.m */; };
@@ -94,6 +102,7 @@
 		529FC97E1A2F8DBC00F197C7 /* bball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 529FC97D1A2F8DBC00F197C7 /* bball.mov */; };
 		529FC9811A2F98DC00F197C7 /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 529FC9801A2F98DC00F197C7 /* SBVideo.m */; };
 		603E62993CFD4616B45E54A9 /* libPods-CocoaBlocTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */; };
+		6A522370C568881CC6236D65 /* SBPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ABE12014CE6DC2FDDD77EB1 /* SBPlaceholderTextView.m */; };
 		B486845E2F7045E0BC1CAEA7 /* libPods-CB Test App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7900987944179BCA76913 /* libPods-CB Test App.a */; };
 		F8C2BB2CA7664903B0335A23 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E05EBEB9F0F749D7BF610D45 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
@@ -126,6 +135,20 @@
 		090EB8161987F1100081D406 /* SBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudio.h; sourceTree = "<group>"; };
 		090EB8171987F1100081D406 /* SBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudio.m; sourceTree = "<group>"; };
 		090EB819198800350081D406 /* ModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTests.m; sourceTree = "<group>"; };
+		091D1DDD1A7C3ACD00AAB54F /* CocoaBlocModelActivities.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CocoaBlocModelActivities.xcassets; path = CocoaBloc/CocoaBlocModelActivities.xcassets; sourceTree = "<group>"; };
+		091DC65E1A825E880080C1AE /* SBFlagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFlagViewController.h; sourceTree = "<group>"; };
+		091DC65F1A825E880080C1AE /* SBFlagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFlagViewController.m; sourceTree = "<group>"; };
+		0921AFF11A7C3190009101B3 /* SBStatus+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBStatus+UIActivityItemSource.h"; sourceTree = "<group>"; };
+		0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBStatus+UIActivityItemSource.m"; sourceTree = "<group>"; };
+		0921AFF41A7C31BA009101B3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0921AFF61A7C32FE009101B3 /* SBBlog+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBBlog+UIActivityItemSource.h"; sourceTree = "<group>"; };
+		0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBBlog+UIActivityItemSource.m"; sourceTree = "<group>"; };
+		0921AFFC1A7C34D7009101B3 /* SBComment+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBComment+UIActivityItemSource.h"; sourceTree = "<group>"; };
+		0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBComment+UIActivityItemSource.m"; sourceTree = "<group>"; };
+		093227DA1A81477400F233C5 /* SBFlagActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFlagActivity.h; sourceTree = "<group>"; };
+		093227DB1A81477400F233C5 /* SBFlagActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFlagActivity.m; sourceTree = "<group>"; };
+		093227DC1A81477400F233C5 /* SBPhotoActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhotoActivityItemProvider.h; sourceTree = "<group>"; };
+		093227DD1A81477400F233C5 /* SBPhotoActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhotoActivityItemProvider.m; sourceTree = "<group>"; };
 		09342DF11A014533006FF18E /* SBAuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAuthenticationViewController.h; sourceTree = "<group>"; };
 		09342DF21A014533006FF18E /* SBAuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAuthenticationViewController.m; sourceTree = "<group>"; };
 		09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreItem.h; sourceTree = "<group>"; };
@@ -138,6 +161,8 @@
 		09568EFC19F6CF7A00E57355 /* SBAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAddress.m; sourceTree = "<group>"; };
 		09568EFD19F6CF7A00E57355 /* SBOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrder.h; sourceTree = "<group>"; };
 		09568EFE19F6CF7A00E57355 /* SBOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOrder.m; sourceTree = "<group>"; };
+		096B53E21A8150E700B6F76F /* SBFlagActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFlagActivityViewController.h; sourceTree = "<group>"; };
+		096B53E31A8150E700B6F76F /* SBFlagActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFlagActivityViewController.m; sourceTree = "<group>"; };
 		097636F419BE3EFC00E3CD45 /* SBClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+User.h"; sourceTree = "<group>"; };
 		097636F519BE3EFC00E3CD45 /* SBClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+User.m"; sourceTree = "<group>"; };
 		097636F719BE3F0B00E3CD45 /* SBClient+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+FanClub.h"; sourceTree = "<group>"; };
@@ -174,6 +199,8 @@
 		09A897F81978630800EE983C /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
 		09A897FA19786D7F00EE983C /* SBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUser.h; sourceTree = "<group>"; };
 		09A897FB19786D7F00EE983C /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
+		09AD64601A7C38CF005375EC /* SBDeleteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDeleteActivity.h; sourceTree = "<group>"; };
+		09AD64611A7C38CF005375EC /* SBDeleteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDeleteActivity.m; sourceTree = "<group>"; };
 		09B3152E19BA35EC0005CEDD /* SBAnimationContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAnimationContainerView.h; sourceTree = "<group>"; };
 		09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAnimationContainerView.m; sourceTree = "<group>"; };
 		09B5123F1979ADDF00D62F67 /* SBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBObject.h; sourceTree = "<group>"; };
@@ -332,6 +359,8 @@
 		529FC97F1A2F98DC00F197C7 /* SBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideo.h; sourceTree = "<group>"; };
 		529FC9801A2F98DC00F197C7 /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
 		5CA09BB3FDC7100CC628A1E4 /* Pods-CocoaBlocTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6ABE12014CE6DC2FDDD77EB1 /* SBPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlaceholderTextView.m; sourceTree = "<group>"; };
+		6AD19DEF40A61996B56777DA /* SBPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlaceholderTextView.h; sourceTree = "<group>"; };
 		77FB1ABA8A21E60816759167 /* Pods-CocoaBlocTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.release.xcconfig"; sourceTree = "<group>"; };
 		7EFD14D7DA05D8849CA59E07 /* Pods-CB Test App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CB Test App.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CB Test App/Pods-CB Test App.debug.xcconfig"; sourceTree = "<group>"; };
 		94149DFDF832406188025E96 /* libPods-CocoaBlocTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBlocTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -374,6 +403,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		091DC65D1A825E420080C1AE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				091DC65E1A825E880080C1AE /* SBFlagViewController.h */,
+				096B53E51A8150F300B6F76F /* UI */,
+				09AD645F1A7C38BB005375EC /* Activities */,
+				091DC65F1A825E880080C1AE /* SBFlagViewController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		096B53E51A8150F300B6F76F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				091DC65D1A825E420080C1AE /* UI */,
+				096B53E21A8150E700B6F76F /* SBFlagActivityViewController.h */,
+				096B53E31A8150E700B6F76F /* SBFlagActivityViewController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		097636F219BE375F00E3CD45 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +441,8 @@
 				4D326F7B1A5B0FB200574408 /* SBCaptionButton.m */,
 				4D326F801A5B3C4100574408 /* SBImageControl.h */,
 				4D326F811A5B3C4100574408 /* SBImageControl.m */,
+				6ABE12014CE6DC2FDDD77EB1 /* SBPlaceholderTextView.m */,
+				6AD19DEF40A61996B56777DA /* SBPlaceholderTextView.h */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -409,6 +461,7 @@
 			children = (
 				09D2A2E219B8C6B0000D32DE /* CocoaBloc.podspec */,
 				09D2A2E319B8C6F8000D32DE /* CocoaBlocUI.xcassets */,
+				091D1DDD1A7C3ACD00AAB54F /* CocoaBlocModelActivities.xcassets */,
 				09E19ECB19E6EDDE00D75927 /* Guidelines.txt */,
 				09A897C11978536000EE983C /* CocoaBloc */,
 				09A897D51978536000EE983C /* CocoaBlocTests */,
@@ -433,6 +486,7 @@
 		09A897BE1978536000EE983C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0921AFF41A7C31BA009101B3 /* UIKit.framework */,
 				09A897BF1978536000EE983C /* Foundation.framework */,
 				09A897CD1978536000EE983C /* XCTest.framework */,
 				09A897D01978536000EE983C /* UIKit.framework */,
@@ -455,6 +509,7 @@
 				09A897F1197862AC00EE983C /* API */,
 				09A897F4197862AC00EE983C /* Models */,
 				4D224DBF1A0919B6007DF1D1 /* Camera */,
+				0921AFF01A7C3190009101B3 /* ModelActivities */,
 				09A897F5197862AC00EE983C /* UI */,
 				09A897C21978536000EE983C /* Supporting Files */,
 			);
@@ -562,6 +617,32 @@
 				097636F219BE375F00E3CD45 /* Views */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		09AD645E1A7C38AA005375EC /* Content Item Sources */ = {
+			isa = PBXGroup;
+			children = (
+				093227DC1A81477400F233C5 /* SBPhotoActivityItemProvider.h */,
+				093227DD1A81477400F233C5 /* SBPhotoActivityItemProvider.m */,
+				0921AFF11A7C3190009101B3 /* SBStatus+UIActivityItemSource.h */,
+				0921AFF21A7C3190009101B3 /* SBStatus+UIActivityItemSource.m */,
+				0921AFF61A7C32FE009101B3 /* SBBlog+UIActivityItemSource.h */,
+				0921AFF71A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m */,
+				0921AFFC1A7C34D7009101B3 /* SBComment+UIActivityItemSource.h */,
+				0921AFFD1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m */,
+			);
+			name = "Content Item Sources";
+			sourceTree = "<group>";
+		};
+		09AD645F1A7C38BB005375EC /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				093227DA1A81477400F233C5 /* SBFlagActivity.h */,
+				093227DB1A81477400F233C5 /* SBFlagActivity.m */,
+				09AD64601A7C38CF005375EC /* SBDeleteActivity.h */,
+				09AD64611A7C38CF005375EC /* SBDeleteActivity.m */,
+			);
+			name = Activities;
 			sourceTree = "<group>";
 		};
 		09B51235197985D800D62F67 /* ViewModels */ = {
@@ -1061,6 +1142,7 @@
 			files = (
 				09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */,
 				09568EFF19F6CF7A00E57355 /* SBAddress.m in Sources */,
+				09AD64621A7C38CF005375EC /* SBDeleteActivity.m in Sources */,
 				4D02B81B1A432148006C811B /* PHPhotoLibrary+RAC.m in Sources */,
 				4D44DFA71A3B6BF600E28C22 /* AVCaptureDevice+RAC.m in Sources */,
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
@@ -1076,6 +1158,7 @@
 				4D44DFB11A3B814700E28C22 /* SBMarginAnimator.m in Sources */,
 				4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */,
 				0976370819BE3F5100E3CD45 /* SBClient+Blog.m in Sources */,
+				093227DF1A81477400F233C5 /* SBPhotoActivityItemProvider.m in Sources */,
 				090EB8181987F1100081D406 /* SBAudio.m in Sources */,
 				09D239E8197A0556002B0661 /* MTLValueTransformer+Convenience.m in Sources */,
 				4D5913571A7ABE000035DDD7 /* SBNotificationSettings.m in Sources */,
@@ -1084,16 +1167,20 @@
 				4D617ECC1A38B04D0098869B /* ALAssetsLibrary+RAC.m in Sources */,
 				4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */,
 				0976370219BE3F4200E3CD45 /* SBClient+Audio.m in Sources */,
+				0921AFFE1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m in Sources */,
 				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,
 				4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */,
 				09D2A36619B8F796000D32DE /* UIColor+CocoaBloc.m in Sources */,
 				097636FF19BE3F2A00E3CD45 /* SBClient+Account.m in Sources */,
+				096B53E41A8150E700B6F76F /* SBFlagActivityViewController.m in Sources */,
+				093227DE1A81477400F233C5 /* SBFlagActivity.m in Sources */,
 				097636F919BE3F0B00E3CD45 /* SBClient+FanClub.m in Sources */,
 				09453DE119ED6D5E004D1FA4 /* SBStoreItem.m in Sources */,
 				09B512411979ADDF00D62F67 /* SBObject.m in Sources */,
 				099010C71A5C3A0500EB03D0 /* SBClient+Notification.m in Sources */,
 				09B512541979AEAE00D62F67 /* SBPhoto.m in Sources */,
 				4D326F7C1A5B0FB200574408 /* SBCaptionButton.m in Sources */,
+				091DC6601A825E880080C1AE /* SBFlagViewController.m in Sources */,
 				09B512511979AEA500D62F67 /* SBBlog.m in Sources */,
 				4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */,
 				09568F0019F6CF7A00E57355 /* SBOrder.m in Sources */,
@@ -1119,6 +1206,7 @@
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				4D78BEAC1A42001500C0D19A /* NSURL+Camera.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
+				0921AFF31A7C3190009101B3 /* SBStatus+UIActivityItemSource.m in Sources */,
 				4D326F821A5B3C4100574408 /* SBImageControl.m in Sources */,
 				4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */,
 				4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */,
@@ -1136,6 +1224,8 @@
 				4D326F7F1A5B3AEF00574408 /* SBOptionsChevronButton.m in Sources */,
 				094D917A19E44CCB00254DD8 /* RACSignal+JSONDeserialization.m in Sources */,
 				090A7BA319BF590D00AB0427 /* NSObject+AssociatedObjects.m in Sources */,
+				0921AFF81A7C32FE009101B3 /* SBBlog+UIActivityItemSource.m in Sources */,
+				6A522370C568881CC6236D65 /* SBPlaceholderTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

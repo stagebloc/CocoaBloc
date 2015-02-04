@@ -66,7 +66,6 @@
         _fetchAccountCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SBClient *client) {
             @strongify(self);
             
-#warning mark change this
             client = client ?: [SBClient new];
 
             return self.account != nil
