@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "UIFont+FanClub.h"
+#import "UIFont+CocoaBloc.h"
 
-@implementation UIFont (FanClub)
+@implementation UIFont (CocoaBloc)
 
 + (UIFont *)fc_fontWithSize:(CGFloat)size
 {

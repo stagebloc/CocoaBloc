@@ -7,9 +7,9 @@
 //
 
 #import "SBCameraAccessViewController.h"
-#import "UIFont+FanClub.h"
+#import "UIFont+CocoaBloc.h"
 #import "UIView+Extension.h"
-#import "UIDevice+StageBloc.h"
+#import "UIDevice+CocoaBloc.h"
 #import "UIApplication+Extension.h"
 
 #import <AVFoundation/AVFoundation.h>

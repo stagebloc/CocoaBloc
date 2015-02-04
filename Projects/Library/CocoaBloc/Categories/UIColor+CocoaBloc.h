@@ -1,5 +1,5 @@
 //
-//  UIColor+FanClub.h
+//  UIColor+CocoaBloc.h
 //  Fan Club
 //
 //  Created by David Skuza on 4/25/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (FanClub)
+@interface UIColor (CocoaBloc)
 
 + (UIColor *)fc_stageblocBlueColor;
 

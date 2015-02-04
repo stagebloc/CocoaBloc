@@ -11,7 +11,7 @@
 #import "SBAssetStitcher.h"
 #import "AVCaptureSession+Extension.h"
 #import "UIDevice+Orientation.h"
-#import "UIDevice+StageBloc.h"
+#import "UIDevice+CocoaBloc.h"
 #import "NSUserDefaults+Camera.h"
 #import "SBComposition.h"
 #import "NSURL+Camera.h"

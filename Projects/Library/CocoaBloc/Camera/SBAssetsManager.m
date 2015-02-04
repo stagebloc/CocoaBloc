@@ -11,7 +11,7 @@
 #import "SBAssetGroup.h"
 #import "SBAsset.h"
 
-#import "UIDevice+StageBloc.h"
+#import "UIDevice+CocoaBloc.h"
 #import <ReactiveCocoa/RACEXTScope.h>
 
 #import "ALAssetsLibrary+RAC.h"

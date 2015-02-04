@@ -8,7 +8,7 @@
 
 #import "SBPageView.h"
 #import <PureLayout/PureLayout.h>
-#import "UIColor+FanClub.h"
+#import "UIColor+CocoaBloc.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 

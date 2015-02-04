@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "UIColor+FanClub.h"
+#import "UIColor+CocoaBloc.h"
 
-@implementation UIColor (FanClub)
+@implementation UIColor (CocoaBloc)
 
 + (UIColor *)fc_stageblocBlueColor
 {
