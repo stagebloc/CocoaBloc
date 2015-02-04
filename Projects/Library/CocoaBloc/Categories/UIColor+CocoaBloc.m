@@ -20,6 +20,11 @@
     return [self fc_colorFromHex:0xff2d55];
 }
 
++ (UIColor *)fc_darkPinkColor
+{
+    return [self fc_colorFromHex:0xB70B34];
+}
+
 + (UIColor *)fc_yellowColor
 {
     return [self fc_colorFromHex:0xffde47];

@@ -13,6 +13,7 @@
 + (UIColor *)fc_stageblocBlueColor;
 
 + (UIColor *)fc_pinkColor;
++ (UIColor *)fc_darkPinkColor;
 + (UIColor *)fc_yellowColor;
 + (UIColor *)fc_redColor;
 + (UIColor *)fc_greenColor;
