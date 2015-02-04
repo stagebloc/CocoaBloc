@@ -1,5 +1,5 @@
 //
-//  UIFont+FanClub.h
+//  UIFont+CocoaBloc.h
 //  Fan Club
 //
 //  Created by David Skuza on 4/29/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIFont (FanClub)
+@interface UIFont (CocoaBloc)
 
 + (UIFont *)fc_lightFontWithSize:(CGFloat)size;
 + (UIFont *)fc_mediumFontWithSize:(CGFloat)size;

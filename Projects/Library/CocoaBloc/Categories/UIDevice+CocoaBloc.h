@@ -1,5 +1,5 @@
 //
-//  UIDevice+StageBloc.h
+//  UIDevice+CocoaBloc.h
 //  StitchCam
 //
 //  Created by David Skuza on 10/8/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIDevice (StageBloc)
+@interface UIDevice (CocoaBloc)
 
 - (BOOL)isAtLeastiOS:(NSInteger)version;
 

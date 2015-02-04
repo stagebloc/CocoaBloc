@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "UIColor+FanClub.h"
+#import "UIColor+CocoaBloc.h"
 
-@implementation UIColor (FanClub)
+@implementation UIColor (CocoaBloc)
 
 + (UIColor *)fc_stageblocBlueColor
 {
@@ -18,6 +18,11 @@
 + (UIColor *)fc_pinkColor
 {
     return [self fc_colorFromHex:0xff2d55];
+}
+
++ (UIColor *)fc_darkPinkColor
+{
+    return [self fc_colorFromHex:0xB70B34];
 }
 
 + (UIColor *)fc_yellowColor

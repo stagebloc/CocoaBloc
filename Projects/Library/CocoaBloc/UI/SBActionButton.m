@@ -7,8 +7,8 @@
 //
 
 #import "SBActionButton.h"
-#import "UIColor+FanClub.h"
-#import "UIFont+FanClub.h"
+#import "UIColor+CocoaBloc.h"
+#import "UIFont+CocoaBloc.h"
 
 @implementation SBActionButton
 

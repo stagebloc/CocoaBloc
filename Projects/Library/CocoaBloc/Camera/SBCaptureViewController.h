@@ -36,6 +36,7 @@
  */
 @property (nonatomic, assign) SBReviewViewOptions reviewOptions;
 
+
 /*!
  Set this delegate to handle dismissals and when an SBAsset is accepted by the user.
  */

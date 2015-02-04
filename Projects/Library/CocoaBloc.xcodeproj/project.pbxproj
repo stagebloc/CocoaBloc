@@ -54,8 +54,8 @@
 		09D2A34319B8EF0A000D32DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A34219B8EF0A000D32DE /* main.m */; };
 		09D2A34619B8EF0A000D32DE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A34519B8EF0A000D32DE /* AppDelegate.m */; };
 		09D2A34E19B8EF0A000D32DE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09D2A34D19B8EF0A000D32DE /* Images.xcassets */; };
-		09D2A36619B8F796000D32DE /* UIColor+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36519B8F796000D32DE /* UIColor+FanClub.m */; };
-		09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36819B8FA41000D32DE /* UIFont+FanClub.m */; };
+		09D2A36619B8F796000D32DE /* UIColor+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36519B8F796000D32DE /* UIColor+CocoaBloc.m */; };
+		09D2A36919B8FA41000D32DE /* UIFont+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36819B8FA41000D32DE /* UIFont+CocoaBloc.m */; };
 		09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */; };
 		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
 		4D02B81B1A432148006C811B /* PHPhotoLibrary+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D02B81A1A432148006C811B /* PHPhotoLibrary+RAC.m */; };
@@ -232,10 +232,10 @@
 		09D2A34419B8EF0A000D32DE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		09D2A34519B8EF0A000D32DE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		09D2A34D19B8EF0A000D32DE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		09D2A36419B8F796000D32DE /* UIColor+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+FanClub.h"; sourceTree = "<group>"; };
-		09D2A36519B8F796000D32DE /* UIColor+FanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FanClub.m"; sourceTree = "<group>"; };
-		09D2A36719B8FA41000D32DE /* UIFont+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FanClub.h"; sourceTree = "<group>"; };
-		09D2A36819B8FA41000D32DE /* UIFont+FanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FanClub.m"; sourceTree = "<group>"; };
+		09D2A36419B8F796000D32DE /* UIColor+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CocoaBloc.h"; sourceTree = "<group>"; };
+		09D2A36519B8F796000D32DE /* UIColor+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CocoaBloc.m"; sourceTree = "<group>"; };
+		09D2A36719B8FA41000D32DE /* UIFont+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CocoaBloc.h"; sourceTree = "<group>"; };
+		09D2A36819B8FA41000D32DE /* UIFont+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CocoaBloc.m"; sourceTree = "<group>"; };
 		09D2A36A19B90EDD000D32DE /* SBLoadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLoadingImageView.h; sourceTree = "<group>"; };
 		09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoadingImageView.m; sourceTree = "<group>"; };
 		09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 		4D224DDE1A0919B6007DF1D1 /* SBReviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBReviewController.m; sourceTree = "<group>"; };
 		4D224DDF1A0919B6007DF1D1 /* SBVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideoManager.h; sourceTree = "<group>"; };
 		4D224DE01A0919B6007DF1D1 /* SBVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideoManager.m; sourceTree = "<group>"; };
-		4D22AA0A1A08190000B3C073 /* UIDevice+StageBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+StageBloc.h"; sourceTree = "<group>"; };
+		4D22AA0A1A08190000B3C073 /* UIDevice+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+CocoaBloc.h"; sourceTree = "<group>"; };
 		4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+StageBloc.m"; sourceTree = "<group>"; };
 		4D25777C1A3F8CD400147E66 /* AVAssetExportSession+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAssetExportSession+Extension.h"; sourceTree = "<group>"; };
 		4D25777D1A3F8CD400147E66 /* AVAssetExportSession+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAssetExportSession+Extension.m"; sourceTree = "<group>"; };
@@ -718,11 +718,11 @@
 		09D2A36319B8F77A000D32DE /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				09D2A36419B8F796000D32DE /* UIColor+FanClub.h */,
-				09D2A36519B8F796000D32DE /* UIColor+FanClub.m */,
-				09D2A36719B8FA41000D32DE /* UIFont+FanClub.h */,
-				09D2A36819B8FA41000D32DE /* UIFont+FanClub.m */,
-				4D22AA0A1A08190000B3C073 /* UIDevice+StageBloc.h */,
+				09D2A36419B8F796000D32DE /* UIColor+CocoaBloc.h */,
+				09D2A36519B8F796000D32DE /* UIColor+CocoaBloc.m */,
+				09D2A36719B8FA41000D32DE /* UIFont+CocoaBloc.h */,
+				09D2A36819B8FA41000D32DE /* UIFont+CocoaBloc.m */,
+				4D22AA0A1A08190000B3C073 /* UIDevice+CocoaBloc.h */,
 				4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */,
 				4D06DA841A165F9F00EE3926 /* UIImage+Resize.h */,
 				4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */,
@@ -1148,7 +1148,7 @@
 				09B512471979AE4900D62F67 /* SBContent.m in Sources */,
 				4D76A5BD1A23AC7B00D33D24 /* SBVideoReviewView.m in Sources */,
 				528ED6461A38AFCC00A2FCC2 /* SBClient+Comment.m in Sources */,
-				09D2A36919B8FA41000D32DE /* UIFont+FanClub.m in Sources */,
+				09D2A36919B8FA41000D32DE /* UIFont+CocoaBloc.m in Sources */,
 				4D25777E1A3F8CD400147E66 /* AVAssetExportSession+Extension.m in Sources */,
 				528ED6491A38B1FF00A2FCC2 /* SBComment.m in Sources */,
 				4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */,
@@ -1170,7 +1170,7 @@
 				0921AFFE1A7C34D7009101B3 /* SBComment+UIActivityItemSource.m in Sources */,
 				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,
 				4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */,
-				09D2A36619B8F796000D32DE /* UIColor+FanClub.m in Sources */,
+				09D2A36619B8F796000D32DE /* UIColor+CocoaBloc.m in Sources */,
 				097636FF19BE3F2A00E3CD45 /* SBClient+Account.m in Sources */,
 				096B53E41A8150E700B6F76F /* SBFlagActivityViewController.m in Sources */,
 				093227DE1A81477400F233C5 /* SBFlagActivity.m in Sources */,

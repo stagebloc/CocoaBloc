@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 David Skuza. All rights reserved.
 //
 
-#import "UIDevice+StageBloc.h"
+#import "UIDevice+CocoaBloc.h"
 
-@implementation UIDevice (StageBloc)
+@implementation UIDevice (CocoaBloc)
 
 - (BOOL)isAtLeastiOS:(NSInteger)version {
     return [[self systemVersion] integerValue] >= version;

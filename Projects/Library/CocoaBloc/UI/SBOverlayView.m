@@ -7,13 +7,13 @@
 //
 
 #import "SBOverlayView.h"
-#import "UIFont+FanClub.h"
+#import "UIFont+CocoaBloc.h"
 #import <pop/POP.h>
 #import <PureLayout/PureLayout.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import "UIView+Extension.h"
-#import "UIDevice+StageBloc.h"
+#import "UIDevice+CocoaBloc.h"
 
 @interface SBOverlayView ()
 

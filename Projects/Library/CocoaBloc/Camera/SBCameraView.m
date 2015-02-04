@@ -12,8 +12,8 @@
 #import "SBCaptureManager.h"
 #import <PureLayout/PureLayout.h>
 #import "SBRecordButton.h"
-#import "UIFont+FanClub.h"
-#import "UIColor+FanClub.h"
+#import "UIFont+CocoaBloc.h"
+#import "UIColor+CocoaBloc.h"
 #import "SBPageView.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
