@@ -12,7 +12,7 @@
 
 @implementation ALAssetsLibrary (RAC)
 
-- (RACSignal*) fetchGroupsWithTypes:(ALAssetsGroupType)types {
+- (RACSignal *)fetchGroupsWithTypes:(ALAssetsGroupType)types {
     @weakify(self);
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
@@ -29,25 +29,25 @@
     }];
 }
 
-+ (BOOL) isThereAuthStatusDetermined:(NSError**)error {
++ (BOOL)isThereAuthStatusDetermined:(NSError **)error {
     ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
     switch (status) {
         case ALAuthorizationStatusAuthorized:
-            *error = nil;
+            if (error) { *error = nil; }
             return YES;
         case ALAuthorizationStatusDenied:
-            *error = [NSError errorWithDomain:@"Access Denied" code:101 userInfo:nil];
+            if (error) { *error = [NSError errorWithDomain:@"Access Denied" code:101 userInfo:nil]; }
             return YES;
         case ALAuthorizationStatusRestricted:
-            *error = [NSError errorWithDomain:@"Access Restricted" code:101 userInfo:nil];
+            if (error) { *error = [NSError errorWithDomain:@"Access Restricted" code:101 userInfo:nil]; }
             return YES;
         default:
-            *error = nil;
+            if (error) { *error = nil; }
             return NO;
     }
 }
 
-+ (RACSignal*)rac_requestAccess {
++ (RACSignal *)rac_requestAccess {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
        
         NSError *error = nil;
