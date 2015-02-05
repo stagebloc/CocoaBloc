@@ -4,9 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface SBPlaceholderTextView : UITextView
 
-@property (nonatomic) UILabel *placeholderLabel;
+@property (nonatomic, copy) NSString *placeholder;
+@property (nonatomic, copy) NSAttributedString *attributedPlaceholder;
+@property (nonatomic, strong) UIColor *placeholderColor;
 
 @end
