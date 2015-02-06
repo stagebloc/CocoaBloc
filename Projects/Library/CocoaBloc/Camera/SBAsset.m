@@ -140,7 +140,7 @@
     }
 
     if (self.fileURL) {
-        [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:[[AVURLAsset alloc] initWithURL:self.fileURL options:nil]];
             generator.appliesPreferredTrackTransform = YES;
             CMTime time = CMTimeMakeWithSeconds(0, 30);
