@@ -113,7 +113,7 @@
 - (RACSignal*) fetchImage {
     if (self.image)
         return [RACSignal return:self.image];
-    
+
     if (self.alAsset) {
         ALAssetRepresentation *representation = self.alAsset.defaultRepresentation;
         CGImageRef imageRef = representation.fullScreenImage;
@@ -121,9 +121,10 @@
         if (image) return [RACSignal return:image];
         else return [RACSignal error:[NSError errorWithDomain:@"Cannot parse ALAsset" code:101 userInfo:nil]];
     }
-    
+
     if (self.phAsset) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            @weakify(self);
             PHImageRequestOptions *options = [PHImageRequestOptions new];
             options.resizeMode = PHImageRequestOptionsResizeModeExact;
             options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -141,10 +142,11 @@
 
     if (self.fileURL) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            @weakify(self);
             AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:[[AVURLAsset alloc] initWithURL:self.fileURL options:nil]];
             generator.appliesPreferredTrackTransform = YES;
             CMTime time = CMTimeMakeWithSeconds(0, 30);
-            [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:time]] completionHandler:^(CMTime requestedTime, CGImageRef image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+            [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:time]] completionHandler:^(CMTime requestedTime, CGImageRef image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error) {
                 if (!error && result == AVAssetImageGeneratorSucceeded) {
                     [subscriber sendNext:[UIImage imageWithCGImage:image]];
                     [subscriber sendCompleted];
@@ -155,7 +157,7 @@
             return nil;
         }];
     }
-    
+
     return [RACSignal error:[NSError errorWithDomain:@"No image to fetch" code:101 userInfo:nil]];
 }
 
