@@ -373,14 +373,20 @@ BOOL isSmallScreen() {
                 break;
         }
         
-        if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled ||
-            panGesture.state == UIGestureRecognizerStateFailed) {
-            if (xTrans > 0) {
-                [self swipedLeft:panGesture];
-            } else if (xTrans < 0) {
-                [self swipedRight:panGesture];
-            }
-            [panGesture setTranslation:CGPointMake(0, 0) inView:view];
+        switch (panGesture.state) {
+            case UIGestureRecognizerStateEnded:
+            case UIGestureRecognizerStateCancelled:
+            case UIGestureRecognizerStateFailed:
+                if (xTrans > 0) {
+                    [self swipedLeft:panGesture];
+                } else if (xTrans < 0) {
+                    [self swipedRight:panGesture];
+                }
+                [panGesture setTranslation:CGPointMake(0, 0) inView:view];
+                break;
+                
+            default:
+                break;
         }
     }];
     [[self.singleTapGesture rac_gestureSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {

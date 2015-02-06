@@ -20,7 +20,7 @@
  */
 @property (nonatomic, assign) BOOL fadeOut;
 
-@property (nonatomic, readonly, strong) NSArray *labels;
+@property (nonatomic, readonly, strong) NSOrderedSet *labels;
 
 /*
  Responible for animating the view to the label at @index

@@ -98,10 +98,11 @@
         [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
             UILabel *label = [[UILabel alloc] init];
             label.text = title;
+            label.userInteractionEnabled = YES;
             [self addSubview:label];
             [array addObject:label];
         }];
-        _labels = [array copy];
+        _labels = [[NSOrderedSet alloc] initWithArray:array];
         
         self.index = 0;
         
@@ -121,6 +122,20 @@
         maskLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
         
         self.layer.mask = maskLayer;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        [self addGestureRecognizer:tap];
+        
+        @weakify(self);
+        [[tap.rac_gestureSignal takeUntil:self.rac_willDeallocSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
+            @strongify(self);
+            CGPoint point = [gesture locationInView:gesture.view];
+            UILabel *tappedView = [gesture.view hitTest:point withEvent:nil];
+            if ([tappedView isKindOfClass:[UILabel class]] && [self.labels containsObject:tappedView]) {
+                NSUInteger index = [self.labels indexOfObject:tappedView];
+                [self setIndex:index];
+            }
+        }];
     }
     return self;
 }
@@ -130,5 +145,7 @@
     CGRect bounds = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
     self.layer.mask.bounds = bounds;
 }
+
+
 
 @end
