@@ -138,6 +138,23 @@
             return nil;
         }];
     }
+
+    if (self.fileURL) {
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:[[AVURLAsset alloc] initWithURL:self.fileURL options:nil]];
+            generator.appliesPreferredTrackTransform = YES;
+            CMTime time = CMTimeMakeWithSeconds(0, 30);
+            [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:time]] completionHandler:^(CMTime requestedTime, CGImageRef image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+                if (!error && result == AVAssetImageGeneratorSucceeded) {
+                    [subscriber sendNext:[UIImage imageWithCGImage:image]];
+                    [subscriber sendCompleted];
+                } else {
+                    [subscriber sendError:[NSError errorWithDomain:@"Cannot fetch image" code:101 userInfo:nil]];
+                }
+            }];
+            return nil;
+        }];
+    }
     
     return [RACSignal error:[NSError errorWithDomain:@"No image to fetch" code:101 userInfo:nil]];
 }
