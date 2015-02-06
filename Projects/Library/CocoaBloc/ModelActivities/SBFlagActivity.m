@@ -18,7 +18,7 @@
 
 NSString *const SBFlagActivityType = @"SBFlagActivityType";
 
-@interface SBFlagActivity () <SBFlagViewControllerDelegate>
+@interface SBFlagActivity () <SBFlagViewControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic) SBClient *client;
 @property (nonatomic) id contentOrComment;
 @end
@@ -84,8 +84,17 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
 - (UIViewController *)activityViewController {
     SBFlagViewController *flag = [[SBFlagViewController alloc] init];
     flag.delegate = self;
+        
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:flag];
+    nav.delegate = self;
     
-    return [[UINavigationController alloc] initWithRootViewController:flag];
+    return nav;
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if ([self.delegate respondsToSelector:@selector(flagActivity:willDisplayViewController:)]) {
+        [self.delegate flagActivity:self willDisplayViewController:viewController];
+    }
 }
 
 @end

@@ -34,23 +34,34 @@
              @"tierOne"             : @"tier_info.1",
              @"tierTwo"             : @"tier_info.2",
              @"tierThree"           : @"tier_info.3",
-             @"account"             : NSNull.null,
+             @"account"             : @"account",
              };
 }
 
-+ (NSValueTransformer*) tierOneJSONTransformer {
++ (MTLValueTransformer *)tierOneJSONTransformer {
     return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
-+ (NSValueTransformer*) tierTwoJSONTransformer {
+
++ (MTLValueTransformer *)tierTwoJSONTransformer {
     return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
-+ (NSValueTransformer*) tierThreeJSONTransformer {
+
++ (MTLValueTransformer *)tierThreeJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+}
+
++ (MTLValueTransformer *)accountIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+}
+
++ (MTLValueTransformer *)accountJSONTransformer {
     return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 - (RACSignal *)fetchAccount {
     return [self fetchAccountWithClient:nil];
 }
+
 - (RACSignal *)fetchAccountWithClient:(SBClient*)client {
     return [self.fetchAccountCommand execute:client];
 }

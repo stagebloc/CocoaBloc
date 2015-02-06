@@ -10,11 +10,10 @@
 #import <PureLayout.h>
 #import <ReactiveCocoa.h>
 #import "SBClient+Comment.h"
+#import "SBPlaceholderTextView.h"
 
 @interface SBFlagViewController ()
 
-@property (nonatomic) UISegmentedControl *typePicker;
-@property (nonatomic) UITextView *reasonTextView;
 @property (nonatomic) NSDictionary *titleToReasonMap;
 
 @end
@@ -24,6 +23,8 @@
 
 - (void)loadView {
     [super loadView];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     
     _titleToReasonMap = @{@"Offensive" : SBAPIMethodParameterFlagContentValueOffensive,
                           @"Prejudice" : SBAPIMethodParameterFlagContentValuePrejudice,
@@ -35,9 +36,10 @@
     _typePicker.selectedSegmentIndex = 0;
     _typePicker.backgroundColor = [UIColor clearColor];
     
-    _reasonTextView = [[UITextView alloc] init];
+    _reasonTextView = [[SBPlaceholderTextView alloc] init];
     _reasonTextView.textContainerInset = UIEdgeInsetsMake(0, 10, 10, 10);
     _reasonTextView.font = [UIFont systemFontOfSize:18];
+    _reasonTextView.placeholder = @"Enter a reason for flagging...";
     
     [self.view addSubview:_typePicker];
     [self.view addSubview:_reasonTextView];
@@ -60,9 +62,15 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.reasonTextView resignFirstResponder];
+}
+
 - (void)submit {
     if ([self.delegate respondsToSelector:@selector(flagViewControllerFinishedWithType:reason:)]) {
-        [self.delegate flagViewControllerFinishedWithType:_titleToReasonMap.allValues[_typePicker.selectedSegmentIndex] reason:_reasonTextView.text];
+        [self.delegate flagViewControllerFinishedWithType:_titleToReasonMap[[_typePicker titleForSegmentAtIndex:_typePicker.selectedSegmentIndex]] reason:_reasonTextView.text];
     }
 }
 
