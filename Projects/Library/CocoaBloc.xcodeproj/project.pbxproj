@@ -65,7 +65,7 @@
 		4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */; };
 		4D18F92A1A70039200D3C0BC /* NSData+Mime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D18F9291A70039200D3C0BC /* NSData+Mime.m */; };
 		4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SBPageView.m */; };
-		4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */; };
+		4D22AA0C1A08190000B3C073 /* UIDevice+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22AA0B1A08190000B3C073 /* UIDevice+CocoaBloc.m */; };
 		4D25777E1A3F8CD400147E66 /* AVAssetExportSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D25777D1A3F8CD400147E66 /* AVAssetExportSession+Extension.m */; };
 		4D2577871A406DAD00147E66 /* SBComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2577861A406DAD00147E66 /* SBComposition.m */; };
 		4D25778A1A40A48100147E66 /* NSUserDefaults+Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2577891A40A48100147E66 /* NSUserDefaults+Camera.m */; };
@@ -286,7 +286,7 @@
 		4D224DDF1A0919B6007DF1D1 /* SBVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideoManager.h; sourceTree = "<group>"; };
 		4D224DE01A0919B6007DF1D1 /* SBVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideoManager.m; sourceTree = "<group>"; };
 		4D22AA0A1A08190000B3C073 /* UIDevice+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+CocoaBloc.h"; sourceTree = "<group>"; };
-		4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+StageBloc.m"; sourceTree = "<group>"; };
+		4D22AA0B1A08190000B3C073 /* UIDevice+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+CocoaBloc.m"; sourceTree = "<group>"; };
 		4D25777C1A3F8CD400147E66 /* AVAssetExportSession+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAssetExportSession+Extension.h"; sourceTree = "<group>"; };
 		4D25777D1A3F8CD400147E66 /* AVAssetExportSession+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAssetExportSession+Extension.m"; sourceTree = "<group>"; };
 		4D2577851A406DAD00147E66 /* SBComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBComposition.h; sourceTree = "<group>"; };
@@ -673,7 +673,7 @@
 				09D2A36719B8FA41000D32DE /* UIFont+CocoaBloc.h */,
 				09D2A36819B8FA41000D32DE /* UIFont+CocoaBloc.m */,
 				4D22AA0A1A08190000B3C073 /* UIDevice+CocoaBloc.h */,
-				4D22AA0B1A08190000B3C073 /* UIDevice+StageBloc.m */,
+				4D22AA0B1A08190000B3C073 /* UIDevice+CocoaBloc.m */,
 				4D06DA841A165F9F00EE3926 /* UIImage+Resize.h */,
 				4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */,
 				4DECC3001A3200FD0097ACA3 /* UIView+Extension.h */,
@@ -1136,7 +1136,7 @@
 				09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */,
 				09B512571979AEB400D62F67 /* SBStatus.m in Sources */,
 				4D617ECC1A38B04D0098869B /* ALAssetsLibrary+RAC.m in Sources */,
-				4D22AA0C1A08190000B3C073 /* UIDevice+StageBloc.m in Sources */,
+				4D22AA0C1A08190000B3C073 /* UIDevice+CocoaBloc.m in Sources */,
 				0976370219BE3F4200E3CD45 /* SBClient+Audio.m in Sources */,
 				09B5124A1979AE6000D62F67 /* SBFanClub.m in Sources */,
 				4D44DFAE1A3B7F3800E28C22 /* SBToolBarAnimator.m in Sources */,
