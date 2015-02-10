@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic) NSURL *videoURL;
+@property (nonatomic) NSURL *videoCDNURL;
 
 @end

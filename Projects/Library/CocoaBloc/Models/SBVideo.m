@@ -15,10 +15,16 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
             @{@"descriptiveText"    : @"description",
-              @"videoURL" 			: @"video_url"}];
+              @"videoURL" 			: @"video_url",
+              @"videoCDNURL" 		: @"video_cdn_url"
+              }];
 }
 
 + (MTLValueTransformer *)videoURLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)videoCDNURLJSONTransformer {
     return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
