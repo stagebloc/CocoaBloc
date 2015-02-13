@@ -14,8 +14,11 @@
 @property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic) NSNumber *canSubmitContent;
 @property (nonatomic) NSNumber *discount;
-@property (nonatomic) NSNumber *membershipLength;
+@property (nonatomic) NSNumber *membershipLengthInterval;
+@property (nonatomic) NSString *membershipLengthUnit;
 @property (nonatomic) NSNumber *price;
 @property (nonatomic) NSNumber *renewalPrice;
+
+- (NSString *)readableLengthString;
 
 @end
