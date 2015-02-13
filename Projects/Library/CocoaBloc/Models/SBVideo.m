@@ -16,7 +16,8 @@
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
             @{@"descriptiveText"    : @"description",
               @"videoURL" 			: @"video_url",
-              @"videoCDNURL" 		: @"video_cdn_url"
+              @"videoCDNURL" 		: @"video_cdn_url",
+              @"photo"              : @"photo",
               }];
 }
 
@@ -26,6 +27,10 @@
 
 + (MTLValueTransformer *)videoCDNURLJSONTransformer {
     return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)photoJSONTransformer {
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 @end
