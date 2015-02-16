@@ -12,8 +12,10 @@
 /*!
  Simple subclass of `UIImagePickerController`.
  */
-@interface SBImagePickerController : UIImagePickerController
+@interface SBImagePickerController : UIImagePickerController <UINavigationControllerDelegate>
 
 - (RACSignal*) imageSelectSignal;
+
+@property (nonatomic, assign) BOOL hideStatusBar;
 
 @end
