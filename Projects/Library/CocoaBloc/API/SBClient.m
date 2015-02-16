@@ -26,7 +26,6 @@ NSString * const SBAPIMethodParameterResultFollowing = @"following";
 
 NSString * const SBAPIErrorResponseObjectKey = @"SBAPIErrorResponseObjectKey";
 NSString * const SBCocoaBlocErrorDomain = @"SBCocoaBlocErrorDomain";
-NSString * const SBAPIErrorResponseLocalizedErrorString = @"SBAPIErrorResponseLocalizedErrorString";
 
 /// Comment and Content flagging type
 NSString * const SBAPIMethodParameterFlagContentValueOffensive = @"offensive";
@@ -46,7 +45,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     if (*error != nil && obj != nil) {
         NSMutableDictionary *userInfo = (*error).userInfo.mutableCopy;
         userInfo[SBAPIErrorResponseObjectKey] = obj;
-        userInfo[SBAPIErrorResponseLocalizedErrorString] = obj[@"metadata"][@"error"];
+        userInfo[NSLocalizedFailureReasonErrorKey] = obj[@"metadata"][@"error"];
         
         *error = [NSError errorWithDomain:SBCocoaBlocErrorDomain code:(*error).code userInfo:userInfo];
     }

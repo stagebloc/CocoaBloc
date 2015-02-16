@@ -38,7 +38,6 @@ extern NSString * const SBAPIMethodParameterFlagContentValueDuplicate;
 // Error handling
 extern NSString * const SBAPIErrorResponseObjectKey;            // Deserialized JSON object from server
 extern NSString * const SBCocoaBlocErrorDomain;                 // Error domain for CB-generated errors
-extern NSString * const SBAPIErrorResponseLocalizedErrorString;        // User-presentable string from the server
 
 // CocoaBloc error codes
 typedef NS_ENUM(NSInteger, SBCocoaBlocErrorCode) {
