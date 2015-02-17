@@ -550,21 +550,37 @@
     */
     
     SBImagePickerController *picker = [[SBImagePickerController alloc] init];
-    [[picker imageSelectSignal] subscribeNext:^(UIImage *image) {
-        @strongify(self);
-        if ([image  isKindOfClass:[UIImage class]]) {
-            SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
-            [self pushReviewControllerWithAsset:asset];
+    
+    void (^dismissPicker)(void) = ^{
+        picker.hideStatusBar = YES;
+        [UIView animateWithDuration:0.2 animations:^{
+            [picker setNeedsStatusBarAppearanceUpdate];
+        } completion:^(BOOL finished) {
             [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    } error:^(NSError *error) {
-        @strongify(self);
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } completed:^{
-        @strongify(self);
-        if (self.presentedViewController)
-            [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+        }];
+
+    };
+    
+    @weakify(picker);
+    [[[picker imageSelectSignal]
+        deliverOnMainThread]
+        subscribeNext:^(UIImage *image) {
+            @strongify(self);
+            @strongify(picker);
+            if ([image  isKindOfClass:[UIImage class]]) {
+                SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
+                [self pushReviewControllerWithAsset:asset];
+                dismissPicker();
+            }
+        } error:^(NSError *error) {
+            @strongify(self);
+            dismissPicker();
+        } completed:^{
+            @strongify(self);
+            if (self.presentedViewController) {
+                dismissPicker();
+            }
+        }];
     [self presentViewController:picker animated:YES completion:nil];
 }
 
@@ -737,6 +753,17 @@
     return self.navAnimator;
 }
 
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [UIView performWithoutAnimation:^{
+        [viewController setNeedsStatusBarAppearanceUpdate];
+    }];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [UIView performWithoutAnimation:^{
+        [viewController setNeedsStatusBarAppearanceUpdate];
+    }];
+}
 
 #pragma mark - Status bar states
 -(UIStatusBarStyle)preferredStatusBarStyle{

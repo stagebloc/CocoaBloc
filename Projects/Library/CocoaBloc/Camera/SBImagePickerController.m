@@ -23,4 +23,13 @@
     }];
 }
 
+#pragma mark - Status bar
+- (BOOL)prefersStatusBarHidden {
+    return self.hideStatusBar;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return nil;
+}
+
 @end
