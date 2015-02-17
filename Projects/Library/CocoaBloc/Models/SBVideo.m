@@ -9,6 +9,8 @@
 #import "SBVideo.h"
 #import "MTLValueTransformer+Convenience.h"
 #import <Mantle/Mantle.h>
+#import <RACEXTScope.h>
+#import "SBClient+Account.h"
 
 @implementation SBVideo
 
@@ -18,6 +20,7 @@
               @"videoURL" 			: @"video_url",
               @"videoCDNURL" 		: @"video_cdn_url",
               @"photo"              : @"photo",
+              @"photoID"            : @"photo"
               }];
 }
 
@@ -31,6 +34,10 @@
 
 + (MTLValueTransformer *)photoJSONTransformer {
     return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+}
+
++ (MTLValueTransformer *)photoIDJSONTransformer {
+    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 @end
