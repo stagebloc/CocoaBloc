@@ -9,6 +9,10 @@
 #import "SBClient.h"
 #import "SBVideo.h"
 
+NSString static *const kVideoEventTypePlay = @"play";
+NSString static *const kVideoEventTypeEnded = @"ended";
+NSString static *const kVideoEventTypeLoop = @"loop";
+
 @interface SBClient (Video)
 
 /// @name Video
