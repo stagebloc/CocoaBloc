@@ -10,6 +10,7 @@
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Private.h"
 #import "SBVideo.h"
+#import <RACAFNetworking.h>
 #import "AFHTTPRequestOperationManager+File.h"
 
 // Figure out MIME type based on extension
@@ -110,6 +111,18 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                                           fanContent:fanContent
                                       progressSignal:progressSignal];
                 }];
+}
+
+- (RACSignal *)trackVideoEvent:(NSString *)event
+               videoIdentifier:(NSNumber *)videoIdentifier
+             accountIdentifier:(NSNumber *)accountIdentifier {
+    NSParameterAssert(event);
+    NSParameterAssert(videoIdentifier);
+    NSParameterAssert(accountIdentifier);
+
+    NSDictionary *params = @{@"event" : event};
+
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/video/%@/stats", accountIdentifier, videoIdentifier] parameters:[self requestParametersWithParameters:params]] cb_deserializeWithClient:self keyPath:@"data"] setNameWithFormat:@"Post video event (%@) to account (%@)", event, accountIdentifier];
 }
 
 @end

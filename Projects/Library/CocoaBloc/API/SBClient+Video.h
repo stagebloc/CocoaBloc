@@ -9,6 +9,10 @@
 #import "SBClient.h"
 #import "SBVideo.h"
 
+NSString static *const kVideoEventTypePlay = @"play";
+NSString static *const kVideoEventTypeEnded = @"ended";
+NSString static *const kVideoEventTypeLoop = @"loop";
+
 @interface SBClient (Video)
 
 /// @name Video
@@ -40,5 +44,15 @@
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
                   progressSignal:(RACSignal **)progressSignal;
+
+/*!
+ Track video events.
+ @param event           video event, supported events -> (play, ended, loop)
+ @param videoID         The account to post to.
+ @param accountID       The video of the associated event
+ */
+- (RACSignal *)trackVideoEvent:(NSString *)event
+               videoIdentifier:(NSNumber *)videoIdentifier
+             accountIdentifier:(NSNumber *)accountIdentifier;
 
 @end
