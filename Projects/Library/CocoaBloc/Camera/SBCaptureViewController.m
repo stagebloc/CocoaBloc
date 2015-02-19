@@ -660,7 +660,11 @@
             @strongify(self);
             if (alert.cancelButtonIndex == buttonIndex.integerValue)
                 return;
+            
             [self.captureManager.videoManager reset];
+            if ([self.delegate respondsToSelector:@selector(cameraControllerCancelled:)]) {
+                [self.delegate cameraControllerCancelled:self];
+            }
         }];
         [alert show];
         return;
