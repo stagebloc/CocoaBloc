@@ -33,7 +33,8 @@ CGFloat aspectRatio(CGSize size) {
 @property (nonatomic) AVCaptureDeviceInput *audioInput;
 
 @property (nonatomic) AVCaptureMovieFileOutput *movieFileOutput;
-@property (nonatomic, assign) AVCaptureVideoOrientation orientation;
+@property (nonatomic, assign) AVCaptureVideoOrientation currentOrientation;
+@property (nonatomic, assign) AVCaptureVideoOrientation startOrientation;
 
 @property (nonatomic, assign) NSInteger currentRecordingSegment;
 
@@ -145,7 +146,8 @@ CGFloat aspectRatio(CGSize size) {
     self.paused = NO;
     self.currentFinalDuration = kCMTimeZero;
     
-    [self updateVideoConnectionWithOrientation:self.orientation];
+    self.startOrientation = self.currentOrientation;
+    [self updateVideoConnectionWithOrientation:self.currentOrientation];
     
     self.specificSessionPreset = [self.captureSession bestSessionPreset];
     
@@ -161,7 +163,7 @@ CGFloat aspectRatio(CGSize size) {
     self.paused = YES;
     [self.movieFileOutput stopRecording];
     self.currentFinalDuration = CMTimeAdd(self.currentFinalDuration, self.movieFileOutput.recordedDuration);
-    [self updateVideoConnectionWithOrientation:self.orientation];
+    [self updateVideoConnectionWithOrientation:self.currentOrientation];
 }
 
 - (BOOL) resumeRecording {
@@ -170,7 +172,7 @@ CGFloat aspectRatio(CGSize size) {
     
     [self updateSpecificPreset];
     
-    [self updateVideoConnectionWithOrientation:self.orientation];
+    [self updateVideoConnectionWithOrientation:self.currentOrientation];
     
     self.currentRecordingSegment++;
     
@@ -197,7 +199,7 @@ CGFloat aspectRatio(CGSize size) {
     
     self.paused = NO;
     
-    [self updateVideoConnectionWithOrientation:self.orientation];
+    [self updateVideoConnectionWithOrientation:self.currentOrientation];
 }
 
 - (CMTime)totalRecordingDuration {
@@ -252,7 +254,7 @@ CGFloat aspectRatio(CGSize size) {
     }
 
 
-    SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.orientation
+    SBAssetStitcherOptions *options = [SBAssetStitcherOptions optionsWithOrientation:self.startOrientation
                                                                         exportPreset:[AVCaptureSession exportPresetForSessionPreset:self.specificSessionPreset]];
     BOOL isSquare = self.aspectRatio == SBCameraAspectRatioSquare;
     
@@ -386,11 +388,11 @@ CGFloat aspectRatio(CGSize size) {
     }];
     
     //Track orientation changes
-    self.orientation = [[UIDevice currentDevice] videoOrientation] == -1 ? AVCaptureVideoOrientationPortrait : [[UIDevice currentDevice] videoOrientation];
+    self.currentOrientation = [[UIDevice currentDevice] videoOrientation] == -1 ? AVCaptureVideoOrientationPortrait : [[UIDevice currentDevice] videoOrientation];
     deviceOrientationDidChangeObserver = [notificationCenter addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
         if ((NSInteger)orientation != -1) {
-            self.orientation = orientation;
+            self.currentOrientation = orientation;
             if (!self.isRecording)
                 [self updateVideoConnectionWithOrientation:orientation];
         }
