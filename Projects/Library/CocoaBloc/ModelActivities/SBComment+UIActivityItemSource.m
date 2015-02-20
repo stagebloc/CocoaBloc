@@ -21,7 +21,7 @@
         return self;
     }
     
-    return self.text;
+    return self.shortURL.absoluteString;
 }
 
 @end

@@ -32,6 +32,7 @@
 		09A897DA1978536000EE983C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09A897D81978536000EE983C /* InfoPlist.strings */; };
 		09A897F91978630800EE983C /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897F81978630800EE983C /* SBAccount.m */; };
 		09A897FC19786D7F00EE983C /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A897FB19786D7F00EE983C /* SBUser.m */; };
+		09AE3C041A97B0FF009B004A /* SBVideo+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AE3C031A97B0FF009B004A /* SBVideo+UIActivityItemSource.m */; };
 		09B3153019BA35EC0005CEDD /* SBAnimationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */; };
 		09B512411979ADDF00D62F67 /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512401979ADDF00D62F67 /* SBObject.m */; };
 		09B512471979AE4900D62F67 /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B512461979AE4900D62F67 /* SBContent.m */; };
@@ -184,6 +185,8 @@
 		09A897F81978630800EE983C /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
 		09A897FA19786D7F00EE983C /* SBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUser.h; sourceTree = "<group>"; };
 		09A897FB19786D7F00EE983C /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
+		09AE3C021A97B0FF009B004A /* SBVideo+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBVideo+UIActivityItemSource.h"; sourceTree = "<group>"; };
+		09AE3C031A97B0FF009B004A /* SBVideo+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBVideo+UIActivityItemSource.m"; sourceTree = "<group>"; };
 		09B3152E19BA35EC0005CEDD /* SBAnimationContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAnimationContainerView.h; sourceTree = "<group>"; };
 		09B3152F19BA35EC0005CEDD /* SBAnimationContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAnimationContainerView.m; sourceTree = "<group>"; };
 		09B5123F1979ADDF00D62F67 /* SBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBObject.h; sourceTree = "<group>"; };
@@ -705,6 +708,8 @@
 				09FAD5071A83E01A008D751E /* SBPhotoActivityItemProvider.m */,
 				09FAD5081A83E01A008D751E /* SBStatus+UIActivityItemSource.h */,
 				09FAD5091A83E01A008D751E /* SBStatus+UIActivityItemSource.m */,
+				09AE3C021A97B0FF009B004A /* SBVideo+UIActivityItemSource.h */,
+				09AE3C031A97B0FF009B004A /* SBVideo+UIActivityItemSource.m */,
 			);
 			path = ModelActivities;
 			sourceTree = "<group>";
@@ -1122,6 +1127,7 @@
 				09D2A36919B8FA41000D32DE /* UIFont+CocoaBloc.m in Sources */,
 				4D25777E1A3F8CD400147E66 /* AVAssetExportSession+Extension.m in Sources */,
 				528ED6491A38B1FF00A2FCC2 /* SBComment.m in Sources */,
+				09AE3C041A97B0FF009B004A /* SBVideo+UIActivityItemSource.m in Sources */,
 				4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */,
 				097636FC19BE3F1400E3CD45 /* SBClient+Store.m in Sources */,
 				4D76A5B61A23A8A700D33D24 /* SBReviewView.m in Sources */,

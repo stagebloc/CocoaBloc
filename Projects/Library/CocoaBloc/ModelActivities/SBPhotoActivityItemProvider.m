@@ -27,7 +27,7 @@
         return self.photo;
     }
     
-    return [UIImage imageWithData:[NSData dataWithContentsOfURL:self.photoURL]];
+    return self.photo.originalURL.absoluteString; // [UIImage imageWithData:[NSData dataWithContentsOfURL:self.photoURL]];
 }
 
 @end

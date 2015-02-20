@@ -13,7 +13,7 @@
 @implementation SBBlog (UIActivityItemSource)
 
 - (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
-    return [NSData new];
+    return @"";
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
@@ -21,11 +21,11 @@
         return self;
     }
     
-    return [(self.body.length > 0 ? self.body : self.excerpt) dataUsingEncoding:NSUTF8StringEncoding];
+    return self.shortURL.absoluteString; //[(self.body.length > 0 ? self.body : self.excerpt) dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
-    return (__bridge NSString *)kUTTypeHTML;
-}
+//- (NSString *)activityViewController:(UIActivityViewController *)activityViewController dataTypeIdentifierForActivityType:(NSString *)activityType {
+//    return (__bridge NSString *)kUTTypeHTML;
+//}
 
 @end
