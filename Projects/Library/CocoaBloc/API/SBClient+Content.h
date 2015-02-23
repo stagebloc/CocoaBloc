@@ -24,7 +24,7 @@
  @param type - type of content (i.e. blog, photo, etc)
  @param accountIdentifier - account content is posted to
  */
-- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString*)type forAccountWithIdentifier:(NSNumber *)accountIdentifier;
+- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString*)type forAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters;
 
 - (RACSignal *)flagContent:(SBContent *)content type:(NSString *)type reason:(NSString *)reason;
 

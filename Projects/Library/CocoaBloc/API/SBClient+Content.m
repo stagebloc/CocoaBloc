@@ -87,12 +87,16 @@
                 ignoreValues];
 }
 
-- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString *)type forAccountWithIdentifier:(NSNumber *)accountIdentifier {
+- (RACSignal *)getContentWithIdentifier:(NSNumber *)identifier type:(NSString *)type forAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters {
     NSParameterAssert(identifier);
     NSParameterAssert(accountIdentifier);
     NSParameterAssert(type);
     
-    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@", identifier, type, accountIdentifier] parameters:nil]
+    if ([type hasSuffix:@"s"]) {
+        type = [type substringToIndex:[type length] - ([type hasSuffix:@"es"] ? 2 : 1)];
+    }
+    
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@", accountIdentifier, type, identifier] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get %@ (%@) for account %@", type, identifier, accountIdentifier];
 }
