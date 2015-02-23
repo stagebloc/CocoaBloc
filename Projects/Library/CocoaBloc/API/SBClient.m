@@ -43,7 +43,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
                           error:(NSError *__autoreleasing *)error {
     id obj = [super responseObjectForResponse:response data:data error:error];
     if (*error != nil && obj != nil) {
-        NSMutableDictionary *userInfo = (*error).userInfo.mutableCopy;
+        NSMutableDictionary *userInfo = (*error).userInfo.mutableCopy ?: [NSMutableDictionary new];
         userInfo[SBAPIErrorResponseObjectKey] = obj;
         userInfo[NSLocalizedFailureReasonErrorKey] = obj[@"metadata"][@"error"];
         
