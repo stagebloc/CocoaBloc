@@ -23,6 +23,7 @@
   toAccountWithIdentifier:(NSNumber *)accountIdentifier
                fanContent:(BOOL)fanContent
                  latitude:(NSNumber *)latitude
-                longitude:(NSNumber *)longitude;
+                longitude:(NSNumber *)longitude
+               parameters:(NSDictionary *)parameters;
 
 @end

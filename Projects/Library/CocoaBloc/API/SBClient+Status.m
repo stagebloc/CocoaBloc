@@ -15,18 +15,20 @@
 @implementation SBClient (Status)
 
 - (RACSignal *)postStatus:(NSString *)status toAccountWithIdentifier:(NSNumber *)accountIdentifier fanContent:(BOOL)fanContent {
-    return [self postStatus:status toAccountWithIdentifier:accountIdentifier fanContent:fanContent latitude:nil longitude:nil];
+    return [self postStatus:status toAccountWithIdentifier:accountIdentifier fanContent:fanContent latitude:nil longitude:nil parameters:nil];
 }
 
 - (RACSignal *)postStatus:(NSString *)status
   toAccountWithIdentifier:(NSNumber *)accountIdentifier
                fanContent:(BOOL)fanContent
                  latitude:(NSNumber *)latitude
-                longitude:(NSNumber *)longitude {
+                longitude:(NSNumber *)longitude
+               parameters:(NSDictionary *)parameters {
     NSParameterAssert(status);
     NSParameterAssert(accountIdentifier);
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[status, @(fanContent)] forKeys:@[@"text", SBAPIMethodParameterResultFanContent]];
+    [params addEntriesFromDictionary:parameters];
     
     if (latitude && longitude) {
         [params setObject:latitude forKey:@"latitude"];
