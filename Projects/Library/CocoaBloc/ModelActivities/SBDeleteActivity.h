@@ -16,3 +16,6 @@
 @end
 
 extern NSString *const SBDeleteActivityType;
+
+/// Sent when the activity completes the API request to delete the item
+extern NSString *const SBDeleteActivityDidDeleteContentOrCommentNotification;

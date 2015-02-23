@@ -14,6 +14,7 @@
 #import "SBClient+Content.h"
 #import <RACEXTScope.h>
 
+NSString *const SBDeleteActivityDidDeleteContentOrCommentNotification = @"SBDeleteActivityDidDeleteContentOrCommentNotification";
 NSString *const SBDeleteActivityType = @"SBDeleteActivity";
 
 @interface SBDeleteActivity ()
@@ -88,6 +89,7 @@ NSString *const SBDeleteActivityType = @"SBDeleteActivity";
             completed:^{
                 @strongify(self);
                 
+                [[NSNotificationCenter defaultCenter] postNotificationName:SBDeleteActivityDidDeleteContentOrCommentNotification object:self.contentOrComment];
                 [self activityDidFinish:YES];
             }];
     }]];
