@@ -32,7 +32,8 @@ NSString static *const kVideoEventTypeLoop = @"loop";
            toAccountWithIdentifier:(NSNumber *)accountIdentifier
                          exclusive:(BOOL)exclusive
                         fanContent:(BOOL)fanContent
-                    progressSignal:(RACSignal **)progressSignal;
+                    progressSignal:(RACSignal **)progressSignal
+                        parameters:(NSDictionary *)parameters;
 
 /*!
  Upload a video directly from disk by providing the absolute path to the video file.
@@ -43,7 +44,8 @@ NSString static *const kVideoEventTypeLoop = @"loop";
          toAccountWithIdentifier:(NSNumber *)accountIdentifier
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
-                  progressSignal:(RACSignal **)progressSignal;
+                  progressSignal:(RACSignal **)progressSignal
+                      parameters:(NSDictionary *)parameters;
 
 /*!
  Track video events.

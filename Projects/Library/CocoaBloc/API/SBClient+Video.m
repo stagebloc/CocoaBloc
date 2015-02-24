@@ -34,7 +34,8 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
            toAccountWithIdentifier:(NSNumber *)accountIdentifier
                          exclusive:(BOOL)exclusive
                         fanContent:(BOOL)fanContent
-                    progressSignal:(RACSignal **)progressSignal {
+                    progressSignal:(RACSignal **)progressSignal
+                        parameters:(NSDictionary *)parameters {
     NSParameterAssert(videoData);
     NSParameterAssert(accountIdentifier);
     NSParameterAssert(title);
@@ -54,6 +55,10 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive), @(fanContent)] forKeys:@[@"title", @"exclusive", SBAPIMethodParameterResultFanContent]];
     if (caption) {
         params[@"description"] = caption;
+    }
+    
+    if (parameters) {
+        [params addEntriesFromDictionary:parameters];
     }
     
     // create the upload request
@@ -83,7 +88,8 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
          toAccountWithIdentifier:(NSNumber *)accountIdentifier
                        exclusive:(BOOL)exclusive
                       fanContent:(BOOL)fanContent
-                  progressSignal:(RACSignal **)progressSignal {
+                  progressSignal:(RACSignal **)progressSignal
+                      parameters:(NSDictionary *)parameters {
     NSParameterAssert(filePath);
     NSParameterAssert(title);
     NSParameterAssert(accountIdentifier);
@@ -109,7 +115,8 @@ static inline NSString * SBVideoContentTypeForPathExtension(NSString *extension,
                              toAccountWithIdentifier:accountIdentifier
                                            exclusive:exclusive
                                           fanContent:fanContent
-                                      progressSignal:progressSignal];
+                                      progressSignal:progressSignal
+                                          parameters:parameters];
                 }];
 }
 

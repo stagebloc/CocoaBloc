@@ -27,7 +27,8 @@
       toAccountWithIdentifier:(NSNumber*)accountIdentifier
                     exclusive:(BOOL)exclusive
                    fanContent:(BOOL)fanContent
-               progressSignal:(RACSignal **)progressSignal {
+               progressSignal:(RACSignal **)progressSignal
+                   parameters:(NSDictionary *)parameters {
     NSParameterAssert(data);
     NSParameterAssert(title);
     NSParameterAssert(accountIdentifier);
@@ -47,6 +48,10 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[title, @(exclusive), @(fanContent)] forKeys:@[@"title", @"exclusive", SBAPIMethodParameterResultFanContent]];
     if (caption) {
         params[@"description"] = caption;
+    }
+    
+    if (parameters) {
+        [params addEntriesFromDictionary:parameters];
     }
     
     // create the upload request

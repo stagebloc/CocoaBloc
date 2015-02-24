@@ -24,6 +24,7 @@
       toAccountWithIdentifier:(NSNumber*)accountIdentifier
                     exclusive:(BOOL)exclusive
                    fanContent:(BOOL)fanContent
-               progressSignal:(RACSignal **)progressSignal;
+               progressSignal:(RACSignal **)progressSignal
+                   parameters:(NSDictionary *)parameters;
 
 @end
