@@ -15,6 +15,17 @@
 
 @implementation SBClient (Store)
 
+- (RACSignal *)getShippingRatesForAccountWithIdentifier:(NSNumber *)accountID
+                                                address:(SBAddress *)address
+                                               forItems:(NSDictionary *)items {
+    NSParameterAssert(address.postalCode);
+    NSParameterAssert(address.country);
+    NSParameterAssert(accountID);
+    NSParameterAssert(items);
+    
+    return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/shipping/rates", accountID.stringValue] parameters:[self requestParametersWithParameters:@{@"address" : [MTLJSONAdapter JSONDictionaryFromModel:address], @"cart" : @{@"store": items}}]];
+}
+
 - (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccountWithIdentifier:(NSNumber *)accountIdentifier {
     return [[[self rac_GET:[NSString stringWithFormat:@"/v1/account/%@/store/items/%d", accountIdentifier, storeItemID.intValue] parameters:[self requestParametersWithParameters:nil]]
              	cb_deserializeArrayWithClient:self keyPath:@"data"]
@@ -38,19 +49,7 @@
 				setNameWithFormat:@"Get store items for account (%@)", accountIdentifier];
 }
 
-- (RACSignal *)getShippingRatesForItems:(NSArray *)itemsToPurchase withAddress:(SBAddress *)address
-{
-    NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
-    NSDictionary *params = @{
-                             @"items": itemsToPurchase,
-                             @"address": JSONaddress
-                        };
-
-    return [[self rac_POST:@"store/shipping/rates" parameters:[self requestParametersWithParameters:params]]
-            setNameWithFormat:@"Shipping rates for items: %@", itemsToPurchase];
-}
-
-- (RACSignal *)purchaseItems:(NSDictionary *)itemsToPurchase
+- (RACSignal *)purchaseItems:(NSDictionary *)items
                   usingToken:(NSString *)purchaseToken
                  withAddress:(SBAddress *)address
              shippingDetails:(NSDictionary *)shippingDetails
@@ -61,7 +60,7 @@
                   parameters:(NSDictionary *)parameters {
     NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-                         @"cart": @{@"store": itemsToPurchase},
+                         @"cart": @{@"store": items},
                          @"notes": notes,
                          @"totals": totals,
                          @"address": JSONaddress,
@@ -76,7 +75,7 @@
     if (email == nil) {
         if (!self.authenticatedUser) {
             return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                [subscriber sendError:[[NSError alloc] initWithDomain:@"com.stagebloc.cocoabloc" code:400 userInfo:@{@"message" : @"An email or authenticated user must be used"}]];
+                [subscriber sendError:[[NSError alloc] initWithDomain:SBCocoaBlocErrorDomain code:400 userInfo:@{@"message" : @"An email or authenticated user must be used"}]];
                 return nil;
             }];
         }
@@ -86,7 +85,7 @@
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase", accountId] parameters:[self requestParametersWithParameters:params]]
             	cb_deserializeWithClient:self keyPath:@"data"]
-                setNameWithFormat:@"Purchase items: %@", itemsToPurchase];
+                setNameWithFormat:@"Purchase items: %@", items];
 }
 
 - (RACSignal *)addPaymentForSplitPurchaseForOrderWithID:(NSNumber *)orderID
