@@ -12,24 +12,34 @@
 
 @implementation RACSignal (JSONDeserialization)
 
-- (RACSignal *)cb_deserializeWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
+- (RACSignal *)cb_deserializeWithClient:(SBClient *)client keyPath:(NSString *)keyPath modelClass:(Class)modelClass {
     @weakify(client);
     
     return [self flattenMap:^RACStream *(NSDictionary *response) {
         @strongify(client);
         
-        return [client deserializeModelFromJSONDictionary:!keyPath ? response : [response valueForKeyPath:keyPath]];
+        return [client deserializeModelFromJSONDictionary:!keyPath ? response : [response valueForKeyPath:keyPath] modelClass:modelClass];
     }];
+
+}
+
+- (RACSignal *)cb_deserializeArrayWithClient:(SBClient *)client keyPath:(NSString *)keyPath modelClass:(Class)modelClass {
+    @weakify(client);
+    
+    return [self flattenMap:^RACStream *(NSDictionary *response) {
+        @strongify(client);
+        
+        return [client deserializeModelsFromJSONArray:!keyPath ? response : [response valueForKeyPath:keyPath] modelClass:modelClass];
+    }];
+
+}
+
+- (RACSignal *)cb_deserializeWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
+    return [self cb_deserializeWithClient:client keyPath:keyPath modelClass:[SBObject class]];
 }
 
 - (RACSignal *)cb_deserializeArrayWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
-    @weakify(client);
-    
-    return [self flattenMap:^RACStream *(NSDictionary *response) {
-        @strongify(client);
-        
-        return [client deserializeModelsFromJSONArray:!keyPath ? response : [response valueForKeyPath:keyPath]];
-    }];
+    return [self cb_deserializeArrayWithClient:client keyPath:keyPath modelClass:[SBObject class]];
 }
 
 @end

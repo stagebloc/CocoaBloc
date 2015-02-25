@@ -12,6 +12,7 @@
 #import "RACSignal+JSONDeserialization.h"
 #import "SBStoreItem.h"
 #import "SBOrder.h"
+#import "SBShipping.h"
 
 @implementation SBClient (Store)
 
@@ -23,7 +24,8 @@
     NSParameterAssert(accountID);
     NSParameterAssert(items);
     
-    return [self rac_POST:[NSString stringWithFormat:@"account/%@/store/shipping/rates", accountID.stringValue] parameters:[self requestParametersWithParameters:@{@"address" : [MTLJSONAdapter JSONDictionaryFromModel:address], @"cart" : @{@"store": items}}]];
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/store/shipping/rates", accountID.stringValue] parameters:[self requestParametersWithParameters:@{@"address" : [MTLJSONAdapter JSONDictionaryFromModel:address], @"cart" : @{@"store": items}}]]
+                cb_deserializeWithClient:self keyPath:@"data" modelClass:[SBShippingRateSet class]];
 }
 
 - (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccountWithIdentifier:(NSNumber *)accountIdentifier {
@@ -45,8 +47,8 @@
     SAFE_ASSIGN(@"expand");
 #undef SAFE_ASSIGN
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/items", accountIdentifier] parameters:[self requestParametersWithParameters:p]]
-             	cb_deserializeArrayWithClient:self keyPath:@"data"]
-				setNameWithFormat:@"Get store items for account (%@)", accountIdentifier];
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get store items for account (%@)", accountIdentifier];
 }
 
 - (RACSignal *)purchaseItems:(NSDictionary *)items
@@ -84,7 +86,7 @@
     }
     
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/store/purchase", accountId] parameters:[self requestParametersWithParameters:params]]
-            	cb_deserializeWithClient:self keyPath:@"data"]
+                cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Purchase items: %@", items];
 }
 

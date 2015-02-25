@@ -51,6 +51,7 @@
 		09D2A36919B8FA41000D32DE /* UIFont+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36819B8FA41000D32DE /* UIFont+CocoaBloc.m */; };
 		09D2A36C19B90EDD000D32DE /* SBLoadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */; };
 		09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */; };
+		09D554E21A9E7B3B00667BB2 /* SBShipping.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D554E11A9E7B3B00667BB2 /* SBShipping.m */; };
 		09FAD50A1A83E01A008D751E /* SBBlog+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FAD4FB1A83E01A008D751E /* SBBlog+UIActivityItemSource.m */; };
 		09FAD50B1A83E01A008D751E /* SBComment+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FAD4FD1A83E01A008D751E /* SBComment+UIActivityItemSource.m */; };
 		09FAD50C1A83E01A008D751E /* SBDeleteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FAD4FF1A83E01A008D751E /* SBDeleteActivity.m */; };
@@ -226,6 +227,8 @@
 		09D2A36B19B90EDD000D32DE /* SBLoadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoadingImageView.m; sourceTree = "<group>"; };
 		09D510D91988177A00C45D8A /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		09D510DA1988177A00C45D8A /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
+		09D554E01A9E7B3B00667BB2 /* SBShipping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBShipping.h; sourceTree = "<group>"; };
+		09D554E11A9E7B3B00667BB2 /* SBShipping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBShipping.m; sourceTree = "<group>"; };
 		09E19ECB19E6EDDE00D75927 /* Guidelines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Guidelines.txt; path = ../../Guidelines.txt; sourceTree = "<group>"; };
 		09FAD4FA1A83E01A008D751E /* SBBlog+UIActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBBlog+UIActivityItemSource.h"; sourceTree = "<group>"; };
 		09FAD4FB1A83E01A008D751E /* SBBlog+UIActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBBlog+UIActivityItemSource.m"; sourceTree = "<group>"; };
@@ -579,6 +582,8 @@
 				529FC9801A2F98DC00F197C7 /* SBVideo.m */,
 				09453DDF19ED6D5E004D1FA4 /* SBStoreItem.h */,
 				09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */,
+				09D554E01A9E7B3B00667BB2 /* SBShipping.h */,
+				09D554E11A9E7B3B00667BB2 /* SBShipping.m */,
 				09A897FA19786D7F00EE983C /* SBUser.h */,
 				09A897FB19786D7F00EE983C /* SBUser.m */,
 				4D5913541A7ABDD80035DDD7 /* Accounts */,
@@ -1176,6 +1181,7 @@
 				4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */,
 				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
 				529FBDCD1A37A36E00E002B7 /* SBClient+Content.m in Sources */,
+				09D554E21A9E7B3B00667BB2 /* SBShipping.m in Sources */,
 				4DF24B4A1A5DCB43006D968B /* SBPushAnimator.m in Sources */,
 				529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */,
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,

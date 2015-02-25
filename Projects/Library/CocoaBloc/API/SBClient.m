@@ -99,13 +99,13 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     }];
 }
 
-- (RACSignal *)deserializeModelsFromJSONArray:(NSArray *)array {
+- (RACSignal *)deserializeModelsFromJSONArray:(NSArray *)array modelClass:(Class)modelClass {
     NSParameterAssert([array isKindOfClass:[NSArray class]]);
     
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         return [self.deserializationScheduler schedule:^{
             NSError *error;
-            id models = [MTLJSONAdapter modelsOfClass:[SBObject class]
+            id models = [MTLJSONAdapter modelsOfClass:modelClass
                                         fromJSONArray:array
                                                 error:&error];
             
@@ -120,13 +120,13 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 
 }
 
-- (RACSignal *)deserializeModelFromJSONDictionary:(NSDictionary *)dictionary {
+- (RACSignal *)deserializeModelFromJSONDictionary:(NSDictionary *)dictionary modelClass:(Class)modelClass {
     NSParameterAssert([dictionary isKindOfClass:[NSDictionary class]]);
     
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         return [self.deserializationScheduler schedule:^{
             NSError *error;
-            id model = [MTLJSONAdapter modelOfClass:[SBObject class]
+            id model = [MTLJSONAdapter modelOfClass:modelClass
                                  fromJSONDictionary:dictionary
                                               error:&error];
             
