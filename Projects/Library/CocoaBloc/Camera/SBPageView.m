@@ -130,7 +130,7 @@
         [[tap.rac_gestureSignal takeUntil:self.rac_willDeallocSignal] subscribeNext:^(UITapGestureRecognizer *gesture) {
             @strongify(self);
             CGPoint point = [gesture locationInView:gesture.view];
-            UILabel *tappedView = [gesture.view hitTest:point withEvent:nil];
+            UILabel *tappedView = (UILabel *)[gesture.view hitTest:point withEvent:nil];
             if ([tappedView isKindOfClass:[UILabel class]] && [self.labels containsObject:tappedView]) {
                 NSUInteger index = [self.labels indexOfObject:tappedView];
                 [self setIndex:index];

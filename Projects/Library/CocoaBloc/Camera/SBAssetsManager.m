@@ -39,7 +39,7 @@
 }
 
 -(RACSignal *)fetchLastPhoto {
-    return [[[self fetchGroupsList] map:^SBAssetGroup*(NSArray *groups) {
+    return [[[self fetchGroupsList] map:^NSSet *(NSArray *groups) {
         SBAssetGroup *group = [[groups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name LIKE[c] %@", @"Camera Roll"]] firstObject];
         if (!group)
             group = [groups firstObject];

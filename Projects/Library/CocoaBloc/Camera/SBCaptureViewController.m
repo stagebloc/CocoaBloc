@@ -38,7 +38,7 @@
 #import "PHPhotoLibrary+RAC.h"
 #import "ALAssetsLibrary+RAC.h"
 
-@interface SBCaptureViewController () <UIActionSheetDelegate, SCRecordButtonDelegate, SBReviewControllerDelegate>
+@interface SBCaptureViewController () <UIActionSheetDelegate, SCRecordButtonDelegate, SBReviewControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic) SBCaptureManager *captureManager;
@@ -161,7 +161,7 @@
     
     BOOL allowsPhoto = (self.allowedCaptureTypes & SBCaptureTypePhoto) != 0;
     BOOL allowsVideo = (self.allowedCaptureTypes & SBCaptureTypeVideo) != 0;
-    NSArray *pageViewLabels = self.cameraView.pageView.labels;
+    NSOrderedSet *pageViewLabels = self.cameraView.pageView.labels;
     if (allowsPhoto && !allowsVideo) {
         ((UILabel *)pageViewLabels[0]).hidden = YES;
     } else if (!allowsPhoto && allowsVideo) {
@@ -237,7 +237,7 @@
         NSTimeInterval elapsed = n.floatValue;
         NSInteger mins = elapsed / 60;
         NSInteger secs = elapsed - mins;
-        self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%d:0%d", mins, secs] : [NSString stringWithFormat:@"%d:%d", mins, secs];
+        self.cameraView.timeLabel.text = secs <= 9 ? [NSString stringWithFormat:@"%ld:0%ld", (long)mins, (long)secs] : [NSString stringWithFormat:@"%ld:%ld", (long)mins, (long)secs];
         
         
         if (elapsed > 0 && self.cameraView.pageView.alpha == 1) {
@@ -268,7 +268,6 @@
     //listen for device position changes (rear & front)
     [RACObserve(self.captureManager, devicePosition) subscribeNext:^(NSNumber *pos) {
         @strongify(self);
-        AVCaptureDevicePosition position = (AVCaptureDevicePosition) pos.integerValue;
         if (![self.captureManager.currentManager.currentCamera isFlashModeSupported:AVCaptureFlashModeOn]) {
             self.cameraView.flashModeButton.alpha = .5;
             self.cameraView.flashModeButton.enabled = NO;
@@ -403,10 +402,10 @@
     [self.overlayHud.dismissButton setTitle:@"cancel" forState:UIControlStateNormal];
     
     @weakify(self);
-    void (^ notificationHandler)(NSNotification*) = ^(NSNotification *note) {
+    void (^ notificationHandler)(id) = ^(id note) {
         @strongify(self);
         UIInterfaceOrientation orientation = [[UIDevice currentDevice] interfaceOrientation];
-        if (orientation == -1 || self.overlayHud.superview == nil)
+        if ((NSInteger)orientation == -1 || self.overlayHud.superview == nil)
             return;
         
         ALDimension height;
@@ -561,19 +560,16 @@
 
     };
     
-    @weakify(picker);
     [[[picker imageSelectSignal]
         deliverOnMainThread]
         subscribeNext:^(UIImage *image) {
             @strongify(self);
-            @strongify(picker);
             if ([image  isKindOfClass:[UIImage class]]) {
                 SBAsset *asset = [[SBAsset alloc] initWithImage:image type:SBAssetTypeImage];
                 [self pushReviewControllerWithAsset:asset];
                 dismissPicker();
             }
         } error:^(NSError *error) {
-            @strongify(self);
             dismissPicker();
         } completed:^{
             @strongify(self);

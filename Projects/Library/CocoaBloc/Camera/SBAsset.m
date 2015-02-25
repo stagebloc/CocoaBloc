@@ -124,7 +124,6 @@
 
     if (self.phAsset) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            @weakify(self);
             PHImageRequestOptions *options = [PHImageRequestOptions new];
             options.resizeMode = PHImageRequestOptionsResizeModeExact;
             options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -142,7 +141,6 @@
 
     if (self.fileURL) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            @weakify(self);
             AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:[[AVURLAsset alloc] initWithURL:self.fileURL options:nil]];
             generator.appliesPreferredTrackTransform = YES;
             CMTime time = CMTimeMakeWithSeconds(0, 30);

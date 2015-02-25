@@ -388,7 +388,7 @@ CGFloat aspectRatio(CGSize size) {
     }];
     
     //Track orientation changes
-    self.currentOrientation = [[UIDevice currentDevice] videoOrientation] == -1 ? AVCaptureVideoOrientationPortrait : [[UIDevice currentDevice] videoOrientation];
+    self.currentOrientation = (NSInteger)[[UIDevice currentDevice] videoOrientation] == -1 ? AVCaptureVideoOrientationPortrait : [[UIDevice currentDevice] videoOrientation];
     deviceOrientationDidChangeObserver = [notificationCenter addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         AVCaptureVideoOrientation orientation = [[UIDevice currentDevice] videoOrientation];
         if ((NSInteger)orientation != -1) {
