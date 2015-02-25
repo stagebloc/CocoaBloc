@@ -73,7 +73,7 @@
 -(RACSignal *)fetchGroups {
     
     if ([[UIDevice currentDevice] isAtLeastiOS:8]) {
-        if (![PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
+        if ([PHPhotoLibrary authorizationStatus] != PHAuthorizationStatusAuthorized) {
             return [RACSignal error:[NSError errorWithDomain:[[NSBundle mainBundle] bundleIdentifier] code:[PHPhotoLibrary authorizationStatus] userInfo:nil]];
         }
         

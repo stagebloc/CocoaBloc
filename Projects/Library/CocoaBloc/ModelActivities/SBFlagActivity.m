@@ -93,7 +93,7 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ([self.delegate respondsToSelector:@selector(flagActivity:willDisplayViewController:)]) {
-        [self.delegate flagActivity:self willDisplayViewController:viewController];
+        [self.delegate flagActivity:self willDisplayViewController:(SBFlagViewController *)viewController];
     }
 }
 
