@@ -71,11 +71,11 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
     = NO;
 #endif
     
-    NSString *ext = @"com";
-    if ([NSProcessInfo processInfo].environment[@"SB_LOCAL_DEV"] && cppDebug) { // enforce .com on release builds
-    	ext = @"dev";
+    NSString *overrideString = nil;
+    if (cppDebug) { // enforce .com on release builds
+        overrideString = [NSProcessInfo processInfo].environment[@"SBClientBaseURLOverride"];
     }
-    NSString *urlString = [NSString stringWithFormat:@"https://api.stagebloc.%@/v1", ext];
+    NSString *urlString = overrideString ?: [NSString stringWithFormat:@"https://api.stagebloc.com/v1"];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (self) {
