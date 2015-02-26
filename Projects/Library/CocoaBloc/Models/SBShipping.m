@@ -23,6 +23,34 @@
               @"name"           : @"name"}];
 }
 
+#warning AFTER JOSH CHANGES API TO NUMBERS REMOVE THIS
++ (MTLValueTransformer *)priceJSONTranformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id jsonValue) {
+        if ([jsonValue isKindOfClass:[NSNumber class]]) {
+            return jsonValue;
+        }
+        else if ([jsonValue isKindOfClass:[NSString class]]) {
+            return @(((NSString *)jsonValue).doubleValue);
+        }
+        return nil;
+    } reverseBlock:^id(NSNumber *num) {
+        return num;
+    }];
+}
++ (MTLValueTransformer *)handlingPriceJSONTranformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(id jsonValue) {
+        if ([jsonValue isKindOfClass:[NSNumber class]]) {
+            return jsonValue;
+        }
+        else if ([jsonValue isKindOfClass:[NSString class]]) {
+            return @(((NSString *)jsonValue).doubleValue);
+        }
+        return nil;
+    } reverseBlock:^id(NSNumber *num) {
+        return num;
+    }];
+}
+
 @end
 
 @implementation SBShippingPriceHandler
