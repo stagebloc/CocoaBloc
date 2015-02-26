@@ -43,7 +43,7 @@
 
 + (MTLValueTransformer *)birthdayJSONTransformer {
     NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"yyyy-mm-dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:formatter];
 }
 
