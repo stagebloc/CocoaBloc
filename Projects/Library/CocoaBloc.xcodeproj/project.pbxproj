@@ -64,7 +64,6 @@
 		4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */; };
 		4D06DA891A16665700EE3926 /* SBAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA881A16665700EE3926 /* SBAssetStitcher.m */; };
 		4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */; };
-		4D0DB3331AA5145D00FEA59B /* SBLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0DB3321AA5145D00FEA59B /* SBLoadingButton.m */; };
 		4D17D4B31A2E2983003B309E /* UIDevice+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */; };
 		4D18F92A1A70039200D3C0BC /* NSData+Mime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D18F9291A70039200D3C0BC /* NSData+Mime.m */; };
 		4D22420B1A0D2D3D0065F172 /* SBPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22420A1A0D2D3D0065F172 /* SBPageView.m */; };
@@ -258,8 +257,6 @@
 		4D06DA881A16665700EE3926 /* SBAssetStitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAssetStitcher.m; sourceTree = "<group>"; };
 		4D06DA8B1A16AA0400EE3926 /* AVCaptureSession+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVCaptureSession+Extension.h"; sourceTree = "<group>"; };
 		4D06DA8C1A16AA0400EE3926 /* AVCaptureSession+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureSession+Extension.m"; sourceTree = "<group>"; };
-		4D0DB3311AA5145D00FEA59B /* SBLoadingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLoadingButton.h; sourceTree = "<group>"; };
-		4D0DB3321AA5145D00FEA59B /* SBLoadingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoadingButton.m; sourceTree = "<group>"; };
 		4D17D4B11A2E2983003B309E /* UIDevice+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Orientation.h"; sourceTree = "<group>"; };
 		4D17D4B21A2E2983003B309E /* UIDevice+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Orientation.m"; sourceTree = "<group>"; };
 		4D18F9281A70039200D3C0BC /* NSData+Mime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Mime.h"; sourceTree = "<group>"; };
@@ -428,8 +425,6 @@
 				4D326F811A5B3C4100574408 /* SBImageControl.m */,
 				6ABE12014CE6DC2FDDD77EB1 /* SBPlaceholderTextView.m */,
 				6AD19DEF40A61996B56777DA /* SBPlaceholderTextView.h */,
-				4D0DB3311AA5145D00FEA59B /* SBLoadingButton.h */,
-				4D0DB3321AA5145D00FEA59B /* SBLoadingButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1185,7 +1180,6 @@
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */,
 				09C54FFA19F0221700CB0C81 /* SBLogInViewModel.m in Sources */,
-				4D0DB3331AA5145D00FEA59B /* SBLoadingButton.m in Sources */,
 				529FBDCD1A37A36E00E002B7 /* SBClient+Content.m in Sources */,
 				09D554E21A9E7B3B00667BB2 /* SBShipping.m in Sources */,
 				4DF24B4A1A5DCB43006D968B /* SBPushAnimator.m in Sources */,
