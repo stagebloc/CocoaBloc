@@ -17,7 +17,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *stageblocURL;
 @property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSURL *URL;
+@property (nonatomic, copy) NSString *URL;
 @property (nonatomic) NSNumber *stripeEnabled;
 @property (nonatomic) NSNumber *userIsAdmin;
 
