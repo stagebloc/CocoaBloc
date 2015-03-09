@@ -28,7 +28,7 @@ All of the JSON<~>ObjC model mapping and translation is handled by Mantle. As su
 This framework has become the gold standard for easily working with modern web APIs with asyncrony in mind. We also leverage some extensions to AFNetworking that bridge it into the ReactiveCocoa world, giving us the core of how we operate the client object.
 
 ### So, what do I need to know?
-Read the RAC documentation. Really. It's not much, and it will help you get you up in running if you're not already, with RAC and the function-reactive mindset that accompanies it.
+Read the RAC documentation. Really. It's not much, and it will help you get you up in running if you're not already, with RAC and the functional-reactive mindset that accompanies it.
 
 ## Usage
 
