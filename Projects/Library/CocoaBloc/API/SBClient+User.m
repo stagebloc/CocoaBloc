@@ -141,7 +141,7 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
     NSError *err;
     AFHTTPRequestOperation *op =
     [self fileRequestFromData:photoData
-                         name:@"photo_data"
+                         name:@"photo"
                      fileName:fileName
                      mimeType:mime
                           url:endpointLocation
