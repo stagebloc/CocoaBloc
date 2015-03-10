@@ -16,7 +16,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{@"name"            : @"name",
              @"totalOrders"     : @"total_orders",
-             @"totalRevenue"    :@"total_revenue"};
+             @"totalRevenue"    : @"total_revenue"};
 }
 
 @end

@@ -36,24 +36,25 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _kindModelMap = @{ @"user"                              : [SBUser class],
+                           @"user_photo"                        : [SBPhoto class],
                            @"account"                           : [SBAccount class],
-                           @"order"                             : [SBOrder class],
-                           @"store_item"                        : [SBStoreItem class],
                            @"fan_club"                          : [SBFanClub class],
                            @"fan_club_tier"                     : [SBTier class],
+                           @"fan_club_dashboard"                : [SBFanClubDashboard class],
                            @"photo"                             : [SBPhoto class],
                            @"audio"                             : [SBAudio class],
                            @"blog"                              : [SBBlog class],
                            @"status"                            : [SBStatus class],
                            @"video"                             : [SBVideo class],
                            @"comment"                           : [SBComment class],
-                           @"user_photo"                        : [SBPhoto class],
                            @"notification"                      : [SBNotification class],
+                           @"order"                             : [SBOrder class],
                            @"address"                           : [SBAddress class],
+                           @"store_item"                        : [SBStoreItem class],
                            @"store_item_option"                 : [SBStoreItemOption class],
                            @"store_item_shipping_price_handler" : [SBStoreItemPriceConfiguration class],
                            @"store_dashboard"                   : [SBStoreDashboard class],
-                           @"fan_club_dashboard"                : [SBFanClubDashboard class]};
+                           };
     });
     
     return _kindModelMap[JSONDictionary[@"kind"]];
