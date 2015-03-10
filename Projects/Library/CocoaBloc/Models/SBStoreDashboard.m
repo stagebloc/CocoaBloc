@@ -56,11 +56,7 @@
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSArray *(NSArray *objects) {
         return [MTLJSONAdapter modelsOfClass:[SBStoreDashboardTopBuyers class] fromJSONArray:objects error:nil];
     } reverseBlock:^NSArray *(NSArray *objects) {
-        __block NSMutableArray *array = [NSMutableArray array];
-        [objects enumerateObjectsUsingBlock:^(SBStoreDashboardTopBuyers *topBuyer, NSUInteger idx, BOOL *stop) {
-            [array addObject:[MTLJSONAdapter JSONDictionaryFromModel:topBuyer]];
-        }];
-        return [array copy];
+        return [MTLJSONAdapter JSONArrayFromModels:objects];
     }];
 }
 
