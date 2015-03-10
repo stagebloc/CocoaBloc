@@ -20,7 +20,7 @@
 
 @interface SBStoreDashboardTopBuyers : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, copy) NSNumber *amountSpent;
+@property (nonatomic) NSNumber *amountSpent;
 @property (nonatomic) SBUser *user;
 
 @end
