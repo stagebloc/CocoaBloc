@@ -35,6 +35,9 @@
                                               accountID:(NSNumber *)accountID
                                              parameters:(NSDictionary *)parameters;
 
-- (RACSignal*)requestStripeAuthorizationWithToken:(NSString*)requestToken forAccountWithID:(NSNumber*)accountID;
+- (RACSignal *)requestStripeAuthorizationWithToken:(NSString*)requestToken forAccountWithID:(NSNumber*)accountID;
+
+- (RACSignal *)getStoreDashboardWithAccountIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters;
+
 
 @end

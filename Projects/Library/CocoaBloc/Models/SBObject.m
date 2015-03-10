@@ -21,6 +21,8 @@
 #import "SBUser.h"
 #import "SBAccount.h"
 #import "SBTier.h"
+#import "SBStoreDashboard.h"
+#import "SBFanClubDashboard.h"
 #import <MTLModel+NSCoding.h>
 
 @implementation SBObject
@@ -33,23 +35,25 @@
     static NSDictionary *_kindModelMap;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _kindModelMap = @{ @"user"          : [SBUser class],
-                           @"account"       : [SBAccount class],
-                           @"order"         : [SBOrder class],
-                           @"store_item"    : [SBStoreItem class],
-                           @"fan_club"      : [SBFanClub class],
-                           @"fan_club_tier" : [SBTier class],
-                           @"photo"         : [SBPhoto class],
-                           @"audio"         : [SBAudio class],
-                           @"blog"          : [SBBlog class],
-                           @"status"        : [SBStatus class],
-                           @"video"         : [SBVideo class],
-                           @"comment"       : [SBComment class],
-                           @"user_photo"    : [SBPhoto class],
-                           @"notification"  : [SBNotification class],
-                           @"address"       : [SBAddress class],
-                           @"store_item_option" : [SBStoreItemOption class],
-                           @"store_item_shipping_price_handler" : [SBStoreItemPriceConfiguration class] };
+        _kindModelMap = @{ @"user"                              : [SBUser class],
+                           @"account"                           : [SBAccount class],
+                           @"order"                             : [SBOrder class],
+                           @"store_item"                        : [SBStoreItem class],
+                           @"fan_club"                          : [SBFanClub class],
+                           @"fan_club_tier"                     : [SBTier class],
+                           @"photo"                             : [SBPhoto class],
+                           @"audio"                             : [SBAudio class],
+                           @"blog"                              : [SBBlog class],
+                           @"status"                            : [SBStatus class],
+                           @"video"                             : [SBVideo class],
+                           @"comment"                           : [SBComment class],
+                           @"user_photo"                        : [SBPhoto class],
+                           @"notification"                      : [SBNotification class],
+                           @"address"                           : [SBAddress class],
+                           @"store_item_option"                 : [SBStoreItemOption class],
+                           @"store_item_shipping_price_handler" : [SBStoreItemPriceConfiguration class],
+                           @"store_dashboard"                   : [SBStoreDashboard class],
+                           @"fan_club_dashboard"                : [SBFanClubDashboard class]};
     });
     
     return _kindModelMap[JSONDictionary[@"kind"]];
