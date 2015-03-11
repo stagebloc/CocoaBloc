@@ -58,4 +58,9 @@
  */
 - (RACSignal*)getFanClubForAccountIdentifier:(NSNumber*)accountIdentifier parameters:(NSDictionary *)parameters;
 
+/*!
+ Retrieves the fan club dashboard details for the account
+ */
+- (RACSignal *)getFanClubDashboardWithAccountIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters;
+
 @end

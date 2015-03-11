@@ -74,4 +74,11 @@
                 setNameWithFormat:@"Get fan club details"];
 }
 
+- (RACSignal *)getFanClubDashboardWithAccountIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters {
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fanclub/dashboard", accountIdentifier] parameters:[self requestParametersWithParameters:parameters]]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get fan club dashboard %@", accountIdentifier];
+}
+
+
 @end
