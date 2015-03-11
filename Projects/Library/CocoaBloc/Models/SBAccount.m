@@ -32,6 +32,10 @@
              };
 }
 
++ (MTLValueTransformer *)URLJSONTransformer {
+    return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
 + (MTLValueTransformer *)photoJSONTransformer {
     return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
