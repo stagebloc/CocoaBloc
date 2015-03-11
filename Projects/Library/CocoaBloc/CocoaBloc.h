@@ -37,5 +37,6 @@
 #import "SBAddress.h"
 #import "SBTier.h"
 #import "SBShipping.h"
+#import "SBStoreDashboard.h"
 
 #endif /* COCOABLOC_H */

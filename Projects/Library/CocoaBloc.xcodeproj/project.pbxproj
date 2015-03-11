@@ -59,6 +59,7 @@
 		09FAD50F1A83E01A008D751E /* SBFlagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FAD5051A83E01A008D751E /* SBFlagViewController.m */; };
 		09FAD5101A83E01A008D751E /* SBPhotoActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FAD5071A83E01A008D751E /* SBPhotoActivityItemProvider.m */; };
 		09FAD5111A83E01A008D751E /* SBStatus+UIActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FAD5091A83E01A008D751E /* SBStatus+UIActivityItemSource.m */; };
+		4D018F541AAF7B680066E08F /* SBFanClubDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D018F531AAF7B680066E08F /* SBFanClubDashboard.m */; };
 		4D02B81B1A432148006C811B /* PHPhotoLibrary+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D02B81A1A432148006C811B /* PHPhotoLibrary+RAC.m */; };
 		4D02B81E1A4326AB006C811B /* UIApplication+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D02B81D1A4326AB006C811B /* UIApplication+Extension.m */; };
 		4D06DA861A165F9F00EE3926 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D06DA851A165F9F00EE3926 /* UIImage+Resize.m */; };
@@ -92,6 +93,7 @@
 		4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98B9A71A22D1DE00F8D11B /* SBOverlayView.m */; };
 		4DCC633F1A68532B007C26D6 /* SBTier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCC633E1A68532B007C26D6 /* SBTier.m */; };
 		4DD161621A2E5AAA004C98CC /* SBDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD161611A2E5AAA004C98CC /* SBDraggableView.m */; };
+		4DDFFB881AAE212B00CBE0E9 /* SBStoreDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDFFB871AAE212B00CBE0E9 /* SBStoreDashboard.m */; };
 		4DECC3021A3200FD0097ACA3 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */; };
 		4DEF29C51A2CFE0300316B88 /* SBCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF29C41A2CFE0300316B88 /* SBCameraViewController.m */; };
 		4DF24B4A1A5DCB43006D968B /* SBPushAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF24B491A5DCB43006D968B /* SBPushAnimator.m */; };
@@ -247,6 +249,8 @@
 		11A398D28A974B2194750E94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		242377E7D60F4866BB3F698B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37A35845661D234A8627BBDC /* Pods-CocoaBloc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc.debug.xcconfig"; sourceTree = "<group>"; };
+		4D018F521AAF7B680066E08F /* SBFanClubDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFanClubDashboard.h; sourceTree = "<group>"; };
+		4D018F531AAF7B680066E08F /* SBFanClubDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFanClubDashboard.m; sourceTree = "<group>"; };
 		4D02B8191A432148006C811B /* PHPhotoLibrary+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHPhotoLibrary+RAC.h"; sourceTree = "<group>"; };
 		4D02B81A1A432148006C811B /* PHPhotoLibrary+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHPhotoLibrary+RAC.m"; sourceTree = "<group>"; };
 		4D02B81C1A4326AB006C811B /* UIApplication+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Extension.h"; sourceTree = "<group>"; };
@@ -342,6 +346,8 @@
 		4DD161601A2E5AAA004C98CC /* SBDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDraggableView.h; sourceTree = "<group>"; };
 		4DD161611A2E5AAA004C98CC /* SBDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDraggableView.m; sourceTree = "<group>"; };
 		4DD161641A2FAA06004C98CC /* CocoaBlocCamera.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CocoaBlocCamera.xcassets; path = CocoaBloc/CocoaBlocCamera.xcassets; sourceTree = SOURCE_ROOT; };
+		4DDFFB861AAE212B00CBE0E9 /* SBStoreDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreDashboard.h; sourceTree = "<group>"; };
+		4DDFFB871AAE212B00CBE0E9 /* SBStoreDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStoreDashboard.m; sourceTree = "<group>"; };
 		4DECC3001A3200FD0097ACA3 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		4DECC3011A3200FD0097ACA3 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		4DEF29C31A2CFE0300316B88 /* SBCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCameraViewController.h; sourceTree = "<group>"; };
@@ -584,6 +590,10 @@
 				09453DE019ED6D5E004D1FA4 /* SBStoreItem.m */,
 				09D554E01A9E7B3B00667BB2 /* SBShipping.h */,
 				09D554E11A9E7B3B00667BB2 /* SBShipping.m */,
+				4DDFFB861AAE212B00CBE0E9 /* SBStoreDashboard.h */,
+				4DDFFB871AAE212B00CBE0E9 /* SBStoreDashboard.m */,
+				4D018F521AAF7B680066E08F /* SBFanClubDashboard.h */,
+				4D018F531AAF7B680066E08F /* SBFanClubDashboard.m */,
 				09A897FA19786D7F00EE983C /* SBUser.h */,
 				09A897FB19786D7F00EE983C /* SBUser.m */,
 				4D5913541A7ABDD80035DDD7 /* Accounts */,
@@ -1176,6 +1186,7 @@
 				09A897F91978630800EE983C /* SBAccount.m in Sources */,
 				097636F619BE3EFC00E3CD45 /* SBClient+User.m in Sources */,
 				0976370B19BE3F6500E3CD45 /* SBClient+Photo.m in Sources */,
+				4DDFFB881AAE212B00CBE0E9 /* SBStoreDashboard.m in Sources */,
 				4D3E01571A76B69C002C439F /* SBClient+Push.m in Sources */,
 				09D510DB1988177A00C45D8A /* NSDateFormatter+CocoaBloc.m in Sources */,
 				4D98B9A81A22D1DE00F8D11B /* SBOverlayView.m in Sources */,
@@ -1186,6 +1197,7 @@
 				529FC97A1A2F6FAC00F197C7 /* SBClient+Video.m in Sources */,
 				4DF6EFE21A099F1600A5CFEC /* SBCameraView.m in Sources */,
 				4D78BEAC1A42001500C0D19A /* NSURL+Camera.m in Sources */,
+				4D018F541AAF7B680066E08F /* SBFanClubDashboard.m in Sources */,
 				09A897FC19786D7F00EE983C /* SBUser.m in Sources */,
 				4D326F821A5B3C4100574408 /* SBImageControl.m in Sources */,
 				4D06DA8D1A16AA0400EE3926 /* AVCaptureSession+Extension.m in Sources */,

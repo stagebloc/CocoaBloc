@@ -13,6 +13,7 @@
 #import "SBStoreItem.h"
 #import "SBOrder.h"
 #import "SBShipping.h"
+#import "SBStoreDashboard.h"
 
 @implementation SBClient (Store)
 
@@ -110,6 +111,12 @@
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%d/store/stripe", accountID.intValue] parameters:@{@"token":requestToken}]
                 cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Request stripe auth with token %@ for account %@", requestToken, accountID.stringValue];
+}
+
+- (RACSignal *)getStoreDashboardWithAccountIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters {
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/store/dashboard", accountIdentifier] parameters:[self requestParametersWithParameters:parameters]]
+                cb_deserializeWithClient:self keyPath:@"data"]
+                setNameWithFormat:@"Get store dashboard %@", accountIdentifier];
 }
 
 @end
