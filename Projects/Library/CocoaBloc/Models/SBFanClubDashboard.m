@@ -39,27 +39,15 @@
 }
 
 + (MTLValueTransformer *)tierOneJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^SBFanClubDashboardTier *(NSDictionary *dictionary) {
-        return [MTLJSONAdapter modelOfClass:[SBFanClubDashboardTier class] fromJSONDictionary:dictionary error:nil];
-    } reverseBlock:^NSDictionary *(SBFanClubDashboardTier *obj) {
-        return [MTLJSONAdapter JSONDictionaryFromModel:obj];
-    }];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBFanClubDashboardTier class]];
 }
 
 + (MTLValueTransformer *)tierTwoJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^SBFanClubDashboardTier *(NSDictionary *dictionary) {
-        return [MTLJSONAdapter modelOfClass:[SBFanClubDashboardTier class] fromJSONDictionary:dictionary error:nil];
-    } reverseBlock:^NSDictionary *(SBFanClubDashboardTier *obj) {
-        return [MTLJSONAdapter JSONDictionaryFromModel:obj];
-    }];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBFanClubDashboardTier class]];
 }
 
 + (MTLValueTransformer *)tierThreeJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^SBFanClubDashboardTier *(NSDictionary *dictionary) {
-        return [MTLJSONAdapter modelOfClass:[SBFanClubDashboardTier class] fromJSONDictionary:dictionary error:nil];
-    } reverseBlock:^NSDictionary *(SBFanClubDashboardTier *obj) {
-        return [MTLJSONAdapter JSONDictionaryFromModel:obj];
-    }];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBFanClubDashboardTier class]];
 }
 
 @end

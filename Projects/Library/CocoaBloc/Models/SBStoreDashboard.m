@@ -53,21 +53,25 @@
 }
 
 + (MTLValueTransformer *)topBuyersJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSArray *(NSArray *objects) {
-        return [MTLJSONAdapter modelsOfClass:[SBStoreDashboardTopBuyers class] fromJSONArray:objects error:nil];
-    } reverseBlock:^NSArray *(NSArray *objects) {
-        return [MTLJSONAdapter JSONArrayFromModels:objects];
-    }];
+    return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBStoreDashboardTopBuyers class]];
 }
 
 + (MTLValueTransformer *)countriesJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSDictionary *(NSDictionary *countries) {
+        if (![countries isKindOfClass:[NSDictionary class]]) {
+            return nil;
+        }
+        
         __block NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [countries enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *obj, BOOL *stop) {
             [dict setValue:[MTLJSONAdapter modelOfClass:[SBStoreDashboardAverages class] fromJSONDictionary:obj error:nil] forKey:key];
         }];
         return [dict copy];
     } reverseBlock:^NSDictionary *(NSDictionary *countries) {
+        if (![countries isKindOfClass:[NSDictionary class]]) {
+            return nil;
+        }
+
         __block NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [countries enumerateKeysAndObjectsUsingBlock:^(NSString *key, SBStoreDashboardAverages *avgs, BOOL *stop) {
             [dict setValue:[MTLJSONAdapter JSONDictionaryFromModel:avgs] forKey:key];
