@@ -24,29 +24,27 @@
     @weakify(client);
     
     return [[[self
-              doNext:^(NSDictionary *response) {
-                  @strongify(client);
-                  
-                  // set the auth token & auth state when a 'next' is sent
-                  client.token = response[@"data"][@"access_token"];
-              }]
-             map:^id(NSDictionary *response) {
-                 // deserialize the user
-                 SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
-                                          fromJSONDictionary:[response valueForKeyPath:@"data.user"]
-                                                       error:nil];
-                 user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
-                                                      fromJSONArray:[response valueForKeyPath:@"data.admin_accounts"]
-                                                              error:nil];
-                 
-                 return user;
-             }]
-            doNext:^(SBUser *user) {
-                @strongify(client);
-                
-                // set the currently authenticated user
-                client.authenticatedUser = user;
-            }];
+                flattenMap:^RACStream *(NSDictionary *response) {
+                    // deserialize the user
+                    SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
+                                             fromJSONDictionary:[response valueForKeyPath:@"data.user"]
+                                                          error:nil];
+                    user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
+                                                         fromJSONArray:[response valueForKeyPath:@"data.admin_accounts"]
+                                                                 error:nil];
+                    
+                    return [RACSignal zip:@[[RACSignal return:user], [RACSignal return:response[@"data"][@"access_token"]]]];
+                }]
+                doNext:^(RACTuple *userAndToken) {
+                    @strongify(client);
+                    
+                    // set the currently authenticated user & token
+                    client.authenticatedUser = userAndToken.first;
+                    client.token = userAndToken.second;
+                }]
+                map:^id(RACTuple *userAndToken) {
+                    return userAndToken.first;
+                }];
 }
 
 @end
