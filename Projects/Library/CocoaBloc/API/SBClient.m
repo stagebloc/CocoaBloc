@@ -102,20 +102,18 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 - (RACSignal *)deserializeModelsFromJSONArray:(NSArray *)array modelClass:(Class)modelClass {
     NSParameterAssert([array isKindOfClass:[NSArray class]]);
     
-    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        return [self.deserializationScheduler schedule:^{
-            NSError *error;
-            id models = [MTLJSONAdapter modelsOfClass:modelClass
-                                        fromJSONArray:array
-                                                error:&error];
-            
-            if (error) {
-                [subscriber sendError:error];
-            } else {
-                [subscriber sendNext:models];
-                [subscriber sendCompleted];
-            }
-        }];
+    return [[RACSignal startLazilyWithScheduler:self.deserializationScheduler block:^(id<RACSubscriber> subscriber) {
+        NSError *error;
+        id models = [MTLJSONAdapter modelsOfClass:modelClass
+                                    fromJSONArray:array
+                                            error:&error];
+        
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:models];
+            [subscriber sendCompleted];
+        }
     }] setNameWithFormat:@"JSON Array Deserialization"];
 
 }
@@ -123,20 +121,18 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 - (RACSignal *)deserializeModelFromJSONDictionary:(NSDictionary *)dictionary modelClass:(Class)modelClass {
     NSParameterAssert([dictionary isKindOfClass:[NSDictionary class]]);
     
-    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        return [self.deserializationScheduler schedule:^{
-            NSError *error;
-            id model = [MTLJSONAdapter modelOfClass:modelClass
-                                 fromJSONDictionary:dictionary
-                                              error:&error];
-            
-            if (error) {
-                [subscriber sendError:error];
-            } else {
-                [subscriber sendNext:model];
-                [subscriber sendCompleted];
-            }
-        }];
+    return [[RACSignal startLazilyWithScheduler:self.deserializationScheduler block:^(id<RACSubscriber> subscriber) {
+        NSError *error;
+        id model = [MTLJSONAdapter modelOfClass:modelClass
+                             fromJSONDictionary:dictionary
+                                          error:&error];
+        
+        if (error) {
+            [subscriber sendError:error];
+        } else {
+            [subscriber sendNext:model];
+            [subscriber sendCompleted];
+        }
     }] setNameWithFormat:@"JSON Dictionary Deserialization"];
 }
 
