@@ -11,4 +11,14 @@
 
 @interface SBClient (Blog)
 
+/**
+ Submits a blog post to an account, given a title and body.
+ 
+ @param title max length: 150
+ */
+- (RACSignal *)postBlogWithTitle:(NSString *)title
+                            body:(NSString *)body
+         toAccountWithIdentifier:(NSNumber *)accountID
+                      parameters:(NSDictionary *)parameters;
+
 @end
