@@ -22,11 +22,11 @@
     NSParameterAssert(body);
     NSParameterAssert(accountID);
     
-    NSMutableDictionary *parameters = parameters != nil ? parameters.mutableCopy : [NSMutableDictionary new];
-    parameters[@"title"] = title;
-    parameters[@"body"] = body;
+    NSMutableDictionary *p = parameters != nil ? parameters.mutableCopy : [NSMutableDictionary new];
+    p[@"title"] = title;
+    p[@"body"] = body;
     
-    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/blog", accountID.stringValue] parameters:[self requestParametersWithParameters:parameters]]
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/blog", accountID.stringValue] parameters:[self requestParametersWithParameters:p]]
                 cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Post blog (title: %@, accountID: %@)", title, accountID.stringValue];
 }
