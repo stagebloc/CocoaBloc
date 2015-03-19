@@ -47,7 +47,7 @@
     }
     
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithDictionary:self.typingAttributes];
-    dictionary[NSFontAttributeName] = self.font;
+    dictionary[NSFontAttributeName] = self.font ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
     dictionary[NSForegroundColorAttributeName] = self.placeholderColor ? self.placeholderColor : [UIColor whiteColor];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = self.textAlignment;
