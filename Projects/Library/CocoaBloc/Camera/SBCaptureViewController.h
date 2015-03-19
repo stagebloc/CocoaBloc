@@ -10,7 +10,7 @@
 #import "SBCaptureManager.h"
 #import "SBReviewController.h"
 
-@class SBCaptureViewController, SBAsset;
+@class SBCaptureViewController, SBAsset, SBCameraView;
 
 @protocol SBCaptureViewControllerDelegate <SBReviewControllerDelegate>
 @optional
@@ -53,6 +53,11 @@
  Sets initial capture type to start with for the controller
  */
 - (instancetype)initWithInitialCaptureType:(SBCaptureType)captureType;
+
+/**
+ The underlying camera view.
+ */
+@property (nonatomic, readonly) SBCameraView *cameraView;
 
 /*
  Sets initial capture type to start with for the controller

@@ -42,7 +42,6 @@
 
 @property (nonatomic, assign) BOOL recording;
 @property (nonatomic) SBCaptureManager *captureManager;
-@property (nonatomic) SBCameraView *cameraView;
 
 @property (nonatomic) SBAssetsManager *assetManager;
 
