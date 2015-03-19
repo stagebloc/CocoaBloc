@@ -18,6 +18,7 @@
  */
 - (RACSignal *)postBlogWithTitle:(NSString *)title
                             body:(NSString *)body
-         toAccountWithIdentifier:(NSNumber *)accountID;
+         toAccountWithIdentifier:(NSNumber *)accountID
+                      parameters:(NSDictionary *)parameters;
 
 @end

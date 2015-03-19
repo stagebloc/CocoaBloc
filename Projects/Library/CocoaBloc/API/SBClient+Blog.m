@@ -15,13 +15,18 @@
 
 - (RACSignal *)postBlogWithTitle:(NSString *)title
                             body:(NSString *)body
-         toAccountWithIdentifier:(NSNumber *)accountID {
+         toAccountWithIdentifier:(NSNumber *)accountID
+                      parameters:(NSDictionary *)parameters {
     NSParameterAssert(title);
     NSParameterAssert(title.length <= 150); // db limit
     NSParameterAssert(body);
     NSParameterAssert(accountID);
     
-    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/blog", accountID.stringValue] parameters:[self requestParametersWithParameters:nil]]
+    NSMutableDictionary *parameters = parameters != nil ? parameters.mutableCopy : [NSMutableDictionary new];
+    parameters[@"title"] = title;
+    parameters[@"body"] = body;
+    
+    return [[[self rac_POST:[NSString stringWithFormat:@"account/%@/blog", accountID.stringValue] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Post blog (title: %@, accountID: %@)", title, accountID.stringValue];
 }
