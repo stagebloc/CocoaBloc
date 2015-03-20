@@ -23,7 +23,9 @@
               @"smallURL" 		: @"images.small_url",
               @"mediumURL"		: @"images.medium_url",
               @"largeURL"		: @"images.large_url",
-              @"thumbnailURL"	: @"images.thumbnail_url"}];
+              @"thumbnailURL"	: @"images.thumbnail_url",
+              @"descriptiveText" : @"description"
+              }];
 }
 
 + (MTLValueTransformer *)thumbnailURLJSONTransformer {

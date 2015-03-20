@@ -16,7 +16,7 @@ target :CocoaBloc do
 end
 
 target :CocoaBlocTests do
-    pod 'Specta', :git => "https://github.com/specta/specta.git"
+    pod 'Specta', '~> 0.4'
     pod 'Expecta'
 end
 
