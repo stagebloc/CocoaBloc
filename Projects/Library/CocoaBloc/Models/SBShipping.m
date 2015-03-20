@@ -23,6 +23,23 @@
               @"name"           : @"name"}];
 }
 
++ (NSDecimalNumberHandler *)roundingHandler {
+    NSDecimalNumberHandler *handler = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    return handler;
+}
+
++ (MTLValueTransformer *)handlingPriceJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
+        return [[NSDecimalNumber decimalNumberWithDecimal:number.decimalValue] decimalNumberByRoundingAccordingToBehavior:[self roundingHandler]];
+    }];
+}
+
++ (MTLValueTransformer *)priceJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
+        return [[NSDecimalNumber decimalNumberWithDecimal:number.decimalValue] decimalNumberByRoundingAccordingToBehavior:[self roundingHandler]];
+    }];
+}
+
 @end
 
 @implementation SBShippingPriceHandler

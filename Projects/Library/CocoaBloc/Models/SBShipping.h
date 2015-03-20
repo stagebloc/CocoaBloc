@@ -14,8 +14,8 @@
 
 @property (nonatomic, copy) NSString *commitment;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic) NSNumber *price;
-@property (nonatomic) NSNumber *handlingPrice;
+@property (nonatomic) NSDecimalNumber *price;
+@property (nonatomic) NSDecimalNumber *handlingPrice;
 
 @end
 
