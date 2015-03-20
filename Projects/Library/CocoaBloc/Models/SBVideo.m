@@ -20,7 +20,8 @@
               @"videoURL" 			: @"video_url",
               @"videoCDNURL" 		: @"video_cdn_url",
               @"photo"              : @"photo",
-              @"photoID"            : @"photo"
+              @"photoID"            : @"photo",
+              @"descriptiveText"    : @"description"
               }];
 }
 
