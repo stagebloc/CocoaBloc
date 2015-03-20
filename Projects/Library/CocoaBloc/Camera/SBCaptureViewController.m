@@ -47,6 +47,7 @@
 
 @property (nonatomic) SBOverlayView *overlayHud;
 
+@property (nonatomic) SBCameraView *cameraView;
 @property (nonatomic) SBToolBarAnimator *animator;
 @property (nonatomic) SBPushAnimator *navAnimator;
 
