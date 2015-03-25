@@ -6,5 +6,5 @@
 //  Copyright (c) 2015 StageBloc. All rights reserved.
 //
 
-#import <CocoaBloc/API/CocoaBlocAPI.h>
-#import <CocoaBloc/OAuth/SBAuthenticationViewController.h>
+#import <CocoaBloc/CocoaBlocAPI.h>
+#import <CocoaBloc/SBAuthenticationViewController.h>

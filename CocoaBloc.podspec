@@ -21,14 +21,21 @@ Pod::Spec.new do |s|
     s.source_files = 'Source/CocoaBloc/CocoaBloc.h'
 
     s.subspec 'API' do |ss|
-      ss.dependency 'AFNetworking'
-      ss.dependency 'AFNetworking-RACExtensions'
-      ss.dependency 'Mantle'
+        ss.dependency 'AFNetworking'
+        ss.dependency 'AFNetworking-RACExtensions'
+        ss.dependency 'Mantle'
 
-      ss.header_mappings_dir = 'Source/CocoaBloc/API'
-      ss.source_files = 'Source/CocoaBloc/API/*.{h,m}'
-      ss.source_files = 'Source/CocoaBloc/{API/{Client,Models}/*.{h,m},API/Internal/Categories/*.{h,m},API/*.h,Internal/Categories}/*.{h,m}'
-      ss.private_header_files = 'Source/CocoaBloc/Internal/**/*.h'
+        ss.header_mappings_dir = 'Source/CocoaBloc/API'
+        ss.source_files = 'Source/CocoaBloc/API/{Client,Models}/*.{h,m}', 'Source/CocoaBloc/API/Internal/Categories/*.{h,m}', 'Source/CocoaBloc/API/*.h'
+        ss.private_header_files = 'Source/CocoaBloc/Internal/**/*.h'
+    end
+
+    s.subspec 'UI' do |ss|
+        ss.dependency 'CocoaBloc/API'
+        ss.dependency 'PureLayout'
+
+        ss.header_mappings_dir = 'Source/CocoaBloc/OAuth'
+        ss.source_files = 'Source/CocoaBloc/OAuth/*.{h,m}'
     end
 
 end
