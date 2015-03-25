@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
-    s.version = '0.0.4'
+    s.version = '0.0.5'
     s.authors = {   'John Heaton'   => 'pikachu@stagebloc.com',
                     'Mark Glagola'  => 'mark@stagebloc.com',
                     'David Warner'  => 'spiderman@stagebloc.com',
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
         ss.dependency 'Mantle'
 
         ss.header_mappings_dir = 'Source/CocoaBloc/API'
-        ss.source_files = 'Source/CocoaBloc/API/{Client,Models}/*.{h,m}', 'Source/CocoaBloc/API/Internal/Categories/*.{h,m}', 'Source/CocoaBloc/API/*.h'
+        ss.source_files = 'Source/CocoaBloc/API/{Client,Models}/*.{h,m}', 'Source/CocoaBloc/Internal/Categories/*.{h,m}', 'Source/CocoaBloc/API/*.h'
         ss.private_header_files = 'Source/CocoaBloc/Internal/**/*.h'
     end
 

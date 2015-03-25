@@ -23,12 +23,7 @@
 		091B937A1AC32A6900A3623E /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B932F1AC32A6900A3623E /* SBClient+User.m */; };
 		091B937B1AC32A6900A3623E /* SBClient+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93311AC32A6900A3623E /* SBClient+Video.m */; };
 		091B937C1AC32A6900A3623E /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93331AC32A6900A3623E /* SBClient.m */; };
-		091B937D1AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93381AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m */; };
-		091B937E1AC32A6900A3623E /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933A1AC32A6900A3623E /* MTLValueTransformer+Convenience.m */; };
 		091B937F1AC32A6900A3623E /* NSData+Mime.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933C1AC32A6900A3623E /* NSData+Mime.m */; };
-		091B93801AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933E1AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m */; };
-		091B93811AC32A6900A3623E /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93401AC32A6900A3623E /* NSObject+AssociatedObjects.m */; };
-		091B93821AC32A6900A3623E /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93421AC32A6900A3623E /* RACSignal+JSONDeserialization.m */; };
 		091B93831AC32A6900A3623E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93441AC32A6900A3623E /* SBClient+Private.m */; };
 		091B93841AC32A6900A3623E /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93471AC32A6900A3623E /* SBAccount.m */; };
 		091B93851AC32A6900A3623E /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93491AC32A6900A3623E /* SBAddress.m */; };
@@ -50,6 +45,11 @@
 		091B93951AC32A6900A3623E /* SBTier.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93691AC32A6900A3623E /* SBTier.m */; };
 		091B93961AC32A6900A3623E /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B936B1AC32A6900A3623E /* SBUser.m */; };
 		091B93971AC32A6900A3623E /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B936D1AC32A6900A3623E /* SBVideo.m */; };
+		0943C6201AC34C5C006CF9E9 /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93421AC32A6900A3623E /* RACSignal+JSONDeserialization.m */; };
+		0943C6211AC34C75006CF9E9 /* AFHTTPRequestOperationManager+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93381AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m */; };
+		0943C6231AC34C75006CF9E9 /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933E1AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m */; };
+		0943C6241AC34C75006CF9E9 /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93401AC32A6900A3623E /* NSObject+AssociatedObjects.m */; };
+		0943C6251AC34CCF006CF9E9 /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933A1AC32A6900A3623E /* MTLValueTransformer+Convenience.m */; };
 		4999A78BF66643539201CF57 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1317D2401992164390F2F63 /* libPods-CocoaBloc.a */; };
 /* End PBXBuildFile section */
 
@@ -246,7 +246,8 @@
 			children = (
 				091B93361AC32A6900A3623E /* Categories */,
 			);
-			path = Internal;
+			name = Internal;
+			path = ../Internal;
 			sourceTree = "<group>";
 		};
 		091B93361AC32A6900A3623E /* Categories */ = {
@@ -438,33 +439,33 @@
 				091B93761AC32A6900A3623E /* SBClient+Photo.m in Sources */,
 				091B938F1AC32A6900A3623E /* SBOrder.m in Sources */,
 				091B936F1AC32A6900A3623E /* SBClient+Audio.m in Sources */,
-				091B93821AC32A6900A3623E /* RACSignal+JSONDeserialization.m in Sources */,
+				0943C6251AC34CCF006CF9E9 /* MTLValueTransformer+Convenience.m in Sources */,
 				091B92F81AC31FF700A3623E /* SBAuthenticationViewController.m in Sources */,
 				091B93711AC32A6900A3623E /* SBClient+Blog.m in Sources */,
 				091B936E1AC32A6900A3623E /* SBClient+Account.m in Sources */,
-				091B93801AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m in Sources */,
 				091B938C1AC32A6900A3623E /* SBNotification.m in Sources */,
 				091B938D1AC32A6900A3623E /* SBNotificationSettings.m in Sources */,
 				091B938B1AC32A6900A3623E /* SBFanClubDashboard.m in Sources */,
+				0943C6211AC34C75006CF9E9 /* AFHTTPRequestOperationManager+File.m in Sources */,
+				091B937F1AC32A6900A3623E /* NSData+Mime.m in Sources */,
+				0943C6231AC34C75006CF9E9 /* NSDateFormatter+CocoaBloc.m in Sources */,
+				0943C6241AC34C75006CF9E9 /* NSObject+AssociatedObjects.m in Sources */,
+				091B93831AC32A6900A3623E /* SBClient+Private.m in Sources */,
 				091B93861AC32A6900A3623E /* SBAudio.m in Sources */,
 				091B937B1AC32A6900A3623E /* SBClient+Video.m in Sources */,
-				091B937D1AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m in Sources */,
 				091B93881AC32A6900A3623E /* SBComment.m in Sources */,
 				091B93771AC32A6900A3623E /* SBClient+Push.m in Sources */,
 				091B93731AC32A6900A3623E /* SBClient+Content.m in Sources */,
 				091B93941AC32A6900A3623E /* SBStoreItem.m in Sources */,
 				091B93971AC32A6900A3623E /* SBVideo.m in Sources */,
 				091B93851AC32A6900A3623E /* SBAddress.m in Sources */,
+				0943C6201AC34C5C006CF9E9 /* RACSignal+JSONDeserialization.m in Sources */,
 				091B93781AC32A6900A3623E /* SBClient+Status.m in Sources */,
-				091B93811AC32A6900A3623E /* NSObject+AssociatedObjects.m in Sources */,
 				091B938E1AC32A6900A3623E /* SBObject.m in Sources */,
 				091B937C1AC32A6900A3623E /* SBClient.m in Sources */,
 				091B93921AC32A6900A3623E /* SBStatus.m in Sources */,
-				091B937F1AC32A6900A3623E /* NSData+Mime.m in Sources */,
-				091B93831AC32A6900A3623E /* SBClient+Private.m in Sources */,
 				091B93931AC32A6900A3623E /* SBStoreDashboard.m in Sources */,
 				091B93841AC32A6900A3623E /* SBAccount.m in Sources */,
-				091B937E1AC32A6900A3623E /* MTLValueTransformer+Convenience.m in Sources */,
 				091B93951AC32A6900A3623E /* SBTier.m in Sources */,
 				091B93791AC32A6900A3623E /* SBClient+Store.m in Sources */,
 				091B93751AC32A6900A3623E /* SBClient+Notification.m in Sources */,
