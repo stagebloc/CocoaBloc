@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		091B92F81AC31FF700A3623E /* SBAuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B928C1AC31F9800A3623E /* SBAuthenticationViewController.m */; };
+		091B936E1AC32A6900A3623E /* SBClient+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93171AC32A6900A3623E /* SBClient+Account.m */; };
+		091B936F1AC32A6900A3623E /* SBClient+Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93191AC32A6900A3623E /* SBClient+Audio.m */; };
+		091B93701AC32A6900A3623E /* SBClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B931B1AC32A6900A3623E /* SBClient+Auth.m */; };
+		091B93711AC32A6900A3623E /* SBClient+Blog.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B931D1AC32A6900A3623E /* SBClient+Blog.m */; };
+		091B93721AC32A6900A3623E /* SBClient+Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B931F1AC32A6900A3623E /* SBClient+Comment.m */; };
+		091B93731AC32A6900A3623E /* SBClient+Content.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93211AC32A6900A3623E /* SBClient+Content.m */; };
+		091B93741AC32A6900A3623E /* SBClient+FanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93231AC32A6900A3623E /* SBClient+FanClub.m */; };
+		091B93751AC32A6900A3623E /* SBClient+Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93251AC32A6900A3623E /* SBClient+Notification.m */; };
+		091B93761AC32A6900A3623E /* SBClient+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93271AC32A6900A3623E /* SBClient+Photo.m */; };
+		091B93771AC32A6900A3623E /* SBClient+Push.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93291AC32A6900A3623E /* SBClient+Push.m */; };
+		091B93781AC32A6900A3623E /* SBClient+Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B932B1AC32A6900A3623E /* SBClient+Status.m */; };
+		091B93791AC32A6900A3623E /* SBClient+Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B932D1AC32A6900A3623E /* SBClient+Store.m */; };
+		091B937A1AC32A6900A3623E /* SBClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B932F1AC32A6900A3623E /* SBClient+User.m */; };
+		091B937B1AC32A6900A3623E /* SBClient+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93311AC32A6900A3623E /* SBClient+Video.m */; };
+		091B937C1AC32A6900A3623E /* SBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93331AC32A6900A3623E /* SBClient.m */; };
+		091B937D1AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93381AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m */; };
+		091B937E1AC32A6900A3623E /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933A1AC32A6900A3623E /* MTLValueTransformer+Convenience.m */; };
+		091B937F1AC32A6900A3623E /* NSData+Mime.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933C1AC32A6900A3623E /* NSData+Mime.m */; };
+		091B93801AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B933E1AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m */; };
+		091B93811AC32A6900A3623E /* NSObject+AssociatedObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93401AC32A6900A3623E /* NSObject+AssociatedObjects.m */; };
+		091B93821AC32A6900A3623E /* RACSignal+JSONDeserialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93421AC32A6900A3623E /* RACSignal+JSONDeserialization.m */; };
+		091B93831AC32A6900A3623E /* SBClient+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93441AC32A6900A3623E /* SBClient+Private.m */; };
+		091B93841AC32A6900A3623E /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93471AC32A6900A3623E /* SBAccount.m */; };
+		091B93851AC32A6900A3623E /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93491AC32A6900A3623E /* SBAddress.m */; };
+		091B93861AC32A6900A3623E /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B934B1AC32A6900A3623E /* SBAudio.m */; };
+		091B93871AC32A6900A3623E /* SBBlog.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B934D1AC32A6900A3623E /* SBBlog.m */; };
+		091B93881AC32A6900A3623E /* SBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B934F1AC32A6900A3623E /* SBComment.m */; };
+		091B93891AC32A6900A3623E /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93511AC32A6900A3623E /* SBContent.m */; };
+		091B938A1AC32A6900A3623E /* SBFanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93531AC32A6900A3623E /* SBFanClub.m */; };
+		091B938B1AC32A6900A3623E /* SBFanClubDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93551AC32A6900A3623E /* SBFanClubDashboard.m */; };
+		091B938C1AC32A6900A3623E /* SBNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93571AC32A6900A3623E /* SBNotification.m */; };
+		091B938D1AC32A6900A3623E /* SBNotificationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93591AC32A6900A3623E /* SBNotificationSettings.m */; };
+		091B938E1AC32A6900A3623E /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B935B1AC32A6900A3623E /* SBObject.m */; };
+		091B938F1AC32A6900A3623E /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B935D1AC32A6900A3623E /* SBOrder.m */; };
+		091B93901AC32A6900A3623E /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B935F1AC32A6900A3623E /* SBPhoto.m */; };
+		091B93911AC32A6900A3623E /* SBShipping.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93611AC32A6900A3623E /* SBShipping.m */; };
+		091B93921AC32A6900A3623E /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93631AC32A6900A3623E /* SBStatus.m */; };
+		091B93931AC32A6900A3623E /* SBStoreDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93651AC32A6900A3623E /* SBStoreDashboard.m */; };
+		091B93941AC32A6900A3623E /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93671AC32A6900A3623E /* SBStoreItem.m */; };
+		091B93951AC32A6900A3623E /* SBTier.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B93691AC32A6900A3623E /* SBTier.m */; };
+		091B93961AC32A6900A3623E /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B936B1AC32A6900A3623E /* SBUser.m */; };
+		091B93971AC32A6900A3623E /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 091B936D1AC32A6900A3623E /* SBVideo.m */; };
+		4999A78BF66643539201CF57 /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1317D2401992164390F2F63 /* libPods-CocoaBloc.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		093435991AC31ED100A85AF3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		091B928B1AC31F9800A3623E /* SBAuthenticationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBAuthenticationViewController.h; sourceTree = "<group>"; };
+		091B928C1AC31F9800A3623E /* SBAuthenticationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBAuthenticationViewController.m; sourceTree = "<group>"; };
+		091B93131AC3253100A3623E /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CocoaBloc.h; path = CocoaBloc/CocoaBloc.h; sourceTree = "<group>"; };
+		091B93161AC32A6900A3623E /* SBClient+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Account.h"; sourceTree = "<group>"; };
+		091B93171AC32A6900A3623E /* SBClient+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Account.m"; sourceTree = "<group>"; };
+		091B93181AC32A6900A3623E /* SBClient+Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Audio.h"; sourceTree = "<group>"; };
+		091B93191AC32A6900A3623E /* SBClient+Audio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Audio.m"; sourceTree = "<group>"; };
+		091B931A1AC32A6900A3623E /* SBClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Auth.h"; sourceTree = "<group>"; };
+		091B931B1AC32A6900A3623E /* SBClient+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Auth.m"; sourceTree = "<group>"; };
+		091B931C1AC32A6900A3623E /* SBClient+Blog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Blog.h"; sourceTree = "<group>"; };
+		091B931D1AC32A6900A3623E /* SBClient+Blog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Blog.m"; sourceTree = "<group>"; };
+		091B931E1AC32A6900A3623E /* SBClient+Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Comment.h"; sourceTree = "<group>"; };
+		091B931F1AC32A6900A3623E /* SBClient+Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Comment.m"; sourceTree = "<group>"; };
+		091B93201AC32A6900A3623E /* SBClient+Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Content.h"; sourceTree = "<group>"; };
+		091B93211AC32A6900A3623E /* SBClient+Content.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Content.m"; sourceTree = "<group>"; };
+		091B93221AC32A6900A3623E /* SBClient+FanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+FanClub.h"; sourceTree = "<group>"; };
+		091B93231AC32A6900A3623E /* SBClient+FanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+FanClub.m"; sourceTree = "<group>"; };
+		091B93241AC32A6900A3623E /* SBClient+Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Notification.h"; sourceTree = "<group>"; };
+		091B93251AC32A6900A3623E /* SBClient+Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Notification.m"; sourceTree = "<group>"; };
+		091B93261AC32A6900A3623E /* SBClient+Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Photo.h"; sourceTree = "<group>"; };
+		091B93271AC32A6900A3623E /* SBClient+Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Photo.m"; sourceTree = "<group>"; };
+		091B93281AC32A6900A3623E /* SBClient+Push.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Push.h"; sourceTree = "<group>"; };
+		091B93291AC32A6900A3623E /* SBClient+Push.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Push.m"; sourceTree = "<group>"; };
+		091B932A1AC32A6900A3623E /* SBClient+Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Status.h"; sourceTree = "<group>"; };
+		091B932B1AC32A6900A3623E /* SBClient+Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Status.m"; sourceTree = "<group>"; };
+		091B932C1AC32A6900A3623E /* SBClient+Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Store.h"; sourceTree = "<group>"; };
+		091B932D1AC32A6900A3623E /* SBClient+Store.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Store.m"; sourceTree = "<group>"; };
+		091B932E1AC32A6900A3623E /* SBClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+User.h"; sourceTree = "<group>"; };
+		091B932F1AC32A6900A3623E /* SBClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+User.m"; sourceTree = "<group>"; };
+		091B93301AC32A6900A3623E /* SBClient+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Video.h"; sourceTree = "<group>"; };
+		091B93311AC32A6900A3623E /* SBClient+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Video.m"; sourceTree = "<group>"; };
+		091B93321AC32A6900A3623E /* SBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBClient.h; sourceTree = "<group>"; };
+		091B93331AC32A6900A3623E /* SBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBClient.m; sourceTree = "<group>"; };
+		091B93341AC32A6900A3623E /* CocoaBlocAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaBlocAPI.h; sourceTree = "<group>"; };
+		091B93371AC32A6900A3623E /* AFHTTPRequestOperationManager+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+File.h"; sourceTree = "<group>"; };
+		091B93381AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+File.m"; sourceTree = "<group>"; };
+		091B93391AC32A6900A3623E /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
+		091B933A1AC32A6900A3623E /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
+		091B933B1AC32A6900A3623E /* NSData+Mime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Mime.h"; sourceTree = "<group>"; };
+		091B933C1AC32A6900A3623E /* NSData+Mime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Mime.m"; sourceTree = "<group>"; };
+		091B933D1AC32A6900A3623E /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
+		091B933E1AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
+		091B933F1AC32A6900A3623E /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
+		091B93401AC32A6900A3623E /* NSObject+AssociatedObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObjects.m"; sourceTree = "<group>"; };
+		091B93411AC32A6900A3623E /* RACSignal+JSONDeserialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+JSONDeserialization.h"; sourceTree = "<group>"; };
+		091B93421AC32A6900A3623E /* RACSignal+JSONDeserialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+JSONDeserialization.m"; sourceTree = "<group>"; };
+		091B93431AC32A6900A3623E /* SBClient+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBClient+Private.h"; sourceTree = "<group>"; };
+		091B93441AC32A6900A3623E /* SBClient+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBClient+Private.m"; sourceTree = "<group>"; };
+		091B93461AC32A6900A3623E /* SBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAccount.h; sourceTree = "<group>"; };
+		091B93471AC32A6900A3623E /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
+		091B93481AC32A6900A3623E /* SBAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAddress.h; sourceTree = "<group>"; };
+		091B93491AC32A6900A3623E /* SBAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAddress.m; sourceTree = "<group>"; };
+		091B934A1AC32A6900A3623E /* SBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudio.h; sourceTree = "<group>"; };
+		091B934B1AC32A6900A3623E /* SBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudio.m; sourceTree = "<group>"; };
+		091B934C1AC32A6900A3623E /* SBBlog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBlog.h; sourceTree = "<group>"; };
+		091B934D1AC32A6900A3623E /* SBBlog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBlog.m; sourceTree = "<group>"; };
+		091B934E1AC32A6900A3623E /* SBComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBComment.h; sourceTree = "<group>"; };
+		091B934F1AC32A6900A3623E /* SBComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBComment.m; sourceTree = "<group>"; };
+		091B93501AC32A6900A3623E /* SBContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBContent.h; sourceTree = "<group>"; };
+		091B93511AC32A6900A3623E /* SBContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBContent.m; sourceTree = "<group>"; };
+		091B93521AC32A6900A3623E /* SBFanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFanClub.h; sourceTree = "<group>"; };
+		091B93531AC32A6900A3623E /* SBFanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFanClub.m; sourceTree = "<group>"; };
+		091B93541AC32A6900A3623E /* SBFanClubDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFanClubDashboard.h; sourceTree = "<group>"; };
+		091B93551AC32A6900A3623E /* SBFanClubDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFanClubDashboard.m; sourceTree = "<group>"; };
+		091B93561AC32A6900A3623E /* SBNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNotification.h; sourceTree = "<group>"; };
+		091B93571AC32A6900A3623E /* SBNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNotification.m; sourceTree = "<group>"; };
+		091B93581AC32A6900A3623E /* SBNotificationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNotificationSettings.h; sourceTree = "<group>"; };
+		091B93591AC32A6900A3623E /* SBNotificationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNotificationSettings.m; sourceTree = "<group>"; };
+		091B935A1AC32A6900A3623E /* SBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBObject.h; sourceTree = "<group>"; };
+		091B935B1AC32A6900A3623E /* SBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBObject.m; sourceTree = "<group>"; };
+		091B935C1AC32A6900A3623E /* SBOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrder.h; sourceTree = "<group>"; };
+		091B935D1AC32A6900A3623E /* SBOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOrder.m; sourceTree = "<group>"; };
+		091B935E1AC32A6900A3623E /* SBPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhoto.h; sourceTree = "<group>"; };
+		091B935F1AC32A6900A3623E /* SBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhoto.m; sourceTree = "<group>"; };
+		091B93601AC32A6900A3623E /* SBShipping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBShipping.h; sourceTree = "<group>"; };
+		091B93611AC32A6900A3623E /* SBShipping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBShipping.m; sourceTree = "<group>"; };
+		091B93621AC32A6900A3623E /* SBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatus.h; sourceTree = "<group>"; };
+		091B93631AC32A6900A3623E /* SBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStatus.m; sourceTree = "<group>"; };
+		091B93641AC32A6900A3623E /* SBStoreDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreDashboard.h; sourceTree = "<group>"; };
+		091B93651AC32A6900A3623E /* SBStoreDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStoreDashboard.m; sourceTree = "<group>"; };
+		091B93661AC32A6900A3623E /* SBStoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreItem.h; sourceTree = "<group>"; };
+		091B93671AC32A6900A3623E /* SBStoreItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStoreItem.m; sourceTree = "<group>"; };
+		091B93681AC32A6900A3623E /* SBTier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTier.h; sourceTree = "<group>"; };
+		091B93691AC32A6900A3623E /* SBTier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTier.m; sourceTree = "<group>"; };
+		091B936A1AC32A6900A3623E /* SBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUser.h; sourceTree = "<group>"; };
+		091B936B1AC32A6900A3623E /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
+		091B936C1AC32A6900A3623E /* SBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideo.h; sourceTree = "<group>"; };
+		091B936D1AC32A6900A3623E /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
+		096DF5911AC3206E005070BE /* libCocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaBloc.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9727CC5D8AB13A2886330790 /* Pods-CocoaBloc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc.release.xcconfig"; sourceTree = "<group>"; };
+		C1317D2401992164390F2F63 /* libPods-CocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBloc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6A6A0482B7E629ECCE7F349 /* Pods-CocoaBloc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		093435981AC31ED100A85AF3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4999A78BF66643539201CF57 /* libPods-CocoaBloc.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		091B92411AC31F9800A3623E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				091B93131AC3253100A3623E /* CocoaBloc.h */,
+				091B93141AC32A6900A3623E /* API */,
+				091B928A1AC31F9800A3623E /* OAuth */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		091B928A1AC31F9800A3623E /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				091B928B1AC31F9800A3623E /* SBAuthenticationViewController.h */,
+				091B928C1AC31F9800A3623E /* SBAuthenticationViewController.m */,
+			);
+			name = OAuth;
+			path = CocoaBloc/OAuth;
+			sourceTree = "<group>";
+		};
+		091B93141AC32A6900A3623E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				091B93341AC32A6900A3623E /* CocoaBlocAPI.h */,
+				091B93151AC32A6900A3623E /* Client */,
+				091B93351AC32A6900A3623E /* Internal */,
+				091B93451AC32A6900A3623E /* Models */,
+			);
+			name = API;
+			path = CocoaBloc/API;
+			sourceTree = "<group>";
+		};
+		091B93151AC32A6900A3623E /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				091B93161AC32A6900A3623E /* SBClient+Account.h */,
+				091B93171AC32A6900A3623E /* SBClient+Account.m */,
+				091B93181AC32A6900A3623E /* SBClient+Audio.h */,
+				091B93191AC32A6900A3623E /* SBClient+Audio.m */,
+				091B931A1AC32A6900A3623E /* SBClient+Auth.h */,
+				091B931B1AC32A6900A3623E /* SBClient+Auth.m */,
+				091B931C1AC32A6900A3623E /* SBClient+Blog.h */,
+				091B931D1AC32A6900A3623E /* SBClient+Blog.m */,
+				091B931E1AC32A6900A3623E /* SBClient+Comment.h */,
+				091B931F1AC32A6900A3623E /* SBClient+Comment.m */,
+				091B93201AC32A6900A3623E /* SBClient+Content.h */,
+				091B93211AC32A6900A3623E /* SBClient+Content.m */,
+				091B93221AC32A6900A3623E /* SBClient+FanClub.h */,
+				091B93231AC32A6900A3623E /* SBClient+FanClub.m */,
+				091B93241AC32A6900A3623E /* SBClient+Notification.h */,
+				091B93251AC32A6900A3623E /* SBClient+Notification.m */,
+				091B93261AC32A6900A3623E /* SBClient+Photo.h */,
+				091B93271AC32A6900A3623E /* SBClient+Photo.m */,
+				091B93281AC32A6900A3623E /* SBClient+Push.h */,
+				091B93291AC32A6900A3623E /* SBClient+Push.m */,
+				091B932A1AC32A6900A3623E /* SBClient+Status.h */,
+				091B932B1AC32A6900A3623E /* SBClient+Status.m */,
+				091B932C1AC32A6900A3623E /* SBClient+Store.h */,
+				091B932D1AC32A6900A3623E /* SBClient+Store.m */,
+				091B932E1AC32A6900A3623E /* SBClient+User.h */,
+				091B932F1AC32A6900A3623E /* SBClient+User.m */,
+				091B93301AC32A6900A3623E /* SBClient+Video.h */,
+				091B93311AC32A6900A3623E /* SBClient+Video.m */,
+				091B93321AC32A6900A3623E /* SBClient.h */,
+				091B93331AC32A6900A3623E /* SBClient.m */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		091B93351AC32A6900A3623E /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				091B93361AC32A6900A3623E /* Categories */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		091B93361AC32A6900A3623E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				091B93371AC32A6900A3623E /* AFHTTPRequestOperationManager+File.h */,
+				091B93381AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m */,
+				091B93391AC32A6900A3623E /* MTLValueTransformer+Convenience.h */,
+				091B933A1AC32A6900A3623E /* MTLValueTransformer+Convenience.m */,
+				091B933B1AC32A6900A3623E /* NSData+Mime.h */,
+				091B933C1AC32A6900A3623E /* NSData+Mime.m */,
+				091B933D1AC32A6900A3623E /* NSDateFormatter+CocoaBloc.h */,
+				091B933E1AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m */,
+				091B933F1AC32A6900A3623E /* NSObject+AssociatedObjects.h */,
+				091B93401AC32A6900A3623E /* NSObject+AssociatedObjects.m */,
+				091B93411AC32A6900A3623E /* RACSignal+JSONDeserialization.h */,
+				091B93421AC32A6900A3623E /* RACSignal+JSONDeserialization.m */,
+				091B93431AC32A6900A3623E /* SBClient+Private.h */,
+				091B93441AC32A6900A3623E /* SBClient+Private.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		091B93451AC32A6900A3623E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				091B93461AC32A6900A3623E /* SBAccount.h */,
+				091B93471AC32A6900A3623E /* SBAccount.m */,
+				091B93481AC32A6900A3623E /* SBAddress.h */,
+				091B93491AC32A6900A3623E /* SBAddress.m */,
+				091B934A1AC32A6900A3623E /* SBAudio.h */,
+				091B934B1AC32A6900A3623E /* SBAudio.m */,
+				091B934C1AC32A6900A3623E /* SBBlog.h */,
+				091B934D1AC32A6900A3623E /* SBBlog.m */,
+				091B934E1AC32A6900A3623E /* SBComment.h */,
+				091B934F1AC32A6900A3623E /* SBComment.m */,
+				091B93501AC32A6900A3623E /* SBContent.h */,
+				091B93511AC32A6900A3623E /* SBContent.m */,
+				091B93521AC32A6900A3623E /* SBFanClub.h */,
+				091B93531AC32A6900A3623E /* SBFanClub.m */,
+				091B93541AC32A6900A3623E /* SBFanClubDashboard.h */,
+				091B93551AC32A6900A3623E /* SBFanClubDashboard.m */,
+				091B93561AC32A6900A3623E /* SBNotification.h */,
+				091B93571AC32A6900A3623E /* SBNotification.m */,
+				091B93581AC32A6900A3623E /* SBNotificationSettings.h */,
+				091B93591AC32A6900A3623E /* SBNotificationSettings.m */,
+				091B935A1AC32A6900A3623E /* SBObject.h */,
+				091B935B1AC32A6900A3623E /* SBObject.m */,
+				091B935C1AC32A6900A3623E /* SBOrder.h */,
+				091B935D1AC32A6900A3623E /* SBOrder.m */,
+				091B935E1AC32A6900A3623E /* SBPhoto.h */,
+				091B935F1AC32A6900A3623E /* SBPhoto.m */,
+				091B93601AC32A6900A3623E /* SBShipping.h */,
+				091B93611AC32A6900A3623E /* SBShipping.m */,
+				091B93621AC32A6900A3623E /* SBStatus.h */,
+				091B93631AC32A6900A3623E /* SBStatus.m */,
+				091B93641AC32A6900A3623E /* SBStoreDashboard.h */,
+				091B93651AC32A6900A3623E /* SBStoreDashboard.m */,
+				091B93661AC32A6900A3623E /* SBStoreItem.h */,
+				091B93671AC32A6900A3623E /* SBStoreItem.m */,
+				091B93681AC32A6900A3623E /* SBTier.h */,
+				091B93691AC32A6900A3623E /* SBTier.m */,
+				091B936A1AC32A6900A3623E /* SBUser.h */,
+				091B936B1AC32A6900A3623E /* SBUser.m */,
+				091B936C1AC32A6900A3623E /* SBVideo.h */,
+				091B936D1AC32A6900A3623E /* SBVideo.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		093435921AC31ED100A85AF3 = {
+			isa = PBXGroup;
+			children = (
+				091B92411AC31F9800A3623E /* Source */,
+				87C06D96B36F61CA334C7F11 /* Pods */,
+				ED749C518D229DADC69CAE56 /* Frameworks */,
+				096DF5911AC3206E005070BE /* libCocoaBloc.a */,
+			);
+			sourceTree = "<group>";
+		};
+		87C06D96B36F61CA334C7F11 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F6A6A0482B7E629ECCE7F349 /* Pods-CocoaBloc.debug.xcconfig */,
+				9727CC5D8AB13A2886330790 /* Pods-CocoaBloc.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		ED749C518D229DADC69CAE56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C1317D2401992164390F2F63 /* libPods-CocoaBloc.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0934359A1AC31ED100A85AF3 /* CocoaBloc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 093435AF1AC31ED100A85AF3 /* Build configuration list for PBXNativeTarget "CocoaBloc" */;
+			buildPhases = (
+				64F136431CE4FBD742A28864 /* Check Pods Manifest.lock */,
+				093435971AC31ED100A85AF3 /* Sources */,
+				093435981AC31ED100A85AF3 /* Frameworks */,
+				093435991AC31ED100A85AF3 /* CopyFiles */,
+				1058BE005BEBF9C49A1FFB30 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CocoaBloc;
+			productName = CocoaBloc;
+			productReference = 096DF5911AC3206E005070BE /* libCocoaBloc.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		093435931AC31ED100A85AF3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = StageBloc;
+				TargetAttributes = {
+					0934359A1AC31ED100A85AF3 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = 093435961AC31ED100A85AF3 /* Build configuration list for PBXProject "CocoaBloc" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 093435921AC31ED100A85AF3;
+			productRefGroup = 093435921AC31ED100A85AF3;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0934359A1AC31ED100A85AF3 /* CocoaBloc */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1058BE005BEBF9C49A1FFB30 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64F136431CE4FBD742A28864 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		093435971AC31ED100A85AF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				091B93761AC32A6900A3623E /* SBClient+Photo.m in Sources */,
+				091B938F1AC32A6900A3623E /* SBOrder.m in Sources */,
+				091B936F1AC32A6900A3623E /* SBClient+Audio.m in Sources */,
+				091B93821AC32A6900A3623E /* RACSignal+JSONDeserialization.m in Sources */,
+				091B92F81AC31FF700A3623E /* SBAuthenticationViewController.m in Sources */,
+				091B93711AC32A6900A3623E /* SBClient+Blog.m in Sources */,
+				091B936E1AC32A6900A3623E /* SBClient+Account.m in Sources */,
+				091B93801AC32A6900A3623E /* NSDateFormatter+CocoaBloc.m in Sources */,
+				091B938C1AC32A6900A3623E /* SBNotification.m in Sources */,
+				091B938D1AC32A6900A3623E /* SBNotificationSettings.m in Sources */,
+				091B938B1AC32A6900A3623E /* SBFanClubDashboard.m in Sources */,
+				091B93861AC32A6900A3623E /* SBAudio.m in Sources */,
+				091B937B1AC32A6900A3623E /* SBClient+Video.m in Sources */,
+				091B937D1AC32A6900A3623E /* AFHTTPRequestOperationManager+File.m in Sources */,
+				091B93881AC32A6900A3623E /* SBComment.m in Sources */,
+				091B93771AC32A6900A3623E /* SBClient+Push.m in Sources */,
+				091B93731AC32A6900A3623E /* SBClient+Content.m in Sources */,
+				091B93941AC32A6900A3623E /* SBStoreItem.m in Sources */,
+				091B93971AC32A6900A3623E /* SBVideo.m in Sources */,
+				091B93851AC32A6900A3623E /* SBAddress.m in Sources */,
+				091B93781AC32A6900A3623E /* SBClient+Status.m in Sources */,
+				091B93811AC32A6900A3623E /* NSObject+AssociatedObjects.m in Sources */,
+				091B938E1AC32A6900A3623E /* SBObject.m in Sources */,
+				091B937C1AC32A6900A3623E /* SBClient.m in Sources */,
+				091B93921AC32A6900A3623E /* SBStatus.m in Sources */,
+				091B937F1AC32A6900A3623E /* NSData+Mime.m in Sources */,
+				091B93831AC32A6900A3623E /* SBClient+Private.m in Sources */,
+				091B93931AC32A6900A3623E /* SBStoreDashboard.m in Sources */,
+				091B93841AC32A6900A3623E /* SBAccount.m in Sources */,
+				091B937E1AC32A6900A3623E /* MTLValueTransformer+Convenience.m in Sources */,
+				091B93951AC32A6900A3623E /* SBTier.m in Sources */,
+				091B93791AC32A6900A3623E /* SBClient+Store.m in Sources */,
+				091B93751AC32A6900A3623E /* SBClient+Notification.m in Sources */,
+				091B93871AC32A6900A3623E /* SBBlog.m in Sources */,
+				091B93891AC32A6900A3623E /* SBContent.m in Sources */,
+				091B93701AC32A6900A3623E /* SBClient+Auth.m in Sources */,
+				091B93911AC32A6900A3623E /* SBShipping.m in Sources */,
+				091B93901AC32A6900A3623E /* SBPhoto.m in Sources */,
+				091B93961AC32A6900A3623E /* SBUser.m in Sources */,
+				091B938A1AC32A6900A3623E /* SBFanClub.m in Sources */,
+				091B93721AC32A6900A3623E /* SBClient+Comment.m in Sources */,
+				091B937A1AC32A6900A3623E /* SBClient+User.m in Sources */,
+				091B93741AC32A6900A3623E /* SBClient+FanClub.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		093435AD1AC31ED100A85AF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/Source/",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		093435AE1AC31ED100A85AF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/Source/",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		093435B01AC31ED100A85AF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6A6A0482B7E629ECCE7F349 /* Pods-CocoaBloc.debug.xcconfig */;
+			buildSettings = {
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		093435B11AC31ED100A85AF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9727CC5D8AB13A2886330790 /* Pods-CocoaBloc.release.xcconfig */;
+			buildSettings = {
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		093435961AC31ED100A85AF3 /* Build configuration list for PBXProject "CocoaBloc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				093435AD1AC31ED100A85AF3 /* Debug */,
+				093435AE1AC31ED100A85AF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		093435AF1AC31ED100A85AF3 /* Build configuration list for PBXNativeTarget "CocoaBloc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				093435B01AC31ED100A85AF3 /* Debug */,
+				093435B11AC31ED100A85AF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 093435931AC31ED100A85AF3 /* Project object */;
+}

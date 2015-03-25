@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Mantle/Mantle.h>
-#import <SBObject.h>
+#import "SBObject.h"
 
 @interface SBShippingMethod : SBObject
 

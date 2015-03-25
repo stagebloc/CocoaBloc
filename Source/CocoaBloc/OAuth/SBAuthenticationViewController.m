@@ -9,8 +9,8 @@
 #import "SBAuthenticationViewController.h"
 #import <RACEXTScope.h>
 #import <PureLayout/PureLayout.h>
-#import <SBClient.h>
-#import <SBClient+Auth.h>
+#import "SBClient.h"
+#import "SBClient+Auth.h"
 
 extern NSString *SBClientID, *SBRedirectURI;
 
