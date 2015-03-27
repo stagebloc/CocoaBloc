@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
     s.description = 'An Objective-C(Swift-compatible) library for using the StageBloc v1 REST API.'
     s.source = { :git => 'https://github.com/stagebloc/CocoaBloc.git' }
     s.requires_arc = true
-    s.ios.deployment_target = '8.0'
+    s.ios.deployment_target = '7.0'
     s.osx.deployment_target = '10.9'
 
     # Every subspec uses RAC
@@ -25,7 +25,6 @@ Pod::Spec.new do |s|
         ss.dependency 'AFNetworking-RACExtensions'
         ss.dependency 'Mantle'
 
-        ss.header_mappings_dir = 'Source/CocoaBloc/API'
         ss.source_files = 'Source/CocoaBloc/API/{Client,Models}/*.{h,m}', 'Source/CocoaBloc/Internal/Categories/*.{h,m}', 'Source/CocoaBloc/API/*.h'
         ss.private_header_files = 'Source/CocoaBloc/Internal/**/*.h'
     end
