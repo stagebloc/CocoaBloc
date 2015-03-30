@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
-    s.version = '0.0.5'
+    s.version = '0.0.6'
     s.authors = {   'John Heaton'   => 'pikachu@stagebloc.com',
                     'Mark Glagola'  => 'mark@stagebloc.com',
                     'David Warner'  => 'spiderman@stagebloc.com',
@@ -33,8 +33,6 @@ Pod::Spec.new do |s|
         ss.dependency 'CocoaBloc/API'
         ss.dependency 'PureLayout'
 
-        ss.header_mappings_dir = 'Source/CocoaBloc/OAuth'
-        ss.source_files = 'Source/CocoaBloc/OAuth/*.{h,m}'
+        ss.source_files = 'Source/CocoaBloc/{OAuth,Models+UIActivity}/*.{h,m}'
     end
-
 end
