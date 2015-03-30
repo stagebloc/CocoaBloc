@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
         ss.dependency 'AFNetworking-RACExtensions'
         ss.dependency 'Mantle'
 
-        ss.source_files = 'Pod/Classes/Internal/*.{h,m}', 'Pod/Classes/API/**/*'
+        ss.source_files = 'Pod/Classes/Internal/*', 'Pod/Classes/API/**/*'
         ss.private_header_files = 'Pod/Classes/Internal/*.h'
     end
 
@@ -36,6 +36,6 @@ Pod::Spec.new do |s|
         ss.dependency 'CocoaBloc/API'
         ss.dependency 'PureLayout'
 
-        ss.source_files = 'Pod/Classes/UIKit/**'
+        ss.source_files = 'Pod/Classes/UIKit/*'
     end
 end
