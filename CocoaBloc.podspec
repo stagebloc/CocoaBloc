@@ -11,11 +11,14 @@ Pod::Spec.new do |s|
     s.description = 'An Objective-C(Swift-compatible) library for using the StageBloc v1 REST API.'
     s.source = { :git => 'https://github.com/stagebloc/CocoaBloc.git' }
     s.requires_arc = true
+    s.license = { :type => 'MIT', :file => 'LICENSE' }
     s.ios.deployment_target = '7.0'
     s.osx.deployment_target = '10.9'
 
     # Every subspec uses RAC
     s.dependency 'ReactiveCocoa'
+
+    s.default_subspecs = 'API'
 
     # Umbrella header
     s.source_files = 'Source/CocoaBloc/CocoaBloc.h'
