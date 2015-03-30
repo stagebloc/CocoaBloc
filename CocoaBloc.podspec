@@ -18,24 +18,24 @@ Pod::Spec.new do |s|
     # Every subspec uses RAC
     s.dependency 'ReactiveCocoa'
 
-    s.default_subspecs = 'API'
+    # s.default_subspecs = 'API'
 
     # Umbrella header
-    s.source_files = 'Source/CocoaBloc/CocoaBloc.h'
+    s.source_files = 'Pod/Classes/CocoaBloc.h'
 
     s.subspec 'API' do |ss|
         ss.dependency 'AFNetworking'
         ss.dependency 'AFNetworking-RACExtensions'
         ss.dependency 'Mantle'
 
-        ss.source_files = 'Source/CocoaBloc/API/{Client,Models}/*.{h,m}', 'Source/CocoaBloc/Internal/Categories/*.{h,m}', 'Source/CocoaBloc/API/*.h'
-        ss.private_header_files = 'Source/CocoaBloc/Internal/**/*.h'
+        ss.source_files = 'Pod/Classes/Internal/*.{h,m}', 'Pod/Classes/API/**/*'
+        ss.private_header_files = 'Pod/Classes/Internal/*.h'
     end
 
-    s.subspec 'UI' do |ss|
+    s.subspec 'UIKit' do |ss|
         ss.dependency 'CocoaBloc/API'
         ss.dependency 'PureLayout'
 
-        ss.source_files = 'Source/CocoaBloc/{OAuth,Models+UIActivity}/*.{h,m}'
+        ss.source_files = 'Pod/Classes/UIKit/**'
     end
 end
