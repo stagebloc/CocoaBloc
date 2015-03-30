@@ -37,5 +37,6 @@ Pod::Spec.new do |s|
         ss.dependency 'PureLayout'
 
         ss.source_files = 'Pod/Classes/UIKit/*'
+	ss.resources = ['Pod/Assets/UIKit/*']
     end
 end

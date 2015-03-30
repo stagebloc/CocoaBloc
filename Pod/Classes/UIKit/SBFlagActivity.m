@@ -46,7 +46,7 @@ NSString *const SBFlagActivityType = @"SBFlagActivityType";
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"FlagActivity"];
+    return [UIImage imageNamed:@"SBFlagActivity"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {

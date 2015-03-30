@@ -45,7 +45,7 @@ NSString *const SBDeleteActivityType = @"SBDeleteActivity";
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"DeleteActivity"];
+    return [UIImage imageNamed:@"SBDeleteActivity"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
