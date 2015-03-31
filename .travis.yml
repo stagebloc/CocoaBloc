@@ -1,0 +1,19 @@
+language: objective-c
+
+notifications:
+    email: false
+    slack:
+        secure: sWUS8PMZGaYasUeiz81o8H1zfB8MSIwdxI/miFNUYENuJuaNsBGK6Htej4AifEu11Ce+UZsRCjyfpQij9xzmJtXMD2MDSKm5HrVKsFIbHBuTTQ7S3yVvpz7A2ZzvBTsO6TvqryNDNV6m+F+w0iGo7JyKyvCaj6TaaOdlNgdxDkE=
+        on_success: change
+        on_failure: always
+
+before_install:
+    - gem update cocoapods --quiet
+    - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+
+install:
+    - pod lib lint --quick
+    - pod update --project-directory=Example
+
+script:
+    - set -o pipefail && xcodebuild test -workspace Example/CocoaBloc.xcworkspace -scheme CocoaBloc-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c

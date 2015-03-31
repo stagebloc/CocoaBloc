@@ -5,8 +5,6 @@ target 'CocoaBloc', :exclusive => true do
 end
 
 target 'Tests', :exclusive => true do
-  pod "CocoaBloc", :path => "../"
-
   pod 'Specta'
   pod 'Expecta'
   pod 'FBSnapshotTestCase'
