@@ -1,5 +1,8 @@
-CocoaBloc
-=========
+# CocoaBloc
+[![CI Status](http://img.shields.io/travis/stagebloc/CocoaBloc.svg?style=flat)](https://travis-ci.org/stagebloc/CocoaBloc)
+[![Version](https://img.shields.io/cocoapods/v/CocoaBloc.svg?style=flat)](http://cocoapods.org/pods/CocoaBloc)
+[![License](https://img.shields.io/cocoapods/l/CocoaBloc.svg?style=flat)](http://cocoapods.org/pods/CocoaBloc)
+[![Platform](https://img.shields.io/cocoapods/p/CocoaBloc.svg?style=flat)](http://cocoapods.org/pods/CocoaBloc)
 
 CocoaBloc enables any Cocoa developer to have instant access to the StageBloc API via pre-built functions and models. As such, it should allow for much easier and faster development with the StageBloc API in mobile applications. There are two elements to CocoaBloc, the API and the UI elements.
 
