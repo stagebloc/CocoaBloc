@@ -1,71 +1,43 @@
 Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
-    s.version = '0.0.4'
-    s.authors = { 'John Heaton' => 'pikachu@stagebloc.com',
-                  'Josh Holat'  => 'bumblebee@stagebloc.com' }
+    s.version = '1.0.0'
+    s.authors = {   'John Heaton'   => 'pikachu@stagebloc.com',
+                    'Mark Glagola'  => 'mark@stagebloc.com',
+                    'David Warner'  => 'spiderman@stagebloc.com',
+                    'Josh Holat'    => 'bumblebee@stagebloc.com' }
     s.social_media_url = 'https://twitter.com/StageBloc'
     s.homepage = 'https://github.com/stagebloc/CocoaBloc'
-    s.summary = 'StageBloc Cocoa SDK'
-    s.description = 'An Objective-C(Swift-compatible) library for interacting with StageBloc, and displaying StageBloc information/content to users.'
-    s.dependency 'ReactiveCocoa'
-    s.source = { :git => 'https://github.com/stagebloc/CocoaBloc.git', :tag => '0.0.1-podspec' }
+    s.summary = 'StageBloc Cocoa SDK for the StageBloc v1 API'
+    s.description = 'An Objective-C(Swift-compatible) library for using the StageBloc v1 REST API.'
+    s.source = { :git => 'https://github.com/stagebloc/CocoaBloc.git',
+                 :tag => '1.0.0' }
     s.requires_arc = true
-    s.source_files = 'Projects/Library/CocoaBloc/CocoaBloc.h'
-    s.private_header_files = 'Projects/Library/CocoaBloc/Internal/*.h'
+    s.license = { :type => 'MIT', :file => 'LICENSE' }
     s.ios.deployment_target = '7.0'
     s.osx.deployment_target = '10.9'
 
-    s.subspec 'Categories' do |ss|
-      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Categories'
-      ss.source_files = 'Projects/Library/CocoaBloc/Categories/*.{h,m}'
-    end
+    # Every subspec uses RAC
+    s.dependency 'ReactiveCocoa'
+
+    s.default_subspecs = 'API'
+
+    # Umbrella header
+    s.source_files = 'Pod/Classes/CocoaBloc.h'
 
     s.subspec 'API' do |ss|
-      ss.dependency 'AFNetworking'
-      ss.dependency 'AFNetworking-RACExtensions'
-      ss.dependency 'CocoaBloc/Models'
-      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/API'
-      ss.source_files = 'Projects/Library/CocoaBloc/API/*.{h,m}'
+        ss.dependency 'AFNetworking'
+        ss.dependency 'AFNetworking-RACExtensions'
+        ss.dependency 'Mantle'
+
+        ss.source_files = 'Pod/Classes/Internal/*', 'Pod/Classes/API/**/*'
+        ss.private_header_files = 'Pod/Classes/Internal/*.h'
     end
 
-    s.subspec 'Models' do |ss|
-      ss.dependency 'Mantle'
-      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Models'
-      ss.source_files = 'Projects/Library/CocoaBloc/{Models,Internal/Categories}/*.{h,m}'
-      ss.private_header_files = 'Projects/Library/CocoaBloc/Internal/**/*.h'
-    end
-
-    s.subspec 'ModelActivities' do |ss|
+    s.subspec 'UIKit' do |ss|
         ss.dependency 'CocoaBloc/API'
         ss.dependency 'PureLayout'
-        ss.header_mappings_dir = 'Projects/Library/CocoaBloc/ModelActivities'
-        ss.source_files = 'Projects/Library/CocoaBloc/ModelActivities/*.{h,m}'
-        ss.resource_bundle = {'CocoaBlocModelActivities' => 'Projects/Library/CocoaBloc/CocoaBlocModelActivities.xcassets'}
-    end
 
-    s.subspec 'UI' do |ss|
-      ss.dependency 'PureLayout'
-      ss.dependency 'SDWebImage'
-      ss.dependency 'CocoaBloc/Categories'
-      ss.dependency 'pop', '~>1.0.7'
-      ss.source_files = 'Projects/Library/CocoaBloc/UI/*.{h,m}'
-      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/UI'
-      ss.resource_bundle = {'CocoaBlocUI' => 'Projects/Library/CocoaBloc/CocoaBlocUI.xcassets'}
+        ss.source_files = 'Pod/Classes/UIKit/*'
+	ss.resources = ['Pod/Assets/UIKit/*']
     end
-
-    s.subspec 'ViewModels' do |ss|
-      ss.dependency 'CocoaBloc/API'
-      ss.source_files = 'Projects/Library/CocoaBloc/ViewModels/*.{h,m}'
-      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/ViewModels'
-    end
-
-    s.subspec 'Camera' do |ss|
-      ss.dependency 'CocoaBloc/API'
-      ss.dependency 'CocoaBloc/UI'
-      ss.dependency 'CocoaBloc/Categories'
-      ss.resource_bundle = {'CocoaBlocCamera' => 'Projects/Library/CocoaBloc/CocoaBlocCamera.xcassets'}
-      ss.source_files = 'Projects/Library/CocoaBloc/Camera/*.{h,m}'
-      ss.header_mappings_dir = 'Projects/Library/CocoaBloc/Camera'
-    end
-
 end
