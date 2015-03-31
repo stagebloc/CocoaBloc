@@ -35,6 +35,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'UIKit' do |ss|
         ss.dependency 'CocoaBloc/API'
+        ss.dependency 'CocoaBloc-UI'
         ss.dependency 'PureLayout'
 
         ss.source_files = 'Pod/Classes/UIKit/*'
