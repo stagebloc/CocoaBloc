@@ -26,13 +26,13 @@ PODS:
   - CocoaBloc (1.0.3):
     - CocoaBloc/API (= 1.0.3)
     - ReactiveCocoa
-  - CocoaBloc-UI (0.0.3):
-    - CocoaBloc-UI/Colors (= 0.0.3)
-    - CocoaBloc-UI/Fonts (= 0.0.3)
-    - CocoaBloc-UI/PlaceholderTextView (= 0.0.3)
-  - CocoaBloc-UI/Colors (0.0.3)
-  - CocoaBloc-UI/Fonts (0.0.3)
-  - CocoaBloc-UI/PlaceholderTextView (0.0.3)
+  - CocoaBloc-UI (0.0.4):
+    - CocoaBloc-UI/Colors (= 0.0.4)
+    - CocoaBloc-UI/Fonts (= 0.0.4)
+    - CocoaBloc-UI/PlaceholderTextView (= 0.0.4)
+  - CocoaBloc-UI/Colors (0.0.4)
+  - CocoaBloc-UI/Fonts (0.0.4)
+  - CocoaBloc-UI/PlaceholderTextView (0.0.4)
   - CocoaBloc/API (1.0.3):
     - AFNetworking
     - AFNetworking-RACExtensions
@@ -48,6 +48,10 @@ PODS:
     - Expecta (~> 0.3)
     - FBSnapshotTestCase (= 1.6)
   - FBSnapshotTestCase (1.6)
+  - LLReactiveMatchers (0.0.1):
+    - Expecta
+    - ReactiveCocoa (>= 2.1.7)
+    - Specta
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
   - Mantle/extobjc (1.5.4)
@@ -67,23 +71,32 @@ DEPENDENCIES:
   - Expecta
   - Expecta+Snapshots
   - FBSnapshotTestCase
+  - LLReactiveMatchers (from `https://github.com/lawrencelomax/LLReactiveMatchers.git`)
   - Specta
 
 EXTERNAL SOURCES:
   CocoaBloc:
     :path: ../
+  LLReactiveMatchers:
+    :git: https://github.com/lawrencelomax/LLReactiveMatchers.git
+
+CHECKOUT OPTIONS:
+  LLReactiveMatchers:
+    :commit: 5fb16a96c774026eae957c1d4c712694fd2cff71
+    :git: https://github.com/lawrencelomax/LLReactiveMatchers.git
 
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
   AFNetworking-RACExtensions: 501ab1564f5be65e01fe3017cda7bba25764c20d
   CocoaBloc: 285852944772e11ffd56ef7c0fa192718a07d6a1
-  CocoaBloc-UI: 642c068702d2594d74d1f7367f72eb13b6563f54
+  CocoaBloc-UI: ed63e11004be0863e131379cf19af896019a2b89
   Expecta: 8c507baf13211207b1e9d0a741480600e6b4ed15
   Expecta+Snapshots: 40c5ec43b43da3bae957f14fed5dc9177d08ec8b
   FBSnapshotTestCase: 9d5fe43b29ae3a0ed8fc829477971b281038f748
+  LLReactiveMatchers: cdcde9b7a010275ee9720f559a24134a92e0786d
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   PureLayout: a0fe75f1cf485801e7e00b723b8a3c32dca558e2
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   Specta: a353759f073ffcc0a365b782fe4aaeac064c03c6
 
-COCOAPODS: 0.36.1
+COCOAPODS: 0.36.3

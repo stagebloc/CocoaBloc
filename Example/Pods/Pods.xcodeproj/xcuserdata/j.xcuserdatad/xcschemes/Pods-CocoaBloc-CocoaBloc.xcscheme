@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B7C8CEB86C836EB782BCCFB1"
+               BlueprintIdentifier = "9F162C39AB40FDDDF587179F"
                BuildableName = "libPods-CocoaBloc-CocoaBloc.a"
                BlueprintName = "Pods-CocoaBloc-CocoaBloc"
                ReferencedContainer = "container:Pods.xcodeproj">

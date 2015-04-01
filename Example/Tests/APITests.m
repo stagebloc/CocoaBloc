@@ -8,6 +8,7 @@
 
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
+#import <LLReactiveMatchers/LLReactiveMatchers.h>
 
 #import <CocoaBloc/CocoaBloc.h>
 
@@ -38,7 +39,11 @@ describe(@"Constants", ^{
     });
 });
 
-describe(@"Client", ^{
+describe(@"Client Initialization", ^{
+    beforeAll(^{
+        [SBClient setClientID:nil clientSecret:nil redirectURI:nil];
+    });
+    
     it(@"should raise on init if no clientID+clientSecret set", ^{
         expect(^{ return [SBClient new]; }).to.raise(CocoaBlocMissingClientIDSecretException);
     });
@@ -53,6 +58,19 @@ describe(@"Client", ^{
         [SBClient setClientID:@"A" clientSecret:@"B" redirectURI:@""];
         
         expect(^{ return [SBClient new]; }).notTo.raise(CocoaBlocMissingClientIDSecretException);
+    });
+});
+
+describe(@"Client", ^{
+    __block SBClient *client = nil;
+    
+    beforeAll(^{
+        [SBClient setClientID:@"A" clientSecret:@"B" redirectURI:@"C://"];
+        client = [SBClient new];
+    });
+    
+    it(@"should have a valid default deserialization scheduler", ^{
+        expect(client.deserializationScheduler).toNot.beNil();
     });
 });
 

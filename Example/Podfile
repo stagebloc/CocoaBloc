@@ -6,6 +6,7 @@ target 'CocoaBloc', :exclusive => true do
 end
 
 target 'Tests', :exclusive => true do
+  pod 'LLReactiveMatchers', :git => "https://github.com/lawrencelomax/LLReactiveMatchers.git"
   pod 'Specta'
   pod 'Expecta'
   pod 'FBSnapshotTestCase'
