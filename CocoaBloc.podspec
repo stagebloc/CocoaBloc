@@ -39,6 +39,6 @@ Pod::Spec.new do |s|
         ss.ios.dependency 'CocoaBloc-UI', '~> 0.0.3'
 
         ss.ios.source_files = 'Pod/Classes/UIKit/*'
-	ss.resources = ['Pod/Assets/UIKit/*']
+	    ss.resources = ['Pod/Assets/UIKit/*']
     end
 end
