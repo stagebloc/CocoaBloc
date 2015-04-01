@@ -23,8 +23,8 @@ PODS:
   - AFNetworking/UIKit (2.5.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CocoaBloc (1.0.1):
-    - CocoaBloc/API (= 1.0.1)
+  - CocoaBloc (1.0.3):
+    - CocoaBloc/API (= 1.0.3)
     - ReactiveCocoa
   - CocoaBloc-UI (0.0.3):
     - CocoaBloc-UI/Colors (= 0.0.3)
@@ -33,12 +33,12 @@ PODS:
   - CocoaBloc-UI/Colors (0.0.3)
   - CocoaBloc-UI/Fonts (0.0.3)
   - CocoaBloc-UI/PlaceholderTextView (0.0.3)
-  - CocoaBloc/API (1.0.1):
+  - CocoaBloc/API (1.0.3):
     - AFNetworking
     - AFNetworking-RACExtensions
     - Mantle
     - ReactiveCocoa
-  - CocoaBloc/UIKit (1.0.1):
+  - CocoaBloc/UIKit (1.0.3):
     - CocoaBloc-UI
     - CocoaBloc/API
     - PureLayout
@@ -76,7 +76,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
   AFNetworking-RACExtensions: 501ab1564f5be65e01fe3017cda7bba25764c20d
-  CocoaBloc: 45af623a0eaad1c445dee194c7bf193fb9d87b65
+  CocoaBloc: 285852944772e11ffd56ef7c0fa192718a07d6a1
   CocoaBloc-UI: 642c068702d2594d74d1f7367f72eb13b6563f54
   Expecta: 8c507baf13211207b1e9d0a741480600e6b4ed15
   Expecta+Snapshots: 40c5ec43b43da3bae957f14fed5dc9177d08ec8b

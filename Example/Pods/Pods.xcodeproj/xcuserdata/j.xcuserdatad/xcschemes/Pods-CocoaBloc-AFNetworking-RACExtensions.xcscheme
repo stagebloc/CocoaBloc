@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BD831F0DE083922CFEC1A3AF"
+               BlueprintIdentifier = "D4A2482074E3B0F06CB9EDDC"
                BuildableName = "libPods-CocoaBloc-AFNetworking-RACExtensions.a"
                BlueprintName = "Pods-CocoaBloc-AFNetworking-RACExtensions"
                ReferencedContainer = "container:Pods.xcodeproj">
