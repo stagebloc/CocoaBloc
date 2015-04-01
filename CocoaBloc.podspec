@@ -19,8 +19,6 @@ Pod::Spec.new do |s|
     # Every subspec uses RAC
     s.dependency 'ReactiveCocoa', '~> 2.0'
 
-    s.default_subspecs = 'API'
-
     # Umbrella header
     s.source_files = 'Pod/Classes/CocoaBloc.h'
 
@@ -34,11 +32,11 @@ Pod::Spec.new do |s|
     end
 
     s.subspec 'UIKit' do |ss|
-        ss.dependency 'CocoaBloc/API'
-        ss.dependency 'PureLayout', '~> 2.0'
+        ss.ios.dependency 'CocoaBloc/API'
+        ss.ios.dependency 'PureLayout', '~> 2.0'
         ss.ios.dependency 'CocoaBloc-UI', '~> 0.0.3'
 
         ss.ios.source_files = 'Pod/Classes/UIKit/*'
-	    ss.resources = ['Pod/Assets/UIKit/*']
+	    ss.ios.resources = ['Pod/Assets/UIKit/*']
     end
 end
