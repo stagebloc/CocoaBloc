@@ -5,8 +5,7 @@ notifications:
     slack:
         on_success: change
         on_failure: always
-        rooms:
-            secure: v+noETX6NwBkNoCfTfl9XfGswjHINyY7+wEv2saYZ2G87x7JyX/3StKj7zgq1B/BsnV1qwGasdmiM0oMO8VcypE4Na9xTYbprj4Sej7gTt2yOZFEYcygdhi6ZfNXJqK5j3Euw4Zs9Tts1EzJqUPRmF1iVhDE9o8Kv2YF3kBX8Q8=
+        secure: v+noETX6NwBkNoCfTfl9XfGswjHINyY7+wEv2saYZ2G87x7JyX/3StKj7zgq1B/BsnV1qwGasdmiM0oMO8VcypE4Na9xTYbprj4Sej7gTt2yOZFEYcygdhi6ZfNXJqK5j3Euw4Zs9Tts1EzJqUPRmF1iVhDE9o8Kv2YF3kBX8Q8=
 
 before_install:
     - gem update cocoapods --quiet
@@ -17,4 +16,4 @@ install:
     - pod update --project-directory=Example
 
 script:
-    - set -o pipefail && xcodebuild test -workspace Example/CocoaBloc.xcworkspace -scheme CocoaBloc-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
+    - set -o pipefail && xcodebuild test -workspace Example/CocoaBloc.xcworkspace -scheme CocoaBloc-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -tc
