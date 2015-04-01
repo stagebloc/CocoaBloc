@@ -60,11 +60,41 @@
 #define COCOAPODS_VERSION_MINOR_CocoaBloc 0
 #define COCOAPODS_VERSION_PATCH_CocoaBloc 1
 
+// CocoaBloc-UI
+#define COCOAPODS_POD_AVAILABLE_CocoaBloc_UI
+#define COCOAPODS_VERSION_MAJOR_CocoaBloc_UI 0
+#define COCOAPODS_VERSION_MINOR_CocoaBloc_UI 0
+#define COCOAPODS_VERSION_PATCH_CocoaBloc_UI 3
+
+// CocoaBloc-UI/Colors
+#define COCOAPODS_POD_AVAILABLE_CocoaBloc_UI_Colors
+#define COCOAPODS_VERSION_MAJOR_CocoaBloc_UI_Colors 0
+#define COCOAPODS_VERSION_MINOR_CocoaBloc_UI_Colors 0
+#define COCOAPODS_VERSION_PATCH_CocoaBloc_UI_Colors 3
+
+// CocoaBloc-UI/Fonts
+#define COCOAPODS_POD_AVAILABLE_CocoaBloc_UI_Fonts
+#define COCOAPODS_VERSION_MAJOR_CocoaBloc_UI_Fonts 0
+#define COCOAPODS_VERSION_MINOR_CocoaBloc_UI_Fonts 0
+#define COCOAPODS_VERSION_PATCH_CocoaBloc_UI_Fonts 3
+
+// CocoaBloc-UI/PlaceholderTextView
+#define COCOAPODS_POD_AVAILABLE_CocoaBloc_UI_PlaceholderTextView
+#define COCOAPODS_VERSION_MAJOR_CocoaBloc_UI_PlaceholderTextView 0
+#define COCOAPODS_VERSION_MINOR_CocoaBloc_UI_PlaceholderTextView 0
+#define COCOAPODS_VERSION_PATCH_CocoaBloc_UI_PlaceholderTextView 3
+
 // CocoaBloc/API
 #define COCOAPODS_POD_AVAILABLE_CocoaBloc_API
 #define COCOAPODS_VERSION_MAJOR_CocoaBloc_API 1
 #define COCOAPODS_VERSION_MINOR_CocoaBloc_API 0
 #define COCOAPODS_VERSION_PATCH_CocoaBloc_API 1
+
+// CocoaBloc/UIKit
+#define COCOAPODS_POD_AVAILABLE_CocoaBloc_UIKit
+#define COCOAPODS_VERSION_MAJOR_CocoaBloc_UIKit 1
+#define COCOAPODS_VERSION_MINOR_CocoaBloc_UIKit 0
+#define COCOAPODS_VERSION_PATCH_CocoaBloc_UIKit 1
 
 // Mantle
 #define COCOAPODS_POD_AVAILABLE_Mantle
@@ -77,6 +107,12 @@
 #define COCOAPODS_VERSION_MAJOR_Mantle_extobjc 1
 #define COCOAPODS_VERSION_MINOR_Mantle_extobjc 5
 #define COCOAPODS_VERSION_PATCH_Mantle_extobjc 4
+
+// PureLayout
+#define COCOAPODS_POD_AVAILABLE_PureLayout
+#define COCOAPODS_VERSION_MAJOR_PureLayout 2
+#define COCOAPODS_VERSION_MINOR_PureLayout 0
+#define COCOAPODS_VERSION_PATCH_PureLayout 5
 
 // ReactiveCocoa
 #define COCOAPODS_POD_AVAILABLE_ReactiveCocoa

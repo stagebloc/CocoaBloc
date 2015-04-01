@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'CocoaBloc', :exclusive => true do
   pod "CocoaBloc", :path => "../"
+  pod "CocoaBloc/UIKit", :path => "../"
 end
 
 target 'Tests', :exclusive => true do

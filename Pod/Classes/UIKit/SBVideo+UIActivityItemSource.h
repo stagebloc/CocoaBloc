@@ -8,6 +8,10 @@
 
 #import "SBVideo.h"
 
-@interface SBVideo (UIActivityItemSource)
+@interface SBVideo (UIActivityItemSource) <UIActivityItemSource>
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController;
+- (id)activityViewController:(UIActivityViewController *)activityViewController
+         itemForActivityType:(NSString *)activityType;
 
 @end

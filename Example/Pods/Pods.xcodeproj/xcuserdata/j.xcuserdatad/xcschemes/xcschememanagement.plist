@@ -14,12 +14,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-CocoaBloc-CocoaBloc-UI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-CocoaBloc-CocoaBloc.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-CocoaBloc-Mantle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CocoaBloc-PureLayout.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -62,57 +72,67 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>059462B588FE6C0B96CCBFB0</key>
+		<key>00D2085176B14D8C68A5A0AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2A0AE0DF0ADD354BF4E46685</key>
+		<key>05E4C2771817E0ED7EB3C81A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>397471C376C86237282C2916</key>
+		<key>1A489CDA95D967BB7B490D0C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>457F604A82E22FE7EFC62E46</key>
+		<key>1F301692E98FB068ACD631A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5F02B411AEFE48AA76BCE762</key>
+		<key>24A750B8A019A54EBF73FC58</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6842D7DB30A95009A414BB72</key>
+		<key>4423B6443AF2FD77FECC7600</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>71CC8968E8AF3BF1D7520C69</key>
+		<key>6ADA6F02442638291F767FDD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8737DF724EA11AA300F696B4</key>
+		<key>BD831F0DE083922CFEC1A3AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D732BA1F1FC23F6FA91B992</key>
+		<key>C576799D4ED6E0F5DA29A89A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A18B5F912A857B81858D778D</key>
+		<key>D666F5DC18A3A1987DB4D052</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD6196D5528C3548C8B9966A</key>
+		<key>DEAC2FA530ED4896014B9037</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5C8BB13BCF83CD35E019ED6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F280C04D8E3735A810A04979</key>
 		<dict>
 			<key>primary</key>
 			<true/>
