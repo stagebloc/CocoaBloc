@@ -13,6 +13,8 @@
 #import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
+NSString * const CocoaBlocMissingClientIDSecretException = @"CocoaBlocMissingClientIDSecretException";
+
 NSString * const SBAPIMethodParameterResultLimit = @"limit";
 NSString * const SBAPIMethodParameterResultOffset = @"offset";
 NSString * const SBAPIMethodParameterResultDirection = @"direction";
@@ -60,7 +62,7 @@ extern NSString *SBClientID, *SBClientSecret; // defined in +Auth.m
 
 - (id)init {
     if (!SBClientID.length || !SBClientSecret.length) {
-        [NSException raise:@"CocoaBlocMissingClientIDSecretException" format:@"You may not use SBClient until you have set the current app's client id/secret with +[SBClient setClientID:clientSecret:]"];
+        [NSException raise:CocoaBlocMissingClientIDSecretException format:@"You may not use SBClient until you have set the current app's client id/secret with +[SBClient setClientID:clientSecret:]"];
         return nil;
     }
     
