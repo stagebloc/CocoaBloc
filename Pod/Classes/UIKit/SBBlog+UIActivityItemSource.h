@@ -11,4 +11,8 @@
 
 @interface SBBlog (UIActivityItemSource) <UIActivityItemSource>
 
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController;
+- (id)activityViewController:(UIActivityViewController *)activityViewController
+         itemForActivityType:(NSString *)activityType;
+
 @end
