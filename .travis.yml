@@ -20,4 +20,4 @@ install:
     - pod lib lint --quick
 
 script:
-    - xctool test -freshSimulator -test-sdk iphonesimulator -workspace Example/CocoaBloc.xcworkspace -scheme CocoaBloc-Example -reporter plain
+    - xctool test -freshSimulator -test-sdk iphonesimulator -workspace Example/CocoaBloc.xcworkspace -scheme CocoaBloc-Example -reporter pretty
