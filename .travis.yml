@@ -1,16 +1,12 @@
 language: objective-c
 
-branches:
-    only:
-        - master
-        - dev
-
 notifications:
     email: false
     slack:
+        rooms:
+            - secure: v+noETX6NwBkNoCfTfl9XfGswjHINyY7+wEv2saYZ2G87x7JyX/3StKj7zgq1B/BsnV1qwGasdmiM0oMO8VcypE4Na9xTYbprj4Sej7gTt2yOZFEYcygdhi6ZfNXJqK5j3Euw4Zs9Tts1EzJqUPRmF1iVhDE9o8Kv2YF3kBX8Q8=
         on_success: change
         on_failure: always
-        secure: v+noETX6NwBkNoCfTfl9XfGswjHINyY7+wEv2saYZ2G87x7JyX/3StKj7zgq1B/BsnV1qwGasdmiM0oMO8VcypE4Na9xTYbprj4Sej7gTt2yOZFEYcygdhi6ZfNXJqK5j3Euw4Zs9Tts1EzJqUPRmF1iVhDE9o8Kv2YF3kBX8Q8=
 
 before_install:
     - brew update

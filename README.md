@@ -1,5 +1,5 @@
 # CocoaBloc
-[![CI Status](http://img.shields.io/travis/stagebloc/CocoaBloc/dev.svg?style=flat)](https://travis-ci.org/stagebloc/CocoaBloc/branches)
+[![CI Status](http://img.shields.io/travis/stagebloc/CocoaBloc.svg?style=flat)](https://travis-ci.org/stagebloc/CocoaBloc/branches)
 [![Version](https://img.shields.io/cocoapods/v/CocoaBloc.svg?style=flat)](http://cocoapods.org/pods/CocoaBloc)
 [![License](https://img.shields.io/cocoapods/l/CocoaBloc.svg?style=flat)](http://cocoapods.org/pods/CocoaBloc)
 [![Platform](https://img.shields.io/cocoapods/p/CocoaBloc.svg?style=flat)](http://cocoapods.org/pods/CocoaBloc)
