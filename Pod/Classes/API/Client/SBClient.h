@@ -14,6 +14,8 @@
 
 /// @name Globals
 
+extern NSString * const CocoaBlocMissingClientIDSecretException; 
+
 /// API method parameter dictionary keys
 extern NSString * const SBAPIMethodParameterResultLimit;                 // NSNumber
 extern NSString * const SBAPIMethodParameterResultOffset;                // NSNumber
@@ -34,6 +36,7 @@ extern NSString * const SBAPIMethodParameterFlagContentValueOffensive;
 extern NSString * const SBAPIMethodParameterFlagContentValuePrejudice;
 extern NSString * const SBAPIMethodParameterFlagContentValueCopyright;
 extern NSString * const SBAPIMethodParameterFlagContentValueDuplicate;
+extern NSString * const SBAPIMethodParameterResultFollowing;
 
 // Error handling
 extern NSString * const SBAPIErrorResponseObjectKey;            // Deserialized JSON object from server
