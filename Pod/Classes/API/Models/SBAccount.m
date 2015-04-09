@@ -24,6 +24,7 @@
              @"photo"                       : @"photo",
              @"stripeEnabled"               : @"stripe_enabled",
              @"userIsAdmin"                 : @"user_is_admin",
+             @"userRole"                    : @"user_role",
              @"commentSettings"             : @"user_notifications.comments",
              @"eventRSVPSettings"           : @"user_notifications.event_rsvps",
              @"generalSettings"             : @"user_notifications.general",
