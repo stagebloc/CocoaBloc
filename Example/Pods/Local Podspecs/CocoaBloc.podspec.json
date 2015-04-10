@@ -1,6 +1,6 @@
 {
   "name": "CocoaBloc",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "authors": {
     "John Heaton": "pikachu@stagebloc.com",
     "Mark Glagola": "mark@stagebloc.com",
@@ -13,7 +13,7 @@
   "description": "An Objective-C(Swift-compatible) library for using the StageBloc v1 REST API.",
   "source": {
     "git": "https://github.com/stagebloc/CocoaBloc.git",
-    "tag": "1.0.3"
+    "tag": "1.0.5"
   },
   "requires_arc": true,
   "license": {
@@ -26,23 +26,22 @@
   },
   "dependencies": {
     "ReactiveCocoa": [
-
+      "~> 2.0"
     ]
   },
-  "default_subspecs": "API",
   "source_files": "Pod/Classes/CocoaBloc.h",
   "subspecs": [
     {
       "name": "API",
       "dependencies": {
         "AFNetworking": [
-
+          "~> 2.0"
         ],
         "AFNetworking-RACExtensions": [
-
+          "~> 0.1.6"
         ],
         "Mantle": [
-
+          "~> 1.0"
         ]
       },
       "source_files": [
@@ -53,25 +52,23 @@
     },
     {
       "name": "UIKit",
-      "dependencies": {
-        "CocoaBloc/API": [
-
-        ],
-        "PureLayout": [
-
-        ]
-      },
       "ios": {
         "dependencies": {
-          "CocoaBloc-UI": [
+          "CocoaBloc/API": [
 
+          ],
+          "PureLayout": [
+            "~> 2.0"
+          ],
+          "CocoaBloc-UI": [
+            "~> 0.0.3"
           ]
         },
-        "source_files": "Pod/Classes/UIKit/*"
-      },
-      "resources": [
-        "Pod/Assets/UIKit/*"
-      ]
+        "source_files": "Pod/Classes/UIKit/*",
+        "resources": [
+          "Pod/Assets/UIKit/*"
+        ]
+      }
     }
   ]
 }
