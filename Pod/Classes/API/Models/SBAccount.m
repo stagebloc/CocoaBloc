@@ -20,6 +20,7 @@
              @"name"                        : @"name",
              @"stageblocURL"                : @"stagebloc_url",
              @"type"                        : @"type",
+             @"descriptiveText"             : @"description",
              @"URL"                         : @"url",
              @"photo"                       : @"photo",
              @"stripeEnabled"               : @"stripe_enabled",
