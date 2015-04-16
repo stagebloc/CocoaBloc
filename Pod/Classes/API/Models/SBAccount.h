@@ -10,6 +10,13 @@
 #import "SBPhoto.h"
 #import "SBNotificationSettings.h"
 
+#if TARGET_OS_IPHONE
+@class UIColor;
+#define SBUserColor UIColor
+#else
+@class NSColor;
+#define SBUserColor NSColor
+#endif
 
 @interface SBAccount : SBObject <MTLJSONSerializing>
 
@@ -22,6 +29,7 @@
 @property (nonatomic) NSNumber *stripeEnabled;
 @property (nonatomic) NSNumber *userIsAdmin;
 @property (nonatomic, copy) NSString *userRole;
+@property (nonatomic, copy) SBUserColor *color;
 
 @property (nonatomic) SBPhoto *photo;
 
