@@ -12,6 +12,12 @@
 #import "MTLValueTransformer+Convenience.h"
 #import <RACCommand.h>
 
+#if TARGET_OS_IPHONE
+@import UIKit.UIColor;
+#else
+@import AppKit.NSColor;
+#endif
+
 @implementation SBAccount
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -23,6 +29,7 @@
              @"URL"                         : @"url",
              @"photo"                       : @"photo",
              @"stripeEnabled"               : @"stripe_enabled",
+             @"color"                       : @"color",
              @"userIsAdmin"                 : @"user_is_admin",
              @"userRole"                    : @"user_role",
              @"commentSettings"             : @"user_notifications.comments",
@@ -59,6 +66,26 @@
 
 + (MTLValueTransformer *)followSettingsJSONTransformer {
     return [MTLValueTransformer reversibleModelJSONOnlyTransformerForModelClass:[SBNotificationSettings class]];
+}
+
++ (MTLValueTransformer *)colorJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^SBUserColor *(NSString *colorString) {
+        NSArray *colorComponents = [colorString componentsSeparatedByString:@","];
+        NSAssert(colorComponents.count >= 3, @"API returned a color string of an unknown format");
+        
+        return [SBUserColor colorWithRed:([colorComponents[0] floatValue] / 255)
+                                   green:([colorComponents[1] floatValue] / 255)
+                                    blue:([colorComponents[2] floatValue] / 255)
+                                   alpha:1];
+    } reverseBlock:^NSString *(SBUserColor *color) {
+        CGFloat r,g,b,a;
+        [color getRed:&r green:&g blue:&b alpha:&a];
+        r *= 255;
+        b *= 255;
+        g *= 255;
+        
+        return [NSString stringWithFormat:@"%d,%d,%d", (int)r, (int)g, (int)b];
+    }];
 }
 
 @end
