@@ -100,6 +100,14 @@
                 setNameWithFormat:@"Get activity stream for account %@", accountIdentifier];
 }
 
+- (RACSignal *)getFollowingUsersForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary*)parameters {
+    NSParameterAssert(accountIdentifier);
+
+    return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fans", accountIdentifier] parameters:[self requestParametersWithParameters:parameters]]
+             cb_deserializeArrayWithClient:self keyPath:@"data"]
+             setNameWithFormat:@"Get users for account %@", accountIdentifier];
+}
+
 - (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId withType:(NSString *)type {
     NSParameterAssert(accountId);
 

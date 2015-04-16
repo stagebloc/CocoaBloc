@@ -66,6 +66,13 @@
 
 /*!
  
+/*!
+ Get a list of users following an account.
+ */
+- (RACSignal *)getFollowingUsersForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary*)parameters;
+
+/*!
+ 
  @param accountId the ID of the parent account
  @param type a specific type of child account to get (optional)
  */
