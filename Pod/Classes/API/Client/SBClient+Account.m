@@ -105,7 +105,7 @@
 
     return [[[self rac_GET:[NSString stringWithFormat:@"account/%@/fans", accountIdentifier] parameters:[self requestParametersWithParameters:parameters]]
              cb_deserializeArrayWithClient:self keyPath:@"data"]
-            setNameWithFormat:@"Get users for account %@", accountIdentifier];
+             setNameWithFormat:@"Get users for account %@", accountIdentifier];
 }
 
 - (RACSignal *)getChildrenAccountsForAccount:(NSNumber *)accountId withType:(NSString *)type {
