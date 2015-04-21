@@ -16,6 +16,9 @@ extern NSString *SBClientUserProfileUpdateParameterUsername;
 extern NSString *SBClientUserProfileUpdateParameterName;
 extern NSString *SBClientUserProfileUpdateParameterGender;
 
+extern NSString *SBUserContentListTypeUpdate;
+extern NSString *SBUserContentListTypeLike;
+
 @interface SBClient (User)
 
 /// @name User
@@ -39,6 +42,20 @@ extern NSString *SBClientUserProfileUpdateParameterGender;
 - (RACSignal *)sendPasswordResetToEmail:(NSString *)emailAddress;
 
 - (RACSignal *)updateAuthenticatedUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates;
+
+/*!
+ Request a list of content the user has either submitted or liked
+
+ @param userID the user id of the user to be requested
+ @param contentListType specifies either a list of user-submitted content ('SBUserContentListTypeUpdate')
+ or user-liked content ('SBUserContentListTypeLike')
+
+ @return A "cold" signal that will perform the request upon subscription.
+ The subscribed signal will send a "next" value of an array of SBContent objects.
+ */
+- (RACSignal *)getPostedContentForUserID:(NSNumber *)userID
+                         contentListType:(NSString *)contentListType
+                              parameters:(NSDictionary*)parameters;
 
 /*!
  Request the StageBloc user by their user id.
