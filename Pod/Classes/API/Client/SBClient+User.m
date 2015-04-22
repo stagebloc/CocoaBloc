@@ -26,6 +26,9 @@ NSString *SBClientUserProfileUpdateParameterUsername = @"username";
 NSString *SBClientUserProfileUpdateParameterName = @"name";
 NSString *SBClientUserProfileUpdateParameterGender = @"gender";
 
+NSString *SBUserContentListTypeUpdate = @"updates";
+NSString *SBUserContentListTypeLike = @"likes";
+
 @implementation SBClient (User)
 
 - (void)setAuthenticatedUser:(SBUser *)user {
@@ -157,6 +160,14 @@ NSString *SBClientUserProfileUpdateParameterGender = @"gender";
                 cb_deserializeWithClient:self keyPath:@"data"]
                 doNext:saveUser]
                 setNameWithFormat:@"Update authenticated user (%@) with new photo", self.authenticatedUser];
+}
+
+- (RACSignal *)getPostedContentForUserID:(NSNumber *)userID
+                         contentListType:(NSString *)contentListType
+                              parameters:(NSDictionary*)parameters {
+    NSParameterAssert(userID);
+
+    return [[[self rac_GET:[NSString stringWithFormat:@"users/%@/content/%@", userID, contentListType] parameters:[self requestParametersWithParameters:parameters]] cb_deserializeArrayWithClient:self keyPath:@"data"] setNameWithFormat:@"Get submitted/liked content of user %@", userID];
 }
 
 @end
