@@ -47,7 +47,7 @@
 @property (nonatomic) NSDate *modificationDate;
 
 @property (nonatomic, getter=isOnSale) NSNumber *onSale;
-@property (nonatomic) NSNumber *salePercentage, *saleAmount, *saleType;
+@property (nonatomic) NSNumber *saleAmountOrPercentage, *saleType;
 @property (nonatomic) NSDate *saleEndDate;
 
 @property (nonatomic) NSArray *options; // [SBStoreItemOptions]

@@ -175,8 +175,7 @@
       @"soldOut"			: @"sold_out",
       @"title"				: @"title",
       @"type"				: @"type",
-      @"salePercentage"     : @"sale_percentage",
-      @"saleAmount"         : @"sale_amount",
+      @"saleAmountOrPercentage"         : @"sale_amount",
       @"saleType"           : @"sale_type",
       @"saleEndDate"        : @"sale_end_date"};
     
