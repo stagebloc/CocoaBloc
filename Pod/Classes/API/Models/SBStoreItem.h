@@ -45,7 +45,11 @@
 @property (nonatomic, getter=isFeatured) NSNumber *featured;
 @property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic) NSDate *modificationDate;
+
 @property (nonatomic, getter=isOnSale) NSNumber *onSale;
+@property (nonatomic) NSNumber *saleAmountOrPercentage, *saleType;
+@property (nonatomic) NSDate *saleEndDate;
+
 @property (nonatomic) NSArray *options; // [SBStoreItemOptions]
 @property (nonatomic) NSURL *shortURL;
 @property (nonatomic) NSNumber *soldOut;

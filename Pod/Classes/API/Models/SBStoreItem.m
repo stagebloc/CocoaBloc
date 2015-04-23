@@ -174,7 +174,10 @@
       @"shortURL"			: @"short_url",
       @"soldOut"			: @"sold_out",
       @"title"				: @"title",
-      @"type"				: @"type"};
+      @"type"				: @"type",
+      @"saleAmountOrPercentage"         : @"sale_amount",
+      @"saleType"           : @"sale_type",
+      @"saleEndDate"        : @"sale_end_date"};
     
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:map];
 }
@@ -187,6 +190,10 @@
         
         return photosObject;
     }];
+}
+
++ (MTLValueTransformer *)saleEndDateJSONTransformer {
+    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 + (MTLValueTransformer *)photosJSONTransformer {
