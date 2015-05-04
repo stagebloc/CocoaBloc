@@ -92,6 +92,38 @@
             	setNameWithFormat:@"Update account (%@)", accountIdentifier];
 }
 
+- (RACSignal *)updateAccountImageWithIdentfier:(NSNumber *)accountIdentifier
+                                     photoData:(NSData*)photoData
+                                progressSignal:(RACSignal**)progressSignal {
+    NSParameterAssert(accountIdentifier);
+    NSParameterAssert(photoData);
+
+    NSString *mime = [photoData photoMime];
+    if (!mime) {
+        return [RACSignal error:[NSError errorWithDomain:SBCocoaBlocErrorDomain code:kSBCocoaBlocErrorInvalidFileNameOrMIMEType userInfo:nil]];
+    }
+
+    NSError *err;
+    NSDictionary *parameters = @{};
+    AFHTTPRequestOperation *op =
+    [self fileRequestFromData:photoData
+                         name:@"image"
+                     fileName:[NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]]
+                     mimeType:mime
+                          url:[self.baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"account/%@", accountIdentifier]].absoluteString
+                   parameters:[self requestParametersWithParameters:parameters]
+                        error:&err
+               progressSignal:progressSignal];
+    
+    if (err) {
+        return [RACSignal error:err];
+    }
+
+    return [[[self enqueueRequestOperation:op]
+             cb_deserializeWithClient:self keyPath:@"data"]
+            setNameWithFormat:@"Update account (%@) with new photo", accountIdentifier];
+}
+
 - (RACSignal *)getActivityStreamForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary*)parameters {
     NSParameterAssert(accountIdentifier);
 
