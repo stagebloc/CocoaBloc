@@ -24,7 +24,8 @@
     @weakify(client);
     
     return [[[self
-                flattenMap:^RACStream *(NSDictionary *response) {
+              flattenMap:^RACStream *(RACTuple *objectAndResponse) {
+                  NSDictionary *response = objectAndResponse.first;
                     // deserialize the user
                     SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
                                              fromJSONDictionary:[response valueForKeyPath:@"data.user"]
