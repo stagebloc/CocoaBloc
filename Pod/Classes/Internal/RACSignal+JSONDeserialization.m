@@ -15,10 +15,11 @@
 - (RACSignal *)cb_deserializeWithClient:(SBClient *)client keyPath:(NSString *)keyPath modelClass:(Class)modelClass {
     @weakify(client);
     
-    return [self flattenMap:^RACStream *(NSDictionary *response) {
+    return [self flattenMap:^RACStream *(RACTuple *responseObjectAndResponse) {
         @strongify(client);
         
-        return [client deserializeModelFromJSONDictionary:!keyPath ? response : [response valueForKeyPath:keyPath] modelClass:modelClass];
+        NSDictionary *object = responseObjectAndResponse.first;
+        return [client deserializeModelFromJSONDictionary:!keyPath ? object : [object valueForKeyPath:keyPath] modelClass:modelClass];
     }];
 
 }
@@ -26,12 +27,12 @@
 - (RACSignal *)cb_deserializeArrayWithClient:(SBClient *)client keyPath:(NSString *)keyPath modelClass:(Class)modelClass {
     @weakify(client);
     
-    return [self flattenMap:^RACStream *(NSDictionary *response) {
+    return [self flattenMap:^RACStream *(RACTuple *responseObjectAndResponse) {
         @strongify(client);
         
-        return [client deserializeModelsFromJSONArray:!keyPath ? response : [response valueForKeyPath:keyPath] modelClass:modelClass];
+        NSDictionary *object = responseObjectAndResponse.first;
+        return [client deserializeModelsFromJSONArray:!keyPath ? object : [object valueForKeyPath:keyPath] modelClass:modelClass];
     }];
-
 }
 
 - (RACSignal *)cb_deserializeWithClient:(SBClient *)client keyPath:(NSString *)keyPath {
