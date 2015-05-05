@@ -58,6 +58,15 @@
                                       name:(NSString *)name
                                description:(NSString *)description
                               stageBlocURL:(NSString *)urlString;
+/*!
+ Update account photo data
+ @param accountIdentifier - identifier of the account for which to update photo
+ @param photoData - the profile photo of the account
+ @param photoProgressSignal - the photo progress upload signal
+*/
+- (RACSignal *)updateAccountImageWithIdentfier:(NSNumber *)accountIdentifier
+                                     photoData:(NSData*)photoData
+                                progressSignal:(RACSignal**)progressSignal;
 
 /*!
  Get an activity stream of recent content for an account.
