@@ -169,32 +169,8 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
     
     @weakify(self);
 
-    return [[[[self rac_POST:@"users" parameters:[self requestParametersWithParameters:params]]
-            doNext:^(NSDictionary *response) {
-                @strongify(self);
-
-                // set the auth token & auth state when a 'next' is sent
-                self.token = response[@"data"][@"access_token"];
-            }]
-
-            map:^id(NSDictionary *response) {
-
-                // deserialize the user
-                SBUser *user = [MTLJSONAdapter modelOfClass:[SBUser class]
-                                         fromJSONDictionary:response[@"data"][@"user"]
-                                                      error:nil];
-
-                user.adminAccounts = [MTLJSONAdapter modelsOfClass:[SBAccount class]
-                                                     fromJSONArray:response[@"data"][@"admin_accounts"]
-                                                             error:nil];
-                return user;
-            }]
-            doNext:^(SBUser *user) {
-                @strongify(self);
-
-                // set the currently authenticated user
-                self.authenticatedUser = user;
-            }];
+    return [[self rac_POST:@"users" parameters:[self requestParametersWithParameters:params]]
+                _processedAuthSignalForClient:self];
 }
 
 -(void)signOutUser
