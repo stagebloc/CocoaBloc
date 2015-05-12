@@ -78,18 +78,20 @@
 - (RACSignal *)updateAccountWithIdentifier:(NSNumber *)accountIdentifier
                                       name:(NSString *)name
                                description:(NSString *)description
-                              stageBlocURL:(NSString *)urlString {
+                              stageBlocURL:(NSString *)urlString
+                                      type:(NSString *)type {
     NSParameterAssert(accountIdentifier);
-    NSAssert(name != nil || description != nil || urlString != nil, @"To update the account, provide at least one property to update.");
-    
+    NSAssert(name != nil || description != nil || urlString != nil || type != nil, @"To update the account, provide at least one property to update.");
+
     NSMutableDictionary *dict = [NSMutableDictionary new];
     if (name) 			dict[@"name"] = name.copy;
     if (description) 	dict[@"description"] = description.copy;
     if (urlString)		dict[@"stagebloc_url"] = urlString.copy;
-    
+    if (type)           dict[@"type"] = type.copy;
+
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", accountIdentifier] parameters:[self requestParametersWithParameters:dict]]
             	cb_deserializeWithClient:self keyPath:@"data"]
-            	setNameWithFormat:@"Update account (%@)", accountIdentifier];
+            setNameWithFormat:@"Update account (%@)", accountIdentifier];
 }
 
 - (RACSignal *)updateAccountImageWithIdentfier:(NSNumber *)accountIdentifier

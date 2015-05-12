@@ -50,14 +50,16 @@
  @param name the new account name, or nil
  @param description the new account description, or nil
  @param urlString the new StageBloc URL path component for the account, or nil
- 
+ @param type of account (ex. 'Business', 'Cooking', 'Record Label', etc), or nil
+
  @return 	a cold signal that will perform the request on subscription,
-            or nil if all of the parameters are nil.
+ or nil if all of the parameters are nil.
  */
 - (RACSignal *)updateAccountWithIdentifier:(NSNumber *)accountIdentifier
                                       name:(NSString *)name
                                description:(NSString *)description
-                              stageBlocURL:(NSString *)urlString;
+                              stageBlocURL:(NSString *)urlString
+                                      type:(NSString *)type;
 /*!
  Update account photo data
  @param accountIdentifier - identifier of the account for which to update photo
