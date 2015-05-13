@@ -74,8 +74,6 @@
  Get an activity stream of recent content for an account.
  */
 - (RACSignal *)getActivityStreamForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary*)parameters;
-
-/*!
  
 /*!
  Get a list of users following an account.
