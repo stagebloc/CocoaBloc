@@ -17,10 +17,12 @@
  @param name of the new account
  @param url - the url which this account can be found
  @param type - type of the account being created
+ @param color - one of: purple, red, green, blue, orange, grey
 */
 - (RACSignal *)createAccountWithName:(NSString*)name
                                  url:(NSString*)url
-                                type:(NSString*)type;
+                                type:(NSString*)type
+                               color:(NSString *)color;
 
 /*!
  Creates an account with
@@ -34,7 +36,8 @@
                                  url:(NSString*)url
                                 type:(NSString*)type
                            photoData:(NSData*)photoData
-                 photoProgressSignal:(RACSignal**)photoProgressSignal;
+                 photoProgressSignal:(RACSignal**)photoProgressSignal
+                          parameters:(NSDictionary *)parameters;
 
 /*!
  Get an account based on an account ID.
