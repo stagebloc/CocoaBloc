@@ -12,16 +12,17 @@
 #import "SBAccount.h"
 #import "RACSignal+JSONDeserialization.h"
 #import "AFHTTPRequestOperationManager+File.h"
+#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSData+Mime.h"
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @implementation SBClient (Account)
 
-- (RACSignal *)createAccountWithName:(NSString*)name url:(NSString*)url type:(NSString*)type {
-    return [self createAccountWithName:name url:url type:type photoData:nil photoProgressSignal:nil];
+- (RACSignal *)createAccountWithName:(NSString*)name url:(NSString*)url type:(NSString*)type color:(NSString *)color {
+    return [self createAccountWithName:name url:url type:type photoData:nil photoProgressSignal:nil parameters:@{@"color" : color}];
 }
 
-- (RACSignal *)createAccountWithName:(NSString*)name url:(NSString*)url type:(NSString*)type photoData:(NSData*)photoData photoProgressSignal:(RACSignal**)photoProgressSignal {
+- (RACSignal *)createAccountWithName:(NSString*)name url:(NSString*)url type:(NSString*)type photoData:(NSData*)photoData photoProgressSignal:(RACSignal**)photoProgressSignal parameters:(NSDictionary *)parameters {
     NSParameterAssert(name);
     NSParameterAssert(url);
     NSParameterAssert(type);
@@ -30,10 +31,10 @@
     NSAssert(url.length != 0, @"Name must have character length > 0");
     NSAssert(type.length != 0, @"Name must have character length > 0");
 
-    NSDictionary *params = @{@"name"            : name,
+    NSDictionary *params = [@{@"name"            : name,
                              @"stagebloc_url"   : url,
                              @"type"            : type
-                             };
+                              } mtl_dictionaryByAddingEntriesFromDictionary:parameters];
 
     if (!photoData) {
         return [[[self rac_POST:@"account" parameters:[self requestParametersWithParameters:params]]
