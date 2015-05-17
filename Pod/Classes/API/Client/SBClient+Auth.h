@@ -45,6 +45,7 @@
  
  @param email 		the user's address
  @param password 	the user's password
+ @param name        the user's full name
  @param birthDate 	the user's birth date
  
  @return A "cold" signal that will perform the sign up upon subscription.
@@ -52,6 +53,7 @@
  of the newly authenticated user (SBUser).
  */
 - (RACSignal *)signUpWithEmail:(NSString *)email
+                          name:(NSString *)name
                       password:(NSString *)password
                       birthday:(NSDate *)birthday
                         gender:(NSString *)gender
