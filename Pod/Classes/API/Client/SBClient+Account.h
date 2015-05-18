@@ -54,6 +54,7 @@
  @param description the new account description, or nil
  @param urlString the new StageBloc URL path component for the account, or nil
  @param type of account (ex. 'Business', 'Cooking', 'Record Label', etc), or nil
+ @param account color
 
  @return 	a cold signal that will perform the request on subscription,
  or nil if all of the parameters are nil.
@@ -62,7 +63,8 @@
                                       name:(NSString *)name
                                description:(NSString *)description
                               stageBlocURL:(NSString *)urlString
-                                      type:(NSString *)type;
+                                      type:(NSString *)type
+                                     color:(NSString *)color;
 /*!
  Update account photo data
  @param accountIdentifier - identifier of the account for which to update photo
