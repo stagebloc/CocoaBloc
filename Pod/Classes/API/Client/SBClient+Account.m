@@ -80,15 +80,17 @@
                                       name:(NSString *)name
                                description:(NSString *)description
                               stageBlocURL:(NSString *)urlString
-                                      type:(NSString *)type {
+                                      type:(NSString *)type
+                                     color:(NSString *)color {
     NSParameterAssert(accountIdentifier);
-    NSAssert(name != nil || description != nil || urlString != nil || type != nil, @"To update the account, provide at least one property to update.");
+    NSAssert(name != nil || description != nil || urlString != nil || type != nil || color != nil, @"To update the account, provide at least one property to update.");
 
     NSMutableDictionary *dict = [NSMutableDictionary new];
     if (name) 			dict[@"name"] = name.copy;
     if (description) 	dict[@"description"] = description.copy;
     if (urlString)		dict[@"stagebloc_url"] = urlString.copy;
     if (type)           dict[@"type"] = type.copy;
+    if (color)          dict[@"color"] = color.copy;
 
     return [[[self rac_POST:[NSString stringWithFormat:@"account/%@", accountIdentifier] parameters:[self requestParametersWithParameters:dict]]
             	cb_deserializeWithClient:self keyPath:@"data"]
