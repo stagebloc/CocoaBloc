@@ -138,6 +138,7 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
 }
 
 - (RACSignal *)signUpWithEmail:(NSString *)email
+                          name:(NSString *)name
                       password:(NSString *)password
                       birthday:(NSDate *)birthday
                         gender:(NSString *)gender
@@ -145,6 +146,7 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
 {
     // Required signup parameters
     NSParameterAssert(email);
+    NSParameterAssert(name);
     NSParameterAssert(password);
     NSParameterAssert(birthday);
 
@@ -155,6 +157,7 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
     NSString *birthdayString = [df stringFromDate:birthday];
 
     NSDictionary *p = @{@"email" : email,
+                        @"name"  : name,
                         @"password" : password,
                         @"birthday" : birthdayString};
 
