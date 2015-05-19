@@ -69,7 +69,6 @@
     return [[[[self rac_GET:[NSString stringWithFormat:@"account/%@/%@/%@/likers", content.accountID, urlContentType, content.identifier] parameters:[self requestParametersWithParameters:parameters]]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
                 doNext:^(NSArray *users) {
-                    content.likeCount = @(users.count);
                     
                     SBUser *authdUser = [users.rac_sequence objectPassingTest:^BOOL(SBUser *candidate) {
                         return [candidate.identifier isEqualToNumber:self.authenticatedUser.identifier];
