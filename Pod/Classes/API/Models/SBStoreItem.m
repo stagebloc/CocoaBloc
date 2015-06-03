@@ -1,4 +1,4 @@
-//
+    //
 //  SBStoreItem.m
 //  CocoaBloc
 //
@@ -155,6 +155,7 @@
       @"postingAccount"     : @"account",
       @"coverPhotoID"       : @"photo",
       @"coverPhoto"         : @"photo",
+      @"tags"               : @"tags",
       @"authorUserID"		: @"created_by",
       @"authorUser"         : @"created_by",
       @"modifyingUserID"    : @"modified_by",

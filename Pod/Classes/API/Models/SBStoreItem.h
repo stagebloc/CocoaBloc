@@ -39,6 +39,7 @@
 @interface SBStoreItem : SBObject <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *category;
+@property (nonatomic) NSArray *tags;
 @property (nonatomic) NSDate *creationDate;
 @property (nonatomic, getter=isExclusive) NSNumber *exclusive;
 @property (nonatomic) NSNumber *fansNamePrice;
