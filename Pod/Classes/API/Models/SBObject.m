@@ -28,7 +28,8 @@
 @implementation SBObject
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return @{@"identifier" : @"id"};
+	return @{@"identifier"  : @"id",
+             @"kind"        : @"kind"};
 }
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
