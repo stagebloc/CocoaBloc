@@ -72,7 +72,7 @@
 @property (nonatomic) NSNumber *modifyingUserID;
 @property (nonatomic) NSNumber *coverPhotoID;
 
-- (NSDecimalNumber *)getPriceInPosition:(int)position;
+- (NSDecimalNumber *)getPriceForCurrency:(NSString *)currency;
 
 - (RACSignal *)fetchAuthorUser;
 - (RACSignal *)fetchAuthorUserWithClient:(SBClient*)client;
