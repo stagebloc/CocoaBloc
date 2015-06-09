@@ -48,7 +48,8 @@
 @property (nonatomic) NSDate *modificationDate;
 
 @property (nonatomic, getter=isOnSale) NSNumber *onSale;
-@property (nonatomic) NSNumber *saleAmountOrPercentage, *saleType;
+@property (nonatomic) NSNumber *saleAmountOrPercentage;
+@property (nonatomic, copy) NSString *saleType;
 @property (nonatomic) NSDate *saleEndDate;
 
 @property (nonatomic) NSArray *options; // [SBStoreItemOptions]
@@ -70,6 +71,8 @@
 @property (nonatomic) NSNumber *postingAccountID;
 @property (nonatomic) NSNumber *modifyingUserID;
 @property (nonatomic) NSNumber *coverPhotoID;
+
+- (NSDecimalNumber *)getPriceInPosition:(int)position;
 
 - (RACSignal *)fetchAuthorUser;
 - (RACSignal *)fetchAuthorUserWithClient:(SBClient*)client;

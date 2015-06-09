@@ -55,6 +55,18 @@
     RACCommand *_fetchCoverPhotoCommand;
 }
 
+- (NSDecimalNumber *)getPriceInPosition:(int)position {
+    NSNumber *price = [[self.priceConfigurations objectAtIndex:position] price];
+    if (self.onSale.boolValue) {
+        if ([self.saleType isEqualToString:@"percent"]) {
+            price = [NSNumber numberWithDouble:([price doubleValue] - (([self.saleAmountOrPercentage doubleValue] / 100.0) * [price doubleValue]))];
+        } else if ([self.saleType isEqualToString:@"amount"]) {
+            price = [NSNumber numberWithDouble:([price doubleValue] - [self.saleAmountOrPercentage doubleValue])];
+        }
+    }
+    return [NSDecimalNumber decimalNumberWithDecimal:price.decimalValue];
+}
+
 - (RACSignal *)fetchAuthorUser {
     return [self fetchAuthorUserWithClient:nil];
 }
