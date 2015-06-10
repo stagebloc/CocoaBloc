@@ -55,6 +55,28 @@
     RACCommand *_fetchCoverPhotoCommand;
 }
 
+- (NSDecimalNumber *)getPriceForCurrency:(NSString *)currency {
+    NSNumber *price = nil;
+    for (SBStoreItemPriceConfiguration *priceConfiguration in self.priceConfigurations) {
+        if ([priceConfiguration.currency.lowercaseString isEqualToString:currency.lowercaseString]) {
+            price = priceConfiguration.price;
+            break;
+        }
+    }
+    if (price == nil) {
+        return nil;
+    }
+    
+    if (self.onSale.boolValue) {
+        if ([self.saleType isEqualToString:@"percent"]) {
+            price = @(([price doubleValue] - (([self.saleAmountOrPercentage doubleValue] / 100.0) * [price doubleValue])));
+        } else if ([self.saleType isEqualToString:@"amount"]) {
+            price = @(([price doubleValue] - [self.saleAmountOrPercentage doubleValue]));
+        }
+    }
+    return [NSDecimalNumber decimalNumberWithDecimal:price.decimalValue];
+}
+
 - (RACSignal *)fetchAuthorUser {
     return [self fetchAuthorUserWithClient:nil];
 }
