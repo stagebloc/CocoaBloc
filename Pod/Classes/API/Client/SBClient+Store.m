@@ -61,16 +61,18 @@
                     andEmail:(NSString *)email
                   forAccount:(NSNumber *)accountId
                   parameters:(NSDictionary *)parameters {
-    NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                          @"cart": @{@"store": items},
                          @"notes": notes,
                          @"totals": totals,
-                         @"address": JSONaddress,
                          @"shipping": shippingDetails
                     }];
     if (nil != purchaseToken) {
         [params setObject:purchaseToken forKey:@"token"];
+    }
+    if (nil != address) {
+        NSDictionary *JSONaddress = [MTLJSONAdapter JSONDictionaryFromModel:address];
+        params[@"address"] = JSONaddress;
     }
     
     [params addEntriesFromDictionary:parameters];
