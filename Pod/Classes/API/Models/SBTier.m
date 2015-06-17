@@ -23,33 +23,21 @@
 }
 
 - (NSString *)readableLengthString {
-    NSString *(^format)(int, NSString *, NSString *) = ^(int value, NSString *singular, NSString *plural) {
-        switch (value) {
-            case 1: return [NSString stringWithFormat:@"%d %@", value, singular];
-            default: return [NSString stringWithFormat:@"%d %@", value, plural];
-        }
-    };
+    
+    NSString *unit = self.membershipLengthUnit;
+    int interval = self.membershipLengthInterval.intValue;
 
-    if ([self.membershipLengthUnit isEqualToString:@"once"]) {
+    if ([unit isEqualToString:@"once"]) {
         return @"once";
+    } else if ([unit isEqualToString:@"year"]) {
+        return interval == 1 ? @"annually" : [NSString stringWithFormat:@"%d %@", interval, [unit stringByAppendingString:@"s"]];
+    } else if ([unit isEqualToString:@"month"]) {
+        return interval == 1 ? @"monthly" : [NSString stringWithFormat:@"%d %@", interval, [unit stringByAppendingString:@"s"]];
+    } else if ([unit isEqualToString:@"day"]) {
+        return interval == 1 ? @"daily" : [NSString stringWithFormat:@"%d %@", interval, [unit stringByAppendingString:@"s"]];
+    } else {
+        return [NSString stringWithFormat:@"%d %@", interval, unit];
     }
-
-    if ([self.membershipLengthUnit isEqualToString:@"year"]) {
-        return @"annually";
-    }
-    
-    if ([self.membershipLengthUnit isEqualToString:@"month"]) {
-        return format(self.membershipLengthInterval.intValue, @"month", @"months");
-    }
-    
-    if ([self.membershipLengthUnit isEqualToString:@"day"]) {
-        return format(self.membershipLengthInterval.intValue, @"day", @"days");
-    }
-    
-
-    
-    //unkown case
-    return [NSString stringWithFormat:@"%d %@", self.membershipLengthInterval.intValue, self.membershipLengthUnit];
 }
 
 @end
