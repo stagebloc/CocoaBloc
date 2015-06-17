@@ -146,7 +146,6 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
 {
     // Required signup parameters
     NSParameterAssert(email);
-    NSParameterAssert(name);
     NSParameterAssert(password);
     NSParameterAssert(birthday);
 
@@ -157,7 +156,7 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
     NSString *birthdayString = [df stringFromDate:birthday];
 
     NSDictionary *p = @{@"email" : email,
-                        @"name"  : name,
+                        @"name"  : name ?: @"",
                         @"password" : password,
                         @"birthday" : birthdayString};
 
