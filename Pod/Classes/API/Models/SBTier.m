@@ -29,9 +29,13 @@
             default: return [NSString stringWithFormat:@"%d %@", value, plural];
         }
     };
-    
+
+    if ([self.membershipLengthUnit isEqualToString:@"once"]) {
+        return @"once";
+    }
+
     if ([self.membershipLengthUnit isEqualToString:@"year"]) {
-        return format(self.membershipLengthInterval.intValue, @"year", @"year");
+        return @"annually";
     }
     
     if ([self.membershipLengthUnit isEqualToString:@"month"]) {
@@ -42,9 +46,7 @@
         return format(self.membershipLengthInterval.intValue, @"day", @"days");
     }
     
-    if ([self.membershipLengthUnit isEqualToString:@"once"]) {
-        return @"once";
-    }
+
     
     //unkown case
     return [NSString stringWithFormat:@"%d %@", self.membershipLengthInterval.intValue, self.membershipLengthUnit];
