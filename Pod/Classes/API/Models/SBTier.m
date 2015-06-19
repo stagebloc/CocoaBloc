@@ -30,11 +30,11 @@
     if ([unit isEqualToString:@"once"]) {
         return @"once";
     } else if ([unit isEqualToString:@"year"]) {
-        return interval == 1 ? @"annually" : [NSString stringWithFormat:@"%d %@", interval, [unit stringByAppendingString:@"s"]];
+        return interval == 1 ? @"annually" : [NSString stringWithFormat:@"%d %@s", interval, unit];
     } else if ([unit isEqualToString:@"month"]) {
-        return interval == 1 ? @"monthly" : [NSString stringWithFormat:@"%d %@", interval, [unit stringByAppendingString:@"s"]];
+        return interval == 1 ? @"monthly" : [NSString stringWithFormat:@"%d %@s", interval, unit];
     } else if ([unit isEqualToString:@"day"]) {
-        return interval == 1 ? @"daily" : [NSString stringWithFormat:@"%d %@", interval, [unit stringByAppendingString:@"s"]];
+        return interval == 1 ? @"daily" : [NSString stringWithFormat:@"%d %@s", interval, unit];
     } else {
         return [NSString stringWithFormat:@"%d %@", interval, unit];
     }
