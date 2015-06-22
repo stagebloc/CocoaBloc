@@ -142,11 +142,9 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
                       password:(NSString *)password
                       birthday:(NSDate *)birthday
                         gender:(NSString *)gender
-              sourceAccountID:(NSNumber *)sourceAccountID
-{
+              sourceAccountID:(NSNumber *)sourceAccountID {
     // Required signup parameters
     NSParameterAssert(email);
-    NSParameterAssert(name);
     NSParameterAssert(password);
     NSParameterAssert(birthday);
 
@@ -156,24 +154,18 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
     df.dateFormat = @"yyyy-MM-dd";
     NSString *birthdayString = [df stringFromDate:birthday];
 
-    NSDictionary *p = @{@"email" : email,
-                        @"name"  : name,
-                        @"password" : password,
-                        @"birthday" : birthdayString};
+    // Required
+    NSMutableDictionary *params = [NSMutableDictionary  dictionaryWithDictionary:@{@"email" : email,
+                                                                                   @"password" : password,
+                                                                                   @"birthday" : birthdayString}];
+    // Optional
+    if (name)               params[@"name"] = name.copy;
+    if (gender)             params[@"gender"] = gender.copy;
+    if (sourceAccountID) 	params[@"source_account_id"] = sourceAccountID.copy;
 
-    // Optional signup parameters
-    NSMutableDictionary *params = [NSMutableDictionary  dictionaryWithDictionary:p];
-    if (gender) {
-        [params addEntriesFromDictionary:@{@"gender" : gender}];
-    }
-    if (sourceAccountID) {
-        [params addEntriesFromDictionary:@{@"source_account_id" : sourceAccountID}];
-    }
-    
     @weakify(self);
-
     return [[self rac_POST:@"users" parameters:[self requestParametersWithParameters:params]]
-                _processedAuthSignalForClient:self];
+            _processedAuthSignalForClient:self];
 }
 
 -(void)signOutUser
