@@ -22,8 +22,8 @@
     }
     
     return [[[[self rac_GET:@"users/me/notifications" parameters:[self requestParametersWithParameters:p]]
-                map:^id(NSDictionary *response) {
-                    return @{@"data" : response[@"data"][@"notifications"]};
+                map:^id(RACTuple *objectAndResponse) {
+                    return @{@"data" : ((NSDictionary *)objectAndResponse.first)[@"data"][@"notifications"]};
                 }]
                 cb_deserializeArrayWithClient:self keyPath:@"data"]
                 setNameWithFormat:@"Get notifications (account: %@)", accountIdentifierOrNil];
