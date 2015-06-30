@@ -44,6 +44,14 @@ extern NSString *SBUserContentListTypeLike;
 - (RACSignal *)updateAuthenticatedUserLocationWithCoordinates:(CLLocationCoordinate2D)coordinates;
 
 /*!
+ Ban user from a particular account.
+
+ @param userID of user to be banned
+ @param accountID of account from which user should be banned
+ */
+-(RACSignal *)banUserWithID:(NSNumber *)userID fromAccountWithID:(NSNumber *)accountID;
+
+/*!
  Request a list of content the user has either submitted or liked
 
  @param userID the user id of the user to be requested
