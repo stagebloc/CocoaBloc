@@ -14,9 +14,7 @@
 
 @interface SBBanUserActivity : UIActivity
 
-- (instancetype)initWithClient:(SBClient *)client
-                        userID:(NSNumber* )userID
-                     accountID:(NSNumber *)accountID;
+- (instancetype)initWithClient:(SBClient *)client;
 
 @property (nonatomic, assign) id<SBBanUserActivityDelegate> delegate;
 

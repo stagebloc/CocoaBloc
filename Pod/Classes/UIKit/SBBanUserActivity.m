@@ -13,8 +13,8 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
 
 @interface SBBanUserActivity () <SBBanUserViewControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic) SBClient *client;
-@property (nonatomic) NSNumber *userID;
-@property (nonatomic) NSNumber *accountID;
+@property (nonatomic) SBUser *user;
+@property (nonatomic) SBAccount *account;
 @end
 
 @implementation SBBanUserActivity
@@ -23,15 +23,11 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
     return UIActivityCategoryAction;
 }
 
-- (instancetype)initWithClient:(SBClient *)client
-                        userID:(NSNumber* )userID
-                     accountID:(NSNumber *)accountID {
+- (instancetype)initWithClient:(SBClient *)client {
 
     if (!(self = [super init])) return nil;
 
     self.client = client;
-    self.userID = userID;
-    self.accountID = accountID;
 
     return self;
 }
@@ -41,26 +37,35 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
 }
 
 - (NSString *)activityTitle {
-    return @"Ban User";
+    return @"Ban Fan";
 }
 
 - (UIImage *)activityImage {
     return [UIImage imageNamed:@"SBBanActivity"];
 }
 
-- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-    return activityItems.count == 1;
-}
-
 -(void)banUserViewControllerCancelled:(SBBanUserViewController *)controller {
     [self activityDidFinish:NO];
+}
+
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
+    return activityItems.count == 2;
+}
+
+- (void)prepareWithActivityItems:(NSArray *)activityItems {
+
+    NSAssert([activityItems.firstObject isKindOfClass:[SBUser class]]
+             && [activityItems.lastObject isKindOfClass:[SBAccount class]], @"One or both item is not a supported class");
+
+    self.user = (SBUser*)activityItems.firstObject;
+    self.account = (SBAccount*)activityItems.lastObject;
 }
 
 -(void)banUserViewControllerFinishedWithReason:(NSString *)reason {
 
     @weakify(self);
-    [[[self.client banUserWithID:self.userID
-               fromAccountWithID:self.accountID
+    [[[self.client banUserWithID:self.user.identifier
+               fromAccountWithID:self.account.identifier
                           reason:reason]
       deliverOn:[RACScheduler mainThreadScheduler]]
      subscribeError:^(NSError *error) {
