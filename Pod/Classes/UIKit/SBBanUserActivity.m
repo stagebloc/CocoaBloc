@@ -58,13 +58,16 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
 
 -(void)banUserViewControllerFinishedWithReason:(NSString *)reason {
 
+    @weakify(self);
     [[[self.client banUserWithID:self.userID
                fromAccountWithID:self.accountID
                           reason:reason]
       deliverOn:[RACScheduler mainThreadScheduler]]
      subscribeError:^(NSError *error) {
+         @strongify(self);
          [self activityDidFinish:NO];
      } completed:^{
+         @strongify(self);
          [self activityDidFinish:YES];
      }];
 }
