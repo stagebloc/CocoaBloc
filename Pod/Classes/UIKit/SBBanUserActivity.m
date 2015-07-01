@@ -7,6 +7,7 @@
 //
 
 #import "SBBanUserActivity.h"
+#import "SBClient+User.h"
 
 NSString *const SBBanUserActivityType = @"SBBanActivityType";
 
@@ -22,7 +23,10 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
     return UIActivityCategoryAction;
 }
 
-- (instancetype)initWithClient:(SBClient *)client userID:(NSNumber* )userID accountID:(NSNumber *)accountID {
+- (instancetype)initWithClient:(SBClient *)client
+                        userID:(NSNumber* )userID
+                     accountID:(NSNumber *)accountID {
+
     if (!(self = [super init])) return nil;
 
     self.client = client;
@@ -41,39 +45,27 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"SBBanUserActivity"];
+    return [UIImage imageNamed:@"SBBanActivity"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
     return activityItems.count == 1;
 }
 
-- (void)prepareWithActivityItems:(NSArray *)activityItems {
-    NSAssert([activityItems.firstObject isKindOfClass:[SBComment class]]
-             || [activityItems.firstObject isKindOfClass:[SBContent class]], @"Activity item is not a supported class");
-
-    self.contentOrComment = [activityItems firstObject];
-}
-
-- (void)flagViewControllerCancelled:(SBFlagViewController *)controller {
+-(void)banUserViewControllerCancelled:(SBBanUserViewController *)controller {
     [self activityDidFinish:NO];
 }
 
 -(void)banUserViewControllerFinishedWithReason:(NSString *)reason {
 
-//    RACSignal *start = isContent
-//    ? [self.client flagContent:self.contentOrComment type:type reason:reason]
-//    : [self.client flagComment:self.contentOrComment type:type reason:reason];
-//
-//    [[start
-//      deliverOn:[RACScheduler mainThreadScheduler]]
-//     subscribeError:^(NSError *error) {
-//         [self activityDidFinish:NO];
-//     }
-//     completed:^{
-//         [self activityDidFinish:YES];
-//     }];
+    [[[self.client banUserWithID:self.userID fromAccountWithID:self.accountID reason:reason]
+      deliverOn:[RACScheduler mainThreadScheduler]]
+     subscribeError:^(NSError *error) {
+         [self activityDidFinish:NO];
 
+     } completed:^{
+         [self activityDidFinish:YES];
+     }];
 }
 
 - (UIViewController *)activityViewController {
@@ -87,8 +79,8 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if ([self.delegate respondsToSelector:@selector(flagActivity:willDisplayViewController:)]) {
-        [self.delegate flagActivity:self willDisplayViewController:(SBFlagViewController *)viewController];
+    if ([self.delegate respondsToSelector:@selector(banActivity:willDisplayViewController:)]) {
+        [self.delegate banActivity:self willDisplayViewController:(SBBanUserViewController *)viewController];
     }
 }
 

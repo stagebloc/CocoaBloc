@@ -985,6 +985,8 @@
 		0E1C80221B44349A001F0602 /* SBBanUserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBanUserActivity.m; sourceTree = "<group>"; };
 		0E1C80241B4436BA001F0602 /* SBBanUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBanUserViewController.h; sourceTree = "<group>"; };
 		0E1C80251B4436BA001F0602 /* SBBanUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBanUserViewController.m; sourceTree = "<group>"; };
+		0E1C80271B44417D001F0602 /* SBBanActivity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SBBanActivity.png; sourceTree = "<group>"; };
+		0E1C80281B444186001F0602 /* SBBanActivity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SBBanActivity@2x.png"; sourceTree = "<group>"; };
 		0E31FEBC388E25E5FBDC0CAB /* Pods-CocoaBloc-PureLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CocoaBloc-PureLayout-dummy.m"; sourceTree = "<group>"; };
 		0E33E00F78707540F2B713B0 /* SBContent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SBContent.h; sourceTree = "<group>"; };
 		0E6E6C35692126FF8A7CA315 /* libPods-CocoaBloc-AFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBloc-AFNetworking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2441,6 +2443,8 @@
 				F14B803C21655BFBDD4CE298 /* SBDeleteActivity@2x.png */,
 				5EB451C8F6FF0D92BF47D16B /* SBFlagActivity.png */,
 				C27B0EF27A9CA8C1E07832FC /* SBFlagActivity@2x.png */,
+				0E1C80271B44417D001F0602 /* SBBanActivity.png */,
+				0E1C80281B444186001F0602 /* SBBanActivity@2x.png */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
