@@ -22,7 +22,6 @@
     _reasonTextView.textContainerInset = UIEdgeInsetsMake(0, 10, 10, 10);
     _reasonTextView.font = [UIFont systemFontOfSize:18];
     _reasonTextView.placeholder = @"Enter a reason for flagging...";
-
     [self.view addSubview:_reasonTextView];
 
     [_reasonTextView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
