@@ -48,6 +48,7 @@
 		0D81E95132E27DEE9AB663ED /* NSString+RACSequenceAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 06A449F8AA74C4BA6C3EF33E /* NSString+RACSequenceAdditions.h */; };
 		0DCAFBC5E64158537F2DB6C7 /* UITableViewHeaderFooterView+RACSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = CCAD07150EB56BF3DF2A8D61 /* UITableViewHeaderFooterView+RACSignalSupport.m */; };
 		0E1C80231B44349A001F0602 /* SBBanUserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C80221B44349A001F0602 /* SBBanUserActivity.m */; };
+		0E1C80261B4436BA001F0602 /* SBBanUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C80251B4436BA001F0602 /* SBBanUserViewController.m */; };
 		0E7044E878F5784AE7394A5F /* RACSubscriber+AFProgressCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 69023959F952CB011287C195 /* RACSubscriber+AFProgressCallbacks.m */; };
 		0EBD15C0B2C0A387866F721D /* EXPExpect.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DA61A5836619AF53640D32 /* EXPExpect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0F037C9CBB6FACCFE6AA996E /* SBPhotoActivityItemProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F959398C7813DA9B2E9057F /* SBPhotoActivityItemProvider.h */; };
@@ -982,6 +983,8 @@
 		0D9FD39CD42649AD3731391A /* NSString+RACSequenceAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+RACSequenceAdditions.m"; path = "ReactiveCocoa/NSString+RACSequenceAdditions.m"; sourceTree = "<group>"; };
 		0E1C80211B44349A001F0602 /* SBBanUserActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBanUserActivity.h; sourceTree = "<group>"; };
 		0E1C80221B44349A001F0602 /* SBBanUserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBanUserActivity.m; sourceTree = "<group>"; };
+		0E1C80241B4436BA001F0602 /* SBBanUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBanUserViewController.h; sourceTree = "<group>"; };
+		0E1C80251B4436BA001F0602 /* SBBanUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBanUserViewController.m; sourceTree = "<group>"; };
 		0E31FEBC388E25E5FBDC0CAB /* Pods-CocoaBloc-PureLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CocoaBloc-PureLayout-dummy.m"; sourceTree = "<group>"; };
 		0E33E00F78707540F2B713B0 /* SBContent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SBContent.h; sourceTree = "<group>"; };
 		0E6E6C35692126FF8A7CA315 /* libPods-CocoaBloc-AFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBloc-AFNetworking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2803,11 +2806,13 @@
 				C6CF08480AC7F44599D26D62 /* SBDeleteActivity.h */,
 				EA436A7E80D4DAAE758CE133 /* SBDeleteActivity.m */,
 				8926444DAD9A3A7079109147 /* SBFlagActivity.h */,
-				0E1C80211B44349A001F0602 /* SBBanUserActivity.h */,
-				0E1C80221B44349A001F0602 /* SBBanUserActivity.m */,
 				94644A5E0B21A955119D495E /* SBFlagActivity.m */,
 				D9E11C4859BD26C758D9E953 /* SBFlagViewController.h */,
 				539A01908D8AD178A3819F8E /* SBFlagViewController.m */,
+				0E1C80211B44349A001F0602 /* SBBanUserActivity.h */,
+				0E1C80221B44349A001F0602 /* SBBanUserActivity.m */,
+				0E1C80241B4436BA001F0602 /* SBBanUserViewController.h */,
+				0E1C80251B4436BA001F0602 /* SBBanUserViewController.m */,
 				2F959398C7813DA9B2E9057F /* SBPhotoActivityItemProvider.h */,
 				9FFA9DF8CF383AB10D049516 /* SBPhotoActivityItemProvider.m */,
 				6FDB01E3E9C893B243ED3A7A /* SBStatus+UIActivityItemSource.h */,
@@ -3704,6 +3709,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E1C80231B44349A001F0602 /* SBBanUserActivity.m in Sources */,
+				0E1C80261B4436BA001F0602 /* SBBanUserViewController.m in Sources */,
 				6802CA273A2A1772703ECE13 /* Pods-CocoaBloc-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

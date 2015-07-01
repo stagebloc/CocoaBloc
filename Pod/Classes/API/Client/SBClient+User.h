@@ -48,8 +48,12 @@ extern NSString *SBUserContentListTypeLike;
 
  @param userID of user to be banned
  @param accountID of account from which user should be banned
+ @param reason a string detailing why user should be banned from the account
+
  */
--(RACSignal *)banUserWithID:(NSNumber *)userID fromAccountWithID:(NSNumber *)accountID;
+-(RACSignal *)banUserWithID:(NSNumber *)userID
+          fromAccountWithID:(NSNumber *)accountID
+                     reason:(NSString*)reason;
 
 /*!
  Request a list of content the user has either submitted or liked
