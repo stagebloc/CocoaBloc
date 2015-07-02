@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SBPlaceholderTextView.h"
+#import <SZTextView/SZTextView.h>
 
 @protocol SBBanUserViewControllerDelegate;
 
 @interface SBBanUserViewController : UIViewController
 
-@property (nonatomic) SBPlaceholderTextView *reasonTextView;
+@property (nonatomic) SZTextView *reasonTextView;
 
 @property (nonatomic, assign) id<SBBanUserViewControllerDelegate> delegate;
 

@@ -10,7 +10,6 @@
 #import <PureLayout.h>
 #import <ReactiveCocoa.h>
 #import "SBClient+Comment.h"
-#import "SBPlaceholderTextView.h"
 
 @interface SBFlagViewController ()
 
@@ -36,7 +35,7 @@
     _typePicker.selectedSegmentIndex = 0;
     _typePicker.backgroundColor = [UIColor clearColor];
     
-    _reasonTextView = [[SBPlaceholderTextView alloc] init];
+    _reasonTextView = [[SZTextView alloc] init];
     _reasonTextView.textContainerInset = UIEdgeInsetsMake(0, 10, 10, 10);
     _reasonTextView.font = [UIFont systemFontOfSize:18];
     _reasonTextView.placeholder = @"Enter a reason for flagging...";

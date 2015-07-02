@@ -9,7 +9,6 @@
 #import "SBBanUserViewController.h"
 #import <PureLayout.h>
 #import <ReactiveCocoa.h>
-#import "SBPlaceholderTextView.h"
 
 @implementation SBBanUserViewController
 
@@ -18,7 +17,7 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
 
-    _reasonTextView = [[SBPlaceholderTextView alloc] init];
+    _reasonTextView = [[SZTextView alloc] init];
     _reasonTextView.textContainerInset = UIEdgeInsetsMake(0, 10, 10, 10);
     _reasonTextView.font = [UIFont systemFontOfSize:18];
     _reasonTextView.placeholder = @"Enter a reason for banning this user...";

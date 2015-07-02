@@ -8,13 +8,14 @@
 
 #import "SBBanUserActivity.h"
 #import "SBClient+User.h"
+#import "SBComment.h"
 
 NSString *const SBBanUserActivityType = @"SBBanActivityType";
 
 @interface SBBanUserActivity () <SBBanUserViewControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic) SBClient *client;
-@property (nonatomic) SBUser *user;
-@property (nonatomic) SBAccount *account;
+@property (nonatomic) NSNumber *userID;
+@property (nonatomic) NSNumber *accountID;
 @end
 
 @implementation SBBanUserActivity
@@ -49,29 +50,29 @@ NSString *const SBBanUserActivityType = @"SBBanActivityType";
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-    return activityItems.count == 2;
+    return activityItems.count == 1;
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
+    NSAssert([activityItems.firstObject isKindOfClass:[SBComment class]], @"Activity items for %@ must be of class SBComment", NSStringFromClass(self.class));
 
-    NSAssert([activityItems.firstObject isKindOfClass:[SBUser class]]
-             && [activityItems.lastObject isKindOfClass:[SBAccount class]], @"One or both item is not a supported class");
-
-    self.user = (SBUser*)activityItems.firstObject;
-    self.account = (SBAccount*)activityItems.lastObject;
+    SBComment *comment = activityItems.firstObject;
+    self.userID = comment.userID;
+    self.accountID = comment.accountID;
 }
 
 -(void)banUserViewControllerFinishedWithReason:(NSString *)reason {
 
     @weakify(self);
-    [[[self.client banUserWithID:self.user.identifier
-               fromAccountWithID:self.account.identifier
+    [[[self.client banUserWithID:self.userID
+               fromAccountWithID:self.accountID
                           reason:reason]
       deliverOn:[RACScheduler mainThreadScheduler]]
      subscribeError:^(NSError *error) {
          @strongify(self);
          [self activityDidFinish:NO];
-     } completed:^{
+     }
+     completed:^{
          @strongify(self);
          [self activityDidFinish:YES];
      }];

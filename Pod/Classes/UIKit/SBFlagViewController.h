@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SBPlaceholderTextView.h"
+#import <SZTextView/SZTextView.h>
 
 @protocol SBFlagViewControllerDelegate;
 
 @interface SBFlagViewController : UIViewController
 
 @property (nonatomic) UISegmentedControl *typePicker;
-@property (nonatomic) SBPlaceholderTextView *reasonTextView;
+@property (nonatomic) SZTextView *reasonTextView;
 
 @property (nonatomic, assign) id<SBFlagViewControllerDelegate> delegate;
 
