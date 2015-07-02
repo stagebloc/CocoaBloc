@@ -61,6 +61,9 @@ describe(@"Model Activities", ^{
         expect([status activityViewController:nil itemForActivityType:SBFlagActivityType]).to.equal(status);
         expect([video activityViewController:nil itemForActivityType:SBFlagActivityType]).to.equal(video);
         expect([comment activityViewController:nil itemForActivityType:SBFlagActivityType]).to.equal(comment);
+
+        // Check against ban type
+        expect([comment activityViewController:nil itemForActivityType:SBBanUserActivityType]).to.equal(comment);
     });
     
     it(@"should have valid constants", ^{
