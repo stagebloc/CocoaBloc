@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0A27C0589B7B6FB3A73A84C6"
+               BlueprintIdentifier = "B9BFC1EDCC3D14312573972A"
                BuildableName = "libPods-Tests-LLReactiveMatchers.a"
                BlueprintName = "Pods-Tests-LLReactiveMatchers"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8232E9ABC076D3308C97AD71"
+               BlueprintIdentifier = "6259CFDF99E9DF15BCC476C8"
                BuildableName = "libPods-CocoaBloc-PureLayout.a"
                BlueprintName = "Pods-CocoaBloc-PureLayout"
                ReferencedContainer = "container:Pods.xcodeproj">

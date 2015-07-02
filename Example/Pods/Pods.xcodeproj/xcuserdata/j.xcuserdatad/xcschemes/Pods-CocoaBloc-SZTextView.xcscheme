@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "248699D2EFB3982F4404DA04"
-               BuildableName = "libPods-CocoaBloc-AFNetworking-RACExtensions.a"
-               BlueprintName = "Pods-CocoaBloc-AFNetworking-RACExtensions"
+               BlueprintIdentifier = "40DBA4805B2BA10AC831A8BC"
+               BuildableName = "libPods-CocoaBloc-SZTextView.a"
+               BlueprintName = "Pods-CocoaBloc-SZTextView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
