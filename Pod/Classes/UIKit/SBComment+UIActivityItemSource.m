@@ -9,6 +9,7 @@
 #import "SBComment+UIActivityItemSource.h"
 #import "SBDeleteActivity.h"
 #import "SBFlagActivity.h"
+#import "SBBanUserActivity.h"
 
 @implementation SBComment (UIActivityItemSource)
 
@@ -17,10 +18,11 @@
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
-    if ([activityType isEqualToString:SBDeleteActivityType] || [activityType isEqualToString:SBFlagActivityType]) {
+    if ([activityType isEqualToString:SBDeleteActivityType] ||
+        [activityType isEqualToString:SBFlagActivityType] ||
+        [activityType isEqualToString:SBBanUserActivityType]) {
         return self;
     }
-    
     return self.shortURL.absoluteString;
 }
 
