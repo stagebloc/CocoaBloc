@@ -10,6 +10,8 @@
 
 #import "AFHTTPSessionManager+RACSupport.h"
 
+NSString *const RACAFNResponseObjectErrorKey = @"responseObject";
+
 @implementation AFHTTPSessionManager (RACSupport)
 
 - (RACSignal *)rac_GET:(NSString *)path parameters:(id)parameters {
@@ -33,9 +35,14 @@
 		
 		NSURLSessionDataTask *task = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
 			if (error) {
-				[subscriber sendError:error];
+				NSMutableDictionary *userInfo = [error.userInfo mutableCopy];
+        			if (responseObject) {
+					userInfo[RACAFNResponseObjectErrorKey] = responseObject;
+          			}
+        			NSError *errorWithRes = [NSError errorWithDomain:error.domain code:error.code userInfo:[userInfo copy]];
+				[subscriber sendError:errorWithRes];
 			} else {
-				[subscriber sendNext:responseObject];
+				[subscriber sendNext:RACTuplePack(responseObject, response)];
 				[subscriber sendCompleted];
 			}
 		}];
@@ -69,9 +76,14 @@
 		
 		NSURLSessionDataTask *task = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
 			if (error) {
-				[subscriber sendError:error];
+				NSMutableDictionary *userInfo = [error.userInfo mutableCopy];
+				if (responseObject) {
+					userInfo[RACAFNResponseObjectErrorKey] = responseObject;
+				}
+				NSError *errorWithRes = [NSError errorWithDomain:error.domain code:error.code userInfo:[userInfo copy]];
+				[subscriber sendError:errorWithRes];
 			} else {
-				[subscriber sendNext:responseObject];
+				[subscriber sendNext:RACTuplePack(responseObject, response)];
 				[subscriber sendCompleted];
 			}
 		}];

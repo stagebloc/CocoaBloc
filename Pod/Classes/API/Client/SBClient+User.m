@@ -162,6 +162,18 @@ NSString *SBUserContentListTypeLike = @"likes";
                 setNameWithFormat:@"Update authenticated user (%@) with new photo", self.authenticatedUser];
 }
 
+-(RACSignal *)banUserWithID:(NSNumber *)userID
+          fromAccountWithID:(NSNumber *)accountID
+                     reason:(NSString*)reason {
+    NSParameterAssert(userID);
+    NSParameterAssert(accountID);
+    NSParameterAssert(reason);
+
+    NSDictionary *params = @{@"reason": reason};
+
+    return [[self rac_POST:[NSString stringWithFormat:@"users/%@/ban/%@", userID, accountID] parameters:[self requestParametersWithParameters:params]] setNameWithFormat:@"Banning %@ from account %@ because %@", userID, accountID, reason];
+}
+
 - (RACSignal *)getPostedContentForUserID:(NSNumber *)userID
                          contentListType:(NSString *)contentListType
                               parameters:(NSDictionary*)parameters {

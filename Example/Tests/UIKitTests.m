@@ -11,6 +11,7 @@
 
 #import <CocoaBloc/SBDeleteActivity.h>
 #import <CocoaBloc/SBFlagActivity.h>
+#import <CocoaBloc/SBBanUserActivity.h>
 #import <CocoaBloc/SBBlog+UIActivityItemSource.h>
 #import <CocoaBloc/SBStatus+UIActivityItemSource.h>
 #import <CocoaBloc/SBVideo+UIActivityItemSource.h>
@@ -26,6 +27,7 @@ describe(@"Image Resources", ^{
         // Verifies that our image resources for these icons are loading properly
         expect([SBDeleteActivity new].activityImage).toNot.beNil();
         expect([SBFlagActivity new].activityImage).toNot.beNil();
+        expect([SBBanUserActivity new].activityImage).toNot.beNil();
     });
 });
 
@@ -59,6 +61,9 @@ describe(@"Model Activities", ^{
         expect([status activityViewController:nil itemForActivityType:SBFlagActivityType]).to.equal(status);
         expect([video activityViewController:nil itemForActivityType:SBFlagActivityType]).to.equal(video);
         expect([comment activityViewController:nil itemForActivityType:SBFlagActivityType]).to.equal(comment);
+
+        // Check against ban type
+        expect([comment activityViewController:nil itemForActivityType:SBBanUserActivityType]).to.equal(comment);
     });
     
     it(@"should have valid constants", ^{
@@ -67,6 +72,7 @@ describe(@"Model Activities", ^{
         expect(SBDeleteActivityType).toNot.beNil();
         expect(SBDeleteActivityDidDeleteContentOrCommentNotification).toNot.beNil();
         expect(SBFlagActivityType).toNot.beNil();
+        expect(SBBanUserActivityType).toNot.beNil();
     });
 });
 

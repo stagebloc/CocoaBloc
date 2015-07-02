@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A0A1D5919225C7CE18A1234"
+               BlueprintIdentifier = "82B182AEA05E8A551F635DD4"
                BuildableName = "libPods-Tests-ReactiveCocoa.a"
                BlueprintName = "Pods-Tests-ReactiveCocoa"
                ReferencedContainer = "container:Pods.xcodeproj">

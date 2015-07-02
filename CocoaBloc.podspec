@@ -35,6 +35,7 @@ Pod::Spec.new do |s|
         ss.ios.dependency 'CocoaBloc/API'
         ss.ios.dependency 'PureLayout', '~> 2.0'
         ss.ios.dependency 'CocoaBloc-UI', '~> 0.0.3'
+        ss.ios.dependency 'SZTextView', '~> 1.2'
 
         ss.ios.source_files = 'Pod/Classes/UIKit/*'
 	    ss.ios.resources = ['Pod/Assets/UIKit/*']

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D65C265F4AFC22E51BAED58E"
+               BlueprintIdentifier = "248699D2EFB3982F4404DA04"
                BuildableName = "libPods-CocoaBloc-AFNetworking-RACExtensions.a"
                BlueprintName = "Pods-CocoaBloc-AFNetworking-RACExtensions"
                ReferencedContainer = "container:Pods.xcodeproj">

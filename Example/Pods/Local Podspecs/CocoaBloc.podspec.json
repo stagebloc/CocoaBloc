@@ -62,6 +62,9 @@
           ],
           "CocoaBloc-UI": [
             "~> 0.0.3"
+          ],
+          "SZTextView": [
+            "~> 1.2"
           ]
         },
         "source_files": "Pod/Classes/UIKit/*",
