@@ -7,14 +7,14 @@
 //
 
 #import "SBNotification.h"
-#import <MTLValueTransformer.h>
-#import <NSDictionary+MTLManipulationAdditions.h>
+#import <Mantle/MTLValueTransformer.h>
+#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "MTLValueTransformer+Convenience.h"
 #import "NSDateFormatter+CocoaBloc.h"
 #import "SBAccount.h"
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACExtScope.h>
 #import "SBClient+Account.h"
-#import <RACCommand.h>
+#import <ReactiveCocoa/RACCommand.h>
 
 @interface SBNotification ()
 @property (nonatomic, readonly) RACCommand *fetchAccountCommand;

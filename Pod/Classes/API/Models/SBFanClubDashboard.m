@@ -7,8 +7,8 @@
 //
 
 #import "SBFanClubDashboard.h"
-#import <MTLValueTransformer.h>
-#import <NSDictionary+MTLManipulationAdditions.h>
+#import <Mantle/MTLValueTransformer.h>
+#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "MTLValueTransformer+Convenience.h"
 
 @implementation SBFanClubDashboardTier

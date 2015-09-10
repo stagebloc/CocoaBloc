@@ -11,7 +11,7 @@
 #import "SBComment.h"
 #import "SBContent.h"
 #import "RACSignal+JSONDeserialization.h"
-#import <RACAFNetworking.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
 
 @implementation SBClient (Comment)
 

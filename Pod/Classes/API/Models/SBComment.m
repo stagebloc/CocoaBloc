@@ -16,7 +16,7 @@
 #import "SBClient.h"
 #import "SBClient+User.h"
 #import "SBClient+Account.h"
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACExtScope.h>
 
 @interface SBComment ()
 // Fetches the user for the model's user ID. MUST be executed with an SBClient as the parameter

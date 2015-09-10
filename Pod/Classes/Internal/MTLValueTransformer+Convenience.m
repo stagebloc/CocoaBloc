@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "MTLValueTransformer+Convenience.h"
+#import <ReactiveCocoa/RACEXTScope.h>
 #import <Mantle/Mantle.h>
+
+#import "MTLValueTransformer+Convenience.h"
 #import "SBContent.h"
-#import <RACEXTScope.h>
 
 @implementation MTLValueTransformer (Convenience)
 

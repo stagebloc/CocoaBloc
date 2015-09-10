@@ -12,7 +12,7 @@
 #import "SBBlog.h"
 #import "SBClient+Comment.h"
 #import "SBClient+Content.h"
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACExtScope.h>
 
 NSString *const SBDeleteActivityDidDeleteContentOrCommentNotification = @"SBDeleteActivityDidDeleteContentOrCommentNotification";
 NSString *const SBDeleteActivityType = @"SBDeleteActivity";

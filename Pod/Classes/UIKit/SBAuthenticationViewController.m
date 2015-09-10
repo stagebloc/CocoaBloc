@@ -7,7 +7,7 @@
 //
 
 #import "SBAuthenticationViewController.h"
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 #import <PureLayout/PureLayout.h>
 #import "SBClient.h"
 #import "SBClient+Auth.h"

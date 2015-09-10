@@ -8,7 +8,7 @@
 
 #import "SBClient+Store.h"
 #import "SBClient+Private.h"
-#import <RACAFNetworking.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import "RACSignal+JSONDeserialization.h"
 #import "SBStoreItem.h"
 #import "SBOrder.h"

@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+
 #import "SBClient+Audio.h"
 #import "SBClient.h"
 #import "SBAudio.h"
 #import "SBClient+Private.h"
 #import "RACSignal+JSONDeserialization.h"
-#import <RACAFNetworking.h>
-#import <RACEXTScope.h>
 #import "AFHTTPRequestOperationManager+File.h"
 
 @implementation SBClient (Audio)

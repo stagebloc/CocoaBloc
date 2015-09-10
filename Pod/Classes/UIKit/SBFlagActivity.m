@@ -13,7 +13,7 @@
 #import "SBBlog.h"
 #import "SBClient+Comment.h"
 #import "SBClient+Content.h"
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACExtScope.h>
 #import "SBFlagViewController.h"
 
 NSString *const SBFlagActivityType = @"SBFlagActivityType";

@@ -11,8 +11,8 @@
 #import "MTLValueTransformer+Convenience.h"
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSDateFormatter+CocoaBloc.h"
-#import <RACCommand.h>
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACCommand.h>
+#import <ReactiveCocoa/RACExtScope.h>
 #import "SBUser.h"
 #import "SBAccount.h"
 #import "SBClient+User.h"

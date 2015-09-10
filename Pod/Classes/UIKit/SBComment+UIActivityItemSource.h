@@ -7,6 +7,7 @@
 //
 
 #import "SBComment.h"
+
 @import UIKit.UIActivityItemProvider;
 
 @interface SBComment (UIActivityItemSource) <UIActivityItemSource>

@@ -9,7 +9,7 @@
 #import "SBObject.h"
 #import "SBAccount.h"
 #import <Foundation/Foundation.h>
-#import <RACCommand.h>
+#import <ReactiveCocoa/RACCommand.h>
 
 @class SBUser;
 

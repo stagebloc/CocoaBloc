@@ -8,7 +8,7 @@
 
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient.h"
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @implementation RACSignal (JSONDeserialization)
 

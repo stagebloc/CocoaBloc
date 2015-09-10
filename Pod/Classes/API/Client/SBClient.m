@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+
 #import "SBClient.h"
 #import "SBClient+Auth.h"
 #import "SBAudio.h"
-
-#import <AFNetworking-RACExtensions/RACAFNetworking.h>
-#import <ReactiveCocoa/RACEXTScope.h>
 
 NSString * const CocoaBlocMissingClientIDSecretException = @"CocoaBlocMissingClientIDSecretException";
 
