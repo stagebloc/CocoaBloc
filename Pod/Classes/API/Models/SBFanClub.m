@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBFanClub.h"
 #import <Mantle/Mantle.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
+#import "SBFanClub.h"
 #import "MTLValueTransformer+Convenience.h"
 #import "SBTier.h"
 #import "SBClient+Account.h"
-#import <RACEXTScope.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface SBFanClub ()
 @property (nonatomic, readonly) RACCommand *fetchAccountCommand;

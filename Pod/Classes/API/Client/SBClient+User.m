@@ -12,8 +12,8 @@
 #import "NSObject+AssociatedObjects.h"
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Auth.h"
-#import <RACAFNetworking.h>
-#import <RACEXTScope.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
+#import <ReactiveCocoa/RACExtScope.h>
 #import "AFHTTPRequestOperationManager+File.h"
 #import "NSData+Mime.h"
 

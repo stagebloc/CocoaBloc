@@ -6,12 +6,13 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+
 #import "SBClient+Auth.h"
 #import "SBClient+Private.h"
 #import "SBClient.h"
 #import "SBClient+User.h"
-#import <RACAFNetworking.h>
-#import <RACEXTScope.h>
 #import "NSObject+AssociatedObjects.h"
 
 @interface SBClient (AuthInternal)
@@ -163,13 +164,11 @@ NSString *SBClientID, *SBClientSecret, *SBRedirectURI;
     if (gender)             params[@"gender"] = gender.copy;
     if (sourceAccountID) 	params[@"source_account_id"] = sourceAccountID.copy;
 
-    @weakify(self);
     return [[self rac_POST:@"users" parameters:[self requestParametersWithParameters:params]]
             _processedAuthSignalForClient:self];
 }
 
--(void)signOutUser
-{
+- (void)signOutUser {
     self.authenticatedUser = nil;
     self.token = nil;
 }

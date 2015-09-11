@@ -13,6 +13,15 @@
 /// @methodgroup Account
 
 /*!
+ Gets all of the accounts associated with the given user identifier,
+ with options to filter admin and following accounts.
+*/
+- (RACSignal *)getAccountsForUserWithIdentifier:(NSNumber *)userIdentifier
+                         includingAdminAccounts:(BOOL)includeAdminAccounts
+                              followingAccounts:(BOOL)includeFollowingAccounts
+                                     parameters:(NSDictionary *)parameters;
+
+/*!
  Creates an account with
  @param name of the new account
  @param url - the url which this account can be found

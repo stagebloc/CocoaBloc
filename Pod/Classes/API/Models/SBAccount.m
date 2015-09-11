@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBAccount.h"
 #import <Mantle/Mantle.h>
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
+#import <ReactiveCocoa/RACCommand.h>
+
+#import "SBAccount.h"
 #import "MTLValueTransformer+Convenience.h"
-#import <RACCommand.h>
 
 #if TARGET_OS_IPHONE
 @import UIKit.UIColor;

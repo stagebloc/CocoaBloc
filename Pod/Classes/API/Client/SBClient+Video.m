@@ -10,7 +10,7 @@
 #import "RACSignal+JSONDeserialization.h"
 #import "SBClient+Private.h"
 #import "SBVideo.h"
-#import <RACAFNetworking.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import "AFHTTPRequestOperationManager+File.h"
 
 // Figure out MIME type based on extension

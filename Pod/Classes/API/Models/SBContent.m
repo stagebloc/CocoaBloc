@@ -19,10 +19,10 @@
 
 #import "SBUser.h"
 #import "SBAccount.h"
-#import <RACCommand.h>
+#import <ReactiveCocoa/RACCommand.h>
 #import "SBClient+Account.h"
 #import "SBClient+User.h"
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACExtScope.h>
 
 @implementation SBContent {
     RACCommand *_fetchAccountCommand;

@@ -7,7 +7,7 @@
 //
 
 #import "SBClient+Photo.h"
-#import <RACAFNetworking.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import "SBClient+Private.h"
 #import "RACSignal+JSONDeserialization.h"
 #import "AFHTTPRequestOperationManager+File.h"

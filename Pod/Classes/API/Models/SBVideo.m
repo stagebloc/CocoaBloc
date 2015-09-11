@@ -9,7 +9,7 @@
 #import "SBVideo.h"
 #import "MTLValueTransformer+Convenience.h"
 #import <Mantle/Mantle.h>
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACExtScope.h>
 #import "SBClient+Account.h"
 
 @implementation SBVideo

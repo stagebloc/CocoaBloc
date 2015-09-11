@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
+
 #import "SBClient+Blog.h"
-#import <RACAFNetworking.h>
 #import "SBClient+Private.h"
 #import "RACSignal+JSONDeserialization.h"
 

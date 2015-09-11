@@ -13,8 +13,8 @@
 #import "MTLValueTransformer+Convenience.h"
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSDateFormatter+CocoaBloc.h"
-#import <RACCommand.h>
-#import <RACEXTScope.h>
+#import <ReactiveCocoa/RACCommand.h>
+#import <ReactiveCocoa/RACExtScope.h>
 #import "SBClient+Account.h"
 #import "SBClient+User.h"
 #import <ReactiveCocoa/RACSignal.h>

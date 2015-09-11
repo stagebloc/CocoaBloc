@@ -6,17 +6,46 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
+#import <ReactiveCocoa/RACEXTScope.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
+#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
+
 #import "SBClient+Account.h"
-#import <RACAFNetworking.h>
 #import "SBClient+Private.h"
 #import "SBAccount.h"
 #import "RACSignal+JSONDeserialization.h"
 #import "AFHTTPRequestOperationManager+File.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSData+Mime.h"
-#import <ReactiveCocoa/RACEXTScope.h>
 
 @implementation SBClient (Account)
+
+- (RACSignal *)getAccountsForUserWithIdentifier:(NSNumber *)userIdentifier
+                         includingAdminAccounts:(BOOL)includeAdminAccounts
+                              followingAccounts:(BOOL)includeFollowingAccounts
+                                     parameters:(NSDictionary *)parameters {
+    NSParameterAssert(userIdentifier);
+    NSParameterAssert(includeAdminAccounts || includeAdminAccounts);
+
+    NSDictionary *baseParameters = @{@"user_id"   : userIdentifier,
+                                     @"admin"     : @(includeAdminAccounts),
+                                     @"following" : @(includeFollowingAccounts)};
+    NSDictionary *aggregateParameters = (parameters == nil ? baseParameters : [baseParameters mtl_dictionaryByAddingEntriesFromDictionary:parameters]);
+    
+    @weakify(self);
+    return [[[[self rac_GET:@"accounts" parameters:[self requestParametersWithParameters:aggregateParameters]]
+                cb_deserializeArrayWithClient:self keyPath:@"data"]
+                doNext:^(NSArray *accounts) {
+                    @strongify(self);
+                    
+                    // If we requested accounts for the authenticated user, set the admin accounts property
+                    if ([userIdentifier isEqualToNumber:self.authenticatedUser.identifier] && includeAdminAccounts) {
+                        self.authenticatedUser.adminAccounts = [accounts.rac_sequence filter:^BOOL(SBAccount *account) {
+                            return account.userIsAdmin.boolValue;
+                        }].array;
+                    }
+                }]
+                setNameWithFormat:@"Get accounts (userID = %@, admin = %d, following = %d)", userIdentifier, includeAdminAccounts, includeFollowingAccounts];
+}
 
 - (RACSignal *)createAccountWithName:(NSString*)name url:(NSString*)url type:(NSString*)type color:(NSString *)color {
     return [self createAccountWithName:name url:url type:type photoData:nil photoProgressSignal:nil parameters:@{@"color" : color}];

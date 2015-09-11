@@ -7,8 +7,8 @@
 //
 
 #import "SBFlagViewController.h"
-#import <PureLayout.h>
-#import <ReactiveCocoa.h>
+#import <PureLayout/PureLayout.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "SBClient+Comment.h"
 
 @interface SBFlagViewController ()

@@ -1,4 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
 
 target 'CocoaBloc', :exclusive => true do
   pod "CocoaBloc", :path => "../"
@@ -9,6 +10,5 @@ target 'Tests', :exclusive => true do
   pod 'LLReactiveMatchers', :git => "https://github.com/lawrencelomax/LLReactiveMatchers.git"
   pod 'Specta'
   pod 'Expecta'
-  pod 'FBSnapshotTestCase'
   pod 'Expecta+Snapshots'
 end

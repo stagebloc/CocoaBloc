@@ -7,6 +7,7 @@
 //
 
 #import "SBBlog.h"
+
 @import UIKit.UIActivityItemProvider;
 
 @interface SBBlog (UIActivityItemSource) <UIActivityItemSource>

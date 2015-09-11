@@ -7,7 +7,7 @@
 //
 
 #import "SBClient+Notification.h"
-#import <RACAFNetworking.h>
+#import <AFNetworking-RACExtensions/RACAFNetworking.h>
 #import "SBClient+Private.h"
 #import "SBClient.h"
 #import "RACSignal+JSONDeserialization.h"
