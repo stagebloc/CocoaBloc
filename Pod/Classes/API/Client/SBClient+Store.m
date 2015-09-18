@@ -28,19 +28,20 @@
     NSDictionary *params = @{@"address" : [MTLJSONAdapter JSONDictionaryFromModel:address],
                              @"cart" : @{@"store" : items}};
 
-    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/store/cart/totals", accountID.stringValue]
-                parameters:[self requestParametersWithParameters:params]]
-            flattenMap:^RACStream *(RACTuple *objectAndResponse) {
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/store/cart/totals", accountID.stringValue] parameters:[self requestParametersWithParameters:params]]
+               flattenMap:^RACStream *(RACTuple *objectAndResponse) {
 
-                NSDictionary *response = (NSDictionary *)objectAndResponse.first;
+                   NSDictionary *response = (NSDictionary *)objectAndResponse.first;
 
-                SBShippingRateSet *shippingRateSet =
-                [MTLJSONAdapter modelOfClass:[SBShippingRateSet class]
-                          fromJSONDictionary:[response valueForKeyPath:@"data.shipping"]
-                                       error:nil];
+                   SBShippingRateSet *shippingRateSet =
+                   [MTLJSONAdapter modelOfClass:[SBShippingRateSet class]
+                             fromJSONDictionary:[response valueForKeyPath:@"data.shipping"]
+                                          error:nil];
 
-                return [RACSignal zip:@[[RACSignal return:shippingRateSet], [RACSignal return:response[@"data"][@"tax"][@"price"]]]];
-            }];
+                   NSNumber *taxTotal = (NSNumber *)response[@"data"][@"tax"][@"price"];
+
+                   return [RACSignal zip:@[[RACSignal return:shippingRateSet], [RACSignal return:[NSDecimalNumber decimalNumberWithDecimal:taxTotal.decimalValue]]]];
+               }];
 }
 
 - (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccountWithIdentifier:(NSNumber *)accountIdentifier {
