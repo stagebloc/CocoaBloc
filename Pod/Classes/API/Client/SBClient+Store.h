@@ -11,9 +11,9 @@
 
 @interface SBClient (Store)
 
-- (RACSignal *)getShippingRatesForAccountWithIdentifier:(NSNumber *)accountID
-                                                address:(SBAddress *)address
-                                               forItems:(NSDictionary *)items;
+- (RACSignal *)getShippingRatesAndTaxForAccountWithIdentifier:(NSNumber *)accountID
+                                                      address:(SBAddress *)address
+                                                     forItems:(NSDictionary *)items;
 
 - (RACSignal *)getStoreItemsForAccountWithIdentifier:(NSNumber *)accountIdentifier parameters:(NSDictionary *)parameters;
 

@@ -17,16 +17,30 @@
 
 @implementation SBClient (Store)
 
-- (RACSignal *)getShippingRatesForAccountWithIdentifier:(NSNumber *)accountID
-                                                address:(SBAddress *)address
-                                               forItems:(NSDictionary *)items {
+- (RACSignal *)getShippingRatesAndTaxForAccountWithIdentifier:(NSNumber *)accountID
+                                                      address:(SBAddress *)address
+                                                     forItems:(NSDictionary *)items {
     NSParameterAssert(address.postalCode);
     NSParameterAssert(address.country);
     NSParameterAssert(accountID);
     NSParameterAssert(items);
-    
-    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/store/shipping/rates", accountID.stringValue] parameters:[self requestParametersWithParameters:@{@"address" : [MTLJSONAdapter JSONDictionaryFromModel:address], @"cart" : @{@"store": items}}]]
-                cb_deserializeWithClient:self keyPath:@"data" modelClass:[SBShippingRateSet class]];
+
+    NSDictionary *params = @{@"address" : [MTLJSONAdapter JSONDictionaryFromModel:address],
+                             @"cart" : @{@"store" : items}};
+
+    return [[self rac_POST:[NSString stringWithFormat:@"account/%@/store/cart/totals", accountID.stringValue]
+                parameters:[self requestParametersWithParameters:params]]
+            flattenMap:^RACStream *(RACTuple *objectAndResponse) {
+
+                NSDictionary *response = (NSDictionary *)objectAndResponse.first;
+
+                SBShippingRateSet *shippingRateSet =
+                [MTLJSONAdapter modelOfClass:[SBShippingRateSet class]
+                          fromJSONDictionary:[response valueForKeyPath:@"data.shipping"]
+                                       error:nil];
+
+                return [RACSignal zip:@[[RACSignal return:shippingRateSet], [RACSignal return:response[@"data"][@"tax"][@"price"]]]];
+            }];
 }
 
 - (RACSignal *)getStoreItemWithID:(NSNumber *)storeItemID forAccountWithIdentifier:(NSNumber *)accountIdentifier {
