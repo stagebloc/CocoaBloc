@@ -23,9 +23,9 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CocoaBloc (1.0.6):
-    - CocoaBloc/API (= 1.0.6)
-    - CocoaBloc/UIKit (= 1.0.6)
+  - CocoaBloc (1.0.7):
+    - CocoaBloc/API (= 1.0.7)
+    - CocoaBloc/UIKit (= 1.0.7)
     - ReactiveCocoa (~> 2.0)
   - CocoaBloc-UI (0.0.5):
     - CocoaBloc-UI/Colors (= 0.0.5)
@@ -34,18 +34,18 @@ PODS:
   - CocoaBloc-UI/Colors (0.0.5)
   - CocoaBloc-UI/Fonts (0.0.5)
   - CocoaBloc-UI/PlaceholderTextView (0.0.5)
-  - CocoaBloc/API (1.0.6):
+  - CocoaBloc/API (1.0.7):
     - AFNetworking (~> 2.0)
     - AFNetworking-RACExtensions (~> 0.1.6)
     - Mantle (~> 1.0)
     - ReactiveCocoa (~> 2.0)
-  - CocoaBloc/UIKit (1.0.6):
+  - CocoaBloc/UIKit (1.0.7):
     - CocoaBloc-UI (~> 0.0.3)
     - CocoaBloc/API
     - PureLayout (~> 2.0)
     - ReactiveCocoa (~> 2.0)
     - SZTextView (~> 1.2)
-  - Expecta (1.0.2)
+  - Expecta (1.0.3)
   - Expecta+Snapshots (2.0.0):
     - Expecta (~> 1.0)
     - FBSnapshotTestCase/Core (~> 2.0.3)
@@ -90,9 +90,9 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AFNetworking-RACExtensions: a043c6b492fa892395ceb9d20bc4c94e96e08a57
-  CocoaBloc: 638d98173c3600ea2d64479b46d367cbc5bf1d0a
+  CocoaBloc: 096543e957d1fbfe6f0e60e411c9478be1685303
   CocoaBloc-UI: 3deda97b7aba5f1eaddd6c8b8bc1ab0002adf64c
-  Expecta: 54e8a3530add08f4f0208c111355eda7cde74a53
+  Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
   Expecta+Snapshots: 29b38dd695bc72a0ed2bea833937d78df41943ba
   FBSnapshotTestCase: d94cf34841c9e77390e29009e8e2713479d48753
   LLReactiveMatchers: cdcde9b7a010275ee9720f559a24134a92e0786d
