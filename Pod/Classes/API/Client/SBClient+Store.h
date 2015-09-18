@@ -18,7 +18,7 @@
  @param address SBAddress for which to fetch tax and shipping info
  @param items NSDictionary of cart for which to fetch tax and shipping info
 
- Returns RACTuple -> first object = SBShippingRateSet, second object = NSNumber (taxTotal)
+ Returns RACTuple -> first object = SBShippingRateSet, second object = NSDecimalNumber (taxTotal)
  */
 - (RACSignal *)getShippingRatesAndTaxForAccountWithIdentifier:(NSNumber *)accountID
                                                       address:(SBAddress *)address
