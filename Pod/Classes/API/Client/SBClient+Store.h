@@ -11,6 +11,15 @@
 
 @interface SBClient (Store)
 
+/*!
+ Requests tax and shipping information for a given cart and address.
+
+ @param accountID of account from which items are being purchased
+ @param address SBAddress for which to fetch tax and shipping info
+ @param items NSDictionary of cart for which to fetch tax and shipping info
+
+ Returns RACTuple -> first object = SBShippingRateSet, second object = NSNumber (taxTotal)
+ */
 - (RACSignal *)getShippingRatesAndTaxForAccountWithIdentifier:(NSNumber *)accountID
                                                       address:(SBAddress *)address
                                                      forItems:(NSDictionary *)items;
