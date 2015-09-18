@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
-    s.version = '1.0.7'
+    s.version = '1.0.6'
     s.authors = {   'John Heaton'   => 'pikachu@stagebloc.com',
                     'Mark Glagola'  => 'mark@stagebloc.com',
                     'David Warner'  => 'spiderman@stagebloc.com',
