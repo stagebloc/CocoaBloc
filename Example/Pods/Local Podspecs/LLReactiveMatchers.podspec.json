@@ -1,0 +1,39 @@
+{
+  "name": "LLReactiveMatchers",
+  "platforms": {
+    "ios": "6.0"
+  },
+  "requires_arc": true,
+  "version": "0.0.1",
+  "summary": "Expecta matchers for ReactiveCocoa.",
+  "description": "Expecta matchers for ReactiveCocoa. Yay.",
+  "homepage": "https://github.com/lawrencelomax/LLReactiveMatchers",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Lawrence Lomax": "lomax.lawrence@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/lawrencelomax/LLReactiveMatchers.git",
+    "commit": "06f55c80013345af64d7bd92d0d017742412f237"
+  },
+  "source_files": "LLReactiveMatchers/**/*.{h,m}",
+  "prefix_header_file": "LLReactiveMatchers/LLReactiveMatchers-Prefix.pch",
+  "frameworks": [
+    "Foundation",
+    "XCTest"
+  ],
+  "dependencies": {
+    "ReactiveCocoa": [
+      ">=2.1.7"
+    ],
+    "Expecta": [
+
+    ],
+    "Specta": [
+
+    ]
+  }
+}

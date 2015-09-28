@@ -1,0 +1,85 @@
+PODS:
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking-RACExtensions (0.1.8):
+    - AFNetworking (~> 2.5.3)
+    - ReactiveCocoa (~> 2.0)
+  - AFNetworking/NSURLConnection (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - CocoaBloc (1.0.7):
+    - CocoaBloc/API (= 1.0.7)
+    - ReactiveCocoa (~> 2.0)
+  - CocoaBloc/API (1.0.7):
+    - AFNetworking (~> 2.0)
+    - AFNetworking-RACExtensions (~> 0.1.6)
+    - Mantle (~> 1.0)
+    - ReactiveCocoa (~> 2.0)
+  - Expecta (1.0.3)
+  - Expecta+Snapshots (2.0.0):
+    - Expecta (~> 1.0)
+    - FBSnapshotTestCase/Core (~> 2.0.3)
+  - FBSnapshotTestCase/Core (2.0.4)
+  - LLReactiveMatchers (0.0.1):
+    - Expecta
+    - ReactiveCocoa (>= 2.1.7)
+    - Specta
+  - Mantle (1.5.5):
+    - Mantle/extobjc (= 1.5.5)
+  - Mantle/extobjc (1.5.5)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - Specta (1.0.4)
+
+DEPENDENCIES:
+  - CocoaBloc (from `../`)
+  - Expecta
+  - Expecta+Snapshots
+  - LLReactiveMatchers (from `https://github.com/lawrencelomax/LLReactiveMatchers.git`)
+  - Specta
+
+EXTERNAL SOURCES:
+  CocoaBloc:
+    :path: "../"
+  LLReactiveMatchers:
+    :git: https://github.com/lawrencelomax/LLReactiveMatchers.git
+
+CHECKOUT OPTIONS:
+  LLReactiveMatchers:
+    :commit: 5fb16a96c774026eae957c1d4c712694fd2cff71
+    :git: https://github.com/lawrencelomax/LLReactiveMatchers.git
+
+SPEC CHECKSUMS:
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AFNetworking-RACExtensions: a043c6b492fa892395ceb9d20bc4c94e96e08a57
+  CocoaBloc: e46b423fc8a0633f1e7d5c2c037d59f39ceea478
+  Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
+  Expecta+Snapshots: 29b38dd695bc72a0ed2bea833937d78df41943ba
+  FBSnapshotTestCase: d94cf34841c9e77390e29009e8e2713479d48753
+  LLReactiveMatchers: cdcde9b7a010275ee9720f559a24134a92e0786d
+  Mantle: 1b29072a707453975b200a173cf77ec1e2810b75
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  Specta: 69bb134672aae190a1379ff91df07dad8dd1f869
+
+COCOAPODS: 0.38.2

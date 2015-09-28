@@ -1,0 +1,1 @@
+../../../../../Pod/Classes/API/Models/SBStoreItem.h
