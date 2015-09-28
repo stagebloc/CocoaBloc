@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		095971C01ACC5F35001C9B8C /* APITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 095971BF1ACC5F35001C9B8C /* APITests.m */; };
+		0997B37B35D064EFC34B656C /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B81CECC4963EE409E07219 /* Pods_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		264133F3F23069D1AA4621C2 /* Pods_CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B0ADD3A261DDAF4F038076 /* Pods_CocoaBloc.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -23,8 +25,6 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* UIKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* UIKitTests.m */; };
-		BEF82F9D135A33AEB3F3FE1A /* libPods-CocoaBloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D0D535BF82DA2EECA5D13A /* libPods-CocoaBloc.a */; };
-		C07CA2470D055EA885954101 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C29A68A02ABE8438257153 /* libPods-Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +41,8 @@
 		07CE7299B881C84F4E1D9B41 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		095971BF1ACC5F35001C9B8C /* APITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APITests.m; sourceTree = "<group>"; };
 		0BE54652E4301E70D6268550 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		46C29A68A02ABE8438257153 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37B0ADD3A261DDAF4F038076 /* Pods_CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52B81CECC4963EE409E07219 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FE137FF81D5E2913019FD1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* CocoaBloc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaBloc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,7 +65,6 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* UIKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIKitTests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		62D0D535BF82DA2EECA5D13A /* libPods-CocoaBloc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaBloc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC766F99585E49FAB43F0B88 /* Pods-CocoaBloc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc.release.xcconfig"; sourceTree = "<group>"; };
 		CDAC5951FB81F83D57D08F49 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		DEC1392850F1F2D1FFDB9053 /* Pods-CocoaBloc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBloc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				BEF82F9D135A33AEB3F3FE1A /* libPods-CocoaBloc.a in Frameworks */,
+				264133F3F23069D1AA4621C2 /* Pods_CocoaBloc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +90,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				C07CA2470D055EA885954101 /* libPods-Tests.a in Frameworks */,
+				0997B37B35D064EFC34B656C /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +136,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				62D0D535BF82DA2EECA5D13A /* libPods-CocoaBloc.a */,
-				46C29A68A02ABE8438257153 /* libPods-Tests.a */,
+				37B0ADD3A261DDAF4F038076 /* Pods_CocoaBloc.framework */,
+				52B81CECC4963EE409E07219 /* Pods_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,6 +210,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				82B2E642D57A43F8190FA1F6 /* Copy Pods Resources */,
+				4A45A27954C3171DBA50CCB0 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -229,6 +230,7 @@
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
 				B42B426A947D96B24857395B /* Copy Pods Resources */,
+				AD992392EEBF97E8177109BA /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -297,6 +299,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4A45A27954C3171DBA50CCB0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		54F76549DB5C7B58B8FA1C9D /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -325,6 +342,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaBloc/Pods-CocoaBloc-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD992392EEBF97E8177109BA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B42B426A947D96B24857395B /* Copy Pods Resources */ = {
