@@ -14,7 +14,7 @@ before_install:
     - brew install xctool carthage
 
 install:
-    - carthage bootstrap --platform iOS
+    - carthage bootstrap --platform iOS --no-use-binaries
 
 script:
     - xctool test -freshSimulator -test-sdk iphonesimulator -scheme CocoaBloc -reporter pretty
