@@ -1,0 +1,9 @@
+[submodule "Carthage/Checkouts/Mantle"]
+	path = Carthage/Checkouts/Mantle
+	url = https://github.com/Mantle/Mantle.git
+[submodule "Carthage/Checkouts/Moya"]
+	path = Carthage/Checkouts/Moya
+	url = https://github.com/Moya/Moya.git
+[submodule "Carthage/Checkouts/Alamofire"]
+	path = Carthage/Checkouts/Alamofire
+	url = https://github.com/Alamofire/Alamofire.git
