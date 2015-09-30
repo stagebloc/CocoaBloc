@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		09EA2FC91BBC2CB100167058 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; settings = {ASSET_TAGS = (); }; };
+		09EA2FC91BBC2CB100167058 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FCE1BBC2CB100167058 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA2FCD1BBC2CB100167058 /* CocoaBlocTests.swift */; };
 		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
 		09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FDA1BBC2EBD00167058 /* Moya.framework */; };
+		0EAB041A1BBC37BF0071A49D /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		09EA2FCF1BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09EA2FD91BBC2EBD00167058 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		09EA2FDA1BBC2EBD00167058 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
+		0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaBlocAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				09EA2FC11BBC2CB100167058 /* CocoaBloc.h */,
+				0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */,
 				09EA2FC31BBC2CB100167058 /* Info.plist */,
 			);
 			path = CocoaBloc;
@@ -150,7 +153,7 @@
 		09EA2FB51BBC2CB100167058 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = StageBloc;
 				TargetAttributes = {
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EAB041A1BBC37BF0071A49D /* CocoaBlocAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
