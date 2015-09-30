@@ -7,6 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		093A3C6A1BBC4E7A0038A71F /* SBAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C421BBC4E7A0038A71F /* SBAccount.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C431BBC4E7A0038A71F /* SBAccount.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C6C1BBC4E7A0038A71F /* SBAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C441BBC4E7A0038A71F /* SBAddress.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C6D1BBC4E7A0038A71F /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C451BBC4E7A0038A71F /* SBAddress.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C6E1BBC4E7A0038A71F /* SBAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C461BBC4E7A0038A71F /* SBAudio.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C6F1BBC4E7A0038A71F /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C471BBC4E7A0038A71F /* SBAudio.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C701BBC4E7A0038A71F /* SBBlog.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C481BBC4E7A0038A71F /* SBBlog.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C711BBC4E7A0038A71F /* SBBlog.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C491BBC4E7A0038A71F /* SBBlog.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C721BBC4E7A0038A71F /* SBComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C4A1BBC4E7A0038A71F /* SBComment.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4B1BBC4E7A0038A71F /* SBComment.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C741BBC4E7A0038A71F /* SBContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C4C1BBC4E7A0038A71F /* SBContent.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4D1BBC4E7A0038A71F /* SBContent.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C761BBC4E7A0038A71F /* SBFanClub.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C4E1BBC4E7A0038A71F /* SBFanClub.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C771BBC4E7A0038A71F /* SBFanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4F1BBC4E7A0038A71F /* SBFanClub.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C781BBC4E7A0038A71F /* SBFanClubDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C501BBC4E7A0038A71F /* SBFanClubDashboard.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C791BBC4E7A0038A71F /* SBFanClubDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C511BBC4E7A0038A71F /* SBFanClubDashboard.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C7A1BBC4E7A0038A71F /* SBNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C521BBC4E7A0038A71F /* SBNotification.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C531BBC4E7A0038A71F /* SBNotification.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C7C1BBC4E7A0038A71F /* SBNotificationSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C541BBC4E7A0038A71F /* SBNotificationSettings.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C551BBC4E7A0038A71F /* SBNotificationSettings.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C7E1BBC4E7A0038A71F /* SBObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C561BBC4E7A0038A71F /* SBObject.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C7F1BBC4E7A0038A71F /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C571BBC4E7A0038A71F /* SBObject.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C801BBC4E7A0038A71F /* SBOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C581BBC4E7A0038A71F /* SBOrder.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C811BBC4E7A0038A71F /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C591BBC4E7A0038A71F /* SBOrder.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C821BBC4E7A0038A71F /* SBPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C5A1BBC4E7A0038A71F /* SBPhoto.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C831BBC4E7A0038A71F /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5B1BBC4E7A0038A71F /* SBPhoto.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C841BBC4E7A0038A71F /* SBShipping.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C5C1BBC4E7A0038A71F /* SBShipping.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C851BBC4E7A0038A71F /* SBShipping.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5D1BBC4E7A0038A71F /* SBShipping.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C861BBC4E7A0038A71F /* SBStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C5E1BBC4E7A0038A71F /* SBStatus.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C871BBC4E7A0038A71F /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5F1BBC4E7A0038A71F /* SBStatus.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C881BBC4E7A0038A71F /* SBStoreDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C601BBC4E7A0038A71F /* SBStoreDashboard.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C891BBC4E7A0038A71F /* SBStoreDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C611BBC4E7A0038A71F /* SBStoreDashboard.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C8A1BBC4E7A0038A71F /* SBStoreItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C621BBC4E7A0038A71F /* SBStoreItem.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C8B1BBC4E7A0038A71F /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C631BBC4E7A0038A71F /* SBStoreItem.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C8C1BBC4E7A0038A71F /* SBTier.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C641BBC4E7A0038A71F /* SBTier.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C8D1BBC4E7A0038A71F /* SBTier.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C651BBC4E7A0038A71F /* SBTier.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C8E1BBC4E7A0038A71F /* SBUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C661BBC4E7A0038A71F /* SBUser.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C8F1BBC4E7A0038A71F /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C671BBC4E7A0038A71F /* SBUser.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C901BBC4E7A0038A71F /* SBVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C681BBC4E7A0038A71F /* SBVideo.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C691BBC4E7A0038A71F /* SBVideo.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C951BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C931BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C961BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C941BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C991BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */; settings = {ASSET_TAGS = (); }; };
+		093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */; settings = {ASSET_TAGS = (); }; };
 		098F4AD11BBC40FA003A496C /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */; };
 		098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; settings = {ASSET_TAGS = (); }; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +70,50 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		093A3C421BBC4E7A0038A71F /* SBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAccount.h; sourceTree = "<group>"; };
+		093A3C431BBC4E7A0038A71F /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
+		093A3C441BBC4E7A0038A71F /* SBAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAddress.h; sourceTree = "<group>"; };
+		093A3C451BBC4E7A0038A71F /* SBAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAddress.m; sourceTree = "<group>"; };
+		093A3C461BBC4E7A0038A71F /* SBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudio.h; sourceTree = "<group>"; };
+		093A3C471BBC4E7A0038A71F /* SBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudio.m; sourceTree = "<group>"; };
+		093A3C481BBC4E7A0038A71F /* SBBlog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBlog.h; sourceTree = "<group>"; };
+		093A3C491BBC4E7A0038A71F /* SBBlog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBlog.m; sourceTree = "<group>"; };
+		093A3C4A1BBC4E7A0038A71F /* SBComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBComment.h; sourceTree = "<group>"; };
+		093A3C4B1BBC4E7A0038A71F /* SBComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBComment.m; sourceTree = "<group>"; };
+		093A3C4C1BBC4E7A0038A71F /* SBContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBContent.h; sourceTree = "<group>"; };
+		093A3C4D1BBC4E7A0038A71F /* SBContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBContent.m; sourceTree = "<group>"; };
+		093A3C4E1BBC4E7A0038A71F /* SBFanClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFanClub.h; sourceTree = "<group>"; };
+		093A3C4F1BBC4E7A0038A71F /* SBFanClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFanClub.m; sourceTree = "<group>"; };
+		093A3C501BBC4E7A0038A71F /* SBFanClubDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBFanClubDashboard.h; sourceTree = "<group>"; };
+		093A3C511BBC4E7A0038A71F /* SBFanClubDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBFanClubDashboard.m; sourceTree = "<group>"; };
+		093A3C521BBC4E7A0038A71F /* SBNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNotification.h; sourceTree = "<group>"; };
+		093A3C531BBC4E7A0038A71F /* SBNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNotification.m; sourceTree = "<group>"; };
+		093A3C541BBC4E7A0038A71F /* SBNotificationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNotificationSettings.h; sourceTree = "<group>"; };
+		093A3C551BBC4E7A0038A71F /* SBNotificationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNotificationSettings.m; sourceTree = "<group>"; };
+		093A3C561BBC4E7A0038A71F /* SBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBObject.h; sourceTree = "<group>"; };
+		093A3C571BBC4E7A0038A71F /* SBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBObject.m; sourceTree = "<group>"; };
+		093A3C581BBC4E7A0038A71F /* SBOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrder.h; sourceTree = "<group>"; };
+		093A3C591BBC4E7A0038A71F /* SBOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOrder.m; sourceTree = "<group>"; };
+		093A3C5A1BBC4E7A0038A71F /* SBPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhoto.h; sourceTree = "<group>"; };
+		093A3C5B1BBC4E7A0038A71F /* SBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhoto.m; sourceTree = "<group>"; };
+		093A3C5C1BBC4E7A0038A71F /* SBShipping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBShipping.h; sourceTree = "<group>"; };
+		093A3C5D1BBC4E7A0038A71F /* SBShipping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBShipping.m; sourceTree = "<group>"; };
+		093A3C5E1BBC4E7A0038A71F /* SBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatus.h; sourceTree = "<group>"; };
+		093A3C5F1BBC4E7A0038A71F /* SBStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStatus.m; sourceTree = "<group>"; };
+		093A3C601BBC4E7A0038A71F /* SBStoreDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreDashboard.h; sourceTree = "<group>"; };
+		093A3C611BBC4E7A0038A71F /* SBStoreDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStoreDashboard.m; sourceTree = "<group>"; };
+		093A3C621BBC4E7A0038A71F /* SBStoreItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStoreItem.h; sourceTree = "<group>"; };
+		093A3C631BBC4E7A0038A71F /* SBStoreItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStoreItem.m; sourceTree = "<group>"; };
+		093A3C641BBC4E7A0038A71F /* SBTier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTier.h; sourceTree = "<group>"; };
+		093A3C651BBC4E7A0038A71F /* SBTier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTier.m; sourceTree = "<group>"; };
+		093A3C661BBC4E7A0038A71F /* SBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUser.h; sourceTree = "<group>"; };
+		093A3C671BBC4E7A0038A71F /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
+		093A3C681BBC4E7A0038A71F /* SBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideo.h; sourceTree = "<group>"; };
+		093A3C691BBC4E7A0038A71F /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
+		093A3C931BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
+		093A3C941BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
+		093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
+		093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,6 +146,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		093A3C411BBC4E7A0038A71F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				093A3C421BBC4E7A0038A71F /* SBAccount.h */,
+				093A3C431BBC4E7A0038A71F /* SBAccount.m */,
+				093A3C441BBC4E7A0038A71F /* SBAddress.h */,
+				093A3C451BBC4E7A0038A71F /* SBAddress.m */,
+				093A3C461BBC4E7A0038A71F /* SBAudio.h */,
+				093A3C471BBC4E7A0038A71F /* SBAudio.m */,
+				093A3C481BBC4E7A0038A71F /* SBBlog.h */,
+				093A3C491BBC4E7A0038A71F /* SBBlog.m */,
+				093A3C4A1BBC4E7A0038A71F /* SBComment.h */,
+				093A3C4B1BBC4E7A0038A71F /* SBComment.m */,
+				093A3C4C1BBC4E7A0038A71F /* SBContent.h */,
+				093A3C4D1BBC4E7A0038A71F /* SBContent.m */,
+				093A3C4E1BBC4E7A0038A71F /* SBFanClub.h */,
+				093A3C4F1BBC4E7A0038A71F /* SBFanClub.m */,
+				093A3C501BBC4E7A0038A71F /* SBFanClubDashboard.h */,
+				093A3C511BBC4E7A0038A71F /* SBFanClubDashboard.m */,
+				093A3C521BBC4E7A0038A71F /* SBNotification.h */,
+				093A3C531BBC4E7A0038A71F /* SBNotification.m */,
+				093A3C541BBC4E7A0038A71F /* SBNotificationSettings.h */,
+				093A3C551BBC4E7A0038A71F /* SBNotificationSettings.m */,
+				093A3C561BBC4E7A0038A71F /* SBObject.h */,
+				093A3C571BBC4E7A0038A71F /* SBObject.m */,
+				093A3C581BBC4E7A0038A71F /* SBOrder.h */,
+				093A3C591BBC4E7A0038A71F /* SBOrder.m */,
+				093A3C5A1BBC4E7A0038A71F /* SBPhoto.h */,
+				093A3C5B1BBC4E7A0038A71F /* SBPhoto.m */,
+				093A3C5C1BBC4E7A0038A71F /* SBShipping.h */,
+				093A3C5D1BBC4E7A0038A71F /* SBShipping.m */,
+				093A3C5E1BBC4E7A0038A71F /* SBStatus.h */,
+				093A3C5F1BBC4E7A0038A71F /* SBStatus.m */,
+				093A3C601BBC4E7A0038A71F /* SBStoreDashboard.h */,
+				093A3C611BBC4E7A0038A71F /* SBStoreDashboard.m */,
+				093A3C621BBC4E7A0038A71F /* SBStoreItem.h */,
+				093A3C631BBC4E7A0038A71F /* SBStoreItem.m */,
+				093A3C641BBC4E7A0038A71F /* SBTier.h */,
+				093A3C651BBC4E7A0038A71F /* SBTier.m */,
+				093A3C661BBC4E7A0038A71F /* SBUser.h */,
+				093A3C671BBC4E7A0038A71F /* SBUser.m */,
+				093A3C681BBC4E7A0038A71F /* SBVideo.h */,
+				093A3C691BBC4E7A0038A71F /* SBVideo.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		093A3C921BBC4ECA0038A71F /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */,
+				093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */,
+				093A3C931BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h */,
+				093A3C941BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 		098F4ACF1BBC40FA003A496C /* CocoaBlocTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +236,8 @@
 		09EA2FC01BBC2CB100167058 /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
+				093A3C921BBC4ECA0038A71F /* Private */,
+				093A3C411BBC4E7A0038A71F /* Models */,
 				09EA2FC11BBC2CB100167058 /* CocoaBloc.h */,
 				0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */,
 				09EA2FC31BBC2CB100167058 /* Info.plist */,
@@ -104,7 +252,29 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093A3C7C1BBC4E7A0038A71F /* SBNotificationSettings.h in Headers */,
 				09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */,
+				093A3C761BBC4E7A0038A71F /* SBFanClub.h in Headers */,
+				093A3C7A1BBC4E7A0038A71F /* SBNotification.h in Headers */,
+				093A3C821BBC4E7A0038A71F /* SBPhoto.h in Headers */,
+				093A3C841BBC4E7A0038A71F /* SBShipping.h in Headers */,
+				093A3C701BBC4E7A0038A71F /* SBBlog.h in Headers */,
+				093A3C901BBC4E7A0038A71F /* SBVideo.h in Headers */,
+				093A3C6C1BBC4E7A0038A71F /* SBAddress.h in Headers */,
+				093A3C881BBC4E7A0038A71F /* SBStoreDashboard.h in Headers */,
+				093A3C721BBC4E7A0038A71F /* SBComment.h in Headers */,
+				093A3C8A1BBC4E7A0038A71F /* SBStoreItem.h in Headers */,
+				093A3C861BBC4E7A0038A71F /* SBStatus.h in Headers */,
+				093A3C781BBC4E7A0038A71F /* SBFanClubDashboard.h in Headers */,
+				093A3C7E1BBC4E7A0038A71F /* SBObject.h in Headers */,
+				093A3C8E1BBC4E7A0038A71F /* SBUser.h in Headers */,
+				093A3C801BBC4E7A0038A71F /* SBOrder.h in Headers */,
+				093A3C741BBC4E7A0038A71F /* SBContent.h in Headers */,
+				093A3C8C1BBC4E7A0038A71F /* SBTier.h in Headers */,
+				093A3C6E1BBC4E7A0038A71F /* SBAudio.h in Headers */,
+				093A3C951BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h in Headers */,
+				093A3C991BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h in Headers */,
+				093A3C6A1BBC4E7A0038A71F /* SBAccount.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +403,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093A3C851BBC4E7A0038A71F /* SBShipping.m in Sources */,
+				093A3C811BBC4E7A0038A71F /* SBOrder.m in Sources */,
+				093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */,
+				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
+				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
+				093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */,
+				093A3C791BBC4E7A0038A71F /* SBFanClubDashboard.m in Sources */,
+				093A3C711BBC4E7A0038A71F /* SBBlog.m in Sources */,
+				093A3C8B1BBC4E7A0038A71F /* SBStoreItem.m in Sources */,
+				093A3C6D1BBC4E7A0038A71F /* SBAddress.m in Sources */,
+				093A3C8D1BBC4E7A0038A71F /* SBTier.m in Sources */,
+				093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */,
+				093A3C831BBC4E7A0038A71F /* SBPhoto.m in Sources */,
 				0EAB041A1BBC37BF0071A49D /* CocoaBlocAPI.swift in Sources */,
+				093A3C961BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m in Sources */,
+				093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */,
+				093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */,
+				093A3C7F1BBC4E7A0038A71F /* SBObject.m in Sources */,
+				093A3C771BBC4E7A0038A71F /* SBFanClub.m in Sources */,
+				093A3C871BBC4E7A0038A71F /* SBStatus.m in Sources */,
+				093A3C6F1BBC4E7A0038A71F /* SBAudio.m in Sources */,
+				093A3C891BBC4E7A0038A71F /* SBStoreDashboard.m in Sources */,
+				093A3C8F1BBC4E7A0038A71F /* SBUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
