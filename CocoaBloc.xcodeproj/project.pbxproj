@@ -116,7 +116,6 @@
 				09EA2FBA1BBC2CB100167058 /* Frameworks */,
 				09EA2FBB1BBC2CB100167058 /* Headers */,
 				09EA2FBC1BBC2CB100167058 /* Resources */,
-				09EA2FD81BBC2E8400167058 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -197,24 +196,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		09EA2FD81BBC2E8400167058 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		09EA2FB91BBC2CB100167058 /* Sources */ = {
