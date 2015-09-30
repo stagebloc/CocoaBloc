@@ -1,6 +1,0 @@
-framework module Pods_CocoaBloc {
-  umbrella header "Pods-CocoaBloc-umbrella.h"
-
-  export *
-  module * { export * }
-}

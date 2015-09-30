@@ -1,6 +1,0 @@
-framework module LLReactiveMatchers {
-  umbrella header "LLReactiveMatchers-umbrella.h"
-
-  export *
-  module * { export * }
-}
