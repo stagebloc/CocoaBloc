@@ -63,9 +63,19 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^id(id object, BOOL *success, NSError **error) {
         *success = YES;
         if ([object isKindOfClass:[NSDictionary class]]) {
-            return [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:object error:nil];
+            id model = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:object error:error];
+            if (*error != nil) {
+                *success = NO;
+                return nil;
+            }
+            return model;
         } else if ([object isKindOfClass:[NSArray class]]) {
-            return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:object error:nil];
+            NSArray *models = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:object error:error];
+            if (*error != nil) {
+                *success = NO;
+                return nil;
+            }
+            return models;
         }
         
         return nil;
