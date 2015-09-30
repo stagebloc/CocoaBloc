@@ -11,11 +11,9 @@ notifications:
 before_install:
     - brew update
     - brew outdated xctool || brew upgrade xctool
-    - gem update cocoapods
 
 install:
-    - pod lib lint --quick
-    - pod install --project-directory='Example/'
+    - carthage bootstrap --platform iOS
 
 script:
-    - xctool test -freshSimulator -test-sdk iphonesimulator -workspace Example/CocoaBloc.xcworkspace -scheme CocoaBloc-Example -reporter pretty
+    - xctool test -freshSimulator -test-sdk iphonesimulator -scheme CocoaBloc -reporter pretty
