@@ -10,6 +10,8 @@
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09EA2FC91BBC2CB100167058 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; settings = {ASSET_TAGS = (); }; };
 		09EA2FCE1BBC2CB100167058 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA2FCD1BBC2CB100167058 /* CocoaBlocTests.swift */; };
+		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
+		09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FDA1BBC2EBD00167058 /* Moya.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		09EA2FC81BBC2CB100167058 /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FCD1BBC2CB100167058 /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
 		09EA2FCF1BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09EA2FD91BBC2EBD00167058 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
+		09EA2FDA1BBC2EBD00167058 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */,
+				09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +59,8 @@
 		09EA2FB41BBC2CB100167058 = {
 			isa = PBXGroup;
 			children = (
+				09EA2FD91BBC2EBD00167058 /* Mantle.framework */,
+				09EA2FDA1BBC2EBD00167058 /* Moya.framework */,
 				09EA2FC01BBC2CB100167058 /* CocoaBloc */,
 				09EA2FCC1BBC2CB100167058 /* CocoaBlocTests */,
 				09EA2FBF1BBC2CB100167058 /* Products */,
@@ -108,6 +116,7 @@
 				09EA2FBA1BBC2CB100167058 /* Frameworks */,
 				09EA2FBB1BBC2CB100167058 /* Headers */,
 				09EA2FBC1BBC2CB100167058 /* Resources */,
+				09EA2FD81BBC2E8400167058 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -142,6 +151,7 @@
 		09EA2FB51BBC2CB100167058 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = StageBloc;
 				TargetAttributes = {
@@ -187,6 +197,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09EA2FD81BBC2E8400167058 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		09EA2FB91BBC2CB100167058 /* Sources */ = {
@@ -307,26 +335,37 @@
 		09EA2FD31BBC2CB100167058 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CocoaBloc/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		09EA2FD41BBC2CB100167058 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CocoaBloc/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -375,6 +414,7 @@
 				09EA2FD41BBC2CB100167058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09EA2FD51BBC2CB100167058 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */ = {
 			isa = XCConfigurationList;
@@ -383,6 +423,7 @@
 				09EA2FD71BBC2CB100167058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
