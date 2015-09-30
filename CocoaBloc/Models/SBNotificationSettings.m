@@ -12,9 +12,8 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{@"email"   : @"email",
-             @"push"   : @"push",
-             @"web"   : @"web",
-             };
+             @"push"    : @"push",
+             @"web"     : @"web"};
 }
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {

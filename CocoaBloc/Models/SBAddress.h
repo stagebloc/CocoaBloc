@@ -8,6 +8,8 @@
 
 #import "SBObject.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SBAddress : SBObject <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *name;
@@ -19,3 +21,5 @@
 @property (nonatomic, copy) NSString *country;
 
 @end
+
+NS_ASSUME_NONNULL_END

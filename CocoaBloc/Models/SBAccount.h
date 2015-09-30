@@ -18,25 +18,30 @@
 #define SBUserColor NSColor
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SBAccount : SBObject <MTLJSONSerializing>
 
-@property (nonatomic) NSNumber *verified;
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *stageblocURL;
-@property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic, copy) NSURL *URL;
+@property (nonatomic, copy) NSString *stageblocURL;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *descriptiveText;
+@property (nonatomic, copy) NSString *type;
 @property (nonatomic) NSNumber *stripeEnabled;
-@property (nonatomic) NSNumber *userIsAdmin;
-@property (nonatomic, copy) NSString *userRole;
-@property (nonatomic, copy) SBUserColor *color;
+@property (nonatomic) SBUserColor *color;
+@property (nonatomic) NSNumber *verified;
 
-@property (nonatomic) SBPhoto *photo;
+@property (nonatomic, nullable) SBPhoto *photo;
 
-@property (nonatomic) SBNotificationSettings *commentSettings;
-@property (nonatomic) SBNotificationSettings *eventRSVPSettings;
-@property (nonatomic) SBNotificationSettings *generalSettings;
-@property (nonatomic) SBNotificationSettings *likeSettings;
-@property (nonatomic) SBNotificationSettings *followSettings;
+@property (nonatomic, nullable) NSNumber *userIsAdmin;
+@property (nonatomic, nullable, copy) NSString *userRole;
+
+@property (nonatomic, nullable) SBNotificationSettings *commentSettings;
+@property (nonatomic, nullable) SBNotificationSettings *eventRSVPSettings;
+@property (nonatomic, nullable) SBNotificationSettings *generalSettings;
+@property (nonatomic, nullable) SBNotificationSettings *likeSettings;
+@property (nonatomic, nullable) SBNotificationSettings *followSettings;
 
 @end
+
+NS_ASSUME_NONNULL_END
