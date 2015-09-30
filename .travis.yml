@@ -10,7 +10,7 @@ notifications:
 
 before_install:
     - brew update
-	  - brew install xctool carthage
+    - brew install xctool carthage
 
 install:
     - carthage bootstrap --platform iOS
