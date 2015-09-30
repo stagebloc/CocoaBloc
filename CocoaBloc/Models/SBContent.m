@@ -7,7 +7,7 @@
 //
 
 #import "SBContent.h"
-#import "MTLValueTransformer+Convenience.h"
+#import "MTLValueTransformer+CocoaBloc.h"
 #import "NSDateFormatter+CocoaBloc.h"
 #import <Mantle/Mantle.h>
 

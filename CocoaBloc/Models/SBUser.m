@@ -7,7 +7,7 @@
 //
 
 #import "SBUser.h"
-#import "MTLValueTransformer+Convenience.h"
+#import "MTLValueTransformer+CocoaBloc.h"
 #import "NSDateFormatter+CocoaBloc.h"
 
 #if TARGET_OS_IPHONE

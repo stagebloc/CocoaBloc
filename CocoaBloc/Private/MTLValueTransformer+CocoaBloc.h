@@ -1,5 +1,5 @@
 //
-//  MTLValueTransformer+Convenience.h
+//  MTLValueTransformer+CocoaBloc.h
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/18/14.
@@ -8,7 +8,7 @@
 
 #import <Mantle/MTLValueTransformer.h>
 
-@interface MTLValueTransformer (Convenience)
+@interface MTLValueTransformer (CocoaBloc)
 
 + (instancetype)reversibleStringToURLTransformer;
 + (instancetype)reversibleStringToDateTransformerWithFormatter:(NSDateFormatter *)dateFormatter;

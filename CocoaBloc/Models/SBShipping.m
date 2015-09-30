@@ -7,7 +7,7 @@
 //
 
 #import "SBShipping.h"
-#import "MTLValueTransformer+Convenience.h"
+#import "MTLValueTransformer+CocoaBloc.h"
 
 @implementation SBShippingMethod
 

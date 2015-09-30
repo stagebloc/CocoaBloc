@@ -47,8 +47,8 @@
 		093A3C8F1BBC4E7A0038A71F /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C671BBC4E7A0038A71F /* SBUser.m */; settings = {ASSET_TAGS = (); }; };
 		093A3C901BBC4E7A0038A71F /* SBVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C681BBC4E7A0038A71F /* SBVideo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C691BBC4E7A0038A71F /* SBVideo.m */; settings = {ASSET_TAGS = (); }; };
-		093A3C951BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C931BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		093A3C961BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C941BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C951BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C931BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */; settings = {ASSET_TAGS = (); }; };
 		093A3C991BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */; settings = {ASSET_TAGS = (); }; };
 		098F4AD11BBC40FA003A496C /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */; };
@@ -110,8 +110,8 @@
 		093A3C671BBC4E7A0038A71F /* SBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUser.m; sourceTree = "<group>"; };
 		093A3C681BBC4E7A0038A71F /* SBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideo.h; sourceTree = "<group>"; };
 		093A3C691BBC4E7A0038A71F /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
-		093A3C931BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+Convenience.h"; sourceTree = "<group>"; };
-		093A3C941BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+Convenience.m"; sourceTree = "<group>"; };
+		093A3C931BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MTLValueTransformer+CocoaBloc.h"; sourceTree = "<group>"; };
+		093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MTLValueTransformer+CocoaBloc.m"; sourceTree = "<group>"; };
 		093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
 		093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,8 +198,8 @@
 			children = (
 				093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */,
 				093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */,
-				093A3C931BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h */,
-				093A3C941BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m */,
+				093A3C931BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h */,
+				093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -280,7 +280,7 @@
 				093A3C741BBC4E7A0038A71F /* SBContent.h in Headers */,
 				093A3C8C1BBC4E7A0038A71F /* SBTier.h in Headers */,
 				093A3C6E1BBC4E7A0038A71F /* SBAudio.h in Headers */,
-				093A3C951BBC4ECA0038A71F /* MTLValueTransformer+Convenience.h in Headers */,
+				093A3C951BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h in Headers */,
 				093A3C991BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h in Headers */,
 				093A3C6A1BBC4E7A0038A71F /* SBAccount.h in Headers */,
 			);
@@ -425,7 +425,7 @@
 				093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */,
 				093A3C831BBC4E7A0038A71F /* SBPhoto.m in Sources */,
 				0EAB041A1BBC37BF0071A49D /* CocoaBlocAPI.swift in Sources */,
-				093A3C961BBC4ECA0038A71F /* MTLValueTransformer+Convenience.m in Sources */,
+				093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */,
 				093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */,
 				093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */,
 				093A3C7F1BBC4E7A0038A71F /* SBObject.m in Sources */,

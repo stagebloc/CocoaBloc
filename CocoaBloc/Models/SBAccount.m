@@ -10,7 +10,7 @@
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 
 #import "SBAccount.h"
-#import "MTLValueTransformer+Convenience.h"
+#import "MTLValueTransformer+CocoaBloc.h"
 
 #if TARGET_OS_IPHONE
 @import UIKit.UIColor;

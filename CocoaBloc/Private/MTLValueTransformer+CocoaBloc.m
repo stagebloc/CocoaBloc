@@ -1,5 +1,5 @@
 //
-//  MTLValueTransformer+Convenience.m
+//  MTLValueTransformer+CocoaBloc.m
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/18/14.
@@ -8,10 +8,10 @@
 
 #import <Mantle/Mantle.h>
 
-#import "MTLValueTransformer+Convenience.h"
+#import "MTLValueTransformer+CocoaBloc.h"
 #import "SBContent.h"
 
-@implementation MTLValueTransformer (Convenience)
+@implementation MTLValueTransformer (CocoaBloc)
 
 + (instancetype)reversibleStringToURLTransformer {
 	return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *urlString, BOOL *success, NSError **error) {

@@ -9,7 +9,7 @@
 #import <Mantle/Mantle.h>
 
 #import "SBFanClub.h"
-#import "MTLValueTransformer+Convenience.h"
+#import "MTLValueTransformer+CocoaBloc.h"
 #import "SBTier.h"
 
 @implementation SBFanClub

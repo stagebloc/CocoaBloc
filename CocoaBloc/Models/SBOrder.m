@@ -10,7 +10,7 @@
 #import "SBUser.h"
 #import "SBAccount.h"
 #import "SBAddress.h"
-#import "MTLValueTransformer+Convenience.h"
+#import "MTLValueTransformer+CocoaBloc.h"
 #import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSDateFormatter+CocoaBloc.h"
 
