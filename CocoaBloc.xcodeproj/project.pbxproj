@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		098F4AD11BBC40FA003A496C /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */; };
+		098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; settings = {ASSET_TAGS = (); }; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		09EA2FC91BBC2CB100167058 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
-		09EA2FCE1BBC2CB100167058 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA2FCD1BBC2CB100167058 /* CocoaBlocTests.swift */; };
 		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
 		09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FDA1BBC2EBD00167058 /* Moya.framework */; };
 		0EAB041A1BBC37BF0071A49D /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		09EA2FCA1BBC2CB100167058 /* PBXContainerItemProxy */ = {
+		098F4AD41BBC40FA003A496C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 09EA2FB51BBC2CB100167058 /* Project object */;
 			proxyType = 1;
@@ -26,18 +26,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
+		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09EA2FC81BBC2CB100167058 /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		09EA2FCD1BBC2CB100167058 /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
-		09EA2FCF1BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09EA2FD91BBC2EBD00167058 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		09EA2FDA1BBC2EBD00167058 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaBlocAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		098F4ACB1BBC40FA003A496C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		09EA2FBA1BBC2CB100167058 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,24 +55,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09EA2FC51BBC2CB100167058 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09EA2FC91BBC2CB100167058 /* CocoaBloc.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		098F4ACF1BBC40FA003A496C /* CocoaBlocTests */ = {
+			isa = PBXGroup;
+			children = (
+				098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */,
+				098F4AD21BBC40FA003A496C /* Info.plist */,
+			);
+			path = CocoaBlocTests;
+			sourceTree = "<group>";
+		};
 		09EA2FB41BBC2CB100167058 = {
 			isa = PBXGroup;
 			children = (
 				09EA2FD91BBC2EBD00167058 /* Mantle.framework */,
 				09EA2FDA1BBC2EBD00167058 /* Moya.framework */,
 				09EA2FC01BBC2CB100167058 /* CocoaBloc */,
-				09EA2FCC1BBC2CB100167058 /* CocoaBlocTests */,
+				098F4ACF1BBC40FA003A496C /* CocoaBlocTests */,
 				09EA2FBF1BBC2CB100167058 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,7 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */,
-				09EA2FC81BBC2CB100167058 /* CocoaBlocTests.xctest */,
+				098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,15 +95,6 @@
 				09EA2FC31BBC2CB100167058 /* Info.plist */,
 			);
 			path = CocoaBloc;
-			sourceTree = "<group>";
-		};
-		09EA2FCC1BBC2CB100167058 /* CocoaBlocTests */ = {
-			isa = PBXGroup;
-			children = (
-				09EA2FCD1BBC2CB100167058 /* CocoaBlocTests.swift */,
-				09EA2FCF1BBC2CB100167058 /* Info.plist */,
-			);
-			path = CocoaBlocTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,6 +111,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		098F4ACD1BBC40FA003A496C /* CocoaBlocTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 098F4AD61BBC40FA003A496C /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */;
+			buildPhases = (
+				098F4ACA1BBC40FA003A496C /* Sources */,
+				098F4ACB1BBC40FA003A496C /* Frameworks */,
+				098F4ACC1BBC40FA003A496C /* Resources */,
+				093A3C0B1BBC44FE0038A71F /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				098F4AD51BBC40FA003A496C /* PBXTargetDependency */,
+			);
+			name = CocoaBlocTests;
+			productName = CocoaBlocTests;
+			productReference = 098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		09EA2FBD1BBC2CB100167058 /* CocoaBloc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09EA2FD21BBC2CB100167058 /* Build configuration list for PBXNativeTarget "CocoaBloc" */;
@@ -129,24 +148,6 @@
 			productReference = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		09EA2FC71BBC2CB100167058 /* CocoaBlocTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 09EA2FD51BBC2CB100167058 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */;
-			buildPhases = (
-				09EA2FC41BBC2CB100167058 /* Sources */,
-				09EA2FC51BBC2CB100167058 /* Frameworks */,
-				09EA2FC61BBC2CB100167058 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				09EA2FCB1BBC2CB100167058 /* PBXTargetDependency */,
-			);
-			name = CocoaBlocTests;
-			productName = CocoaBlocTests;
-			productReference = 09EA2FC81BBC2CB100167058 /* CocoaBlocTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -157,10 +158,10 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = StageBloc;
 				TargetAttributes = {
-					09EA2FBD1BBC2CB100167058 = {
+					098F4ACD1BBC40FA003A496C = {
 						CreatedOnToolsVersion = 7.0.1;
 					};
-					09EA2FC71BBC2CB100167058 = {
+					09EA2FBD1BBC2CB100167058 = {
 						CreatedOnToolsVersion = 7.0.1;
 					};
 				};
@@ -178,20 +179,20 @@
 			projectRoot = "";
 			targets = (
 				09EA2FBD1BBC2CB100167058 /* CocoaBloc */,
-				09EA2FC71BBC2CB100167058 /* CocoaBlocTests */,
+				098F4ACD1BBC40FA003A496C /* CocoaBlocTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		09EA2FBC1BBC2CB100167058 /* Resources */ = {
+		098F4ACC1BBC40FA003A496C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09EA2FC61BBC2CB100167058 /* Resources */ = {
+		09EA2FBC1BBC2CB100167058 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -200,7 +201,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		093A3C0B1BBC44FE0038A71F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		098F4ACA1BBC40FA003A496C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				098F4AD11BBC40FA003A496C /* CocoaBlocTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		09EA2FB91BBC2CB100167058 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -209,25 +237,47 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09EA2FC41BBC2CB100167058 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09EA2FCE1BBC2CB100167058 /* CocoaBlocTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		09EA2FCB1BBC2CB100167058 /* PBXTargetDependency */ = {
+		098F4AD51BBC40FA003A496C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 09EA2FBD1BBC2CB100167058 /* CocoaBloc */;
-			targetProxy = 09EA2FCA1BBC2CB100167058 /* PBXContainerItemProxy */;
+			targetProxy = 098F4AD41BBC40FA003A496C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		098F4AD71BBC40FA003A496C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = CocoaBlocTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBlocTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		098F4AD81BBC40FA003A496C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = CocoaBlocTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBlocTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		09EA2FD01BBC2CB100167058 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -325,6 +375,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -347,6 +398,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -360,29 +412,18 @@
 			};
 			name = Release;
 		};
-		09EA2FD61BBC2CB100167058 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = CocoaBlocTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBlocTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		09EA2FD71BBC2CB100167058 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = CocoaBlocTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBlocTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		098F4AD61BBC40FA003A496C /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				098F4AD71BBC40FA003A496C /* Debug */,
+				098F4AD81BBC40FA003A496C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		09EA2FB81BBC2CB100167058 /* Build configuration list for PBXProject "CocoaBloc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -397,15 +438,6 @@
 			buildConfigurations = (
 				09EA2FD31BBC2CB100167058 /* Debug */,
 				09EA2FD41BBC2CB100167058 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		09EA2FD51BBC2CB100167058 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				09EA2FD61BBC2CB100167058 /* Debug */,
-				09EA2FD71BBC2CB100167058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

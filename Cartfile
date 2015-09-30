@@ -1,3 +1,3 @@
+github "Alamofire/Alamofire"	~> 2.0.2
 github "Moya/Moya"				~> 2.4.1
 github "Mantle/Mantle"			~> 2.0.5
-github "Alamofire/Alamofire"	~> 2.0.2

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CocoaBloc
+import CocoaBloc
 
 class CocoaBlocTests: XCTestCase {
     
