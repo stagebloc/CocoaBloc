@@ -18,6 +18,16 @@ enum CocoaBlocAPI {
     case loginUser(username : String,
                    password : String)
 
+// MARK: SBUser endpoints
+
+    /*!
+    Sign up a new StageBloc user with the given user information and desired credentials.
+
+    @param email 		the user's address
+    @param password 	the user's password
+    @param name        the user's full name
+    @param birthDate 	the user's birth date
+    */
     case signupUser(email : String,
                      name : String,
                  password : String,
@@ -25,9 +35,50 @@ enum CocoaBlocAPI {
                    gender : String,
           sourceAccountID : NSNumber)
 
-    // User
+    /*!
+    Request the currently authenticated user for the SBClient.
+    NOTE: 	This is already available on sign in. See the `authenticatedUser` property.
+    calling this method will update the property as well.
+    */
+    case getCurrentlyAuthenticatedUser
 
-// MARK: Account endpoints
+    /*!
+    Request the StageBloc user by their user id.
+
+    @param userID the user id of the user to be requested
+    */
+    case getUser(userID : NSNumber)
+
+    /*!
+    Update user information methods
+    */
+    case updateAuthenticatedUser(parameters : NSDictionary)
+    case updateAuthenticatedUser(parameters : NSDictionary, photoData : NSData, progressSignal : RACSignal)
+    case updateAuthenticatedUserPhoto(photoData : NSData, progressSignal : RACSignal)
+
+    case sendPasswordReset(emailAddress : String)
+    case updateAuthenticatedUserLocation(coordinates, CLLocationCoordinate2D)
+
+    /*!
+    Ban user from specified account
+    @param reason - reason user should be banned from account
+    */
+    case banUser(userID : NSNumber,
+              accountID : NSNumber,
+                 reason : String)
+
+    /*!
+    Request a list of content the user has either submitted or liked
+
+    @param userID the user id of the user to be requested
+    @param contentListType specifies either a list of user-submitted content ('SBUserContentListTypeUpdate')
+    or user-liked content ('SBUserContentListTypeLike')
+    */
+    case getPostedContentFromUser(userID : NSNumber,
+                         contentListType : String,
+                              parameters : NSDictionary)
+
+// MARK: SBAccount endpoints
 
     /*!
     Get an account based on an account ID.
@@ -130,11 +181,12 @@ enum CocoaBlocAPI {
     */
     case getAuthenticatedUserAccounts(parameters : NSDictionary)
 
+    /*!
+    TODO
+    */
+    // User
     // Content
-
     // FanClub
-
-
     // Store
 
 }
@@ -145,7 +197,9 @@ extension CocoaBlocAPI : MoyaTarget {
     var baseURLString: String { return "https://api.stagebloc.com/v1" }
     var baseURL: NSURL { return NSURL(string: baseURLString)! }
 
-    // Path
+    /*!
+    Path
+    */
     var path: String {
         switch self {
 
@@ -154,9 +208,36 @@ extension CocoaBlocAPI : MoyaTarget {
         .loginUser:
             return "oauth2/token"
 
+        // User
         case
         .signupUser:
             return "users"
+
+        case
+        .getCurrentlyAuthenticatedUser,
+        .updateAuthenticatedUser,
+        .updateAuthenticatedUserPhoto:
+            return "users/me"
+
+        case
+        .getUser(let userID):
+            return NSString(format: "users/%@", userID)
+
+        case
+        .sendPasswordReset:
+            return "users/password/reset"
+
+        case
+        .updateAuthenticatedUserLocation:
+            return "users/me/location/update"
+
+        case
+        .banUser(let userID, let accountID, let reason):
+            return NSString(format: "users/%@/ban/%@", userID)
+
+        case
+        .getPostedContentFromUser(let userID, let contentListType, let parameters):
+            return NSString(format: "users/%@/content/%@", userID, contentListType)
 
         // Account
         case
@@ -212,8 +293,16 @@ extension CocoaBlocAPI : MoyaTarget {
         case
         .loginWithAuthorizationCode,
         .loginUser,
-        .signupUser,
 
+        // User
+        .signupUser,
+        .banUser,
+        .updateAuthenticatedUser,
+        .updateAuthenticatedUserPhoto,
+        .sendPasswordReset,
+        .updateAuthenticatedUserLocation
+
+        // Account
         .createAccount,
         .updateAccount,
         .updateAccountImage,
@@ -221,12 +310,20 @@ extension CocoaBlocAPI : MoyaTarget {
             return .POST
 
         case
+
+        // User
+        .getCurrentlyAuthenticatedUser,
+        .getUser,
+        .getPostedContentFromUser
+
+        // Account
         .getAccount,
         .getAccountsForUser,
         .getAuthenticatedUserAccounts,
         .getActivityStreamForAccount,
         .getFollowingUsersForAccount,
         .getChildrenAccountsForAccount:
+
             return .GET
 
         case
