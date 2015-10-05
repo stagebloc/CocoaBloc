@@ -8,55 +8,57 @@
 
 /* Begin PBXBuildFile section */
 		093A3C6A1BBC4E7A0038A71F /* SBAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C421BBC4E7A0038A71F /* SBAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C431BBC4E7A0038A71F /* SBAccount.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C431BBC4E7A0038A71F /* SBAccount.m */; };
 		093A3C6C1BBC4E7A0038A71F /* SBAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C441BBC4E7A0038A71F /* SBAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C6D1BBC4E7A0038A71F /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C451BBC4E7A0038A71F /* SBAddress.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C6D1BBC4E7A0038A71F /* SBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C451BBC4E7A0038A71F /* SBAddress.m */; };
 		093A3C6E1BBC4E7A0038A71F /* SBAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C461BBC4E7A0038A71F /* SBAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C6F1BBC4E7A0038A71F /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C471BBC4E7A0038A71F /* SBAudio.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C6F1BBC4E7A0038A71F /* SBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C471BBC4E7A0038A71F /* SBAudio.m */; };
 		093A3C701BBC4E7A0038A71F /* SBBlog.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C481BBC4E7A0038A71F /* SBBlog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C711BBC4E7A0038A71F /* SBBlog.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C491BBC4E7A0038A71F /* SBBlog.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C711BBC4E7A0038A71F /* SBBlog.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C491BBC4E7A0038A71F /* SBBlog.m */; };
 		093A3C721BBC4E7A0038A71F /* SBComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C4A1BBC4E7A0038A71F /* SBComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4B1BBC4E7A0038A71F /* SBComment.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4B1BBC4E7A0038A71F /* SBComment.m */; };
 		093A3C741BBC4E7A0038A71F /* SBContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C4C1BBC4E7A0038A71F /* SBContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4D1BBC4E7A0038A71F /* SBContent.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4D1BBC4E7A0038A71F /* SBContent.m */; };
 		093A3C761BBC4E7A0038A71F /* SBFanClub.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C4E1BBC4E7A0038A71F /* SBFanClub.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C771BBC4E7A0038A71F /* SBFanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4F1BBC4E7A0038A71F /* SBFanClub.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C771BBC4E7A0038A71F /* SBFanClub.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C4F1BBC4E7A0038A71F /* SBFanClub.m */; };
 		093A3C781BBC4E7A0038A71F /* SBFanClubDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C501BBC4E7A0038A71F /* SBFanClubDashboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C791BBC4E7A0038A71F /* SBFanClubDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C511BBC4E7A0038A71F /* SBFanClubDashboard.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C791BBC4E7A0038A71F /* SBFanClubDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C511BBC4E7A0038A71F /* SBFanClubDashboard.m */; };
 		093A3C7A1BBC4E7A0038A71F /* SBNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C521BBC4E7A0038A71F /* SBNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C531BBC4E7A0038A71F /* SBNotification.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C531BBC4E7A0038A71F /* SBNotification.m */; };
 		093A3C7C1BBC4E7A0038A71F /* SBNotificationSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C541BBC4E7A0038A71F /* SBNotificationSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C551BBC4E7A0038A71F /* SBNotificationSettings.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C551BBC4E7A0038A71F /* SBNotificationSettings.m */; };
 		093A3C7E1BBC4E7A0038A71F /* SBObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C561BBC4E7A0038A71F /* SBObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C7F1BBC4E7A0038A71F /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C571BBC4E7A0038A71F /* SBObject.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C7F1BBC4E7A0038A71F /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C571BBC4E7A0038A71F /* SBObject.m */; };
 		093A3C801BBC4E7A0038A71F /* SBOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C581BBC4E7A0038A71F /* SBOrder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C811BBC4E7A0038A71F /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C591BBC4E7A0038A71F /* SBOrder.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C811BBC4E7A0038A71F /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C591BBC4E7A0038A71F /* SBOrder.m */; };
 		093A3C821BBC4E7A0038A71F /* SBPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C5A1BBC4E7A0038A71F /* SBPhoto.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C831BBC4E7A0038A71F /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5B1BBC4E7A0038A71F /* SBPhoto.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C831BBC4E7A0038A71F /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5B1BBC4E7A0038A71F /* SBPhoto.m */; };
 		093A3C841BBC4E7A0038A71F /* SBShipping.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C5C1BBC4E7A0038A71F /* SBShipping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C851BBC4E7A0038A71F /* SBShipping.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5D1BBC4E7A0038A71F /* SBShipping.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C851BBC4E7A0038A71F /* SBShipping.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5D1BBC4E7A0038A71F /* SBShipping.m */; };
 		093A3C861BBC4E7A0038A71F /* SBStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C5E1BBC4E7A0038A71F /* SBStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C871BBC4E7A0038A71F /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5F1BBC4E7A0038A71F /* SBStatus.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C871BBC4E7A0038A71F /* SBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C5F1BBC4E7A0038A71F /* SBStatus.m */; };
 		093A3C881BBC4E7A0038A71F /* SBStoreDashboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C601BBC4E7A0038A71F /* SBStoreDashboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C891BBC4E7A0038A71F /* SBStoreDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C611BBC4E7A0038A71F /* SBStoreDashboard.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C891BBC4E7A0038A71F /* SBStoreDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C611BBC4E7A0038A71F /* SBStoreDashboard.m */; };
 		093A3C8A1BBC4E7A0038A71F /* SBStoreItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C621BBC4E7A0038A71F /* SBStoreItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C8B1BBC4E7A0038A71F /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C631BBC4E7A0038A71F /* SBStoreItem.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C8B1BBC4E7A0038A71F /* SBStoreItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C631BBC4E7A0038A71F /* SBStoreItem.m */; };
 		093A3C8C1BBC4E7A0038A71F /* SBTier.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C641BBC4E7A0038A71F /* SBTier.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C8D1BBC4E7A0038A71F /* SBTier.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C651BBC4E7A0038A71F /* SBTier.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C8D1BBC4E7A0038A71F /* SBTier.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C651BBC4E7A0038A71F /* SBTier.m */; };
 		093A3C8E1BBC4E7A0038A71F /* SBUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C661BBC4E7A0038A71F /* SBUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C8F1BBC4E7A0038A71F /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C671BBC4E7A0038A71F /* SBUser.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C8F1BBC4E7A0038A71F /* SBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C671BBC4E7A0038A71F /* SBUser.m */; };
 		093A3C901BBC4E7A0038A71F /* SBVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C681BBC4E7A0038A71F /* SBVideo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C691BBC4E7A0038A71F /* SBVideo.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C691BBC4E7A0038A71F /* SBVideo.m */; };
 		093A3C951BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C931BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */; };
 		093A3C991BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */; settings = {ASSET_TAGS = (); }; };
+		093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */; };
 		098F4AD11BBC40FA003A496C /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */; };
-		098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; settings = {ASSET_TAGS = (); }; };
+		098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
 		09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FDA1BBC2EBD00167058 /* Moya.framework */; };
-		0EAB041A1BBC37BF0071A49D /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */; };
+		0E2A63851BBED34900D94E84 /* CocoaBlocAPI+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63841BBED34900D94E84 /* CocoaBlocAPI+User.swift */; };
+		0E2A63871BBED3F300D94E84 /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */; };
+		0E2A638F1BC2CCF100D94E84 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,7 +124,11 @@
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09EA2FD91BBC2EBD00167058 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		09EA2FDA1BBC2EBD00167058 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
-		0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaBlocAPI.swift; sourceTree = "<group>"; };
+		0E2A63841BBED34900D94E84 /* CocoaBlocAPI+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+User.swift"; sourceTree = "<group>"; };
+		0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaBlocAPI.swift; sourceTree = "<group>"; };
+		0E2A63881BBEDA0D00D94E84 /* CocoaBlocAPI+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+Account.swift"; sourceTree = "<group>"; };
+		0E2A638A1BBEEAE100D94E84 /* CocoaBlocAPI+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+Content.swift"; sourceTree = "<group>"; };
+		0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E2A638F1BC2CCF100D94E84 /* ReactiveMoya.framework in Frameworks */,
 				09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */,
 				09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */,
 			);
@@ -225,6 +232,7 @@
 		09EA2FB41BBC2CB100167058 = {
 			isa = PBXGroup;
 			children = (
+				0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */,
 				09EA2FC01BBC2CB100167058 /* CocoaBloc */,
 				098F4ACF1BBC40FA003A496C /* CocoaBlocTests */,
 				093A3C9B1BBC59CA0038A71F /* Dependencies */,
@@ -246,11 +254,23 @@
 			children = (
 				093A3C921BBC4ECA0038A71F /* Private */,
 				093A3C411BBC4E7A0038A71F /* Models */,
+				0E2A63831BBED28A00D94E84 /* API */,
 				09EA2FC11BBC2CB100167058 /* CocoaBloc.h */,
-				0EAB04191BBC37BF0071A49D /* CocoaBlocAPI.swift */,
 				09EA2FC31BBC2CB100167058 /* Info.plist */,
 			);
 			path = CocoaBloc;
+			sourceTree = "<group>";
+		};
+		0E2A63831BBED28A00D94E84 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */,
+				0E2A63841BBED34900D94E84 /* CocoaBlocAPI+User.swift */,
+				0E2A63881BBEDA0D00D94E84 /* CocoaBlocAPI+Account.swift */,
+				0E2A638A1BBEEAE100D94E84 /* CocoaBlocAPI+Content.swift */,
+			);
+			name = API;
+			path = Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +434,7 @@
 				093A3C851BBC4E7A0038A71F /* SBShipping.m in Sources */,
 				093A3C811BBC4E7A0038A71F /* SBOrder.m in Sources */,
 				093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */,
+				0E2A63851BBED34900D94E84 /* CocoaBlocAPI+User.swift in Sources */,
 				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
 				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
 				093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */,
@@ -424,7 +445,7 @@
 				093A3C8D1BBC4E7A0038A71F /* SBTier.m in Sources */,
 				093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */,
 				093A3C831BBC4E7A0038A71F /* SBPhoto.m in Sources */,
-				0EAB041A1BBC37BF0071A49D /* CocoaBlocAPI.swift in Sources */,
+				0E2A63871BBED3F300D94E84 /* CocoaBlocAPI.swift in Sources */,
 				093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */,
 				093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */,
 				093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */,
