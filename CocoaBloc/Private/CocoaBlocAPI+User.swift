@@ -13,7 +13,7 @@ import ReactiveCocoa
 extension CocoaBlocAPI {
 
     // URL path
-    var path: String {
+    public var path: String {
         switch self {
 
         case
@@ -55,7 +55,7 @@ extension CocoaBlocAPI {
     }
 
     // Request type
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
 
         case
@@ -78,7 +78,7 @@ extension CocoaBlocAPI {
     }
 
     // Sample data
-    var sampleData: NSData {
+    public var sampleData: NSData {
         switch self {
 
         case
@@ -91,7 +91,7 @@ extension CocoaBlocAPI {
     }
 
     // Parameters
-    var parameters: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         switch self {
 
         case .signupUser(let email,

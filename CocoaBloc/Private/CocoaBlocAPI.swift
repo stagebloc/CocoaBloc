@@ -10,7 +10,7 @@ import Foundation
 import Moya
 import ReactiveCocoa
 
-enum CocoaBlocAPI : MoyaTarget {
+public enum CocoaBlocAPI : MoyaTarget {
 
     /**
     Sign up a new StageBloc user with the given user information and desired credentials.
@@ -97,7 +97,7 @@ enum CocoaBlocAPI : MoyaTarget {
     //
 
 
-    var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
+    public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
 }
 
 func stubbedResponse(filename: String) -> NSData! {
@@ -111,14 +111,24 @@ func stubbedResponse(filename: String) -> NSData! {
 func endpointResolver() -> ((endpoint: Endpoint<CocoaBlocAPI>) -> (NSURLRequest)) {
     return { (endpoint: Endpoint<CocoaBlocAPI>) -> (NSURLRequest) in
         let request: NSMutableURLRequest = endpoint.urlRequest.mutableCopy() as! NSMutableURLRequest
-        request.HTTPShouldHandleCookies = false
         return request
     }
 }
 
-func x() {
-    let client = MoyaProvider<CocoaBlocAPI>()
-}
-
 //struct Provider {
+//    private static var endpointsClosure = { (target: CocoaBlocAPI) -> Endpoint<CocoaBlocAPI> in
+//
+//        return endpoint.endpointByAddingParameters(["client_id":"de4346e640860eb3d6fd97e11e475d0d"]).urlRequest
+//
+//
+//        var endpoint: Endpoint<CocoaBlocAPI> = Endpoint<CocoaBlocAPI>(URL: url(target), sampleResponse: .Success(200, {target.sampleData}), method: target.method, parameters: target.parameters)
+//
+//        switch target {
+//        case .XApp:
+//            return endpoint
+//
+//        default:
+//            return endpoint.endpointByAddingHTTPHeaderFields(["X-Xapp-Token": XAppToken().token ?? ""])
+//        }
+//    }
 //}

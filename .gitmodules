@@ -1,0 +1,15 @@
+[submodule "Carthage/Checkouts/Moya"]
+	path = Carthage/Checkouts/Moya
+	url = https://github.com/Moya/Moya.git
+[submodule "Carthage/Checkouts/Alamofire"]
+	path = Carthage/Checkouts/Alamofire
+	url = https://github.com/Alamofire/Alamofire.git
+[submodule "Carthage/Checkouts/Result"]
+	path = Carthage/Checkouts/Result
+	url = https://github.com/antitypical/Result.git
+[submodule "Carthage/Checkouts/Mantle"]
+	path = Carthage/Checkouts/Mantle
+	url = https://github.com/Mantle/Mantle.git
+[submodule "Carthage/Checkouts/ReactiveCocoa"]
+	path = Carthage/Checkouts/ReactiveCocoa
+	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
