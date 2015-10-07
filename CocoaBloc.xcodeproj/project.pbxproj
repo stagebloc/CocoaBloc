@@ -57,7 +57,6 @@
 		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
 		09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FDA1BBC2EBD00167058 /* Moya.framework */; };
 		0E03F06C1BC2FC4600E44AF7 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */; };
-		0E2A63851BBED34900D94E84 /* CocoaBlocAPI+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63841BBED34900D94E84 /* CocoaBlocAPI+User.swift */; };
 		0E2A63871BBED3F300D94E84 /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */; };
 		0E2A638F1BC2CCF100D94E84 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */; };
 /* End PBXBuildFile section */
@@ -128,7 +127,6 @@
 		0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		0E03F0901BC300C100E44AF7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0E03F0931BC300F400E44AF7 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
-		0E2A63841BBED34900D94E84 /* CocoaBlocAPI+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+User.swift"; sourceTree = "<group>"; };
 		0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaBlocAPI.swift; sourceTree = "<group>"; };
 		0E2A63881BBEDA0D00D94E84 /* CocoaBlocAPI+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+Account.swift"; sourceTree = "<group>"; };
 		0E2A638A1BBEEAE100D94E84 /* CocoaBlocAPI+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+Content.swift"; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */,
-				0E2A63841BBED34900D94E84 /* CocoaBlocAPI+User.swift */,
 				0E2A63881BBEDA0D00D94E84 /* CocoaBlocAPI+Account.swift */,
 				0E2A638A1BBEEAE100D94E84 /* CocoaBlocAPI+Content.swift */,
 			);
@@ -443,7 +440,6 @@
 				093A3C851BBC4E7A0038A71F /* SBShipping.m in Sources */,
 				093A3C811BBC4E7A0038A71F /* SBOrder.m in Sources */,
 				093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */,
-				0E2A63851BBED34900D94E84 /* CocoaBlocAPI+User.swift in Sources */,
 				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
 				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
 				093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */,
