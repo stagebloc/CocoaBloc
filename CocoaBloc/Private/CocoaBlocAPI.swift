@@ -7,9 +7,10 @@
 //
 
 import Foundation
-import Moya
 import ReactiveCocoa
+import ReactiveMoya
 
+// Endpoint enum declarations
 public enum CocoaBlocAPI {
 
     /**
@@ -67,7 +68,7 @@ public enum CocoaBlocAPI {
     - Parameters:
         - params: NSDictionary containing user information to be updated.
     */
-    case updateAuthenticatedUserWithParameters(params : NSDictionary)
+    case updateAuthenticatedUserWithParameters(params : [String:AnyObject])
 
     /**
     Ban user from specified account.
@@ -92,7 +93,7 @@ public enum CocoaBlocAPI {
     */
     case getPostedContentFromUser(userID : NSNumber,
         contentListType : String,
-        parameters : NSDictionary)
+        parameters : [String:AnyObject])
 
     /**
     Requests password reset to specified email address.
@@ -116,220 +117,189 @@ public enum CocoaBlocAPI {
 //
 //    case updateAuthenticatedUserLocation(coordinates, CLLocationCoordinate2D)
 
+
+    /**
+    Get an account based on an account ID.
+    */
+    case getAccount(accountID : NSNumber)
+
+    /**
+    Gets all of the accounts associated with the given user identifier, with options to filter admin and following accounts.
+    */
+    case getAccountsForUser(userIdentifier : String,
+        includingAdminAccounts : Bool,
+        followingAccounts : Bool,
+        parameters : [String:AnyObject])
+
+    /**
+    Creates an account.
+
+    - Parameters:
+        - name: name of the new account.
+        - url: the url which this account can be found.
+        - type: type of the account being created.
+        - color: one of: purple, red, green, blue, orange, grey.
+    */
+    case createAccount(name : String,
+        url : String,
+        type : String,
+        color : String)
+
+    /**
+    Creates an account with a photo.
+
+    - Parameters:
+        - name: name of the new account.
+        - url: the url which this account can be found.
+        - type: type of the account being created.
+        - photoData: the profile photo of the account.
+        - photoProgressSignal: the photo progress upload signal.
+    */
+    case createAccountWithPhoto(
+        name: String,
+        url: String,
+        type: String,
+        photoData: NSData,
+//        photoProgressSignal: Signal<Float>,
+        parameters: [String:AnyObject])
+
+    /**
+    Update an account with one or more new properties. Only admins of the account are allowed to do this
+
+    - Parameters:
+        - name: the new account name, or nil.
+        - description: description the new account description, or nil.
+        - stageBlocURL: the new StageBloc URL path component for the account, or nil.
+        - type: type of account (ex. 'Business', 'Cooking', 'Record Label', etc), or nil.
+        - color: account color.
+    */
+    case updateAccount(accountID : NSNumber,
+        name : String,
+        description : String,
+        stageBlocURL : String,
+        type : String,
+        color : String)
+
+    /**
+    Update account photo data
+
+    - Parameters:
+        - accountID: identifier of the account for which to update photo.
+        - photoData: the profile photo of the account.
+        - progressSignal: the photo progress upload signal.
+    */
+    case updateAccountImage(accountID : NSNumber,
+        photoData : NSData,
+        progressSignal : RACSignal)
+
+    /**
+    Get an activity stream of recent content for an account.
+    */
+    case getActivityStreamForAccount(accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+    /**
+    Get a list of users following an account.
+    */
+    case getFollowingUsersForAccount(accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+
+    /**
+    Fetch child accounts for a particular account
+
+    - Parameters:
+        - accountID: accountId the ID of the parent account.
+        - type: type a specific type of child account to get (optional).
+    */
+    case getChildrenAccountsForAccount(accountID : NSNumber,
+        type : String)
+
+    /**
+    Follow an account with its associated identifier
+    */
+    case followAccount(accountIdentifier : NSNumber)
+
+    /**
+    Unfollow an account with its associated identifier
+    */
+    case unfollowAccount(accountIdentifier : NSNumber)
+
+    /**
+    Get the currently authenticated user's accounts.
+    */
+    case getAuthenticatedUserAccounts(parameters : [String:AnyObject])
+
+    /**
+    Like a piece of content.
+    */
+    case likeContent(content : SBContent)
+
+    /**
+    Un-like a piece of content.
+    */
+    case unlikeContent(content : SBContent)
+
+    /**
+    Delete a piece of content.
+    */
+    case deleteContent(content : SBContent)
+
+    /**
+    Fetch a list of users who like a piece of content.
+    */
+    case getUsersWhoLikeContent(content : SBContent,
+        parameters : [String:AnyObject])
+
+    /**
+    Fetch a content object.
+
+    - Parameters:
+        - contentID: identifier for the content.
+        - contentType: type of content (i.e. blog, photo, etc).
+        - accountID: account content is posted to
+    */
+    case getContentWithIdentifier(contentID : NSNumber,
+        contentType : String,
+        accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+    /**
+    Flag a content object.
+
+    - Parameters:
+        - content: content to be flagged.
+        - contentType: type of content (i.e. blog, photo, etc).
+        - reason: reason for flagging content
+    */
+    case flagContent(content : SBContent,
+        contentType : String,
+        reason : String)
+
+    /**
+    Flag a content object.
+
+    - Parameters:
+        - contentIdentifier: identifier for the content..
+        - contentType: type of content (i.e. blog, photo, etc).
+        - accountID: account content is posted to.
+        - type: string of preset values which can be used for reasons why someone flagged a piece of content
+        - reason: reason for flagging content
+    */
+    case flagContentWithIdentifier(contentIdentifier : NSNumber,
+        contentType : String,
+        accountID : NSNumber,
+        type : String,
+        reason : String)
 }
 
 extension CocoaBlocAPI : MoyaTarget {
 
     // Base CocoaBlocAPI URL
     public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
-
-    // URL path
-    public var path: String {
-        switch self {
-
-        case
-        .loginWithAuthorizationCode,
-        .logInWithUsername:
-            return "/oauth2/token"
-
-        case
-        .signupUser:
-            return "/users"
-
-        case
-        .getCurrentlyAuthenticatedUser:
-            return "/users/me"
-
-            //        case
-            //        .updateAuthenticatedUser,
-            //        .updateAuthenticatedUserPhoto:
-            //            return "users/me"
-            //
-        case
-        .getUser(let userID):
-            return "/users/\(userID)"
-
-        case
-        .sendPasswordReset:
-            return "/users/password/reset"
-            //
-            //        case
-            //        .updateAuthenticatedUserLocation:
-            //            return "users/me/location/update"
-            //
-        case
-        .banUser(let userID, let accountID, _):
-            return "/users/\(userID)/ban/\(accountID)"
-
-        case
-        .getPostedContentFromUser(let userID, let contentListType, _):
-            return "/users/\(userID)/content/\(contentListType)"
-            
-        default :
-            return ""
-        }
-    }
-
-    // Request type
-    public var method: Moya.Method {
-        switch self {
-
-        case
-        .loginWithAuthorizationCode,
-        .logInWithUsername,
-
-        .signupUser,
-        .banUser,
-        .sendPasswordReset:
-            //        .updateAuthenticatedUser,
-            //        .updateAuthenticatedUserPhoto,
-            //        .updateAuthenticatedUserLocation:
-            return .POST
-        case
-        .getCurrentlyAuthenticatedUser,
-        .getUser,
-        .getPostedContentFromUser:
-            return .GET
-
-        default :
-            return .GET
-        }
-    }
-
-    // Sample data
-    public var sampleData: NSData {
-        switch self {
-
-        case
-        .loginWithAuthorizationCode:
-            return "AAA".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .logInWithUsername:
-            return "AAA".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .signupUser:
-            return "AAA".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .getCurrentlyAuthenticatedUser:
-            return "BBB".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .getUser:
-            return "BBB".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .updateAuthenticatedUserWithParameters:
-            return "CCC".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .banUser:
-            return "DDD".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .getPostedContentFromUser:
-            return "EEE".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        case
-        .sendPasswordReset:
-            return "FFF".dataUsingEncoding(NSUTF8StringEncoding)!
-
-        default:
-            return "XXX".dataUsingEncoding(NSUTF8StringEncoding)!
-        }
-    }
-
-    // Parameters
-    public var parameters: [String: AnyObject] {
-        switch self {
-
-        case .loginWithAuthorizationCode(let authorizationCode):
-            return ["code" : authorizationCode,
-                "expand" : true,
-                "include_admin_accounts" : true,
-                "grant_type" : "authorization_code"]
-
-        case .logInWithUsername(let username,
-            let password):
-            return ["username" : username,
-                "password" : password,
-                "expand" : "user",
-                "include_admin_accounts" : true,
-                "grant_type" : "password"]
-
-        case .signupUser(let email,
-            let name,
-            let password,
-            let birthday,
-            let gender,
-            let sourceAccountID):
-
-            let df = NSDateFormatter()
-            df.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
-            df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-            df.dateFormat = "yyyy-MM-dd"
-
-            return ["email" : email,
-                "name" : name,
-                "password" : password,
-                "birthday" : df.stringFromDate(birthday),
-                "gender" : gender,
-                "source_account_id" : sourceAccountID]
-
-        case .banUser(_, _, let reason):
-            return ["reason" : reason]
-
-        case .sendPasswordReset(let email):
-            return ["email" : email]
-
-        default:
-            /*! Endpoints w/o parameters
-
-            .getCurrentlyAuthenticatedUser
-            .getUser
-            */
-            
-            return [:]
-        }
-    }
-}
-
-struct Provider {
-    private static var endpointsClosure = { (target: CocoaBlocAPI, method: Moya.Method, parameters: [String: AnyObject]) -> Endpoint<CocoaBlocAPI> in
-
-        var endpoint: Endpoint<CocoaBlocAPI> = Endpoint<CocoaBlocAPI>(URL: url(target), sampleResponse: .Success(200, {target.sampleData}), method: method, parameters: parameters)
-
-        switch target {
-
-        case .loginWithAuthorizationCode,
-            .logInWithUsername:
-
-            return endpoint.endpointByAddingParameters(["client_secret" : "blahblahblah"])
-
-        default:
-            return endpoint
-        }
-    }
 }
 
 public func url(route: MoyaTarget) -> String {
     return route.baseURL.URLByAppendingPathComponent(route.path).absoluteString
 }
-
-//func endpointResolver() -> ((endpoint: Endpoint<CocoaBlocAPI>) -> (NSURLRequest)) {
-//    return { (endpoint: Endpoint<CocoaBlocAPI>) -> (NSURLRequest) in
-//        let request: NSMutableURLRequest = endpoint.urlRequest.mutableCopy() as! NSMutableURLRequest
-//        return request
-//    }
-//}
-
-//func stubbedResponse(filename: String) -> NSData! {
-//    @objc class TestClass: NSObject { }
-//
-//    let bundle = NSBundle(forClass: TestClass.self)
-//    let path = bundle.pathForResource(filename, ofType: "json")
-//    return NSData(contentsOfFile: path!)
-//}
 
