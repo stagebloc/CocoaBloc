@@ -291,6 +291,75 @@ public enum CocoaBlocAPI {
         accountID : NSNumber,
         type : String,
         reason : String)
+
+    /**
+    Post status to account. Convenience method for posting statuses.
+
+    - Parameters:
+        - status: the status to be posted.
+        - accountID: identifier of account to which status is to be posted.
+        - fanContent: indicates whether status is submitted by a fan of the account.
+    */
+    case postStatus(status : String,
+        accountID : NSNumber,
+        fanContent : Bool)
+
+    /**
+    Post status to account. Convenience method for posting statuses.
+
+    - Parameters:
+        - status: the status to be posted.
+        - accountID: identifier of account to which status is to be posted.
+        - fanContent: indicates whether status is submitted by a fan of the account.
+        - latitude: latitude coordinate of posted status.
+        - longitude: longitude coordinate of posted status.
+    */
+    case postStatusWithLocation(status : String,
+        accountID : NSNumber,
+        fanContent : Bool,
+        latitude : NSNumber,
+        longitude : NSNumber,
+        parameters : [String:AnyObject])
+
+    /**
+    Post blog to account. Convenience method for posting statuses.
+
+    - Parameters:
+        - title: title of blog post.
+        - body: body of blog post.
+        - accountID: identifier of account to which status is to be posted.
+    */
+    case postBlog(title : String,
+        body : String,
+        accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+
+    /**
+    Get a photo from an account.
+
+    - Parameters:
+        - photoID: identifier of photo to be fetched
+        - account: associated account of the photo
+    */
+    case getPhoto(photoID : NSNumber,
+        account : SBAccount)
+
+    /**
+    Upload a photo directly to the specified account.
+
+    - Parameters:
+        - photoID: identifier of photo to be fetched
+        - account: associated account of the photo
+    */
+    case uploadPhoto(data : NSData,
+        title : String,
+        caption : String,
+        accountID : NSNumber,
+        exclusive : Bool,
+        fanContent : Bool,
+//        progressSignal : Signal<NSNumber>,
+        parameters : [String:AnyObject])
 }
 
 extension CocoaBlocAPI : MoyaTarget {

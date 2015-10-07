@@ -88,15 +88,46 @@ extension CocoaBlocAPI {
 
         case
         .getChildrenAccountsForAccount(let accountID, let type):
-            return "account/\(accountID)/children/\(type)"
+            return "/account/\(accountID)/children/\(type)"
 
         case
         .followAccount(let accountID):
-            return "account/\(accountID)/follow"
+            return "/account/\(accountID)/follow"
 
         case
         .unfollowAccount(let accountID):
-            return "account/\(accountID)/follow"
+            return "/account/\(accountID)/follow"
+
+    // Content
+        case .likeContent(let content):
+            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/like"
+
+        case .unlikeContent(let content):
+            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/like"
+
+        case .deleteContent(let content):
+            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)"
+
+        case .getUsersWhoLikeContent(let content, _):
+            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/likers"
+
+        case .getContentWithIdentifier(let contentID, let contentType, let accountID, _):
+            return "/account/\(accountID)/\(contentType)/\(contentID)"
+
+        case .flagContent(let content, let contentType, _):
+            return "/account/\(content.account.identifier)/\(contentType)/\(content.identifier)/flag"
+
+        case .flagContentWithIdentifier(let contentIdentifier, let contentType, let accountID, _, _):
+            return "/account/\(accountID)/\(contentType)/\(contentIdentifier)/flag"
+
+        case .postStatus(_, let accountID, _):
+            return "/account/\(accountID)/status"
+
+        case .postStatusWithLocation(_, let accountID, _, _, _, _):
+            return "/account/\(accountID)/status"
+
+        case .postBlog(_, _, let accountID, _):
+            return "/account/\(accountID)/blog"
 
         default:
             return ""

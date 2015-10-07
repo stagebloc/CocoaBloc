@@ -29,9 +29,14 @@ extension CocoaBlocAPI  {
         .createAccount,
         .updateAccount,
         .updateAccountImage,
-        .followAccount:
-            return .POST
+        .followAccount,
 
+        .flagContent,
+        .flagContentWithIdentifier,
+        .postStatus,
+        .postStatusWithLocation,
+        .postBlog:
+            return .POST
 
         case .getCurrentlyAuthenticatedUser,
         .getUser,
@@ -42,12 +47,18 @@ extension CocoaBlocAPI  {
         .getAuthenticatedUserAccounts,
         .getActivityStreamForAccount,
         .getFollowingUsersForAccount,
-        .getChildrenAccountsForAccount:
+        .getChildrenAccountsForAccount,
+
+        .getUsersWhoLikeContent,
+        .getContentWithIdentifier:
             return .GET
+            
+        case .unfollowAccount,
 
-        case .unfollowAccount:
+        .unlikeContent,
+        .deleteContent:
             return .DELETE
-
+            
         default:
             return .GET
         }
