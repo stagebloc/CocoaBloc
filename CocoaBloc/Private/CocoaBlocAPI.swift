@@ -239,9 +239,7 @@ public enum CocoaBlocAPI {
     */
     case getAuthenticatedUserAccounts(parameters : [String:AnyObject])
 
-
 // MARK: Content endpoints
-
 
     /**
     Like a piece of content.
@@ -453,9 +451,7 @@ public enum CocoaBlocAPI {
 //        progressSignal : Signal
     )
 
-
 // MARK: Comment endpoints
-
 
     /**
     Fetch comments for a content object.
@@ -466,24 +462,43 @@ public enum CocoaBlocAPI {
     case getCommentsForContent(content : SBContent,
         parameters : [String:AnyObject])
 
+    /**
+    Fetch replies (i.e. comments) to a particular comment.
 
+    - Parameters:
+        - comment: comment object for which to fetch replies.
+    */
     case getRepliesToComment(comment : SBComment,
         parameters : [String:AnyObject])
 
-
+    /**
+    Deletes a comment.
+    */
     case deleteComment(comment : SBComment)
 
+    /**
+    Post a comment to a piece of content.
+    */
     case postCommentOnContent(text : String,
         content : SBContent,
         parameters : [String:AnyObject])
 
+    /**
+    Post a comment in reply to another comment.
+    */
     case postCommentInReplyToComment(text : String,
         comment : SBComment,
         parameters : [String:AnyObject])
 
+    /**
+    Fetch a comment for a piece of content from the comment's identifier.
+    */
     case getComment(commentID : NSNumber,
         content : SBContent)
 
+    /**
+    Flag a comment.
+    */
     case flagComment(comment : SBComment,
         type : String,
         reason : String)
@@ -494,6 +509,115 @@ public enum CocoaBlocAPI {
         type : String,
         reason : String)
 
+
+// MARK: Fanclub endpoints
+
+    /**
+    Create the fan club for the given StageBloc account.
+
+    - Parameters:
+        - accountID: the parent/fan-club-owning StageBloc account object.
+        - title: the title for the fan club.
+        - description: the description for the fan club.
+        - tierInfo: a dictionary with any of the following tier info keys, or nil.
+    */
+    case createFanClub(accountID : NSNumber,
+        title : String,
+        description : String,
+        tierInfo : [String:AnyObject])
+
+    /**
+    Get an array of content associated with a Fan Club.
+    */
+    case getContentFromFanClub(accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+    /**
+    Retrieves the content for fan clubs that the user follows.
+    */
+    case getContentFromFollowedFanClubs(parameters : [String:AnyObject])
+
+    /**
+    Retrieves the user's fan club following list.
+    */
+    case getFollowedFanClubs(parameters : [String:AnyObject])
+
+    /**
+    Retrieves the user's recent fan clubs list.
+    */
+    case getRecentFanClubs(parameters : [String:AnyObject])
+
+    /**
+    Retrieves the user's featured fan clubs list.
+    */
+    case getFeaturedFanClubs(parameters : [String:AnyObject])
+
+    /**
+    Retrieves the fan club details for the account.
+    */
+    case getFanClub(accountID : NSNumber,
+    parameters : [String:AnyObject])
+
+    /**
+    Retrieves the fan club dashboard details for the account.
+    */
+    case getFanClubDashboard(accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+// MARK: Store endpoints
+
+    /**
+    Requests tax and shipping information for a given cart and address. Returns RACTuple with first object = SBShippingRateSet and second object = NSDecimalNumber (taxTotal)
+
+    - Parameters:
+        - accountID: accountID of account from which items are being purchased.
+        - address: SBAddress for which to fetch tax and shipping info.
+        - items: cart represenation for which to fetch tax and shipping info.
+    */
+    case getShippingRatesAndTax(accountID : NSNumber,
+        address : SBAddress,
+        items : [String:AnyObject])
+
+    case getStoreItemsForAccount(accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+    case getStoreItemWithID(storeItemID : NSNumber,
+        accountID : NSNumber)
+
+
+    /**
+    Purchase storeItem(s)
+    */
+    case purchaseItems(items : [String:AnyObject],
+        purchaseToken : String,
+        address : SBAddress,
+        shippingDetails : [String:AnyObject],
+        totals : [String:AnyObject],
+        notes : String,
+        email : String,
+        accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+    case addPaymentForSplitPurchase(orderID : NSNumber,
+        amount : NSDecimalNumber,
+        token : String,
+        accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+    case requestStripeAuthorization(requestToken : String,
+        accountID : NSNumber)
+
+    case getStoreDashboard(accountID : NSNumber,
+        parameters : [String:AnyObject])
+
+// MARK: Push endpoints
+
+    case setPushTokenForAuthenticatedUser(token : String)
+
+// MARK: Notification endpoints
+
+    case getNotifications(accountID : NSNumber,
+        parameters : [String:AnyObject])
 }
 
 extension CocoaBlocAPI : MoyaTarget {
