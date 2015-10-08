@@ -13,6 +13,8 @@ import ReactiveMoya
 // Endpoint enum declarations
 public enum CocoaBlocAPI {
 
+// MARK: Auth endpoints
+
     /**
     Complete the log in process with an authorization code from StageBloc, usually obtained from SBAuthenticationController.
 
@@ -30,6 +32,10 @@ public enum CocoaBlocAPI {
     */
     case logInWithUsername(username : String,
         password : String)
+
+
+// MARK: User endpoints
+
 
     /**
     Sign up a new StageBloc user with the given user information and desired credentials.
@@ -116,6 +122,9 @@ public enum CocoaBlocAPI {
 //    case updateAuthenticatedUserPhoto(photoData : NSData, progressSignal : RACSignal)
 //
 //    case updateAuthenticatedUserLocation(coordinates, CLLocationCoordinate2D)
+
+
+// MARK: Account endpoints
 
 
     /**
@@ -230,6 +239,10 @@ public enum CocoaBlocAPI {
     */
     case getAuthenticatedUserAccounts(parameters : [String:AnyObject])
 
+
+// MARK: Content endpoints
+
+
     /**
     Like a piece of content.
     */
@@ -334,7 +347,6 @@ public enum CocoaBlocAPI {
         accountID : NSNumber,
         parameters : [String:AnyObject])
 
-
     /**
     Get a photo from an account.
 
@@ -360,6 +372,128 @@ public enum CocoaBlocAPI {
         fanContent : Bool,
 //        progressSignal : Signal<NSNumber>,
         parameters : [String:AnyObject])
+
+    /**
+    Upload a photo directly to the specified account.
+
+    - Parameters:
+        - data: valid video data.
+        - fileName: the path or name of the video file. MIME type is derived from this.
+        - title: the video's title.
+        - caption: the video's caption.
+        - accountID: identifier of account associated with video.
+        - exclusive: indicates whether video is exclusive content.
+        - fanContent: indicates whether video is fan content.
+    */
+    case uploadVideoWithData(data : NSData,
+        fileName : String,
+        title : String,
+        caption : String,
+        accountID: NSNumber,
+        exclusive : Bool,
+        fanContent : Bool,
+//        progressSignal : Signal<T, NoError>,
+        parameters : [String:AnyObject])
+
+    /**
+    Upload a video directly from disk by providing the absolute path to the video file.
+
+    - Parameters:
+        - filePath: the path or name of the video file. MIME type is derived from this.
+        - title: the video's title.
+        - caption: the video's caption.
+        - accountID: identifier of account associated with video.
+        - exclusive: indicates whether video is exclusive content.
+        - fanContent: indicates whether video is fan content.
+    */
+    case uploadVideoAtPath(filePath : String,
+        title : String,
+        caption : String,
+        accountID: NSNumber,
+        exclusive : Bool,
+        fanContent : Bool,
+        //        progressSignal : Signal<T, NoError>,
+        parameters : [String:AnyObject])
+
+    /**
+    Track video events.
+
+    - Parameters:
+        - event: video event, supported events -> (play, ended, loop).
+        - videoID: the video identifier of the associated event.
+        - accountID: identifier of account associated with video.
+    */
+    case trackVideoEvent(event : String,
+        videoID : NSNumber,
+        accountID : NSNumber)
+
+    /**
+    Fetch audio track.
+
+    - Parameters:
+        - audioID: audio track identifier.
+        - accountID: identifier of account associated with audio track.
+    */
+    case getAudioTrackWithID(audioID : NSNumber,
+        accountID : NSNumber)
+
+    /**
+    Fetch audio track.
+
+    - Parameters:
+        - data: valid audio track data.
+        - title: audio track title.
+        - fileName: the path or name of the audio track file.
+        - account: identifier of account associated with audio track.
+    */
+    case uploadAudioData(data : NSData,
+        title : String,
+        fileName : String,
+        account : SBAccount
+//        progressSignal : Signal
+    )
+
+
+// MARK: Comment endpoints
+
+
+    /**
+    Fetch comments for a content object.
+
+    - Parameters:
+        - content: content object for which to fetch comments.
+    */
+    case getCommentsForContent(content : SBContent,
+        parameters : [String:AnyObject])
+
+
+    case getRepliesToComment(comment : SBComment,
+        parameters : [String:AnyObject])
+
+
+    case deleteComment(comment : SBComment)
+
+    case postCommentOnContent(text : String,
+        content : SBContent,
+        parameters : [String:AnyObject])
+
+    case postCommentInReplyToComment(text : String,
+        comment : SBComment,
+        parameters : [String:AnyObject])
+
+    case getComment(commentID : NSNumber,
+        content : SBContent)
+
+    case flagComment(comment : SBComment,
+        type : String,
+        reason : String)
+
+    case flagCommentWithIdentifier(commentID : NSNumber,
+        contentType : String,
+        accountID : NSNumber,
+        type : String,
+        reason : String)
+
 }
 
 extension CocoaBlocAPI : MoyaTarget {
