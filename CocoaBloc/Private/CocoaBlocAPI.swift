@@ -10,7 +10,8 @@ import Foundation
 import ReactiveCocoa
 import ReactiveMoya
 
-// Endpoint enum declarations
+// Comprehensive list of CocoaBlocAPI endpoints
+
 public enum CocoaBlocAPI {
 
 // MARK: Auth endpoints
@@ -35,7 +36,6 @@ public enum CocoaBlocAPI {
 
 
 // MARK: User endpoints
-
 
     /**
     Sign up a new StageBloc user with the given user information and desired credentials.
@@ -583,7 +583,6 @@ public enum CocoaBlocAPI {
 
     case getStoreItemWithID(storeItemID : NSNumber,
         accountID : NSNumber)
-
 
     /**
     Purchase storeItem(s)

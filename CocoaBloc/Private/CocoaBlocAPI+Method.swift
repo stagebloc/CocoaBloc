@@ -11,37 +11,67 @@ import ReactiveMoya
 
 extension CocoaBlocAPI  {
 
-    // HTTP method declarations
-
     public var method: Moya.Method {
         switch self {
 
-        case .loginWithAuthorizationCode,
+        case
+
+        .loginWithAuthorizationCode,
         .logInWithUsername,
 
+        // User
         .signupUser,
         .banUser,
         .sendPasswordReset,
-        //        .updateAuthenticatedUser,
+
+        .updateAuthenticatedUserWithParameters,
         //        .updateAuthenticatedUserPhoto,
         //        .updateAuthenticatedUserLocation:
 
+        // Account
         .createAccount,
+        .createAccountWithPhoto,
         .updateAccount,
         .updateAccountImage,
         .followAccount,
 
+        // Content
         .flagContent,
         .flagContentWithIdentifier,
         .postStatus,
         .postStatusWithLocation,
-        .postBlog:
+        .postBlog,
+        .uploadPhoto,
+        .uploadVideoAtPath,
+        .uploadVideoWithData,
+        .trackVideoEvent,
+        .uploadAudioData,
+
+        // Comment
+        .postCommentOnContent,
+        .postCommentInReplyToComment,
+        .flagComment,
+        .flagCommentWithIdentifier,
+
+        // Fanclub
+        .createFanClub,
+
+        // Store
+        .getShippingRatesAndTax,
+        .purchaseItems,
+        .addPaymentForSplitPurchase,
+        .requestStripeAuthorization,
+
+        .setPushTokenForAuthenticatedUser:
             return .POST
 
-        case .getCurrentlyAuthenticatedUser,
+        case
+        // User
+        .getCurrentlyAuthenticatedUser,
         .getUser,
         .getPostedContentFromUser,
 
+        // Account
         .getAccount,
         .getAccountsForUser,
         .getAuthenticatedUserAccounts,
@@ -49,14 +79,45 @@ extension CocoaBlocAPI  {
         .getFollowingUsersForAccount,
         .getChildrenAccountsForAccount,
 
+        // Content
         .getUsersWhoLikeContent,
-        .getContentWithIdentifier:
+        .getContentWithIdentifier,
+        .getPhoto,
+        .getAudioTrackWithID,
+
+        // Comment
+        .getComment,
+        .getCommentsForContent,
+        .getRepliesToComment,
+
+
+        // Fanclub
+        .getContentFromFanClub,
+        .getContentFromFollowedFanClubs,
+        .getFollowedFanClubs,
+        .getRecentFanClubs,
+        .getFeaturedFanClubs,
+        .getFanClub,
+        .getFanClubDashboard,
+
+        // Store
+        .getStoreItemsForAccount,
+        .getStoreItemWithID,
+        .getStoreDashboard,
+
+        .getNotifications:
             return .GET
             
-        case .unfollowAccount,
+        case
+        // Account
+        .unfollowAccount,
 
+        // Content
         .unlikeContent,
-        .deleteContent:
+        .deleteContent,
+
+        // Comment
+        .deleteComment:
             return .DELETE
             
         default:
