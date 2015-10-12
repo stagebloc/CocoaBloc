@@ -1,5 +1,5 @@
 github "Alamofire/Alamofire" "2.0.2"
 github "Mantle/Mantle" "2.0.5"
-github "Moya/Moya" "2.4.1"
-github "antitypical/Result" "76f9a972ed61ff872b731460bc610c8acbfae58c"
-github "ReactiveCocoa/ReactiveCocoa" "v4.0-alpha.1"
+github "antitypical/Result" "0.6.0-beta.3"
+github "Moya/Moya" "3.0.1"
+github "ReactiveCocoa/ReactiveCocoa" "217bf2a702999f8ebe27983d86751a9dfab756be"

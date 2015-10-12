@@ -55,7 +55,8 @@
 		098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
-		09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FDA1BBC2EBD00167058 /* Moya.framework */; };
+		09F043EB1BC8239100578D9A /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F0931BC300F400E44AF7 /* Result.framework */; };
+		09F043EC1BC823A400578D9A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F0901BC300C100E44AF7 /* Alamofire.framework */; };
 		0E03F06C1BC2FC4600E44AF7 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */; };
 		0E2A63871BBED3F300D94E84 /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */; };
 		0E2A638F1BC2CCF100D94E84 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */; };
@@ -128,7 +129,6 @@
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09EA2FD91BBC2EBD00167058 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
-		09EA2FDA1BBC2EBD00167058 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		0E03F0901BC300C100E44AF7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0E03F0931BC300F400E44AF7 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
@@ -154,10 +154,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F043EC1BC823A400578D9A /* Alamofire.framework in Frameworks */,
+				09F043EB1BC8239100578D9A /* Result.framework in Frameworks */,
 				0E03F06C1BC2FC4600E44AF7 /* ReactiveCocoa.framework in Frameworks */,
 				0E2A638F1BC2CCF100D94E84 /* ReactiveMoya.framework in Frameworks */,
 				09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */,
-				09EA2FDC1BBC2EBD00167058 /* Moya.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,10 +226,11 @@
 		093A3C9B1BBC59CA0038A71F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				0E03F0901BC300C100E44AF7 /* Alamofire.framework */,
+				09EA2FD91BBC2EBD00167058 /* Mantle.framework */,
 				0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */,
 				0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */,
-				09EA2FD91BBC2EBD00167058 /* Mantle.framework */,
-				09EA2FDA1BBC2EBD00167058 /* Moya.framework */,
+				0E03F0931BC300F400E44AF7 /* Result.framework */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -245,8 +247,6 @@
 		09EA2FB41BBC2CB100167058 = {
 			isa = PBXGroup;
 			children = (
-				0E03F0931BC300F400E44AF7 /* Result.framework */,
-				0E03F0901BC300C100E44AF7 /* Alamofire.framework */,
 				09EA2FC01BBC2CB100167058 /* CocoaBloc */,
 				098F4ACF1BBC40FA003A496C /* CocoaBlocTests */,
 				093A3C9B1BBC59CA0038A71F /* Dependencies */,
@@ -285,8 +285,7 @@
 				0EC5FD8C1BC59F5A00A25A33 /* CocoaBlocAPI+Parameters.swift */,
 				0EC5FD8E1BC59FA200A25A33 /* CocoaBlocAPI+SampleData.swift */,
 			);
-			name = API;
-			path = Private;
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

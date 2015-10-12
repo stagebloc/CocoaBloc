@@ -11,7 +11,7 @@ import ReactiveMoya
 
 extension CocoaBlocAPI  {
 
-    public var method: Moya.Method {
+    public var method: ReactiveMoya.Moya.Method {
         switch self {
 
         case

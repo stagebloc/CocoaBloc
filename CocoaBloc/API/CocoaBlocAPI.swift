@@ -12,7 +12,7 @@ import ReactiveMoya
 
 // Comprehensive list of CocoaBlocAPI endpoints
 
-public enum CocoaBlocAPI {
+public enum CocoaBlocAPI: MoyaTarget {
 
 // MARK: Auth endpoints
 
@@ -619,7 +619,7 @@ public enum CocoaBlocAPI {
         parameters : [String:AnyObject])
 }
 
-extension CocoaBlocAPI : MoyaTarget {
+extension CocoaBlocAPI {
 
     // Base CocoaBlocAPI URL
     public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
