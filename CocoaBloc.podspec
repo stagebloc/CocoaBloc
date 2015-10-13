@@ -12,10 +12,9 @@ Pod::Spec.new do |s|
 	s.module_name = 'CocoaBloc'
 
 	s.dependency 'Mantle'
-	s.dependency 'ReactiveMoya'
+	s.dependency 'Moya/ReactiveCocoa', '~> 4.0'
 
 	s.source_files = 'CocoaBloc/**/*.{h,m,swift}'
 	s.public_header_files = 'CocoaBloc/{Models,API}/*.h'
 	s.private_header_files = 'CocoaBloc/Private/*.h'
-
 end
