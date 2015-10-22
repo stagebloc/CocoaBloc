@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'CocoaBloc'
-    s.version = '1.0.7'
+    s.version = '1.0.8'
     s.authors = {   'John Heaton'   => 'pikachu@stagebloc.com',
                     'Mark Glagola'  => 'mark@stagebloc.com',
                     'David Warner'  => 'spiderman@stagebloc.com',
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
     s.summary = 'StageBloc Cocoa SDK for the StageBloc v1 API'
     s.description = 'An Objective-C(Swift-compatible) library for using the StageBloc v1 REST API.'
     s.source = { :git => 'https://github.com/stagebloc/CocoaBloc.git',
-                 :tag => '1.0.7' }
+                 :tag => '1.0.8' }
     s.requires_arc = true
     s.license = { :type => 'MIT', :file => 'LICENSE' }
     s.ios.deployment_target = '8.0'

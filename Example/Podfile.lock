@@ -23,9 +23,9 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CocoaBloc (1.0.7):
-    - CocoaBloc/API (= 1.0.7)
-    - CocoaBloc/UIKit (= 1.0.7)
+  - CocoaBloc (1.0.8):
+    - CocoaBloc/API (= 1.0.8)
+    - CocoaBloc/UIKit (= 1.0.8)
     - ReactiveCocoa (~> 2.0)
   - CocoaBloc-UI (0.0.5):
     - CocoaBloc-UI/Colors (= 0.0.5)
@@ -34,12 +34,12 @@ PODS:
   - CocoaBloc-UI/Colors (0.0.5)
   - CocoaBloc-UI/Fonts (0.0.5)
   - CocoaBloc-UI/PlaceholderTextView (0.0.5)
-  - CocoaBloc/API (1.0.7):
+  - CocoaBloc/API (1.0.8):
     - AFNetworking (~> 2.0)
     - AFNetworking-RACExtensions (~> 0.1.6)
     - Mantle (~> 1.0)
     - ReactiveCocoa (~> 2.0)
-  - CocoaBloc/UIKit (1.0.7):
+  - CocoaBloc/UIKit (1.0.8):
     - CocoaBloc-UI (~> 0.0.3)
     - CocoaBloc/API
     - PureLayout (~> 2.0)
@@ -49,14 +49,14 @@ PODS:
   - Expecta+Snapshots (2.0.0):
     - Expecta (~> 1.0)
     - FBSnapshotTestCase/Core (~> 2.0.3)
-  - FBSnapshotTestCase/Core (2.0.4)
+  - FBSnapshotTestCase/Core (2.0.5)
   - LLReactiveMatchers (0.0.1):
     - Expecta
     - ReactiveCocoa (>= 2.1.7)
     - Specta
-  - Mantle (1.5.5):
-    - Mantle/extobjc (= 1.5.5)
-  - Mantle/extobjc (1.5.5)
+  - Mantle (1.5.6):
+    - Mantle/extobjc (= 1.5.6)
+  - Mantle/extobjc (1.5.6)
   - PureLayout (2.0.6)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -65,7 +65,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - Specta (1.0.3)
+  - Specta (1.0.4)
   - SZTextView (1.2.1)
 
 DEPENDENCIES:
@@ -84,22 +84,22 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   LLReactiveMatchers:
-    :commit: 5fb16a96c774026eae957c1d4c712694fd2cff71
+    :commit: d95472957123c1d5610cd96bf8b424241efc8a24
     :git: https://github.com/lawrencelomax/LLReactiveMatchers.git
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AFNetworking-RACExtensions: a043c6b492fa892395ceb9d20bc4c94e96e08a57
-  CocoaBloc: 096543e957d1fbfe6f0e60e411c9478be1685303
+  CocoaBloc: 90eb3fae8d3532fc2a87298d3aafbe2c6829ed15
   CocoaBloc-UI: 3deda97b7aba5f1eaddd6c8b8bc1ab0002adf64c
   Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
   Expecta+Snapshots: 29b38dd695bc72a0ed2bea833937d78df41943ba
-  FBSnapshotTestCase: d94cf34841c9e77390e29009e8e2713479d48753
-  LLReactiveMatchers: cdcde9b7a010275ee9720f559a24134a92e0786d
-  Mantle: 1b29072a707453975b200a173cf77ec1e2810b75
+  FBSnapshotTestCase: 6917deb01d0556dd544536f9eb34e0cf26f904d5
+  LLReactiveMatchers: 7d5a3b7ec3735a7ca18428589d7b115c65b8ccc9
+  Mantle: a197db93e0f1e36194b1fdbc078219a8492eaef2
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
+  Specta: 69bb134672aae190a1379ff91df07dad8dd1f869
   SZTextView: 906df45afd3c1b24fc5252088d5ef8061513c238
 
 COCOAPODS: 0.38.2
