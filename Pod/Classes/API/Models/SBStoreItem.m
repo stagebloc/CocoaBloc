@@ -42,6 +42,7 @@
              @"unlimited"			: @"unlimited",
              @"weightUnit"			: @"weight_unit",
              @"weight"				: @"weight",
+             @"disabled"			: @"disabled",
              @"upc"					: @"upc"};
 }
 
