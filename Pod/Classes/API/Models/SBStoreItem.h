@@ -29,6 +29,7 @@
 @property (nonatomic) NSNumber *soldOut;
 @property (nonatomic) NSNumber *unlimited;
 @property (nonatomic) NSNumber *weight;
+@property (nonatomic) NSNumber *disabled;
 @property (nonatomic, copy) NSString *sku;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *weightUnit;
