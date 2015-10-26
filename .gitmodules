@@ -1,6 +1,6 @@
 [submodule "Carthage/Checkouts/Moya"]
 	path = Carthage/Checkouts/Moya
-	url = https://github.com/Moya/Moya.git
+	url = https://github.com/stagebloc/Moya.git
 [submodule "Carthage/Checkouts/Alamofire"]
 	path = Carthage/Checkouts/Alamofire
 	url = https://github.com/Alamofire/Alamofire.git
@@ -13,3 +13,6 @@
 [submodule "Carthage/Checkouts/ReactiveCocoa"]
 	path = Carthage/Checkouts/ReactiveCocoa
 	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
+[submodule "Carthage/Checkouts/RxSwift"]
+	path = Carthage/Checkouts/RxSwift
+	url = https://github.com/ReactiveX/RxSwift.git
