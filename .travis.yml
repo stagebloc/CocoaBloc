@@ -12,4 +12,5 @@ before_install:
     - sudo installer -pkg ./tmp/Carthage/Carthage.pkg -target /
 
 install:
-    - carthage bootstrap --no-use-binaries --use-submodules --platform iOS
+    - carthage bootstrap --no-use-binaries --use-submodules --platform iOS --configuration Debug --no-build
+    - carthage build --platform iOS --configuration Debug --no-skip-current
