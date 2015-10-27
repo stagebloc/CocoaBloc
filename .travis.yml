@@ -7,9 +7,9 @@ before_install:
     - git clone https://github.com/Carthage/Carthage.git tmp/Carthage
     - cd ./tmp/Carthage
     - git checkout swift2
-    - make package
+    - make package >/dev/null
     - cd ../../
     - sudo installer -pkg ./tmp/Carthage/Carthage.pkg -target /
 
 install:
-    - carthage bootstrap --no-use-binaries --use-submodules --platform iOS --verbose
+    - carthage bootstrap --no-use-binaries --use-submodules --platform iOS
