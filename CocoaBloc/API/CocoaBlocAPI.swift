@@ -21,7 +21,7 @@ public enum CocoaBlocAPI: MoyaTarget {
     - Parameters:
         - authorizationCode: The authorization code.
     */
-    case loginWithAuthorizationCode(authorizationCode : String)
+    case loginWithAuthorizationCode(authorizationCode: String)
 
     /**
     Log in a StageBloc user with the given credentials.
@@ -30,8 +30,7 @@ public enum CocoaBlocAPI: MoyaTarget {
         - username: The user's username/email address.
         - password: The user's password.
     */
-    case logInWithUsername(username : String,
-        password : String)
+    case logInWithUsername(username: String, password: String)
 
 
 // MARK: User endpoints
@@ -47,12 +46,12 @@ public enum CocoaBlocAPI: MoyaTarget {
         - gender: The user's gender.
         - sourceAccountID: The identifier of the account from which user is signing up.
     */
-    case signupUser(email : String,
-        name : String,
-        password : String,
-        birthday : NSDate,
-        gender : String,
-        sourceAccountID : NSNumber)
+    case signupUser(email: String,
+        name: String,
+        password: String,
+        birthday: NSDate,
+        gender: String,
+        sourceAccountID: NSNumber)
 
     /**
     Request the currently authenticated user for the SBClient.
@@ -65,7 +64,7 @@ public enum CocoaBlocAPI: MoyaTarget {
     - Parameters:
         - userID: identifier of user to be requested.
     */
-    case getUser(userID : NSNumber)
+    case getUser(userID: NSNumber)
 
     /**
     Request the StageBloc user by their user id.
@@ -73,7 +72,7 @@ public enum CocoaBlocAPI: MoyaTarget {
     - Parameters:
         - params: NSDictionary containing user information to be updated.
     */
-    case updateAuthenticatedUserWithParameters(params : [String:AnyObject])
+    case updateAuthenticatedUserWithParameters(params: [String:AnyObject])
 
     /**
     Ban user from specified account.
@@ -83,9 +82,9 @@ public enum CocoaBlocAPI: MoyaTarget {
         - accountID: identifier of account from which to ban user.
         - reason: String containing a reason why user is to be banned.
     */
-    case banUser(userID : NSNumber,
-        accountID : NSNumber,
-        reason : String)
+    case banUser(userID: NSNumber,
+        accountID: NSNumber,
+        reason: String)
 
     /**
     Request a list of content the user has either submitted or liked.
@@ -96,9 +95,9 @@ public enum CocoaBlocAPI: MoyaTarget {
         or user-liked content ('SBUserContentListTypeLike').
         - parameters: additional parameters.
     */
-    case getPostedContentFromUser(userID : NSNumber,
-        contentListType : String,
-        parameters : [String:AnyObject])
+    case getPostedContentFromUser(userID: NSNumber,
+        contentListType: String,
+        parameters: [String:AnyObject])
 
     /**
     Requests password reset to specified email address.
@@ -106,7 +105,7 @@ public enum CocoaBlocAPI: MoyaTarget {
     - Parameters:
         - email: email address to send passoword reset.
     */
-    case sendPasswordReset(email : String)
+    case sendPasswordReset(email: String)
 
     /**
     Updates user information .
@@ -129,15 +128,15 @@ public enum CocoaBlocAPI: MoyaTarget {
     /**
     Get an account based on an account ID.
     */
-    case getAccount(accountID : NSNumber)
+    case getAccount(accountID: NSNumber)
 
     /**
     Gets all of the accounts associated with the given user identifier, with options to filter admin and following accounts.
     */
-    case getAccountsForUser(userIdentifier : String,
-        includingAdminAccounts : Bool,
-        followingAccounts : Bool,
-        parameters : [String:AnyObject])
+    case getAccountsForUser(userIdentifier: String,
+        includingAdminAccounts: Bool,
+        followingAccounts: Bool,
+        parameters: [String:AnyObject])
 
     /**
     Creates an account.
@@ -148,10 +147,7 @@ public enum CocoaBlocAPI: MoyaTarget {
         - type: type of the account being created.
         - color: one of: purple, red, green, blue, orange, grey.
     */
-    case createAccount(name : String,
-        url : String,
-        type : String,
-        color : String)
+    case createAccount(name: String, url: String, type: String, color: String)
 
     /**
     Creates an account with a photo.
@@ -182,11 +178,11 @@ public enum CocoaBlocAPI: MoyaTarget {
         - color: account color.
     */
     case updateAccount(accountID : NSNumber,
-        name : String,
-        description : String,
-        stageBlocURL : String,
-        type : String,
-        color : String)
+        name: String,
+        description: String,
+        stageBlocURL: String,
+        type: String,
+        color: String)
 
     /**
     Update account photo data
@@ -196,21 +192,21 @@ public enum CocoaBlocAPI: MoyaTarget {
         - photoData: the profile photo of the account.
         - progressSignal: the photo progress upload signal.
     */
-    case updateAccountImage(accountID : NSNumber,
-        photoData : NSData,
-        progressSignal : RACSignal)
+    case updateAccountImage(accountID: NSNumber,
+        photoData: NSData,
+        progressSignal: RACSignal)
 
     /**
     Get an activity stream of recent content for an account.
     */
-    case getActivityStreamForAccount(accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getActivityStreamForAccount(accountID: NSNumber,
+        parameters: [String:AnyObject])
 
     /**
     Get a list of users following an account.
     */
-    case getFollowingUsersForAccount(accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getFollowingUsersForAccount(accountID: NSNumber,
+        parameters: [String:AnyObject])
 
 
     /**
@@ -220,46 +216,44 @@ public enum CocoaBlocAPI: MoyaTarget {
         - accountID: accountId the ID of the parent account.
         - type: type a specific type of child account to get (optional).
     */
-    case getChildrenAccountsForAccount(accountID : NSNumber,
-        type : String)
+    case getChildrenAccountsForAccount(accountID: NSNumber, type: String)
 
     /**
     Follow an account with its associated identifier
     */
-    case followAccount(accountIdentifier : NSNumber)
+    case followAccount(accountIdentifier: NSNumber)
 
     /**
     Unfollow an account with its associated identifier
     */
-    case unfollowAccount(accountIdentifier : NSNumber)
+    case unfollowAccount(accountIdentifier: NSNumber)
 
     /**
     Get the currently authenticated user's accounts.
     */
-    case getAuthenticatedUserAccounts(parameters : [String:AnyObject])
+    case getAuthenticatedUserAccounts(parameters: [String:AnyObject])
 
 // MARK: Content endpoints
 
     /**
     Like a piece of content.
     */
-    case likeContent(content : SBContent)
+    case likeContent(content: SBContent)
 
     /**
     Un-like a piece of content.
     */
-    case unlikeContent(content : SBContent)
+    case unlikeContent(content: SBContent)
 
     /**
     Delete a piece of content.
     */
-    case deleteContent(content : SBContent)
+    case deleteContent(content: SBContent)
 
     /**
     Fetch a list of users who like a piece of content.
     */
-    case getUsersWhoLikeContent(content : SBContent,
-        parameters : [String:AnyObject])
+    case getUsersWhoLikeContent(content: SBContent, parameters: [String:AnyObject])
 
     /**
     Fetch a content object.
@@ -269,10 +263,10 @@ public enum CocoaBlocAPI: MoyaTarget {
         - contentType: type of content (i.e. blog, photo, etc).
         - accountID: account content is posted to
     */
-    case getContentWithIdentifier(contentID : NSNumber,
-        contentType : String,
-        accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getContentWithIdentifier(contentID: NSNumber,
+        contentType: String,
+        accountID: NSNumber,
+        parameters: [String:AnyObject])
 
     /**
     Flag a content object.
@@ -282,9 +276,7 @@ public enum CocoaBlocAPI: MoyaTarget {
         - contentType: type of content (i.e. blog, photo, etc).
         - reason: reason for flagging content
     */
-    case flagContent(content : SBContent,
-        contentType : String,
-        reason : String)
+    case flagContent(content: SBContent, contentType: String, reason: String)
 
     /**
     Flag a content object.
@@ -296,11 +288,11 @@ public enum CocoaBlocAPI: MoyaTarget {
         - type: string of preset values which can be used for reasons why someone flagged a piece of content
         - reason: reason for flagging content
     */
-    case flagContentWithIdentifier(contentIdentifier : NSNumber,
-        contentType : String,
-        accountID : NSNumber,
-        type : String,
-        reason : String)
+    case flagContentWithIdentifier(contentIdentifier: NSNumber,
+        contentType: String,
+        accountID: NSNumber,
+        type: String,
+        reason: String)
 
     /**
     Post status to account. Convenience method for posting statuses.
@@ -310,9 +302,9 @@ public enum CocoaBlocAPI: MoyaTarget {
         - accountID: identifier of account to which status is to be posted.
         - fanContent: indicates whether status is submitted by a fan of the account.
     */
-    case postStatus(status : String,
-        accountID : NSNumber,
-        fanContent : Bool)
+    case postStatus(status: String,
+        accountID: NSNumber,
+        fanContent: Bool)
 
     /**
     Post status to account. Convenience method for posting statuses.
@@ -324,12 +316,12 @@ public enum CocoaBlocAPI: MoyaTarget {
         - latitude: latitude coordinate of posted status.
         - longitude: longitude coordinate of posted status.
     */
-    case postStatusWithLocation(status : String,
-        accountID : NSNumber,
-        fanContent : Bool,
-        latitude : NSNumber,
-        longitude : NSNumber,
-        parameters : [String:AnyObject])
+    case postStatusWithLocation(status: String,
+        accountID: NSNumber,
+        fanContent: Bool,
+        latitude: NSNumber,
+        longitude: NSNumber,
+        parameters: [String:AnyObject])
 
     /**
     Post blog to account. Convenience method for posting statuses.
@@ -339,10 +331,10 @@ public enum CocoaBlocAPI: MoyaTarget {
         - body: body of blog post.
         - accountID: identifier of account to which status is to be posted.
     */
-    case postBlog(title : String,
-        body : String,
-        accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case postBlog(title: String,
+        body: String,
+        accountID: NSNumber,
+        parameters: [String:AnyObject])
 
     /**
     Get a photo from an account.
@@ -351,8 +343,8 @@ public enum CocoaBlocAPI: MoyaTarget {
         - photoID: identifier of photo to be fetched
         - account: associated account of the photo
     */
-    case getPhoto(photoID : NSNumber,
-        account : SBAccount)
+    case getPhoto(photoID: NSNumber,
+        account: SBAccount)
 
     /**
     Upload a photo directly to the specified account.
@@ -361,14 +353,14 @@ public enum CocoaBlocAPI: MoyaTarget {
         - photoID: identifier of photo to be fetched
         - account: associated account of the photo
     */
-    case uploadPhoto(data : NSData,
-        title : String,
-        caption : String,
-        accountID : NSNumber,
-        exclusive : Bool,
-        fanContent : Bool,
+    case uploadPhoto(data: NSData,
+        title: String,
+        caption: String,
+        accountID: NSNumber,
+        exclusive: Bool,
+        fanContent: Bool,
 //        progressSignal : Signal<NSNumber>,
-        parameters : [String:AnyObject])
+        parameters: [String:AnyObject])
 
     /**
     Upload a photo directly to the specified account.
@@ -382,15 +374,15 @@ public enum CocoaBlocAPI: MoyaTarget {
         - exclusive: indicates whether video is exclusive content.
         - fanContent: indicates whether video is fan content.
     */
-    case uploadVideoWithData(data : NSData,
-        fileName : String,
-        title : String,
-        caption : String,
+    case uploadVideoWithData(data: NSData,
+        fileName: String,
+        title: String,
+        caption: String,
         accountID: NSNumber,
-        exclusive : Bool,
-        fanContent : Bool,
+        exclusive: Bool,
+        fanContent: Bool,
 //        progressSignal : Signal<T, NoError>,
-        parameters : [String:AnyObject])
+        parameters: [String:AnyObject])
 
     /**
     Upload a video directly from disk by providing the absolute path to the video file.
@@ -403,14 +395,14 @@ public enum CocoaBlocAPI: MoyaTarget {
         - exclusive: indicates whether video is exclusive content.
         - fanContent: indicates whether video is fan content.
     */
-    case uploadVideoAtPath(filePath : String,
-        title : String,
-        caption : String,
+    case uploadVideoAtPath(filePath: String,
+        title: String,
+        caption: String,
         accountID: NSNumber,
-        exclusive : Bool,
-        fanContent : Bool,
+        exclusive: Bool,
+        fanContent: Bool,
         //        progressSignal : Signal<T, NoError>,
-        parameters : [String:AnyObject])
+        parameters: [String:AnyObject])
 
     /**
     Track video events.
@@ -420,9 +412,9 @@ public enum CocoaBlocAPI: MoyaTarget {
         - videoID: the video identifier of the associated event.
         - accountID: identifier of account associated with video.
     */
-    case trackVideoEvent(event : String,
-        videoID : NSNumber,
-        accountID : NSNumber)
+    case trackVideoEvent(event: String,
+        videoID: NSNumber,
+        accountID: NSNumber)
 
     /**
     Fetch audio track.
@@ -431,8 +423,7 @@ public enum CocoaBlocAPI: MoyaTarget {
         - audioID: audio track identifier.
         - accountID: identifier of account associated with audio track.
     */
-    case getAudioTrackWithID(audioID : NSNumber,
-        accountID : NSNumber)
+    case getAudioTrackWithID(audioID: NSNumber, accountID: NSNumber)
 
     /**
     Fetch audio track.
@@ -443,10 +434,10 @@ public enum CocoaBlocAPI: MoyaTarget {
         - fileName: the path or name of the audio track file.
         - account: identifier of account associated with audio track.
     */
-    case uploadAudioData(data : NSData,
-        title : String,
-        fileName : String,
-        account : SBAccount
+    case uploadAudioData(data: NSData,
+        title: String,
+        fileName: String,
+        account: SBAccount
 //        progressSignal : Signal
     )
 
@@ -458,8 +449,7 @@ public enum CocoaBlocAPI: MoyaTarget {
     - Parameters:
         - content: content object for which to fetch comments.
     */
-    case getCommentsForContent(content : SBContent,
-        parameters : [String:AnyObject])
+    case getCommentsForContent(content: SBContent, parameters: [String:AnyObject])
 
     /**
     Fetch replies (i.e. comments) to a particular comment.
@@ -467,46 +457,42 @@ public enum CocoaBlocAPI: MoyaTarget {
     - Parameters:
         - comment: comment object for which to fetch replies.
     */
-    case getRepliesToComment(comment : SBComment,
-        parameters : [String:AnyObject])
+    case getRepliesToComment(comment: SBComment, parameters: [String:AnyObject])
 
     /**
     Deletes a comment.
     */
-    case deleteComment(comment : SBComment)
+    case deleteComment(comment: SBComment)
 
     /**
     Post a comment to a piece of content.
     */
-    case postCommentOnContent(text : String,
-        content : SBContent,
-        parameters : [String:AnyObject])
+    case postCommentOnContent(text: String,
+        content: SBContent,
+        parameters: [String:AnyObject])
 
     /**
     Post a comment in reply to another comment.
     */
-    case postCommentInReplyToComment(text : String,
-        comment : SBComment,
-        parameters : [String:AnyObject])
+    case postCommentInReplyToComment(text: String,
+        comment: SBComment,
+        parameters: [String:AnyObject])
 
     /**
     Fetch a comment for a piece of content from the comment's identifier.
     */
-    case getComment(commentID : NSNumber,
-        content : SBContent)
+    case getComment(commentID: NSNumber, content: SBContent)
 
     /**
     Flag a comment.
     */
-    case flagComment(comment : SBComment,
-        type : String,
-        reason : String)
+    case flagComment(comment: SBComment, type: String, reason: String)
 
-    case flagCommentWithIdentifier(commentID : NSNumber,
-        contentType : String,
-        accountID : NSNumber,
-        type : String,
-        reason : String)
+    case flagCommentWithIdentifier(commentID: NSNumber,
+        contentType: String,
+        accountID: NSNumber,
+        type: String,
+        reason: String)
 
 
 // MARK: Fanclub endpoints
@@ -520,48 +506,45 @@ public enum CocoaBlocAPI: MoyaTarget {
         - description: the description for the fan club.
         - tierInfo: a dictionary with any of the following tier info keys, or nil.
     */
-    case createFanClub(accountID : NSNumber,
-        title : String,
-        description : String,
-        tierInfo : [String:AnyObject])
+    case createFanClub(accountID: NSNumber,
+        title: String,
+        description: String,
+        tierInfo: [String:AnyObject])
 
     /**
     Get an array of content associated with a Fan Club.
     */
-    case getContentFromFanClub(accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getContentFromFanClub(accountID: NSNumber, parameters: [String:AnyObject])
 
     /**
     Retrieves the content for fan clubs that the user follows.
     */
-    case getContentFromFollowedFanClubs(parameters : [String:AnyObject])
+    case getContentFromFollowedFanClubs(parameters: [String:AnyObject])
 
     /**
     Retrieves the user's fan club following list.
     */
-    case getFollowedFanClubs(parameters : [String:AnyObject])
+    case getFollowedFanClubs(parameters: [String:AnyObject])
 
     /**
     Retrieves the user's recent fan clubs list.
     */
-    case getRecentFanClubs(parameters : [String:AnyObject])
+    case getRecentFanClubs(parameters: [String:AnyObject])
 
     /**
     Retrieves the user's featured fan clubs list.
     */
-    case getFeaturedFanClubs(parameters : [String:AnyObject])
+    case getFeaturedFanClubs(parameters: [String:AnyObject])
 
     /**
     Retrieves the fan club details for the account.
     */
-    case getFanClub(accountID : NSNumber,
-    parameters : [String:AnyObject])
+    case getFanClub(accountID: NSNumber, parameters: [String:AnyObject])
 
     /**
     Retrieves the fan club dashboard details for the account.
     */
-    case getFanClubDashboard(accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getFanClubDashboard(accountID: NSNumber, parameters: [String:AnyObject])
 
 // MARK: Store endpoints
 
@@ -573,49 +556,44 @@ public enum CocoaBlocAPI: MoyaTarget {
         - address: SBAddress for which to fetch tax and shipping info.
         - items: cart represenation for which to fetch tax and shipping info.
     */
-    case getShippingRatesAndTax(accountID : NSNumber,
-        address : SBAddress,
-        items : [String:AnyObject])
+    case getShippingRatesAndTax(accountID: NSNumber,
+        address: SBAddress,
+        items: [String:AnyObject])
 
-    case getStoreItemsForAccount(accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getStoreItemsForAccount(accountID: NSNumber, parameters: [String:AnyObject])
 
-    case getStoreItemWithID(storeItemID : NSNumber,
-        accountID : NSNumber)
+    case getStoreItemWithID(storeItemID: NSNumber, accountID: NSNumber)
 
     /**
     Purchase storeItem(s)
     */
-    case purchaseItems(items : [String:AnyObject],
-        purchaseToken : String,
-        address : SBAddress,
-        shippingDetails : [String:AnyObject],
-        totals : [String:AnyObject],
-        notes : String,
-        email : String,
-        accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case purchaseItems(items: [String:AnyObject],
+        purchaseToken: String,
+        address: SBAddress,
+        shippingDetails: [String:AnyObject],
+        totals: [String:AnyObject],
+        notes: String,
+        email: String,
+        accountID: NSNumber,
+        parameters: [String:AnyObject])
 
-    case addPaymentForSplitPurchase(orderID : NSNumber,
-        amount : NSDecimalNumber,
-        token : String,
-        accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case addPaymentForSplitPurchase(orderID: NSNumber,
+        amount: NSDecimalNumber,
+        token: String,
+        accountID: NSNumber,
+        parameters: [String:AnyObject])
 
-    case requestStripeAuthorization(requestToken : String,
-        accountID : NSNumber)
+    case requestStripeAuthorization(requestToken: String, accountID: NSNumber)
 
-    case getStoreDashboard(accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getStoreDashboard(accountID: NSNumber, parameters: [String:AnyObject])
 
 // MARK: Push endpoints
 
-    case setPushTokenForAuthenticatedUser(token : String)
+    case setPushTokenForAuthenticatedUser(token: String)
 
 // MARK: Notification endpoints
 
-    case getNotifications(accountID : NSNumber,
-        parameters : [String:AnyObject])
+    case getNotifications(accountID: NSNumber, parameters: [String:AnyObject])
 }
 
 extension CocoaBlocAPI {
