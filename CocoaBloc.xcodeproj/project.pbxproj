@@ -52,6 +52,7 @@
 		093A3C991BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */; };
 		09DB1B131BDF1A010060860F /* SBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B121BDF1A010060860F /* SBClient.swift */; };
+		09DB1B151BDF28920060860F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B141BDF28920060860F /* Account.swift */; };
 		09E0B90B1BDF0C19004E7739 /* ProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ProviderTests.swift */; };
 		09E0B9291BDF10D9004E7739 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -126,6 +127,7 @@
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09DB1B121BDF1A010060860F /* SBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBClient.swift; sourceTree = "<group>"; };
+		09DB1B141BDF28920060860F /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		09E0B90A1BDF0C19004E7739 /* ProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderTests.swift; sourceTree = "<group>"; };
 		09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		093A3C411BBC4E7A0038A71F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				09DB1B141BDF28920060860F /* Account.swift */,
 				093A3C421BBC4E7A0038A71F /* SBAccount.h */,
 				093A3C431BBC4E7A0038A71F /* SBAccount.m */,
 				093A3C441BBC4E7A0038A71F /* SBAddress.h */,
@@ -457,6 +460,7 @@
 				093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */,
 				0EC5FD8B1BC579D600A25A33 /* CocoaBlocAPI+Method.swift in Sources */,
 				0EC5FD891BC574E500A25A33 /* CocoaBlocAPI+Path.swift in Sources */,
+				09DB1B151BDF28920060860F /* Account.swift in Sources */,
 				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
 				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
 				093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */,
