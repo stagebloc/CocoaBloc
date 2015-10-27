@@ -47,11 +47,13 @@ public final class CocoaBlocProvider {
                 default: ()
                 }
                 
+                // Ensure that the `expand` csv parameter always contains kind
                 var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
                 if !expansions.containsString("kind") {
                     expansions += ",kind"
                 }
                 
+                // Ensure that all requests have the client_id parameter
                 endpoint = endpoint.endpointByAddingParameters(["client_id": CocoaBlocProvider.ClientID!, "expand": expansions])
                 
                 return endpoint
