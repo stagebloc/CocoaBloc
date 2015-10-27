@@ -1,0 +1,8 @@
+language: objective-c
+osx_image: xcode7.1
+
+install:
+	- carthage checkout --no-use-binaries --use-submodules
+
+script:
+	- carthage build --platform iOS --no-skip-current
