@@ -188,7 +188,7 @@ public enum CocoaBlocAPI: MoyaTarget {
         - photoData: the profile photo of the account.
         - progressSignal: the photo progress upload signal.
     */
-    case UpdateAccountImage(accountID: Int, photoData: NSData, progressSignal: RACSignal)
+    case UpdateAccountImage(accountID: Int, photoData: NSData, progressSignal: Signal<Float, NSError>?)
 
     /**
     Get an activity stream of recent content for an account.
