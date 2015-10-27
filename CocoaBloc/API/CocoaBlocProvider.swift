@@ -92,13 +92,10 @@ public final class CocoaBlocProvider {
     
     private func tryGetJSONObjectForKey<T>(producer: SignalProducer<AnyObject, NSError>, key: String) -> SignalProducer<T, NSError> {
         return producer
-            // try to cast the value to an ObjC-compatible dictionary type
-            .attemptMap { value -> Result<[String:AnyObject], NSError> in
-                return Result(value as? [String:AnyObject], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 5, userInfo: nil))
-            }
-            // try to access `key` in the dictionary and cast it to T
+            // try to access `value` as a dictionary, and then dict[key] as T
             .attemptMap { value -> Result<T, NSError> in
-                return Result(value[key] as? T, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
+                let dictValue = (value as? [String:AnyObject]).flatMap { $0[key] as? T }
+                return Result(dictValue, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
             }
     }
 }
