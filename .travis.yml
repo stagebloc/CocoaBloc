@@ -2,12 +2,13 @@ language: objective-c
 osx_image: xcode7.1
 
 before_install:
-    - git clone https://github.com/Carthage/Carthage.git
-    - cd Carthage
+    - mkdir tmp
+    - git clone https://github.com/Carthage/Carthage.git tmp/Carthage
+    - cd ./tmp/Carthage
     - git checkout swift2
     - make package
-    - cd ..
-    - sudo installer -pkg Carthage/Carthage.pkg -target /
+    - cd ../../
+    - sudo installer -pkg ./tmp/Carthage/Carthage.pkg -target /
 
 install:
     - carthage checkout --no-use-binaries --use-submodules
