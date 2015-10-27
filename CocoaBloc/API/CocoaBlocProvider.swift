@@ -60,7 +60,7 @@ public final class CocoaBlocProvider {
             }
         )
     }
-    
+
     public func requestJSON(target: CocoaBlocAPI) -> SignalProducer<AnyObject, NSError> {
         return provider
             .request(target)
@@ -69,26 +69,24 @@ public final class CocoaBlocProvider {
     }
     
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<ModelType, NSError> {
-        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
-            .attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
-                do {
-                    return Result(try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: value) as? ModelType, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
-                }
-                catch let error as NSError {
-                    return .Failure(error)
-                }
+        return tryGetJSONObjectForKey(requestJSON(target), key: "data").attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
+            do {
+                return Result(try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: value) as? ModelType, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
+            }
+            catch let error as NSError {
+                return .Failure(error)
+            }
         }
     }
     
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<[ModelType], NSError> {
-        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
-            .attemptMap { (value: [AnyObject]) -> Result<[ModelType], NSError> in
-                do {
-                    return Result(try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: value) as? [ModelType], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
-                }
-                catch let error as NSError {
-                    return .Failure(error)
-                }
+        return tryGetJSONObjectForKey(requestJSON(target), key: "data").attemptMap { (value: [AnyObject]) -> Result<[ModelType], NSError> in
+            do {
+                return Result(try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: value) as? [ModelType], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
+            }
+            catch let error as NSError {
+                return .Failure(error)
+            }
         }
     }
     
