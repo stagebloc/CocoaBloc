@@ -10,8 +10,7 @@ import Foundation
 import ReactiveCocoa
 import ReactiveMoya
 
-// Comprehensive list of CocoaBlocAPI endpoints
-
+/// An enumeration representing a StageBloc API target
 public enum CocoaBlocAPI: MoyaTarget {
 
 // MARK: Auth endpoints
