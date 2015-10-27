@@ -8,7 +8,6 @@
 
 #import "SBAddress.h"
 #import "MTLValueTransformer+CocoaBloc.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 
 @implementation SBAddress
 

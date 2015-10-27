@@ -8,7 +8,6 @@
 
 #import "SBVideo.h"
 #import "MTLValueTransformer+CocoaBloc.h"
-#import <Mantle/Mantle.h>
 
 @implementation SBVideo
 

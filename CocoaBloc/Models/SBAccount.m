@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import <Mantle/Mantle.h>
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
-
 #import "SBAccount.h"
 #import "MTLValueTransformer+CocoaBloc.h"
 

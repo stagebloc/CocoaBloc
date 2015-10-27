@@ -9,7 +9,6 @@
 #import "SBContent.h"
 #import "MTLValueTransformer+CocoaBloc.h"
 #import "NSDateFormatter+CocoaBloc.h"
-#import <Mantle/Mantle.h>
 
 #import "SBPhoto.h"
 #import "SBBlog.h"

@@ -7,8 +7,6 @@
 //
 
 #import "SBStoreDashboard.h"
-#import <Mantle/MTLValueTransformer.h>
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "MTLValueTransformer+CocoaBloc.h"
 
 @implementation SBStoreDashboardAverages

@@ -11,7 +11,6 @@
 #import "SBAccount.h"
 #import "SBAddress.h"
 #import "MTLValueTransformer+CocoaBloc.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSDateFormatter+CocoaBloc.h"
 
 @implementation SBOrder

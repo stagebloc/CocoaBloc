@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import <Mantle/MTLModel.h>
-#import <Mantle/MTLJSONAdapter.h>
+@import Mantle;
 
 NS_ASSUME_NONNULL_BEGIN
 

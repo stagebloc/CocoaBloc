@@ -10,8 +10,6 @@
 #import "SBUser.h"
 #import "NSDateFormatter+CocoaBloc.h"
 #import "MTLValueTransformer+CocoaBloc.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
-#import <Mantle/MTLValueTransformer.h>
 
 @implementation SBComment
 

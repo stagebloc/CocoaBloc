@@ -9,7 +9,6 @@
 #import "SBStoreItem.h"
 #import "SBPhoto.h"
 #import "MTLValueTransformer+CocoaBloc.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 #import "NSDateFormatter+CocoaBloc.h"
 #import "SBUser.h"
 #import "SBAccount.h"

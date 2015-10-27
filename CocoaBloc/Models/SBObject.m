@@ -23,7 +23,6 @@
 #import "SBTier.h"
 #import "SBStoreDashboard.h"
 #import "SBFanClubDashboard.h"
-#import <Mantle/MTLModel+NSCoding.h>
 
 @implementation SBObject
 

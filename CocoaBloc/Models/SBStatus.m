@@ -7,7 +7,6 @@
 //
 
 #import "SBStatus.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 
 @implementation SBStatus
 

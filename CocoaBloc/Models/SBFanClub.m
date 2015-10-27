@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import <Mantle/Mantle.h>
-
 #import "SBFanClub.h"
 #import "MTLValueTransformer+CocoaBloc.h"
 #import "SBTier.h"

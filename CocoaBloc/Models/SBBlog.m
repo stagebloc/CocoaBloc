@@ -7,7 +7,6 @@
 //
 
 #import "SBBlog.h"
-#import <Mantle/NSDictionary+MTLManipulationAdditions.h>
 
 @implementation SBBlog
 
