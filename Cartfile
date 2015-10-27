@@ -1,2 +1,3 @@
 github "stagebloc/Moya"	"ImprovedCarthageSupport"
 github "Mantle/Mantle"	~> 2.0
+github "thoughtbot/Argo" ~> 2.0
