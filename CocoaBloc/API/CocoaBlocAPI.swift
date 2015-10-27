@@ -602,7 +602,7 @@ extension CocoaBlocAPI {
     public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
 }
 
-public func url(route: MoyaTarget) -> String {
+private func url(route: MoyaTarget) -> String {
     return route.baseURL.URLByAppendingPathComponent(route.path).absoluteString
 }
 
