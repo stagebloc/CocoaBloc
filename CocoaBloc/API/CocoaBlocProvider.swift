@@ -10,7 +10,9 @@ import Foundation
 import ReactiveCocoa
 import ReactiveMoya
 
-public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
+public final class CocoaBlocProvider {
+    
+    private let provider: ReactiveCocoaMoyaProvider<CocoaBlocAPI>
     
     // Application-wide auth parameters
     public static var ClientID: String?
@@ -20,7 +22,7 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
     public let token = MutableProperty<String?>(nil)
     
     public init() {
-        super.init(
+        provider = ReactiveCocoaMoyaProvider(
             endpointClosure: { target -> Endpoint<CocoaBlocAPI> in
                 precondition(CocoaBlocProvider.ClientID != nil)
                 
@@ -56,11 +58,16 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
         )
     }
     
+    public func requestJSON(target: CocoaBlocAPI) -> SignalProducer<AnyObject, NSError> {
+        return provider
+            .request(target)
+            .filterSuccessfulStatusAndRedirectCodes()
+            .mapJSON()
+    }
+    
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<ModelType, NSError> {
         return
-            request(target)
-                .filterSuccessfulStatusAndRedirectCodes()
-                .mapJSON()
+            requestJSON(target)
                 .flatMap(.Latest) { jsonObject -> SignalProducer<ModelType, NSError> in
                     guard let dict = jsonObject as? [String:AnyObject], let innerDict = dict["data"] as? [String:AnyObject] else {
                         return SignalProducer(error: NSError(domain: "com.stagebloc.cocoabloc", code: 4, userInfo: nil))
@@ -77,9 +84,7 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
     
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<[ModelType], NSError> {
         return
-            request(target)
-                .filterSuccessfulStatusAndRedirectCodes()
-                .mapJSON()
+            requestJSON(target)
                 .flatMap(.Latest) { jsonObject -> SignalProducer<[ModelType], NSError> in
                     guard let dict = jsonObject as? [String:AnyObject], let innerDict = dict["data"] as? [AnyObject] else {
                         return SignalProducer(error: NSError(domain: "com.stagebloc.cocoabloc", code: 4, userInfo: nil))
