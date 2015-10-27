@@ -9,6 +9,7 @@
 import XCTest
 import CocoaBloc
 import ReactiveCocoa
+import ReactiveMoya
 
 class ProviderTests: XCTestCase {
     
@@ -17,8 +18,8 @@ class ProviderTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        CocoaBlocProvider.ClientID = "de4346e640860eb3d6fd97e11e475d0d"
-        CocoaBlocProvider.ClientSecret = "c2288f625407c5aff55e41d1fef1ed73"
+        CocoaBlocProvider.ClientID = ".."
+        CocoaBlocProvider.ClientSecret = ".."
     }
     
     override func tearDown() {
@@ -37,9 +38,14 @@ class ProviderTests: XCTestCase {
                     
                     expectation.fulfill()
                 }
+                accountSignal.observeFailed { error in
+                    if let response = error.userInfo["data"] as? MoyaResponse {
+                        print(NSString(data: response.data, encoding: 4))
+                    }
+                }
             }
         
-        self.waitForExpectationsWithTimeout(15, handler: nil)
+        self.waitForExpectationsWithTimeout(5, handler: nil)
     }
     
 }

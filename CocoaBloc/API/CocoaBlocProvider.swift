@@ -37,12 +37,19 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
                     precondition(CocoaBlocProvider.ClientSecret != nil)
                     
                     endpoint = endpoint.endpointByAddingParameters([
-                        "client_id": CocoaBlocProvider.ClientID!,
                         "client_secret": CocoaBlocProvider.ClientSecret!,
                         "include_admin_accounts": true
                     ])
+                    
                 default: ()
                 }
+                
+                var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
+                if !expansions.containsString("kind") {
+                    expansions += ",kind"
+                }
+                
+                endpoint = endpoint.endpointByAddingParameters(["client_id": CocoaBlocProvider.ClientID!, "expand": expansions])
                 
                 return endpoint
             }
@@ -50,12 +57,18 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
     }
     
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<ModelType, NSError> {
-        return request(target).mapJSON().flatMap(.Latest) { jsonObject -> SignalProducer<ModelType, NSError> in
-            guard let model = jsonObject as? ModelType else {
+        return request(target).filterSuccessfulStatusAndRedirectCodes().mapJSON().flatMap(.Latest) { jsonObject -> SignalProducer<ModelType, NSError> in
+            print(jsonObject)
+            guard let dict = jsonObject as? [String:AnyObject], let innerDict = dict["data"] as? [String:AnyObject] else {
                 return SignalProducer(error: NSError(domain: "com.stagebloc.cocoabloc", code: 4, userInfo: nil))
             }
-            
-            return SignalProducer(value: model)
+            do {
+                let model = try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: innerDict) as! ModelType
+                return SignalProducer(value: model)
+            }
+            catch let error as NSError {
+                return SignalProducer(error: error)
+            }
         }
     }
     
