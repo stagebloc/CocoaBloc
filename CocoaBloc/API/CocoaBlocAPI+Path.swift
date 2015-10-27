@@ -23,12 +23,10 @@ extension CocoaBlocAPI {
             return "/oauth2/token"
 
     // User
-        case
-        .SignupUser:
+        case .SignupUser:
             return "/users"
 
-        case
-        .GetCurrentlyAuthenticatedUser:
+        case .GetCurrentlyAuthenticatedUser:
             return "/users/me"
 
             //        case
@@ -36,29 +34,24 @@ extension CocoaBlocAPI {
             //        .updateAuthenticatedUserPhoto:
             //            return "users/me"
             //
-        case
-        .GetUser(let userID):
+        case .GetUser(let userID):
             return "/users/\(userID)"
 
-        case
-        .SendPasswordReset:
+        case .SendPasswordReset:
             return "/users/password/reset"
             //
             //        case
             //        .updateAuthenticatedUserLocation:
             //            return "users/me/location/update"
             //
-        case
-        .BanUser(let userID, let accountID, _):
+        case .BanUser(let userID, let accountID, _):
             return "/users/\(userID)/ban/\(accountID)"
 
-        case
-        .GetPostedContentFromUser(let userID, let contentListType, _):
+        case .GetPostedContentFromUser(let userID, let contentListType, _):
             return "/users/\(userID)/content/\(contentListType)"
 
     // Account
-        case
-        .GetAccount(let accountID):
+        case .GetAccount(let accountID):
             return "/account/\(accountID)"
 
         case
@@ -66,36 +59,28 @@ extension CocoaBlocAPI {
         .GetAuthenticatedUserAccounts:
             return "accounts"
 
-        case
-        .CreateAccount:
+        case .CreateAccount:
             return "account"
 
-        case
-        .UpdateAccount(let accountID, _, _, _, _, _):
+        case .UpdateAccount(let accountID, _, _, _, _, _):
             return "/account/\(accountID)"
 
-        case
-        .UpdateAccountImage(let accountID, _, _):
+        case .UpdateAccountImage(let accountID, _, _):
             return "/account/\(accountID)"
 
-        case
-        .GetActivityStreamForAccount(let accountID, _):
+        case .GetActivityStreamForAccount(let accountID, _):
             return "/account/\(accountID)/content"
 
-        case
-        .GetFollowingUsersForAccount(let accountID, _):
+        case .GetFollowingUsersForAccount(let accountID, _):
             return "/account/\(accountID)/fans"
 
-        case
-        .GetChildrenAccountsForAccount(let accountID, let type):
+        case .GetChildrenAccountsForAccount(let accountID, let type):
             return "/account/\(accountID)/children/\(type)"
 
-        case
-        .FollowAccount(let accountID):
+        case .FollowAccount(let accountID):
             return "/account/\(accountID)/follow"
 
-        case
-        .UnfollowAccount(let accountID):
+        case .UnfollowAccount(let accountID):
             return "/account/\(accountID)/follow"
 
     // Content
