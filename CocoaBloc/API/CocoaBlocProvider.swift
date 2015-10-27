@@ -22,6 +22,8 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
     public init() {
         super.init(
             endpointClosure: { target -> Endpoint<CocoaBlocAPI> in
+                precondition(CocoaBlocProvider.ClientID != nil)
+                
                 let url = target.baseURL.URLByAppendingPathComponent(target.path).absoluteString
                 var endpoint = Endpoint<CocoaBlocAPI>(
                     URL: url,
@@ -32,6 +34,8 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
 
                 switch target {
                 case .LogInWithUsername, .LoginWithAuthorizationCode:
+                    precondition(CocoaBlocProvider.ClientSecret != nil)
+                    
                     endpoint = endpoint.endpointByAddingParameters([
                         "client_id": CocoaBlocProvider.ClientID!,
                         "client_secret": CocoaBlocProvider.ClientSecret!,
@@ -46,8 +50,18 @@ public final class CocoaBlocProvider: ReactiveCocoaMoyaProvider<CocoaBlocAPI> {
     }
     
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<ModelType, NSError> {
-        return request(target).flatMap(.Latest) { jsonObject -> SignalProducer<ModelType, NSError> in
+        return request(target).mapJSON().flatMap(.Latest) { jsonObject -> SignalProducer<ModelType, NSError> in
             guard let model = jsonObject as? ModelType else {
+                return SignalProducer(error: NSError(domain: "com.stagebloc.cocoabloc", code: 4, userInfo: nil))
+            }
+            
+            return SignalProducer(value: model)
+        }
+    }
+    
+    public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<[ModelType], NSError> {
+        return request(target).mapJSON().flatMap(.Latest) { jsonObject -> SignalProducer<[ModelType], NSError> in
+            guard let model = jsonObject as? [ModelType] else {
                 return SignalProducer(error: NSError(domain: "com.stagebloc.cocoabloc", code: 4, userInfo: nil))
             }
             

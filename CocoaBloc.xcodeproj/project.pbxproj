@@ -51,8 +51,8 @@
 		093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */; };
 		093A3C991BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */; };
-		098F4AD11BBC40FA003A496C /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */; };
-		098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
+		09E0B90B1BDF0C19004E7739 /* ProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ProviderTests.swift */; };
+		09E0B9291BDF10D9004E7739 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
 		09F043EB1BC8239100578D9A /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F0931BC300F400E44AF7 /* Result.framework */; };
@@ -123,8 +123,8 @@
 		093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
 		093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09E0B90A1BDF0C19004E7739 /* ProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderTests.swift; sourceTree = "<group>"; };
 		09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				098F4AD31BBC40FA003A496C /* CocoaBloc.framework in Frameworks */,
+				09E0B9291BDF10D9004E7739 /* CocoaBloc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +238,7 @@
 		098F4ACF1BBC40FA003A496C /* CocoaBlocTests */ = {
 			isa = PBXGroup;
 			children = (
-				098F4AD01BBC40FA003A496C /* CocoaBlocTests.swift */,
+				09E0B90A1BDF0C19004E7739 /* ProviderTests.swift */,
 				098F4AD21BBC40FA003A496C /* Info.plist */,
 			);
 			path = CocoaBlocTests;
@@ -423,8 +423,10 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveMoya.framework",
 			);
 			outputPaths = (
 			);
@@ -439,7 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				098F4AD11BBC40FA003A496C /* CocoaBlocTests.swift in Sources */,
+				09E0B90B1BDF0C19004E7739 /* ProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +494,7 @@
 		098F4AD71BBC40FA003A496C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -501,12 +504,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBlocTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		098F4AD81BBC40FA003A496C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
