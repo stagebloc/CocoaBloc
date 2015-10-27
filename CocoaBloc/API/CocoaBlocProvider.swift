@@ -6,7 +6,6 @@
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-import Foundation
 import ReactiveCocoa
 import ReactiveMoya
 import Result
