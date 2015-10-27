@@ -6,7 +6,7 @@
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-class SBClient: NSObject {
+public class SBClient: NSObject {
     private let provider = CocoaBlocProvider()
     
     @objc(isAuthenticated) public dynamic var authenticated: Bool = false
