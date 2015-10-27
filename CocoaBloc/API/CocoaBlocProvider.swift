@@ -9,6 +9,7 @@
 import Foundation
 import ReactiveCocoa
 import ReactiveMoya
+import Result
 
 public final class CocoaBlocProvider {
     
@@ -66,36 +67,38 @@ public final class CocoaBlocProvider {
     }
     
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<ModelType, NSError> {
-        return
-            requestJSON(target)
-                .flatMap(.Latest) { jsonObject -> SignalProducer<ModelType, NSError> in
-                    guard let dict = jsonObject as? [String:AnyObject], let innerDict = dict["data"] as? [String:AnyObject] else {
-                        return SignalProducer(error: NSError(domain: "com.stagebloc.cocoabloc", code: 4, userInfo: nil))
-                    }
-                    do {
-                        let model = try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: innerDict) as! ModelType
-                        return SignalProducer(value: model)
-                    }
-                    catch let error as NSError {
-                        return SignalProducer(error: error)
-                    }
+        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
+            .attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
+                do {
+                    return Result(try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: value) as? ModelType, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
                 }
+                catch let error as NSError {
+                    return .Failure(error)
+                }
+        }
     }
     
     public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<[ModelType], NSError> {
-        return
-            requestJSON(target)
-                .flatMap(.Latest) { jsonObject -> SignalProducer<[ModelType], NSError> in
-                    guard let dict = jsonObject as? [String:AnyObject], let innerDict = dict["data"] as? [AnyObject] else {
-                        return SignalProducer(error: NSError(domain: "com.stagebloc.cocoabloc", code: 4, userInfo: nil))
-                    }
-                    do {
-                        let models = try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: innerDict) as! [ModelType]
-                        return SignalProducer(value: models)
-                    }
-                    catch let error as NSError {
-                        return SignalProducer(error: error)
-                    }
+        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
+            .attemptMap { (value: [AnyObject]) -> Result<[ModelType], NSError> in
+                do {
+                    return Result(try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: value) as? [ModelType], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
                 }
+                catch let error as NSError {
+                    return .Failure(error)
+                }
+        }
+    }
+    
+    private func tryGetJSONObjectForKey<T>(producer: SignalProducer<AnyObject, NSError>, key: String) -> SignalProducer<T, NSError> {
+        return producer
+            // try to cast the value to an ObjC-compatible dictionary type
+            .attemptMap { value -> Result<[String:AnyObject], NSError> in
+                return Result(value as? [String:AnyObject], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 5, userInfo: nil))
+            }
+            // try to access `key` in the dictionary and cast it to T
+            .attemptMap { value -> Result<T, NSError> in
+                return Result(value[key] as? T, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
+            }
     }
 }
