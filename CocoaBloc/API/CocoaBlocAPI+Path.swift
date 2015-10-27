@@ -68,10 +68,10 @@ extension CocoaBlocAPI {
         case .UpdateAccountImage(let accountID, _, _):
             return "/account/\(accountID)"
 
-        case .GetActivityStreamForAccount(let accountID, _):
+        case .GetActivityStreamForAccount(let accountID):
             return "/account/\(accountID)/content"
 
-        case .GetFollowingUsersForAccount(let accountID, _):
+        case .GetFollowingUsersForAccount(let accountID):
             return "/account/\(accountID)/fans"
 
         case .GetChildrenAccountsForAccount(let accountID, let type):
@@ -93,10 +93,10 @@ extension CocoaBlocAPI {
         case .DeleteContent(let content):
             return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)"
 
-        case .GetUsersWhoLikeContent(let content, _):
+        case .GetUsersWhoLikeContent(let content):
             return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/likers"
 
-        case .GetContentWithIdentifier(let contentID, let contentType, let accountID, _):
+        case .GetContentWithIdentifier(let contentID, let contentType, let accountID):
             return "/account/\(accountID)/\(contentType)/\(contentID)"
 
         case .FlagContent(let content, let contentType, _):
@@ -108,10 +108,10 @@ extension CocoaBlocAPI {
         case .PostStatus(_, let accountID, _):
             return "/account/\(accountID)/status"
 
-        case .PostStatusWithLocation(_, let accountID, _, _, _, _):
+        case .PostStatusWithLocation(_, let accountID, _, _, _):
             return "/account/\(accountID)/status"
 
-        case .PostBlog(_, _, let accountID, _):
+        case .PostBlog(_, _, let accountID):
             return "/account/\(accountID)/blog"
 
         default:

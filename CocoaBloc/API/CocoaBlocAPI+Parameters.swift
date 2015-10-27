@@ -57,8 +57,7 @@ extension CocoaBlocAPI {
 
         case .GetAccountsForUser(let userIdentifier,
             let includingAdminAccounts,
-            let followingAccounts,
-            let parameters):
+            let followingAccounts):
             return ["user_id" : userIdentifier,
                 "admin" : includingAdminAccounts,
                 "following" : followingAccounts]
