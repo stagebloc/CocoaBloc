@@ -85,16 +85,16 @@ extension CocoaBlocAPI {
 
     // Content
         case .LikeContent(let content):
-            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/like"
+            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)/like"
 
         case .UnlikeContent(let content):
-            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/like"
+            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)/like"
 
         case .DeleteContent(let content):
-            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)"
+            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)"
 
         case .GetUsersWhoLikeContent(let content):
-            return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/likers"
+            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)/likers"
 
         case .GetContentWithIdentifier(let contentID, let contentType, let accountID):
             return "/account/\(accountID)/\(contentType)/\(contentID)"
