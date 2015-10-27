@@ -12,7 +12,7 @@ extension CocoaBlocAPI {
 
     // Endpoint parameter declarations
 
-    public var parameters: [String: AnyObject] {
+    public var parameters: [String: AnyObject]? {
         switch self {
 
         case .loginWithAuthorizationCode(let authorizationCode):
