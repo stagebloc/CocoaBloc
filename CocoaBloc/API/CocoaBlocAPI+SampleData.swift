@@ -16,7 +16,7 @@ extension CocoaBlocAPI {
         switch self {
 
         case
-        .loginWithAuthorizationCode:
+        .LoginWithAuthorizationCode:
             return "AAA".dataUsingEncoding(NSUTF8StringEncoding)!
 
         default:

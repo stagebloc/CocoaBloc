@@ -18,17 +18,17 @@ extension CocoaBlocAPI {
 
     // Auth
         case
-        .loginWithAuthorizationCode,
-        .logInWithUsername:
+        .LoginWithAuthorizationCode,
+        .LogInWithUsername:
             return "/oauth2/token"
 
     // User
         case
-        .signupUser:
+        .SignupUser:
             return "/users"
 
         case
-        .getCurrentlyAuthenticatedUser:
+        .GetCurrentlyAuthenticatedUser:
             return "/users/me"
 
             //        case
@@ -37,11 +37,11 @@ extension CocoaBlocAPI {
             //            return "users/me"
             //
         case
-        .getUser(let userID):
+        .GetUser(let userID):
             return "/users/\(userID)"
 
         case
-        .sendPasswordReset:
+        .SendPasswordReset:
             return "/users/password/reset"
             //
             //        case
@@ -49,84 +49,84 @@ extension CocoaBlocAPI {
             //            return "users/me/location/update"
             //
         case
-        .banUser(let userID, let accountID, _):
+        .BanUser(let userID, let accountID, _):
             return "/users/\(userID)/ban/\(accountID)"
 
         case
-        .getPostedContentFromUser(let userID, let contentListType, _):
+        .GetPostedContentFromUser(let userID, let contentListType, _):
             return "/users/\(userID)/content/\(contentListType)"
 
     // Account
         case
-        .getAccount(let accountID):
+        .GetAccount(let accountID):
             return "/account/\(accountID)"
 
         case
-        .getAccountsForUser,
-        .getAuthenticatedUserAccounts:
+        .GetAccountsForUser,
+        .GetAuthenticatedUserAccounts:
             return "accounts"
 
         case
-        .createAccount:
+        .CreateAccount:
             return "account"
 
         case
-        .updateAccount(let accountID, _, _, _, _, _):
+        .UpdateAccount(let accountID, _, _, _, _, _):
             return "/account/\(accountID)"
 
         case
-        .updateAccountImage(let accountID, _, _):
+        .UpdateAccountImage(let accountID, _, _):
             return "/account/\(accountID)"
 
         case
-        .getActivityStreamForAccount(let accountID, _):
+        .GetActivityStreamForAccount(let accountID, _):
             return "/account/\(accountID)/content"
 
         case
-        .getFollowingUsersForAccount(let accountID, _):
+        .GetFollowingUsersForAccount(let accountID, _):
             return "/account/\(accountID)/fans"
 
         case
-        .getChildrenAccountsForAccount(let accountID, let type):
+        .GetChildrenAccountsForAccount(let accountID, let type):
             return "/account/\(accountID)/children/\(type)"
 
         case
-        .followAccount(let accountID):
+        .FollowAccount(let accountID):
             return "/account/\(accountID)/follow"
 
         case
-        .unfollowAccount(let accountID):
+        .UnfollowAccount(let accountID):
             return "/account/\(accountID)/follow"
 
     // Content
-        case .likeContent(let content):
+        case .LikeContent(let content):
             return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/like"
 
-        case .unlikeContent(let content):
+        case .UnlikeContent(let content):
             return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/like"
 
-        case .deleteContent(let content):
+        case .DeleteContent(let content):
             return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)"
 
-        case .getUsersWhoLikeContent(let content, _):
+        case .GetUsersWhoLikeContent(let content, _):
             return "/account/\(content.accountID)/\(content.classForCoder.URLPathContentType())/\(content.identifier)/likers"
 
-        case .getContentWithIdentifier(let contentID, let contentType, let accountID, _):
+        case .GetContentWithIdentifier(let contentID, let contentType, let accountID, _):
             return "/account/\(accountID)/\(contentType)/\(contentID)"
 
-        case .flagContent(let content, let contentType, _):
+        case .FlagContent(let content, let contentType, _):
             return "/account/\(content.account.identifier)/\(contentType)/\(content.identifier)/flag"
 
-        case .flagContentWithIdentifier(let contentIdentifier, let contentType, let accountID, _, _):
+        case .FlagContentWithIdentifier(let contentIdentifier, let contentType, let accountID, _, _):
             return "/account/\(accountID)/\(contentType)/\(contentIdentifier)/flag"
 
-        case .postStatus(_, let accountID, _):
+        case .PostStatus(_, let accountID, _):
             return "/account/\(accountID)/status"
 
-        case .postStatusWithLocation(_, let accountID, _, _, _, _):
+        case .PostStatusWithLocation(_, let accountID, _, _, _, _):
             return "/account/\(accountID)/status"
 
-        case .postBlog(_, _, let accountID, _):
+        case .PostBlog(_, _, let accountID, _):
             return "/account/\(accountID)/blog"
 
         default:

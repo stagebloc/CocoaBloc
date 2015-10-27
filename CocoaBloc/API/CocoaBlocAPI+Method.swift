@@ -16,108 +16,108 @@ extension CocoaBlocAPI  {
 
         case
 
-        .loginWithAuthorizationCode,
-        .logInWithUsername,
+        .LoginWithAuthorizationCode,
+        .LogInWithUsername,
 
         // User
-        .signupUser,
-        .banUser,
-        .sendPasswordReset,
+        .SignupUser,
+        .BanUser,
+        .SendPasswordReset,
 
-        .updateAuthenticatedUserWithParameters,
+        .UpdateAuthenticatedUserWithParameters,
         //        .updateAuthenticatedUserPhoto,
         //        .updateAuthenticatedUserLocation:
 
         // Account
-        .createAccount,
-        .createAccountWithPhoto,
-        .updateAccount,
-        .updateAccountImage,
-        .followAccount,
+        .CreateAccount,
+        .CreateAccountWithPhoto,
+        .UpdateAccount,
+        .UpdateAccountImage,
+        .FollowAccount,
 
         // Content
-        .flagContent,
-        .flagContentWithIdentifier,
-        .postStatus,
-        .postStatusWithLocation,
-        .postBlog,
-        .uploadPhoto,
-        .uploadVideoAtPath,
-        .uploadVideoWithData,
-        .trackVideoEvent,
-        .uploadAudioData,
+        .FlagContent,
+        .FlagContentWithIdentifier,
+        .PostStatus,
+        .PostStatusWithLocation,
+        .PostBlog,
+        .UploadPhoto,
+        .UploadVideoAtPath,
+        .UploadVideoWithData,
+        .TrackVideoEvent,
+        .UploadAudioData,
 
         // Comment
-        .postCommentOnContent,
-        .postCommentInReplyToComment,
-        .flagComment,
-        .flagCommentWithIdentifier,
+        .PostCommentOnContent,
+        .PostCommentInReplyToComment,
+        .FlagComment,
+        .FlagCommentWithIdentifier,
 
         // Fanclub
-        .createFanClub,
+        .CreateFanClub,
 
         // Store
-        .getShippingRatesAndTax,
-        .purchaseItems,
-        .addPaymentForSplitPurchase,
-        .requestStripeAuthorization,
+        .GetShippingRatesAndTax,
+        .PurchaseItems,
+        .AddPaymentForSplitPurchase,
+        .RequestStripeAuthorization,
 
-        .setPushTokenForAuthenticatedUser:
+        .SetPushTokenForAuthenticatedUser:
             return .POST
 
         case
         // User
-        .getCurrentlyAuthenticatedUser,
-        .getUser,
-        .getPostedContentFromUser,
+        .GetCurrentlyAuthenticatedUser,
+        .GetUser,
+        .GetPostedContentFromUser,
 
         // Account
-        .getAccount,
-        .getAccountsForUser,
-        .getAuthenticatedUserAccounts,
-        .getActivityStreamForAccount,
-        .getFollowingUsersForAccount,
-        .getChildrenAccountsForAccount,
+        .GetAccount,
+        .GetAccountsForUser,
+        .GetAuthenticatedUserAccounts,
+        .GetActivityStreamForAccount,
+        .GetFollowingUsersForAccount,
+        .GetChildrenAccountsForAccount,
 
         // Content
-        .getUsersWhoLikeContent,
-        .getContentWithIdentifier,
-        .getPhoto,
-        .getAudioTrackWithID,
+        .GetUsersWhoLikeContent,
+        .GetContentWithIdentifier,
+        .GetPhoto,
+        .GetAudioTrackWithID,
 
         // Comment
-        .getComment,
-        .getCommentsForContent,
-        .getRepliesToComment,
+        .GetComment,
+        .GetCommentsForContent,
+        .GetRepliesToComment,
 
 
         // Fanclub
-        .getContentFromFanClub,
-        .getContentFromFollowedFanClubs,
-        .getFollowedFanClubs,
-        .getRecentFanClubs,
-        .getFeaturedFanClubs,
-        .getFanClub,
-        .getFanClubDashboard,
+        .GetContentFromFanClub,
+        .GetContentFromFollowedFanClubs,
+        .GetFollowedFanClubs,
+        .GetRecentFanClubs,
+        .GetFeaturedFanClubs,
+        .GetFanClub,
+        .GetFanClubDashboard,
 
         // Store
-        .getStoreItemsForAccount,
-        .getStoreItemWithID,
-        .getStoreDashboard,
+        .GetStoreItemsForAccount,
+        .GetStoreItemWithID,
+        .GetStoreDashboard,
 
-        .getNotifications:
+        .GetNotifications:
             return .GET
             
         case
         // Account
-        .unfollowAccount,
+        .UnfollowAccount,
 
         // Content
-        .unlikeContent,
-        .deleteContent,
+        .UnlikeContent,
+        .DeleteContent,
 
         // Comment
-        .deleteComment:
+        .DeleteComment:
             return .DELETE
             
         default:

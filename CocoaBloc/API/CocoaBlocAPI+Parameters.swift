@@ -15,14 +15,14 @@ extension CocoaBlocAPI {
     public var parameters: [String: AnyObject]? {
         switch self {
 
-        case .loginWithAuthorizationCode(let authorizationCode):
+        case .LoginWithAuthorizationCode(let authorizationCode):
             return ["code" : authorizationCode,
                 //                "client_secret" : SBClientSecret,
                 "expand" : "user",
                 "include_admin_accounts" : true,
                 "grant_type" : "authorization_code"]
 
-        case .logInWithUsername(let username,
+        case .LogInWithUsername(let username,
             let password):
             return ["username" : username,
                 "password" : password,
@@ -30,7 +30,7 @@ extension CocoaBlocAPI {
                 "include_admin_accounts" : true,
                 "grant_type" : "password"]
 
-        case .signupUser(let email,
+        case .SignupUser(let email,
             let name,
             let password,
             let birthday,
@@ -49,13 +49,13 @@ extension CocoaBlocAPI {
                 "gender" : gender,
                 "source_account_id" : sourceAccountID]
 
-        case .banUser(_, _, let reason):
+        case .BanUser(_, _, let reason):
             return ["reason" : reason]
 
-        case .sendPasswordReset(let email):
+        case .SendPasswordReset(let email):
             return ["email" : email]
 
-        case .getAccountsForUser(let userIdentifier,
+        case .GetAccountsForUser(let userIdentifier,
             let includingAdminAccounts,
             let followingAccounts,
             let parameters):
@@ -63,7 +63,7 @@ extension CocoaBlocAPI {
                 "admin" : includingAdminAccounts,
                 "following" : followingAccounts]
 
-        case .createAccount(let name,
+        case .CreateAccount(let name,
             let url,
             let type,
             let color):
