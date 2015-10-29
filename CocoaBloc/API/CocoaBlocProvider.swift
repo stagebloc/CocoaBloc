@@ -12,7 +12,7 @@ import Result
 
 public final class CocoaBlocProvider {
     
-    private let provider: ReactiveCocoaMoyaProvider<CocoaBlocAPI>
+    private var provider: ReactiveCocoaMoyaProvider<CocoaBlocAPI>!
     
     // Application-wide auth parameters
     public static var ClientID: String?
@@ -22,42 +22,7 @@ public final class CocoaBlocProvider {
     public let token = MutableProperty<String?>(nil)
     
     public init() {
-        provider = ReactiveCocoaMoyaProvider(
-            endpointClosure: { target -> Endpoint<CocoaBlocAPI> in
-                precondition(CocoaBlocProvider.ClientID != nil)
-                
-                let url = target.baseURL.URLByAppendingPathComponent(target.path).absoluteString
-                var endpoint = Endpoint<CocoaBlocAPI>(
-                    URL: url,
-                    sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
-                    method: target.method,
-                    parameters: target.parameters
-                )
-
-                switch target {
-                case .LogInWithUsername, .LoginWithAuthorizationCode:
-                    precondition(CocoaBlocProvider.ClientSecret != nil)
-                    
-                    endpoint = endpoint.endpointByAddingParameters([
-                        "client_secret": CocoaBlocProvider.ClientSecret!,
-                        "include_admin_accounts": true
-                    ])
-                    
-                default: ()
-                }
-                
-                // Ensure that the `expand` csv parameter always contains kind
-                var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
-                if !expansions.containsString("kind") {
-                    expansions += ",kind"
-                }
-                
-                // Ensure that all requests have the client_id parameter
-                endpoint = endpoint.endpointByAddingParameters(["client_id": CocoaBlocProvider.ClientID!, "expand": expansions])
-                
-                return endpoint
-            }
-        )
+        provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
     }
 
     public func requestJSON(target: CocoaBlocAPI) -> SignalProducer<AnyObject, NSError> {
@@ -88,6 +53,44 @@ public final class CocoaBlocProvider {
             }
         }
     }
+}
+
+extension CocoaBlocProvider {
+    
+    private func targetToEndpoint(target: CocoaBlocAPI) -> ReactiveMoya.Endpoint<CocoaBlocAPI> {
+        precondition(CocoaBlocProvider.ClientID != nil)
+        
+        let url = target.baseURL.URLByAppendingPathComponent(target.path).absoluteString
+        var endpoint = Endpoint<CocoaBlocAPI>(
+            URL: url,
+            sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
+            method: target.method,
+            parameters: target.parameters
+        )
+        
+        switch target {
+        case .LogInWithUsername, .LoginWithAuthorizationCode:
+            precondition(CocoaBlocProvider.ClientSecret != nil)
+            
+            endpoint = endpoint.endpointByAddingParameters([
+                "client_secret": CocoaBlocProvider.ClientSecret!,
+                "include_admin_accounts": true
+                ])
+            
+        default: ()
+        }
+        
+        // Ensure that the `expand` csv parameter always contains kind
+        var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
+        if !expansions.containsString("kind") {
+            expansions += ",kind"
+        }
+        
+        // Ensure that all requests have the client_id parameter
+        endpoint = endpoint.endpointByAddingParameters(["client_id": CocoaBlocProvider.ClientID!, "expand": expansions])
+        
+        return endpoint
+    }
     
     private func tryGetJSONObjectForKey<T>(producer: SignalProducer<AnyObject, NSError>, key: String) -> SignalProducer<T, NSError> {
         return producer
@@ -95,6 +98,6 @@ public final class CocoaBlocProvider {
             .attemptMap { value -> Result<T, NSError> in
                 let dictValue = (value as? [String:AnyObject]).flatMap { $0[key] as? T }
                 return Result(dictValue, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
-            }
+        }
     }
 }
