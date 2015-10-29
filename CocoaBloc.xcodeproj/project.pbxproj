@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09052C2A1BE218E300510F45 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09052C1F1BE2179400510F45 /* Alamofire.framework */; };
+		09052C2B1BE218E300510F45 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09052C221BE2179400510F45 /* Mantle.framework */; };
+		09052C2C1BE218E300510F45 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */; };
+		09052C2D1BE218E300510F45 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09052C261BE2179400510F45 /* ReactiveMoya.framework */; };
+		09052C2E1BE218E300510F45 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F0931BC300F400E44AF7 /* Result.framework */; };
 		093A3C6A1BBC4E7A0038A71F /* SBAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C421BBC4E7A0038A71F /* SBAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 093A3C431BBC4E7A0038A71F /* SBAccount.m */; };
 		093A3C6C1BBC4E7A0038A71F /* SBAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 093A3C441BBC4E7A0038A71F /* SBAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,12 +61,7 @@
 		09E0B90B1BDF0C19004E7739 /* ProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ProviderTests.swift */; };
 		09E0B9291BDF10D9004E7739 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FD91BBC2EBD00167058 /* Mantle.framework */; };
-		09F043EB1BC8239100578D9A /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F0931BC300F400E44AF7 /* Result.framework */; };
-		09F043EC1BC823A400578D9A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F0901BC300C100E44AF7 /* Alamofire.framework */; };
-		0E03F06C1BC2FC4600E44AF7 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */; };
 		0E2A63871BBED3F300D94E84 /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */; };
-		0E2A638F1BC2CCF100D94E84 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */; };
 		0EC5FD851BC4CB3200A25A33 /* CocoaBlocProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD841BC4CB3200A25A33 /* CocoaBlocProvider.swift */; };
 		0EC5FD891BC574E500A25A33 /* CocoaBlocAPI+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD881BC574E500A25A33 /* CocoaBlocAPI+Path.swift */; };
 		0EC5FD8B1BC579D600A25A33 /* CocoaBlocAPI+Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD8A1BC579D600A25A33 /* CocoaBlocAPI+Method.swift */; };
@@ -80,6 +80,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09052C161BE2179400510F45 /* 2036C88A-D99C-3530-A607-AFAA5436F549.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2036C88A-D99C-3530-A607-AFAA5436F549.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C171BE2179400510F45 /* 265C0494-F64A-3233-9E56-0829A4AC723F.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "265C0494-F64A-3233-9E56-0829A4AC723F.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C181BE2179400510F45 /* 2EB6916E-968D-3BD2-8AC5-D3DAF99AA0C9.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2EB6916E-968D-3BD2-8AC5-D3DAF99AA0C9.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C191BE2179400510F45 /* 32F2D979-0672-3953-AC46-FE6E0A3492A5.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "32F2D979-0672-3953-AC46-FE6E0A3492A5.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C1A1BE2179400510F45 /* 49C9FD24-A027-3BE4-A5A4-DFB77A33663F.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "49C9FD24-A027-3BE4-A5A4-DFB77A33663F.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C1B1BE2179400510F45 /* 7AE6FA97-D817-3AAF-AEBA-4EACC0540E81.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "7AE6FA97-D817-3AAF-AEBA-4EACC0540E81.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C1C1BE2179400510F45 /* 82D610CE-4D5B-360E-AD68-AC26CE0872A1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "82D610CE-4D5B-360E-AD68-AC26CE0872A1.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C1D1BE2179400510F45 /* 9EAD7D47-556C-3340-836A-F4C7F489A37B.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "9EAD7D47-556C-3340-836A-F4C7F489A37B.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C1E1BE2179400510F45 /* A941BFE5-DD3C-39DD-9082-3D1C19983F38.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "A941BFE5-DD3C-39DD-9082-3D1C19983F38.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C1F1BE2179400510F45 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
+		09052C201BE2179400510F45 /* Alamofire.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Alamofire.framework.dSYM; sourceTree = "<group>"; };
+		09052C211BE2179400510F45 /* D713318A-26E4-31F3-99C9-641920D0D1DD.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "D713318A-26E4-31F3-99C9-641920D0D1DD.bcsymbolmap"; sourceTree = "<group>"; };
+		09052C221BE2179400510F45 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mantle.framework; sourceTree = "<group>"; };
+		09052C231BE2179400510F45 /* Mantle.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Mantle.framework.dSYM; sourceTree = "<group>"; };
+		09052C241BE2179400510F45 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Moya.framework; sourceTree = "<group>"; };
+		09052C251BE2179400510F45 /* Moya.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Moya.framework.dSYM; sourceTree = "<group>"; };
+		09052C261BE2179400510F45 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveMoya.framework; sourceTree = "<group>"; };
+		09052C271BE2179400510F45 /* ReactiveMoya.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = ReactiveMoya.framework.dSYM; sourceTree = "<group>"; };
+		09052C281BE2179400510F45 /* RxMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxMoya.framework; sourceTree = "<group>"; };
+		09052C291BE2179400510F45 /* RxMoya.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RxMoya.framework.dSYM; sourceTree = "<group>"; };
 		093A3C421BBC4E7A0038A71F /* SBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAccount.h; sourceTree = "<group>"; };
 		093A3C431BBC4E7A0038A71F /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
 		093A3C441BBC4E7A0038A71F /* SBAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAddress.h; sourceTree = "<group>"; };
@@ -158,17 +178,53 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09F043EC1BC823A400578D9A /* Alamofire.framework in Frameworks */,
-				09F043EB1BC8239100578D9A /* Result.framework in Frameworks */,
-				0E03F06C1BC2FC4600E44AF7 /* ReactiveCocoa.framework in Frameworks */,
-				0E2A638F1BC2CCF100D94E84 /* ReactiveMoya.framework in Frameworks */,
-				09EA2FDB1BBC2EBD00167058 /* Mantle.framework in Frameworks */,
+				09052C2A1BE218E300510F45 /* Alamofire.framework in Frameworks */,
+				09052C2B1BE218E300510F45 /* Mantle.framework in Frameworks */,
+				09052C2C1BE218E300510F45 /* ReactiveCocoa.framework in Frameworks */,
+				09052C2D1BE218E300510F45 /* ReactiveMoya.framework in Frameworks */,
+				09052C2E1BE218E300510F45 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09052C141BE2179400510F45 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				09052C151BE2179400510F45 /* iOS */,
+			);
+			name = Build;
+			path = Carthage/Build;
+			sourceTree = "<group>";
+		};
+		09052C151BE2179400510F45 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				09052C161BE2179400510F45 /* 2036C88A-D99C-3530-A607-AFAA5436F549.bcsymbolmap */,
+				09052C171BE2179400510F45 /* 265C0494-F64A-3233-9E56-0829A4AC723F.bcsymbolmap */,
+				09052C181BE2179400510F45 /* 2EB6916E-968D-3BD2-8AC5-D3DAF99AA0C9.bcsymbolmap */,
+				09052C191BE2179400510F45 /* 32F2D979-0672-3953-AC46-FE6E0A3492A5.bcsymbolmap */,
+				09052C1A1BE2179400510F45 /* 49C9FD24-A027-3BE4-A5A4-DFB77A33663F.bcsymbolmap */,
+				09052C1B1BE2179400510F45 /* 7AE6FA97-D817-3AAF-AEBA-4EACC0540E81.bcsymbolmap */,
+				09052C1C1BE2179400510F45 /* 82D610CE-4D5B-360E-AD68-AC26CE0872A1.bcsymbolmap */,
+				09052C1D1BE2179400510F45 /* 9EAD7D47-556C-3340-836A-F4C7F489A37B.bcsymbolmap */,
+				09052C1E1BE2179400510F45 /* A941BFE5-DD3C-39DD-9082-3D1C19983F38.bcsymbolmap */,
+				09052C1F1BE2179400510F45 /* Alamofire.framework */,
+				09052C201BE2179400510F45 /* Alamofire.framework.dSYM */,
+				09052C211BE2179400510F45 /* D713318A-26E4-31F3-99C9-641920D0D1DD.bcsymbolmap */,
+				09052C221BE2179400510F45 /* Mantle.framework */,
+				09052C231BE2179400510F45 /* Mantle.framework.dSYM */,
+				09052C241BE2179400510F45 /* Moya.framework */,
+				09052C251BE2179400510F45 /* Moya.framework.dSYM */,
+				09052C261BE2179400510F45 /* ReactiveMoya.framework */,
+				09052C271BE2179400510F45 /* ReactiveMoya.framework.dSYM */,
+				09052C281BE2179400510F45 /* RxMoya.framework */,
+				09052C291BE2179400510F45 /* RxMoya.framework.dSYM */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 		093A3C411BBC4E7A0038A71F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +308,7 @@
 		09EA2FB41BBC2CB100167058 = {
 			isa = PBXGroup;
 			children = (
+				09052C141BE2179400510F45 /* Build */,
 				09EA2FC01BBC2CB100167058 /* CocoaBloc */,
 				098F4ACF1BBC40FA003A496C /* CocoaBlocTests */,
 				093A3C9B1BBC59CA0038A71F /* Dependencies */,
