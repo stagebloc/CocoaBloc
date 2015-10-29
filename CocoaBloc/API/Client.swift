@@ -32,6 +32,9 @@ public final class Client {
     /// Authentication state derived from token
     public let authenticated: AnyProperty<Bool>
     
+    /// The currently authenticated user
+    public let authenticatedUser = MutableProperty<SBUser?>(nil)
+    
 
     public init() {
         precondition(Client.ClientID != nil && Client.ClientSecret != nil)
@@ -124,7 +127,7 @@ extension Client {
         
         // Create initial endpoint
         var endpoint = Endpoint<API>(
-            URL: url(target),
+            URL: target.baseURL.URLByAppendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
             method: target.method,
             parameters: target.parameters
@@ -177,9 +180,5 @@ extension Client {
             .attemptMap { value -> Result<T, NSError> in
                 return Result(value[key] as? T, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
             }
-    }
-    
-    private func url(route: MoyaTarget) -> String {
-        return route.baseURL.URLByAppendingPathComponent(route.path).absoluteString
     }
 }
