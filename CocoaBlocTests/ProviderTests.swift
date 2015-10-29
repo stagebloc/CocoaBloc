@@ -28,6 +28,10 @@ class ProviderTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    func testNotInitiallyAuthenticated() {
+        XCTAssertFalse(provider.authenticated.value)
+    }
    
     func testGetAccounts() {
         let expectation = self.expectationWithDescription("get accounts works")

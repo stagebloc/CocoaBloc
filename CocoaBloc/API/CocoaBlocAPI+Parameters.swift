@@ -16,21 +16,21 @@ extension CocoaBlocAPI {
         switch self {
 
         case .LoginWithAuthorizationCode(let authorizationCode):
-            return ["code" : authorizationCode,
-                //                "client_secret" : SBClientSecret,
-                "expand" : "user",
-                "include_admin_accounts" : true,
-                "grant_type" : "authorization_code"]
+            return [
+                "code" : authorizationCode,
+                "grant_type" : "authorization_code"
+            ]
 
-        case .LogInWithUsername(let username,
-            let password):
-            return ["username" : username,
-                "password" : password,
-                "expand" : "user",
-                "include_admin_accounts" : true,
-                "grant_type" : "password"]
+        case .LogInWithUsername(let username, let password):
+            return [
+                "username"      : username,
+                "password"      : password,
+                "grant_type"    : "password",
+                "expand"        : "user"
+            ]
 
-        case .SignupUser(let email,
+        case .SignupUser(
+            let email,
             let name,
             let password,
             let birthday,
@@ -42,12 +42,14 @@ extension CocoaBlocAPI {
             df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
             df.dateFormat = "yyyy-MM-dd"
 
-            return ["email" : email,
-                "name" : name,
-                "password" : password,
-                "birthday" : df.stringFromDate(birthday),
-                "gender" : gender,
-                "source_account_id" : sourceAccountID]
+            return [
+                "email"     : email,
+                "name"      : name,
+                "password"  : password,
+                "birthday"  : df.stringFromDate(birthday),
+                "gender"    : gender,
+                "source_account_id" : sourceAccountID
+            ]
 
         case .BanUser(_, _, let reason):
             return ["reason" : reason]
@@ -55,21 +57,20 @@ extension CocoaBlocAPI {
         case .SendPasswordReset(let email):
             return ["email" : email]
 
-        case .GetAccountsForUser(let userIdentifier,
-            let includingAdminAccounts,
-            let followingAccounts):
-            return ["user_id" : userIdentifier,
+        case .GetAccountsForUser(let userIdentifier, let includingAdminAccounts, let followingAccounts):
+            return [
+                "user_id" : userIdentifier,
                 "admin" : includingAdminAccounts,
-                "following" : followingAccounts]
+                "following" : followingAccounts
+            ]
 
-        case .CreateAccount(let name,
-            let url,
-            let type,
-            let color):
-            return ["name" : name,
+        case .CreateAccount(let name, let url, let type, let color):
+            return [
+                "name"          : name,
                 "stagebloc_url" : url,
-                "type" : type,
-                "color" : color]
+                "type"          : type,
+                "color"         : color
+            ]
 
         default:
             /*! Endpoints w/o parameters
