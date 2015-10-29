@@ -1,5 +1,5 @@
 //
-//  SBProvider.swift
+//  Client.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 10/6/15.
@@ -10,9 +10,9 @@ import ReactiveCocoa
 import ReactiveMoya
 import Result
 
-public final class SBProvider {
+public final class Client {
     
-    private var provider: ReactiveCocoaMoyaProvider<CocoaBlocAPI>!
+    private var provider: ReactiveCocoaMoyaProvider<API>!
     
     // Application-wide auth parameters
     public static var ClientID: String?
@@ -25,48 +25,50 @@ public final class SBProvider {
     public let authenticated: AnyProperty<Bool>
     
     public init() {
-        precondition(SBProvider.ClientID != nil && SBProvider.ClientSecret != nil)
+        precondition(Client.ClientID != nil && Client.ClientSecret != nil)
         
         authenticated = AnyProperty(initialValue: false, producer: token.producer.map { token in token != nil })
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
     }
 
-    public func requestJSON(target: CocoaBlocAPI) -> SignalProducer<AnyObject, NSError> {
+    public func requestJSON(target: API) -> SignalProducer<AnyObject, NSError> {
         return provider
             .request(target)
             .filterSuccessfulStatusAndRedirectCodes()
             .mapJSON()
     }
     
-    public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<ModelType, NSError> {
-        return tryGetJSONObjectForKey(requestJSON(target), key: "data").attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
-            do {
-                return Result(try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: value) as? ModelType, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
+    public func requestJSON<ModelType: MTLModel>(target: API) -> SignalProducer<ModelType, NSError> {
+        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
+            .attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
+                do {
+                    return Result(try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: value) as? ModelType, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
+                }
+                catch let error as NSError {
+                    return .Failure(error)
+                }
             }
-            catch let error as NSError {
-                return .Failure(error)
-            }
-        }
     }
     
-    public func requestJSON<ModelType: MTLModel>(target: CocoaBlocAPI) -> SignalProducer<[ModelType], NSError> {
-        return tryGetJSONObjectForKey(requestJSON(target), key: "data").attemptMap { (value: [AnyObject]) -> Result<[ModelType], NSError> in
-            do {
-                return Result(try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: value) as? [ModelType], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
+    public func requestJSON<ModelType: MTLModel>(target: API) -> SignalProducer<[ModelType], NSError> {
+        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
+            .attemptMap { (value: [AnyObject]) -> Result<[ModelType], NSError> in
+                do {
+                    return Result(try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: value) as? [ModelType], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
+                }
+                catch let error as NSError {
+                    return .Failure(error)
+                }
             }
-            catch let error as NSError {
-                return .Failure(error)
-            }
-        }
     }
 }
 
-extension SBProvider {
+extension Client {
     
-    private func targetToEndpoint(target: CocoaBlocAPI) -> ReactiveMoya.Endpoint<CocoaBlocAPI> {
+    private func targetToEndpoint(target: API) -> ReactiveMoya.Endpoint<API> {
         
         // Create initial endpoint
-        var endpoint = Endpoint<CocoaBlocAPI>(
+        var endpoint = Endpoint<API>(
             URL: url(target),
             sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
             method: target.method,
@@ -78,7 +80,7 @@ extension SBProvider {
         // Add per-target endpoint parameters
         switch target {
         case .LogInWithUsername, .LoginWithAuthorizationCode:
-            newParameters["client_secret"] = SBProvider.ClientSecret
+            newParameters["client_secret"] = Client.ClientSecret
             newParameters["include_admin_accounts"] = true
             
         default: ()
@@ -93,13 +95,25 @@ extension SBProvider {
         
         // Ensure that unauthenticated requests have the client_id parameter
         if !self.authenticated.value {
-            newParameters["client_id"] = SBProvider.ClientID
+            newParameters["client_id"] = Client.ClientID
         }
         
         // Append all the new parameters
         endpoint = endpoint.endpointByAddingParameters(newParameters)
         
         return endpoint
+    }
+    
+    private func modelPostProcessing<ModelType: MTLModel>(target: API, producer: SignalProducer<ModelType, NSError>) -> SignalProducer<ModelType, NSError> {
+        return producer.on(
+            completed: {
+                switch target {
+                case .LogInWithUsername:
+                    self.token.value = "potato"
+                default: ()
+                }
+            }
+        )
     }
     
     private func tryGetJSONObjectForKey<T>(producer: SignalProducer<AnyObject, NSError>, key: String) -> SignalProducer<T, NSError> {

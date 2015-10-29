@@ -1,5 +1,5 @@
 //
-//  CocoaBlocAPI+Parameters.swift
+//  API+Parameters.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 10/7/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension CocoaBlocAPI {
+extension API {
 
     // Endpoint parameter declarations
 

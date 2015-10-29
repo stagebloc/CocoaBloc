@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "09EA2FC71BBC2CB100167058"
+               BlueprintIdentifier = "098F4ACD1BBC40FA003A496C"
                BuildableName = "CocoaBlocTests.xctest"
                BlueprintName = "CocoaBlocTests"
                ReferencedContainer = "container:CocoaBloc.xcodeproj">

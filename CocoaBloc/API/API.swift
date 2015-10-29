@@ -1,5 +1,5 @@
 //
-//  CocoaBlocAPI.swift
+//  API.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 10/2/15.
@@ -11,7 +11,7 @@ import ReactiveCocoa
 import ReactiveMoya
 
 /// An enumeration representing a StageBloc API target
-public enum CocoaBlocAPI: MoyaTarget {
+public enum API: MoyaTarget {
 
 // MARK: Auth endpoints
 
@@ -559,7 +559,7 @@ public enum CocoaBlocAPI: MoyaTarget {
     case GetNotifications(accountID: Int)
 }
 
-extension CocoaBlocAPI {
+extension API {
 
     // Base CocoaBlocAPI URL
     public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }

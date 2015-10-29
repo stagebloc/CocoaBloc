@@ -1,5 +1,5 @@
 //
-//  CocoaBlocAPI+Method.swift
+//  API+Method.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 10/7/15.
@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveMoya
 
-extension CocoaBlocAPI  {
+extension API  {
 
     public var method: Moya.Method {
         switch self {

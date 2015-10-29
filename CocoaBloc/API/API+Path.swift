@@ -1,5 +1,5 @@
 //
-//  CocoaBlocAPI+Path.swift
+//  API+Path.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 10/7/15.
@@ -9,7 +9,7 @@
 import Foundation
 import ReactiveMoya
 
-extension CocoaBlocAPI {
+extension API {
 
     // URL path declarations 
 

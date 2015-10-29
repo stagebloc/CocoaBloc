@@ -1,5 +1,5 @@
 //
-//  CocoaBlocAPI+SampleData.swift
+//  API+SampleData.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 10/7/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension CocoaBlocAPI {
+extension API {
 
     // Sample data declarations
 
