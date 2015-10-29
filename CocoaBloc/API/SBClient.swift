@@ -9,12 +9,12 @@
 import ReactiveCocoa
 
 public class SBClient: NSObject {
-    private let provider = CocoaBlocProvider()
+    private let client = Client()
     
     @objc(isAuthenticated) public dynamic var authenticated: Bool = false
     public dynamic var token: String?
     
     public func logInWithUsername(username: String, password: String) -> RACSignal {
-        return toRACSignal(provider.requestJSON(.LogInWithUsername(username: username, password: password)))
+        return toRACSignal(client.requestJSON(.LogInWithUsername(username: username, password: password)))
     }
 }

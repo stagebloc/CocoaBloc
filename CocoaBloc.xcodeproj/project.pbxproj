@@ -61,12 +61,12 @@
 		09E0B90B1BDF0C19004E7739 /* ProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ProviderTests.swift */; };
 		09E0B9291BDF10D9004E7739 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E2A63871BBED3F300D94E84 /* CocoaBlocAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */; };
-		0EC5FD851BC4CB3200A25A33 /* CocoaBlocProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD841BC4CB3200A25A33 /* CocoaBlocProvider.swift */; };
-		0EC5FD891BC574E500A25A33 /* CocoaBlocAPI+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD881BC574E500A25A33 /* CocoaBlocAPI+Path.swift */; };
-		0EC5FD8B1BC579D600A25A33 /* CocoaBlocAPI+Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD8A1BC579D600A25A33 /* CocoaBlocAPI+Method.swift */; };
-		0EC5FD8D1BC59F5A00A25A33 /* CocoaBlocAPI+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD8C1BC59F5A00A25A33 /* CocoaBlocAPI+Parameters.swift */; };
-		0EC5FD8F1BC59FA200A25A33 /* CocoaBlocAPI+SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD8E1BC59FA200A25A33 /* CocoaBlocAPI+SampleData.swift */; };
+		0E2A63871BBED3F300D94E84 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63861BBED3F300D94E84 /* API.swift */; };
+		0EC5FD851BC4CB3200A25A33 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD841BC4CB3200A25A33 /* Client.swift */; };
+		0EC5FD891BC574E500A25A33 /* API+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD881BC574E500A25A33 /* API+Path.swift */; };
+		0EC5FD8B1BC579D600A25A33 /* API+Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD8A1BC579D600A25A33 /* API+Method.swift */; };
+		0EC5FD8D1BC59F5A00A25A33 /* API+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD8C1BC59F5A00A25A33 /* API+Parameters.swift */; };
+		0EC5FD8F1BC59FA200A25A33 /* API+SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,13 +156,13 @@
 		0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		0E03F0901BC300C100E44AF7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0E03F0931BC300F400E44AF7 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
-		0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaBlocAPI.swift; sourceTree = "<group>"; };
+		0E2A63861BBED3F300D94E84 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
-		0EC5FD841BC4CB3200A25A33 /* CocoaBlocProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaBlocProvider.swift; sourceTree = "<group>"; };
-		0EC5FD881BC574E500A25A33 /* CocoaBlocAPI+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+Path.swift"; sourceTree = "<group>"; };
-		0EC5FD8A1BC579D600A25A33 /* CocoaBlocAPI+Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+Method.swift"; sourceTree = "<group>"; };
-		0EC5FD8C1BC59F5A00A25A33 /* CocoaBlocAPI+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+Parameters.swift"; sourceTree = "<group>"; };
-		0EC5FD8E1BC59FA200A25A33 /* CocoaBlocAPI+SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CocoaBlocAPI+SampleData.swift"; sourceTree = "<group>"; };
+		0EC5FD841BC4CB3200A25A33 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		0EC5FD881BC574E500A25A33 /* API+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Path.swift"; sourceTree = "<group>"; };
+		0EC5FD8A1BC579D600A25A33 /* API+Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Method.swift"; sourceTree = "<group>"; };
+		0EC5FD8C1BC59F5A00A25A33 /* API+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Parameters.swift"; sourceTree = "<group>"; };
+		0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+SampleData.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,13 +340,13 @@
 		0E2A63831BBED28A00D94E84 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				0EC5FD841BC4CB3200A25A33 /* CocoaBlocProvider.swift */,
 				09DB1B121BDF1A010060860F /* SBClient.swift */,
-				0E2A63861BBED3F300D94E84 /* CocoaBlocAPI.swift */,
-				0EC5FD881BC574E500A25A33 /* CocoaBlocAPI+Path.swift */,
-				0EC5FD8A1BC579D600A25A33 /* CocoaBlocAPI+Method.swift */,
-				0EC5FD8C1BC59F5A00A25A33 /* CocoaBlocAPI+Parameters.swift */,
-				0EC5FD8E1BC59FA200A25A33 /* CocoaBlocAPI+SampleData.swift */,
+				0EC5FD841BC4CB3200A25A33 /* Client.swift */,
+				0E2A63861BBED3F300D94E84 /* API.swift */,
+				0EC5FD881BC574E500A25A33 /* API+Path.swift */,
+				0EC5FD8A1BC579D600A25A33 /* API+Method.swift */,
+				0EC5FD8C1BC59F5A00A25A33 /* API+Parameters.swift */,
+				0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -515,8 +515,8 @@
 				093A3C851BBC4E7A0038A71F /* SBShipping.m in Sources */,
 				093A3C811BBC4E7A0038A71F /* SBOrder.m in Sources */,
 				093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */,
-				0EC5FD8B1BC579D600A25A33 /* CocoaBlocAPI+Method.swift in Sources */,
-				0EC5FD891BC574E500A25A33 /* CocoaBlocAPI+Path.swift in Sources */,
+				0EC5FD8B1BC579D600A25A33 /* API+Method.swift in Sources */,
+				0EC5FD891BC574E500A25A33 /* API+Path.swift in Sources */,
 				09DB1B151BDF28920060860F /* Account.swift in Sources */,
 				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
 				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
@@ -528,19 +528,19 @@
 				093A3C8D1BBC4E7A0038A71F /* SBTier.m in Sources */,
 				093A3C911BBC4E7A0038A71F /* SBVideo.m in Sources */,
 				093A3C831BBC4E7A0038A71F /* SBPhoto.m in Sources */,
-				0E2A63871BBED3F300D94E84 /* CocoaBlocAPI.swift in Sources */,
+				0E2A63871BBED3F300D94E84 /* API.swift in Sources */,
 				093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */,
 				093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */,
 				093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */,
 				093A3C7F1BBC4E7A0038A71F /* SBObject.m in Sources */,
-				0EC5FD8D1BC59F5A00A25A33 /* CocoaBlocAPI+Parameters.swift in Sources */,
-				0EC5FD851BC4CB3200A25A33 /* CocoaBlocProvider.swift in Sources */,
+				0EC5FD8D1BC59F5A00A25A33 /* API+Parameters.swift in Sources */,
+				0EC5FD851BC4CB3200A25A33 /* Client.swift in Sources */,
 				093A3C771BBC4E7A0038A71F /* SBFanClub.m in Sources */,
 				093A3C871BBC4E7A0038A71F /* SBStatus.m in Sources */,
 				093A3C6F1BBC4E7A0038A71F /* SBAudio.m in Sources */,
 				09DB1B131BDF1A010060860F /* SBClient.swift in Sources */,
 				093A3C891BBC4E7A0038A71F /* SBStoreDashboard.m in Sources */,
-				0EC5FD8F1BC59FA200A25A33 /* CocoaBlocAPI+SampleData.swift in Sources */,
+				0EC5FD8F1BC59FA200A25A33 /* API+SampleData.swift in Sources */,
 				093A3C8F1BBC4E7A0038A71F /* SBUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

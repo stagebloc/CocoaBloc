@@ -1,5 +1,5 @@
 //
-//  CocoaBlocProvider.swift
+//  SBProvider.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 10/6/15.
@@ -10,7 +10,7 @@ import ReactiveCocoa
 import ReactiveMoya
 import Result
 
-public final class CocoaBlocProvider {
+public final class SBProvider {
     
     private var provider: ReactiveCocoaMoyaProvider<CocoaBlocAPI>!
     
@@ -25,7 +25,7 @@ public final class CocoaBlocProvider {
     public let authenticated: AnyProperty<Bool>
     
     public init() {
-        precondition(CocoaBlocProvider.ClientID != nil && CocoaBlocProvider.ClientSecret != nil)
+        precondition(SBProvider.ClientID != nil && SBProvider.ClientSecret != nil)
         
         authenticated = AnyProperty(initialValue: false, producer: token.producer.map { token in token != nil })
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
@@ -61,7 +61,7 @@ public final class CocoaBlocProvider {
     }
 }
 
-extension CocoaBlocProvider {
+extension SBProvider {
     
     private func targetToEndpoint(target: CocoaBlocAPI) -> ReactiveMoya.Endpoint<CocoaBlocAPI> {
         
@@ -78,7 +78,7 @@ extension CocoaBlocProvider {
         // Add per-target endpoint parameters
         switch target {
         case .LogInWithUsername, .LoginWithAuthorizationCode:
-            newParameters["client_secret"] = CocoaBlocProvider.ClientSecret
+            newParameters["client_secret"] = SBProvider.ClientSecret
             newParameters["include_admin_accounts"] = true
             
         default: ()
@@ -93,7 +93,7 @@ extension CocoaBlocProvider {
         
         // Ensure that unauthenticated requests have the client_id parameter
         if !self.authenticated.value {
-            newParameters["client_id"] = CocoaBlocProvider.ClientID
+            newParameters["client_id"] = SBProvider.ClientID
         }
         
         // Append all the new parameters

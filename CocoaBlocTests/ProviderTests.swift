@@ -13,15 +13,13 @@ import ReactiveMoya
 
 class ProviderTests: XCTestCase {
     
-    var provider: CocoaBlocProvider!
+    lazy var provider = CocoaBlocProvider()
     
     override func setUp() {
         super.setUp()
         
         CocoaBlocProvider.ClientID = "794d9d691157d5c0ba86942c264793ea"
         CocoaBlocProvider.ClientSecret = "1c901cde6186bd42eb6be8ff7f692ff1"
-        
-        provider = CocoaBlocProvider()
     }
     
     override func tearDown() {
