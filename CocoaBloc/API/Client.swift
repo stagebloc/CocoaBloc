@@ -11,27 +11,42 @@ import ReactiveMoya
 import Result
 import Foundation
 
+/// Meaningful error codes used by Client
+@objc enum SBErrorCode: Int {
+    case UnexpectedResponseType
+    case IncorrectDeserializedModelType
+}
+
 public final class Client {
     
+    /// StageBloc API provider used for request generation
     private var provider: ReactiveCocoaMoyaProvider<API>!
     
     // Application-wide auth parameters
     public static var ClientID: String?
     public static var ClientSecret: String?
     
-    // Auth token for this client
+    /// Auth token for this client
     public let token = MutableProperty<String?>(nil)
     
-    // Authentication state derived from token
+    /// Authentication state derived from token
     public let authenticated: AnyProperty<Bool>
     
+
     public init() {
         precondition(Client.ClientID != nil && Client.ClientSecret != nil)
         
         authenticated = AnyProperty(initialValue: false, producer: token.producer.map { token in token != nil })
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
     }
+    
+    public func deauthenticate() {
+        self.token.value = nil
+    }
 
+    /**
+     
+    */
     public func requestJSON(target: API) -> SignalProducer<[String:AnyObject], NSError> {
         return provider
             .request(target)
@@ -41,27 +56,33 @@ public final class Client {
                 return Result(value as? [String:AnyObject], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 10, userInfo: nil))
             }
             .on(
-                started: {
+                started: { [weak self] in
                     switch target {
                         
                     // Reset authentication state immediately when request for new auth is submitted
                     case .LogInWithUsername:
-                        self.token.value = nil
+                        self?.deauthenticate()
                         
                     default: ()
                     }
                 },
-                next: { json in
+                next: { [weak self] json in
                     switch target {
                         
                     case .LogInWithUsername:
-                        self.token.value = (json["data"] as? [String:AnyObject]).flatMap { $0["access_token"] as? String }
+                        self?.token.value = (json["data"] as? [String:AnyObject]).flatMap { $0["access_token"] as? String }
                         
                     default: ()
                     }
                 },
-                failed: { error in
-                    
+                failed: { [weak self] error in
+                    switch target {
+                        
+                    case .LogInWithUsername:
+                        self?.deauthenticate()
+                        
+                    default: ()
+                    }
                 },
                 completed: {
                     
