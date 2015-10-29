@@ -78,7 +78,7 @@ extension CocoaBlocProvider {
         // Add per-target endpoint parameters
         switch target {
         case .LogInWithUsername, .LoginWithAuthorizationCode:
-            newParameters["client_secret"] = self.dynamicType.ClientSecret
+            newParameters["client_secret"] = CocoaBlocProvider.ClientSecret
             newParameters["include_admin_accounts"] = true
             
         default: ()
@@ -93,7 +93,7 @@ extension CocoaBlocProvider {
         
         // Ensure that unauthenticated requests have the client_id parameter
         if !self.authenticated.value {
-            newParameters["client_id"] = self.dynamicType.ClientID
+            newParameters["client_id"] = CocoaBlocProvider.ClientID
         }
         
         // Append all the new parameters
