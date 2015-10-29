@@ -13,13 +13,15 @@ import ReactiveMoya
 
 class ProviderTests: XCTestCase {
     
-    let provider = CocoaBlocProvider()
+    var provider: CocoaBlocProvider!
     
     override func setUp() {
         super.setUp()
         
-        CocoaBlocProvider.ClientID = ".."
-        CocoaBlocProvider.ClientSecret = ".."
+        CocoaBlocProvider.ClientID = "794d9d691157d5c0ba86942c264793ea"
+        CocoaBlocProvider.ClientSecret = "1c901cde6186bd42eb6be8ff7f692ff1"
+        
+        provider = CocoaBlocProvider()
     }
     
     override func tearDown() {
@@ -34,18 +36,14 @@ class ProviderTests: XCTestCase {
             .requestJSON(.GetAccount(accountID: 7))
             .startWithSignal { (accountSignal: Signal<SBAccount, NSError>, disposable) in
                 accountSignal.observeNext { account in
-                    print(account)
-                    
+                    XCTAssert(account.isKindOfClass(SBAccount.self))
                     expectation.fulfill()
                 }
                 accountSignal.observeFailed { error in
-                    if let response = error.userInfo["data"] as? MoyaResponse {
-                        print(NSString(data: response.data, encoding: 4))
-                    }
+                    XCTFail()
                 }
-            }
+        }
         
         self.waitForExpectationsWithTimeout(5, handler: nil)
     }
-    
 }
