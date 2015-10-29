@@ -9,6 +9,7 @@
 import ReactiveCocoa
 import ReactiveMoya
 import Result
+import Foundation
 
 public final class Client {
     
@@ -31,11 +32,44 @@ public final class Client {
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
     }
 
-    public func requestJSON(target: API) -> SignalProducer<AnyObject, NSError> {
+    public func requestJSON(target: API) -> SignalProducer<[String:AnyObject], NSError> {
         return provider
             .request(target)
             .filterSuccessfulStatusAndRedirectCodes()
             .mapJSON()
+            .attemptMap { (value: AnyObject) -> Result<[String:AnyObject], NSError> in
+                return Result(value as? [String:AnyObject], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 10, userInfo: nil))
+            }
+            .on(
+                started: {
+                    switch target {
+                        
+                    // Reset authentication state immediately when request for new auth is submitted
+                    case .LogInWithUsername:
+                        self.token.value = nil
+                        
+                    default: ()
+                    }
+                },
+                next: { json in
+                    switch target {
+                        
+                    case .LogInWithUsername:
+                        self.token.value = (json["data"] as? [String:AnyObject]).flatMap { $0["access_token"] as? String }
+                        
+                    default: ()
+                    }
+                },
+                failed: { error in
+                    
+                },
+                completed: {
+                    
+                }
+            )
+            .map { json in
+                return json
+            }
     }
     
     public func requestJSON<ModelType: MTLModel>(target: API) -> SignalProducer<ModelType, NSError> {
@@ -116,13 +150,12 @@ extension Client {
         )
     }
     
-    private func tryGetJSONObjectForKey<T>(producer: SignalProducer<AnyObject, NSError>, key: String) -> SignalProducer<T, NSError> {
+    private func tryGetJSONObjectForKey<T>(producer: SignalProducer<[String:AnyObject], NSError>, key: String) -> SignalProducer<T, NSError> {
         return producer
             // try to access `value` as a dictionary, and then dict[key] as T
             .attemptMap { value -> Result<T, NSError> in
-                let dictValue = (value as? [String:AnyObject]).flatMap { $0[key] as? T }
-                return Result(dictValue, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
-        }
+                return Result(value[key] as? T, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
+            }
     }
     
     private func url(route: MoyaTarget) -> String {

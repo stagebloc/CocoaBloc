@@ -1,5 +1,5 @@
 //
-//  ProviderTests.swift
+//  ClientTests.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 10/26/15.
@@ -27,11 +27,7 @@ class ProviderTests: XCTestCase {
         super.tearDown()
     }
     
-    func testNotInitiallyAuthenticated() {
-        XCTAssertFalse(provider.authenticated.value)
-    }
-   
-    func testGetAccounts() {
+    func testGetAccountByIdentifier() {
         let expectation = self.expectationWithDescription("get accounts works")
         
         provider
