@@ -21,7 +21,13 @@ public final class CocoaBlocProvider {
     // Auth token for this client
     public let token = MutableProperty<String?>(nil)
     
+    // Authentication state derived from token
+    public let authenticated: AnyProperty<Bool>
+    
     public init() {
+        precondition(CocoaBlocProvider.ClientID != nil && CocoaBlocProvider.ClientSecret != nil)
+        
+        authenticated = AnyProperty(initialValue: false, producer: token.producer.map { token in token != nil })
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
     }
 
@@ -58,24 +64,22 @@ public final class CocoaBlocProvider {
 extension CocoaBlocProvider {
     
     private func targetToEndpoint(target: CocoaBlocAPI) -> ReactiveMoya.Endpoint<CocoaBlocAPI> {
-        precondition(CocoaBlocProvider.ClientID != nil)
         
-        let url = target.baseURL.URLByAppendingPathComponent(target.path).absoluteString
+        // Create initial endpoint
         var endpoint = Endpoint<CocoaBlocAPI>(
-            URL: url,
+            URL: url(target),
             sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
             method: target.method,
             parameters: target.parameters
         )
         
+        var newParameters = [String:AnyObject]()
+        
+        // Add per-target endpoint parameters
         switch target {
         case .LogInWithUsername, .LoginWithAuthorizationCode:
-            precondition(CocoaBlocProvider.ClientSecret != nil)
-            
-            endpoint = endpoint.endpointByAddingParameters([
-                "client_secret": CocoaBlocProvider.ClientSecret!,
-                "include_admin_accounts": true
-                ])
+            newParameters["client_secret"] = self.dynamicType.ClientSecret
+            newParameters["include_admin_accounts"] = true
             
         default: ()
         }
@@ -84,10 +88,16 @@ extension CocoaBlocProvider {
         var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
         if !expansions.containsString("kind") {
             expansions += ",kind"
+            newParameters["expand"] = expansions
         }
         
-        // Ensure that all requests have the client_id parameter
-        endpoint = endpoint.endpointByAddingParameters(["client_id": CocoaBlocProvider.ClientID!, "expand": expansions])
+        // Ensure that unauthenticated requests have the client_id parameter
+        if !self.authenticated.value {
+            newParameters["client_id"] = self.dynamicType.ClientID
+        }
+        
+        // Append all the new parameters
+        endpoint = endpoint.endpointByAddingParameters(newParameters)
         
         return endpoint
     }
@@ -99,5 +109,9 @@ extension CocoaBlocProvider {
                 let dictValue = (value as? [String:AnyObject]).flatMap { $0[key] as? T }
                 return Result(dictValue, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
         }
+    }
+    
+    private func url(route: MoyaTarget) -> String {
+        return route.baseURL.URLByAppendingPathComponent(route.path).absoluteString
     }
 }
