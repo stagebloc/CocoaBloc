@@ -1,6 +1,6 @@
 [submodule "Carthage/Checkouts/Moya"]
 	path = Carthage/Checkouts/Moya
-	url = https://github.com/stagebloc/Moya.git
+	url = https://github.com/Moya/Moya.git
 [submodule "Carthage/Checkouts/Alamofire"]
 	path = Carthage/Checkouts/Alamofire
 	url = https://github.com/Alamofire/Alamofire.git
