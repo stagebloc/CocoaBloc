@@ -90,7 +90,7 @@ public final class Client {
             }
     }
     
-    public func requestJSON<ModelType: MTLModel>(target: API) -> SignalProducer<ModelType, NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<ModelType, NSError> {
         return tryGetJSONObjectForKey(requestJSON(target), key: "data")
             .attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
                 do {
@@ -102,7 +102,7 @@ public final class Client {
             }
     }
     
-    public func requestJSON<ModelType: MTLModel>(target: API) -> SignalProducer<[ModelType], NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<[ModelType], NSError> {
         return tryGetJSONObjectForKey(requestJSON(target), key: "data")
             .attemptMap { (value: [AnyObject]) -> Result<[ModelType], NSError> in
                 do {
