@@ -28,9 +28,19 @@ public final class Client {
     private var provider: ReactiveCocoaMoyaProvider<API>!
     
     // Application-wide auth parameters
-    public static var ClientID: String?
-    public static var ClientSecret: String?
-    public static var RedirectURI: String?
+    public struct Application {
+        public var clientID: String
+        public var clientSecret: String
+        public var redirectURI: String?
+        
+        public init(clientID: String, clientSecret: String, redirectURI: String? = nil) {
+            self.clientID = clientID
+            self.clientSecret = clientSecret
+            self.redirectURI = redirectURI
+        }
+    }
+    
+    public static var App: Application?
     
     /// Auth token for this client
     public let token = MutableProperty<String?>(nil)
@@ -42,8 +52,8 @@ public final class Client {
     public let authenticatedUser = MutableProperty<SBUser?>(nil)
     
 
-    public init() throws {
-        precondition(Client.ClientID != nil && Client.ClientSecret != nil)
+    public init() {
+        precondition(Client.App != nil)
         
         authenticated = AnyProperty(initialValue: false, producer: token.producer.map { token in token != nil })
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
@@ -56,7 +66,7 @@ public final class Client {
     /**
      
     */
-    public func requestJSON(target: API) -> SignalProducer<[String:AnyObject], NSError> {
+    public func requestJSON(target: API) -> SignalProducer<AnyObject, NSError> {
         return provider
             .request(target)
             
@@ -68,8 +78,9 @@ public final class Client {
             
             // Attempt mapping JSON object to JSON dictionary. 
             // All StageBloc requests should return responses with dictionary root objects.
-            .attemptMap { (value: AnyObject) -> Result<[String:AnyObject], NSError> in
-                return Result(value as? [String:AnyObject], failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.UnexpectedResponseType.rawValue, userInfo: nil))
+            .attemptMap { (value: AnyObject) -> Result<AnyObject, NSError> in
+                let data = (value as? [String:AnyObject])?["data"]
+                return Result(data, failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.UnexpectedResponseType.rawValue, userInfo: nil))
             }
             
             // Set userInfo keys based on the metadata.error key path
@@ -93,17 +104,125 @@ public final class Client {
     }
     
     public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<ModelType, NSError> {
+        let error = NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)
         return requestJSON(target)
-            .tryOptionalMap(failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)) { (json: [String: AnyObject]) throws -> ModelType? in
+            .tryOptionalMap(failWith: error) { $0 as? [String:AnyObject] }
+            .tryOptionalMap(failWith: error) { json throws -> ModelType? in
                 return try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: json) as? ModelType
             }
     }
     
 
     public func requestJSON<ModelType: SBObject>(target: API, sortOrder: API.SortOrder, direction: API.Direction) -> SignalProducer<[ModelType], NSError> {
+        let error = NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)
+
         return requestJSON(target)
-            .tryOptionalMap(failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)) { (json: [String:AnyObject]) throws -> [ModelType]? in
-                return try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: json as? [AnyObject]) as? [ModelType]
+            .tryOptionalMap(failWith: error) { $0 as? [AnyObject] }
+            .tryOptionalMap(failWith: error) { json throws -> [ModelType]? in
+                return try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: json) as? [ModelType]
             }
+    }
+}
+
+extension Client {
+    
+    private func targetToEndpoint(target: API) -> ReactiveMoya.Endpoint<API> {
+        
+        // Create initial endpoint
+        var endpoint = Endpoint<API>(
+            URL: target.baseURL.URLByAppendingPathComponent(target.path).absoluteString,
+            sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
+            method: target.method,
+            parameters: target.parameters
+        )
+        
+        var newParameters = [String:AnyObject]()
+        
+        // Add per-target endpoint parameters
+        switch target {
+        case .LogInWithUsername, .LoginWithAuthorizationCode:
+            newParameters["client_secret"] = Client.App?.clientSecret
+            newParameters["include_admin_accounts"] = true
+            
+        default: ()
+        }
+        
+        // Ensure that the `expand` csv parameter always contains kind
+        var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
+        if !expansions.containsString("kind") {
+            expansions += ",kind"
+            newParameters["expand"] = expansions
+        }
+        
+        // Ensure that unauthenticated requests have the client_id parameter
+        if !self.authenticated.value {
+            newParameters["client_id"] = Client.App?.clientID
+        }
+        
+        // Append all the new parameters
+        endpoint = endpoint.endpointByAddingParameters(newParameters)
+        
+        return endpoint
+    }
+    
+    private func tryGetJSONObjectForKey<T>(producer: SignalProducer<[String:AnyObject], NSError>, key: String) -> SignalProducer<T, NSError> {
+        return producer
+            // try to access `value` as a dictionary, and then dict[key] as T
+            .attemptMap { value -> Result<T, NSError> in
+                return Result(value[key] as? T, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
+        }
+    }
+    
+    private func JSONSideEffects(target: API)(json: AnyObject) -> SignalProducer<AnyObject, NSError> {
+        return SignalProducer(value: json)
+            .on(
+                started: { [weak self] in
+                    switch target {
+                        
+                        // Reset authentication state immediately when request for new auth is submitted
+                    case .LogInWithUsername:
+                        self?.deauthenticate()
+                        
+                    default: ()
+                    }
+                },
+                next: { [weak self] json in
+                    switch target {
+                        
+                    case .LogInWithUsername:
+                        self?.token.value = (json as? [String:AnyObject]).flatMap { $0["access_token"] as? String }
+                        
+                    default: ()
+                    }
+                },
+                failed: { [weak self] error in
+                    switch target {
+                        
+                    case .LogInWithUsername:
+                        self?.deauthenticate()
+                        
+                    default: ()
+                    }
+                },
+                completed: {
+                    
+                }
+            )
+            .map { json in
+                switch target {
+                    
+                case .LogInWithUsername:
+                    guard
+                        let dataJSON = json as? [String:AnyObject],
+                        let userJSON = dataJSON["user"] as? [String:AnyObject] else {
+                            return json
+                    }
+                    
+                    return userJSON
+                    
+                default:
+                    return json
+                }
+        }
     }
 }

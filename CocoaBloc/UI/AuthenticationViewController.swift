@@ -16,7 +16,7 @@ public class AuthenticationViewController: UIViewController, UIWebViewDelegate {
     override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        precondition(Client.RedirectURI != nil)
+        precondition(Client.App?.redirectURI != nil)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -54,7 +54,7 @@ public class AuthenticationViewController: UIViewController, UIWebViewDelegate {
     }
     
     public func reload() {
-        let urlString = "https://stagebloc.com/connect?client_id=\(Client.ClientID!)&response_type=code&redirect_uri=\(Client.RedirectURI!)"
+        let urlString = "https://stagebloc.com/connect?client_id=\(Client.App?.clientID)&response_type=code&redirect_uri=\(Client.App?.redirectURI)"
         let request = NSURLRequest(URL: NSURL(string: urlString)!)
         webView.loadRequest(request)
     }

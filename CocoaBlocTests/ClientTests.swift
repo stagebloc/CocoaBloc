@@ -17,9 +17,8 @@ class ProviderTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        Client.ClientID = "794d9d691157d5c0ba86942c264793ea"
-        Client.ClientSecret = "1c901cde6186bd42eb6be8ff7f692ff1"
+       
+        Client.App = Client.Application(clientID: "...", clientSecret: "...")
     }
     
     override func tearDown() {
