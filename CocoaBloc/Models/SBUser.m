@@ -29,8 +29,7 @@
              @"color"				: @"color",
              @"username"			: @"username",
              @"creationDate"	 	: @"created",
-             @"photo"				: @"photo",
-			 @"adminAccounts"		: NSNull.null};
+             @"photo"				: @"photo"};
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {

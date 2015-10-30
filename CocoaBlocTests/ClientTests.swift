@@ -27,8 +27,27 @@ class ProviderTests: XCTestCase {
         super.tearDown()
     }
     
+    func testAuthentication() {
+        let expectation = self.expectationWithDescription("Authentication as user")
+        
+        provider
+            .requestJSON(.LogInWithUsername(username: "ios-tests@stagebloc.com", password: "testsaregooby"))
+            .startWithSignal { (accountSignal: Signal<SBUser, NSError>, disposable) in
+                accountSignal.observeNext { user in
+                    XCTAssert(user.isKindOfClass(SBUser.self))
+                    expectation.fulfill()
+                }
+                accountSignal.observeFailed { error in
+                    print(error)
+                    XCTFail()
+                }
+        }
+        
+        self.waitForExpectationsWithTimeout(5, handler: nil)
+    }
+    
     func testGetAccountByIdentifier() {
-        let expectation = self.expectationWithDescription("get accounts works")
+        let expectation = self.expectationWithDescription("Get account by identifier")
         
         provider
             .requestJSON(.GetAccount(accountID: 7))

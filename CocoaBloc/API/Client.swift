@@ -72,6 +72,22 @@ public final class Client {
             
             // Hook to map to any inner JSON and inject side effects for updating this client's state
             .flatMap(.Latest, transform: JSONSideEffects(target))
+            
+            // Set userInfo keys based on the metadata.error key path
+            .mapError { error -> NSError in
+                var userInfo = error.userInfo
+             
+                if
+                let response = error.userInfo["data"] as? MoyaResponse,
+                let responseJSON = try? NSJSONSerialization.JSONObjectWithData(response.data, options: .AllowFragments),
+                let responseDict = responseJSON as? [String:AnyObject],
+                let metadata = responseDict["metadata"] as? [String:AnyObject],
+                let error = metadata["error"] {
+                        userInfo[NSLocalizedFailureReasonErrorKey] = error
+                }
+                
+                return NSError(domain: error.domain, code: error.code, userInfo: userInfo)
+            }
     }
     
     public func requestJSON<ModelType: MTLModel>(target: API) -> SignalProducer<ModelType, NSError> {

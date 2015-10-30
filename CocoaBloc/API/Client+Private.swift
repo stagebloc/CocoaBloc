@@ -56,7 +56,7 @@ extension Client {
             // try to access `value` as a dictionary, and then dict[key] as T
             .attemptMap { value -> Result<T, NSError> in
                 return Result(value[key] as? T, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
-        }
+            }
     }
     
     internal func JSONSideEffects(target: API)(json: [String:AnyObject]) -> SignalProducer<[String:AnyObject], NSError> {
@@ -95,7 +95,20 @@ extension Client {
                 }
             )
             .map { json in
-                return json
-        }
+                switch target {
+                   
+                case .LogInWithUsername:
+                    guard
+                        let dataJSON = json["data"] as? [String:AnyObject],
+                        let userJSON = dataJSON["user"] as? [String:AnyObject] else {
+                            return json
+                    }
+                    
+                    return ["data": userJSON]
+                    
+                default:
+                    return json
+                }
+            }
     }
 }
