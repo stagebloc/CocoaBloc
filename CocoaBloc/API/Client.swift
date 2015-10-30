@@ -25,6 +25,7 @@ public final class Client {
     // Application-wide auth parameters
     public static var ClientID: String?
     public static var ClientSecret: String?
+    public static var RedirectURI: String?
     
     /// Auth token for this client
     public let token = MutableProperty<String?>(nil)
