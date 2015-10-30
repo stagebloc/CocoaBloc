@@ -74,46 +74,6 @@ public final class Client {
             .flatMap(.Latest, transform: JSONSideEffects(target))
     }
     
-    private func JSONSideEffects(target: API)(json: [String:AnyObject]) -> SignalProducer<[String:AnyObject], NSError> {
-        return SignalProducer(value: json)
-            .on(
-                started: { [weak self] in
-                    switch target {
-                        
-                        // Reset authentication state immediately when request for new auth is submitted
-                    case .LogInWithUsername:
-                        self?.deauthenticate()
-                        
-                    default: ()
-                    }
-                },
-                next: { [weak self] json in
-                    switch target {
-                        
-                    case .LogInWithUsername:
-                        self?.token.value = (json["data"] as? [String:AnyObject]).flatMap { $0["access_token"] as? String }
-                        
-                    default: ()
-                    }
-                },
-                failed: { [weak self] error in
-                    switch target {
-                        
-                    case .LogInWithUsername:
-                        self?.deauthenticate()
-                        
-                    default: ()
-                    }
-                },
-                completed: {
-                    
-                }
-            )
-            .map { json in
-                return json
-            }
-    }
-    
     public func requestJSON<ModelType: MTLModel>(target: API) -> SignalProducer<ModelType, NSError> {
         return tryGetJSONObjectForKey(requestJSON(target), key: "data")
             .attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
