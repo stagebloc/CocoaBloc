@@ -11,8 +11,11 @@ import ReactiveMoya
 import Result
 import Foundation
 
+// NSError domain
+public let SBErrorDomain: String = "com.stagebloc.cocoabloc"
+
 /// Meaningful error codes used by Client
-@objc enum SBErrorCode: Int {
+@objc public enum SBErrorCode: Int {
     case UnexpectedResponseType
     case IncorrectDeserializedModelType
 }
@@ -54,16 +57,30 @@ public final class Client {
     public func requestJSON(target: API) -> SignalProducer<[String:AnyObject], NSError> {
         return provider
             .request(target)
+            
+            // flatMap responses with non-successful status codes into error signals
             .filterSuccessfulStatusAndRedirectCodes()
+            
+            // Attempt deserializing into generic JSON object
             .mapJSON()
+            
+            // Attempt mapping JSON object to JSON dictionary. 
+            // All StageBloc requests should return responses with dictionary root objects.
             .attemptMap { (value: AnyObject) -> Result<[String:AnyObject], NSError> in
-                return Result(value as? [String:AnyObject], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 10, userInfo: nil))
+                return Result(value as? [String:AnyObject], failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.UnexpectedResponseType.rawValue, userInfo: nil))
             }
+            
+            // Hook to map to any inner JSON and inject side effects for updating this client's state
+            .flatMap(.Latest, transform: JSONSideEffects(target))
+    }
+    
+    private func JSONSideEffects(target: API)(json: [String:AnyObject]) -> SignalProducer<[String:AnyObject], NSError> {
+        return SignalProducer(value: json)
             .on(
                 started: { [weak self] in
                     switch target {
                         
-                    // Reset authentication state immediately when request for new auth is submitted
+                        // Reset authentication state immediately when request for new auth is submitted
                     case .LogInWithUsername:
                         self?.deauthenticate()
                         
