@@ -68,6 +68,7 @@
 		094F1C031BE30C970028B3F6 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */; };
 		094F1C041BE30C990028B3F6 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF81BE30C490028B3F6 /* Result.framework */; };
 		094F1C071BE3111D0028B3F6 /* Client+Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F1C061BE3111D0028B3F6 /* Client+Private.swift */; };
+		094F1C091BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */; };
 		09DB1B131BDF1A010060860F /* SBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B121BDF1A010060860F /* SBClient.swift */; };
 		09DB1B151BDF28920060860F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B141BDF28920060860F /* Account.swift */; };
 		09E0B90B1BDF0C19004E7739 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ClientTests.swift */; };
@@ -170,6 +171,7 @@
 		094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
 		094F1BF81BE30C490028B3F6 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		094F1C061BE3111D0028B3F6 /* Client+Private.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Private.swift"; sourceTree = "<group>"; };
+		094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignalProducer+CocoaBloc.swift"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09DB1B121BDF1A010060860F /* SBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBClient.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */,
 				093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */,
 				093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */,
+				094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				09DB1B151BDF28920060860F /* Account.swift in Sources */,
 				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
 				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
+				094F1C091BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift in Sources */,
 				093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */,
 				093A3C791BBC4E7A0038A71F /* SBFanClubDashboard.m in Sources */,
 				093A3C711BBC4E7A0038A71F /* SBBlog.m in Sources */,
@@ -880,6 +884,7 @@
 				094F1BD41BE30AEE0028B3F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		098F4AD61BBC40FA003A496C /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */ = {
 			isa = XCConfigurationList;

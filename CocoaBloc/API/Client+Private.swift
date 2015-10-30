@@ -104,7 +104,7 @@ extension Client {
                             return json
                     }
                     
-                    return ["data": userJSON]
+                    return userJSON
                     
                 default:
                     return json

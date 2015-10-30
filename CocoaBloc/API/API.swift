@@ -12,6 +12,13 @@ import ReactiveMoya
 
 /// An enumeration representing a StageBloc API target
 public enum API: MoyaTarget {
+    
+    public enum SortOrder {
+        
+    }
+    public enum Direction {
+        
+    }
 
 // MARK: Auth endpoints
 

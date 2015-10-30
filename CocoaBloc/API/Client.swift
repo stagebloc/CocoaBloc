@@ -18,7 +18,9 @@ public let SBErrorDomain: String = "com.stagebloc.cocoabloc"
 @objc public enum SBErrorCode: Int {
     case UnexpectedResponseType
     case IncorrectDeserializedModelType
+    case InvalidAppCredentials
 }
+
 
 public final class Client {
     
@@ -40,7 +42,7 @@ public final class Client {
     public let authenticatedUser = MutableProperty<SBUser?>(nil)
     
 
-    public init() {
+    public init() throws {
         precondition(Client.ClientID != nil && Client.ClientSecret != nil)
         
         authenticated = AnyProperty(initialValue: false, producer: token.producer.map { token in token != nil })
@@ -70,47 +72,38 @@ public final class Client {
                 return Result(value as? [String:AnyObject], failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.UnexpectedResponseType.rawValue, userInfo: nil))
             }
             
-            // Hook to map to any inner JSON and inject side effects for updating this client's state
-            .flatMap(.Latest, transform: JSONSideEffects(target))
-            
             // Set userInfo keys based on the metadata.error key path
             .mapError { error -> NSError in
                 var userInfo = error.userInfo
-             
-                if
-                let response = error.userInfo["data"] as? MoyaResponse,
-                let responseJSON = try? NSJSONSerialization.JSONObjectWithData(response.data, options: .AllowFragments),
-                let responseDict = responseJSON as? [String:AnyObject],
-                let metadata = responseDict["metadata"] as? [String:AnyObject],
-                let error = metadata["error"] {
-                        userInfo[NSLocalizedFailureReasonErrorKey] = error
-                }
+                
+                guard
+                    let response = error.userInfo["data"] as? MoyaResponse,
+                    let responseJSON = try? NSJSONSerialization.JSONObjectWithData(response.data, options: .AllowFragments),
+                    let responseDict = responseJSON as? [String:AnyObject],
+                    let metadata = responseDict["metadata"] as? [String:AnyObject],
+                    let errorReason = metadata["error"] else { return error }
+                
+                userInfo[NSLocalizedFailureReasonErrorKey] = errorReason
                 
                 return NSError(domain: error.domain, code: error.code, userInfo: userInfo)
             }
+            
+            // Hook to map to any inner JSON and inject side effects for updating this client's state
+            .flatMap(.Latest, transform: JSONSideEffects(target))
     }
     
     public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<ModelType, NSError> {
-        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
-            .attemptMap { (value: [NSObject:AnyObject]) -> Result<ModelType, NSError> in
-                do {
-                    return Result(try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: value) as? ModelType, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
-                }
-                catch let error as NSError {
-                    return .Failure(error)
-                }
+        return requestJSON(target)
+            .tryOptionalMap(failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)) { (json: [String: AnyObject]) throws -> ModelType? in
+                return try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: json) as? ModelType
             }
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<[ModelType], NSError> {
-        return tryGetJSONObjectForKey(requestJSON(target), key: "data")
-            .attemptMap { (value: [AnyObject]) -> Result<[ModelType], NSError> in
-                do {
-                    return Result(try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: value) as? [ModelType], failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 7, userInfo: nil))
-                }
-                catch let error as NSError {
-                    return .Failure(error)
-                }
+
+    public func requestJSON<ModelType: SBObject>(target: API, sortOrder: API.SortOrder, direction: API.Direction) -> SignalProducer<[ModelType], NSError> {
+        return requestJSON(target)
+            .tryOptionalMap(failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)) { (json: [String:AnyObject]) throws -> [ModelType]? in
+                return try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: json as? [AnyObject]) as? [ModelType]
             }
     }
 }
