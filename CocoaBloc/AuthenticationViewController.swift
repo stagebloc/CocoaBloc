@@ -43,6 +43,8 @@ public class AuthenticationViewController: UIViewController, UIWebViewDelegate {
                     constant: 0)
                 )
             }
+        
+        webView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     override public func viewDidLoad() {
@@ -52,7 +54,7 @@ public class AuthenticationViewController: UIViewController, UIWebViewDelegate {
     }
     
     public func reload() {
-        let urlString = "https://stagebloc.com/connect?client_id=\(Client.ClientID)&response_type=code&redirect_uri=\(Client.RedirectURI)"
+        let urlString = "https://stagebloc.com/connect?client_id=\(Client.ClientID!)&response_type=code&redirect_uri=\(Client.RedirectURI!)"
         let request = NSURLRequest(URL: NSURL(string: urlString)!)
         webView.loadRequest(request)
     }
