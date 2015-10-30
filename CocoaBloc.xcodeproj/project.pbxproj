@@ -67,6 +67,7 @@
 		094F1C021BE30C950028B3F6 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */; };
 		094F1C031BE30C970028B3F6 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */; };
 		094F1C041BE30C990028B3F6 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF81BE30C490028B3F6 /* Result.framework */; };
+		094F1C071BE3111D0028B3F6 /* Client+Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F1C061BE3111D0028B3F6 /* Client+Private.swift */; };
 		09DB1B131BDF1A010060860F /* SBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B121BDF1A010060860F /* SBClient.swift */; };
 		09DB1B151BDF28920060860F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B141BDF28920060860F /* Account.swift */; };
 		09E0B90B1BDF0C19004E7739 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ClientTests.swift */; };
@@ -168,6 +169,7 @@
 		094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
 		094F1BF81BE30C490028B3F6 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		094F1C061BE3111D0028B3F6 /* Client+Private.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Private.swift"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09DB1B121BDF1A010060860F /* SBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBClient.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */,
 				0E2A63861BBED3F300D94E84 /* API.swift */,
 				0EC5FD841BC4CB3200A25A33 /* Client.swift */,
+				094F1C061BE3111D0028B3F6 /* Client+Private.swift */,
 				09DB1B121BDF1A010060860F /* SBClient.swift */,
 			);
 			path = API;
@@ -609,6 +612,7 @@
 				0E2A63871BBED3F300D94E84 /* API.swift in Sources */,
 				093A3C961BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m in Sources */,
 				093A3C7B1BBC4E7A0038A71F /* SBNotification.m in Sources */,
+				094F1C071BE3111D0028B3F6 /* Client+Private.swift in Sources */,
 				093A3C7D1BBC4E7A0038A71F /* SBNotificationSettings.m in Sources */,
 				093A3C7F1BBC4E7A0038A71F /* SBObject.m in Sources */,
 				0EC5FD8D1BC59F5A00A25A33 /* API+Parameters.swift in Sources */,

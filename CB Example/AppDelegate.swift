@@ -15,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        Client.RedirectURI = "sb-ios-tests://"
+        Client.ClientID = "f38a73215b9da926c7c7614f6245b87d"
+        Client.ClientSecret = "799390cb946334e71db05eac33bd9f55"
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.rootViewController = AuthenticationViewController()
         

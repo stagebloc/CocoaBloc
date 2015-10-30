@@ -58,4 +58,8 @@ public class AuthenticationViewController: UIViewController, UIWebViewDelegate {
         let request = NSURLRequest(URL: NSURL(string: urlString)!)
         webView.loadRequest(request)
     }
+    
+    public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        return request.URL?.absoluteString.hasPrefix("https://stagebloc.com/connect") ?? false
+    }
 }
