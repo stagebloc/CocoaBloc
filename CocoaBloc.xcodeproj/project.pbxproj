@@ -131,12 +131,12 @@
 		09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09EA2FD91BBC2EBD00167058 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
-		0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
-		0E03F0901BC300C100E44AF7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		0E03F0931BC300F400E44AF7 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		09EA2FD91BBC2EBD00167058 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mantle.framework; sourceTree = "<group>"; };
+		0E03F06B1BC2FC4600E44AF7 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = "<group>"; };
+		0E03F0901BC300C100E44AF7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
+		0E03F0931BC300F400E44AF7 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
 		0E2A63861BBED3F300D94E84 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
+		0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveMoya.framework; sourceTree = "<group>"; };
 		0EC5FD841BC4CB3200A25A33 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		0EC5FD881BC574E500A25A33 /* API+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Path.swift"; sourceTree = "<group>"; };
 		0EC5FD8A1BC579D600A25A33 /* API+Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Method.swift"; sourceTree = "<group>"; };
@@ -216,10 +216,10 @@
 		093A3C921BBC4ECA0038A71F /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */,
-				093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */,
 				093A3C931BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h */,
 				093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */,
+				093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */,
+				093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -233,7 +233,7 @@
 				0E2A638E1BC2CCF100D94E84 /* ReactiveMoya.framework */,
 				0E03F0931BC300F400E44AF7 /* Result.framework */,
 			);
-			name = Dependencies;
+			path = Dependencies;
 			sourceTree = "<group>";
 		};
 		094F1B921BE2FB360028B3F6 /* UI */ = {
@@ -241,7 +241,7 @@
 			children = (
 				094F1B931BE2FB710028B3F6 /* AuthenticationViewController.swift */,
 			);
-			name = UI;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		098F4ACF1BBC40FA003A496C /* CocoaBlocTests */ = {
@@ -275,9 +275,9 @@
 		09EA2FC01BBC2CB100167058 /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
-				093A3C921BBC4ECA0038A71F /* Private */,
-				093A3C411BBC4E7A0038A71F /* Models */,
 				0E2A63831BBED28A00D94E84 /* API */,
+				093A3C411BBC4E7A0038A71F /* Models */,
+				093A3C921BBC4ECA0038A71F /* Private */,
 				094F1B921BE2FB360028B3F6 /* UI */,
 				09EA2FC11BBC2CB100167058 /* CocoaBloc.h */,
 				09EA2FC31BBC2CB100167058 /* Info.plist */,
@@ -288,13 +288,13 @@
 		0E2A63831BBED28A00D94E84 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				09DB1B121BDF1A010060860F /* SBClient.swift */,
-				0EC5FD841BC4CB3200A25A33 /* Client.swift */,
-				0E2A63861BBED3F300D94E84 /* API.swift */,
-				0EC5FD881BC574E500A25A33 /* API+Path.swift */,
 				0EC5FD8A1BC579D600A25A33 /* API+Method.swift */,
 				0EC5FD8C1BC59F5A00A25A33 /* API+Parameters.swift */,
+				0EC5FD881BC574E500A25A33 /* API+Path.swift */,
 				0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */,
+				0E2A63861BBED3F300D94E84 /* API.swift */,
+				0EC5FD841BC4CB3200A25A33 /* Client.swift */,
+				09DB1B121BDF1A010060860F /* SBClient.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
