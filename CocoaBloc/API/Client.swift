@@ -60,7 +60,10 @@ public final class Client {
     public init() {
         precondition(Client.App != nil)
         
-        authenticated = AnyProperty(initialValue: false, producer: token.producer.map { token in token != nil })
+        authenticated = AnyProperty(
+            initialValue: false,
+            producer: token.producer.map { token in token != nil }
+        )
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
     }
     
@@ -69,7 +72,8 @@ public final class Client {
     }
 
     /**
-     
+     Creates a signal producer which when started will send a request for the given target,
+     and whose signals will send the deserialized JSON object returned by the API.
     */
     public func requestJSON(target: API) -> SignalProducer<AnyObject, NSError> {
         return provider
@@ -120,8 +124,7 @@ public final class Client {
             }
     }
     
-
-    public func requestJSON<ModelType: SBObject>(target: API, sortOrder: API.SortOrder, direction: API.Direction) -> SignalProducer<[ModelType], NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<[ModelType], NSError> {
         return requestJSON(target)
             
             // Try mapping the generic AnyObject response into an array of objects
