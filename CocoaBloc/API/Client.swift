@@ -174,14 +174,6 @@ extension Client {
         return endpoint
     }
     
-    private func tryGetJSONObjectForKey<T>(producer: SignalProducer<[String:AnyObject], NSError>, key: String) -> SignalProducer<T, NSError> {
-        return producer
-            // try to access `value` as a dictionary, and then dict[key] as T
-            .attemptMap { value -> Result<T, NSError> in
-                return Result(value[key] as? T, failWith: NSError(domain: "com.stagebloc.cocoabloc", code: 6, userInfo: nil))
-        }
-    }
-    
     private func JSONSideEffects(target: API)(json: AnyObject) -> SignalProducer<AnyObject, NSError> {
         return SignalProducer(value: json)
             .on(
