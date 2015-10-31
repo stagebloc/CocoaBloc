@@ -19,6 +19,10 @@ public let SBErrorDomain: String = "com.stagebloc.cocoabloc"
     case UnexpectedResponseType
     case IncorrectDeserializedModelType
     case InvalidAppCredentials
+    
+    public func toNSError(userInfo: [NSObject:AnyObject]?) -> NSError {
+        return NSError(domain: SBErrorDomain, code: self.rawValue, userInfo: userInfo)
+    }
 }
 
 
