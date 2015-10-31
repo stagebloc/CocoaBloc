@@ -31,7 +31,7 @@ public final class Client {
     /// StageBloc API provider used for request generation
     private var provider: ReactiveCocoaMoyaProvider<API>!
     
-    // Application-wide auth parameters
+    /// An OAuth application registered on StageBloc
     public struct Application {
         public var clientID: String
         public var clientSecret: String
@@ -43,7 +43,8 @@ public final class Client {
             self.redirectURI = redirectURI
         }
     }
-    
+   
+    /// The application-wide OAuth app to use. Must be set before initializing a client
     public static var App: Application?
     
     /// Auth token for this client
@@ -55,7 +56,7 @@ public final class Client {
     /// The currently authenticated user
     public let authenticatedUser = MutableProperty<SBUser?>(nil)
     
-
+    
     public init() {
         precondition(Client.App != nil)
         
@@ -80,8 +81,8 @@ public final class Client {
             // Attempt deserializing into generic JSON object
             .mapJSON()
             
-            // Attempt mapping JSON object to JSON dictionary. 
-            // All StageBloc requests should return responses with dictionary root objects.
+            // Try accessing "data" key
+            // All StageBloc requests should return responses with dictionary root objects
             .attemptMap { (value: AnyObject) -> Result<AnyObject, NSError> in
                 let data = (value as? [String:AnyObject])?["data"]
                 return Result(data, failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.UnexpectedResponseType.rawValue, userInfo: nil))
@@ -112,6 +113,8 @@ public final class Client {
         return requestJSON(target)
             .tryOptionalMap(failWith: error) { $0 as? [String:AnyObject] }
             .tryOptionalMap(failWith: error) { json throws -> ModelType? in
+            // Try mapping the generic AnyObject response into a JSON dictionary type
+            // Try to parse the JSON into a model
                 return try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: json) as? ModelType
             }
     }
@@ -123,6 +126,8 @@ public final class Client {
         return requestJSON(target)
             .tryOptionalMap(failWith: error) { $0 as? [AnyObject] }
             .tryOptionalMap(failWith: error) { json throws -> [ModelType]? in
+            // Try mapping the generic AnyObject response into an array of objects
+            // Try to parse the JSON into a model
                 return try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: json) as? [ModelType]
             }
     }
