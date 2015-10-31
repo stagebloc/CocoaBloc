@@ -109,25 +109,26 @@ public final class Client {
     }
     
     public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<ModelType, NSError> {
-        let error = NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)
         return requestJSON(target)
-            .tryOptionalMap(failWith: error) { $0 as? [String:AnyObject] }
-            .tryOptionalMap(failWith: error) { json throws -> ModelType? in
+            
             // Try mapping the generic AnyObject response into a JSON dictionary type
+            .tryOptionalMap(failWith: SBErrorCode.UnexpectedResponseType.toNSError(nil)) { $0 as? [String:AnyObject] }
+            
             // Try to parse the JSON into a model
+            .tryOptionalMap(failWith: SBErrorCode.IncorrectDeserializedModelType.toNSError(nil)) { json throws -> ModelType? in
                 return try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: json) as? ModelType
             }
     }
     
 
     public func requestJSON<ModelType: SBObject>(target: API, sortOrder: API.SortOrder, direction: API.Direction) -> SignalProducer<[ModelType], NSError> {
-        let error = NSError(domain: SBErrorDomain, code: SBErrorCode.IncorrectDeserializedModelType.rawValue, userInfo: nil)
-
         return requestJSON(target)
-            .tryOptionalMap(failWith: error) { $0 as? [AnyObject] }
-            .tryOptionalMap(failWith: error) { json throws -> [ModelType]? in
+            
             // Try mapping the generic AnyObject response into an array of objects
+            .tryOptionalMap(failWith: SBErrorCode.UnexpectedResponseType.toNSError(nil)) { $0 as? [AnyObject] }
+            
             // Try to parse the JSON into a model
+            .tryOptionalMap(failWith: SBErrorCode.IncorrectDeserializedModelType.toNSError(nil)) { json throws -> [ModelType]? in
                 return try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: json) as? [ModelType]
             }
     }
