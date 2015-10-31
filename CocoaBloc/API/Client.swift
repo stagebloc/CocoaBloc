@@ -182,31 +182,18 @@ extension Client {
         return SignalProducer(value: json)
             .on(
                 started: { [weak self] in
-                    switch target {
-                        
-                        // Reset authentication state immediately when request for new auth is submitted
-                    case .LogInWithUsername:
+                    if case .LogInWithUsername = target {
                         self?.deauthenticate()
-                        
-                    default: ()
                     }
                 },
                 next: { [weak self] json in
-                    switch target {
-                        
-                    case .LogInWithUsername:
+                    if case .LogInWithUsername = target {
                         self?.token.value = (json as? [String:AnyObject]).flatMap { $0["access_token"] as? String }
-                        
-                    default: ()
                     }
                 },
                 failed: { [weak self] error in
-                    switch target {
-                        
-                    case .LogInWithUsername:
+                    if case .LogInWithUsername = target {
                         self?.deauthenticate()
-                        
-                    default: ()
                     }
                 },
                 completed: {
@@ -214,9 +201,7 @@ extension Client {
                 }
             )
             .map { json in
-                switch target {
-                    
-                case .LogInWithUsername:
+                if case .LogInWithUsername = target {
                     guard
                         let dataJSON = json as? [String:AnyObject],
                         let userJSON = dataJSON["user"] as? [String:AnyObject] else {
@@ -224,10 +209,8 @@ extension Client {
                     }
                     
                     return userJSON
-                    
-                default:
-                    return json
                 }
-        }
+                return json
+            }
     }
 }
