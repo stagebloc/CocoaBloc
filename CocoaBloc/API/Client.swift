@@ -89,7 +89,7 @@ public final class Client {
             // All StageBloc requests should return responses with dictionary root objects
             .attemptMap { (value: AnyObject) -> Result<AnyObject, NSError> in
                 let data = (value as? [String:AnyObject])?["data"]
-                return Result(data, failWith: NSError(domain: SBErrorDomain, code: SBErrorCode.UnexpectedResponseType.rawValue, userInfo: nil))
+                return Result(data, failWith: SBErrorCode.UnexpectedResponseType.toNSError(nil))
             }
             
             // Set userInfo keys based on the metadata.error key path
