@@ -1,6 +1,6 @@
-github "Alamofire/Alamofire" "3.1.0"
+github "Alamofire/Alamofire" "3.1.1"
 github "Mantle/Mantle" "2.0.5"
 github "antitypical/Result" "0.6.0-beta.5"
 github "ReactiveX/RxSwift" "2.0.0-beta.1"
 github "ReactiveCocoa/ReactiveCocoa" "v4.0.0-alpha.3"
-github "Moya/Moya" "52085da59d8e4a298db9ece8a42ac84c16297aea"
+github "Moya/Moya" "1dea723e1da61ee6e7e8529d752dad5fd2429bd6"
