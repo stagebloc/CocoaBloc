@@ -79,6 +79,7 @@ public final class Client {
         case Photo      = "photo"
         case Photos     = "photos"
         case Account    = "account"
+        case User       = "user"
         case Tags       = "tags"
         case Audio      = "audio"
         case CreatedBy  = "created_by"
