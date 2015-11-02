@@ -8,8 +8,6 @@
 
 extension API: CustomStringConvertible {
     public var description: String {
-        switch self {
-            
-        }
+        return "[StageBloc v1] \(path): \(parameters)"
     }
 }

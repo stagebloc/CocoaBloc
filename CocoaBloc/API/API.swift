@@ -590,6 +590,9 @@ extension API {
 
     // Base CocoaBlocAPI URL
     public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
+    
+    // Full resolved URL
+    public var URL: NSURL { return self.baseURL.URLByAppendingPathComponent(path) }
 }
 
 

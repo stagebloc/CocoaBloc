@@ -157,7 +157,7 @@ extension Client {
         
         // Create initial endpoint
         var endpoint = Endpoint<API>(
-            URL: target.baseURL.URLByAppendingPathComponent(target.path).absoluteString,
+            URL: target.URL.absoluteString,
             sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
             method: target.method,
             parameters: target.parameters
