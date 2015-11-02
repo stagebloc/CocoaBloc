@@ -15,14 +15,12 @@ extension API {
     public var parameters: [String: AnyObject]? {
         switch self {
             
+        case let .Expanded(target, expansions):
+            precondition(expansions.count != 0, "Tried to expand a target with no expansion types")
+            return (target.parameters ?? [:]).map { $0 + ["expand": expansions.map { $0.rawValue }.joinWithSeparator(",")] }
+            
         case let .Parameterized(target, parameters):
-            return target.parameters.map { originalParameters in
-                var newParameters = originalParameters
-                for (key, value) in parameters {
-                    newParameters[key] = value
-                }
-                return newParameters
-            }
+            return (target.parameters ?? [:]).map { $0 + parameters }
 
         case .LoginWithAuthorizationCode(let authorizationCode):
             return [

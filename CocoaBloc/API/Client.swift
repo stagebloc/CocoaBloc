@@ -72,26 +72,11 @@ public final class Client {
         self.authenticatedUser.value = nil
     }
 
-
-    /// These are types of values that the API will expand from identifiers to JSON objects.
-    /// NOTE: The raw values of these cases correspond to raw JSON keys
-    public enum ExpandableValue: String {
-        case Photo      = "photo"
-        case Photos     = "photos"
-        case Account    = "account"
-        case User       = "user"
-        case Tags       = "tags"
-        case Audio      = "audio"
-        case CreatedBy  = "created_by"
-        case ModifiedBy = "modified_by"
-        case Content    = "content"
-    }
-    
     /**
      Creates a signal producer which when started will send a request for the given target,
      and whose signals will send the deserialized JSON object returned by the API.
      */
-    public func requestJSON(var target: API, expand expansions: [ExpandableValue]? = nil) -> SignalProducer<AnyObject, NSError> {
+    public func requestJSON(var target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<AnyObject, NSError> {
         
         // Apply the `expand` parameter for requested types
         if let expansions = expansions {
@@ -137,7 +122,7 @@ public final class Client {
             .flatMap(.Latest, transform: JSONSideEffects(target))
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [ExpandableValue]? = nil) -> SignalProducer<ModelType, NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<ModelType, NSError> {
         precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
         
         return requestJSON(target, expand: expansions)
@@ -151,7 +136,7 @@ public final class Client {
             }
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [ExpandableValue]? = nil) -> SignalProducer<[ModelType], NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<[ModelType], NSError> {
         precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
         
         return requestJSON(target, expand: expansions)

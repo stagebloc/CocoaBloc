@@ -20,7 +20,24 @@ public enum API: MoyaTarget {
         
     }
     
-    /// A special wrapper target to apply additional parameters to its request
+    /// These are types of values that the API will expand from identifiers to JSON objects.
+    /// NOTE: The raw values of these cases correspond to raw JSON keys
+    public enum ExpandableValue: String {
+        case Photo      = "photo"
+        case Photos     = "photos"
+        case Account    = "account"
+        case User       = "user"
+        case Tags       = "tags"
+        case Audio      = "audio"
+        case CreatedBy  = "created_by"
+        case ModifiedBy = "modified_by"
+        case Content    = "content"
+    }
+    
+    /// A special wrapper target to include expansion value types
+    indirect case Expanded(target: API, expansions: [ExpandableValue])
+    
+    /// A special wrapper target to apply additional arbitrary parameters to its request
     indirect case Parameterized(target: API, parameters: [String:AnyObject])
 
 // MARK: Auth endpoints
