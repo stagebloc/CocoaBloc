@@ -137,10 +137,10 @@ public final class Client {
             .flatMap(.Latest, transform: JSONSideEffects(target))
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<ModelType, NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [ExpandableValue]? = nil) -> SignalProducer<ModelType, NSError> {
         precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
         
-        return requestJSON(target)
+        return requestJSON(target, expand: expansions)
             
             // Try mapping the generic AnyObject response into a JSON dictionary type
             .tryOptionalMap(failWith: SBErrorCode.UnexpectedResponseType.toNSError(nil)) { $0 as? [String:AnyObject] }
@@ -151,10 +151,10 @@ public final class Client {
             }
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API, sort: API.SortOrder) -> SignalProducer<[ModelType], NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [ExpandableValue]? = nil) -> SignalProducer<[ModelType], NSError> {
         precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
         
-        return requestJSON(target)
+        return requestJSON(target, expand: expansions)
             
             // Try mapping the generic AnyObject response into an array of objects
             .tryOptionalMap(failWith: SBErrorCode.UnexpectedResponseType.toNSError(nil)) { $0 as? [AnyObject] }
