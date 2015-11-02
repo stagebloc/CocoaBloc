@@ -15,6 +15,9 @@ extension API {
 
     public var path: String {
         switch self {
+            
+        case .Parameterized(let target, _):
+            return target.path
 
     // Auth
         case

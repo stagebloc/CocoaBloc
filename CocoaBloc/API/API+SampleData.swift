@@ -14,7 +14,7 @@ extension API {
 
     public var sampleData: NSData {
         switch self {
-
+            
         case
         .LoginWithAuthorizationCode:
             return "AAA".dataUsingEncoding(NSUTF8StringEncoding)!

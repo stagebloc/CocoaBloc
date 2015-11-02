@@ -19,6 +19,9 @@ public enum API: MoyaTarget {
     public enum Direction {
         
     }
+    
+    /// A special wrapper target to apply additional parameters to its request
+    indirect case Parameterized(target: API, parameters: [String:AnyObject])
 
 // MARK: Auth endpoints
 
@@ -439,7 +442,7 @@ public enum API: MoyaTarget {
         - comment: comment object for which to fetch replies.
     */
     case GetRepliesToComment(comment: SBComment)
-
+    
     /**
     Deletes a comment.
     */

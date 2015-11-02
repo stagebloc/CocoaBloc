@@ -13,6 +13,9 @@ extension API  {
 
     public var method: Moya.Method {
         switch self {
+            
+        case .Parameterized(let target, _):
+            return target.method
 
         case
 
