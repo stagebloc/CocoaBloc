@@ -14,6 +14,15 @@ extension API {
 
     public var parameters: [String: AnyObject]? {
         switch self {
+            
+        case let .Parameterized(target, parameters):
+            return target.parameters.map { originalParameters in
+                var newParameters = originalParameters
+                for (key, value) in parameters {
+                    newParameters[key] = value
+                }
+                return newParameters
+            }
 
         case .LoginWithAuthorizationCode(let authorizationCode):
             return [

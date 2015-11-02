@@ -75,7 +75,15 @@ public final class Client {
      Creates a signal producer which when started will send a request for the given target,
      and whose signals will send the deserialized JSON object returned by the API.
     */
-    public func requestJSON(target: API) -> SignalProducer<AnyObject, NSError> {
+    public func requestJSON(var target: API, expand: [Expandable]? = nil) -> SignalProducer<AnyObject, NSError> {
+        let expansion = expand.map {
+            $0.map { expandable in expandable.expansionKey }.joinWithSeparator(",")
+        } ?? "kind"
+        target = API.Parameterized(
+            target: target,
+            parameters: ["expand": expansion]
+        )
+        
         return provider
             .request(target)
             
@@ -113,6 +121,8 @@ public final class Client {
     }
     
     public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<ModelType, NSError> {
+        precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
+        
         return requestJSON(target)
             
             // Try mapping the generic AnyObject response into a JSON dictionary type
@@ -124,7 +134,9 @@ public final class Client {
             }
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<[ModelType], NSError> {
+    public func requestJSON<ModelType: SBObject>(target: API, sort: API.SortOrder) -> SignalProducer<[ModelType], NSError> {
+        precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
+        
         return requestJSON(target)
             
             // Try mapping the generic AnyObject response into an array of objects
@@ -159,14 +171,7 @@ extension Client {
             
         default: ()
         }
-        
-        // Ensure that the `expand` csv parameter always contains kind
-        var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
-        if !expansions.containsString("kind") {
-            expansions += ",kind"
-            newParameters["expand"] = expansions
-        }
-        
+    
         // Ensure that unauthenticated requests have the client_id parameter
         if !self.authenticated.value {
             newParameters["client_id"] = Client.App?.clientID
