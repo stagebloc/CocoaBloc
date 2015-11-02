@@ -1,20 +1,24 @@
 //
-//  API+JSON.swift
+//  API+ModelSerializable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 11/2/15.
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-public protocol JSONDecodable {
-    var modelType: MTLModel.Type { get }
+public protocol ModelSerializable {
+    var modelType: SBObject.Type { get }
 }
 
-extension API: JSONDecodable {
-    public var modelType: MTLModel.Type {
+extension API: ModelSerializable {
+    public var modelType: SBObject.Type {
         switch self {
         case .GetAccount:
             return SBAccount.self
+        case
+        .LogInWithUsername,
+        .GetUser:
+            return SBUser.self
             
         default:
             return SBObject.self

@@ -69,22 +69,22 @@ public final class Client {
     
     public func deauthenticate() {
         self.token.value = nil
+        self.authenticatedUser.value = nil
     }
 
     /**
      Creates a signal producer which when started will send a request for the given target,
      and whose signals will send the deserialized JSON object returned by the API.
-    */
-    public func requestJSON(var target: API, expand: [Expandable]? = nil) -> SignalProducer<AnyObject, NSError> {
-        let expansion = expand.map {
-            $0.map { expandable in expandable.expansionKey }.joinWithSeparator(",")
-        } ?? "kind"
-        target = API.Parameterized(
-            target: target,
-            parameters: ["expand": expansion]
-        )
+     */
+    public func requestJSON(var target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<AnyObject, NSError> {
         
-        return provider
+        // Apply the `expand` parameter for requested types
+        if let expansions = expansions {
+            target = .Expanded(target: target, expansions: expansions)
+        }
+        
+        // Map to any inner JSON of the result object signal and perform any side effects needed to update client state
+        return JSONSideEffects(target)(jsonSignal: provider
             .request(target)
             
             // flatMap responses with non-successful status codes into error signals
@@ -101,7 +101,7 @@ public final class Client {
             }
             
             // Set userInfo keys based on the metadata.error key path
-            .mapError { error -> NSError in
+            .mapError { (error: NSError) -> NSError in
                 var userInfo = error.userInfo
                 
                 guard
@@ -114,16 +114,13 @@ public final class Client {
                 userInfo[NSLocalizedFailureReasonErrorKey] = errorReason
                 
                 return NSError(domain: error.domain, code: error.code, userInfo: userInfo)
-            }
-            
-            // Hook to map to any inner JSON and inject side effects for updating this client's state
-            .flatMap(.Latest, transform: JSONSideEffects(target))
+            })
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API) -> SignalProducer<ModelType, NSError> {
-        precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
+    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<ModelType, NSError> {
+        precondition(target.modelType == ModelType.self, "Wrong model \(ModelType.self) type for target. \(target) serializes to \(target.modelType)")
         
-        return requestJSON(target)
+        return requestJSON(target, expand: expansions)
             
             // Try mapping the generic AnyObject response into a JSON dictionary type
             .tryOptionalMap(failWith: SBErrorCode.UnexpectedResponseType.toNSError(nil)) { $0 as? [String:AnyObject] }
@@ -134,10 +131,10 @@ public final class Client {
             }
     }
     
-    public func requestJSON<ModelType: SBObject>(target: API, sort: API.SortOrder) -> SignalProducer<[ModelType], NSError> {
-        precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
+    public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<[ModelType], NSError> {
+        precondition(target.modelType == ModelType.self, "Wrong model \(ModelType.self) type for target. \(target) serializes to \(target.modelType)")
         
-        return requestJSON(target)
+        return requestJSON(target, expand: expansions)
             
             // Try mapping the generic AnyObject response into an array of objects
             .tryOptionalMap(failWith: SBErrorCode.UnexpectedResponseType.toNSError(nil)) { $0 as? [AnyObject] }
@@ -155,7 +152,7 @@ extension Client {
         
         // Create initial endpoint
         var endpoint = Endpoint<API>(
-            URL: target.baseURL.URLByAppendingPathComponent(target.path).absoluteString,
+            URL: target.URL.absoluteString,
             sampleResponseClosure: { EndpointSampleResponse.NetworkResponse(200, target.sampleData) },
             method: target.method,
             parameters: target.parameters
@@ -177,14 +174,21 @@ extension Client {
             newParameters["client_id"] = Client.App?.clientID
         }
         
+        // Ensure that the `expand` csv parameter always contains kind
+        var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
+        if !expansions.containsString("kind") {
+            expansions += ",kind"
+            newParameters["expand"] = expansions
+        }
+        
         // Append all the new parameters
         endpoint = endpoint.endpointByAddingParameters(newParameters)
         
         return endpoint
     }
     
-    private func JSONSideEffects(target: API)(json: AnyObject) -> SignalProducer<AnyObject, NSError> {
-        return SignalProducer(value: json)
+    private func JSONSideEffects(target: API)(jsonSignal: SignalProducer<AnyObject, NSError>) -> SignalProducer<AnyObject, NSError> {
+        return jsonSignal
             .on(
                 started: { [weak self] in
                     if case .LogInWithUsername = target {

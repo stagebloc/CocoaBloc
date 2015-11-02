@@ -16,6 +16,9 @@ extension API {
     public var path: String {
         switch self {
             
+        case .Expanded(let target, _):
+            return target.path
+            
         case .Parameterized(let target, _):
             return target.path
 
