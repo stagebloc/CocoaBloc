@@ -83,7 +83,8 @@ public final class Client {
             target = .Expanded(target: target, expansions: expansions)
         }
         
-        return provider
+        // Map to any inner JSON of the result object signal and perform any side effects needed to update client state
+        return JSONSideEffects(target)(jsonSignal: provider
             .request(target)
             
             // flatMap responses with non-successful status codes into error signals
@@ -100,7 +101,7 @@ public final class Client {
             }
             
             // Set userInfo keys based on the metadata.error key path
-            .mapError { error -> NSError in
+            .mapError { (error: NSError) -> NSError in
                 var userInfo = error.userInfo
                 
                 guard
@@ -113,14 +114,11 @@ public final class Client {
                 userInfo[NSLocalizedFailureReasonErrorKey] = errorReason
                 
                 return NSError(domain: error.domain, code: error.code, userInfo: userInfo)
-            }
-            
-            // Hook to map to any inner JSON and inject side effects for updating this client's state
-            .flatMap(.Latest, transform: JSONSideEffects(target))
+            })
     }
     
     public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<ModelType, NSError> {
-        precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
+        precondition(target.modelType == ModelType.self, "Wrong model \(ModelType.self) type for target. \(target) serializes to \(target.modelType)")
         
         return requestJSON(target, expand: expansions)
             
@@ -134,7 +132,7 @@ public final class Client {
     }
     
     public func requestJSON<ModelType: SBObject>(target: API, expand expansions: [API.ExpandableValue]? = nil) -> SignalProducer<[ModelType], NSError> {
-        precondition(target.modelType == ModelType.self, "Wrong model type for target. \(target) serializes to \(target.modelType)")
+        precondition(target.modelType == ModelType.self, "Wrong model \(ModelType.self) type for target. \(target) serializes to \(target.modelType)")
         
         return requestJSON(target, expand: expansions)
             
@@ -189,8 +187,8 @@ extension Client {
         return endpoint
     }
     
-    private func JSONSideEffects(target: API)(json: AnyObject) -> SignalProducer<AnyObject, NSError> {
-        return SignalProducer(value: json)
+    private func JSONSideEffects(target: API)(jsonSignal: SignalProducer<AnyObject, NSError>) -> SignalProducer<AnyObject, NSError> {
+        return jsonSignal
             .on(
                 started: { [weak self] in
                     if case .LogInWithUsername = target {

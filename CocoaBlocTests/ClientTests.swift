@@ -26,25 +26,31 @@ class ProviderTests: XCTestCase {
         super.tearDown()
     }
     
-//    func testAuthentication() {
-//        let expectation = self.expectationWithDescription("Authentication as user")
-//        
-//        XCTAssert(provider.authenticated.value == false)
-//        provider
-//            .requestJSON(.LogInWithUsername(username: "ios-tests@stagebloc.com", password: "testsaregooby"))
-//            .startWithSignal { (accountSignal: Signal<SBUser, NSError>, disposable) in
-//                accountSignal.observeNext { user in
-//                    XCTAssert(user.isKindOfClass(SBUser.self))
-//                    XCTAssert(self.provider.authenticated.value == true)
-//                    expectation.fulfill()
-//                }
-//                accountSignal.observeFailed { error in
-//                    XCTFail()
-//                }
-//        }
-//        
-//        self.waitForExpectationsWithTimeout(5, handler: nil)
-//    }
+    func testAuthentication() {
+        let expectation = self.expectationWithDescription("Authentication as user")
+        
+        // Test token -> authenticated state
+        provider.token.value = "a"
+        XCTAssert(provider.authenticated.value == true)
+        
+        provider
+            .requestJSON(.LogInWithUsername(username: "ios-tests@stagebloc.com", password: "testsaregooby"))
+            .startWithSignal { (accountSignal: Signal<SBUser, NSError>, disposable) in
+                accountSignal.observeNext { user in
+                    XCTAssert(user.isKindOfClass(SBUser.self))
+                    XCTAssert(self.provider.authenticated.value == true)
+                    expectation.fulfill()
+                }
+                accountSignal.observeFailed { error in
+                    XCTFail()
+                }
+        }
+        
+        // Ensure token is reset on signal start
+        XCTAssert(self.provider.token.value == nil)
+        
+        self.waitForExpectationsWithTimeout(5, handler: nil)
+    }
     
     func testGetAccountByIdentifier() {
         let expectation = self.expectationWithDescription("Get account by identifier")

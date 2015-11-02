@@ -15,6 +15,10 @@ extension API: ModelSerializable {
         switch self {
         case .GetAccount:
             return SBAccount.self
+        case
+        .LogInWithUsername,
+        .GetUser:
+            return SBUser.self
             
         default:
             return SBObject.self
