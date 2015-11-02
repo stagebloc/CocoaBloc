@@ -80,10 +80,7 @@ public final class Client {
         
         // Apply the `expand` parameter for requested types
         if let expansions = expansions {
-            target = API.Parameterized(
-                target: target,
-                parameters: ["expand": expansions.map { $0.rawValue }.joinWithSeparator(",")]
-            )
+            target = .Expanded(target: target, expansions: expansions)
         }
         
         return provider
