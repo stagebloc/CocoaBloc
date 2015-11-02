@@ -69,20 +69,36 @@ public final class Client {
     
     public func deauthenticate() {
         self.token.value = nil
+        self.authenticatedUser.value = nil
     }
 
+
+    /// These are types of values that the API will expand from identifiers to JSON objects.
+    /// NOTE: The raw values of these cases correspond to raw JSON keys
+    public enum ExpandableValue: String {
+        case Photo      = "photo"
+        case Photos     = "photos"
+        case Account    = "account"
+        case Tags       = "tags"
+        case Audio      = "audio"
+        case CreatedBy  = "created_by"
+        case ModifiedBy = "modified_by"
+        case Content    = "content"
+    }
+    
     /**
      Creates a signal producer which when started will send a request for the given target,
      and whose signals will send the deserialized JSON object returned by the API.
-    */
-    public func requestJSON(var target: API, expand: [Expandable]? = nil) -> SignalProducer<AnyObject, NSError> {
-        let expansion = expand.map {
-            $0.map { expandable in expandable.expansionKey }.joinWithSeparator(",")
-        } ?? "kind"
-        target = API.Parameterized(
-            target: target,
-            parameters: ["expand": expansion]
-        )
+     */
+    public func requestJSON(var target: API, expand expansions: [ExpandableValue]? = nil) -> SignalProducer<AnyObject, NSError> {
+        
+        // Apply the `expand` parameter for requested types
+        if let expansions = expansions {
+            target = API.Parameterized(
+                target: target,
+                parameters: ["expand": expansions.map { $0.rawValue }.joinWithSeparator(",")]
+            )
+        }
         
         return provider
             .request(target)
@@ -175,6 +191,13 @@ extension Client {
         // Ensure that unauthenticated requests have the client_id parameter
         if !self.authenticated.value {
             newParameters["client_id"] = Client.App?.clientID
+        }
+        
+        // Ensure that the `expand` csv parameter always contains kind
+        var expansions = (endpoint.parameters?["expand"] as? String) ?? ""
+        if !expansions.containsString("kind") {
+            expansions += ",kind"
+            newParameters["expand"] = expansions
         }
         
         // Append all the new parameters

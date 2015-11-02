@@ -74,7 +74,6 @@
 		09E0B9291BDF10D9004E7739 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09F209521BE7C2F1003833F5 /* API+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F209511BE7C2F1003833F5 /* API+JSON.swift */; };
-		09F209541BE7C714003833F5 /* API+Expansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F209531BE7C714003833F5 /* API+Expansion.swift */; };
 		0E2A63871BBED3F300D94E84 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A63861BBED3F300D94E84 /* API.swift */; };
 		0EC5FD851BC4CB3200A25A33 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD841BC4CB3200A25A33 /* Client.swift */; };
 		0EC5FD891BC574E500A25A33 /* API+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FD881BC574E500A25A33 /* API+Path.swift */; };
@@ -181,7 +180,6 @@
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09F209511BE7C2F1003833F5 /* API+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+JSON.swift"; sourceTree = "<group>"; };
-		09F209531BE7C714003833F5 /* API+Expansion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Expansion.swift"; sourceTree = "<group>"; };
 		0E2A63861BBED3F300D94E84 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0EC5FD841BC4CB3200A25A33 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		0EC5FD881BC574E500A25A33 /* API+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Path.swift"; sourceTree = "<group>"; };
@@ -352,6 +350,7 @@
 		09EA2FC01BBC2CB100167058 /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
+				09F209551BE7CF59003833F5 /* Protocols */,
 				0E2A63831BBED28A00D94E84 /* API */,
 				093A3C411BBC4E7A0038A71F /* Models */,
 				093A3C921BBC4ECA0038A71F /* Private */,
@@ -360,6 +359,13 @@
 				09EA2FC31BBC2CB100167058 /* Info.plist */,
 			);
 			path = CocoaBloc;
+			sourceTree = "<group>";
+		};
+		09F209551BE7CF59003833F5 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		0E2A63831BBED28A00D94E84 /* API */ = {
@@ -371,7 +377,6 @@
 				0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */,
 				0E2A63861BBED3F300D94E84 /* API.swift */,
 				09F209511BE7C2F1003833F5 /* API+JSON.swift */,
-				09F209531BE7C714003833F5 /* API+Expansion.swift */,
 				0EC5FD841BC4CB3200A25A33 /* Client.swift */,
 				09DB1B121BDF1A010060860F /* SBClient.swift */,
 			);
@@ -626,7 +631,6 @@
 				0EC5FD851BC4CB3200A25A33 /* Client.swift in Sources */,
 				093A3C771BBC4E7A0038A71F /* SBFanClub.m in Sources */,
 				093A3C871BBC4E7A0038A71F /* SBStatus.m in Sources */,
-				09F209541BE7C714003833F5 /* API+Expansion.swift in Sources */,
 				093A3C6F1BBC4E7A0038A71F /* SBAudio.m in Sources */,
 				09DB1B131BDF1A010060860F /* SBClient.swift in Sources */,
 				093A3C891BBC4E7A0038A71F /* SBStoreDashboard.m in Sources */,
