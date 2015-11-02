@@ -7,9 +7,9 @@
 //
 
 import XCTest
-import CocoaBloc
 import ReactiveCocoa
 import ReactiveMoya
+@testable import CocoaBloc
 
 class ProviderTests: XCTestCase {
     
