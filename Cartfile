@@ -1,2 +1,2 @@
-github "Moya/Moya" "master"
+github "Moya/Moya" ~> 4.0
 github "Mantle/Mantle" ~> 2.0
