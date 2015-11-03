@@ -33,15 +33,9 @@ public final class Client {
     
     /// An OAuth application registered on StageBloc
     public struct Application {
-        public var clientID: String
-        public var clientSecret: String
-        public var redirectURI: String?
-        
-        public init(clientID: String, clientSecret: String, redirectURI: String? = nil) {
-            self.clientID = clientID
-            self.clientSecret = clientSecret
-            self.redirectURI = redirectURI
-        }
+        public let clientID: String
+        public let clientSecret: String
+        public let redirectURI: String? = nil
     }
    
     /// The application-wide OAuth app to use. Must be set before initializing a client
