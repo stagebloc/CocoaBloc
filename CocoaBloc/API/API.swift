@@ -72,11 +72,11 @@ public enum API: MoyaTarget {
         - gender: The user's gender.
         - sourceAccountID: The identifier of the account from which user is signing up.
     */
-    case SignupUser(email: String,
+    case SignUp(email: String,
         name: String,
         password: String,
         birthday: NSDate,
-        gender: String,
+        gender: Gender,
         sourceAccountID: Int)
 
     /**

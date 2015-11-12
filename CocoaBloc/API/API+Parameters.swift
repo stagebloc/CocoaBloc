@@ -36,7 +36,7 @@ extension API {
                 "expand"        : "user"
             ]
 
-        case .SignupUser(
+        case .SignUp(
             let email,
             let name,
             let password,
@@ -54,7 +54,7 @@ extension API {
                 "name"      : name,
                 "password"  : password,
                 "birthday"  : df.stringFromDate(birthday),
-                "gender"    : gender,
+                "gender"    : gender.rawValue,
                 "source_account_id" : sourceAccountID
             ]
 

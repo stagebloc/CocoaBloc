@@ -26,7 +26,7 @@ extension API  {
         .LogInWithUsername,
 
         // User
-        .SignupUser,
+        .SignUp,
         .BanUser,
         .SendPasswordReset,
 
