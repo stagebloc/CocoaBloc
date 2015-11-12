@@ -193,7 +193,7 @@ public enum API: MoyaTarget {
         - type: type of the account being created.
         - color: one of: purple, red, green, blue, orange, grey.
     */
-    case CreateAccount(name: String, url: String, type: String, color: String)
+    case CreateAccount(name: String, url: String, type: AccountType, color: AccountColor)
 
     /**
     Creates an account with a photo.
@@ -222,7 +222,8 @@ public enum API: MoyaTarget {
         - type: type of account (ex. 'Business', 'Cooking', 'Record Label', etc), or nil.
         - color: account color.
     */
-    case UpdateAccount(accountID : Int,
+    case UpdateAccount(
+        accountID: Int,
         name: String,
         description: String,
         stageBlocURL: String,
