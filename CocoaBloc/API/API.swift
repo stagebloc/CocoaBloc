@@ -55,6 +55,12 @@ public enum API: MoyaTarget {
 
 // MARK: User endpoints
 
+    public enum Gender: String {
+        case Male       = "male"
+        case Female     = "female"
+        case Cupcake    = "cupcake"
+    }
+    
     /**
     Sign up a new StageBloc user with the given user information and desired credentials.
 
