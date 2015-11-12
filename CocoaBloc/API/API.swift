@@ -167,6 +167,23 @@ public enum API: MoyaTarget {
         case Green      = "green"
     }
     
+    public enum AccountType: String {
+        case Music              = "music"
+        case FilmAndTV          = "film/tv"
+        case Entertainment      = "entertainment"
+        case Sports             = "sports"
+        case Celebrity          = "celebrity"
+        case Comedian           = "comedian"
+        case RecordLabel        = "record label"
+        case ManagementCompany  = "management company"
+        case Personal           = "personal"
+        case Developer          = "developer"
+        case Photography        = "photography"
+        case Cooking            = "food"
+        case Business           = "business"
+        case Organization       = "organization"
+        case Other              = "other"
+    }
     /**
     Creates an account.
 
