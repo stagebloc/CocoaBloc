@@ -34,6 +34,9 @@ extension API {
 
         case .GetCurrentlyAuthenticatedUser:
             return "/users/me"
+            
+        case .UpdateAuthenticatedUserWithParameters:
+            return "users/me"
 
             //        case
             //        .updateAuthenticatedUser,
@@ -65,7 +68,7 @@ extension API {
         .GetAuthenticatedUserAccounts:
             return "accounts"
 
-        case .CreateAccount:
+        case .CreateAccount, CreateAccountWithPhoto:
             return "account"
 
         case .UpdateAccount(let accountID, _, _, _, _, _):
@@ -89,7 +92,36 @@ extension API {
         case .UnfollowAccount(let accountID):
             return "/account/\(accountID)/follow"
 
-    // Content
+        // Photos
+        case let .GetPhoto(photoID, account):
+            return "account/\(account.identifier)/photo/\(photoID)"
+            
+        case .UploadPhoto(_, _, _, let accountID, _, _, _):
+            return "account/\(accountID)/photo"
+            
+        // Videos
+        case .UploadVideoWithData(_, _, _, _, let accountID, _, _, _):
+            return "account\(accountID)/video"
+            
+        case .UploadVideoAtPath(_, _, _, let accountID, _, _, _):
+            return "account\(accountID)/video"
+            
+        case let .TrackVideoEvent(_, videoID, accountID):
+            return "account/\(accountID)/video/\(videoID)/stats"
+            
+        // Audio
+        case let .GetAudioTrackWithID(audioID, accountID):
+            return "account/\(accountID)/audio/\(audioID)"
+            
+        case let .UploadAudioData(_, _, _, accountID, _):
+            return "account/\(accountID)/audio"
+            
+        // Comments
+        case .GetCommentsForContent(let content):
+            return "account/\("
+            
+            
+        // Content
         case .LikeContent(let content):
             return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)/like"
 
@@ -119,9 +151,6 @@ extension API {
 
         case .PostBlog(_, _, let accountID):
             return "/account/\(accountID)/blog"
-
-        default:
-            return ""
         }
     }
 }
