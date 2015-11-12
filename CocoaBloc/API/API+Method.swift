@@ -42,6 +42,7 @@ extension API  {
         .FollowAccount,
 
         // Content
+        .LikeContent,
         .FlagContent,
         .FlagContentWithIdentifier,
         .PostStatus,
@@ -125,9 +126,6 @@ extension API  {
         // Comment
         .DeleteComment:
             return .DELETE
-            
-        default:
-            return .GET
         }
     }
 }
