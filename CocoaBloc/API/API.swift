@@ -157,6 +157,16 @@ public enum API: MoyaTarget {
     */
     case GetAccountsForUser(userIdentifier: String, includingAdminAccounts: Bool, followingAccounts: Bool)
 
+    
+    public enum AccountColor: String {
+        case Blue       = "blue"
+        case Purple     = "purple"
+        case Red        = "red"
+        case Orange     = "orange"
+        case Grey       = "grey"
+        case Green      = "green"
+    }
+    
     /**
     Creates an account.
 
