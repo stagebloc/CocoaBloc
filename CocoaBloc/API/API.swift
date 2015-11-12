@@ -13,13 +13,6 @@ import ReactiveMoya
 /// An enumeration representing a StageBloc API target
 public enum API: MoyaTarget {
     
-    public enum SortOrder {
-        
-    }
-    public enum Direction {
-        
-    }
-    
     /// These are types of values that the API will expand from identifiers to JSON objects.
     /// NOTE: The raw values of these cases correspond to raw JSON keys
     public enum ExpandableValue: String {
