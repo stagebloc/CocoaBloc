@@ -75,8 +75,8 @@ extension API {
             return [
                 "name"          : name,
                 "stagebloc_url" : url,
-                "type"          : type,
-                "color"         : color
+                "type"          : type.rawValue,
+                "color"         : color.rawValue
             ]
 
         default:

@@ -29,7 +29,7 @@ extension API {
             return "/oauth2/token"
 
     // User
-        case .SignupUser:
+        case .SignUp:
             return "/users"
 
         case .GetCurrentlyAuthenticatedUser:
