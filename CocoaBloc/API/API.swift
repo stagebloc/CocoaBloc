@@ -72,7 +72,8 @@ public enum API: MoyaTarget {
         - gender: The user's gender.
         - sourceAccountID: The identifier of the account from which user is signing up.
     */
-    case SignUp(email: String,
+    case SignUp(
+        email: String,
         name: String,
         password: String,
         birthday: NSDate,
@@ -227,8 +228,8 @@ public enum API: MoyaTarget {
         name: String,
         description: String,
         stageBlocURL: String,
-        type: String,
-        color: String)
+        type: AccountType,
+        color: AccountColor)
 
     /**
     Update account photo data
@@ -329,7 +330,8 @@ public enum API: MoyaTarget {
         - type: string of preset values which can be used for reasons why someone flagged a piece of content
         - reason: reason for flagging content
     */
-    case FlagContentWithIdentifier(contentIdentifier: Int,
+    case FlagContentWithIdentifier(
+        contentIdentifier: Int,
         contentType: String,
         accountID: Int,
         type: String,
@@ -463,11 +465,12 @@ public enum API: MoyaTarget {
         - fileName: the path or name of the audio track file.
         - account: identifier of account associated with audio track.
     */
-    case UploadAudioData(data: NSData,
+    case UploadAudioData(
+        data: NSData,
         title: String,
         fileName: String,
         account: SBAccount,
-        progressSignal : Signal<Float, NSError>?)
+        progressSignal: Signal<Float, NSError>?)
 
 // MARK: Comment endpoints
 
@@ -586,7 +589,8 @@ public enum API: MoyaTarget {
     /**
     Purchase storeItem(s)
     */
-    case PurchaseItems(items: [String:AnyObject],
+    case PurchaseItems(
+        items: [String:AnyObject],
         purchaseToken: String,
         address: SBAddress,
         shippingDetails: [String:AnyObject],
@@ -595,7 +599,8 @@ public enum API: MoyaTarget {
         email: String,
         accountID: Int)
 
-    case AddPaymentForSplitPurchase(orderID: Int,
+    case AddPaymentForSplitPurchase(
+        orderID: Int,
         amount: NSDecimalNumber,
         token: String,
         accountID: Int)

@@ -24,8 +24,8 @@ extension API {
 
         case .LoginWithAuthorizationCode(let authorizationCode):
             return [
-                "code" : authorizationCode,
-                "grant_type" : "authorization_code"
+                "code"          : authorizationCode,
+                "grant_type"    : "authorization_code"
             ]
 
         case .LogInWithUsername(let username, let password):
@@ -66,8 +66,8 @@ extension API {
 
         case .GetAccountsForUser(let userIdentifier, let includingAdminAccounts, let followingAccounts):
             return [
-                "user_id" : userIdentifier,
-                "admin" : includingAdminAccounts,
+                "user_id"   : userIdentifier,
+                "admin"     : includingAdminAccounts,
                 "following" : followingAccounts
             ]
 
