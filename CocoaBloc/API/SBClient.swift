@@ -17,7 +17,7 @@ public class SBClient: NSObject {
     override init() {
         super.init()
         
-        DynamicProperty(object: self, keyPath: "token") <~ client.token.producer.map { $0.map { $0 as AnyObject } }
+        DynamicProperty(object: self, keyPath: "token") <~ client.token.producer.map { $0 }
     }
     
     public func logInWithUsername(username: String, password: String) -> RACSignal {
