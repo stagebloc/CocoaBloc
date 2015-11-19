@@ -180,16 +180,16 @@
 		094F1BCD1BE30AEE0028B3F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		094F1BD01BE30AEE0028B3F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		094F1BD21BE30AEE0028B3F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		094F1BF31BE30C490028B3F6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		094F1BF41BE30C490028B3F6 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
-		094F1BF51BE30C490028B3F6 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
-		094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
-		094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
-		094F1BF81BE30C490028B3F6 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		094F1BF31BE30C490028B3F6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
+		094F1BF41BE30C490028B3F6 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mantle.framework; sourceTree = "<group>"; };
+		094F1BF51BE30C490028B3F6 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Moya.framework; sourceTree = "<group>"; };
+		094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = "<group>"; };
+		094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveMoya.framework; sourceTree = "<group>"; };
+		094F1BF81BE30C490028B3F6 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
 		094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignalProducer+CocoaBloc.swift"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBContent+ContentType.swift"; path = "../API/SBContent+ContentType.swift"; sourceTree = "<group>"; };
+		09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
 		09CCC4CF1BFE963C0073D03B /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		09CCC4D11BFE964C0073D03B /* ModelSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSerializable.swift; sourceTree = "<group>"; };
 		09DB1B121BDF1A010060860F /* SBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBClient.swift; sourceTree = "<group>"; };
@@ -198,15 +198,15 @@
 		09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+ModelSerializable.swift"; path = "../API/API+ModelSerializable.swift"; sourceTree = "<group>"; };
+		09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+ModelSerializable.swift"; sourceTree = "<group>"; };
 		09F3CEA01BE7E7DD0018C71F /* Dictionary+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+CocoaBloc.swift"; sourceTree = "<group>"; };
-		09F3CEA21BE7E8450018C71F /* API+CustomStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+CustomStringConvertible.swift"; path = "../API/API+CustomStringConvertible.swift"; sourceTree = "<group>"; };
+		09F3CEA21BE7E8450018C71F /* API+CustomStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+CustomStringConvertible.swift"; sourceTree = "<group>"; };
 		0E2A63861BBED3F300D94E84 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E9AF43A1BFA8DF400776249 /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		0E9AF43D1BFA8E5B00776249 /* account.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = account.json; sourceTree = "<group>"; };
 		0E9AF43F1BFA8E8600776249 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		0E9AF4411BFA8EB600776249 /* photo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = photo.json; sourceTree = "<group>"; };
-		0E9AF4451BFA8F0000776249 /* video.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = video.json; path = ../../video.json; sourceTree = "<group>"; };
+		0E9AF4451BFA8F0000776249 /* video.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video.json; sourceTree = "<group>"; };
 		0E9AF4471BFA8F2000776249 /* blog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = blog.json; sourceTree = "<group>"; };
 		0E9AF4491BFA8F3B00776249 /* status.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = status.json; sourceTree = "<group>"; };
 		0E9AF44B1BFA8F5900776249 /* audio.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = audio.json; sourceTree = "<group>"; };
@@ -308,12 +308,12 @@
 		093A3C921BBC4ECA0038A71F /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				09F3CEA01BE7E7DD0018C71F /* Dictionary+CocoaBloc.swift */,
 				093A3C931BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.h */,
 				093A3C941BBC4ECA0038A71F /* MTLValueTransformer+CocoaBloc.m */,
 				093A3C971BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.h */,
 				093A3C981BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m */,
 				094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */,
-				09F3CEA01BE7E7DD0018C71F /* Dictionary+CocoaBloc.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -331,8 +331,8 @@
 			children = (
 				094F1BC61BE30AEE0028B3F6 /* AppDelegate.swift */,
 				094F1BCD1BE30AEE0028B3F6 /* Assets.xcassets */,
-				094F1BCF1BE30AEE0028B3F6 /* LaunchScreen.storyboard */,
 				094F1BD21BE30AEE0028B3F6 /* Info.plist */,
+				094F1BCF1BE30AEE0028B3F6 /* LaunchScreen.storyboard */,
 			);
 			path = "CB Example";
 			sourceTree = "<group>";
@@ -347,7 +347,7 @@
 				094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */,
 				094F1BF81BE30C490028B3F6 /* Result.framework */,
 			);
-			name = Dependencies;
+			path = Dependencies;
 			sourceTree = "<group>";
 		};
 		098F4ACF1BBC40FA003A496C /* CocoaBlocTests */ = {
@@ -362,8 +362,8 @@
 		09CCC4CD1BFE963C0073D03B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */,
 				09F3CEA21BE7E8450018C71F /* API+CustomStringConvertible.swift */,
+				09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */,
 				09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */,
 			);
 			path = Extensions;
@@ -381,9 +381,9 @@
 		09EA2FB41BBC2CB100167058 = {
 			isa = PBXGroup;
 			children = (
+				094F1BC51BE30AEE0028B3F6 /* CB Example */,
 				09EA2FC01BBC2CB100167058 /* CocoaBloc */,
 				098F4ACF1BBC40FA003A496C /* CocoaBlocTests */,
-				094F1BC51BE30AEE0028B3F6 /* CB Example */,
 				094F1C051BE30CF80028B3F6 /* Dependencies */,
 				09EA2FBF1BBC2CB100167058 /* Products */,
 			);
@@ -402,11 +402,11 @@
 		09EA2FC01BBC2CB100167058 /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
-				09CCC4CD1BFE963C0073D03B /* Extensions */,
-				09CCC4CE1BFE963C0073D03B /* Protocols */,
 				0E2A63831BBED28A00D94E84 /* API */,
+				09CCC4CD1BFE963C0073D03B /* Extensions */,
 				093A3C411BBC4E7A0038A71F /* Models */,
 				093A3C921BBC4ECA0038A71F /* Private */,
+				09CCC4CE1BFE963C0073D03B /* Protocols */,
 				094F1B921BE2FB360028B3F6 /* UI */,
 				09EA2FC11BBC2CB100167058 /* CocoaBloc.h */,
 				09EA2FC31BBC2CB100167058 /* Info.plist */,
@@ -417,14 +417,14 @@
 		0E2A63831BBED28A00D94E84 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				0E2A63861BBED3F300D94E84 /* API.swift */,
+				0E9AF43C1BFA8E3200776249 /* Test Data */,
 				0EC5FD8A1BC579D600A25A33 /* API+Method.swift */,
 				0EC5FD8C1BC59F5A00A25A33 /* API+Parameters.swift */,
 				0EC5FD881BC574E500A25A33 /* API+Path.swift */,
 				0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */,
+				0E2A63861BBED3F300D94E84 /* API.swift */,
 				0EC5FD841BC4CB3200A25A33 /* Client.swift */,
 				09DB1B121BDF1A010060860F /* SBClient.swift */,
-				0E9AF43C1BFA8E3200776249 /* Test Data */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -432,19 +432,19 @@
 		0E9AF43C1BFA8E3200776249 /* Test Data */ = {
 			isa = PBXGroup;
 			children = (
-				0E9AF43A1BFA8DF400776249 /* user.json */,
 				0E9AF43D1BFA8E5B00776249 /* account.json */,
-				0E9AF43F1BFA8E8600776249 /* content.json */,
-				0E9AF4411BFA8EB600776249 /* photo.json */,
-				0E9AF4451BFA8F0000776249 /* video.json */,
-				0E9AF4471BFA8F2000776249 /* blog.json */,
-				0E9AF4491BFA8F3B00776249 /* status.json */,
 				0E9AF44B1BFA8F5900776249 /* audio.json */,
-				0E9AF44D1BFA8FA300776249 /* fanclub.json */,
+				0E9AF4471BFA8F2000776249 /* blog.json */,
 				0E9AF44F1BFA8FAE00776249 /* comment.json */,
+				0E9AF43F1BFA8E8600776249 /* content.json */,
+				0E9AF44D1BFA8FA300776249 /* fanclub.json */,
 				0E9AF4511BFA8FEC00776249 /* password_reset.json */,
+				0E9AF4411BFA8EB600776249 /* photo.json */,
+				0E9AF4491BFA8F3B00776249 /* status.json */,
+				0E9AF43A1BFA8DF400776249 /* user.json */,
+				0E9AF4451BFA8F0000776249 /* video.json */,
 			);
-			name = "Test Data";
+			path = "Test Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -741,6 +741,7 @@
 				094F1BD01BE30AEE0028B3F6 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
