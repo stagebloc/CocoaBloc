@@ -36,18 +36,18 @@ public final class Client {
         public var clientID: String
         public var clientSecret: String
         public var redirectURI: String?
-        public var testing: Bool?
 
         public init(clientID: String, clientSecret: String, redirectURI: String? = nil, testing : Bool? = nil) {
             self.clientID = clientID
             self.clientSecret = clientSecret
             self.redirectURI = redirectURI
-            self.testing = testing
         }
     }
    
     /// The application-wide OAuth app to use. Must be set before initializing a client
     public static var App: Application?
+    
+    public let testing: Bool
     
     /// Auth token for this client
     public let token = MutableProperty<String?>(nil)
@@ -59,9 +59,10 @@ public final class Client {
     public let authenticatedUser = MutableProperty<SBUser?>(nil)
     
     
-    public init() {
+    public init(testing: Bool = false) {
         precondition(Client.App != nil)
         
+        self.testing = testing
         authenticated = AnyProperty(
             initialValue: false,
             producer: token.producer.map { token in token != nil }
@@ -226,7 +227,6 @@ extension Client {
     }
 
     private func stubClosure(target: API) -> Moya.StubBehavior {
-        guard let testing = Client.App?.testing else {return .Never}
         return testing ? .Immediate : .Never
     }
 }
