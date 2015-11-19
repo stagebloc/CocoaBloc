@@ -26,106 +26,99 @@ extension API  {
         .LogInWithUsername,
 
         // User
-        .SignUp,
         .BanUser,
+        .SignUp,
+        .UpdateAuthenticatedUser,
+        .UpdateAuthenticatedUserLocation,
         .SendPasswordReset,
-
-        .UpdateAuthenticatedUserWithParameters,
-        //        .updateAuthenticatedUserPhoto,
-        //        .updateAuthenticatedUserLocation:
 
         // Account
         .CreateAccount,
-        .CreateAccountWithPhoto,
         .UpdateAccount,
         .UpdateAccountImage,
         .FollowAccount,
 
         // Content
         .LikeContent,
+        .UnlikeContent,
         .FlagContent,
-        .FlagContentWithIdentifier,
         .PostStatus,
-        .PostStatusWithLocation,
         .PostBlog,
         .UploadPhoto,
-        .UploadVideoAtPath,
-        .UploadVideoWithData,
+        .UploadVideo,
         .TrackVideoEvent,
-        .UploadAudioData,
+        .UploadAudio,
 
         // Comment
         .PostCommentOnContent,
-        .PostCommentInReplyToComment,
+        .PostReplyToComment,
         .FlagComment,
-        .FlagCommentWithIdentifier,
 
-        // Fanclub
+        // Fan Club
         .CreateFanClub,
 
         // Store
-        .GetShippingRatesAndTax,
+        .SetOrderShipped,
         .PurchaseItems,
         .AddPaymentForSplitPurchase,
         .RequestStripeAuthorization,
+        
+        .ValidateCoupon,
 
         .SetPushTokenForAuthenticatedUser:
             return .POST
 
         case
         // User
-        .GetCurrentlyAuthenticatedUser,
         .GetUser,
         .GetPostedContentFromUser,
+        .GetCurrentlyAuthenticatedUser,
 
         // Account
-        .GetAccount,
         .GetAccountsForUser,
-        .GetAuthenticatedUserAccounts,
+        .GetAccount,
         .GetActivityStreamForAccount,
         .GetFollowingUsersForAccount,
         .GetChildrenAccountsForAccount,
+        .GetAuthenticatedUserAccounts,
 
         // Content
         .GetUsersWhoLikeContent,
-        .GetContentWithIdentifier,
-        .GetPhoto,
-        .GetAudioTrackWithID,
+        .GetContent,
+        .GetPlaylist,
+        .GetPlaylistsForAccount,
 
         // Comment
-        .GetComment,
         .GetCommentsForContent,
         .GetRepliesToComment,
-
-
-        // Fanclub
-        .GetContentFromFanClub,
-        .GetContentFromFollowedFanClubs,
-        .GetFollowedFanClubs,
-        .GetRecentFanClubs,
-        .GetFeaturedFanClubs,
-        .GetFanClub,
+        .GetComment,
+        
+        // Fan Club
         .GetFanClubDashboard,
-
+        .GetFanClubs,
+        .GetFanClubFans,
+        .GetContentFromFollowedFanClubs,
+        .GetFanClub,
+        .GetFanClubContent,
+        
         // Store
-        .GetStoreItemsForAccount,
-        .GetStoreItemWithID,
         .GetStoreDashboard,
+        .GetOrders,
+        .GetStoreItemsForAccount,
+        .GetStoreItem,
+        .GetShippingRatesAndTax,
 
+        .GetEvents,
+        .GetCoupon,
         .GetNotifications:
             return .GET
             
         case
-        // Account
         .UnfollowAccount,
-
-        // Content
-        .UnlikeContent,
         .DeleteContent,
-
-        // Comment
         .DeleteComment:
             return .DELETE
+            
         }
     }
 }

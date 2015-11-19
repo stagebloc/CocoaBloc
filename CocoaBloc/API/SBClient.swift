@@ -24,13 +24,13 @@ public class SBClient: NSObject {
         return toRACSignal(client.requestJSON(.LogInWithUsername(username: username, password: password)))
     }
     
-    public func signUpWithEmail(email: String, name: String, password: String, birthday: NSDate, gender: String, sourceAccountID: Int) -> RACSignal {
-        guard let gender = API.Gender(rawValue: gender) else {
-            return RACSignal.error(nil)
-        }
-        
-        return toRACSignal(client.requestJSON(.SignUp(email: email, name: name, password: password, birthday: birthday, gender: gender, sourceAccountID: sourceAccountID)))
-    }
+//    public func signUpWithEmail(email: String, name: String, password: String, birthday: NSDate, gender: String, sourceAccountID: Int) -> RACSignal {
+//        guard let gender = API.Gender(rawValue: gender) else {
+//            return RACSignal.error(nil)
+//        }
+//        
+//        return toRACSignal(client.requestJSON(.SignUp(email: email, name: name, password: password, birthday: birthday, gender: gender, sourceAccountID: sourceAccountID)))
+//    }
     
     public func getCurrentlyAuthenticatedUser() -> RACSignal {
         return toRACSignal(client.requestJSON(.GetCurrentlyAuthenticatedUser))

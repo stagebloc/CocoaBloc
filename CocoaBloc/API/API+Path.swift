@@ -27,40 +27,38 @@ extension API {
         .LoginWithAuthorizationCode,
         .LogInWithUsername:
             return "/oauth2/token"
-
-    // User
-        case .SignUp:
-            return "/users"
-
+            
         case .GetCurrentlyAuthenticatedUser:
             return "/users/me"
-            
-        case .UpdateAuthenticatedUserWithParameters:
-            return "users/me"
 
-            //        case
-            //        .updateAuthenticatedUser,
-            //        .updateAuthenticatedUserPhoto:
-            //            return "users/me"
-            //
-        case .GetUser(let userID):
-            return "/users/\(userID)"
-
-        case .SendPasswordReset:
-            return "/users/password/reset"
-            //
-            //        case
-            //        .updateAuthenticatedUserLocation:
-            //            return "users/me/location/update"
-            //
         case .BanUser(let userID, let accountID, _):
             return "/users/\(userID)/ban/\(accountID)"
 
-        case .GetPostedContentFromUser(let userID, let contentListType, _):
-            return "/users/\(userID)/content/\(contentListType)"
+        case .SendPasswordReset:
+            return "/users/password/reset"
 
-    // Account
-        case .GetAccount(let accountID):
+        case .UpdateAuthenticatedUserLocation:
+            return "users/me/location/update"
+            
+        case .GetUser(let userID):
+            return "/users/\(userID)"
+
+        case .UpdateAuthenticatedUser:
+            return "users/me"
+ 
+        case .SignUp:
+            return "/users"
+            
+        case .GetPostedContentFromUser(let userID, let content):
+            return "/users/\(userID)/content/\(content.rawValue)"
+            
+        case .CreateAccount:
+            return "account"
+
+        case .UpdateAccount(let accountID, _, _, _, _, _):
+            return "/account/\(accountID)"
+            
+        case .UpdateAccountImage(let accountID):
             return "/account/\(accountID)"
 
         case
@@ -68,13 +66,7 @@ extension API {
         .GetAuthenticatedUserAccounts:
             return "accounts"
 
-        case .CreateAccount, CreateAccountWithPhoto:
-            return "account"
-
-        case .UpdateAccount(let accountID, _, _, _, _, _):
-            return "/account/\(accountID)"
-
-        case .UpdateAccountImage(let accountID, _, _):
+        case .GetAccount(let accountID):
             return "/account/\(accountID)"
 
         case .GetActivityStreamForAccount(let accountID):
@@ -91,66 +83,137 @@ extension API {
 
         case .UnfollowAccount(let accountID):
             return "/account/\(accountID)/follow"
-
-        // Photos
-        case let .GetPhoto(photoID, account):
-            return "account/\(account.identifier)/photo/\(photoID)"
             
-        case .UploadPhoto(_, _, _, let accountID, _, _, _):
+        case .LikeContent(let content):
+            return "/account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/like"
+            
+        case .UnlikeContent(let content):
+            return "/account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/like"
+            
+        case .DeleteContent(let content):
+            return "/account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)"
+
+        case .GetUsersWhoLikeContent(let content):
+            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/likers"
+            
+        case .GetContent(let content):
+            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)"
+            
+        case .FlagContent(let content, let contentType, _):
+            return "/account/\(content.accountID)/\(contentType)/\(content.contentID)/flag"
+            
+        case .PostStatus(_, let accountID, _, _):
+            return "/account/\(accountID)/status"
+            
+        case .PostBlog(_, _, let accountID):
+            return "/account/\(accountID)/blog"
+
+        case .UploadPhoto(_, _, let accountID, _, _):
             return "account/\(accountID)/photo"
             
-        // Videos
-        case .UploadVideoWithData(_, _, _, _, let accountID, _, _, _):
-            return "account\(accountID)/video"
-            
-        case .UploadVideoAtPath(_, _, _, let accountID, _, _, _):
+            // Videos
+        case .UploadVideo(_, _, let accountID, _, _):
             return "account\(accountID)/video"
             
         case let .TrackVideoEvent(_, videoID, accountID):
             return "account/\(accountID)/video/\(videoID)/stats"
             
-        // Audio
-        case let .GetAudioTrackWithID(audioID, accountID):
-            return "account/\(accountID)/audio/\(audioID)"
-            
-        case let .UploadAudioData(_, _, _, accountID, _):
+        case let .UploadAudio(_, accountID):
             return "account/\(accountID)/audio"
+
+        case let .GetPlaylist(playlistID, accountID):
+            return "account/\(accountID)/audio/playlist/\(playlistID)"
             
-        // Comments
+        case .GetPlaylistsForAccount(let accountID):
+            return "account/\(accountID)/audio/playlists"
+            
         case .GetCommentsForContent(let content):
-            return "account/\("
+            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/comments"
+            
+        case let .GetRepliesToComment(commentID, accountID, contentType):
+            return "account/\(accountID)/\(contentType.rawValue)/comment/\(commentID)"
+            
+        case let .DeleteComment(commentID, accountID, contentType):
+            return "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)"
+            
+        case let .PostCommentOnContent(_, content):
+            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/comment"
             
             
-        // Content
-        case .LikeContent(let content):
-            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)/like"
-
-        case .UnlikeContent(let content):
-            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)/like"
-
-        case .DeleteContent(let content):
-            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)"
-
-        case .GetUsersWhoLikeContent(let content):
-            return "/account/\(content.accountID)/\(content.dynamicType.URLPathContentType())/\(content.identifier)/likers"
-
-        case .GetContentWithIdentifier(let contentID, let contentType, let accountID):
-            return "/account/\(accountID)/\(contentType)/\(contentID)"
-
-        case .FlagContent(let content, let contentType, _):
-            return "/account/\(content.account.identifier)/\(contentType)/\(content.identifier)/flag"
-
-        case .FlagContentWithIdentifier(let contentIdentifier, let contentType, let accountID, _, _):
-            return "/account/\(accountID)/\(contentType)/\(contentIdentifier)/flag"
-
-        case .PostStatus(_, let accountID, _):
-            return "/account/\(accountID)/status"
-
-        case .PostStatusWithLocation(_, let accountID, _, _, _):
-            return "/account/\(accountID)/status"
-
-        case .PostBlog(_, _, let accountID):
-            return "/account/\(accountID)/blog"
+        ///////////////
+        /////////////// warning: fix this
+        case let .PostReplyToComment(_, content):
+            return ""
+            
+        case let .GetComment(commentID, content):
+            return "account\(content.accountID)/\(content.contentType.rawValue)/comment/\(commentID)"
+            
+        case let .FlagComment(commentID, contentType, accountID, _, _):
+            return "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)/flag"
+            
+        case .GetFanClubDashboard(let accountID):
+            return "account\(accountID)/fanclub/dashboard"
+            
+        case let .CreateFanClub(accountID, _, _, _):
+            return "account/\(accountID)/fanclub/"
+            
+        case let .GetFanClubs(accountID, type):
+            return "account/\(accountID)/fanclubs/\(type.rawValue)"
+            
+        case .GetFanClubFans(let accountID):
+            return "account/\(accountID)/fans"
+            
+        case .GetContentFromFollowedFanClubs:
+            return "account/fanclubs/following/content"
+            
+        case .GetFanClub(let accountID):
+            return "account/\(accountID)/fanclub"
+            
+        case .GetFanClubContent(let accountID):
+            return "account/\(accountID)/fanclub/content"
+            
+        case .GetStoreDashboard(let accountID):
+            return "account/\(accountID)/store/dashboard"
+            
+        case .GetOrders(let accountID):
+            return "account/\(accountID)/store/orders"
+            
+        case let .SetOrderShipped(orderID, accountID, _, _):
+            return "account/\(accountID)/store/orders/\(orderID)"
+            
+        case .GetStoreItemsForAccount(let accountID):
+            return "account/\(accountID)/store/items"
+            
+        case let .GetStoreItem(storeItemID, accountID):
+            return "account/\(accountID)/store/items/\(storeItemID)"
+            
+        case let .GetShippingRatesAndTax(accountID, _, _):
+            return "account/\(accountID)/store/cart/totals"
+            
+        case let .PurchaseItems(_, _, _, _, _, _, _, _, _, accountID):
+            return "account/\(accountID)/store/purchase"
+            
+        case let .AddPaymentForSplitPurchase(_, _, _, accountID):
+            return "account/\(accountID)/store/purchase/split"
+            
+        case let .RequestStripeAuthorization(_, accountID):
+            return "account/\(accountID)/store/stripe"
+            
+        case .SetPushTokenForAuthenticatedUser:
+            return "application/push/token"
+            
+        case .GetNotifications:
+            return "users/me/notifications"
+            
+        case .GetEvents(let accountID):
+            return "account/\(accountID)/events"
+            
+        case let .GetCoupon(accountID, couponID):
+            return "account/\(accountID)/store/coupon/\(couponID)"
+            
+        case let .ValidateCoupon(accountID, _):
+            return "account/\(accountID)/store/coupon/code/validate"
+        
         }
     }
 }
