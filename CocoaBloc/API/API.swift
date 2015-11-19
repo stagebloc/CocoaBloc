@@ -10,46 +10,6 @@ import Foundation
 import ReactiveCocoa
 import ReactiveMoya
 
-/// Protocol describing a type containing necessary information to reference content
-public protocol ContentType {
-    
-    /// Which type of content the identifier belongs to
-    var contentType: API.ContentTypeIdentifier { get }
-    
-    /// The identifier of the content itself
-    var contentID: Int { get }
-    
-    /// The identifier of the account on which this content is posted
-    var postedAccountID: Int { get }
-}
-
-extension SBContent: ContentType {
-    public var contentID: Int {
-        return self.identifier.integerValue
-    }
-    
-    public var postedAccountID: Int {
-        return self.accountID.integerValue
-    }
-    
-    public var contentType: API.ContentTypeIdentifier {
-        switch self {
-        case is SBPhoto:
-            return .Photo
-        case is SBBlog:
-            return .Blog
-        case is SBStatus:
-            return .Status
-        case is SBAudio:
-            return .Audio
-        case is SBVideo:
-            return .Video
-        default:
-            return .Blog // won't be reached. compiler can't know that this dynamic check really is exhaustive
-        }
-    }
-}
-
 /// An enumeration representing a StageBloc API target
 public enum API: MoyaTarget {
     
@@ -628,10 +588,10 @@ public enum API: MoyaTarget {
 
 extension API {
 
-    // Base CocoaBlocAPI URL
+    /// Base CocoaBlocAPI URL
     public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
     
-    // Full resolved URL
+    /// Full resolved URL
     public var URL: NSURL { return self.baseURL.URLByAppendingPathComponent(path) }
 }
 
