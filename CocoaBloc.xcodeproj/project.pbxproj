@@ -57,20 +57,15 @@
 		094F1BD11BE30AEE0028B3F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 094F1BCF1BE30AEE0028B3F6 /* LaunchScreen.storyboard */; };
 		094F1BEE1BE30BCB0028B3F6 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		094F1BEF1BE30BCB0028B3F6 /* CocoaBloc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		094F1BF91BE30C490028B3F6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF31BE30C490028B3F6 /* Alamofire.framework */; };
-		094F1BFA1BE30C490028B3F6 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF41BE30C490028B3F6 /* Mantle.framework */; };
-		094F1BFC1BE30C490028B3F6 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */; };
-		094F1BFD1BE30C490028B3F6 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */; };
-		094F1BFE1BE30C490028B3F6 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF81BE30C490028B3F6 /* Result.framework */; };
-		094F1BFF1BE30C8F0028B3F6 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF41BE30C490028B3F6 /* Mantle.framework */; };
-		094F1C001BE30C910028B3F6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF31BE30C490028B3F6 /* Alamofire.framework */; };
-		094F1C021BE30C950028B3F6 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */; };
-		094F1C031BE30C970028B3F6 /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */; };
-		094F1C041BE30C990028B3F6 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF81BE30C490028B3F6 /* Result.framework */; };
 		094F1C091BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */; };
 		09CCC4BF1BFE92C40073D03B /* SBContent+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */; };
 		09CCC4D01BFE963C0073D03B /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCC4CF1BFE963C0073D03B /* ContentType.swift */; };
 		09CCC4D21BFE964C0073D03B /* ModelSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCC4D11BFE964C0073D03B /* ModelSerializable.swift */; };
+		09CCC4D81BFE98C80073D03B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CCC4D31BFE98C80073D03B /* Alamofire.framework */; };
+		09CCC4D91BFE98C80073D03B /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CCC4D41BFE98C80073D03B /* Mantle.framework */; };
+		09CCC4DA1BFE98C80073D03B /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CCC4D51BFE98C80073D03B /* ReactiveCocoa.framework */; };
+		09CCC4DB1BFE98C80073D03B /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CCC4D61BFE98C80073D03B /* ReactiveMoya.framework */; };
+		09CCC4DC1BFE98C80073D03B /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CCC4D71BFE98C80073D03B /* Result.framework */; };
 		09DB1B131BDF1A010060860F /* SBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B121BDF1A010060860F /* SBClient.swift */; };
 		09DB1B151BDF28920060860F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B141BDF28920060860F /* Account.swift */; };
 		09E0B90B1BDF0C19004E7739 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ClientTests.swift */; };
@@ -180,18 +175,17 @@
 		094F1BCD1BE30AEE0028B3F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		094F1BD01BE30AEE0028B3F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		094F1BD21BE30AEE0028B3F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		094F1BF31BE30C490028B3F6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
-		094F1BF41BE30C490028B3F6 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mantle.framework; sourceTree = "<group>"; };
-		094F1BF51BE30C490028B3F6 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Moya.framework; sourceTree = "<group>"; };
-		094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = "<group>"; };
-		094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveMoya.framework; sourceTree = "<group>"; };
-		094F1BF81BE30C490028B3F6 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
 		094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignalProducer+CocoaBloc.swift"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
 		09CCC4CF1BFE963C0073D03B /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		09CCC4D11BFE964C0073D03B /* ModelSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSerializable.swift; sourceTree = "<group>"; };
+		09CCC4D31BFE98C80073D03B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		09CCC4D41BFE98C80073D03B /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = ../Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
+		09CCC4D51BFE98C80073D03B /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = ../Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
+		09CCC4D61BFE98C80073D03B /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = ../Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
+		09CCC4D71BFE98C80073D03B /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = ../Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		09DB1B121BDF1A010060860F /* SBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBClient.swift; sourceTree = "<group>"; };
 		09DB1B141BDF28920060860F /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		09E0B90A1BDF0C19004E7739 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
@@ -226,11 +220,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				094F1BEE1BE30BCB0028B3F6 /* CocoaBloc.framework in Frameworks */,
-				094F1BFF1BE30C8F0028B3F6 /* Mantle.framework in Frameworks */,
-				094F1C001BE30C910028B3F6 /* Alamofire.framework in Frameworks */,
-				094F1C021BE30C950028B3F6 /* ReactiveCocoa.framework in Frameworks */,
-				094F1C031BE30C970028B3F6 /* ReactiveMoya.framework in Frameworks */,
-				094F1C041BE30C990028B3F6 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,11 +235,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				094F1BF91BE30C490028B3F6 /* Alamofire.framework in Frameworks */,
-				094F1BFA1BE30C490028B3F6 /* Mantle.framework in Frameworks */,
-				094F1BFC1BE30C490028B3F6 /* ReactiveCocoa.framework in Frameworks */,
-				094F1BFD1BE30C490028B3F6 /* ReactiveMoya.framework in Frameworks */,
-				094F1BFE1BE30C490028B3F6 /* Result.framework in Frameworks */,
+				09CCC4D81BFE98C80073D03B /* Alamofire.framework in Frameworks */,
+				09CCC4D91BFE98C80073D03B /* Mantle.framework in Frameworks */,
+				09CCC4DA1BFE98C80073D03B /* ReactiveCocoa.framework in Frameworks */,
+				09CCC4DB1BFE98C80073D03B /* ReactiveMoya.framework in Frameworks */,
+				09CCC4DC1BFE98C80073D03B /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,12 +329,11 @@
 		094F1C051BE30CF80028B3F6 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				094F1BF31BE30C490028B3F6 /* Alamofire.framework */,
-				094F1BF41BE30C490028B3F6 /* Mantle.framework */,
-				094F1BF51BE30C490028B3F6 /* Moya.framework */,
-				094F1BF61BE30C490028B3F6 /* ReactiveCocoa.framework */,
-				094F1BF71BE30C490028B3F6 /* ReactiveMoya.framework */,
-				094F1BF81BE30C490028B3F6 /* Result.framework */,
+				09CCC4D31BFE98C80073D03B /* Alamofire.framework */,
+				09CCC4D41BFE98C80073D03B /* Mantle.framework */,
+				09CCC4D51BFE98C80073D03B /* ReactiveCocoa.framework */,
+				09CCC4D61BFE98C80073D03B /* ReactiveMoya.framework */,
+				09CCC4D71BFE98C80073D03B /* Result.framework */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
