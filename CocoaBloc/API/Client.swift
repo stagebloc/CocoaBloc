@@ -36,11 +36,13 @@ public final class Client {
         public var clientID: String
         public var clientSecret: String
         public var redirectURI: String?
-        
-        public init(clientID: String, clientSecret: String, redirectURI: String? = nil) {
+        public var testing: Bool?
+
+        public init(clientID: String, clientSecret: String, redirectURI: String? = nil, testing : Bool? = nil) {
             self.clientID = clientID
             self.clientSecret = clientSecret
             self.redirectURI = redirectURI
+            self.testing = testing
         }
     }
    
@@ -64,7 +66,7 @@ public final class Client {
             initialValue: false,
             producer: token.producer.map { token in token != nil }
         )
-        provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
+        provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint, stubClosure: stubClosure)
     }
     
     public func deauthenticate() {
@@ -221,5 +223,10 @@ extension Client {
                 }
                 return json
             }
+    }
+
+    private func stubClosure(target: API) -> Moya.StubBehavior {
+        guard let testing = Client.App?.testing else {return .Never}
+        return testing ? .Immediate : .Never
     }
 }
