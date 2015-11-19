@@ -65,7 +65,7 @@ public final class Client {
         self.testing = testing
         authenticated = AnyProperty(
             initialValue: false,
-            producer: token.producer.map { token in token != nil }
+            producer: token.producer.map { $0 != nil }
         )
         provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint, stubClosure: stubClosure)
     }
