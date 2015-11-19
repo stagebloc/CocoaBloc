@@ -6,10 +6,6 @@
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-public protocol ModelSerializable {
-    var modelType: MTLModel.Type? { get }
-}
-
 extension API: ModelSerializable {
     public var modelType: MTLModel.Type? {
         switch self {

@@ -594,6 +594,3 @@ extension API {
     /// Full resolved URL
     public var URL: NSURL { return self.baseURL.URLByAppendingPathComponent(path) }
 }
-
-
-

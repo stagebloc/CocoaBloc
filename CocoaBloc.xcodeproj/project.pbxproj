@@ -69,7 +69,8 @@
 		094F1C041BE30C990028B3F6 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 094F1BF81BE30C490028B3F6 /* Result.framework */; };
 		094F1C091BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */; };
 		09CCC4BF1BFE92C40073D03B /* SBContent+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */; };
-		09CCC4C11BFE92E30073D03B /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCC4C01BFE92E30073D03B /* ContentType.swift */; };
+		09CCC4D01BFE963C0073D03B /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCC4CF1BFE963C0073D03B /* ContentType.swift */; };
+		09CCC4D21BFE964C0073D03B /* ModelSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCC4D11BFE964C0073D03B /* ModelSerializable.swift */; };
 		09DB1B131BDF1A010060860F /* SBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B121BDF1A010060860F /* SBClient.swift */; };
 		09DB1B151BDF28920060860F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B141BDF28920060860F /* Account.swift */; };
 		09E0B90B1BDF0C19004E7739 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ClientTests.swift */; };
@@ -188,17 +189,18 @@
 		094F1C081BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignalProducer+CocoaBloc.swift"; sourceTree = "<group>"; };
 		098F4ACE1BBC40FA003A496C /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		098F4AD21BBC40FA003A496C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
-		09CCC4C01BFE92E30073D03B /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBContent+ContentType.swift"; path = "../API/SBContent+ContentType.swift"; sourceTree = "<group>"; };
+		09CCC4CF1BFE963C0073D03B /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		09CCC4D11BFE964C0073D03B /* ModelSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSerializable.swift; sourceTree = "<group>"; };
 		09DB1B121BDF1A010060860F /* SBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBClient.swift; sourceTree = "<group>"; };
 		09DB1B141BDF28920060860F /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		09E0B90A1BDF0C19004E7739 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
 		09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
 		09EA2FC31BBC2CB100167058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+ModelSerializable.swift"; sourceTree = "<group>"; };
+		09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+ModelSerializable.swift"; path = "../API/API+ModelSerializable.swift"; sourceTree = "<group>"; };
 		09F3CEA01BE7E7DD0018C71F /* Dictionary+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+CocoaBloc.swift"; sourceTree = "<group>"; };
-		09F3CEA21BE7E8450018C71F /* API+CustomStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+CustomStringConvertible.swift"; sourceTree = "<group>"; };
+		09F3CEA21BE7E8450018C71F /* API+CustomStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+CustomStringConvertible.swift"; path = "../API/API+CustomStringConvertible.swift"; sourceTree = "<group>"; };
 		0E2A63861BBED3F300D94E84 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E9AF43A1BFA8DF400776249 /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		0E9AF43D1BFA8E5B00776249 /* account.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = account.json; sourceTree = "<group>"; };
@@ -357,6 +359,25 @@
 			path = CocoaBlocTests;
 			sourceTree = "<group>";
 		};
+		09CCC4CD1BFE963C0073D03B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */,
+				09F3CEA21BE7E8450018C71F /* API+CustomStringConvertible.swift */,
+				09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		09CCC4CE1BFE963C0073D03B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				09CCC4CF1BFE963C0073D03B /* ContentType.swift */,
+				09CCC4D11BFE964C0073D03B /* ModelSerializable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		09EA2FB41BBC2CB100167058 = {
 			isa = PBXGroup;
 			children = (
@@ -381,7 +402,8 @@
 		09EA2FC01BBC2CB100167058 /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
-				09F209551BE7CF59003833F5 /* Protocols */,
+				09CCC4CD1BFE963C0073D03B /* Extensions */,
+				09CCC4CE1BFE963C0073D03B /* Protocols */,
 				0E2A63831BBED28A00D94E84 /* API */,
 				093A3C411BBC4E7A0038A71F /* Models */,
 				093A3C921BBC4ECA0038A71F /* Private */,
@@ -392,25 +414,14 @@
 			path = CocoaBloc;
 			sourceTree = "<group>";
 		};
-		09F209551BE7CF59003833F5 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		0E2A63831BBED28A00D94E84 /* API */ = {
 			isa = PBXGroup;
 			children = (
 				0E2A63861BBED3F300D94E84 /* API.swift */,
-				09CCC4C01BFE92E30073D03B /* ContentType.swift */,
-				09CCC4BE1BFE92C40073D03B /* SBContent+ContentType.swift */,
 				0EC5FD8A1BC579D600A25A33 /* API+Method.swift */,
 				0EC5FD8C1BC59F5A00A25A33 /* API+Parameters.swift */,
 				0EC5FD881BC574E500A25A33 /* API+Path.swift */,
 				0EC5FD8E1BC59FA200A25A33 /* API+SampleData.swift */,
-				09F209511BE7C2F1003833F5 /* API+ModelSerializable.swift */,
-				09F3CEA21BE7E8450018C71F /* API+CustomStringConvertible.swift */,
 				0EC5FD841BC4CB3200A25A33 /* Client.swift */,
 				09DB1B121BDF1A010060860F /* SBClient.swift */,
 				0E9AF43C1BFA8E3200776249 /* Test Data */,
@@ -675,6 +686,7 @@
 				0EC5FD891BC574E500A25A33 /* API+Path.swift in Sources */,
 				09DB1B151BDF28920060860F /* Account.swift in Sources */,
 				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
+				09CCC4D21BFE964C0073D03B /* ModelSerializable.swift in Sources */,
 				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
 				094F1C091BE3D2410028B3F6 /* SignalProducer+CocoaBloc.swift in Sources */,
 				093A3C6B1BBC4E7A0038A71F /* SBAccount.m in Sources */,
@@ -698,7 +710,7 @@
 				093A3C771BBC4E7A0038A71F /* SBFanClub.m in Sources */,
 				093A3C871BBC4E7A0038A71F /* SBStatus.m in Sources */,
 				093A3C6F1BBC4E7A0038A71F /* SBAudio.m in Sources */,
-				09CCC4C11BFE92E30073D03B /* ContentType.swift in Sources */,
+				09CCC4D01BFE963C0073D03B /* ContentType.swift in Sources */,
 				09DB1B131BDF1A010060860F /* SBClient.swift in Sources */,
 				093A3C891BBC4E7A0038A71F /* SBStoreDashboard.m in Sources */,
 				0EC5FD8F1BC59FA200A25A33 /* API+SampleData.swift in Sources */,
