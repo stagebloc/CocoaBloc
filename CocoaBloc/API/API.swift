@@ -20,7 +20,34 @@ public protocol ContentType {
     var contentID: Int { get }
     
     /// The identifier of the account on which this content is posted
-    var accountID: Int { get }
+    var postedAccountID: Int { get }
+}
+
+extension SBContent: ContentType {
+    public var contentID: Int {
+        return self.identifier.integerValue
+    }
+    
+    public var postedAccountID: Int {
+        return self.accountID.integerValue
+    }
+    
+    public var contentType: API.ContentTypeIdentifier {
+        switch self {
+        case is SBPhoto:
+            return .Photo
+        case is SBBlog:
+            return .Blog
+        case is SBStatus:
+            return .Status
+        case is SBAudio:
+            return .Audio
+        case is SBVideo:
+            return .Video
+        default:
+            return .Blog // won't be reached. compiler can't know that this dynamic check really is exhaustive
+        }
+    }
 }
 
 /// An enumeration representing a StageBloc API target
@@ -297,7 +324,7 @@ public enum API: MoyaTarget {
     public struct Content: ContentType {
         public let contentType: ContentTypeIdentifier
         public let contentID: Int
-        public let accountID: Int
+        public let postedAccountID: Int
     }
 
     /**

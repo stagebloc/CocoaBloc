@@ -85,22 +85,22 @@ extension API {
             return "/account/\(accountID)/follow"
             
         case .LikeContent(let content):
-            return "/account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/like"
+            return "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/like"
             
         case .UnlikeContent(let content):
-            return "/account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/like"
+            return "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/like"
             
         case .DeleteContent(let content):
-            return "/account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)"
+            return "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)"
 
         case .GetUsersWhoLikeContent(let content):
-            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/likers"
+            return "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/likers"
             
         case .GetContent(let content):
-            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)"
+            return "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)"
             
         case .FlagContent(let content, let contentType, _):
-            return "/account/\(content.accountID)/\(contentType)/\(content.contentID)/flag"
+            return "/account/\(content.postedAccountID)/\(contentType)/\(content.contentID)/flag"
             
         case .PostStatus(_, let accountID, _, _):
             return "/account/\(accountID)/status"
@@ -128,7 +128,7 @@ extension API {
             return "account/\(accountID)/audio/playlists"
             
         case .GetCommentsForContent(let content):
-            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/comments"
+            return "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comments"
             
         case let .GetRepliesToComment(commentID, accountID, contentType):
             return "account/\(accountID)/\(contentType.rawValue)/comment/\(commentID)"
@@ -137,7 +137,7 @@ extension API {
             return "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)"
             
         case let .PostCommentOnContent(_, content):
-            return "account/\(content.accountID)/\(content.contentType.rawValue)/\(content.contentID)/comment"
+            return "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comment"
             
             
         ///////////////
@@ -146,7 +146,7 @@ extension API {
             return ""
             
         case let .GetComment(commentID, content):
-            return "account\(content.accountID)/\(content.contentType.rawValue)/comment/\(commentID)"
+            return "account\(content.postedAccountID)/\(content.contentType.rawValue)/comment/\(commentID)"
             
         case let .FlagComment(commentID, contentType, accountID, _, _):
             return "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)/flag"
