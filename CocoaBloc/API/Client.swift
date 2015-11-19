@@ -33,9 +33,17 @@ public final class Client {
     
     /// An OAuth application registered on StageBloc
     public struct Application {
-        public let clientID: String
-        public let clientSecret: String
-        public let redirectURI: String? = nil
+        public var clientID: String
+        public var clientSecret: String
+        public var redirectURI: String?
+        public var testing: Bool?
+
+        public init(clientID: String, clientSecret: String, redirectURI: String? = nil, testing : Bool? = nil) {
+            self.clientID = clientID
+            self.clientSecret = clientSecret
+            self.redirectURI = redirectURI
+            self.testing = testing
+        }
     }
    
     /// The application-wide OAuth app to use. Must be set before initializing a client
@@ -58,7 +66,7 @@ public final class Client {
             initialValue: false,
             producer: token.producer.map { token in token != nil }
         )
-        provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint)
+        provider = ReactiveCocoaMoyaProvider(endpointClosure: targetToEndpoint, stubClosure: stubClosure)
     }
     
     public func deauthenticate() {
@@ -215,5 +223,10 @@ extension Client {
                 }
                 return json
             }
+    }
+
+    private func stubClosure(target: API) -> Moya.StubBehavior {
+        guard let testing = Client.App?.testing else {return .Never}
+        return testing ? .Immediate : .Never
     }
 }

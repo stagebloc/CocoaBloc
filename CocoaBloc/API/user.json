@@ -1,0 +1,19 @@
+{
+    "metadata":{
+        "http_code":200
+    },
+
+    "data":{
+        "id":1261115,
+        "url":"https:\/\/stagebloc.com\/user\/iostests",
+        "created":"2015-10-29 15:11:51",
+        "name":"ios-tests",
+        "username":"iostests",
+        "bio":"iOS team will test all the things!",
+        "color":"70,170,255",
+        "kind":"user",
+        "birthday":"2002-01-01",
+        "gender":"cupcake",
+        "email":"ios-tests@stagebloc.com"
+    }
+}
