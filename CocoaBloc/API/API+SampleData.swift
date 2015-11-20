@@ -30,7 +30,7 @@ extension API {
         case
         .LogInWithUsername,
         .LoginWithAuthorizationCode,
-        .SignupUser,
+        .SignUp,
         .GetCurrentlyAuthenticatedUser,
         .GetUser,
         .BanUser:
@@ -42,7 +42,7 @@ extension API {
             return stubbedResponse(.Account)
 
         case
-        .GetContentWithIdentifier:
+        .GetContent:
             return stubbedResponse(.Content)
 
         case

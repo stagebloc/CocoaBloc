@@ -13,7 +13,7 @@ import ReactiveMoya
 
 class ProviderTests: XCTestCase {
     
-    lazy var provider = Client()
+    lazy var provider = Client(testing: true)
     
     override func setUp() {
         super.setUp()

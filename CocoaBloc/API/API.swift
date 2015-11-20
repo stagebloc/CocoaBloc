@@ -13,13 +13,6 @@ import ReactiveMoya
 /// An enumeration representing a StageBloc API target
 public enum API: MoyaTarget {
     
-    public enum SortOrder {
-        
-    }
-    public enum Direction {
-        
-    }
-    
     /// These are types of values that the API will expand from identifiers to JSON objects.
     /// NOTE: The raw values of these cases correspond to raw JSON keys
     public enum ExpandableValue: String {
@@ -61,7 +54,70 @@ public enum API: MoyaTarget {
 
 
 // MARK: User endpoints
+    
+    /**
+    Request the currently authenticated user for the SBClient.
+    */
+    case GetCurrentlyAuthenticatedUser
+    
+    /**
+     Ban user from specified account.
+     
+     - Parameters:
+     - userID: identifier of user to be banned.
+     - accountID: identifier of account from which to ban user.
+     - reason: String containing a reason why user is to be banned.
+     */
+    case BanUser(userID: Int, accountID: Int, reason: String)
 
+    /**
+     Requests password reset to specified email address.
+     
+     - Parameters:
+     - email: email address to send passoword reset.
+     */
+    case SendPasswordReset(email: String)
+
+    case UpdateAuthenticatedUserLocation(latitude: Double, longitude: Double)
+
+    /**
+     Request the StageBloc user by their user id.
+     
+     - Parameters:
+     - userID: identifier of user to be requested.
+     */
+    case GetUser(userID: Int)
+    
+    public enum UserColor: String {
+        case Blue   = "blue"
+        case Teal   = "teal"
+        case Green  = "green"
+        case Pink   = "pink"
+        case Red    = "red"
+        case Purple = "purple"
+    }
+
+    public enum Gender: String {
+        case Male       = "male"
+        case Female     = "female"
+        case Cupcake    = "cupcake"
+    }
+
+    /**
+     Request the StageBloc user by their user id.
+     
+     - Parameters:
+     - params: NSDictionary containing user information to be updated.
+     */
+    case UpdateAuthenticatedUser(
+        bio: String?,
+        birthday: NSDate?,
+        email: String?,
+        username: String?,
+        name: String?,
+        gender: Gender?,
+        color: UserColor?)
+    
     /**
     Sign up a new StageBloc user with the given user information and desired credentials.
 
@@ -73,43 +129,15 @@ public enum API: MoyaTarget {
         - gender: The user's gender.
         - sourceAccountID: The identifier of the account from which user is signing up.
     */
-    case SignupUser(email: String,
+    case SignUp(
+        email: String,
         name: String,
         password: String,
+        bio: String?,
         birthday: NSDate,
-        gender: String,
-        sourceAccountID: Int)
+        gender: Gender,
+        sourceAccountID: Int?)
 
-    /**
-    Request the currently authenticated user for the SBClient.
-    */
-    case GetCurrentlyAuthenticatedUser
-
-    /**
-    Request the StageBloc user by their user id.
-
-    - Parameters:
-        - userID: identifier of user to be requested.
-    */
-    case GetUser(userID: Int)
-
-    /**
-    Request the StageBloc user by their user id.
-
-    - Parameters:
-        - params: NSDictionary containing user information to be updated.
-    */
-    case UpdateAuthenticatedUserWithParameters(params: [String:AnyObject])
-
-    /**
-    Ban user from specified account.
-
-    - Parameters:
-        - userID: identifier of user to be banned.
-        - accountID: identifier of account from which to ban user.
-        - reason: String containing a reason why user is to be banned.
-    */
-    case BanUser(userID: Int, accountID: Int, reason: String)
 
     /**
     Request a list of content the user has either submitted or liked.
@@ -120,44 +148,40 @@ public enum API: MoyaTarget {
         or user-liked content ('SBUserContentListTypeLike').
         - parameters: additional parameters.
     */
-    case GetPostedContentFromUser(userID: Int, contentListType: String, parameters: [String:AnyObject])
-
-    /**
-    Requests password reset to specified email address.
-
-    - Parameters:
-        - email: email address to send passoword reset.
-    */
-    case SendPasswordReset(email: String)
-
-    /**
-    Updates user information .
-    - Parameters:
-        - email: email address to send passoword reset.
-    */
-//    case updateAuthenticatedUserWithPhoto(parameters : NSDictionary,
-//        photoData : NSData,
-//        progressSignal : RACSignal)
-//
-//
-//    case updateAuthenticatedUserPhoto(photoData : NSData, progressSignal : RACSignal)
-//
-//    case updateAuthenticatedUserLocation(coordinates, CLLocationCoordinate2D)
-
+    public enum UserContentType: String {
+        case Likes      = "likes"
+        case Updates    = "Updates"
+    }
+    case GetPostedContentFromUser(userID: Int, type: UserContentType)
 
 // MARK: Account endpoints
 
-
-    /**
-    Get an account based on an account ID.
-    */
-    case GetAccount(accountID: Int)
-
-    /**
-    Gets all of the accounts associated with the given user identifier, with options to filter admin and following accounts.
-    */
-    case GetAccountsForUser(userIdentifier: String, includingAdminAccounts: Bool, followingAccounts: Bool)
-
+    public enum AccountColor: String {
+        case Blue       = "blue"
+        case Purple     = "purple"
+        case Red        = "red"
+        case Orange     = "orange"
+        case Grey       = "grey"
+        case Green      = "green"
+    }
+    
+    public enum AccountType: String {
+        case Music              = "music"
+        case FilmAndTV          = "film/tv"
+        case Entertainment      = "entertainment"
+        case Sports             = "sports"
+        case Celebrity          = "celebrity"
+        case Comedian           = "comedian"
+        case RecordLabel        = "record label"
+        case ManagementCompany  = "management company"
+        case Personal           = "personal"
+        case Developer          = "developer"
+        case Photography        = "photography"
+        case Cooking            = "food"
+        case Business           = "business"
+        case Organization       = "organization"
+        case Other              = "other"
+    }
     /**
     Creates an account.
 
@@ -167,41 +191,32 @@ public enum API: MoyaTarget {
         - type: type of the account being created.
         - color: one of: purple, red, green, blue, orange, grey.
     */
-    case CreateAccount(name: String, url: String, type: String, color: String)
-
-    /**
-    Creates an account with a photo.
-
-    - Parameters:
-        - name: name of the new account.
-        - url: the url which this account can be found.
-        - type: type of the account being created.
-        - photoData: the profile photo of the account.
-        - photoProgressSignal: the photo progress upload signal.
-    */
-    case CreateAccountWithPhoto(
-        name: String,
-        url: String,
-        type: String,
-        photoData: NSData,
-        photoProgressSignal: Signal<Float, NSError>)
-
-    /**
-    Update an account with one or more new properties. Only admins of the account are allowed to do this
-
-    - Parameters:
-        - name: the new account name, or nil.
-        - description: description the new account description, or nil.
-        - stageBlocURL: the new StageBloc URL path component for the account, or nil.
-        - type: type of account (ex. 'Business', 'Cooking', 'Record Label', etc), or nil.
-        - color: account color.
-    */
-    case UpdateAccount(accountID : Int,
+    case CreateAccount(
         name: String,
         description: String,
-        stageBlocURL: String,
-        type: String,
-        color: String)
+        url: String,
+        type: AccountType,
+        color: AccountColor)
+
+    
+    /**
+     Update an account with one or more new properties. Only admins of the account are allowed to do this
+     
+     - Parameters:
+     - name: the new account name, or nil.
+     - description: description the new account description, or nil.
+     - stageBlocURL: the new StageBloc URL path component for the account, or nil.
+     - type: type of account (ex. 'Business', 'Cooking', 'Record Label', etc), or nil.
+     - color: account color.
+     */
+    case UpdateAccount(
+        accountID: Int,
+        name: String,
+        description: String,
+        url: String,
+        type: AccountType,
+        color: AccountColor)
+
 
     /**
     Update account photo data
@@ -209,10 +224,19 @@ public enum API: MoyaTarget {
     - Parameters:
         - accountID: identifier of the account for which to update photo.
         - photoData: the profile photo of the account.
-        - progressSignal: the photo progress upload signal.
     */
-    case UpdateAccountImage(accountID: Int, photoData: NSData, progressSignal: Signal<Float, NSError>?)
+    case UpdateAccountImage(accountID: Int)
 
+    /**
+     Gets all of the accounts associated with the given user identifier, with options to filter admin and following accounts.
+     */
+    case GetAccountsForUser(userID: String, includeAdminAccounts: Bool, includeFollowingAccounts: Bool)
+
+    /**
+     Get an account based on an account ID.
+     */
+    case GetAccount(accountID: Int)
+    
     /**
     Get an activity stream of recent content for an account.
     */
@@ -236,12 +260,12 @@ public enum API: MoyaTarget {
     /**
     Follow an account with its associated identifier
     */
-    case FollowAccount(accountIdentifier: Int)
+    case FollowAccount(accountID: Int)
 
     /**
     Unfollow an account with its associated identifier
     */
-    case UnfollowAccount(accountIdentifier: Int)
+    case UnfollowAccount(accountID: Int)
 
     /**
     Get the currently authenticated user's accounts.
@@ -249,26 +273,39 @@ public enum API: MoyaTarget {
     case GetAuthenticatedUserAccounts
 
 // MARK: Content endpoints
+    
+    public enum ContentTypeIdentifier: String {
+        case Photo  = "photo"
+        case Audio  = "audio"
+        case Video  = "video"
+        case Blog   = "blog"
+        case Status = "status"
+    }
+    public struct Content: ContentType {
+        public let contentType: ContentTypeIdentifier
+        public let contentID: Int
+        public let postedAccountID: Int
+    }
 
     /**
     Like a piece of content.
     */
-    case LikeContent(content: SBContent)
+    case LikeContent(ContentType)
 
     /**
     Un-like a piece of content.
     */
-    case UnlikeContent(content: SBContent)
+    case UnlikeContent(ContentType)
 
     /**
     Delete a piece of content.
     */
-    case DeleteContent(content: SBContent)
+    case DeleteContent(ContentType)
 
     /**
     Fetch a list of users who like a piece of content.
     */
-    case GetUsersWhoLikeContent(content: SBContent)
+    case GetUsersWhoLikeContent(ContentType)
 
     /**
     Fetch a content object.
@@ -278,20 +315,8 @@ public enum API: MoyaTarget {
         - contentType: type of content (i.e. blog, photo, etc).
         - accountID: account content is posted to
     */
-    case GetContentWithIdentifier(contentID: Int,
-        contentType: String,
-        accountID: Int)
-
-    /**
-    Flag a content object.
-
-    - Parameters:
-        - content: content to be flagged.
-        - contentType: type of content (i.e. blog, photo, etc).
-        - reason: reason for flagging content
-    */
-    case FlagContent(content: SBContent, contentType: String, reason: String)
-
+    case GetContent(ContentType)
+    
     /**
     Flag a content object.
 
@@ -302,10 +327,15 @@ public enum API: MoyaTarget {
         - type: string of preset values which can be used for reasons why someone flagged a piece of content
         - reason: reason for flagging content
     */
-    case FlagContentWithIdentifier(contentIdentifier: Int,
-        contentType: String,
-        accountID: Int,
-        type: String,
+    public enum FlagType: String {
+        case Duplicate = "duplicate"
+        case Copyright = "copyright"
+        case Prejudice = "prejudice"
+        case Offensive = "offensive"
+    }
+    case FlagContent(
+        ContentType,
+        type: FlagType,
         reason: String)
 
     /**
@@ -316,23 +346,11 @@ public enum API: MoyaTarget {
         - accountID: identifier of account to which status is to be posted.
         - fanContent: indicates whether status is submitted by a fan of the account.
     */
-    case PostStatus(status: String, accountID: Int, fanContent: Bool)
-
-    /**
-    Post status to account. Convenience method for posting statuses.
-
-    - Parameters:
-        - status: the status to be posted.
-        - accountID: identifier of account to which status is to be posted.
-        - fanContent: indicates whether status is submitted by a fan of the account.
-        - latitude: latitude coordinate of posted status.
-        - longitude: longitude coordinate of posted status.
-    */
-    case PostStatusWithLocation(status: String,
+    case PostStatus(
+        text: String,
         accountID: Int,
         fanContent: Bool,
-        latitude: Int,
-        longitude: Int)
+        location: (longitude: Double, latitude: Double)?)
 
     /**
     Post blog to account. Convenience method for posting statuses.
@@ -345,28 +363,18 @@ public enum API: MoyaTarget {
     case PostBlog(title: String, body: String, accountID: Int)
 
     /**
-    Get a photo from an account.
-
-    - Parameters:
-        - photoID: identifier of photo to be fetched
-        - account: associated account of the photo
-    */
-    case GetPhoto(photoID: Int, account: SBAccount)
-
-    /**
     Upload a photo directly to the specified account.
 
     - Parameters:
         - photoID: identifier of photo to be fetched
         - account: associated account of the photo
     */
-    case UploadPhoto(data: NSData,
+    case UploadPhoto(
         title: String,
-        caption: String,
+        description: String,
         accountID: Int,
         exclusive: Bool,
-        fanContent: Bool,
-        progressSignal : Signal<Float, NSError>)
+        fanContent: Bool)
 
     /**
     Upload a photo directly to the specified account.
@@ -380,33 +388,12 @@ public enum API: MoyaTarget {
         - exclusive: indicates whether video is exclusive content.
         - fanContent: indicates whether video is fan content.
     */
-    case UploadVideoWithData(data: NSData,
-        fileName: String,
+    case UploadVideo(
         title: String,
-        caption: String,
+        description: String,
         accountID: Int,
         exclusive: Bool,
-        fanContent: Bool,
-        progressSignal : Signal<Float, NSError>)
-
-    /**
-    Upload a video directly from disk by providing the absolute path to the video file.
-
-    - Parameters:
-        - filePath: the path or name of the video file. MIME type is derived from this.
-        - title: the video's title.
-        - caption: the video's caption.
-        - accountID: identifier of account associated with video.
-        - exclusive: indicates whether video is exclusive content.
-        - fanContent: indicates whether video is fan content.
-    */
-    case UploadVideoAtPath(filePath: String,
-        title: String,
-        caption: String,
-        accountID: Int,
-        exclusive: Bool,
-        fanContent: Bool,
-        progressSignal : Signal<Float, NSError>)
+        fanContent: Bool)
 
     /**
     Track video events.
@@ -416,32 +403,31 @@ public enum API: MoyaTarget {
         - videoID: the video identifier of the associated event.
         - accountID: identifier of account associated with video.
     */
-    case TrackVideoEvent(event: String, videoID: Int, accountID: Int)
-
+    public enum VideoEvent: String {
+        case Loop   = "loop"
+        case Play   = "play"
+        case Ended  = "ended"
+    }
+    case TrackVideoEvent(VideoEvent, videoID: Int, accountID: Int)
+    
     /**
-    Fetch audio track.
+     Fetch audio track.
+     
+     - Parameters:
+     - data: valid audio track data.
+     - title: audio track title.
+     - fileName: the path or name of the audio track file.
+     - account: identifier of account associated with audio track.
+     */
+    case UploadAudio(title: String, accountID: Int)
 
-    - Parameters:
-        - audioID: audio track identifier.
-        - accountID: identifier of account associated with audio track.
-    */
-    case GetAudioTrackWithID(audioID: Int, accountID: Int)
+    // Playlists
+    
+    case GetPlaylist(playlistID: Int, accountID: Int)
+    
+    case GetPlaylistsForAccount(accountID: Int)
 
-    /**
-    Fetch audio track.
-
-    - Parameters:
-        - data: valid audio track data.
-        - title: audio track title.
-        - fileName: the path or name of the audio track file.
-        - account: identifier of account associated with audio track.
-    */
-    case UploadAudioData(data: NSData,
-        title: String,
-        fileName: String,
-        account: SBAccount,
-        progressSignal : Signal<Float, NSError>?)
-
+   
 // MARK: Comment endpoints
 
     /**
@@ -450,7 +436,7 @@ public enum API: MoyaTarget {
     - Parameters:
         - content: content object for which to fetch comments.
     */
-    case GetCommentsForContent(content: SBContent)
+    case GetCommentsForContent(ContentType)
 
     /**
     Fetch replies (i.e. comments) to a particular comment.
@@ -458,41 +444,46 @@ public enum API: MoyaTarget {
     - Parameters:
         - comment: comment object for which to fetch replies.
     */
-    case GetRepliesToComment(comment: SBComment)
+    case GetRepliesToComment(commentID: Int, accountID: Int, contentType: ContentTypeIdentifier)
     
     /**
     Deletes a comment.
     */
-    case DeleteComment(comment: SBComment)
+    case DeleteComment(commentID: Int, accountID: Int, contentType: ContentTypeIdentifier)
 
     /**
     Post a comment to a piece of content.
     */
-    case PostCommentOnContent(text: String, content: SBContent)
+    case PostCommentOnContent(text: String, content: ContentType)
 
     /**
     Post a comment in reply to another comment.
     */
-    case PostCommentInReplyToComment(text: String, comment: SBComment)
+    case PostReplyToComment(text: String, content: ContentType)
 
     /**
     Fetch a comment for a piece of content from the comment's identifier.
     */
-    case GetComment(commentID: Int, content: SBContent)
+    case GetComment(commentID: Int, content: ContentType)
 
     /**
     Flag a comment.
     */
-    case FlagComment(comment: SBComment, type: String, reason: String)
 
-    case FlagCommentWithIdentifier(commentID: Int,
-        contentType: String,
+    case FlagComment(
+        commentID: Int,
+        contentType: ContentTypeIdentifier,
         accountID: Int,
-        type: String,
+        type: FlagType,
         reason: String)
 
 
 // MARK: Fanclub endpoints
+    
+    /**
+    Retrieves the fan club dashboard details for the account.
+    */
+    case GetFanClubDashboard(accountID: Int)
 
     /**
     Create the fan club for the given StageBloc account.
@@ -505,43 +496,43 @@ public enum API: MoyaTarget {
     */
     case CreateFanClub(accountID: Int, title: String, description: String, tierInfo: [String:AnyObject])
 
+    public enum FanClubType: String {
+        case Featured   = "featured"
+        case Recent     = "recent"
+        case Following  = "following"
+    }
+    case GetFanClubs(accountID: Int, type: FanClubType)
+    
+    case GetFanClubFans(accountID: Int)
+    
+    /**
+     Retrieves the content for fan clubs that the user follows.
+     */
+    case GetContentFromFollowedFanClubs
+
+    case GetFanClub(accountID: Int)
+    
     /**
     Get an array of content associated with a Fan Club.
     */
-    case GetContentFromFanClub(accountID: Int)
+    case GetFanClubContent(accountID: Int)
 
-    /**
-    Retrieves the content for fan clubs that the user follows.
-    */
-    case GetContentFromFollowedFanClubs
-
-    /**
-    Retrieves the user's fan club following list.
-    */
-    case GetFollowedFanClubs
-
-    /**
-    Retrieves the user's recent fan clubs list.
-    */
-    case GetRecentFanClubs
-
-    /**
-    Retrieves the user's featured fan clubs list.
-    */
-    case GetFeaturedFanClubs
-
-    /**
-    Retrieves the fan club details for the account.
-    */
-    case GetFanClub(accountID: Int)
-
-    /**
-    Retrieves the fan club dashboard details for the account.
-    */
-    case GetFanClubDashboard(accountID: Int)
 
 // MARK: Store endpoints
 
+    case GetStoreDashboard(accountID: Int)
+
+    case GetOrders(accountID: Int)
+    
+    case SetOrderShipped(orderID: Int, accountID: Int, trackingNumber: String, carrier: String)
+    
+    case GetStoreItemsForAccount(accountID: Int)
+
+    case GetStoreItem(storeItemID: Int, accountID: Int)
+
+    
+    // Commerce
+    
     /**
     Requests tax and shipping information for a given cart and address. Returns RACTuple with first object = SBShippingRateSet and second object = NSDecimalNumber (taxTotal)
 
@@ -552,30 +543,31 @@ public enum API: MoyaTarget {
     */
     case GetShippingRatesAndTax(accountID: Int, address: SBAddress, items: [String:AnyObject])
 
-    case GetStoreItemsForAccount(accountID: Int)
 
-    case GetStoreItemWithID(storeItemID: Int, accountID: Int)
 
     /**
     Purchase storeItem(s)
     */
-    case PurchaseItems(items: [String:AnyObject],
+    case PurchaseItems(
+        items: [String:AnyObject],
+        amount: Double,
         purchaseToken: String,
         address: SBAddress,
         shippingDetails: [String:AnyObject],
         totals: [String:AnyObject],
         notes: String,
         email: String,
+        cash: Bool,
         accountID: Int)
 
-    case AddPaymentForSplitPurchase(orderID: Int,
+    case AddPaymentForSplitPurchase(
+        orderID: Int,
         amount: NSDecimalNumber,
         token: String,
         accountID: Int)
 
     case RequestStripeAuthorization(requestToken: String, accountID: Int)
 
-    case GetStoreDashboard(accountID: Int)
 
 // MARK: Push endpoints
 
@@ -583,17 +575,22 @@ public enum API: MoyaTarget {
 
 // MARK: Notification endpoints
 
-    case GetNotifications(accountID: Int)
+    case GetNotifications
+    
+    // Events
+    case GetEvents(accountID: Int)
+    
+    // Coupons
+    case GetCoupon(accountID: Int, couponID: Int)
+    
+    case ValidateCoupon(accountID: Int, couponCode: String)
 }
 
 extension API {
 
-    // Base CocoaBlocAPI URL
+    /// Base CocoaBlocAPI URL
     public var baseURL: NSURL { return NSURL(string: "https://api.stagebloc.com/v1")! }
     
-    // Full resolved URL
+    /// Full resolved URL
     public var URL: NSURL { return self.baseURL.URLByAppendingPathComponent(path) }
 }
-
-
-
