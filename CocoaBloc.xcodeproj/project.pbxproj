@@ -67,7 +67,6 @@
 		09CCC4DB1BFE98C80073D03B /* ReactiveMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CCC4D61BFE98C80073D03B /* ReactiveMoya.framework */; };
 		09CCC4DC1BFE98C80073D03B /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CCC4D71BFE98C80073D03B /* Result.framework */; };
 		09DB1B131BDF1A010060860F /* SBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B121BDF1A010060860F /* SBClient.swift */; };
-		09DB1B151BDF28920060860F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB1B141BDF28920060860F /* Account.swift */; };
 		09E0B90B1BDF0C19004E7739 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E0B90A1BDF0C19004E7739 /* ClientTests.swift */; };
 		09E0B9291BDF10D9004E7739 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */; };
 		09EA2FC21BBC2CB100167058 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 09EA2FC11BBC2CB100167058 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -187,7 +186,6 @@
 		09CCC4D61BFE98C80073D03B /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = ../Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
 		09CCC4D71BFE98C80073D03B /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = ../Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		09DB1B121BDF1A010060860F /* SBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBClient.swift; sourceTree = "<group>"; };
-		09DB1B141BDF28920060860F /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		09E0B90A1BDF0C19004E7739 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
 		09EA2FBE1BBC2CB100167058 /* CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EA2FC11BBC2CB100167058 /* CocoaBloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaBloc.h; sourceTree = "<group>"; };
@@ -249,7 +247,6 @@
 		093A3C411BBC4E7A0038A71F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				09DB1B141BDF28920060860F /* Account.swift */,
 				093A3C421BBC4E7A0038A71F /* SBAccount.h */,
 				093A3C431BBC4E7A0038A71F /* SBAccount.m */,
 				093A3C441BBC4E7A0038A71F /* SBAddress.h */,
@@ -672,7 +669,6 @@
 				093A3C9A1BBC4EFD0038A71F /* NSDateFormatter+CocoaBloc.m in Sources */,
 				0EC5FD8B1BC579D600A25A33 /* API+Method.swift in Sources */,
 				0EC5FD891BC574E500A25A33 /* API+Path.swift in Sources */,
-				09DB1B151BDF28920060860F /* Account.swift in Sources */,
 				093A3C731BBC4E7A0038A71F /* SBComment.m in Sources */,
 				09CCC4D21BFE964C0073D03B /* ModelSerializable.swift in Sources */,
 				093A3C751BBC4E7A0038A71F /* SBContent.m in Sources */,
