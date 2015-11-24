@@ -78,27 +78,54 @@ public struct Request<Endpoint: EndpointType> {
     
     /// Starts the request, returning the serialized model for the endpoint if successful
     public func start(completion: Result<Endpoint.Model, Error> -> Void) {
+        precondition(endpoint.isArray == false, "This version of start() is only available for non-array endpoints")
         
         return start { (result: Result<[String:AnyObject], Error>) in
             switch result {
             case .Success(let json):
+                guard let modelDict = json["data"] as? [NSObject:AnyObject] else {
+                    completion(.Failure(.UnexpectedResponseType))
+                    return
+                }
                 
-                switch isArray {
-                case true:
-                    if
-                        let modelJSON = json["data"] as? [AnyObject],
-                        let models = try? MTLJSONAdapter.modelsOfClass(Endpoint.Model.self, fromJSONArray: modelJSON) {
-                            completion(.Success(models))
-                    }
-//
-//                if let model = (try? MTLModel.modelWithDictionary(json)) as? Endpoint.Model {
-//                    completion(.Success(model))
-//                } else {
-//                    completion(.Failure(.JSONSerialization))
-//                }
+                do {
+                    let model = try MTLJSONAdapter.modelOfClass(Endpoint.Model.self, fromJSONDictionary: modelDict) as! Endpoint.Model
+                    completion(.Success(model))
+                }
+                catch let error as NSError {
+                    completion(.Failure(.JSONSerialization(error)))
+                }
+                
             case .Failure(let error):
                 completion(.Failure(error))
             }
         }
     }
+    
+    /// Starts the request, returning the array of serialized models for the endpoint if successful
+    public func start(completion: Result<[Endpoint.Model], Error> -> Void) {
+        precondition(endpoint.isArray == true, "This version of start() is only available for array endpoints")
+        
+        return start { (result: Result<[String:AnyObject], Error>) in
+            switch result {
+            case .Success(let json):
+                guard let jsonArray = json["data"] as? [AnyObject] else {
+                    completion(.Failure(.UnexpectedResponseType))
+                    return
+                }
+                
+                do {
+                    let models = try MTLJSONAdapter.modelsOfClass(Endpoint.Model.self, fromJSONArray: jsonArray) as! [Endpoint.Model]
+                    completion(.Success(models))
+                }
+                catch let error as NSError {
+                    completion(.Failure(.JSONSerialization(error)))
+                }
+                
+            case .Failure(let error):
+                completion(.Failure(error))
+            }
+        }
+    }
+
 }
