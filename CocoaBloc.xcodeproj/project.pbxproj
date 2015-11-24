@@ -11,6 +11,10 @@
 		090E111A1C008E9C0001C943 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E110F1C008E9C0001C943 /* CocoaBloc.framework */; };
 		090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */; };
 		0925DF641C04C84E00BD43E0 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
+		0925DF661C0514F400BD43E0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF651C0514F400BD43E0 /* Error.swift */; };
+		0925DF681C0514FA00BD43E0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF671C0514FA00BD43E0 /* Request.swift */; };
+		0925DF6A1C0514FF00BD43E0 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF691C0514FF00BD43E0 /* EndpointType.swift */; };
+		0925DF6C1C0515A200BD43E0 /* Client+ReactiveCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF6B1C0515A200BD43E0 /* Client+ReactiveCocoa.swift */; };
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C2381C012E7100EE0706 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2351C012E7100EE0706 /* ReactiveCocoa.framework */; };
 		0994C2391C012E7100EE0706 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2361C012E7100EE0706 /* Result.framework */; };
@@ -35,6 +39,10 @@
 		090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
 		090E11201C008E9C0001C943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0925DF631C04C84E00BD43E0 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
+		0925DF651C0514F400BD43E0 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		0925DF671C0514FA00BD43E0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		0925DF691C0514FF00BD43E0 /* EndpointType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
+		0925DF6B1C0515A200BD43E0 /* Client+ReactiveCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+ReactiveCocoa.swift"; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0994C2351C012E7100EE0706 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		0994C2361C012E7100EE0706 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
@@ -92,6 +100,10 @@
 				090E11121C008E9C0001C943 /* CocoaBloc.h */,
 				090E11141C008E9C0001C943 /* Info.plist */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
+				0925DF691C0514FF00BD43E0 /* EndpointType.swift */,
+				0925DF651C0514F400BD43E0 /* Error.swift */,
+				0925DF671C0514FA00BD43E0 /* Request.swift */,
+				0925DF6B1C0515A200BD43E0 /* Client+ReactiveCocoa.swift */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -213,6 +225,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0925DF6A1C0514FF00BD43E0 /* EndpointType.swift in Sources */,
+				0925DF6C1C0515A200BD43E0 /* Client+ReactiveCocoa.swift in Sources */,
+				0925DF661C0514F400BD43E0 /* Error.swift in Sources */,
+				0925DF681C0514FA00BD43E0 /* Request.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
