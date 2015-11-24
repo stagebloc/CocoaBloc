@@ -10,6 +10,11 @@
 		090E11131C008E9C0001C943 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 090E11121C008E9C0001C943 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		090E111A1C008E9C0001C943 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E110F1C008E9C0001C943 /* CocoaBloc.framework */; };
 		090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */; };
+		0925DF641C04C84E00BD43E0 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
+		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
+		0994C2381C012E7100EE0706 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2351C012E7100EE0706 /* ReactiveCocoa.framework */; };
+		0994C2391C012E7100EE0706 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2361C012E7100EE0706 /* Result.framework */; };
+		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +34,11 @@
 		090E11191C008E9C0001C943 /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
 		090E11201C008E9C0001C943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0925DF631C04C84E00BD43E0 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
+		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		0994C2351C012E7100EE0706 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
+		0994C2361C012E7100EE0706 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +46,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0925DF641C04C84E00BD43E0 /* Mantle.framework in Frameworks */,
+				0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */,
+				0994C2381C012E7100EE0706 /* ReactiveCocoa.framework in Frameworks */,
+				0994C2391C012E7100EE0706 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +67,10 @@
 		090E11051C008E9C0001C943 = {
 			isa = PBXGroup;
 			children = (
+				0925DF631C04C84E00BD43E0 /* Mantle.framework */,
+				0994C2341C012E7100EE0706 /* Alamofire.framework */,
+				0994C2351C012E7100EE0706 /* ReactiveCocoa.framework */,
+				0994C2361C012E7100EE0706 /* Result.framework */,
 				090E11111C008E9C0001C943 /* CocoaBloc */,
 				090E111D1C008E9C0001C943 /* CocoaBlocTests */,
 				090E11101C008E9C0001C943 /* Products */,
@@ -73,6 +91,7 @@
 			children = (
 				090E11121C008E9C0001C943 /* CocoaBloc.h */,
 				090E11141C008E9C0001C943 /* Info.plist */,
+				0994C23A1C012ED500EE0706 /* Client.swift */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -194,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,26 +328,37 @@
 		090E11241C008E9C0001C943 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CocoaBloc/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		090E11251C008E9C0001C943 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CocoaBloc/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -376,6 +407,7 @@
 				090E11251C008E9C0001C943 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		090E11261C008E9C0001C943 /* Build configuration list for PBXNativeTarget "CocoaBlocTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +416,7 @@
 				090E11281C008E9C0001C943 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
