@@ -10,15 +10,9 @@ import Mantle
 import Result
 import class Alamofire.Request
 
-public class Response {
-    
-}
-
-extension Request where Endpoint.Model: MTLModel {
+extension Request where ModelType: MTLModel {
     /// Starts the request, returning the serialized model for the endpoint if successful
-    public func start(completion: Result<Endpoint.Model, Error> -> Void) {
-        precondition(endpoint.isArray == false, "This version of start() is only available for non-array endpoints")
-        
+    public func start(completion: Result<ModelType, Error> -> Void) {
         return start { (result: Result<[String:AnyObject], Error>) in
             switch result {
             case .Success(let json):
@@ -28,7 +22,7 @@ extension Request where Endpoint.Model: MTLModel {
                 }
                 
                 do {
-                    let model = try MTLJSONAdapter.modelOfClass(Endpoint.Model.self, fromJSONDictionary: modelDict) as! Endpoint.Model
+                    let model = try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: modelDict) as! ModelType
                     completion(.Success(model))
                 }
                 catch let error as NSError {
@@ -42,9 +36,7 @@ extension Request where Endpoint.Model: MTLModel {
     }
     
     /// Starts the request, returning the array of serialized models for the endpoint if successful
-    public func start(completion: Result<[Endpoint.Model], Error> -> Void) {
-        precondition(endpoint.isArray == true, "This version of start() is only available for array endpoints")
-        
+    public func start(completion: Result<[ModelType], Error> -> Void) {
         return start { (result: Result<[String:AnyObject], Error>) in
             switch result {
             case .Success(let json):
@@ -54,7 +46,7 @@ extension Request where Endpoint.Model: MTLModel {
                 }
                 
                 do {
-                    let models = try MTLJSONAdapter.modelsOfClass(Endpoint.Model.self, fromJSONArray: jsonArray) as! [Endpoint.Model]
+                    let models = try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: jsonArray) as! [ModelType]
                     completion(.Success(models))
                 }
                 catch let error as NSError {
@@ -69,13 +61,10 @@ extension Request where Endpoint.Model: MTLModel {
 }
 
 /// Represents a request for a given endpoint type
-public struct Request<Endpoint: EndpointType> {
+public struct Request<ModelType> {
     
     /// The underlying request
     internal let request: Alamofire.Request
-    
-    /// The endpoint this request targets
-    public let endpoint: Endpoint
     
     public func start(completion: Result<NSData, Error> -> Void) {
         request.responseData { response in
@@ -103,11 +92,4 @@ public struct Request<Endpoint: EndpointType> {
             }
         }
     }
-    
-    public func start() -> SignalProducer<NSData, Error> {
-        return SignalProducer.empty.flatMap(.Latest) { _ in
-            
-        }
-    }
 }
-import ReactiveCocoa
