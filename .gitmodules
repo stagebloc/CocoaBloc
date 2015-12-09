@@ -4,9 +4,3 @@
 [submodule "Carthage/Checkouts/Mantle"]
 	url = https://github.com/Mantle/Mantle.git
 	ignore = dirty
-[submodule "Carthage/Checkouts/Result"]
-	url = https://github.com/antitypical/Result.git
-	ignore = dirty
-[submodule "Carthage/Checkouts/ReactiveCocoa"]
-	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
-	ignore = dirty
