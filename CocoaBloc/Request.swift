@@ -7,89 +7,67 @@
 //
 
 import Mantle
-import Result
-import class Alamofire.Request
+import Alamofire
 
-extension Request where ModelType: MTLModel {
-    /// Starts the request, returning the serialized model for the endpoint if successful
-    public func start(completion: Result<ModelType, Error> -> Void) {
-        return start { (result: Result<[String:AnyObject], Error>) in
-            switch result {
-            case .Success(let json):
-                guard let modelDict = json["data"] as? [NSObject:AnyObject] else {
-                    completion(.Failure(.UnexpectedResponseType))
-                    return
-                }
-                
-                do {
-                    let model = try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: modelDict) as! ModelType
-                    completion(.Success(model))
-                }
-                catch let error as NSError {
-                    completion(.Failure(.JSONSerialization(error)))
-                }
-                
-            case .Failure(let error):
-                completion(.Failure(error))
-            }
-        }
-    }
+public struct MantleResponseSerializer<ModelType: MTLModel>: ResponseSerializerType {
+    let keyPath: String = "data"
     
-    /// Starts the request, returning the array of serialized models for the endpoint if successful
-    public func start(completion: Result<[ModelType], Error> -> Void) {
-        return start { (result: Result<[String:AnyObject], Error>) in
-            switch result {
-            case .Success(let json):
-                guard let jsonArray = json["data"] as? [AnyObject] else {
-                    completion(.Failure(.UnexpectedResponseType))
-                    return
-                }
-                
-                do {
-                    let models = try MTLJSONAdapter.modelsOfClass(ModelType.self, fromJSONArray: jsonArray) as! [ModelType]
-                    completion(.Success(models))
-                }
-                catch let error as NSError {
-                    completion(.Failure(.JSONSerialization(error)))
-                }
-                
-            case .Failure(let error):
-                completion(.Failure(error))
-            }
-        }
-    }
+//    public var serializeResponse: (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Alamofire.Result<ModelType, CocoaBloc.Error> {
+//        return { request, response, data, error in
+//            let JSONSerializer = Alamofire.Request.JSONResponseSerializer()
+//            return JSONSerializer.serializeResponse(request, response, data, error)
+//                
+////            }
+//        }
+////        switch  {
+////            
+////        }
+//    }
 }
 
-/// Represents a request for a given endpoint type
-public struct Request<ModelType> {
+public final class Request<ModelType: MTLModel> {
     
     /// The underlying request
-    internal let request: Alamofire.Request
+    public let request: Alamofire.Request
     
-    public func start(completion: Result<NSData, Error> -> Void) {
-        request.responseData { response in
-            switch response.result {
-            case .Success(let data):
-                completion(.Success(data))
-            case .Failure(let error):
-                completion(.Failure(.Underlying(error)))
-            }
-        }
-    }
+    var expansions: [Expandable] = []
+
+    private let modelResponseSerializer: MantleResponseSerializer<ModelType, CocoaBloc.Error>
     
-    /// Starts the request, returning the JSON respresentation of the data if successful
-    public func start(completion: Result<[String:AnyObject], Error> -> Void) {
-        request.responseJSON { response in
-            switch response.result {
-            case .Success(let object):
-                if let dict = object as? [String:AnyObject] {
-                    completion(.Success(dict))
-                } else {
-                    completion(.Failure(.UnexpectedResponseType))
-                }
-            case .Failure(let error):
-                completion(.Failure(.Underlying(error)))
-            }
-        }
+    public init(request: Alamofire.Request) {
+        self.request = request
     }
 }
+
+//public extension Request where ModelType: MTLModel {
+//    public func responseModel(completion: Alamofire.Response<ModelType, CocoaBloc.Error> -> Void) {
+//        request.responseJSON { response in
+//            switch response.result {
+//            case .Success(let value):
+//                if
+//                    let dict = value as? [String:AnyObject],
+//                    let data = dict[self.keyPath] as? [NSObject:AnyObject] {
+//                        do {
+//                            if let model = try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: data) as? ModelType {
+//                                completion(Response(request: response.request, response: response.response, data: response.data, result: .Success(model)))
+//                            } else {
+//                                completion(Response(request: response.request, response: response.response, data: response.data, result: .Failure(Error.UnexpectedResponseType)))
+//                            }
+//                        }
+//                        catch let error as NSError {
+//                            completion(Response(request: response.request, response: response.response, data: response.data, result: .Failure(Error.JSONSerialization(error))))
+//                        }
+//                }
+//            case .Failure(let error):
+//                completion(Response(request: response.request, response: response.response, data: response.data, result: .Failure(Error.JSONSerialization(error))))
+//            }
+//        }
+//        request.resume()
+//    }
+//}
+
+//public extension Request where ModelType: SequenceType, ModelType.Generator.Element: MTLModel {
+//    public func responseModels(completion: Alamofire.Response<ModelType, CocoaBloc.Error>) {
+//        
+//    }
+//}

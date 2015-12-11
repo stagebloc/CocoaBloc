@@ -8,8 +8,11 @@
 
 import XCTest
 @testable import CocoaBloc
+import Alamofire
 
 class CocoaBlocTests: XCTestCase {
+    
+    let client = Client(clientID: "de4346e640860eb3d6fd97e11e475d0d", clientSecret: "c2288f625407c5aff55e41d1fef1ed73")
     
     override func setUp() {
         super.setUp()
@@ -21,16 +24,20 @@ class CocoaBlocTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+    func testAuthentication() {
+        let e = expectationWithDescription("test")
+        
+        client.logInWithUsername("hi@stagebloc.com", password: "starwars").responseModel { result in
+            print(result)
+            
+            if case .Success = result.result {
+                e.fulfill()
+            } else {
+                XCTFail()
+            }
         }
+        
+        
+        waitForExpectationsWithTimeout(10, handler: nil)
     }
-    
 }

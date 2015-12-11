@@ -7,11 +7,77 @@
 //
 
 import Foundation
-import ReactiveCocoa
-import ReactiveMoya
+
+public enum ContentEndpoint<T: SBContent> {
+    typealias Model = T
+    
+    public enum ContentTypeIdentifier: String {
+        case Photo  = "photo"
+        case Audio  = "audio"
+        case Video  = "video"
+        case Blog   = "blog"
+        case Status = "status"
+    }
+    public struct Content: ContentType {
+        public let contentType: ContentTypeIdentifier
+        public let contentID: Int
+        public let postedAccountID: Int
+    }
+    
+    /**
+     Like a piece of content.
+     */
+    case LikeContent(ContentType)
+
+    /**
+    Un-like a piece of content.
+    */
+    case UnlikeContent(ContentType)
+
+    /**
+    Delete a piece of content.
+    */
+    case DeleteContent(ContentType)
+
+    /**
+    Fetch a list of users who like a piece of content.
+    */
+    case GetUsersWhoLikeContent(ContentType)
+
+    /**
+    Fetch a content object.
+
+    - Parameters:
+        - contentID: identifier for the content.
+        - contentType: type of content (i.e. blog, photo, etc).
+        - accountID: account content is posted to
+    */
+    case GetContent(ContentType)
+    
+    /**
+    Flag a content object.
+
+    - Parameters:
+        - contentIdentifier: identifier for the content..
+        - contentType: type of content (i.e. blog, photo, etc).
+        - accountID: account content is posted to.
+        - type: string of preset values which can be used for reasons why someone flagged a piece of content
+        - reason: reason for flagging content
+    */
+    public enum FlagType: String {
+        case Duplicate = "duplicate"
+        case Copyright = "copyright"
+        case Prejudice = "prejudice"
+        case Offensive = "offensive"
+    }
+    case FlagContent(
+        ContentType,
+        type: FlagType,
+        reason: String)
+}
 
 /// An enumeration representing a StageBloc API target
-public enum API: MoyaTarget {
+public enum API {
     
     /// These are types of values that the API will expand from identifiers to JSON objects.
     /// NOTE: The raw values of these cases correspond to raw JSON keys
@@ -274,69 +340,7 @@ public enum API: MoyaTarget {
 
 // MARK: Content endpoints
     
-    public enum ContentTypeIdentifier: String {
-        case Photo  = "photo"
-        case Audio  = "audio"
-        case Video  = "video"
-        case Blog   = "blog"
-        case Status = "status"
-    }
-    public struct Content: ContentType {
-        public let contentType: ContentTypeIdentifier
-        public let contentID: Int
-        public let postedAccountID: Int
-    }
 
-    /**
-    Like a piece of content.
-    */
-    case LikeContent(ContentType)
-
-    /**
-    Un-like a piece of content.
-    */
-    case UnlikeContent(ContentType)
-
-    /**
-    Delete a piece of content.
-    */
-    case DeleteContent(ContentType)
-
-    /**
-    Fetch a list of users who like a piece of content.
-    */
-    case GetUsersWhoLikeContent(ContentType)
-
-    /**
-    Fetch a content object.
-
-    - Parameters:
-        - contentID: identifier for the content.
-        - contentType: type of content (i.e. blog, photo, etc).
-        - accountID: account content is posted to
-    */
-    case GetContent(ContentType)
-    
-    /**
-    Flag a content object.
-
-    - Parameters:
-        - contentIdentifier: identifier for the content..
-        - contentType: type of content (i.e. blog, photo, etc).
-        - accountID: account content is posted to.
-        - type: string of preset values which can be used for reasons why someone flagged a piece of content
-        - reason: reason for flagging content
-    */
-    public enum FlagType: String {
-        case Duplicate = "duplicate"
-        case Copyright = "copyright"
-        case Prejudice = "prejudice"
-        case Offensive = "offensive"
-    }
-    case FlagContent(
-        ContentType,
-        type: FlagType,
-        reason: String)
 
     /**
     Post status to account. Convenience method for posting statuses.
