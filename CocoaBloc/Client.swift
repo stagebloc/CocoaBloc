@@ -80,7 +80,27 @@ public final class Client {
         case Content    = "content"
     }
     
-    internal func request<Model: MTLModel>(
+    public enum Gender: String {
+        case Male       = "male"
+        case Female     = "female"
+        case Cupcake    = "cupcake"
+    }
+    
+    public enum ContentTypeIdentifier: String {
+        case Photo  = "photo"
+        case Audio  = "audio"
+        case Video  = "video"
+        case Blog   = "blog"
+        case Status = "status"
+    }
+    
+    public struct Content: ContentType {
+        public let contentType: ContentTypeIdentifier
+        public let contentID: Int
+        public let postedAccountID: Int
+    }
+    
+    internal func request<Model>(
         path path: String,
         method: Alamofire.Method,
         expand: [ExpandableValue] = [],
@@ -94,12 +114,15 @@ public final class Client {
                     params["client_id"] = self.clientID
                 }
                 
-                if !params.keys.contains("expand") {
-                    params["expand"] = "kind"
-                }
-                else if let expansions = params["expand"] as? String where !expansions.containsString("kind") {
-                    params["expand"] = "kind,\(expansions)"
-                }
+                params["expand"] = (["kind"] + expand.map({$0.rawValue})).joinWithSeparator(",")
+                                
+//                if !params.keys.contains("expand") {
+//                    params["expand"] = "kind"
+//                }
+//                else if let expansions = params["expand"] as? String where !expansions.containsString("kind") {
+//                    params["expand"] = "kind,\(expansions)"
+//                }
+                
                 return params
             },
             encoding: .URL,
@@ -117,7 +140,6 @@ public final class Client {
                 "client_secret": clientSecret,
                 "username": username,
                 "password": password,
-                "expand": "user",
                 "grant_type": "password"
             ],
             expand: [.User],
@@ -128,12 +150,20 @@ public final class Client {
                 let json = jsonObject as? [String:AnyObject],
                 let token = json["data"]?["access_token"] as? String {
                     self?.authenticationState.authenticationToken = token
-                }
+            }
         }
-    
+        
         return request
     }
-   
-//    public func
+}
+
+public extension SequenceType where Generator.Element == (String, AnyObject?) {
+    func filterNil() -> [String:AnyObject] {
+        var ret = [String:AnyObject]()
+        for tuple in self where tuple.1 != nil {
+            ret[tuple.0] = tuple.1!
+        }
+        return ret
+    }
 }
 

@@ -59,16 +59,15 @@
 		0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */; };
 		0925DFC91C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */; };
 		0925DFCA1C053B9A00BD43E0 /* SignalProducer+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC41C053B9A00BD43E0 /* SignalProducer+CocoaBloc.swift */; };
-		096554571C1919B700D8AFB2 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */; };
 		0965545C1C191C0700D8AFB2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0965545D1C191C0700D8AFB2 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
 		0965545E1C191C0700D8AFB2 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */; };
-		0965545F1C191C0700D8AFB2 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2361C012E7100EE0706 /* Result.framework */; };
 		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
-		0994C2391C012E7100EE0706 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2361C012E7100EE0706 /* Result.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
 		09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */; };
+		81C0B6811C2091FC00415FCA /* Client+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0B6801C2091FC00415FCA /* Client+User.swift */; };
+		81C0EAA91C20C2C4000F1036 /* x86_64.swiftmodule in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C0EAA81C20C2C4000F1036 /* x86_64.swiftmodule */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,13 +140,14 @@
 		098DC4191C1F64380084AE45 /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		0994C2361C012E7100EE0706 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-Request+MantleSerialization.swift"; sourceTree = "<group>"; };
 		09AB382D1C1F41380085EDB2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = old/API/API.swift; sourceTree = SOURCE_ROOT; };
 		09AB382E1C1F41380085EDB2 /* API+Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Method.swift"; path = "old/API/API+Method.swift"; sourceTree = SOURCE_ROOT; };
 		09AB382F1C1F41380085EDB2 /* API+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Parameters.swift"; path = "old/API/API+Parameters.swift"; sourceTree = SOURCE_ROOT; };
 		09AB38301C1F41380085EDB2 /* API+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Path.swift"; path = "old/API/API+Path.swift"; sourceTree = SOURCE_ROOT; };
+		81C0B6801C2091FC00415FCA /* Client+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+User.swift"; sourceTree = "<group>"; };
+		81C0EAA81C20C2C4000F1036 /* x86_64.swiftmodule */ = {isa = PBXFileReference; lastKnownFileType = file; name = x86_64.swiftmodule; path = Carthage/Build/iOS/ReactiveCocoa.framework/Modules/ReactiveCocoa.swiftmodule/x86_64.swiftmodule; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,10 +155,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				096554571C1919B700D8AFB2 /* ReactiveCocoa.framework in Frameworks */,
 				0925DF641C04C84E00BD43E0 /* Mantle.framework in Frameworks */,
 				0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */,
-				0994C2391C012E7100EE0706 /* Result.framework in Frameworks */,
+				81C0EAA91C20C2C4000F1036 /* x86_64.swiftmodule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +168,6 @@
 				0965545C1C191C0700D8AFB2 /* Alamofire.framework in Frameworks */,
 				0965545D1C191C0700D8AFB2 /* Mantle.framework in Frameworks */,
 				0965545E1C191C0700D8AFB2 /* ReactiveCocoa.framework in Frameworks */,
-				0965545F1C191C0700D8AFB2 /* Result.framework in Frameworks */,
 				090E111A1C008E9C0001C943 /* CocoaBloc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,10 +178,10 @@
 		090E11051C008E9C0001C943 = {
 			isa = PBXGroup;
 			children = (
+				81C0EAA81C20C2C4000F1036 /* x86_64.swiftmodule */,
 				096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */,
 				0925DF631C04C84E00BD43E0 /* Mantle.framework */,
 				0994C2341C012E7100EE0706 /* Alamofire.framework */,
-				0994C2361C012E7100EE0706 /* Result.framework */,
 				090E11111C008E9C0001C943 /* CocoaBloc */,
 				090E111D1C008E9C0001C943 /* CocoaBlocTests */,
 				090E11101C008E9C0001C943 /* Products */,
@@ -213,6 +211,7 @@
 				09AB38301C1F41380085EDB2 /* API+Path.swift */,
 				090E11141C008E9C0001C943 /* Info.plist */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
+				81C0B6801C2091FC00415FCA /* Client+User.swift */,
 				0925DF651C0514F400BD43E0 /* Error.swift */,
 				0925DF671C0514FA00BD43E0 /* Request.swift */,
 			);
@@ -465,6 +464,7 @@
 				0925DFAD1C05344100BD43E0 /* SBOrder.m in Sources */,
 				0925DFBB1C05344100BD43E0 /* SBUser.m in Sources */,
 				0925DF661C0514F400BD43E0 /* Error.swift in Sources */,
+				81C0B6811C2091FC00415FCA /* Client+User.swift in Sources */,
 				0925DFB51C05344100BD43E0 /* SBStoreDashboard.m in Sources */,
 				0925DFBD1C05344100BD43E0 /* SBVideo.m in Sources */,
 				0925DF9B1C05344100BD43E0 /* SBAudio.m in Sources */,
