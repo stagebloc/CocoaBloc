@@ -27,15 +27,14 @@ class CocoaBlocTests: XCTestCase {
     func testAuthentication() {
         let e = expectationWithDescription("test")
         
-        client.logInWithUsername("hi@stagebloc.com", password: "starwars").responseModel { result in
-            print(result)
-            
-            if case .Success = result.result {
-                e.fulfill()
-            } else {
-                XCTFail()
+        let request = client.logInWithUsername("hi@stagebloc.com", password: "starwars")
+            .responseModel { (response: Response<SBUser, CocoaBloc.Error>) -> Void in
+                print(response)
             }
-        }
+        
+        debugPrint(request.request)
+            
+        request.resume()
         
         
         waitForExpectationsWithTimeout(10, handler: nil)

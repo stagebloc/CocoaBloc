@@ -8,8 +8,18 @@
 
 import Foundation
 
-public enum ContentEndpoint<T: SBContent> {
-    typealias Model = T
+/// An enumeration representing a StageBloc API target
+public enum API {
+    
+    /// These are types of values that the API will expand from identifiers to JSON objects.
+    /// NOTE: The raw values of these cases correspond to raw JSON keys
+
+    
+    /// A special wrapper target to include expansion value types
+    indirect case Expanded(target: API, expansions: [ExpandableValue])
+    
+    /// A special wrapper target to apply additional arbitrary parameters to its request
+    indirect case Parameterized(target: API, parameters: [String:AnyObject])
     
     public enum ContentTypeIdentifier: String {
         case Photo  = "photo"
@@ -28,42 +38,42 @@ public enum ContentEndpoint<T: SBContent> {
      Like a piece of content.
      */
     case LikeContent(ContentType)
-
+    
     /**
-    Un-like a piece of content.
-    */
+     Un-like a piece of content.
+     */
     case UnlikeContent(ContentType)
-
+    
     /**
-    Delete a piece of content.
-    */
+     Delete a piece of content.
+     */
     case DeleteContent(ContentType)
-
+    
     /**
-    Fetch a list of users who like a piece of content.
-    */
+     Fetch a list of users who like a piece of content.
+     */
     case GetUsersWhoLikeContent(ContentType)
-
+    
     /**
-    Fetch a content object.
-
-    - Parameters:
-        - contentID: identifier for the content.
-        - contentType: type of content (i.e. blog, photo, etc).
-        - accountID: account content is posted to
-    */
+     Fetch a content object.
+     
+     - Parameters:
+     - contentID: identifier for the content.
+     - contentType: type of content (i.e. blog, photo, etc).
+     - accountID: account content is posted to
+     */
     case GetContent(ContentType)
     
     /**
-    Flag a content object.
-
-    - Parameters:
-        - contentIdentifier: identifier for the content..
-        - contentType: type of content (i.e. blog, photo, etc).
-        - accountID: account content is posted to.
-        - type: string of preset values which can be used for reasons why someone flagged a piece of content
-        - reason: reason for flagging content
-    */
+     Flag a content object.
+     
+     - Parameters:
+     - contentIdentifier: identifier for the content..
+     - contentType: type of content (i.e. blog, photo, etc).
+     - accountID: account content is posted to.
+     - type: string of preset values which can be used for reasons why someone flagged a piece of content
+     - reason: reason for flagging content
+     */
     public enum FlagType: String {
         case Duplicate = "duplicate"
         case Copyright = "copyright"
@@ -74,30 +84,6 @@ public enum ContentEndpoint<T: SBContent> {
         ContentType,
         type: FlagType,
         reason: String)
-}
-
-/// An enumeration representing a StageBloc API target
-public enum API {
-    
-    /// These are types of values that the API will expand from identifiers to JSON objects.
-    /// NOTE: The raw values of these cases correspond to raw JSON keys
-    public enum ExpandableValue: String {
-        case Photo      = "photo"
-        case Photos     = "photos"
-        case Account    = "account"
-        case User       = "user"
-        case Tags       = "tags"
-        case Audio      = "audio"
-        case CreatedBy  = "created_by"
-        case ModifiedBy = "modified_by"
-        case Content    = "content"
-    }
-    
-    /// A special wrapper target to include expansion value types
-    indirect case Expanded(target: API, expansions: [ExpandableValue])
-    
-    /// A special wrapper target to apply additional arbitrary parameters to its request
-    indirect case Parameterized(target: API, parameters: [String:AnyObject])
 
 // MARK: Auth endpoints
 

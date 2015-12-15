@@ -10,7 +10,6 @@
 		090E11131C008E9C0001C943 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 090E11121C008E9C0001C943 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		090E111A1C008E9C0001C943 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E110F1C008E9C0001C943 /* CocoaBloc.framework */; };
 		090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */; };
-		091E0FD51C1B2D6A00AB1DCF /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091E0FD41C1B2D6A00AB1DCF /* ContentType.swift */; };
 		0925DF641C04C84E00BD43E0 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
 		0925DF661C0514F400BD43E0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF651C0514F400BD43E0 /* Error.swift */; };
 		0925DF681C0514FA00BD43E0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF671C0514FA00BD43E0 /* Request.swift */; };
@@ -65,9 +64,11 @@
 		0965545D1C191C0700D8AFB2 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
 		0965545E1C191C0700D8AFB2 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */; };
 		0965545F1C191C0700D8AFB2 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2361C012E7100EE0706 /* Result.framework */; };
+		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C2391C012E7100EE0706 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2361C012E7100EE0706 /* Result.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
+		09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +88,6 @@
 		090E11191C008E9C0001C943 /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
 		090E11201C008E9C0001C943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		091E0FD41C1B2D6A00AB1DCF /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentType.swift; path = old/Protocols/ContentType.swift; sourceTree = SOURCE_ROOT; };
 		0925DF631C04C84E00BD43E0 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		0925DF651C0514F400BD43E0 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		0925DF671C0514FA00BD43E0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -138,9 +138,16 @@
 		0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		0925DFC41C053B9A00BD43E0 /* SignalProducer+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignalProducer+CocoaBloc.swift"; sourceTree = "<group>"; };
 		096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
+		098DC4191C1F64380084AE45 /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
+		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0994C2361C012E7100EE0706 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-Request+MantleSerialization.swift"; sourceTree = "<group>"; };
+		09AB382D1C1F41380085EDB2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = old/API/API.swift; sourceTree = SOURCE_ROOT; };
+		09AB382E1C1F41380085EDB2 /* API+Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Method.swift"; path = "old/API/API+Method.swift"; sourceTree = SOURCE_ROOT; };
+		09AB382F1C1F41380085EDB2 /* API+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Parameters.swift"; path = "old/API/API+Parameters.swift"; sourceTree = SOURCE_ROOT; };
+		09AB38301C1F41380085EDB2 /* API+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Path.swift"; path = "old/API/API+Path.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,14 +202,19 @@
 		090E11111C008E9C0001C943 /* CocoaBloc */ = {
 			isa = PBXGroup;
 			children = (
+				098DC4161C1F64380084AE45 /* Extensions */,
+				098DC41A1C1F64380084AE45 /* Protocols */,
 				0925DFBE1C053B9A00BD43E0 /* Private */,
 				0925DF6D1C05344100BD43E0 /* Models */,
 				090E11121C008E9C0001C943 /* CocoaBloc.h */,
+				09AB382D1C1F41380085EDB2 /* API.swift */,
+				09AB382E1C1F41380085EDB2 /* API+Method.swift */,
+				09AB382F1C1F41380085EDB2 /* API+Parameters.swift */,
+				09AB38301C1F41380085EDB2 /* API+Path.swift */,
 				090E11141C008E9C0001C943 /* Info.plist */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
 				0925DF651C0514F400BD43E0 /* Error.swift */,
 				0925DF671C0514FA00BD43E0 /* Request.swift */,
-				091E0FD41C1B2D6A00AB1DCF /* ContentType.swift */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -275,6 +287,25 @@
 			);
 			path = Private;
 			sourceTree = "<group>";
+		};
+		098DC4161C1F64380084AE45 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				098DC4191C1F64380084AE45 /* SBContent+ContentType.swift */,
+				09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */,
+			);
+			name = Extensions;
+			path = old/Extensions;
+			sourceTree = SOURCE_ROOT;
+		};
+		098DC41A1C1F64380084AE45 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				098DC41B1C1F64380084AE45 /* ContentType.swift */,
+			);
+			name = Protocols;
+			path = old/Protocols;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -429,7 +460,6 @@
 			files = (
 				0925DFAB1C05344100BD43E0 /* SBObject.m in Sources */,
 				0925DFB31C05344100BD43E0 /* SBStatus.m in Sources */,
-				091E0FD51C1B2D6A00AB1DCF /* ContentType.swift in Sources */,
 				0925DFA31C05344100BD43E0 /* SBFanClub.m in Sources */,
 				0925DFB91C05344100BD43E0 /* SBTier.m in Sources */,
 				0925DFAD1C05344100BD43E0 /* SBOrder.m in Sources */,
@@ -441,6 +471,7 @@
 				0925DFA51C05344100BD43E0 /* SBFanClubDashboard.m in Sources */,
 				0925DFC71C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m in Sources */,
 				0925DF9F1C05344100BD43E0 /* SBComment.m in Sources */,
+				098DC4201C1F64380084AE45 /* ContentType.swift in Sources */,
 				0925DFA11C05344100BD43E0 /* SBContent.m in Sources */,
 				0925DF9D1C05344100BD43E0 /* SBBlog.m in Sources */,
 				0925DF991C05344100BD43E0 /* SBAddress.m in Sources */,
@@ -450,6 +481,7 @@
 				0925DF971C05344100BD43E0 /* SBAccount.m in Sources */,
 				0925DFC91C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
+				09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */,
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,
 				0925DFA71C05344100BD43E0 /* SBNotification.m in Sources */,
 				0925DFB11C05344100BD43E0 /* SBShipping.m in Sources */,

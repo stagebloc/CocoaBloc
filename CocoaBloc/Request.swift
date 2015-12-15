@@ -9,65 +9,34 @@
 import Mantle
 import Alamofire
 
-public struct MantleResponseSerializer<ModelType: MTLModel>: ResponseSerializerType {
-    let keyPath: String = "data"
-    
-//    public var serializeResponse: (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Alamofire.Result<ModelType, CocoaBloc.Error> {
-//        return { request, response, data, error in
-//            let JSONSerializer = Alamofire.Request.JSONResponseSerializer()
-//            return JSONSerializer.serializeResponse(request, response, data, error)
-//                
-////            }
-//        }
-////        switch  {
-////            
-////        }
-//    }
-}
-
-public final class Request<ModelType: MTLModel> {
+public final class Request<Model> {
     
     /// The underlying request
     public let request: Alamofire.Request
     
-    var expansions: [Expandable] = []
+    /// The key path in the JSON response to look for the model at
+    public let keyPath: String
 
-    private let modelResponseSerializer: MantleResponseSerializer<ModelType, CocoaBloc.Error>
-    
-    public init(request: Alamofire.Request) {
+    public init(request: Alamofire.Request, keyPath: String) {
         self.request = request
+        self.keyPath = keyPath
+    }
+    
+    public func resume() {
+        request.resume()
     }
 }
 
-//public extension Request where ModelType: MTLModel {
-//    public func responseModel(completion: Alamofire.Response<ModelType, CocoaBloc.Error> -> Void) {
-//        request.responseJSON { response in
-//            switch response.result {
-//            case .Success(let value):
-//                if
-//                    let dict = value as? [String:AnyObject],
-//                    let data = dict[self.keyPath] as? [NSObject:AnyObject] {
-//                        do {
-//                            if let model = try MTLJSONAdapter.modelOfClass(ModelType.self, fromJSONDictionary: data) as? ModelType {
-//                                completion(Response(request: response.request, response: response.response, data: response.data, result: .Success(model)))
-//                            } else {
-//                                completion(Response(request: response.request, response: response.response, data: response.data, result: .Failure(Error.UnexpectedResponseType)))
-//                            }
-//                        }
-//                        catch let error as NSError {
-//                            completion(Response(request: response.request, response: response.response, data: response.data, result: .Failure(Error.JSONSerialization(error))))
-//                        }
-//                }
-//            case .Failure(let error):
-//                completion(Response(request: response.request, response: response.response, data: response.data, result: .Failure(Error.JSONSerialization(error))))
-//            }
-//        }
-//        request.resume()
-//    }
-//}
+public extension Request where Model: MTLModel {
+    public func responseModel(completionHandler: Alamofire.Response<Model, CocoaBloc.Error> -> Void) -> Self {
+        request.response(responseSerializer: Alamofire.Request.MantleResponseSerializer(keyPath), completionHandler: completionHandler)
+        return self
+    }
+}
 
-//public extension Request where ModelType: SequenceType, ModelType.Generator.Element: MTLModel {
-//    public func responseModels(completion: Alamofire.Response<ModelType, CocoaBloc.Error>) {
-//        
-//    }
-//}
+public extension Request where Model: SequenceType, Model.Generator.Element: MTLModel {
+    public func responseModels(completionHandler: Alamofire.Response<[Model.Generator.Element], CocoaBloc.Error> -> Void) -> Self {
+        request.response(responseSerializer: Alamofire.Request.MantleResponseSerializer(keyPath), completionHandler: completionHandler)
+        return self
+    }
+}

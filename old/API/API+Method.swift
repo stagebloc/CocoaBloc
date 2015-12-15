@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import ReactiveMoya
+import Alamofire
 
 extension API  {
 
-    public var method: Moya.Method {
+    public var method: Alamofire.Method {
         switch self {
             
         case .Expanded(let target, _):

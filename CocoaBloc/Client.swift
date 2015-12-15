@@ -8,10 +8,39 @@
 
 import Mantle
 import Alamofire
+import ReactiveCocoa
 
-public protocol AuthenticationState {
+public protocol AuthenticationStateType {
     var authenticationToken: String? { get set }
     var authenticatedUser: SBUser? { get set }
+}
+
+public struct AuthenticationState: AuthenticationStateType {
+    public var authenticationToken: String?
+    public var authenticatedUser: SBUser?
+}
+
+public class ReactiveAuthenticationState: AuthenticationStateType {
+    public let authenticatedUserProperty = MutableProperty<SBUser?>(nil)
+    public let authenticationTokenProperty = MutableProperty<String?>(nil)
+    
+    public var authenticatedUser: SBUser? {
+        get {
+            return self.authenticatedUserProperty.value
+        }
+        set(newValue) {
+            self.authenticatedUserProperty.value = newValue
+        }
+    }
+    
+    public var authenticationToken: String? {
+        get {
+            return self.authenticationTokenProperty.value
+        }
+        set(newValue) {
+            self.authenticationTokenProperty.value = newValue
+        }
+    }
 }
 
 public final class Client {
@@ -21,23 +50,42 @@ public final class Client {
     public let clientID: String
     public let clientSecret: String
     
-    public let authenticationState: AuthenticationState
+    public private(set) var authenticationState: AuthenticationStateType
     
-    public init(clientID: String, clientSecret: String, manager: Alamofire.Manager = .init()) {
+    public init(
+        clientID: String,
+        clientSecret: String,
+        authenticationState: AuthenticationStateType = AuthenticationState(),
+        manager: Alamofire.Manager = .init()) {
         self.manager = manager
         self.manager.startRequestsImmediately = false
         self.clientID = clientID
         self.clientSecret = clientSecret
-        self.authenticationToken = nil
+        self.authenticationState = authenticationState
     }
-//    
-//    public var authenticationToken: String?
-//    
-//    public var authenticated: Bool  {
-//        return authenticationToken != nil
-//    }
     
-    public func request<Model: MTLModel>(path path: String, method: Alamofire.Method, parameters: [String:AnyObject]? = nil) -> Request<Model> {
+    var authenticated: Bool {
+        return self.authenticationState.authenticationToken != nil
+    }
+    
+    public enum ExpandableValue: String {
+        case Photo      = "photo"
+        case Photos     = "photos"
+        case Account    = "account"
+        case User       = "user"
+        case Tags       = "tags"
+        case Audio      = "audio"
+        case CreatedBy  = "created_by"
+        case ModifiedBy = "modified_by"
+        case Content    = "content"
+    }
+    
+    internal func request<Model: MTLModel>(
+        path path: String,
+        method: Alamofire.Method,
+        expand: [ExpandableValue] = [],
+        parameters: [String:AnyObject]? = nil,
+        keyPath: String = "data") -> Request<Model> {
         let request = manager.request(
             method,
             baseURL.URLByAppendingPathComponent(path),
@@ -58,7 +106,7 @@ public final class Client {
             headers: nil
         ).validate()
         
-        return Request(request: request)
+        return Request(request: request, keyPath: keyPath)
     }
     
     public func logInWithUsername(username: String, password: String) -> Request<SBUser> {
@@ -69,19 +117,23 @@ public final class Client {
                 "client_secret": clientSecret,
                 "username": username,
                 "password": password,
+                "expand": "user",
                 "grant_type": "password"
-            ])
-//        request.request.responseJSON { [weak self] response in
-//            if
-//                case .Success(let jsonObject) = response.result,
-//                let json = jsonObject as? [String:AnyObject],
-//                let token = json["access_token"] as? String {
-//                    self?.authenticationToken = token
-//                }
-//        }
+            ],
+            expand: [.User],
+            keyPath: "data.user")
+        request.request.responseJSON { [weak self] response in
+            if
+                case .Success(let jsonObject) = response.result,
+                let json = jsonObject as? [String:AnyObject],
+                let token = json["data"]?["access_token"] as? String {
+                    self?.authenticationState.authenticationToken = token
+                }
+        }
     
         return request
     }
-    
+   
 //    public func
 }
+
