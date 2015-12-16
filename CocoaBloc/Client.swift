@@ -103,7 +103,7 @@ public final class Client {
     internal func request<Model>(
         path path: String,
         method: Alamofire.Method,
-        expand: [ExpandableValue] = [],
+        expand: [ExpandableValue],
         parameters: [String:AnyObject]? = nil,
         keyPath: String = "data") -> Request<Model> {
         let request = manager.request(
@@ -114,7 +114,7 @@ public final class Client {
                     params["client_id"] = self.clientID
                 }
                 
-                params["expand"] = (["kind"] + expand.map({$0.rawValue})).joinWithSeparator(",")
+                params["expand"] = (["kind"] + expand.map { $0.rawValue }).joinWithSeparator(",")
                                 
 //                if !params.keys.contains("expand") {
 //                    params["expand"] = "kind"
@@ -136,13 +136,13 @@ public final class Client {
         let request: Request<SBUser> = self.request(
             path: "oauth2/token",
             method: .POST,
+            expand: [.User],
             parameters: [
                 "client_secret": clientSecret,
                 "username": username,
                 "password": password,
                 "grant_type": "password"
             ],
-            expand: [.User],
             keyPath: "data.user")
         request.request.responseJSON { [weak self] response in
             if
@@ -157,7 +157,7 @@ public final class Client {
     }
 }
 
-public extension SequenceType where Generator.Element == (String, AnyObject?) {
+internal extension SequenceType where Generator.Element == (String, AnyObject?) {
     func filterNil() -> [String:AnyObject] {
         var ret = [String:AnyObject]()
         for tuple in self where tuple.1 != nil {

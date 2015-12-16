@@ -59,15 +59,19 @@
 		0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */; };
 		0925DFC91C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */; };
 		0925DFCA1C053B9A00BD43E0 /* SignalProducer+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC41C053B9A00BD43E0 /* SignalProducer+CocoaBloc.swift */; };
+		092FAEC51C21009B005C1FB6 /* Client+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FAEC41C21009B005C1FB6 /* Client+Content.swift */; };
+		092FAEC71C2100AD005C1FB6 /* Client+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FAEC61C2100AD005C1FB6 /* Client+Account.swift */; };
+		092FAEC91C217999005C1FB6 /* Client+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FAEC81C217999005C1FB6 /* Client+Comment.swift */; };
+		092FAECB1C2179D0005C1FB6 /* Client+FanClub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FAECA1C2179D0005C1FB6 /* Client+FanClub.swift */; };
+		092FAECD1C217E1A005C1FB6 /* Client+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FAECC1C217E1A005C1FB6 /* Client+Store.swift */; };
+		092FAECF1C217F7E005C1FB6 /* Client+Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092FAECE1C217F7E005C1FB6 /* Client+Coupon.swift */; };
 		0965545C1C191C0700D8AFB2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0965545D1C191C0700D8AFB2 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
-		0965545E1C191C0700D8AFB2 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */; };
 		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
 		09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */; };
 		81C0B6811C2091FC00415FCA /* Client+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0B6801C2091FC00415FCA /* Client+User.swift */; };
-		81C0EAA91C20C2C4000F1036 /* x86_64.swiftmodule in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C0EAA81C20C2C4000F1036 /* x86_64.swiftmodule */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,7 +140,12 @@
 		0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
 		0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		0925DFC41C053B9A00BD43E0 /* SignalProducer+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignalProducer+CocoaBloc.swift"; sourceTree = "<group>"; };
-		096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
+		092FAEC41C21009B005C1FB6 /* Client+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Content.swift"; sourceTree = "<group>"; };
+		092FAEC61C2100AD005C1FB6 /* Client+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Account.swift"; sourceTree = "<group>"; };
+		092FAEC81C217999005C1FB6 /* Client+Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Comment.swift"; sourceTree = "<group>"; };
+		092FAECA1C2179D0005C1FB6 /* Client+FanClub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+FanClub.swift"; sourceTree = "<group>"; };
+		092FAECC1C217E1A005C1FB6 /* Client+Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Store.swift"; sourceTree = "<group>"; };
+		092FAECE1C217F7E005C1FB6 /* Client+Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Coupon.swift"; sourceTree = "<group>"; };
 		098DC4191C1F64380084AE45 /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -147,7 +156,6 @@
 		09AB382F1C1F41380085EDB2 /* API+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Parameters.swift"; path = "old/API/API+Parameters.swift"; sourceTree = SOURCE_ROOT; };
 		09AB38301C1F41380085EDB2 /* API+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Path.swift"; path = "old/API/API+Path.swift"; sourceTree = SOURCE_ROOT; };
 		81C0B6801C2091FC00415FCA /* Client+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+User.swift"; sourceTree = "<group>"; };
-		81C0EAA81C20C2C4000F1036 /* x86_64.swiftmodule */ = {isa = PBXFileReference; lastKnownFileType = file; name = x86_64.swiftmodule; path = Carthage/Build/iOS/ReactiveCocoa.framework/Modules/ReactiveCocoa.swiftmodule/x86_64.swiftmodule; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +165,6 @@
 			files = (
 				0925DF641C04C84E00BD43E0 /* Mantle.framework in Frameworks */,
 				0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */,
-				81C0EAA91C20C2C4000F1036 /* x86_64.swiftmodule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +174,6 @@
 			files = (
 				0965545C1C191C0700D8AFB2 /* Alamofire.framework in Frameworks */,
 				0965545D1C191C0700D8AFB2 /* Mantle.framework in Frameworks */,
-				0965545E1C191C0700D8AFB2 /* ReactiveCocoa.framework in Frameworks */,
 				090E111A1C008E9C0001C943 /* CocoaBloc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,8 +184,6 @@
 		090E11051C008E9C0001C943 = {
 			isa = PBXGroup;
 			children = (
-				81C0EAA81C20C2C4000F1036 /* x86_64.swiftmodule */,
-				096554561C1919B700D8AFB2 /* ReactiveCocoa.framework */,
 				0925DF631C04C84E00BD43E0 /* Mantle.framework */,
 				0994C2341C012E7100EE0706 /* Alamofire.framework */,
 				090E11111C008E9C0001C943 /* CocoaBloc */,
@@ -211,7 +215,13 @@
 				09AB38301C1F41380085EDB2 /* API+Path.swift */,
 				090E11141C008E9C0001C943 /* Info.plist */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
+				092FAEC41C21009B005C1FB6 /* Client+Content.swift */,
 				81C0B6801C2091FC00415FCA /* Client+User.swift */,
+				092FAEC61C2100AD005C1FB6 /* Client+Account.swift */,
+				092FAEC81C217999005C1FB6 /* Client+Comment.swift */,
+				092FAECC1C217E1A005C1FB6 /* Client+Store.swift */,
+				092FAECA1C2179D0005C1FB6 /* Client+FanClub.swift */,
+				092FAECE1C217F7E005C1FB6 /* Client+Coupon.swift */,
 				0925DF651C0514F400BD43E0 /* Error.swift */,
 				0925DF671C0514FA00BD43E0 /* Request.swift */,
 			);
@@ -463,6 +473,7 @@
 				0925DFB91C05344100BD43E0 /* SBTier.m in Sources */,
 				0925DFAD1C05344100BD43E0 /* SBOrder.m in Sources */,
 				0925DFBB1C05344100BD43E0 /* SBUser.m in Sources */,
+				092FAEC71C2100AD005C1FB6 /* Client+Account.swift in Sources */,
 				0925DF661C0514F400BD43E0 /* Error.swift in Sources */,
 				81C0B6811C2091FC00415FCA /* Client+User.swift in Sources */,
 				0925DFB51C05344100BD43E0 /* SBStoreDashboard.m in Sources */,
@@ -471,19 +482,24 @@
 				0925DFA51C05344100BD43E0 /* SBFanClubDashboard.m in Sources */,
 				0925DFC71C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m in Sources */,
 				0925DF9F1C05344100BD43E0 /* SBComment.m in Sources */,
+				092FAEC51C21009B005C1FB6 /* Client+Content.swift in Sources */,
 				098DC4201C1F64380084AE45 /* ContentType.swift in Sources */,
+				092FAEC91C217999005C1FB6 /* Client+Comment.swift in Sources */,
 				0925DFA11C05344100BD43E0 /* SBContent.m in Sources */,
 				0925DF9D1C05344100BD43E0 /* SBBlog.m in Sources */,
 				0925DF991C05344100BD43E0 /* SBAddress.m in Sources */,
 				0925DF681C0514FA00BD43E0 /* Request.swift in Sources */,
 				0925DFAF1C05344100BD43E0 /* SBPhoto.m in Sources */,
 				0925DFCA1C053B9A00BD43E0 /* SignalProducer+CocoaBloc.swift in Sources */,
+				092FAECB1C2179D0005C1FB6 /* Client+FanClub.swift in Sources */,
 				0925DF971C05344100BD43E0 /* SBAccount.m in Sources */,
+				092FAECD1C217E1A005C1FB6 /* Client+Store.swift in Sources */,
 				0925DFC91C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 				09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */,
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,
 				0925DFA71C05344100BD43E0 /* SBNotification.m in Sources */,
+				092FAECF1C217F7E005C1FB6 /* Client+Coupon.swift in Sources */,
 				0925DFB11C05344100BD43E0 /* SBShipping.m in Sources */,
 				0925DFA91C05344100BD43E0 /* SBNotificationSettings.m in Sources */,
 				0925DFB71C05344100BD43E0 /* SBStoreItem.m in Sources */,

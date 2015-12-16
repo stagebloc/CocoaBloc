@@ -23,22 +23,22 @@ extension Client {
         return self.request(
             path: "oauth2/token",
             method: .POST,
+            expand: [.User],
             parameters: [
                 "code": authorizationCode,
                 "grant_type": "authorization_code"
             ],
-            expand: [.User],
             keyPath: "data.user")
     }
     
-    public func getUser(userID: Int, expansions: [ExpandableValue]) -> Request<SBUser> {
+    public func getUser(userID: Int, expansions: [ExpandableValue] = []) -> Request<SBUser> {
         return self.request(
             path: "users/\(userID)",
             method: .GET,
             expand: expansions)
     }
     
-    public func getCurrentlyAuthenticatedUser(expansions: [ExpandableValue]) -> Request<SBUser> {
+    public func getCurrentlyAuthenticatedUser(expansions: [ExpandableValue] = []) -> Request<SBUser> {
         return self.request(
             path: "users/me",
             method: .GET,
@@ -48,27 +48,31 @@ extension Client {
     public func banUser(userID: Int, accountID: Int, reason: String) -> Request<()> {
         return self.request(
             path: "users/\(userID)/ban/\(accountID)",
-            method: .POST)
+            method: .POST,
+            expand: []
+        )
     }
     
     public func sendPasswordReset(email: String) -> Request<()> {
         return self.request(
             path: "users/password/reset",
             method: .POST,
+            expand: [],
             parameters: [
                 "email" : email
             ])
     }
     
-    public func updateUserLocation(latitude: Double, longitude: Double, expansions: [ExpandableValue]) -> Request<SBUser> {
+    public func updateUserLocation(latitude: Double, longitude: Double, expansions: [ExpandableValue] = []) -> Request<SBUser> {
         return self.request(
             path: "users/me/location/update",
             method: .POST,
+            expand: expansions,
             parameters: [
                 "latitude" : latitude,
                 "longitude" : longitude
-            ],
-            expand: expansions)
+            ]
+        )
     }
     
     public func updateAuthenticatedUser(
@@ -79,10 +83,11 @@ extension Client {
         name: String?,
         gender: Gender?,
         color: UserColor?,
-        expansions: [ExpandableValue]) -> Request<SBUser> {
+        expansions: [ExpandableValue] = []) -> Request<SBUser> {
             return self.request(
                 path: "users/me",
                 method: .POST,
+                expand: expansions,
                 parameters: [
                     "bio"       : bio,
                     "birthday"  : birthday,
@@ -91,8 +96,8 @@ extension Client {
                     "username"  : username,
                     "gender"    : gender?.rawValue,
                     "color"     : color?.rawValue
-                    ].filterNil(),
-                expand: expansions)
+                    ].filterNil()
+            )
     }
     
     public func signUp(
@@ -103,7 +108,7 @@ extension Client {
         birthday: NSDate,
         gender: Gender,
         sourceAccountID: Int?,
-        expansions: [ExpandableValue]) -> Request<SBUser> {
+        expansions: [ExpandableValue] = []) -> Request<SBUser> {
             let df = NSDateFormatter()
             df.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
             df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
@@ -112,6 +117,7 @@ extension Client {
             return self.request(
                 path: "users",
                 method: .POST,
+                expand: expansions,
                 parameters: [
                     "email"     : email,
                     "name"      : name,
@@ -120,11 +126,10 @@ extension Client {
                     "birthday"  : df.stringFromDate(birthday),
                     "gender"    : gender.rawValue,
                     "source_account_id" : sourceAccountID
-                    ].filterNil(),
-                expand: expansions)
+                    ].filterNil())
     }
     
-    public func getFollowingUsersForAccount(accountID: Int, expansions: [ExpandableValue]) -> Request<[SBUser]> {
+    public func getFollowingUsersForAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Request<[SBUser]> {
         return self.request(
             path: "account/\(accountID)/fans",
             method: .GET,
