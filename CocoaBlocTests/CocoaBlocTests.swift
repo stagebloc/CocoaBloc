@@ -29,13 +29,12 @@ class CocoaBlocTests: XCTestCase {
         
         let request = client.logInWithUsername("hi@stagebloc.com", password: "starwars")
             .responseModel { (response: Response<SBUser, CocoaBloc.Error>) -> Void in
-                print(response)
+//                print(response)
             }
         
-        debugPrint(request.request)
-            
-        request.resume()
+//        debugPrint(request.request)
         
+        request.resume()
         
         waitForExpectationsWithTimeout(10, handler: nil)
     }

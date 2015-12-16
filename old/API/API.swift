@@ -74,12 +74,7 @@ public enum API {
      - type: string of preset values which can be used for reasons why someone flagged a piece of content
      - reason: reason for flagging content
      */
-    public enum FlagType: String {
-        case Duplicate = "duplicate"
-        case Copyright = "copyright"
-        case Prejudice = "prejudice"
-        case Offensive = "offensive"
-    }
+
     case FlagContent(
         ContentType,
         type: FlagType,
@@ -208,32 +203,7 @@ public enum API {
 
 // MARK: Account endpoints
 
-    public enum AccountColor: String {
-        case Blue       = "blue"
-        case Purple     = "purple"
-        case Red        = "red"
-        case Orange     = "orange"
-        case Grey       = "grey"
-        case Green      = "green"
-    }
-    
-    public enum AccountType: String {
-        case Music              = "music"
-        case FilmAndTV          = "film/tv"
-        case Entertainment      = "entertainment"
-        case Sports             = "sports"
-        case Celebrity          = "celebrity"
-        case Comedian           = "comedian"
-        case RecordLabel        = "record label"
-        case ManagementCompany  = "management company"
-        case Personal           = "personal"
-        case Developer          = "developer"
-        case Photography        = "photography"
-        case Cooking            = "food"
-        case Business           = "business"
-        case Organization       = "organization"
-        case Other              = "other"
-    }
+
     /**
     Creates an account.
 
@@ -486,11 +456,7 @@ public enum API {
     */
     case CreateFanClub(accountID: Int, title: String, description: String, tierInfo: [String:AnyObject])
 
-    public enum FanClubType: String {
-        case Featured   = "featured"
-        case Recent     = "recent"
-        case Following  = "following"
-    }
+
     case GetFanClubs(accountID: Int, type: FanClubType)
     
     case GetFanClubFans(accountID: Int)
