@@ -8,7 +8,6 @@
 
 import Mantle
 import Alamofire
-import ReactiveCocoa
 
 public protocol AuthenticationStateType {
     var authenticationToken: String? { get set }
@@ -20,28 +19,6 @@ public struct AuthenticationState: AuthenticationStateType {
     public var authenticatedUser: SBUser?
 }
 
-public class ReactiveAuthenticationState: AuthenticationStateType {
-    public let authenticatedUserProperty = MutableProperty<SBUser?>(nil)
-    public let authenticationTokenProperty = MutableProperty<String?>(nil)
-    
-    public var authenticatedUser: SBUser? {
-        get {
-            return self.authenticatedUserProperty.value
-        }
-        set(newValue) {
-            self.authenticatedUserProperty.value = newValue
-        }
-    }
-    
-    public var authenticationToken: String? {
-        get {
-            return self.authenticationTokenProperty.value
-        }
-        set(newValue) {
-            self.authenticationTokenProperty.value = newValue
-        }
-    }
-}
 
 public final class Client {
     private let manager: Alamofire.Manager
