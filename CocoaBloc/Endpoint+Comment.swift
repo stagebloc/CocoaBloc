@@ -1,14 +1,16 @@
 //
-//  Client+Comment.swift
+//  Endpoint+Comment.swift
 //  CocoaBloc
 //
-//  Created by John Heaton on 12/16/15.
+//  Created by David Warner on 12/21/15.
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-extension Client {
+import Foundation
+
+extension Endpoint {
     
-    public func getCommentsForContent(content: ContentType, expansions: [ExpandableValue] = []) -> Request<[SBComment]> {
+    public func getCommentsForContent(content: ContentType, expansions: [ExpandableValue] = []) -> Endpoint<[SBComment]> {
         return request(
             path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comments",
             method: .GET,
@@ -16,7 +18,7 @@ extension Client {
         )
     }
     
-    public func getRepliesToComment(commentID: Int, accountID: Int, contentType: ContentTypeIdentifier, expansions: [ExpandableValue] = []) -> Request<[SBComment]> {
+    public func getRepliesToComment(commentID: Int, accountID: Int, contentType: ContentTypeIdentifier, expansions: [ExpandableValue] = []) -> Endpoint<[SBComment]> {
         return request(
             path: "account/\(accountID)/\(contentType.rawValue)/comment/\(commentID)",
             method: .GET,
@@ -24,7 +26,7 @@ extension Client {
         )
     }
     
-    public func deleteComment(commentID: Int, accountID: Int, contentType: ContentTypeIdentifier) -> Request<()> {
+    public func deleteComment(commentID: Int, accountID: Int, contentType: ContentTypeIdentifier) -> Endpoint<()> {
         return request(
             path: "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)",
             method: .DELETE,
@@ -32,7 +34,7 @@ extension Client {
         )
     }
     
-    public func postComment(text: String, onContent content: ContentType, expansions: [ExpandableValue] = []) -> Request<SBComment> {
+    public func postComment(text: String, onContent content: ContentType, expansions: [ExpandableValue] = []) -> Endpoint<SBComment> {
         return request(
             path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comment",
             method: .POST,
@@ -41,16 +43,16 @@ extension Client {
         )
     }
     
-//    public func postReply(text: String, toComment:
+    //    public func postReply(text: String, toComment:
     
-    public func getComment(commentID: Int, content: ContentType, expansions: [ExpandableValue] = []) -> Request<SBComment> {
+    public func getComment(commentID: Int, content: ContentType, expansions: [ExpandableValue] = []) -> Endpoint<SBComment> {
         return request(
             path: "account\(content.postedAccountID)/\(content.contentType.rawValue)/comment/\(commentID)",
             method: .GET,
             expand: expansions
         )
     }
-   
+    
     public enum FlagType: String {
         case Duplicate = "duplicate"
         case Copyright = "copyright"
@@ -58,7 +60,7 @@ extension Client {
         case Offensive = "offensive"
     }
     
-    public func flagComment(commentID: Int, contentType: ContentTypeIdentifier, accountID: Int, type: FlagType, reason: String) -> Request<()> {
+    public func flagComment(commentID: Int, contentType: ContentTypeIdentifier, accountID: Int, type: FlagType, reason: String) -> Endpoint<()> {
         return request(
             path: "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)/flag",
             method: .POST,

@@ -19,10 +19,7 @@ public struct AuthenticationState: AuthenticationStateType {
     public var authenticatedUser: SBUser?
 }
 
-
 public final class Client {
-    private let manager: Alamofire.Manager
-    private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
     
     public let clientID: String
     public let clientSecret: String
@@ -43,32 +40,6 @@ public final class Client {
     
     var authenticated: Bool {
         return self.authenticationState.authenticationToken != nil
-    }
-    
-    public enum ExpandableValue: String {
-        case Photo      = "photo"
-        case Photos     = "photos"
-        case Account    = "account"
-        case User       = "user"
-        case Tags       = "tags"
-        case Audio      = "audio"
-        case CreatedBy  = "created_by"
-        case ModifiedBy = "modified_by"
-        case Content    = "content"
-    }
-    
-    public enum Gender: String {
-        case Male       = "male"
-        case Female     = "female"
-        case Cupcake    = "cupcake"
-    }
-    
-    public enum ContentTypeIdentifier: String {
-        case Photo  = "photo"
-        case Audio  = "audio"
-        case Video  = "video"
-        case Blog   = "blog"
-        case Status = "status"
     }
     
     public struct Content: ContentType {
@@ -92,13 +63,6 @@ public final class Client {
                 }
                 
                 params["expand"] = (["kind"] + expand.map { $0.rawValue }).joinWithSeparator(",")
-                                
-//                if !params.keys.contains("expand") {
-//                    params["expand"] = "kind"
-//                }
-//                else if let expansions = params["expand"] as? String where !expansions.containsString("kind") {
-//                    params["expand"] = "kind,\(expansions)"
-//                }
                 
                 return params
             },
@@ -107,30 +71,6 @@ public final class Client {
         ).validate()
         
         return Request(request: request, keyPath: keyPath)
-    }
-    
-    public func logInWithUsername(username: String, password: String) -> Request<SBUser> {
-        let request: Request<SBUser> = self.request(
-            path: "oauth2/token",
-            method: .POST,
-            expand: [.User],
-            parameters: [
-                "client_secret": clientSecret,
-                "username": username,
-                "password": password,
-                "grant_type": "password"
-            ],
-            keyPath: "data.user")
-        request.request.responseJSON { [weak self] response in
-            if
-                case .Success(let jsonObject) = response.result,
-                let json = jsonObject as? [String:AnyObject],
-                let token = json["data"]?["access_token"] as? String {
-                    self?.authenticationState.authenticationToken = token
-            }
-        }
-        
-        return request
     }
 }
 

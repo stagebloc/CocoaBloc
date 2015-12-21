@@ -1,14 +1,16 @@
 //
-//  Client+Store.swift
+//  Endpoint+Store.swift
 //  CocoaBloc
 //
-//  Created by John Heaton on 12/16/15.
+//  Created by David Warner on 12/21/15.
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-extension Client {
+import Foundation
+
+extension Endpoint {
     
-    public func getStoreDashboard(accountID: Int, expansions: [ExpandableValue] = []) -> Request<SBStoreDashboard> {
+    public func getStoreDashboard(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<SBStoreDashboard> {
         return request(
             path: "account/\(accountID)/store/dashboard",
             method: .GET,
@@ -16,7 +18,7 @@ extension Client {
         )
     }
     
-    public func getOrders(accountID: Int, expansions: [ExpandableValue] = []) -> Request<[SBOrder]> {
+    public func getOrders(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<[SBOrder]> {
         return request(
             path: "account/\(accountID)/store/orders",
             method: .GET,
@@ -24,7 +26,7 @@ extension Client {
         )
     }
     
-    public func setOrderShipped(orderID: Int, accountID: Int, trackingNumber: String, carrier: String, expansions: [ExpandableValue] = []) -> Request<SBOrder> {
+    public func setOrderShipped(orderID: Int, accountID: Int, trackingNumber: String, carrier: String, expansions: [ExpandableValue] = []) -> Endpoint<SBOrder> {
         return request(
             path: "account/\(accountID)/store/orders/\(orderID)",
             method: .POST,
@@ -36,7 +38,7 @@ extension Client {
         )
     }
     
-    public func getStoreItemsForAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Request<[SBStoreItem]> {
+    public func getStoreItemsForAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<[SBStoreItem]> {
         return request(
             path: "account/\(accountID)/store/items",
             method: .GET,
@@ -44,7 +46,7 @@ extension Client {
         )
     }
     
-    public func getStoreItem(storeItemID: Int, accountID: Int, expansions: [ExpandableValue] = []) -> Request<SBStoreItem> {
+    public func getStoreItem(storeItemID: Int, accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<SBStoreItem> {
         return request(
             path: "account/\(accountID)/store/items/\(storeItemID)",
             method: .GET,

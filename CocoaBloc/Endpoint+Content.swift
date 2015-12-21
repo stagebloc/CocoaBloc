@@ -1,13 +1,15 @@
 //
-//  Client+Content.swift
+//  Endpoint+Content.swift
 //  CocoaBloc
 //
-//  Created by John Heaton on 12/15/15.
+//  Created by David Warner on 12/21/15.
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-extension Client {
-    public func likeContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Request<T> {
+import Foundation
+
+extension Endpoint {
+    public func likeContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Endpoint<T> {
         return request(
             path: "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/like",
             method: .POST,
@@ -15,7 +17,7 @@ extension Client {
         )
     }
     
-    public func unlikeContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Request<T> {
+    public func unlikeContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Endpoint<T> {
         return request(
             path: "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/like",
             method: .DELETE,
@@ -23,7 +25,7 @@ extension Client {
         )
     }
     
-    public func deleteContent(content: ContentType) -> Request<()> {
+    public func deleteContent(content: ContentType) -> Endpoint<()> {
         return request(
             path: "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)",
             method: .DELETE,
@@ -31,7 +33,7 @@ extension Client {
         )
     }
     
-    public func getUsersWhoLikeContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Request<T> {
+    public func getUsersWhoLikeContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Endpoint<T> {
         return request(
             path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/likers",
             method: .GET,
@@ -39,7 +41,7 @@ extension Client {
         )
     }
     
-    public func getContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Request<T> {
+    public func getContent<T: SBContent>(content: ContentType, expansions: [ExpandableValue] = []) -> Endpoint<T> {
         return request(
             path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)",
             method: .GET,
@@ -47,7 +49,7 @@ extension Client {
         )
     }
     
-    public func flagContent<T: SBContent>(content: ContentType, type: FlagType, reason: String, expansions: [ExpandableValue] = []) -> Request<T> {
+    public func flagContent<T: SBContent>(content: ContentType, type: FlagType, reason: String, expansions: [ExpandableValue] = []) -> Endpoint<T> {
         return request(
             path: "/account/\(content.postedAccountID)/\(content.contentType)/\(content.contentID)/flag",
             method: .POST,

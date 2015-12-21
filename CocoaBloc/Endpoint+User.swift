@@ -1,25 +1,16 @@
 //
-//  Client+User.swift
+//  Endpoint+User.swift
 //  CocoaBloc
 //
-//  Created by David Warner on 12/15/15.
+//  Created by David Warner on 12/21/15.
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
 import Foundation
 
-extension Client {
+extension Endpoint {
     
-    public enum UserColor: String {
-        case Blue   = "blue"
-        case Teal   = "teal"
-        case Green  = "green"
-        case Pink   = "pink"
-        case Red    = "red"
-        case Purple = "purple"
-    }
-    
-    public func loginWithAuthorizationCode(authorizationCode: String) -> Request<SBUser> {
+    public func loginWithAuthorizationCode(authorizationCode: String) -> Endpoint<SBUser> {
         return self.request(
             path: "oauth2/token",
             method: .POST,
@@ -31,21 +22,45 @@ extension Client {
             keyPath: "data.user")
     }
     
-    public func getUser(userID: Int, expansions: [ExpandableValue] = []) -> Request<SBUser> {
+    public func logInWithUsername(username: String, password: String) -> Endpoint<SBUser> {
+        let request: Request<SBUser> = self.request(
+            path: "oauth2/token",
+            method: .POST,
+            expand: [.User],
+            parameters: [
+                "client_secret": clientSecret,
+                "username": username,
+                "password": password,
+                "grant_type": "password"
+            ],
+            keyPath: "data.user")
+        request.request.responseJSON { [weak self] response in
+            if
+                case .Success(let jsonObject) = response.result,
+                let json = jsonObject as? [String:AnyObject],
+                let token = json["data"]?["access_token"] as? String {
+                    self?.authenticationState.authenticationToken = token
+            }
+        }
+        
+        return request
+    }
+    
+    public func getUser(userID: Int, expansions: [ExpandableValue] = []) -> Endpoint<SBUser> {
         return self.request(
             path: "users/\(userID)",
             method: .GET,
             expand: expansions)
     }
     
-    public func getCurrentlyAuthenticatedUser(expansions: [ExpandableValue] = []) -> Request<SBUser> {
+    public func getCurrentlyAuthenticatedUser(expansions: [ExpandableValue] = []) -> Endpoint<SBUser> {
         return self.request(
             path: "users/me",
             method: .GET,
             expand: expansions)
     }
     
-    public func banUser(userID: Int, accountID: Int, reason: String) -> Request<()> {
+    public func banUser(userID: Int, accountID: Int, reason: String) -> Endpoint<()> {
         return self.request(
             path: "users/\(userID)/ban/\(accountID)",
             method: .POST,
@@ -53,7 +68,7 @@ extension Client {
         )
     }
     
-    public func sendPasswordReset(email: String) -> Request<()> {
+    public func sendPasswordReset(email: String) -> Endpoint<()> {
         return self.request(
             path: "users/password/reset",
             method: .POST,
@@ -63,7 +78,7 @@ extension Client {
             ])
     }
     
-    public func updateUserLocation(latitude: Double, longitude: Double, expansions: [ExpandableValue] = []) -> Request<SBUser> {
+    public func updateUserLocation(latitude: Double, longitude: Double, expansions: [ExpandableValue] = []) -> Endpoint<SBUser> {
         return self.request(
             path: "users/me/location/update",
             method: .POST,
@@ -83,7 +98,7 @@ extension Client {
         name: String?,
         gender: Gender?,
         color: UserColor?,
-        expansions: [ExpandableValue] = []) -> Request<SBUser> {
+        expansions: [ExpandableValue] = []) -> Endpoint<SBUser> {
             return self.request(
                 path: "users/me",
                 method: .POST,
@@ -108,7 +123,7 @@ extension Client {
         birthday: NSDate,
         gender: Gender,
         sourceAccountID: Int?,
-        expansions: [ExpandableValue] = []) -> Request<SBUser> {
+        expansions: [ExpandableValue] = []) -> Endpoint<SBUser> {
             let df = NSDateFormatter()
             df.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
             df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
@@ -129,22 +144,10 @@ extension Client {
                     ].filterNil())
     }
     
-    public func getFollowingUsersForAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Request<[SBUser]> {
+    public func getFollowingUsersForAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<[SBUser]> {
         return self.request(
             path: "account/\(accountID)/fans",
             method: .GET,
             expand: expansions)
     }
-    
-//    public func getUsersWhoLikeContent(content: SBContent, expansions: [ExpandableValue]) -> Request<SBUser> {
-//        return self.request(
-//            path: "account/\(content.postedAccountID)/\(content.)/\(content.contentID)/likers",
-//            method: .GET,
-//            expand: expansions)
-//    }
-    
 }
-
-
-
-
