@@ -8,49 +8,39 @@
 
 import Foundation
 
-extension Endpoint {
+extension StageBloc {
     
-    public func getStoreDashboard(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<SBStoreDashboard> {
-        return request(
+    public static func getStoreDashboard(accountID: Int) -> Endpoint<SBStoreDashboard> {
+        return Endpoint(
             path: "account/\(accountID)/store/dashboard",
-            method: .GET,
-            expand: expansions
-        )
+            method: .GET)
     }
     
-    public func getOrders(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<[SBOrder]> {
-        return request(
+    public static func getOrders(accountID: Int) -> Endpoint<[SBOrder]> {
+        return Endpoint(
             path: "account/\(accountID)/store/orders",
-            method: .GET,
-            expand: expansions
-        )
+            method: .GET)
     }
     
-    public func setOrderShipped(orderID: Int, accountID: Int, trackingNumber: String, carrier: String, expansions: [ExpandableValue] = []) -> Endpoint<SBOrder> {
-        return request(
+    public static func setOrderShipped(orderID: Int, accountID: Int, trackingNumber: String, carrier: String) -> Endpoint<SBOrder> {
+        return Endpoint(
             path: "account/\(accountID)/store/orders/\(orderID)",
             method: .POST,
-            expand: expansions,
             parameters: [
                 "tracking_number": trackingNumber,
                 "carrier": carrier
-            ]
-        )
+            ])
     }
     
-    public func getStoreItemsForAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<[SBStoreItem]> {
-        return request(
+    public static func getStoreItemsForAccount(accountID: Int) -> Endpoint<[SBStoreItem]> {
+        return Endpoint(
             path: "account/\(accountID)/store/items",
-            method: .GET,
-            expand: expansions
-        )
+            method: .GET)
     }
     
-    public func getStoreItem(storeItemID: Int, accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<SBStoreItem> {
-        return request(
+    public static func getStoreItem(storeItemID: Int, accountID: Int) -> Endpoint<SBStoreItem> {
+        return Endpoint(
             path: "account/\(accountID)/store/items/\(storeItemID)",
-            method: .GET,
-            expand: expansions
-        )
+            method: .GET)
     }
 }

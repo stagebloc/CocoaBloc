@@ -20,7 +20,7 @@ public struct AuthenticationState: AuthenticationStateType {
 }
 
 public final class Client {
-    
+        
     public let clientID: String
     public let clientSecret: String
     
@@ -29,10 +29,7 @@ public final class Client {
     public init(
         clientID: String,
         clientSecret: String,
-        authenticationState: AuthenticationStateType = AuthenticationState(),
-        manager: Alamofire.Manager = .init()) {
-        self.manager = manager
-        self.manager.startRequestsImmediately = false
+        authenticationState: AuthenticationStateType = AuthenticationState()) {
         self.clientID = clientID
         self.clientSecret = clientSecret
         self.authenticationState = authenticationState
@@ -42,45 +39,28 @@ public final class Client {
         return self.authenticationState.authenticationToken != nil
     }
     
-    public struct Content: ContentType {
-        public let contentType: ContentTypeIdentifier
-        public let contentID: Int
-        public let postedAccountID: Int
-    }
-    
-    internal func request<Model>(
-        path path: String,
-        method: Alamofire.Method,
-        expand: [ExpandableValue],
-        parameters: [String:AnyObject]? = nil,
-        keyPath: String = "data") -> Request<Model> {
-        let request = manager.request(
-            method,
-            baseURL.URLByAppendingPathComponent(path),
-            parameters: (parameters ?? [:]).map { (var params) in
-                if !self.authenticated {
-                    params["client_id"] = self.clientID
-                }
-                
-                params["expand"] = (["kind"] + expand.map { $0.rawValue }).joinWithSeparator(",")
-                
-                return params
-            },
-            encoding: .URL,
-            headers: nil
-        ).validate()
-        
-        return Request(request: request, keyPath: keyPath)
-    }
+//    internal func request<Model>(
+//        path path: String,
+//        method: Alamofire.Method,
+//        expand: [ExpandableValue],
+//        parameters: [String:AnyObject]? = nil,
+//        keyPath: String = "data") -> Request<Model> {
+//        let request = manager.request(
+//            method,
+//            baseURL.URLByAppendingPathComponent(path),
+//            parameters: (parameters ?? [:]).map { (var params) in
+//                if !self.authenticated {
+//                    params["client_id"] = self.clientID
+//                }
+//                
+//                params["expand"] = (["kind"] + expand.map { $0.rawValue }).joinWithSeparator(",")
+//                
+//                return params
+//            },
+//            encoding: .URL,
+//            headers: nil
+//        ).validate()
+//        
+//        return Request(request: request, keyPath: keyPath)
+//    }
 }
-
-internal extension SequenceType where Generator.Element == (String, AnyObject?) {
-    func filterNil() -> [String:AnyObject] {
-        var ret = [String:AnyObject]()
-        for tuple in self where tuple.1 != nil {
-            ret[tuple.0] = tuple.1!
-        }
-        return ret
-    }
-}
-

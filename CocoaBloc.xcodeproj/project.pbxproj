@@ -217,8 +217,9 @@
 				09AB38301C1F41380085EDB2 /* API+Path.swift */,
 				090E11141C008E9C0001C943 /* Info.plist */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
-				81F35F891C285ABB002B9D74 /* Endpoint.swift */,
 				0925DF671C0514FA00BD43E0 /* Request.swift */,
+				0925DF651C0514F400BD43E0 /* Error.swift */,
+				81F35F891C285ABB002B9D74 /* Endpoint.swift */,
 				81F35F7B1C2857A0002B9D74 /* Endpoint+User.swift */,
 				81F35F7D1C2859B7002B9D74 /* Endpoint+Content.swift */,
 				81F35F7F1C2859E2002B9D74 /* Endpoint+Account.swift */,
@@ -226,7 +227,6 @@
 				81F35F831C285A35002B9D74 /* Endpoint+Store.swift */,
 				81F35F851C285A5A002B9D74 /* Endpoint+FanClub.swift */,
 				81F35F871C285A83002B9D74 /* Endpoint+Coupon.swift */,
-				0925DF651C0514F400BD43E0 /* Error.swift */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";

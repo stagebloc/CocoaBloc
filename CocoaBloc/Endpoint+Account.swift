@@ -8,52 +8,36 @@
 
 import Foundation
 
-extension Endpoint {
+extension StageBloc {
     
-    public func createAccount(name: String, description: String, url: String, type: AccountType, color: AccountColor, expansions: [ExpandableValue] = []) -> Endpoint<SBAccount> {
-        return request(
+    public static func createAccount(name: String, description: String, url: String, type: AccountType, color: AccountColor) -> Endpoint<SBAccount> {
+        return Endpoint(
             path: "account",
             method: .POST,
-            expand: expansions,
             parameters: [
                 "name"          : name,
                 "description"   : description,
                 "stagebloc_url" : url,
                 "type"          : type.rawValue,
                 "color"         : color.rawValue
-            ]
-        )
+            ])
     }
     
-    //    public func getAccountsForUser(userID: Int, includeAdminAccounts: Bool = true, includeFollowingAccounts: Bool = true, expansions: [ExpandableValue] = []) -> Request<[SBAccount]> {
-    //        return request(
-    //            path: "accounts",
-    //            method: .GET,
-    //            expand: expansions
-    //        )
-    //    }
-    
-    public func followAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<SBAccount> {
-        return request(
+    public static func followAccount(accountID: Int) -> Endpoint<SBAccount> {
+        return Endpoint(
             path: "/account/\(accountID)/follow",
-            method: .POST,
-            expand: expansions
-        )
+            method: .POST)
     }
     
-    public func unfollowAccount(accountID: Int, expansions: [ExpandableValue] = []) -> Endpoint<SBAccount> {
-        return request(
+    public static func unfollowAccount(accountID: Int) -> Endpoint<SBAccount> {
+        return Endpoint(
             path: "/account/\(accountID)/follow",
-            method: .POST,
-            expand: expansions
-        )
+            method: .POST)
     }
     
-    public func getAuthenticatedUserAccounts(expansions: [ExpandableValue] = []) -> Endpoint<[SBAccount]> {
-        return request(
+    public static func getAuthenticatedUserAccounts() -> Endpoint<[SBAccount]> {
+        return Endpoint(
             path: "accounts",
-            method: .GET,
-            expand: expansions
-        )
+            method: .GET)
     }
 }
