@@ -20,6 +20,9 @@ public struct AuthenticationState: AuthenticationStateType {
 }
 
 public final class Client {
+    
+    private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
+    private let manager: Manager
         
     public let clientID: String
     public let clientSecret: String
@@ -29,10 +32,12 @@ public final class Client {
     public init(
         clientID: String,
         clientSecret: String,
-        authenticationState: AuthenticationStateType = AuthenticationState()) {
-        self.clientID = clientID
-        self.clientSecret = clientSecret
-        self.authenticationState = authenticationState
+        authenticationState: AuthenticationStateType = AuthenticationState(),
+        manager: Manager = .init()) {
+            self.clientID = clientID
+            self.manager = manager
+            self.clientSecret = clientSecret
+            self.authenticationState = authenticationState
     }
     
     public var authenticated: Bool {
@@ -43,31 +48,20 @@ public final class Client {
         endpoint: Endpoint<Serialized>,
         expansions: [StageBloc.ExpandableValue] = [],
         completion: Response<Serialized, CocoaBloc.Error> -> ()) {
-//            var params
+            var params = ["expand": (["kind"] + expansions.map { $0.rawValue }).joinWithSeparator(",")]
+            if !self.authenticated {
+                params["client_id"] = clientID
+            }
+            
+            let request = manager.request(
+                endpoint.method,
+                baseURL.URLByAppendingPathExtension(endpoint.path),
+                parameters: params,
+                encoding: .URL,
+                headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
+            ).validate()
+            
+            
     }
     
-//    internal func request<Model>(
-//        path path: String,
-//        method: Alamofire.Method,
-//        expand: [ExpandableValue],
-//        parameters: [String:AnyObject]? = nil,
-//        keyPath: String = "data") -> Request<Model> {
-//        let request = manager.request(
-//            method,
-//            baseURL.URLByAppendingPathComponent(path),
-//            parameters: (parameters ?? [:]).map { (var params) in
-//                if !self.authenticated {
-//                    params["client_id"] = self.clientID
-//                }
-//                
-//                params["expand"] = (["kind"] + expand.map { $0.rawValue }).joinWithSeparator(",")
-//                
-//                return params
-//            },
-//            encoding: .URL,
-//            headers: nil
-//        ).validate()
-//        
-//        return Request(request: request, keyPath: keyPath)
-//    }
 }
