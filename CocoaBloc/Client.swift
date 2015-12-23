@@ -35,8 +35,15 @@ public final class Client {
         self.authenticationState = authenticationState
     }
     
-    var authenticated: Bool {
+    public var authenticated: Bool {
         return self.authenticationState.authenticationToken != nil
+    }
+    
+    public func request<Serialized: MTLModel>(
+        endpoint: Endpoint<Serialized>,
+        expansions: [StageBloc.ExpandableValue] = [],
+        completion: Response<Serialized, CocoaBloc.Error> -> ()) {
+//            var params
     }
     
 //    internal func request<Model>(
