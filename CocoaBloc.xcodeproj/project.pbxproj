@@ -146,10 +146,6 @@
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-Request+MantleSerialization.swift"; sourceTree = "<group>"; };
-		09AB382D1C1F41380085EDB2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = API.swift; path = old/API/API.swift; sourceTree = SOURCE_ROOT; };
-		09AB382E1C1F41380085EDB2 /* API+Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Method.swift"; path = "old/API/API+Method.swift"; sourceTree = SOURCE_ROOT; };
-		09AB382F1C1F41380085EDB2 /* API+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Parameters.swift"; path = "old/API/API+Parameters.swift"; sourceTree = SOURCE_ROOT; };
-		09AB38301C1F41380085EDB2 /* API+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "API+Path.swift"; path = "old/API/API+Path.swift"; sourceTree = SOURCE_ROOT; };
 		81F35F7B1C2857A0002B9D74 /* Endpoint+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Endpoint+User.swift"; sourceTree = "<group>"; };
 		81F35F7D1C2859B7002B9D74 /* Endpoint+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Endpoint+Content.swift"; sourceTree = "<group>"; };
 		81F35F7F1C2859E2002B9D74 /* Endpoint+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Endpoint+Account.swift"; sourceTree = "<group>"; };
@@ -211,10 +207,6 @@
 				0925DFBE1C053B9A00BD43E0 /* Private */,
 				0925DF6D1C05344100BD43E0 /* Models */,
 				090E11121C008E9C0001C943 /* CocoaBloc.h */,
-				09AB382D1C1F41380085EDB2 /* API.swift */,
-				09AB382E1C1F41380085EDB2 /* API+Method.swift */,
-				09AB382F1C1F41380085EDB2 /* API+Parameters.swift */,
-				09AB38301C1F41380085EDB2 /* API+Path.swift */,
 				090E11141C008E9C0001C943 /* Info.plist */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
 				0925DF671C0514FA00BD43E0 /* Request.swift */,
