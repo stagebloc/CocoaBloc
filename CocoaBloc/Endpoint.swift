@@ -10,22 +10,22 @@ import Foundation
 import Mantle
 import Alamofire
 
-public struct Endpoint<T> {
+public struct Endpoint<Serialized> {
     
-    internal let baseURL : NSURL
     public let path: String
-    public let method : Alamofire.Method
+    public let method: Alamofire.Method
     
-    public var expansions : [StageBloc.ExpandableValue]
-    public var parameters : [String:AnyObject]?
+    public var expansions: [StageBloc.ExpandableValue]
+    public var parameters: [String:AnyObject]
+    
+    /// Key path in the response to parse Serialized from
     public var keyPath : String
     
     init(path: String,
         method: Alamofire.Method,
         expansions: [StageBloc.ExpandableValue] = [],
-        parameters: [String:AnyObject]? = nil,
+        parameters: [String:AnyObject] = [:],
         keyPath: String = "data") {
-            self.baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
             self.path = path
             self.method = method
             self.expansions = expansions
