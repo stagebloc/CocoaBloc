@@ -1,5 +1,5 @@
 //
-//  Endpoint+Coupon.swift
+//  API+Coupon.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 12/21/15.

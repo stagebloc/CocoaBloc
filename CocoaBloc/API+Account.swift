@@ -1,5 +1,5 @@
 //
-//  Endpoint+Account.swift
+//  API+Account.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 12/21/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension StageBloc {
+extension API {
     
     public static func createAccount(name: String, description: String, url: String, type: AccountType, color: AccountColor) -> Endpoint<SBAccount> {
         return Endpoint(

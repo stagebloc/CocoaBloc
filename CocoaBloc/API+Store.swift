@@ -1,5 +1,5 @@
 //
-//  Endpoint+Store.swift
+//  API+Store.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 12/21/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension StageBloc {
+extension API {
     
     public static func getStoreDashboard(accountID: Int) -> Endpoint<SBStoreDashboard> {
         return Endpoint(

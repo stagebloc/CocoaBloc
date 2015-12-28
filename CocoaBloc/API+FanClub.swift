@@ -1,5 +1,5 @@
 //
-//  Endpoint+FanClub.swift
+//  API+FanClub.swift
 //  CocoaBloc
 //
 //  Created by David Warner on 12/21/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension StageBloc {
+extension API {
     
     public static func getFanClubDashboard(accountID: Int) -> Endpoint<SBFanClubDashboard> {
         return Endpoint(

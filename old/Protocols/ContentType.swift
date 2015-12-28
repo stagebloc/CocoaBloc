@@ -11,7 +11,7 @@
 public protocol ContentType {
     
     /// Which type of content the identifier belongs to
-    var contentType: StageBloc.ContentTypeIdentifier { get }
+    var contentType: API.ContentTypeIdentifier { get }
     
     /// The identifier of the content itself
     var contentID: Int { get }

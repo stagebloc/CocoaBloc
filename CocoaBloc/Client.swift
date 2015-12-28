@@ -23,7 +23,8 @@ public final class Client {
     
     private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
     private let manager: Manager
-        
+    
+    // OAuth2 application details
     public let clientID: String
     public let clientSecret: String
     
@@ -44,24 +45,37 @@ public final class Client {
         return self.authenticationState.authenticationToken != nil
     }
     
-    public func request<Serialized: MTLModel>(
+    internal func request<Serialized>(
         endpoint: Endpoint<Serialized>,
-        expansions: [StageBloc.ExpandableValue] = [],
-        completion: Response<Serialized, CocoaBloc.Error> -> ()) {
+        expansions: [API.ExpandableValue] = []) -> Request {
             var params = ["expand": (["kind"] + expansions.map { $0.rawValue }).joinWithSeparator(",")]
             if !self.authenticated {
                 params["client_id"] = clientID
             }
             
-            let request = manager.request(
+            return manager.request(
                 endpoint.method,
                 baseURL.URLByAppendingPathExtension(endpoint.path),
                 parameters: params,
                 encoding: .URL,
                 headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
             ).validate()
-            
-            
+    }
+    
+    public func request<Serialized: MTLModel>(
+        endpoint: Endpoint<Serialized>,
+        expansions: [API.ExpandableValue] = [],
+        completion: Response<Serialized, CocoaBloc.Error> -> ()) -> Request {
+            let req = request(endpoint, expansions: expansions)
+            return req.response(responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath), completionHandler: completion)
+    }
+    
+    public func request<Serialized: SequenceType where Serialized.Generator.Element: MTLModel>(
+        endpoint: Endpoint<Serialized>,
+        expansions: [API.ExpandableValue] = [],
+        completion: Response<[Serialized.Generator.Element], CocoaBloc.Error> -> ()) -> Request {
+            let req = request(endpoint, expansions: expansions)
+            return req.response(responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath), completionHandler: completion)
     }
     
 }
