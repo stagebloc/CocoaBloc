@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0710"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "09EA2FBD1BBC2CB100167058"
+               BlueprintIdentifier = "090E110E1C008E9C0001C943"
                BuildableName = "CocoaBloc.framework"
                BlueprintName = "CocoaBloc"
                ReferencedContainer = "container:CocoaBloc.xcodeproj">
@@ -26,14 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "098F4ACD1BBC40FA003A496C"
+               BlueprintIdentifier = "090E11181C008E9C0001C943"
                BuildableName = "CocoaBlocTests.xctest"
                BlueprintName = "CocoaBlocTests"
                ReferencedContainer = "container:CocoaBloc.xcodeproj">
@@ -43,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "09EA2FBD1BBC2CB100167058"
+            BlueprintIdentifier = "090E110E1C008E9C0001C943"
             BuildableName = "CocoaBloc.framework"
             BlueprintName = "CocoaBloc"
             ReferencedContainer = "container:CocoaBloc.xcodeproj">
@@ -65,7 +64,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "09EA2FBD1BBC2CB100167058"
+            BlueprintIdentifier = "090E110E1C008E9C0001C943"
             BuildableName = "CocoaBloc.framework"
             BlueprintName = "CocoaBloc"
             ReferencedContainer = "container:CocoaBloc.xcodeproj">
@@ -83,7 +82,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "09EA2FBD1BBC2CB100167058"
+            BlueprintIdentifier = "090E110E1C008E9C0001C943"
             BuildableName = "CocoaBloc.framework"
             BlueprintName = "CocoaBloc"
             ReferencedContainer = "container:CocoaBloc.xcodeproj">
