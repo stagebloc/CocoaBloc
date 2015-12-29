@@ -23,7 +23,7 @@ public struct Endpoint<Serialized> {
     public var expansions: [API.ExpandableValue]
     
     /// Key path in the response to parse Serialized from
-    public var keyPath: String
+    public let keyPath: String
     
     internal init(path: String,
         method: Alamofire.Method,
