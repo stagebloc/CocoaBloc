@@ -43,7 +43,7 @@ public final class Client {
     internal func request<Serialized>(
         endpoint: Endpoint<Serialized>,
         expansions: [API.ExpandableValue] = []) -> Request {
-            var params = ["expand": (["kind"] + expansions.map { $0.rawValue }).joinWithSeparator(",")]
+            var params = ["expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")]
             if !self.authenticated {
                 params["client_id"] = clientID
             }
