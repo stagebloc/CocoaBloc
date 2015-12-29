@@ -9,11 +9,6 @@
 import Mantle
 import Alamofire
 
-public protocol AuthenticationStateType {
-    var authenticationToken: String? { get set }
-    var authenticatedUser: SBUser? { get set }
-}
-
 public struct AuthenticationState: AuthenticationStateType {
     public var authenticationToken: String?
     public var authenticatedUser: SBUser?

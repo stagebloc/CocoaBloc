@@ -93,13 +93,3 @@ public struct API {
         public let postedAccountID: Int
     }
 }
-
-internal extension SequenceType where Generator.Element == (String, AnyObject?) {
-    func filterNil() -> [String:AnyObject] {
-        var ret = [String:AnyObject]()
-        for tuple in self where tuple.1 != nil {
-            ret[tuple.0] = tuple.1!
-        }
-        return ret
-    }
-}

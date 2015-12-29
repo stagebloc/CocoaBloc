@@ -58,6 +58,8 @@
 		0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */; };
 		0925DFC91C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */; };
 		092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CA1C31D2EA00B81777 /* Endpoint.swift */; };
+		092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */; };
+		092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */; };
 		0965545C1C191C0700D8AFB2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0965545D1C191C0700D8AFB2 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
 		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
@@ -139,6 +141,8 @@
 		0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
 		0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		092C01CA1C31D2EA00B81777 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStateType.swift; sourceTree = "<group>"; };
+		092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		098DC4191C1F64380084AE45 /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
+				092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */,
 				0925DFC01C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.h */,
 				0925DFC11C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m */,
 				0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */,
@@ -303,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				098DC41B1C1F64380084AE45 /* ContentType.swift */,
+				092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */,
 			);
 			name = Protocols;
 			path = old/Protocols;
@@ -459,6 +465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */,
 				0925DFAB1C05344100BD43E0 /* SBObject.m in Sources */,
 				0925DFB31C05344100BD43E0 /* SBStatus.m in Sources */,
 				0925DFA31C05344100BD43E0 /* SBFanClub.m in Sources */,
@@ -471,6 +478,7 @@
 				0925DFB51C05344100BD43E0 /* SBStoreDashboard.m in Sources */,
 				0925DFBD1C05344100BD43E0 /* SBVideo.m in Sources */,
 				81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */,
+				092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */,
 				0925DF9B1C05344100BD43E0 /* SBAudio.m in Sources */,
 				0925DFA51C05344100BD43E0 /* SBFanClubDashboard.m in Sources */,
 				0925DFC71C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m in Sources */,
