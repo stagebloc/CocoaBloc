@@ -124,4 +124,10 @@ extension API {
             path: "account/\(accountID)/fans",
             method: .GET)
     }
+    
+    public static func getContentForUser(userID: Int, contentListType: ContentListType) -> Endpoint<[SBContent]> {
+        return Endpoint(
+            path: "users/\(userID)/content/\(contentListType.rawValue)",
+            method: .GET)
+    }
 }

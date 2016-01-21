@@ -47,6 +47,11 @@ public struct API {
         case Status = "status"
     }
     
+    public enum ContentListType: String {
+        case Update  = "updates"
+        case Like  = "likes"
+    }
+    
     public enum AccountColor: String {
         case Blue       = "blue"
         case Purple     = "purple"
