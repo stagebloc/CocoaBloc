@@ -43,18 +43,25 @@ public final class Client {
     internal func request<Serialized>(
         endpoint: Endpoint<Serialized>,
         expansions: [API.ExpandableValue] = []) -> Request {
-            var params = ["expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")]
-            if !self.authenticated {
-                params["client_id"] = clientID
-            }
-            
-            return manager.request(
-                endpoint.method,
-                baseURL.URLByAppendingPathComponent(endpoint.path),
-                parameters: params,
-                encoding: .URL,
-                headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
-            ).validate()
+        var params: [String: AnyObject] = [
+                "expand": (["kind"] + (expansions + endpoint.expansions)
+                    .map { $0.rawValue })
+                    .joinWithSeparator(",")
+            ]
+        for (key, value) in endpoint.parameters {
+            params[key] = value
+        }
+        if !self.authenticated {
+            params["client_id"] = clientID
+        }
+        
+        return manager.request(
+            endpoint.method,
+            baseURL.URLByAppendingPathComponent(endpoint.path),
+            parameters: params,
+            encoding: .URL,
+            headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
+        ).validate()
     }
     
     public func request<Serialized: MTLModel>(
