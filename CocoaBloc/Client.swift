@@ -50,7 +50,7 @@ public final class Client {
             
             return manager.request(
                 endpoint.method,
-                baseURL.URLByAppendingPathExtension(endpoint.path),
+                baseURL.URLByAppendingPathComponent(endpoint.path),
                 parameters: params,
                 encoding: .URL,
                 headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
