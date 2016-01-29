@@ -28,7 +28,7 @@ public final class Client {
 	public let clientID: String
 	public let clientSecret: String
 	
-	public private(set) var authenticationState: AuthenticationStateType
+	public let authenticationState: AuthenticationStateType
 	
 	public init(
 		clientID: String,
