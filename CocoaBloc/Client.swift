@@ -9,9 +9,14 @@
 import Mantle
 import Alamofire
 
-public struct AuthenticationState: AuthenticationStateType {
+public class AuthenticationState: AuthenticationStateType {
     public var authenticationToken: String?
     public var authenticatedUser: SBUser?
+	
+	init(authenticationToken: String? = nil, authenticatedUser: SBUser? = nil) {
+		self.authenticationToken = authenticationToken
+		self.authenticatedUser = authenticatedUser
+	}
 }
 
 public final class Client {
@@ -51,17 +56,22 @@ public final class Client {
         for (key, value) in endpoint.parameters {
             params[key] = value
         }
+			
         if !self.authenticated {
             params["client_id"] = clientID
         }
-        
-        return manager.request(
-            endpoint.method,
-            baseURL.URLByAppendingPathComponent(endpoint.path),
-            parameters: params,
-            encoding: .URL,
-            headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
-        ).validate()
+			
+		let request = manager.request(
+				endpoint.method,
+				baseURL.URLByAppendingPathComponent(endpoint.path),
+				parameters: params,
+				encoding: .URL,
+				headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
+				).validate()
+			
+		endpoint.sideEffect?(request, &self.authenticationState)
+			
+        return request
     }
     
     public func request<Serialized: MTLModel>(

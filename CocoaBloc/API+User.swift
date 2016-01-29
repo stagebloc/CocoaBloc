@@ -10,29 +10,89 @@ import Foundation
 
 extension API {
     
-    public static func loginWithAuthorizationCode(authorizationCode: String) -> Endpoint<SBUser> {
-        return Endpoint(
-            path: "oauth2/token",
-            method: .POST,
-            parameters: [
-                "code": authorizationCode,
-                "grant_type": "authorization_code"
-            ])
-    }
-    
-    public static func logInWithUsername(username: String, password: String) -> Endpoint<SBUser> {
-        return Endpoint(
-            path: "oauth2/token",
-            method: .POST,
-            expansions: [.User],
-            parameters: [
-                "username": username,
-                "password": password,
-                "grant_type": "password"
-            ],
-            keyPath: "data.user")
-    }
-    
+	public static func loginWithAuthorizationCode(authorizationCode: String) -> Endpoint<SBUser> {
+		return Endpoint(
+			path: "oauth2/token",
+			method: .POST,
+			parameters: [
+				"code": authorizationCode,
+				"grant_type": "authorization_code"
+			],
+			sideEffect: { request, authState in
+				authState.authenticationToken = nil
+				authState.authenticatedUser = nil
+				
+				request.responseJSON { response in
+					switch response.result {
+					case .Success(let json):
+						if
+							let dict = json as? [String:AnyObject],
+							let data = dict["data"] as? [String:AnyObject],
+							let userData = data["user"] as? [String:AnyObject],
+							let token = data["access_token"] as? String {
+								do {
+									if let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userData) as? SBUser {
+										authState.authenticatedUser = user
+										authState.authenticationToken = token
+									} else {
+										fatalError("Could not set authenticated user and token")
+									}
+								}
+								catch let error as NSError {
+									fatalError("Could not set authenticated user and token: \(error)")
+								}
+						}
+					case .Failure(let error):
+						fatalError("JSON serialization error \(error)")
+					}
+				}
+			}
+		)
+	}
+	
+	public static func logInWithUsername(username: String, password: String) -> Endpoint<SBUser> {
+		return Endpoint(
+			path: "oauth2/token",
+			method: .POST,
+			expansions: [.User],
+			parameters: [
+				"username": username,
+				"password": password,
+				"grant_type": "password"
+			],
+			keyPath: "data.user",
+			sideEffect: { request, authState in
+				authState.authenticationToken = nil
+				authState.authenticatedUser = nil
+				
+				request.responseJSON { response in
+					switch response.result {
+					case .Success(let json):
+						if
+							let dict = json as? [String:AnyObject],
+							let data = dict["data"] as? [String:AnyObject],
+							let userData = data["user"] as? [String:AnyObject],
+							let token = data["access_token"] as? String {
+								do {
+									if let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userData) as? SBUser {
+										authState.authenticatedUser = user
+										authState.authenticationToken = token
+									} else {
+										fatalError("Could not set authenticated user and token")
+									}
+								}
+								catch let error as NSError {
+									fatalError("Could not set authenticated user and token: \(error)")
+								}
+						}
+					case .Failure(let error):
+						fatalError("JSON serialization error \(error)")
+					}
+				}
+		})
+	}
+	
+	
     public static func getUser(userID: Int) -> Endpoint<SBUser> {
         return Endpoint(
             path: "users/\(userID)",
