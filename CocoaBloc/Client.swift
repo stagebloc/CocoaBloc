@@ -59,7 +59,7 @@ public final class Client {
 			headers: self.authenticated
 						? ["Authorization": "Token token=\(authenticationState.authenticationToken)"]
 						: nil
-			).validate()
+		).validate()
 		
 		endpoint.sideEffect?(request, &self.authenticationState)
 		
