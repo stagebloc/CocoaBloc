@@ -9,9 +9,14 @@
 import Mantle
 import Alamofire
 
-public struct AuthenticationState: AuthenticationStateType {
+public class AuthenticationState: AuthenticationStateType {
 	public var authenticationToken: String?
 	public var authenticatedUser: SBUser?
+	
+	init(authenticationToken: String? = nil, authenticatedUser: SBUser? = nil) {
+		self.authenticationToken = authenticationToken
+		self.authenticatedUser = authenticatedUser
+	}
 }
 
 public final class Client {
@@ -61,7 +66,7 @@ public final class Client {
 						: nil
 		).validate()
 		
-		endpoint.sideEffect?(request, &self.authenticationState)
+		endpoint.sideEffect?(request, authenticationState)
 		
 		return request
 	}

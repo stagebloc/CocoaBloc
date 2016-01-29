@@ -39,6 +39,6 @@ public struct Endpoint<Serialized> {
 		self.sideEffect = sideEffect
 	}
 	
-	internal typealias SideEffectClosure = (Request, inout AuthenticationStateType) -> ()
+	internal typealias SideEffectClosure = (Request, AuthenticationStateType) -> ()
 	internal let sideEffect: SideEffectClosure?
 }
