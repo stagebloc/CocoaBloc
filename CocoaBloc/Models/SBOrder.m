@@ -16,46 +16,46 @@
 @implementation SBOrder
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-            @{@"dateOrdered"                : @"ordered",
-              @"dateShipped"                : @"shipped",
-              @"email"                      : @"email",
-              @"customerUserID"             : @"user",
-              @"customerUser"               : @"user",
-              @"accountID"                  : @"account",
-              @"account"                    : @"account",
-              @"address"                    : @"address",
-              @"stripeChargeId"             : @"stripe_charge_id",
-              @"totalUsd"                   : @"total_usd"
-              }];
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"dateOrdered"                : @"ordered",
+			  @"dateShipped"                : @"shipped",
+			  @"email"                      : @"email",
+			  @"customerUserID"             : @"user",
+			  @"customerUser"               : @"user",
+			  @"accountID"                  : @"account",
+			  @"account"                    : @"account",
+			  @"address"                    : @"address",
+			  @"stripeChargeId"             : @"stripe_charge_id",
+			  @"totalUsd"                   : @"total_usd"
+			  }];
 }
 
 + (MTLValueTransformer *)customerIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 + (MTLValueTransformer *)customerJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)accountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 + (MTLValueTransformer *)accountJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)addressJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)dateOrderedJSONTransformer {
-    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 + (MTLValueTransformer *)dateShippedJSONTransformer {
-    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 @end

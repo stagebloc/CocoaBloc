@@ -22,44 +22,44 @@
 @implementation SBContent
 
 + (NSString *)URLPathContentType {
-    static NSDictionary *classToContentURLContentTypes = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        classToContentURLContentTypes = @{NSStringFromClass([SBPhoto class])   : @"photo",
-                                          NSStringFromClass([SBBlog class])    : @"blog",
-                                          NSStringFromClass([SBStatus class])  : @"status",
-                                          NSStringFromClass([SBVideo class])   : @"video",
-                                          NSStringFromClass([SBAudio class])   : @"audio"};
-    });
-    
-    return classToContentURLContentTypes[NSStringFromClass(self)];
+	static NSDictionary *classToContentURLContentTypes = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		classToContentURLContentTypes = @{NSStringFromClass([SBPhoto class])   : @"photo",
+										  NSStringFromClass([SBBlog class])    : @"blog",
+										  NSStringFromClass([SBStatus class])  : @"status",
+										  NSStringFromClass([SBVideo class])   : @"video",
+										  NSStringFromClass([SBAudio class])   : @"audio"};
+	});
+	
+	return classToContentURLContentTypes[NSStringFromClass(self)];
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-            @{
-              @"title"                  : @"title",
-              @"excerpt"                : @"excerpt",
-              @"modificationDate"       : @"modified",
-              @"creationDate"           : @"created",
-              @"publishDate"            : @"published",
-              @"inModeration"           : @"in_moderation",
-              @"isFanContent"           : @"is_fan_content",
-              @"userHasLiked"           : @"user_has_liked",
-              @"likeCount"              : @"like_count",
-              @"isSticky"               : @"sticky",
-              @"isExclusive"            : @"exclusive",
-              @"commentCount"           : @"comment_count",
-              @"shortURL"               : @"short_url",
-              @"accountID"              : @"account",
-              @"account"                : @"account",
-              @"authorUser"             : @"user",
-              @"authorUserID"           : @"user"}
-            ];
+			@{
+			  @"title"                  : @"title",
+			  @"excerpt"                : @"excerpt",
+			  @"modificationDate"       : @"modified",
+			  @"creationDate"           : @"created",
+			  @"publishDate"            : @"published",
+			  @"inModeration"           : @"in_moderation",
+			  @"isFanContent"           : @"is_fan_content",
+			  @"userHasLiked"           : @"user_has_liked",
+			  @"likeCount"              : @"like_count",
+			  @"isSticky"               : @"sticky",
+			  @"isExclusive"            : @"exclusive",
+			  @"commentCount"           : @"comment_count",
+			  @"shortURL"               : @"short_url",
+			  @"accountID"              : @"account",
+			  @"account"                : @"account",
+			  @"authorUser"             : @"user",
+			  @"authorUserID"           : @"user"}
+			];
 }
 
 + (NSValueTransformer *)modificationDateJSONTransformer {
-    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 + (NSValueTransformer *)creationDateJSONTransformer {
@@ -71,23 +71,23 @@
 }
 
 + (MTLValueTransformer *)shortURLJSONTransformer {
-    return [MTLValueTransformer reversibleStringToURLTransformer];
+	return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
 + (MTLValueTransformer *)accountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 + (MTLValueTransformer *)accountJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)authorUserIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 + (MTLValueTransformer *)authorUserJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 @end

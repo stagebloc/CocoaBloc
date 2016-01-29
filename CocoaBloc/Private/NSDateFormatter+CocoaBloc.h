@@ -10,6 +10,6 @@
 
 @interface NSDateFormatter (CocoaBloc)
 
-+ (NSDateFormatter *)CocoaBlocJSONDateFormatter;
++ (nonnull NSDateFormatter *)CocoaBlocJSONDateFormatter;
 
 @end

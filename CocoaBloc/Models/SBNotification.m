@@ -14,27 +14,27 @@
 @implementation SBNotification
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-            @{@"creationDate"               : @"created",
-              @"HTMLText"                   : @"html_message",
-              @"text"                       : @"message",
-              @"route"                      : @"route",
-              @"accountID"                  : @"account",
-              @"account"                    : @"account",
-              @"fetchAccountCommand"        : [NSNull null]
-              }];
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"creationDate"               : @"created",
+			  @"HTMLText"                   : @"html_message",
+			  @"text"                       : @"message",
+			  @"route"                      : @"route",
+			  @"accountID"                  : @"account",
+			  @"account"                    : @"account",
+			  @"fetchAccountCommand"        : [NSNull null]
+			  }];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {
-    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 + (MTLValueTransformer *)accountJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)accountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 @end
