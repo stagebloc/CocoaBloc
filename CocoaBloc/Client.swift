@@ -44,13 +44,8 @@ public final class Client {
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = []) -> Request {
 		var params: [String: AnyObject] = [
-			"expand": (["kind"] + (expansions + endpoint.expansions)
-				.map { $0.rawValue })
-				.joinWithSeparator(",")
-		]
-		for (key, value) in endpoint.parameters {
-			params[key] = value
-		}
+			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
+		].withEnties(endpoint.parameters)
 		
 		if !self.authenticated {
 			params["client_id"] = clientID
