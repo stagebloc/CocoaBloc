@@ -9,12 +9,12 @@
 import Mantle
 import Alamofire
 
-public extension Alamofire.Request {
+public extension Request {
 	
 	/// Serializer for a single Mantle model object
 	public class func MantleResponseSerializer<Model: MTLModel>(keyPath: String) -> Alamofire.ResponseSerializer<Model, CocoaBloc.Error> {
 		return ResponseSerializer { request, response, data, error in
-			let JSONSerializer = Alamofire.Request.JSONResponseSerializer()
+			let JSONSerializer = Request.JSONResponseSerializer()
 			switch JSONSerializer.serializeResponse(request, response, data, error) {
 				
 			case .Success(let jsonObject):
@@ -43,7 +43,7 @@ public extension Alamofire.Request {
 	/// Serializer for an array of Mantle model objects
 	public class func MantleResponseSerializer<Model: MTLModel>(keyPath: String) -> Alamofire.ResponseSerializer<[Model], CocoaBloc.Error> {
 		return ResponseSerializer { request, response, data, error in
-			let JSONSerializer = Alamofire.Request.JSONResponseSerializer()
+			let JSONSerializer = Request.JSONResponseSerializer()
 			switch JSONSerializer.serializeResponse(request, response, data, error) {
 				
 			case .Success(let jsonObject):

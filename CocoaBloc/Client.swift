@@ -77,7 +77,7 @@ public final class Client {
 		completion: Response<Serialized, CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
-			responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath),
+			responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 			completionHandler: completion
 		)
 	}
@@ -88,7 +88,7 @@ public final class Client {
 		completion: Response<[Serialized.Generator.Element], CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
-			responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath),
+			responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 			completionHandler: completion
 		)
 	}
