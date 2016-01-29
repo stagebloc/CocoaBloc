@@ -8,6 +8,6 @@
 
 /// Represents a type that has a mutable interface of authentication properties
 public protocol AuthenticationStateType {
-    var authenticationToken: String? { get set }
-    var authenticatedUser: SBUser? { get set }
+	var authenticationToken: String? { get set }
+	var authenticatedUser: SBUser? { get set }
 }

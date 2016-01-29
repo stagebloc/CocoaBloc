@@ -7,8 +7,8 @@
 //
 
 public enum Error: ErrorType {
-    case JSONSerialization(NSError)
-    case UnexpectedResponseType
-    case API(String)
-    case Underlying(NSError)
+	case JSONSerialization(NSError)
+	case UnexpectedResponseType
+	case API(String)
+	case Underlying(NSError)
 }

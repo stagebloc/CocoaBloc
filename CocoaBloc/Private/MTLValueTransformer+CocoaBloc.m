@@ -15,10 +15,10 @@
 
 + (instancetype)reversibleStringToURLTransformer {
 	return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *urlString, BOOL *success, NSError **error) {
-        *success = YES;
+		*success = YES;
 		return [NSURL URLWithString:urlString];
 	} reverseBlock:^id(NSURL *url, BOOL *success, NSError **error) {
-        *success = YES;
+		*success = YES;
 		return url.absoluteString;
 	}];
 }
@@ -27,80 +27,80 @@
 	NSParameterAssert(dateFormatter);
 	
 	return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError **error) {
-        *success = YES;
-        
-        if ([dateString isKindOfClass:[NSNumber class]]) {
-            return nil;
-        }
-
-        return !dateString ? nil : [dateFormatter dateFromString:dateString];
+		*success = YES;
+		
+		if ([dateString isKindOfClass:[NSNumber class]]) {
+			return nil;
+		}
+		
+		return !dateString ? nil : [dateFormatter dateFromString:dateString];
 	} reverseBlock:^id(NSDate *date, BOOL *success, NSError **error) {
-        *success = YES;
+		*success = YES;
 		return [dateFormatter stringFromDate:date];
 	}];
 }
 
 + (instancetype)reversibleModelIDOnlyTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(id object, BOOL *success, NSError **error) {
-        *success = YES;
-        
-        if ([object isKindOfClass:[NSNumber class]]) {
-            return object;
-        }
-        
-        return [object objectForKey:@"id"];
-    } reverseBlock:^id(id object, BOOL *success, NSError **error) {
-        *success = YES;
-        return object;
-    }];
+	return [MTLValueTransformer transformerUsingForwardBlock:^id(id object, BOOL *success, NSError **error) {
+		*success = YES;
+		
+		if ([object isKindOfClass:[NSNumber class]]) {
+			return object;
+		}
+		
+		return [object objectForKey:@"id"];
+	} reverseBlock:^id(id object, BOOL *success, NSError **error) {
+		*success = YES;
+		return object;
+	}];
 }
 
 + (instancetype)reversibleModelJSONOnlyTransformer {
-    return [self reversibleModelJSONOnlyTransformerForModelClass:[SBObject class]];
+	return [self reversibleModelJSONOnlyTransformerForModelClass:[SBObject class]];
 }
 
 + (instancetype)reversibleModelJSONOnlyTransformerForModelClass:(Class)modelClass {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(id object, BOOL *success, NSError **error) {
-        *success = YES;
-        if ([object isKindOfClass:[NSDictionary class]]) {
-            id model = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:object error:error];
-            if (*error != nil) {
-                *success = NO;
-                return nil;
-            }
-            return model;
-        } else if ([object isKindOfClass:[NSArray class]]) {
-            NSArray *models = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:object error:error];
-            if (*error != nil) {
-                *success = NO;
-                return nil;
-            }
-            return models;
-        }
-        
-        return nil;
-    } reverseBlock:^id(id object, BOOL *success, NSError **error) {
-        *success = YES;
-        
-        if ([object isKindOfClass:[NSArray class]]) {
-            NSArray *models = [MTLJSONAdapter JSONArrayFromModels:object error:error];
-            if (*error != nil) {
-                *success = NO;
-                return nil;
-            }
-            return models;
-        }
-        else if ([object isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *model = [MTLJSONAdapter JSONDictionaryFromModel:object error:error];
-            if (*error != nil) {
-                *success = NO;
-                return nil;
-            }
-            return model;
-        }
-        
-        return nil;
-    }];
+	return [MTLValueTransformer transformerUsingForwardBlock:^id(id object, BOOL *success, NSError **error) {
+		*success = YES;
+		if ([object isKindOfClass:[NSDictionary class]]) {
+			id model = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:object error:error];
+			if (*error != nil) {
+				*success = NO;
+				return nil;
+			}
+			return model;
+		} else if ([object isKindOfClass:[NSArray class]]) {
+			NSArray *models = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:object error:error];
+			if (*error != nil) {
+				*success = NO;
+				return nil;
+			}
+			return models;
+		}
+		
+		return nil;
+	} reverseBlock:^id(id object, BOOL *success, NSError **error) {
+		*success = YES;
+		
+		if ([object isKindOfClass:[NSArray class]]) {
+			NSArray *models = [MTLJSONAdapter JSONArrayFromModels:object error:error];
+			if (*error != nil) {
+				*success = NO;
+				return nil;
+			}
+			return models;
+		}
+		else if ([object isKindOfClass:[NSDictionary class]]) {
+			NSDictionary *model = [MTLJSONAdapter JSONDictionaryFromModel:object error:error];
+			if (*error != nil) {
+				*success = NO;
+				return nil;
+			}
+			return model;
+		}
+		
+		return nil;
+	}];
 }
 
 @end

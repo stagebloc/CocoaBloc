@@ -28,48 +28,48 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{@"identifier"  : @"id",
-             @"kind"        : @"kind"};
+			 @"kind"        : @"kind"};
 }
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    static NSDictionary *_kindModelMap;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _kindModelMap = @{ @"user"                              : [SBUser class],
-                           @"user_photo"                        : [SBPhoto class],
-                           @"account"                           : [SBAccount class],
-                           @"fan_club"                          : [SBFanClub class],
-                           @"fan_club_tier"                     : [SBTier class],
-                           @"fan_club_dashboard"                : [SBFanClubDashboard class],
-                           @"photo"                             : [SBPhoto class],
-                           @"audio"                             : [SBAudio class],
-                           @"blog"                              : [SBBlog class],
-                           @"status"                            : [SBStatus class],
-                           @"video"                             : [SBVideo class],
-                           @"comment"                           : [SBComment class],
-                           @"notification"                      : [SBNotification class],
-                           @"order"                             : [SBOrder class],
-                           @"address"                           : [SBAddress class],
-                           @"store_item"                        : [SBStoreItem class],
-                           @"store_item_option"                 : [SBStoreItemOption class],
-                           @"store_item_shipping_price_handler" : [SBStoreItemPriceConfiguration class],
-                           @"store_dashboard"                   : [SBStoreDashboard class],
-                           };
-    });
-    
-    return _kindModelMap[JSONDictionary[@"kind"]];
+	static NSDictionary *_kindModelMap;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_kindModelMap = @{ @"user"                              : [SBUser class],
+						   @"user_photo"                        : [SBPhoto class],
+						   @"account"                           : [SBAccount class],
+						   @"fan_club"                          : [SBFanClub class],
+						   @"fan_club_tier"                     : [SBTier class],
+						   @"fan_club_dashboard"                : [SBFanClubDashboard class],
+						   @"photo"                             : [SBPhoto class],
+						   @"audio"                             : [SBAudio class],
+						   @"blog"                              : [SBBlog class],
+						   @"status"                            : [SBStatus class],
+						   @"video"                             : [SBVideo class],
+						   @"comment"                           : [SBComment class],
+						   @"notification"                      : [SBNotification class],
+						   @"order"                             : [SBOrder class],
+						   @"address"                           : [SBAddress class],
+						   @"store_item"                        : [SBStoreItem class],
+						   @"store_item_option"                 : [SBStoreItemOption class],
+						   @"store_item_shipping_price_handler" : [SBStoreItemPriceConfiguration class],
+						   @"store_dashboard"                   : [SBStoreDashboard class],
+						   };
+	});
+	
+	return _kindModelMap[JSONDictionary[@"kind"]];
 }
 
 - (BOOL)isEqual:(id)object {
-    __block BOOL equal = YES;
-    NSArray *properties = [[[self class] JSONKeyPathsByPropertyKey] allKeys];
-    [properties enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-        if (![object respondsToSelector:NSSelectorFromString(key)] || ![[object valueForKey:key] isEqual:[self valueForKey:key]]) {
-            equal = NO;
-            *stop = YES;
-        }
-    }];
-    return equal;
+	__block BOOL equal = YES;
+	NSArray *properties = [[[self class] JSONKeyPathsByPropertyKey] allKeys];
+	[properties enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+		if (![object respondsToSelector:NSSelectorFromString(key)] || ![[object valueForKey:key] isEqual:[self valueForKey:key]]) {
+			equal = NO;
+			*stop = YES;
+		}
+	}];
+	return equal;
 }
 
 @end

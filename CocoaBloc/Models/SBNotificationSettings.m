@@ -11,13 +11,13 @@
 @implementation SBNotificationSettings
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{@"email"   : @"email",
-             @"push"    : @"push",
-             @"web"     : @"web"};
+	return @{@"email"   : @"email",
+			 @"push"    : @"push",
+			 @"web"     : @"web"};
 }
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    return [SBNotificationSettings class];
+	return [SBNotificationSettings class];
 }
 
 @end

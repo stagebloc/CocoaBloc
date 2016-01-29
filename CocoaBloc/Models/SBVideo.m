@@ -12,30 +12,30 @@
 @implementation SBVideo
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-            @{@"descriptiveText"    : @"description",
-              @"videoURL" 			: @"video_url",
-              @"videoCDNURL" 		: @"video_cdn_url",
-              @"photo"              : @"photo",
-              @"photoID"            : @"photo",
-              @"descriptiveText"    : @"description"
-              }];
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"descriptiveText"    : @"description",
+			  @"videoURL" 			: @"video_url",
+			  @"videoCDNURL" 		: @"video_cdn_url",
+			  @"photo"              : @"photo",
+			  @"photoID"            : @"photo",
+			  @"descriptiveText"    : @"description"
+			  }];
 }
 
 + (MTLValueTransformer *)videoURLJSONTransformer {
-    return [MTLValueTransformer reversibleStringToURLTransformer];
+	return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
 + (MTLValueTransformer *)videoCDNURLJSONTransformer {
-    return [MTLValueTransformer reversibleStringToURLTransformer];
+	return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
 + (MTLValueTransformer *)photoJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)photoIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 @end
