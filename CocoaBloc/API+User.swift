@@ -18,22 +18,29 @@ extension API {
 		request.responseJSON { response in
 			switch response.result {
 			case .Success(let json):
-				if
-					let dict = json as? [String:AnyObject],
-					let data = dict["data"] as? [String:AnyObject],
-					let userData = data["user"] as? [String:AnyObject],
-					let token = data["access_token"] as? String {
+				guard
+					let json = json as? [String:AnyObject],
+					let data = json["data"] as? [String:AnyObject] else {
+						return // invalid response (doesn't match sb json structure)
+					}
+				
+				// set the oauth token
+				if let token = data["access_token"] as? String {
+					authState.authenticationToken = token
+				}
+				
+				// set the authenticated user
+				if let userJSON = data["user"] as? [String:AnyObject] {
 					do {
-						if let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userData) as? SBUser {
-							authState.authenticatedUser = user
-							authState.authenticationToken = token
-						} else {
-							fatalError("Could not set authenticated user and token")
-						}
+						// swiftlint:disable force_cast
+						let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userJSON) as! SBUser
+						// swiftlint:enable force_cast
+						authState.authenticatedUser = user
 					} catch let error as NSError {
-						fatalError("Could not set authenticated user and token: \(error)")
+						// json serialization error
 					}
 				}
+
 			case .Failure(let error):
 				fatalError("JSON serialization error \(error)")
 			}
