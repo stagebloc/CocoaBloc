@@ -10,7 +10,7 @@
 
 @implementation NSDateFormatter (CocoaBloc)
 
-+ (NSDateFormatter *)CocoaBlocJSONDateFormatter {
++ (nonnull NSDateFormatter *)CocoaBlocJSONDateFormatter {
 	static NSDateFormatter *df;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
