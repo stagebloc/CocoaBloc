@@ -13,11 +13,11 @@ Ex: API.LikeContent(mySBPhoto)
 */
 extension SBContent: ContentType {
 	public var contentID: Int {
-		return self.identifier.integerValue
+		return identifier.integerValue
 	}
 	
 	public var postedAccountID: Int {
-		return self.accountID.integerValue
+		return accountID.integerValue
 	}
 	
 	public var contentType: API.ContentTypeIdentifier {

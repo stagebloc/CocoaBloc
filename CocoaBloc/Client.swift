@@ -37,7 +37,7 @@ public final class Client {
 	}
 	
 	public var authenticated: Bool {
-		return self.authenticationState.authenticationToken != nil
+		return authenticationState.authenticationToken != nil
 	}
 	
 	internal func request<Serialized>(
@@ -47,7 +47,7 @@ public final class Client {
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
 		].withEnties(endpoint.parameters)
 		
-		if !self.authenticated {
+		if !authenticated {
 			params["client_id"] = clientID
 		}
 		
@@ -56,7 +56,7 @@ public final class Client {
 			baseURL.URLByAppendingPathComponent(endpoint.path),
 			parameters: params,
 			encoding: .URL,
-			headers: self.authenticated
+			headers: authenticated
 						? ["Authorization": "Token token=\(authenticationState.authenticationToken)"]
 						: nil
 		).validate()
