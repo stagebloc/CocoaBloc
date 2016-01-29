@@ -40,7 +40,11 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func flagContent<T: SBContent>(content: ContentType, type: FlagType, reason: String) -> Endpoint<T> {
+	public static func flagContent<T: SBContent>(
+		content: ContentType,
+		type: FlagType,
+		reason: String
+	) -> Endpoint<T> {
 		return Endpoint(
 			path: "/account/\(content.postedAccountID)/\(content.contentType)/\(content.contentID)/flag",
 			method: .POST,

@@ -10,7 +10,13 @@ import Foundation
 
 extension API {
 	
-	public static func createAccount(name: String, description: String, url: String, type: AccountType, color: AccountColor) -> Endpoint<SBAccount> {
+	public static func createAccount(
+		name: String,
+		description: String,
+		url: String,
+		type: AccountType,
+		color: AccountColor
+	) -> Endpoint<SBAccount> {
 		return Endpoint(
 			path: "account",
 			method: .POST,

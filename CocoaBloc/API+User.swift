@@ -149,7 +149,7 @@ extension API {
 				"username"  : username,
 				"gender"    : gender?.rawValue,
 				"color"     : color?.rawValue
-				].filterNil())
+			].filterNil())
 	}
 	
 	public static func signUp(
@@ -176,7 +176,7 @@ extension API {
 				"birthday"  : df.stringFromDate(birthday),
 				"gender"    : gender.rawValue,
 				"source_account_id" : sourceAccountID
-				].filterNil())
+			].filterNil())
 	}
 	
 	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[SBUser]> {
@@ -185,7 +185,10 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func getContentForUser(userID: Int, contentListType: ContentListType) -> Endpoint<[SBContent]> {
+	public static func getContentForUser(
+		userID: Int,
+		contentListType: ContentListType
+	) -> Endpoint<[SBContent]> {
 		return Endpoint(
 			path: "users/\(userID)/content/\(contentListType.rawValue)",
 			method: .GET)

@@ -61,7 +61,9 @@ public final class Client {
 			baseURL.URLByAppendingPathComponent(endpoint.path),
 			parameters: params,
 			encoding: .URL,
-			headers: self.authenticated ? ["Authorization": "Token token=\(authenticationState.authenticationToken)"] : nil
+			headers: self.authenticated
+						? ["Authorization": "Token token=\(authenticationState.authenticationToken)"]
+						: nil
 			).validate()
 		
 		endpoint.sideEffect?(request, &self.authenticationState)
@@ -74,7 +76,10 @@ public final class Client {
 		expansions: [API.ExpandableValue] = [],
 		completion: Response<Serialized, CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
-		return req.response(responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath), completionHandler: completion)
+		return req.response(
+			responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath),
+			completionHandler: completion
+		)
 	}
 	
 	public func request<Serialized: SequenceType where Serialized.Generator.Element: MTLModel>(
@@ -82,7 +87,10 @@ public final class Client {
 		expansions: [API.ExpandableValue] = [],
 		completion: Response<[Serialized.Generator.Element], CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
-		return req.response(responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath), completionHandler: completion)
+		return req.response(
+			responseSerializer: Alamofire.Request.MantleResponseSerializer(endpoint.keyPath),
+			completionHandler: completion
+		)
 	}
 	
 }

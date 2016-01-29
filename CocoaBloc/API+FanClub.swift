@@ -16,7 +16,12 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func createFanClub(accountID: Int, title: String, description: String, tierInfo: [String:AnyObject]) -> Endpoint<SBFanClub> {
+	public static func createFanClub(
+		accountID: Int,
+		title: String,
+		description: String,
+		tierInfo: [String:AnyObject]
+	) -> Endpoint<SBFanClub> {
 		return Endpoint(
 			path: "account/\(accountID)/fanclub/",
 			method: .POST,

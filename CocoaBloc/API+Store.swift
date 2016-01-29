@@ -22,7 +22,12 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func setOrderShipped(orderID: Int, accountID: Int, trackingNumber: String, carrier: String) -> Endpoint<SBOrder> {
+	public static func setOrderShipped(
+		orderID: Int,
+		accountID: Int,
+		trackingNumber: String,
+		carrier: String
+	) -> Endpoint<SBOrder> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders/\(orderID)",
 			method: .POST,
