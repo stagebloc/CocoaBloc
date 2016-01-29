@@ -10,6 +10,7 @@
 		090E11131C008E9C0001C943 /* CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 090E11121C008E9C0001C943 /* CocoaBloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		090E111A1C008E9C0001C943 /* CocoaBloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E110F1C008E9C0001C943 /* CocoaBloc.framework */; };
 		090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */; };
+		0913687D1C5B3EB700742DF5 /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */; };
 		0925DF641C04C84E00BD43E0 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0925DF631C04C84E00BD43E0 /* Mantle.framework */; };
 		0925DF661C0514F400BD43E0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF651C0514F400BD43E0 /* Error.swift */; };
 		0925DF961C05344100BD43E0 /* SBAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DF6E1C05344100BD43E0 /* SBAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,7 +57,6 @@
 		0925DFC61C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DFC01C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.h */; };
 		0925DFC71C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC11C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m */; };
 		0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */; };
-		0925DFC91C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */; };
 		092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CA1C31D2EA00B81777 /* Endpoint.swift */; };
 		092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */; };
 		092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */; };
@@ -490,6 +490,7 @@
 				0925DFBB1C05344100BD43E0 /* SBUser.m in Sources */,
 				0925DF661C0514F400BD43E0 /* Error.swift in Sources */,
 				0925DFB51C05344100BD43E0 /* SBStoreDashboard.m in Sources */,
+				0913687D1C5B3EB700742DF5 /* NSDateFormatter+CocoaBloc.m in Sources */,
 				0925DFBD1C05344100BD43E0 /* SBVideo.m in Sources */,
 				81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */,
 				092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */,
@@ -506,7 +507,6 @@
 				0925DFAF1C05344100BD43E0 /* SBPhoto.m in Sources */,
 				0925DF971C05344100BD43E0 /* SBAccount.m in Sources */,
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,
-				0925DFC91C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 				81F35F841C285A35002B9D74 /* API+Store.swift in Sources */,
 				09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */,

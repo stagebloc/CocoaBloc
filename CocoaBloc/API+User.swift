@@ -37,8 +37,7 @@ extension API {
 								} else {
 									fatalError("Could not set authenticated user and token")
 								}
-							}
-							catch let error as NSError {
+							} catch let error as NSError {
 								fatalError("Could not set authenticated user and token: \(error)")
 							}
 						}
@@ -46,8 +45,7 @@ extension API {
 						fatalError("JSON serialization error \(error)")
 					}
 				}
-			}
-		)
+			})
 	}
 	
 	public static func logInWithUsername(username: String, password: String) -> Endpoint<SBUser> {
@@ -80,8 +78,7 @@ extension API {
 								} else {
 									fatalError("Could not set authenticated user and token")
 								}
-							}
-							catch let error as NSError {
+							} catch let error as NSError {
 								fatalError("Could not set authenticated user and token: \(error)")
 							}
 						}
@@ -89,7 +86,7 @@ extension API {
 						fatalError("JSON serialization error \(error)")
 					}
 				}
-		})
+			})
 	}
 	
 	
@@ -137,7 +134,8 @@ extension API {
 		username: String?,
 		name: String?,
 		gender: Gender?,
-		color: UserColor?) -> Endpoint<SBUser> {
+		color: UserColor?
+	) -> Endpoint<SBUser> {
 		return Endpoint(
 			path: "users/me",
 			method: .POST,
@@ -159,7 +157,8 @@ extension API {
 		bio: String?,
 		birthday: NSDate,
 		gender: Gender,
-		sourceAccountID: Int?) -> Endpoint<SBUser> {
+		sourceAccountID: Int?
+	) -> Endpoint<SBUser> {
 		let df = NSDateFormatter()
 		df.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
 		df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
