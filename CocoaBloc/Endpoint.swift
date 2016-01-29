@@ -14,8 +14,6 @@ and all that is needed to create a request for it.
 */
 public struct Endpoint<Serialized> {
 	
-	typealias SideEffectClosure = (Alamofire.Request, inout AuthenticationStateType) -> ()
-	
 	// HTTP request parts
 	public let path: String
 	public let method: Alamofire.Method
@@ -41,5 +39,6 @@ public struct Endpoint<Serialized> {
 		self.sideEffect = sideEffect
 	}
 	
+	internal typealias SideEffectClosure = (Request, inout AuthenticationStateType) -> ()
 	internal let sideEffect: SideEffectClosure?
 }
