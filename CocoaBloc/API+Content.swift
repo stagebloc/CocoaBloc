@@ -39,6 +39,17 @@ extension API {
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)",
 			method: .GET)
 	}
+    
+    public static func getContentForAccount(accountID: Int,
+                       offset: Int,
+                       limit: Int,
+                       filter filteredTypes: [ContentTypeIdentifier] = []
+        ) -> Endpoint<[SBContent]> {
+        return Endpoint(
+            path: "account/\(accountID)/content",
+            method: .GET,
+            parameters: ["filter": filteredTypes.map { $0.rawValue }.joinWithSeparator(",")])
+    }
 	
 	public static func flagContent<T: SBContent>(
 		content: ContentType,
