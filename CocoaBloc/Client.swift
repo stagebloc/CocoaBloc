@@ -62,7 +62,7 @@ public final class Client {
 			parameters: params,
 			encoding: .URL,
 			headers: authenticated
-						? ["Authorization": "Token token=\(authenticationState.authenticationToken!)"]
+						? ["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""]
 						: nil
 		).validate()
 		
