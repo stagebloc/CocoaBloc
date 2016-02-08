@@ -41,14 +41,17 @@ extension API {
 	}
     
     public static func getContentForAccount(accountID: Int,
-                       offset: Int,
-                       limit: Int,
+                       range: Range<Int>,
                        filter filteredTypes: [ContentTypeIdentifier] = []
         ) -> Endpoint<[SBContent]> {
         return Endpoint(
             path: "account/\(accountID)/content",
             method: .GET,
-            parameters: ["filter": filteredTypes.map { $0.rawValue }.joinWithSeparator(",")])
+            parameters: [
+                "filter": filteredTypes.map { $0.rawValue }.joinWithSeparator(","),
+                "offset": range.startIndex,
+                "limit": range.endIndex - range.startIndex
+            ])
     }
 	
 	public static func flagContent<T: SBContent>(
