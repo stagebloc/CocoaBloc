@@ -11,5 +11,8 @@
 @interface SBAudio : SBContent <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSURL *editURL;
+@property (nonatomic, copy) NSURL *streamURL;
+@property (nonatomic, copy) NSString *artist;
+@property (nonatomic, copy) NSString *lyrics;
 
 @end

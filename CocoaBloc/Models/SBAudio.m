@@ -13,10 +13,17 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"editURL" : @"edit_url"}];
+			@{@"editURL" :		@"edit_url",
+			  @"streamURL":		@"stream_url",
+			  @"artist":		@"artist",
+			  @"lyrics":		@"lyrics"}];
 }
 
 + (MTLValueTransformer *)editURLJSONTransformer {
+	return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)streamURLJSONTransformer {
 	return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
