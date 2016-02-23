@@ -15,7 +15,7 @@ extension Dictionary {
 		}
 	}
 	
-	internal func withEnties(other: [Key:Value]) -> [Key:Value] {
+	internal func withEntries(other: [Key:Value]) -> [Key:Value] {
 		var ret = self
 		ret.addEntries(other)
 		return ret
@@ -27,5 +27,5 @@ internal func += <Key: Hashable, Value>(inout lhs: [Key:Value], rhs: [Key:Value]
 }
 
 internal func + <Key: Hashable, Value>(lhs: [Key:Value], rhs: [Key:Value]) -> [Key:Value] {
-	return lhs.withEnties(rhs)
+	return lhs.withEntries(rhs)
 }
