@@ -23,7 +23,9 @@ public final class AuthenticationState: AuthenticationStateType {
 	}
 }
 
-public final class Client<AuthStateType: AuthenticationStateType> {
+public typealias Client = APIClient<AuthenticationState>
+
+public final class APIClient<AuthStateType: AuthenticationStateType> {
 	
 	private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
 	private let manager: Manager
