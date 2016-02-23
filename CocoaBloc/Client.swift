@@ -98,4 +98,11 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 			completionHandler: completion
 		)
 	}
+	
+	public func logoutAuthenticatedUser() {
+		if authenticated {
+			authenticationState.authenticationToken = nil
+			authenticationState.authenticatedUser = nil
+		}
+	}
 }
