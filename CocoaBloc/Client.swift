@@ -9,17 +9,21 @@
 import Mantle
 import Alamofire
 
-public class AuthenticationState: AuthenticationStateType {
+public final class AuthenticationState: AuthenticationStateType {
 	public var authenticationToken: String?
 	public var authenticatedUser: SBUser?
 	
-	init(authenticationToken: String? = nil, authenticatedUser: SBUser? = nil) {
+	public init(authenticationToken: String? = nil, authenticatedUser: SBUser? = nil) {
 		self.authenticationToken = authenticationToken
 		self.authenticatedUser = authenticatedUser
 	}
+	
+	public convenience init() {
+		self.init(authenticationToken: nil, authenticatedUser: nil)
+	}
 }
 
-public final class Client {
+public final class Client<AuthStateType: AuthenticationStateType> {
 	
 	private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
 	private let manager: Manager
@@ -28,12 +32,12 @@ public final class Client {
 	public let clientID: String
 	public let clientSecret: String
 	
-	public let authenticationState: AuthenticationStateType
+	public let authenticationState: AuthStateType
 	
 	public init(
 		clientID: String,
 		clientSecret: String,
-		authenticationState: AuthenticationStateType = AuthenticationState(),
+		authenticationState: AuthStateType = .init(),
 		manager: Manager = .init()) {
 		self.clientID = clientID
 		self.manager = manager
@@ -92,5 +96,4 @@ public final class Client {
 			completionHandler: completion
 		)
 	}
-	
 }

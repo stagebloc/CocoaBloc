@@ -10,4 +10,6 @@
 public protocol AuthenticationStateType: class {
 	var authenticationToken: String? { get set }
 	var authenticatedUser: SBUser? { get set }
+	
+	init()
 }
