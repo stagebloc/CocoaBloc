@@ -30,6 +30,4 @@
 @property (nonatomic, copy) SBUserColor *color;
 @property (nonatomic) SBPhoto *photo;
 
-@property (nonatomic) NSArray *adminAccounts;
-
 @end
