@@ -110,7 +110,6 @@ extension API {
 			])
 	}
 
-	// swiftlint:disable function_parameter_count
 	public static func updateAuthenticatedUser(
 		bio: String?,
 		birthday: NSDate?,
@@ -133,9 +132,7 @@ extension API {
 				"color"     : color?.rawValue
 			].filterNil())
 	}
-	// swiflint:enable function_parameter count
 	
-	// swiflint:disable function_parameter count
 	public static func signUp(
 		email: String,
 		name: String,
@@ -163,7 +160,6 @@ extension API {
 				"source_account_id" : sourceAccountID
 			].filterNil())
 	}
-	// swiflint:enable function_parameter count
 	
 	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[SBUser]> {
 		return Endpoint(
