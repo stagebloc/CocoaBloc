@@ -9,6 +9,7 @@
 internal extension SequenceType where Generator.Element == (String, AnyObject?) {
 	
 	/// Removes all dictionary entries where the value type is Optional<T> and is .None
+	/// - returns: a new dictionary guaranteed and typed to contain no nil values
 	func filterNil() -> [String:AnyObject] {
 		var ret = [String:AnyObject]()
 		for tuple in self where tuple.1 != nil {
