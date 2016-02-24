@@ -68,7 +68,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 			parameters: params,
 			encoding: .URL,
 			headers: authenticated
-						? ["Authorization": "Token token=\(authenticationState.authenticationToken!)"]
+						? ["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""]
 						: nil
 		).validate()
 		
@@ -97,5 +97,12 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 			responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 			completionHandler: completion
 		)
+	}
+	
+	public func logoutAuthenticatedUser() {
+		if authenticated {
+			authenticationState.authenticationToken = nil
+			authenticationState.authenticatedUser = nil
+		}
 	}
 }
