@@ -6,7 +6,9 @@
 //  Copyright © 2016 StageBloc. All rights reserved.
 //
 
-#import <CocoaBloc/CocoaBloc.h>
+#import "SBObject.h"
+
+@class SBAccount, SBAddress;
 
 @interface SBEvent : SBObject
 
