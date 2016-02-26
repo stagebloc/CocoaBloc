@@ -10,7 +10,9 @@
 
 @interface MTLValueTransformer (CocoaBloc)
 
+// Transform to NSURL
 + (instancetype)reversibleStringToURLTransformer;
+// Transform to NSDate provided |dateFormatter|
 + (instancetype)reversibleStringToDateTransformerWithFormatter:(NSDateFormatter *)dateFormatter;
 
 // Models
@@ -18,5 +20,8 @@
 + (instancetype)reversibleModelJSONOnlyTransformerForModelClass:(Class)modelClass; // only use if you need to
 
 + (instancetype)reversibleModelIDOnlyTransformer;
+
+// Transform to an NSTimeZone
++ (instancetype)reversibleStringToTimeZoneTransformer;
 
 @end
