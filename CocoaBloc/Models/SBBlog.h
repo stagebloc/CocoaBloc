@@ -9,10 +9,14 @@
 #import "SBContent.h"
 #import "SBPhoto.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SBBlog : SBContent <MTLJSONSerializing>
 
-@property (nonatomic, copy) NSString *relatedContentTag;
 @property (nonatomic, copy) NSString *body;
+@property (nonatomic, copy) NSString *strippedBody;
 @property (nonatomic, copy) NSString *category;
 
 @end
+
+NS_ASSUME_NONNULL_END
