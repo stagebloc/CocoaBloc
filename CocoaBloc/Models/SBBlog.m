@@ -8,13 +8,22 @@
 
 #import "SBBlog.h"
 
+#import "MTLValueTransformer+CocoaBloc.h"
+#import "NSDateFormatter+CocoaBloc.h"
+
 @implementation SBBlog
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
 			@{@"body" 				: @"body",
 			  @"strippedBody"		: @"body_stripped",
-			  @"category" 			: @"category"}];
+			  @"category" 			: @"category",
+			  @"isSticky"			: @"sticky",
+			  @"publishDate"		: @"published"}];
+}
+
++ (NSValueTransformer *)publishDateJSONTransformer {
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 @end
