@@ -20,6 +20,7 @@
 #import "SBPhoto.h"
 #import "SBUser.h"
 #import "SBAccount.h"
+#import "SBEvent.h"
 #import "SBTier.h"
 #import "SBStoreDashboard.h"
 #import "SBFanClubDashboard.h"
@@ -54,6 +55,7 @@
 						   @"store_item_option"                 : [SBStoreItemOption class],
 						   @"store_item_shipping_price_handler" : [SBStoreItemPriceConfiguration class],
 						   @"store_dashboard"                   : [SBStoreDashboard class],
+						   @"event"								: [SBEvent class],
 						   };
 	});
 	

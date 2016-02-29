@@ -103,4 +103,15 @@
 	}];
 }
 
++ (instancetype)reversibleStringToTimeZoneTransformer {
+	return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
+		NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:value];
+		*success = timeZone != nil;
+		return timeZone;
+	} reverseBlock:^id(NSTimeZone *timeZone, BOOL *success, NSError *__autoreleasing *error) {
+		*success = YES;
+		return timeZone.name;
+	}];
+}
+
 @end

@@ -26,8 +26,6 @@
 			  @"text"               : @"text",
 			  @"userID"             : @"user",
 			  @"user"               : @"user",
-			  @"fetchUserCommand"   : [NSNull null],
-			  @"fetchAccountCommand": [NSNull null]
 			  }];
 }
 
