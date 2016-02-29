@@ -14,6 +14,7 @@
 #import "SBBlog.h"
 #import "SBComment.h"
 #import "SBContent.h"
+#import "SBEvent.h"
 #import "SBFanClub.h"
 #import "SBFanClubDashboard.h"
 #import "SBNotification.h"

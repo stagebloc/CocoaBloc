@@ -66,7 +66,7 @@
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
 		09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */; };
-		4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4326B11C80BE07007D23F6 /* SBEvent.h */; };
+		4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4326B11C80BE07007D23F6 /* SBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B4326B41C80BE07007D23F6 /* SBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4326B21C80BE07007D23F6 /* SBEvent.m */; };
 		81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7B1C2857A0002B9D74 /* API+User.swift */; };
 		81F35F7E1C2859B7002B9D74 /* API+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7D1C2859B7002B9D74 /* API+Content.swift */; };
@@ -347,9 +347,9 @@
 				0925DFAC1C05344100BD43E0 /* SBOrder.h in Headers */,
 				0925DFA01C05344100BD43E0 /* SBContent.h in Headers */,
 				0925DFB81C05344100BD43E0 /* SBTier.h in Headers */,
+				4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */,
 				0925DF9A1C05344100BD43E0 /* SBAudio.h in Headers */,
 				0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */,
-				4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */,
 				0925DF961C05344100BD43E0 /* SBAccount.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
