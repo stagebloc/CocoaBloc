@@ -12,8 +12,8 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"relatedContentTag" 	: @"related_content_tag",
-			  @"body" 				: @"body",
+			@{@"body" 				: @"body",
+			  @"strippedBody"		: @"body_stripped",
 			  @"category" 			: @"category"}];
 }
 
