@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) NSNumber *inModeration;
 @property (nonatomic) NSNumber *isFanContent;
-@property (nonatomic) NSNumber *userHasLiked;
+@property (nonatomic, nullable) NSNumber *userHasLiked;
 @property (nonatomic) NSNumber *likeCount;
 @property (nonatomic) NSNumber *commentCount;
 // This will be nil if +[NSURL URLWithString:] fails
