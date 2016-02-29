@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSNumber *likeCount;
 @property (nonatomic) NSNumber *attendingCount;
 
-@property (nonatomic, nullable) NSNumber *accountID;
+@property (nonatomic) NSNumber *accountID;
 @property (nonatomic, nullable) SBAccount *account;
 
 @property (nonatomic, nullable) SBAddress *location;
