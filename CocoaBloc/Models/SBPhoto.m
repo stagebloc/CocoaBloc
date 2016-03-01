@@ -14,14 +14,15 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"width" 			: @"width",
-			  @"height"			: @"height",
-			  @"originalURL" 	: @"images.original_url",
-			  @"smallURL" 		: @"images.small_url",
-			  @"mediumURL"		: @"images.medium_url",
-			  @"largeURL"		: @"images.large_url",
-			  @"thumbnailURL"	: @"images.thumbnail_url",
-			  @"descriptiveText" : @"description"
+			@{@"width"				: @"width",
+			  @"height"				: @"height",
+			  @"originalURL"		: @"images.original_url",
+			  @"smallURL"			: @"images.small_url",
+			  @"mediumURL"			: @"images.medium_url",
+			  @"largeURL"			: @"images.large_url",
+			  @"thumbnailURL"		: @"images.thumbnail_url",
+			  @"isSticky"			: @"sticky",
+			  @"descriptiveText"	: @"description"
 			  }];
 }
 

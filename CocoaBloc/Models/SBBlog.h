@@ -6,16 +6,18 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBContent.h"
+#import "SBModifiableContent.h"
 #import "SBPhoto.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SBBlog : SBContent <MTLJSONSerializing>
+@interface SBBlog : SBModifiableContent <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *body;
 @property (nonatomic, copy) NSString *strippedBody;
 @property (nonatomic, copy) NSString *category;
+@property (nonatomic) NSDate *publishDate;
+@property (nonatomic) NSNumber *isSticky;
 
 @end
 

@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBContent.h"
+#import "SBModifiableContent.h"
 
-@interface SBPhoto : SBContent <MTLJSONSerializing>
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SBPhoto : SBModifiableContent <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic) NSNumber *width;
@@ -18,5 +20,8 @@
 @property (nonatomic) NSURL *mediumURL;
 @property (nonatomic) NSURL *largeURL;
 @property (nonatomic) NSURL *originalURL;
+@property (nonatomic) NSNumber *isSticky;
 
 @end
+
+NS_ASSUME_NONNULL_END

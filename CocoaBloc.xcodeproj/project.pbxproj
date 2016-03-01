@@ -66,6 +66,8 @@
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
 		09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */; };
+		4B15831C1C84F489004499D9 /* SBModifiableContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B15831A1C84F489004499D9 /* SBModifiableContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B15831D1C84F489004499D9 /* SBModifiableContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B15831B1C84F489004499D9 /* SBModifiableContent.m */; };
 		4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4326B11C80BE07007D23F6 /* SBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B4326B41C80BE07007D23F6 /* SBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4326B21C80BE07007D23F6 /* SBEvent.m */; };
 		81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7B1C2857A0002B9D74 /* API+User.swift */; };
@@ -150,6 +152,8 @@
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-Request+MantleSerialization.swift"; sourceTree = "<group>"; };
+		4B15831A1C84F489004499D9 /* SBModifiableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBModifiableContent.h; sourceTree = "<group>"; };
+		4B15831B1C84F489004499D9 /* SBModifiableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBModifiableContent.m; sourceTree = "<group>"; };
 		4B4326B11C80BE07007D23F6 /* SBEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBEvent.h; sourceTree = "<group>"; };
 		4B4326B21C80BE07007D23F6 /* SBEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBEvent.m; sourceTree = "<group>"; };
 		81F35F7B1C2857A0002B9D74 /* API+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+User.swift"; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 				0925DF771C05344100BD43E0 /* SBComment.m */,
 				0925DF781C05344100BD43E0 /* SBContent.h */,
 				0925DF791C05344100BD43E0 /* SBContent.m */,
+				4B15831A1C84F489004499D9 /* SBModifiableContent.h */,
+				4B15831B1C84F489004499D9 /* SBModifiableContent.m */,
 				4B4326B11C80BE07007D23F6 /* SBEvent.h */,
 				4B4326B21C80BE07007D23F6 /* SBEvent.m */,
 				0925DF7A1C05344100BD43E0 /* SBFanClub.h */,
@@ -345,6 +351,7 @@
 				0925DFAA1C05344100BD43E0 /* SBObject.h in Headers */,
 				0925DFBA1C05344100BD43E0 /* SBUser.h in Headers */,
 				0925DFAC1C05344100BD43E0 /* SBOrder.h in Headers */,
+				4B15831C1C84F489004499D9 /* SBModifiableContent.h in Headers */,
 				0925DFA01C05344100BD43E0 /* SBContent.h in Headers */,
 				0925DFB81C05344100BD43E0 /* SBTier.h in Headers */,
 				4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */,
@@ -514,6 +521,7 @@
 				0925DF991C05344100BD43E0 /* SBAddress.m in Sources */,
 				0925DFAF1C05344100BD43E0 /* SBPhoto.m in Sources */,
 				0925DF971C05344100BD43E0 /* SBAccount.m in Sources */,
+				4B15831D1C84F489004499D9 /* SBModifiableContent.m in Sources */,
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 				81F35F841C285A35002B9D74 /* API+Store.swift in Sources */,

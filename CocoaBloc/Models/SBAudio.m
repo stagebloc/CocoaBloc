@@ -16,6 +16,7 @@
 			@{@"editURL" :		@"edit_url",
 			  @"streamURL":		@"stream_url",
 			  @"artist":		@"artist",
+			  @"isSticky":		@"sticky",
 			  @"lyrics":		@"lyrics"}];
 }
 
