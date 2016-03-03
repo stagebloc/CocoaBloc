@@ -47,4 +47,8 @@
 	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
++ (MTLValueTransformer *)userIsAttendingJSONTransformer {
+	return [MTLValueTransformer reversibleEventAttendingStatusTransformer];
+}
+
 @end

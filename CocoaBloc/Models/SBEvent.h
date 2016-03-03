@@ -8,6 +8,12 @@
 
 #import "SBContentStreamObject.h"
 
+typedef NS_ENUM(NSInteger, SBEventAttendingStatus) {
+	SBEventAttendingStatusNo	= 0,
+	SBEventAttendingStatusYes	= 1,
+	SBEventAttendingStatusMaybe	= 2
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class SBAccount, SBAddress;
@@ -24,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable) SBAddress *location;
 
-@property (nonatomic, nullable) NSString *userIsAttending;
+// This NSNumber wraps an SBEventAttendingStatus
+@property (nonatomic, nullable) NSNumber *userIsAttending;
 
 @end
 

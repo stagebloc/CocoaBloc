@@ -24,4 +24,7 @@
 // Transform to an NSTimeZone
 + (instancetype)reversibleStringToTimeZoneTransformer;
 
+// Transform to an NSNumber wrapping an SBEventAttendingStatus
++ (instancetype)reversibleEventAttendingStatusTransformer;
+
 @end
