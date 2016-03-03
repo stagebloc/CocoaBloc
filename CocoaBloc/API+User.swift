@@ -170,7 +170,7 @@ extension API {
 	public static func getContentForUser(
 		userID: Int,
 		contentListType: ContentListType
-	) -> Endpoint<[SBContent]> {
+	) -> Endpoint<[SBContentStreamObject]> {
 		return Endpoint(
 			path: "users/\(userID)/content/\(contentListType.rawValue)",
 			method: .GET)

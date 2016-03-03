@@ -9,7 +9,7 @@
 #import <Mantle/Mantle.h>
 
 #import "MTLValueTransformer+CocoaBloc.h"
-#import "SBContent.h"
+#import "SBObject.h"
 
 @implementation MTLValueTransformer (CocoaBloc)
 
