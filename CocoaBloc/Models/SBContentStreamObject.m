@@ -11,7 +11,7 @@
 #import "MTLValueTransformer+CocoaBloc.h"
 
 @implementation SBContentStreamObject
-
+@dynamic initialDate;
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:

@@ -30,4 +30,8 @@
 	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
+- (NSDate *)initialDate {
+	return _creationDate;
+}
+
 @end
