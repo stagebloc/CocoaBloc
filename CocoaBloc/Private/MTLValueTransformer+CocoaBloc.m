@@ -9,7 +9,8 @@
 #import <Mantle/Mantle.h>
 
 #import "MTLValueTransformer+CocoaBloc.h"
-#import "SBContent.h"
+#import "SBEvent.h"
+#import "SBObject.h"
 
 @implementation MTLValueTransformer (CocoaBloc)
 
@@ -111,6 +112,29 @@
 	} reverseBlock:^id(NSTimeZone *timeZone, BOOL *success, NSError *__autoreleasing *error) {
 		*success = YES;
 		return timeZone.name;
+	}];
+}
+
++ (instancetype)reversibleEventAttendingStatusTransformer {
+	return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
+		// Pulled from AccountEventRsvp::statusString
+		if ([value isEqualToString:@"yes"]) {
+			return @(SBEventAttendingStatusYes);
+		} else if ([value isEqualToString:@"maybe"]) {
+			return @(SBEventAttendingStatusMaybe);
+		}
+		return @(SBEventAttendingStatusNo);
+	} reverseBlock:^id(NSNumber *number, BOOL *success, NSError *__autoreleasing *error) {
+		SBEventAttendingStatus status = number.integerValue;
+		switch (status) {
+			case SBEventAttendingStatusYes:
+				return @"yes";
+			case SBEventAttendingStatusMaybe:
+				return @"maybe";
+			case SBEventAttendingStatusNo:
+			default:
+				return @"no";
+		}
 	}];
 }
 

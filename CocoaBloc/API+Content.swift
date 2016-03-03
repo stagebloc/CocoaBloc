@@ -10,13 +10,13 @@ import Foundation
 
 extension API {
 	
-	public static func likeContent<T: SBContent>(content: ContentType) -> Endpoint<T> {
+	public static func likeContent<T: SBContentStreamObject>(content: ContentType) -> Endpoint<T> {
 		return Endpoint(
 			path: "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/like",
 			method: .POST)
 	}
 	
-	public static func unlikeContent<T: SBContent>(content: ContentType) -> Endpoint<T> {
+	public static func unlikeContent<T: SBContentStreamObject>(content: ContentType) -> Endpoint<T> {
 		return Endpoint(
 			path: "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/like",
 			method: .DELETE)
@@ -28,13 +28,13 @@ extension API {
 			method: .DELETE)
 	}
 	
-	public static func getUsersWhoLikeContent<T: SBContent>(content: ContentType) -> Endpoint<T> {
+	public static func getUsersWhoLikeContent<T: SBContentStreamObject>(content: ContentType) -> Endpoint<T> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/likers",
 			method: .GET)
 	}
 	
-	public static func getContent<T: SBContent>(content: ContentType) -> Endpoint<T> {
+	public static func getContent<T: SBContentStreamObject>(content: ContentType) -> Endpoint<T> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)",
 			method: .GET)
@@ -43,7 +43,7 @@ extension API {
     public static func getContentForAccount(accountID: Int,
                        range: Range<Int>,
                        filter filteredTypes: [ContentTypeIdentifier] = []
-        ) -> Endpoint<[SBContent]> {
+        ) -> Endpoint<[SBContentStreamObject]> {
         return Endpoint(
             path: "account/\(accountID)/content",
             method: .GET,
@@ -54,7 +54,7 @@ extension API {
             ])
     }
 	
-	public static func flagContent<T: SBContent>(
+	public static func flagContent<T: SBContentStreamObject>(
 		content: ContentType,
 		type: FlagType,
 		reason: String

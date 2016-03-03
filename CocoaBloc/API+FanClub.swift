@@ -38,7 +38,7 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func getContentFromFollowedFanClubs() -> Endpoint<[SBContent]> {
+	public static func getContentFromFollowedFanClubs() -> Endpoint<[SBContentStreamObject]> {
 		return Endpoint(
 			path: "account/fanclubs/following/content",
 			method: .GET)
@@ -50,7 +50,7 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func getFanClubContent(accountID: Int) -> Endpoint<[SBContent]> {
+	public static func getFanClubContent(accountID: Int) -> Endpoint<[SBContentStreamObject]> {
 		return Endpoint(
 			path: "account/\(accountID)/fanclub/content",
 			method: .GET)

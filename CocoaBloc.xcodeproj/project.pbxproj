@@ -70,6 +70,8 @@
 		4B15831D1C84F489004499D9 /* SBModifiableContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B15831B1C84F489004499D9 /* SBModifiableContent.m */; };
 		4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4326B11C80BE07007D23F6 /* SBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B4326B41C80BE07007D23F6 /* SBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4326B21C80BE07007D23F6 /* SBEvent.m */; };
+		4B9B802E1C87A514005A4C68 /* SBContentStreamObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9B802C1C87A514005A4C68 /* SBContentStreamObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B9B802F1C87A514005A4C68 /* SBContentStreamObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9B802D1C87A514005A4C68 /* SBContentStreamObject.m */; };
 		81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7B1C2857A0002B9D74 /* API+User.swift */; };
 		81F35F7E1C2859B7002B9D74 /* API+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7D1C2859B7002B9D74 /* API+Content.swift */; };
 		81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7F1C2859E2002B9D74 /* API+Account.swift */; };
@@ -147,7 +149,7 @@
 		092C01CA1C31D2EA00B81777 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStateType.swift; sourceTree = "<group>"; };
 		092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
-		098DC4191C1F64380084AE45 /* SBContent+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContent+ContentType.swift"; sourceTree = "<group>"; };
+		098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContentStreamObject+ContentType.swift"; sourceTree = "<group>"; };
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
@@ -156,6 +158,8 @@
 		4B15831B1C84F489004499D9 /* SBModifiableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBModifiableContent.m; sourceTree = "<group>"; };
 		4B4326B11C80BE07007D23F6 /* SBEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBEvent.h; sourceTree = "<group>"; };
 		4B4326B21C80BE07007D23F6 /* SBEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBEvent.m; sourceTree = "<group>"; };
+		4B9B802C1C87A514005A4C68 /* SBContentStreamObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBContentStreamObject.h; sourceTree = "<group>"; };
+		4B9B802D1C87A514005A4C68 /* SBContentStreamObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBContentStreamObject.m; sourceTree = "<group>"; };
 		81F35F7B1C2857A0002B9D74 /* API+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+User.swift"; sourceTree = "<group>"; };
 		81F35F7D1C2859B7002B9D74 /* API+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Content.swift"; sourceTree = "<group>"; };
 		81F35F7F1C2859E2002B9D74 /* API+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Account.swift"; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 				0925DF771C05344100BD43E0 /* SBComment.m */,
 				0925DF781C05344100BD43E0 /* SBContent.h */,
 				0925DF791C05344100BD43E0 /* SBContent.m */,
+				4B9B802C1C87A514005A4C68 /* SBContentStreamObject.h */,
+				4B9B802D1C87A514005A4C68 /* SBContentStreamObject.m */,
 				4B15831A1C84F489004499D9 /* SBModifiableContent.h */,
 				4B15831B1C84F489004499D9 /* SBModifiableContent.m */,
 				4B4326B11C80BE07007D23F6 /* SBEvent.h */,
@@ -309,7 +315,7 @@
 		098DC4161C1F64380084AE45 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				098DC4191C1F64380084AE45 /* SBContent+ContentType.swift */,
+				098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */,
 				09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */,
 			);
 			name = Extensions;
@@ -344,6 +350,7 @@
 				0925DF981C05344100BD43E0 /* SBAddress.h in Headers */,
 				0925DFB41C05344100BD43E0 /* SBStoreDashboard.h in Headers */,
 				0925DF9E1C05344100BD43E0 /* SBComment.h in Headers */,
+				4B9B802E1C87A514005A4C68 /* SBContentStreamObject.h in Headers */,
 				0925DFB61C05344100BD43E0 /* SBStoreItem.h in Headers */,
 				0925DFB21C05344100BD43E0 /* SBStatus.h in Headers */,
 				0925DFA41C05344100BD43E0 /* SBFanClubDashboard.h in Headers */,
@@ -528,6 +535,7 @@
 				09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */,
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,
 				0925DFA71C05344100BD43E0 /* SBNotification.m in Sources */,
+				4B9B802F1C87A514005A4C68 /* SBContentStreamObject.m in Sources */,
 				0925DFB11C05344100BD43E0 /* SBShipping.m in Sources */,
 				81F35F821C285A0B002B9D74 /* API+Comment.swift in Sources */,
 				0925DFA91C05344100BD43E0 /* SBNotificationSettings.m in Sources */,

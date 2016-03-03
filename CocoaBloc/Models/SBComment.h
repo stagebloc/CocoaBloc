@@ -14,7 +14,8 @@
 
 @interface SBComment : SBObject <MTLJSONSerializing>
 
-@property (nonatomic) SBContent *content;
+// TODO(danzimm): This isn't insync with the API
+@property (nonatomic) SBContentStreamObject *content;
 @property (nonatomic) NSDate *creationDate;
 @property (nonatomic) NSNumber *inModeration;
 @property (nonatomic) NSNumber *replyCount;
