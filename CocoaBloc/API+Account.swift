@@ -31,11 +31,11 @@ extension API {
 	
 	public static func updateAccount(
 		accountID: Int,
-		name: String,
-		description: String,
-		url: String,
-		type: AccountType,
-		color: AccountColor
+		name: String?,
+		description: String?,
+		url: String?,
+		type: AccountType?,
+		color: AccountColor?
 		) -> Endpoint<SBAccount> {
 		return Endpoint(
 			path: "account/\(accountID)",
@@ -46,7 +46,7 @@ extension API {
 				"stagebloc_url" : url,
 				"type"          : type.rawValue,
 				"color"         : color.rawValue
-			])
+			].filterNil())
 	}
 	
 	public static func followAccount(accountID: Int) -> Endpoint<SBAccount> {
