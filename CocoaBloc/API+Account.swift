@@ -44,8 +44,8 @@ extension API {
 				"name"          : name,
 				"description"   : description,
 				"stagebloc_url" : url,
-				"type"          : type.rawValue,
-				"color"         : color.rawValue
+				"type"          : type?.rawValue,
+				"color"         : color?.rawValue
 			].filterNil())
 	}
 	
