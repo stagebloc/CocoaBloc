@@ -35,8 +35,6 @@ extension SBContentStreamObject: ContentType {
 			return .Video
 		case is SBEvent:
 			return .Event
-		default:
-			return .Blog // won't be reached. compiler can't know that this dynamic check really is exhaustive
 		}
 	}
 }

@@ -14,17 +14,16 @@
 @implementation SBEvent
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	return @{
-			 @"descriptiveText":	@"description",
-			 @"ticketPrice":		@"ticket_price",
-			 @"ticketLink":			@"ticket_link",
-			 @"startDate":			@"start_date_time",
-			 @"endDate":			@"end_date_time",
-			 @"timeZone":			@"timezone",
-			 @"attendingCount":		@"attending_count",
-			 @"location":			@"location",
-			 @"userIsAttending":	@"user_is_attending"
-			 };
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"descriptiveText":	@"description",
+			  @"ticketPrice":		@"ticket_price",
+			  @"ticketLink":		@"ticket_link",
+			  @"startDate":			@"start_date_time",
+			  @"endDate":			@"end_date_time",
+			  @"timeZone":			@"timezone",
+			  @"attendingCount":	@"attending_count",
+			  @"location":			@"location",
+			  @"userIsAttending":	@"user_is_attending"}];
 }
 
 + (MTLValueTransformer *)ticketLinkJSONTransformer {
