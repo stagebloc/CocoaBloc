@@ -66,4 +66,10 @@ extension API {
 			path: "accounts",
 			method: .GET)
 	}
+	
+	public static func getAccount(accountID: Int) -> Endpoint<SBAccount> {
+		return Endpoint(
+			path: "account/\(accountID)",
+			method: .GET)
+	}
 }
