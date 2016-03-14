@@ -36,13 +36,16 @@ extension API {
 						let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userJSON) as! SBUser
 						// swiftlint:enable force_cast
 						authState.authenticatedUser = user
-					} catch let error as NSError {
+					} catch _ as NSError {
 						// json serialization error
+						// TODO(danzimm): Investigate sending an error down the chain after
+						//				  this failure
 					}
 				}
 
-			case .Failure(let error):
-				fatalError("JSON serialization error \(error)")
+			case .Failure(_):
+				// We want to let failures pass through our side effect for whoever to handle
+				break
 			}
 		}
 	}
