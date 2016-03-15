@@ -19,23 +19,23 @@ public extension Request {
 				
 			case .Success(let jsonObject):
 				
-				if let data = jsonObject.valueForKeyPath(keyPath) as? [NSObject:AnyObject] {
+				if let jsonData = jsonObject.valueForKeyPath(keyPath) as? [NSObject:AnyObject] {
 					do {
-						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: data) as? Model {
+						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: jsonData) as? Model {
 							return .Success(model)
 						} else {
-							return .Failure(Error.UnexpectedResponseType)
+							return .Failure(Error.UnexpectedResponseType(response, data))
 						}
 					}
 					catch let error as NSError {
-						return .Failure(Error.JSONSerialization(error))
+						return .Failure(Error.JSONSerialization(error, response, data))
 					}
 				} else {
-					return .Failure(Error.UnexpectedResponseType)
+					return .Failure(Error.UnexpectedResponseType(response, data))
 				}
 				
 			case .Failure(let error):
-				return .Failure(Error.Underlying(error))
+				return .Failure(Error.Underlying(error, response, data))
 			}
 		}
 	}
@@ -48,23 +48,23 @@ public extension Request {
 				
 			case .Success(let jsonObject):
 				
-				if let data = jsonObject.valueForKeyPath(keyPath) as? [AnyObject] {
+				if let jsonData = jsonObject.valueForKeyPath(keyPath) as? [AnyObject] {
 					do {
-						if let model = try MTLJSONAdapter.modelsOfClass(Model.self, fromJSONArray: data) as? [Model] {
+						if let model = try MTLJSONAdapter.modelsOfClass(Model.self, fromJSONArray: jsonData) as? [Model] {
 							return .Success(model)
 						} else {
-							return .Failure(Error.UnexpectedResponseType)
+							return .Failure(Error.UnexpectedResponseType(response, data))
 						}
 					}
 					catch let error as NSError {
-						return .Failure(Error.JSONSerialization(error))
+						return .Failure(Error.JSONSerialization(error, response, data))
 					}
 				} else {
-					return .Failure(Error.UnexpectedResponseType)
+					return .Failure(Error.UnexpectedResponseType(response, data))
 				}
 				
 			case .Failure(let error):
-				return .Failure(Error.Underlying(error))
+				return .Failure(Error.Underlying(error, response, data))
 			}
 		}
 	}
