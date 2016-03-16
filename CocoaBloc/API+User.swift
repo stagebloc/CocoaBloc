@@ -161,7 +161,8 @@ extension API {
 				"birthday"  : df.stringFromDate(birthday),
 				"gender"    : gender.rawValue,
 				"source_account_id" : sourceAccountID
-			].filterNil())
+			].filterNil(),
+			keyPath: "data.user")
 	}
 	
 	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[SBUser]> {
