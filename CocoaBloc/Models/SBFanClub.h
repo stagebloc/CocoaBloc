@@ -27,7 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSNumber *canPostAudio; // Bool
 @property (nonatomic) NSNumber *canPostVideos; // Bool
 
-// TODO(danzimm): PHP has this as present for legacy reasons. Switch over to using `user_membership`
 @property (nonatomic, nullable) NSNumber *userTier;
 
 // TODO(danzimm): This is an dictionary of n objects, there may or may not be tier 1,2,3
