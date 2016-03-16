@@ -7,7 +7,7 @@
 //
 
 #import "SBObject.h"
-#import "SBPhoto.h"
+#import "SBAccountPhoto.h"
 #import "SBNotificationSettings.h"
 
 #if TARGET_OS_IPHONE
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) SBUserColor *color;
 @property (nonatomic) NSNumber *verified;
 
-@property (nonatomic, nullable) SBPhoto *photo;
+@property (nonatomic, nullable) SBAccountPhoto *photo;
 
 @property (nonatomic, nullable) NSNumber *userIsAdmin;
 @property (nonatomic, nullable, copy) NSString *userRole;
