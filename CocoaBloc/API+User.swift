@@ -58,6 +58,7 @@ extension API {
 				"code": authorizationCode,
 				"grant_type": "authorization_code"
 			],
+			keyPath: "data.user",
 			sideEffect: userAuthSideEffect)
 	}
 	
@@ -162,7 +163,8 @@ extension API {
 				"gender"    : gender.rawValue,
 				"source_account_id" : sourceAccountID
 			].filterNil(),
-			keyPath: "data.user")
+			keyPath: "data.user",
+			sideEffect: userAuthSideEffect)
 	}
 	
 	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[SBUser]> {
