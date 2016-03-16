@@ -21,16 +21,4 @@
 			 @"kind"			: @"kind"};
 }
 
-- (BOOL)isEqual:(id)object {
-	__block BOOL equal = YES;
-	NSArray *properties = [[[self class] JSONKeyPathsByPropertyKey] allKeys];
-	[properties enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-		if (![object respondsToSelector:NSSelectorFromString(key)] || ![[object valueForKey:key] isEqual:[self valueForKey:key]]) {
-			equal = NO;
-			*stop = YES;
-		}
-	}];
-	return equal;
-}
-
 @end
