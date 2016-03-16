@@ -80,10 +80,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 	public func request<Serialized: MTLModel>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		requestConfiguration: (Alamofire.Request -> ())? = nil,
 		completion: Response<Serialized, CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
-		requestConfiguration?(req)
 		return req.response(
 			responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 			completionHandler: completion
@@ -93,10 +91,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 	public func request<Serialized: SequenceType where Serialized.Generator.Element: MTLModel>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		requestConfiguration: (Alamofire.Request -> ())? = nil,
 		completion: Response<[Serialized.Generator.Element], CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
-		requestConfiguration?(req)
 		return req.response(
 			responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 			completionHandler: completion
