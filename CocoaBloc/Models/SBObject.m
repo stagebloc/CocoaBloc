@@ -17,7 +17,8 @@
 #import "SBStoreItem.h"
 #import "SBBlog.h"
 #import "SBStatus.h"
-#import "SBPhoto.h"
+#import "SBAccountPhoto.h"
+#import "SBUserPhoto.h"
 #import "SBUser.h"
 #import "SBAccount.h"
 #import "SBEvent.h"
@@ -37,12 +38,12 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		_kindModelMap = @{ @"user"                              : [SBUser class],
-						   @"user_photo"                        : [SBPhoto class],
+						   @"user_photo"                        : [SBUserPhoto class],
 						   @"account"                           : [SBAccount class],
 						   @"fan_club"                          : [SBFanClub class],
 						   @"fan_club_tier"                     : [SBTier class],
 						   @"fan_club_dashboard"                : [SBFanClubDashboard class],
-						   @"photo"                             : [SBPhoto class],
+						   @"photo"                             : [SBAccountPhoto class],
 						   @"audio"                             : [SBAudio class],
 						   @"blog"                              : [SBBlog class],
 						   @"status"                            : [SBStatus class],
@@ -60,18 +61,6 @@
 	});
 	
 	return _kindModelMap[JSONDictionary[@"kind"]];
-}
-
-- (BOOL)isEqual:(id)object {
-	__block BOOL equal = YES;
-	NSArray *properties = [[[self class] JSONKeyPathsByPropertyKey] allKeys];
-	[properties enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
-		if (![object respondsToSelector:NSSelectorFromString(key)] || ![[object valueForKey:key] isEqual:[self valueForKey:key]]) {
-			equal = NO;
-			*stop = YES;
-		}
-	}];
-	return equal;
 }
 
 @end

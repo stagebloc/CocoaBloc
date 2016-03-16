@@ -7,7 +7,6 @@
 //
 
 #import "SBModifiableContent.h"
-#import "SBPhoto.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

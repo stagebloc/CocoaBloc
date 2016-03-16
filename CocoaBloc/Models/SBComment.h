@@ -10,23 +10,25 @@
 #import "SBAccount.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SBUser;
 
 @interface SBComment : SBObject <MTLJSONSerializing>
 
-// TODO(danzimm): This isn't insync with the API
-@property (nonatomic) SBContentStreamObject *content;
-@property (nonatomic) NSDate *creationDate;
-@property (nonatomic) NSNumber *inModeration;
-@property (nonatomic) NSNumber *replyCount;
-@property (nonatomic) NSNumber *parentCommentID;
-@property (nonatomic) NSURL *shortURL;
 @property (nonatomic, copy) NSString *text;
-
+@property (nonatomic) NSDate *creationDate;
+@property (nonatomic) NSNumber *parentCommentID; // Int
+@property (nonatomic) NSNumber *replyCount; // Int
+@property (nonatomic) NSURL *shortURL;
+@property (nonatomic) NSNumber *inModeration; // Bool
 @property (nonatomic) NSNumber *userID;
 @property (nonatomic) NSNumber *accountID;
 
-@property (nonatomic) SBUser *user;
-@property (nonatomic) SBAccount *account;
+@property (nonatomic, nullable) SBContentStreamObject *content;
+@property (nonatomic, nullable) SBUser *user;
+@property (nonatomic, nullable) SBAccount *account;
 
 @end
+
+NS_ASSUME_NONNULL_END

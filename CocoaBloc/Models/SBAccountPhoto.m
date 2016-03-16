@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBPhoto.h"
+#import "SBAccountPhoto.h"
 #import "SBAccount.h"
 #import "MTLValueTransformer+CocoaBloc.h"
 
-@implementation SBPhoto
+@implementation SBAccountPhoto
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:

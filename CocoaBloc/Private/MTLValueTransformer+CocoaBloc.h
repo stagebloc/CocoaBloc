@@ -27,4 +27,7 @@
 // Transform to an NSNumber wrapping an SBEventAttendingStatus
 + (instancetype)reversibleEventAttendingStatusTransformer;
 
+// Transform to an SBUserColor
++ (instancetype)reversibleUserColorTransformer;
+
 @end

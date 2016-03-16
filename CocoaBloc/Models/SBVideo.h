@@ -7,7 +7,7 @@
 //
 
 #import "SBModifiableContent.h"
-#import "SBPhoto.h"
+#import "SBAccountPhoto.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) NSURL *videoCDNURL;
 
 @property (nonatomic) NSNumber *photoID;
-@property (nonatomic, nullable) SBPhoto *photo;
+@property (nonatomic, nullable) SBAccountPhoto *photo;
 
 @end
 
