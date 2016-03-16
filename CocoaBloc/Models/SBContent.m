@@ -10,15 +10,6 @@
 #import "MTLValueTransformer+CocoaBloc.h"
 #import "NSDateFormatter+CocoaBloc.h"
 
-#import "SBPhoto.h"
-#import "SBBlog.h"
-#import "SBStatus.h"
-#import "SBVideo.h"
-#import "SBAudio.h"
-
-#import "SBUser.h"
-#import "SBAccount.h"
-
 @implementation SBContent
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {

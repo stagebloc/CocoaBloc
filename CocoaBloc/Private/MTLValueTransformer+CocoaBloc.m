@@ -11,6 +11,13 @@
 #import "MTLValueTransformer+CocoaBloc.h"
 #import "SBEvent.h"
 #import "SBObject.h"
+#import "SBUserColor.h"
+
+#if TARGET_OS_IPHONE
+@import UIKit.UIColor;
+#else
+@import AppKit.NSColor;
+#endif
 
 @implementation MTLValueTransformer (CocoaBloc)
 
@@ -134,6 +141,40 @@
 			case SBEventAttendingStatusNo:
 			default:
 				return @"no";
+		}
+	}];
+}
+
++ (instancetype)reversibleUserColorTransformer {
+	return [MTLValueTransformer transformerUsingForwardBlock:^SBUserColor *(NSString *colorString, BOOL *success, NSError **error) {
+		NSArray *colorComponents = [colorString componentsSeparatedByString:@","];
+		*success = YES;
+		
+		if (colorComponents.count < 3) {
+			// Defaults to blue color if fails to convert (follows server code)
+			return [SBUserColor colorWithRed:70.0/255.0
+									   green:170.0/255.0
+										blue:255.0/255.0
+									   alpha:1];
+		}
+		
+		return [SBUserColor colorWithRed:([colorComponents[0] floatValue] / 255)
+								   green:([colorComponents[1] floatValue] / 255)
+									blue:([colorComponents[2] floatValue] / 255)
+								   alpha:1];
+	} reverseBlock:^NSString *(SBUserColor *color, BOOL *success, NSError **error) {
+		*success = YES;
+		
+		CGFloat r,g,b,a;
+		if ([color getRed:&r green:&g blue:&b alpha:&a]) {
+			r *= 255;
+			b *= 255;
+			g *= 255;
+		
+			return [NSString stringWithFormat:@"%d,%d,%d", (int)r, (int)g, (int)b];
+		} else {
+			// Defaults to returning the blue color if we fail to get the components
+			return @"70,170,255";
 		}
 	}];
 }

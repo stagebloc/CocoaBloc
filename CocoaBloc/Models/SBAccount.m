@@ -67,30 +67,7 @@
 }
 
 + (MTLValueTransformer *)colorJSONTransformer {
-	return [MTLValueTransformer transformerUsingForwardBlock:^SBUserColor *(NSString *colorString, BOOL *success, NSError **error) {
-		NSArray *colorComponents = [colorString componentsSeparatedByString:@","];
-		if (colorComponents.count < 3) {
-			*success = NO;
-#warning set error once we have a domain
-			return nil;
-		}
-		*success = YES;
-		
-		return [SBUserColor colorWithRed:([colorComponents[0] floatValue] / 255)
-								   green:([colorComponents[1] floatValue] / 255)
-									blue:([colorComponents[2] floatValue] / 255)
-								   alpha:1];
-	} reverseBlock:^NSString *(SBUserColor *color, BOOL *success, NSError **error) {
-		*success = YES;
-		
-		CGFloat r,g,b,a;
-		[color getRed:&r green:&g blue:&b alpha:&a];
-		r *= 255;
-		b *= 255;
-		g *= 255;
-		
-		return [NSString stringWithFormat:@"%d,%d,%d", (int)r, (int)g, (int)b];
-	}];
+	return [MTLValueTransformer reversibleUserColorTransformer];
 }
 
 @end

@@ -37,8 +37,8 @@
 		0925DFAB1C05344100BD43E0 /* SBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF831C05344100BD43E0 /* SBObject.m */; };
 		0925DFAC1C05344100BD43E0 /* SBOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DF841C05344100BD43E0 /* SBOrder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0925DFAD1C05344100BD43E0 /* SBOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF851C05344100BD43E0 /* SBOrder.m */; };
-		0925DFAE1C05344100BD43E0 /* SBPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DF861C05344100BD43E0 /* SBPhoto.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0925DFAF1C05344100BD43E0 /* SBPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF871C05344100BD43E0 /* SBPhoto.m */; };
+		0925DFAE1C05344100BD43E0 /* SBAccountPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DF861C05344100BD43E0 /* SBAccountPhoto.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0925DFAF1C05344100BD43E0 /* SBAccountPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF871C05344100BD43E0 /* SBAccountPhoto.m */; };
 		0925DFB01C05344100BD43E0 /* SBShipping.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DF881C05344100BD43E0 /* SBShipping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0925DFB11C05344100BD43E0 /* SBShipping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF891C05344100BD43E0 /* SBShipping.m */; };
 		0925DFB21C05344100BD43E0 /* SBStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DF8A1C05344100BD43E0 /* SBStatus.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,6 +66,9 @@
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
 		09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */; };
+		4B12CF691C99A92F00994AE1 /* SBUserColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B12CF681C999FF900994AE1 /* SBUserColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B12CF6E1C99A9B000994AE1 /* SBUserPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B12CF6C1C99A9B000994AE1 /* SBUserPhoto.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B12CF6F1C99A9B000994AE1 /* SBUserPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B12CF6D1C99A9B000994AE1 /* SBUserPhoto.m */; };
 		4B15831C1C84F489004499D9 /* SBModifiableContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B15831A1C84F489004499D9 /* SBModifiableContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B15831D1C84F489004499D9 /* SBModifiableContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B15831B1C84F489004499D9 /* SBModifiableContent.m */; };
 		4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4326B11C80BE07007D23F6 /* SBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,8 +128,8 @@
 		0925DF831C05344100BD43E0 /* SBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBObject.m; sourceTree = "<group>"; };
 		0925DF841C05344100BD43E0 /* SBOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrder.h; sourceTree = "<group>"; };
 		0925DF851C05344100BD43E0 /* SBOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOrder.m; sourceTree = "<group>"; };
-		0925DF861C05344100BD43E0 /* SBPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPhoto.h; sourceTree = "<group>"; };
-		0925DF871C05344100BD43E0 /* SBPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPhoto.m; sourceTree = "<group>"; };
+		0925DF861C05344100BD43E0 /* SBAccountPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAccountPhoto.h; sourceTree = "<group>"; };
+		0925DF871C05344100BD43E0 /* SBAccountPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccountPhoto.m; sourceTree = "<group>"; };
 		0925DF881C05344100BD43E0 /* SBShipping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBShipping.h; sourceTree = "<group>"; };
 		0925DF891C05344100BD43E0 /* SBShipping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBShipping.m; sourceTree = "<group>"; };
 		0925DF8A1C05344100BD43E0 /* SBStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStatus.h; sourceTree = "<group>"; };
@@ -154,6 +157,9 @@
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-Request+MantleSerialization.swift"; sourceTree = "<group>"; };
+		4B12CF681C999FF900994AE1 /* SBUserColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBUserColor.h; sourceTree = "<group>"; };
+		4B12CF6C1C99A9B000994AE1 /* SBUserPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUserPhoto.h; sourceTree = "<group>"; };
+		4B12CF6D1C99A9B000994AE1 /* SBUserPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUserPhoto.m; sourceTree = "<group>"; };
 		4B15831A1C84F489004499D9 /* SBModifiableContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBModifiableContent.h; sourceTree = "<group>"; };
 		4B15831B1C84F489004499D9 /* SBModifiableContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBModifiableContent.m; sourceTree = "<group>"; };
 		4B4326B11C80BE07007D23F6 /* SBEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBEvent.h; sourceTree = "<group>"; };
@@ -249,6 +255,8 @@
 		0925DF6D1C05344100BD43E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0925DF861C05344100BD43E0 /* SBAccountPhoto.h */,
+				0925DF871C05344100BD43E0 /* SBAccountPhoto.m */,
 				0925DF6E1C05344100BD43E0 /* SBAccount.h */,
 				0925DF6F1C05344100BD43E0 /* SBAccount.m */,
 				0925DF701C05344100BD43E0 /* SBAddress.h */,
@@ -279,8 +287,6 @@
 				0925DF831C05344100BD43E0 /* SBObject.m */,
 				0925DF841C05344100BD43E0 /* SBOrder.h */,
 				0925DF851C05344100BD43E0 /* SBOrder.m */,
-				0925DF861C05344100BD43E0 /* SBPhoto.h */,
-				0925DF871C05344100BD43E0 /* SBPhoto.m */,
 				0925DF881C05344100BD43E0 /* SBShipping.h */,
 				0925DF891C05344100BD43E0 /* SBShipping.m */,
 				0925DF8A1C05344100BD43E0 /* SBStatus.h */,
@@ -291,6 +297,9 @@
 				0925DF8F1C05344100BD43E0 /* SBStoreItem.m */,
 				0925DF901C05344100BD43E0 /* SBTier.h */,
 				0925DF911C05344100BD43E0 /* SBTier.m */,
+				4B12CF681C999FF900994AE1 /* SBUserColor.h */,
+				4B12CF6C1C99A9B000994AE1 /* SBUserPhoto.h */,
+				4B12CF6D1C99A9B000994AE1 /* SBUserPhoto.m */,
 				0925DF921C05344100BD43E0 /* SBUser.h */,
 				0925DF931C05344100BD43E0 /* SBUser.m */,
 				0925DF941C05344100BD43E0 /* SBVideo.h */,
@@ -343,7 +352,7 @@
 				090E11131C008E9C0001C943 /* CocoaBloc.h in Headers */,
 				0925DFA21C05344100BD43E0 /* SBFanClub.h in Headers */,
 				0925DFA61C05344100BD43E0 /* SBNotification.h in Headers */,
-				0925DFAE1C05344100BD43E0 /* SBPhoto.h in Headers */,
+				0925DFAE1C05344100BD43E0 /* SBAccountPhoto.h in Headers */,
 				0925DFB01C05344100BD43E0 /* SBShipping.h in Headers */,
 				0925DF9C1C05344100BD43E0 /* SBBlog.h in Headers */,
 				0925DFBC1C05344100BD43E0 /* SBVideo.h in Headers */,
@@ -357,10 +366,12 @@
 				0925DFC61C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.h in Headers */,
 				0925DFAA1C05344100BD43E0 /* SBObject.h in Headers */,
 				0925DFBA1C05344100BD43E0 /* SBUser.h in Headers */,
+				4B12CF6E1C99A9B000994AE1 /* SBUserPhoto.h in Headers */,
 				0925DFAC1C05344100BD43E0 /* SBOrder.h in Headers */,
 				4B15831C1C84F489004499D9 /* SBModifiableContent.h in Headers */,
 				0925DFA01C05344100BD43E0 /* SBContent.h in Headers */,
 				0925DFB81C05344100BD43E0 /* SBTier.h in Headers */,
+				4B12CF691C99A92F00994AE1 /* SBUserColor.h in Headers */,
 				4B4326B31C80BE07007D23F6 /* SBEvent.h in Headers */,
 				0925DF9A1C05344100BD43E0 /* SBAudio.h in Headers */,
 				0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */,
@@ -526,12 +537,13 @@
 				092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */,
 				81F35F8A1C285ABB002B9D74 /* API.swift in Sources */,
 				0925DF991C05344100BD43E0 /* SBAddress.m in Sources */,
-				0925DFAF1C05344100BD43E0 /* SBPhoto.m in Sources */,
+				0925DFAF1C05344100BD43E0 /* SBAccountPhoto.m in Sources */,
 				0925DF971C05344100BD43E0 /* SBAccount.m in Sources */,
 				4B15831D1C84F489004499D9 /* SBModifiableContent.m in Sources */,
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 				81F35F841C285A35002B9D74 /* API+Store.swift in Sources */,
+				4B12CF6F1C99A9B000994AE1 /* SBUserPhoto.m in Sources */,
 				09A8CEFD1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift in Sources */,
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,
 				0925DFA71C05344100BD43E0 /* SBNotification.m in Sources */,

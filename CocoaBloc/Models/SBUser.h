@@ -7,27 +7,28 @@
 //
 
 #import "SBObject.h"
-#import "SBPhoto.h"
+#import "SBUserPhoto.h"
+#import "SBUserColor.h"
 
-#if TARGET_OS_IPHONE
-@class UIColor;
-#define SBUserColor UIColor
-#else
-@class NSColor;
-#define SBUserColor NSColor
-#endif
+NS_ASSUME_NONNULL_BEGIN
 
 @interface SBUser : SBObject <MTLJSONSerializing>
 
-@property (nonatomic, copy) NSString *bio;
-@property (nonatomic, copy) NSDate *birthday;
+// Nil if -[NSURL URLWithString:] fails
+@property (nonatomic, copy, nullable) NSURL *URL;
+@property (nonatomic) NSDate *creationDate;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *emailAddress;
-@property (nonatomic, copy) NSDate *creationDate;
-@property (nonatomic, copy) NSString *gender;
-@property (nonatomic, copy) SBUserColor *color;
-@property (nonatomic) SBPhoto *photo;
+@property (nonatomic, copy) NSString *bio;
+@property (nonatomic) SBUserColor *color;
+
+// nonnull if currently signed in user is this user
+@property (nonatomic, nullable) NSDate *birthday;
+@property (nonatomic, copy, nullable) NSString *emailAddress;
+@property (nonatomic, copy, nullable) NSString *gender;
+
+@property (nonatomic, nullable) SBUserPhoto *photo;
 
 @end
+
+NS_ASSUME_NONNULL_END

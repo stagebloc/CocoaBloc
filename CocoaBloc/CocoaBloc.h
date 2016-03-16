@@ -22,7 +22,7 @@
 #import "SBNotificationSettings.h"
 #import "SBObject.h"
 #import "SBOrder.h"
-#import "SBPhoto.h"
+#import "SBAccountPhoto.h"
 #import "SBShipping.h"
 #import "SBStatus.h"
 #import "SBStoreDashboard.h"

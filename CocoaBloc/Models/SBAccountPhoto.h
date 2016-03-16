@@ -10,16 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SBPhoto : SBModifiableContent <MTLJSONSerializing>
+@interface SBAccountPhoto : SBModifiableContent <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic) NSNumber *width;
 @property (nonatomic) NSNumber *height;
-@property (nonatomic) NSURL *thumbnailURL;
-@property (nonatomic) NSURL *smallURL;
-@property (nonatomic) NSURL *mediumURL;
-@property (nonatomic) NSURL *largeURL;
-@property (nonatomic) NSURL *originalURL;
+
+// May be null from server or if
+@property (nonatomic, nullable) NSURL *thumbnailURL;
+@property (nonatomic, nullable) NSURL *smallURL;
+@property (nonatomic, nullable) NSURL *mediumURL;
+@property (nonatomic, nullable) NSURL *largeURL;
+@property (nonatomic, nullable) NSURL *originalURL;
+
 @property (nonatomic) NSNumber *isSticky;
 
 @end

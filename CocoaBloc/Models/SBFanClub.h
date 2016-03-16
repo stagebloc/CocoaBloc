@@ -10,27 +10,34 @@
 
 @class SBTier, SBAccount, SBClient;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SBFanClub : SBObject <MTLJSONSerializing>
 
 //`identifier` is not guaranteed to be set.
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *descriptiveText;
-@property (nonatomic) NSNumber *canPostBlogs;
-@property (nonatomic) NSNumber *canPostPhotos;
-@property (nonatomic) NSNumber *canPostStatuses;
-@property (nonatomic) NSNumber *canPostAudio;
-@property (nonatomic) NSNumber *canPostVideos;
-@property (nonatomic) NSNumber *userTier;
-@property (nonatomic) NSNumber *moderated;
-
-@property (nonatomic) SBTier *tierOne;
-@property (nonatomic) SBTier *tierTwo;
-@property (nonatomic) SBTier *tierThree;
-
+@property (nonatomic) NSNumber *moderated; // Bool
 @property (nonatomic) NSNumber *accountID;
+
+@property (nonatomic) NSNumber *canPostBlogs; // Bool
+@property (nonatomic) NSNumber *canPostPhotos; // Bool
+@property (nonatomic) NSNumber *canPostStatuses; // Bool
+@property (nonatomic) NSNumber *canPostAudio; // Bool
+@property (nonatomic) NSNumber *canPostVideos; // Bool
+
+// TODO(danzimm): PHP has this as present for legacy reasons. Switch over to using `user_membership`
+@property (nonatomic, nullable) NSNumber *userTier;
+
+// TODO(danzimm): This is an dictionary of n objects, there may or may not be tier 1,2,3
+@property (nonatomic, nullable) SBTier *tierOne;
+@property (nonatomic, nullable) SBTier *tierTwo;
+@property (nonatomic, nullable) SBTier *tierThree;
 
 /*!May or may not be nil, use `fetchAccount` for assurance.*/
 @property (nonatomic, strong) SBAccount *account;
 
 @end
+
+NS_ASSUME_NONNULL_END
