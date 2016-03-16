@@ -9,6 +9,26 @@
 import Mantle
 import Alamofire
 
+private func failureForError<Value>(error: NSError, data: NSData?) -> Result<Value, CocoaBloc.Error> {
+	guard let jsonData = data else { return .Failure(Error.Underlying(error)) }
+	do {
+		let options = NSJSONReadingOptions() // Why can't I just pass .none or something gah
+		let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: options)
+		if let jsonDictionary = jsonObject as? [String:AnyObject] {
+			guard
+				let metadata = jsonDictionary["metadata"] as? [String:AnyObject],
+				let errorString = metadata["error"] as? String else {
+					return .Failure(Error.UnexpectedResponseType)
+			}
+			return .Failure(Error.API(errorString))
+		} else {
+			return .Failure(Error.UnexpectedResponseType)
+		}
+	} catch let error as NSError {
+		return .Failure(Error.JSONSerialization(error))
+	}
+}
+
 public extension Request {
 	
 	/// Serializer for a single Mantle model object
@@ -35,7 +55,7 @@ public extension Request {
 				}
 				
 			case .Failure(let error):
-				return .Failure(Error.Underlying(error))
+				return failureForError(error, data: data)
 			}
 		}
 	}
@@ -64,7 +84,7 @@ public extension Request {
 				}
 				
 			case .Failure(let error):
-				return .Failure(Error.Underlying(error))
+				return failureForError(error, data: data)
 			}
 		}
 	}
