@@ -7,23 +7,22 @@
 //
 
 public enum Error: ErrorType {
-	case JSONSerialization(NSError, NSHTTPURLResponse?, NSData?)
-	case UnexpectedResponseType(NSHTTPURLResponse?, NSData?)
+	case JSONSerialization(NSError)
+	case UnexpectedResponseType
 	case API(String)
-	case Underlying(NSError, NSHTTPURLResponse?, NSData?)
+	case Underlying(NSError)
 }
 
 extension Error: Equatable { }
 public func == (lhs: Error, rhs: Error) -> Bool {
 	switch (lhs, rhs) {
-	case (.JSONSerialization(let x, let y, let z), .JSONSerialization(let t, let u, let v))
-		where x == t && y == u && z == v:
-			return true
-	case (.UnexpectedResponseType(let x, let y), .UnexpectedResponseType(let t, let u)) where x == t && y == u:
+	case (.JSONSerialization(let x), .JSONSerialization(let y)) where x == y:
+		return true
+	case (.UnexpectedResponseType, .UnexpectedResponseType):
 		return true
 	case (.API(let x), .API(let y)) where x == y:
 		return true
-	case (.Underlying(let x, let y, let z), .Underlying(let t, let u, let v)) where x == t && y == u && z == v:
+	case (.Underlying(let x), .Underlying(let y)) where x == y:
 		return true
 	default:
 		return false

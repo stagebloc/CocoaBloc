@@ -19,23 +19,39 @@ public extension Request {
 				
 			case .Success(let jsonObject):
 				
-				if let jsonData = jsonObject.valueForKeyPath(keyPath) as? [NSObject:AnyObject] {
+				if let data = jsonObject.valueForKeyPath(keyPath) as? [NSObject:AnyObject] {
 					do {
-						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: jsonData) as? Model {
+						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: data) as? Model {
 							return .Success(model)
 						} else {
-							return .Failure(Error.UnexpectedResponseType(response, data))
+							return .Failure(Error.UnexpectedResponseType)
 						}
 					}
 					catch let error as NSError {
-						return .Failure(Error.JSONSerialization(error, response, data))
+						return .Failure(Error.JSONSerialization(error))
 					}
 				} else {
-					return .Failure(Error.UnexpectedResponseType(response, data))
+					return .Failure(Error.UnexpectedResponseType)
 				}
 				
 			case .Failure(let error):
-				return .Failure(Error.Underlying(error, response, data))
+				guard let jsonData = data else { return .Failure(Error.Underlying(error)) }
+				do {
+					let options = NSJSONReadingOptions() // Why can't I just pass .none or something gah
+					let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: options)
+					if let jsonDictionary = jsonObject as? [String:AnyObject] {
+						guard
+							let metadata = jsonDictionary["metadata"] as? [String:AnyObject],
+							let errorString = metadata["error"] as? String else {
+								return .Failure(Error.UnexpectedResponseType)
+							}
+						return .Failure(Error.API(errorString))
+					} else {
+						return .Failure(Error.UnexpectedResponseType)
+					}
+				} catch let error as NSError {
+					return .Failure(Error.JSONSerialization(error))
+				}
 			}
 		}
 	}
@@ -48,23 +64,39 @@ public extension Request {
 				
 			case .Success(let jsonObject):
 				
-				if let jsonData = jsonObject.valueForKeyPath(keyPath) as? [AnyObject] {
+				if let data = jsonObject.valueForKeyPath(keyPath) as? [AnyObject] {
 					do {
-						if let model = try MTLJSONAdapter.modelsOfClass(Model.self, fromJSONArray: jsonData) as? [Model] {
+						if let model = try MTLJSONAdapter.modelsOfClass(Model.self, fromJSONArray: data) as? [Model] {
 							return .Success(model)
 						} else {
-							return .Failure(Error.UnexpectedResponseType(response, data))
+							return .Failure(Error.UnexpectedResponseType)
 						}
 					}
 					catch let error as NSError {
-						return .Failure(Error.JSONSerialization(error, response, data))
+						return .Failure(Error.JSONSerialization(error))
 					}
 				} else {
-					return .Failure(Error.UnexpectedResponseType(response, data))
+					return .Failure(Error.UnexpectedResponseType)
 				}
 				
 			case .Failure(let error):
-				return .Failure(Error.Underlying(error, response, data))
+				guard let jsonData = data else { return .Failure(Error.Underlying(error)) }
+				do {
+					let options = NSJSONReadingOptions() // Why can't I just pass .none or something gah
+					let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: options)
+					if let jsonDictionary = jsonObject as? [String:AnyObject] {
+						guard
+							let metadata = jsonDictionary["metadata"] as? [String:AnyObject],
+							let errorString = metadata["error"] as? String else {
+								return .Failure(Error.UnexpectedResponseType)
+						}
+						return .Failure(Error.API(errorString))
+					} else {
+						return .Failure(Error.UnexpectedResponseType)
+					}
+				} catch let error as NSError {
+					return .Failure(Error.JSONSerialization(error))
+				}
 			}
 		}
 	}
