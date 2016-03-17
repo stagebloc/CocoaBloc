@@ -28,3 +28,18 @@ public func == (lhs: Error, rhs: Error) -> Bool {
 		return false
 	}
 }
+
+extension Error: CustomStringConvertible {
+	public var description: String {
+		switch self {
+		case .UnexpectedResponseType:
+			return "Unexpected server response"
+		case .Underlying:
+			return "Unexpected error"
+		case .JSONSerialization:
+			return "Unexpected communication error"
+		case .API(let string):
+			return string
+		}
+	}
+}
