@@ -59,7 +59,7 @@ extension API {
 	public static func unfollowAccount(accountID: Int) -> Endpoint<SBAccount> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
-			method: .POST,
+			method: .DELETE,
 			keyPath: "account")
 	}
 	
