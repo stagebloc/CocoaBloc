@@ -58,6 +58,7 @@ extension API {
 				"code": authorizationCode,
 				"grant_type": "authorization_code"
 			],
+			keyPath: "data.user",
 			sideEffect: userAuthSideEffect)
 	}
 	
@@ -161,7 +162,9 @@ extension API {
 				"birthday"  : df.stringFromDate(birthday),
 				"gender"    : gender.rawValue,
 				"source_account_id" : sourceAccountID
-			].filterNil())
+			].filterNil(),
+			keyPath: "data.user",
+			sideEffect: userAuthSideEffect)
 	}
 	
 	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[SBUser]> {
