@@ -52,13 +52,15 @@ extension API {
 	public static func followAccount(accountID: Int) -> Endpoint<SBAccount> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
-			method: .POST)
+			method: .POST,
+			keyPath: "account")
 	}
 	
 	public static func unfollowAccount(accountID: Int) -> Endpoint<SBAccount> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
-			method: .POST)
+			method: .DELETE,
+			keyPath: "account")
 	}
 	
 	public static func getAuthenticatedUserAccounts() -> Endpoint<[SBAccount]> {
