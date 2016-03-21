@@ -50,8 +50,4 @@
 	return [MTLValueTransformer reversibleEventAttendingStatusTransformer];
 }
 
-- (NSDate *)initialDate {
-	return _startDate;
-}
-
 @end
