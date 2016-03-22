@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SBContentStreamObject : SBObject
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, readonly) NSDate *initialDate;
+@property (nonatomic, readonly, nullable) NSDate *initialDate;
 @property (nonatomic) NSNumber *commentCount;
 @property (nonatomic) NSNumber *likeCount;
 @property (nonatomic) NSNumber *accountID;

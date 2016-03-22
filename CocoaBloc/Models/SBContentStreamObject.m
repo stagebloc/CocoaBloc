@@ -11,7 +11,6 @@
 #import "MTLValueTransformer+CocoaBloc.h"
 
 @implementation SBContentStreamObject
-@dynamic initialDate;
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
@@ -37,6 +36,10 @@
 
 + (MTLValueTransformer *)accountJSONTransformer {
 	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+}
+
+- (NSDate *)initialDate {
+	return nil;
 }
 
 @end
