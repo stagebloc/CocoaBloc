@@ -99,6 +99,40 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		)
 	}
 	
+	public func upload<Serialized>(
+		endpoint: Endpoint<Serialized>,
+		expansions: [API.ExpandableValue] = []) {
+		
+		guard let formData = endpoint.formData else {
+			fatalError("FormData must be provided when calling this method")
+		}
+		
+		manager.upload(
+			endpoint.method,
+			baseURL.URLByAppendingPathComponent(endpoint.path),
+			headers: authenticated ?
+				["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""] : nil,
+			multipartFormData: { multipartData in
+				formData.forEach {
+					let title = $0.title
+					switch $0.dataType {
+					case .Data(let data):
+						multipartData.appendBodyPart(data: data, name: title)
+					case .File(let url):
+						multipartData.appendBodyPart(fileURL: url, name: title)
+					}
+				}
+			},
+			encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold) { result in
+				switch result {
+				case .Success(let request, _, _):
+					endpoint.encodingClosure?(request)
+				case .Failure(let error):
+					print(error)
+				}
+		}
+	}
+	
 	public func logoutAuthenticatedUser() {
 		if authenticated {
 			authenticationState.authenticationToken = nil

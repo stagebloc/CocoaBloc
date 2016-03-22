@@ -49,6 +49,14 @@ extension API {
 				].filterNil())
 	}
 	
+	public static func updateAccountImage(accountID: Int,
+	                                      imageData: NSData) -> Endpoint<SBAccount> {
+		return Endpoint(
+			path: "/account/\(accountID)",
+			method: .POST,
+			formData: [FormDataPart(title: "image", dataType: .Data(imageData))])
+	}
+	
 	public static func followAccount(accountID: Int) -> Endpoint<SBAccount> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
