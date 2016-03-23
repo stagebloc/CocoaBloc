@@ -1,0 +1,6 @@
+disabled_rules:
+    - function_parameter_count
+    - trailing_whitespace
+line_length: 110
+included: 
+    - CocoaBloc

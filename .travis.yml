@@ -1,21 +1,11 @@
 language: objective-c
-
-notifications:
-    email: false
-    slack:
-        rooms:
-            - secure: v+noETX6NwBkNoCfTfl9XfGswjHINyY7+wEv2saYZ2G87x7JyX/3StKj7zgq1B/BsnV1qwGasdmiM0oMO8VcypE4Na9xTYbprj4Sej7gTt2yOZFEYcygdhi6ZfNXJqK5j3Euw4Zs9Tts1EzJqUPRmF1iVhDE9o8Kv2YF3kBX8Q8=
-        on_success: change
-        on_failure: always
+osx_image: xcode7.3
+xcode_project: CocoaBloc.xcodeproj
 
 before_install:
-    - brew update
-    - brew outdated xctool || brew upgrade xctool
-    - gem update cocoapods
+    - brew unlink carthage || true
+    - brew install carthage
 
 install:
-    - pod lib lint --quick
-    - pod install --project-directory='Example/'
-
-script:
-    - xctool test -freshSimulator -test-sdk iphonesimulator -workspace Example/CocoaBloc.xcworkspace -scheme CocoaBloc-Example -reporter pretty
+    - carthage bootstrap --no-use-binaries --use-submodules --no-build
+    - carthage build --platform iOS --no-skip-current
