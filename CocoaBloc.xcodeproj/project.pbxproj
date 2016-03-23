@@ -81,7 +81,6 @@
 		81F35F861C285A5A002B9D74 /* API+FanClub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F851C285A5A002B9D74 /* API+FanClub.swift */; };
 		81F35F881C285A83002B9D74 /* API+Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F871C285A83002B9D74 /* API+Coupon.swift */; };
 		81F35F8A1C285ABB002B9D74 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F891C285ABB002B9D74 /* API.swift */; };
-		81F3DF581CA2009700B2E3D8 /* API+MultiPartEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F3DF571CA2009700B2E3D8 /* API+MultiPartEncoding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,7 +172,6 @@
 		81F35F851C285A5A002B9D74 /* API+FanClub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+FanClub.swift"; sourceTree = "<group>"; };
 		81F35F871C285A83002B9D74 /* API+Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Coupon.swift"; sourceTree = "<group>"; };
 		81F35F891C285ABB002B9D74 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		81F3DF571CA2009700B2E3D8 /* API+MultiPartEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+MultiPartEncoding.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,7 +228,6 @@
 				0925DF651C0514F400BD43E0 /* Error.swift */,
 				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
 				81F35F891C285ABB002B9D74 /* API.swift */,
-				81F3DF571CA2009700B2E3D8 /* API+MultiPartEncoding.swift */,
 				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
 				81F35F7D1C2859B7002B9D74 /* API+Content.swift */,
 				81F35F7F1C2859E2002B9D74 /* API+Account.swift */,
@@ -547,7 +544,6 @@
 				4B9B802F1C87A514005A4C68 /* SBContentStreamObject.m in Sources */,
 				0925DFB11C05344100BD43E0 /* SBShipping.m in Sources */,
 				81F35F821C285A0B002B9D74 /* API+Comment.swift in Sources */,
-				81F3DF581CA2009700B2E3D8 /* API+MultiPartEncoding.swift in Sources */,
 				0925DFA91C05344100BD43E0 /* SBNotificationSettings.m in Sources */,
 				81F35F7E1C2859B7002B9D74 /* API+Content.swift in Sources */,
 				0925DFB71C05344100BD43E0 /* SBStoreItem.m in Sources */,

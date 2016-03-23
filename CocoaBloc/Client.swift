@@ -101,11 +101,14 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 	
 	public func upload<Serialized>(
 		endpoint: Endpoint<Serialized>,
-		expansions: [API.ExpandableValue] = []) {
+		expansions: [API.ExpandableValue] = [],
+		completion: Result<Request, Error> -> ()) {
 		
 		guard let formData = endpoint.formData else {
 			fatalError("FormData must be provided when calling this method")
 		}
+		
+		print("Endpoint: \(endpoint)")
 		
 		manager.upload(
 			endpoint.method,
@@ -122,21 +125,57 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 						multipartData.appendBodyPart(fileURL: url, name: title)
 					}
 				}
+				print("MultipartData: \(multipartData)")
 			},
 			encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold) { result in
 				switch result {
 				case .Success(let request, _, _):
-					endpoint.encodingClosure?(request)
-				case .Failure(let error):
-					print(error)
+					print("Success: \(request)")
+					completion(.Success(request))
+				case .Failure:
+					completion(.Failure(.MultipartDataEncoding))
 				}
 		}
 	}
 	
-	public func logoutAuthenticatedUser() {
-		if authenticated {
-			authenticationState.authenticationToken = nil
-			authenticationState.authenticatedUser = nil
+	public func upload<Serialized: MTLModel>(
+		endpoint: Endpoint<Serialized>,
+		expansions: [API.ExpandableValue] = [],
+		completion: Result<Response<Serialized, Error>, Error> -> ()) {
+		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
+			switch result {
+			case .Success(let request):
+				request.response(
+					responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
+					completionHandler: { response in
+						completion(.Success(response))
+					})
+			case .Failure(let error):
+				completion(.Failure(error))
+			}
 		}
+	}
+	
+	public func upload<Serialized: SequenceType where Serialized.Generator.Element: MTLModel>(
+		endpoint: Endpoint<Serialized>,
+		expansions: [API.ExpandableValue] = [],
+		completion: Result<Response<[Serialized.Generator.Element], Error>, Error> -> ()) {
+		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
+			switch result {
+			case .Success(let request):
+				request.response(
+					responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
+					completionHandler: { response in
+						completion(.Success(response))
+				})
+			case .Failure(let error):
+				completion(.Failure(error))
+			}
+		}
+	}
+	
+	public func logoutAuthenticatedUser() {
+		authenticationState.authenticationToken = nil
+		authenticationState.authenticatedUser = nil
 	}
 }

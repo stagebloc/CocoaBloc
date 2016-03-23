@@ -32,8 +32,7 @@ public struct Endpoint<Serialized> {
 	         parameters: [String:AnyObject] = [:],
 	         keyPath: String = "data",
 	         sideEffect: SideEffectClosure? = nil,
-	         formData: [FormDataPart]? = nil,
-	         encoding: EncodingClosure? = nil) {
+	         formData: [FormDataPart]? = nil) {
 		self.path = path
 		self.method = method
 		self.expansions = expansions
@@ -41,14 +40,10 @@ public struct Endpoint<Serialized> {
 		self.keyPath = keyPath
 		self.sideEffect = sideEffect
 		self.formData = formData
-		self.encodingClosure = encoding
 	}
 	
 	internal typealias SideEffectClosure = (Request, AuthenticationStateType) -> ()
 	internal let sideEffect: SideEffectClosure?
-
-	internal typealias EncodingClosure = (Request) -> ()
-	internal var encodingClosure: EncodingClosure?
 }
 
 public struct FormDataPart {
@@ -61,4 +56,3 @@ public struct FormDataPart {
 		case File(NSURL)
 	}
 }
-
