@@ -56,8 +56,8 @@ public struct FormDataPart {
 		case File(NSURL)
 	}
 	
-	internal init(title: String,
-	              dataType: DataType) {
+	init(title: String,
+	     dataType: DataType) {
 		self.title = title
 		self.dataType = dataType
 	}
