@@ -108,8 +108,6 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 			fatalError("FormData must be provided when calling this method")
 		}
 		
-		print("Endpoint: \(endpoint)")
-		
 		manager.upload(
 			endpoint.method,
 			baseURL.URLByAppendingPathComponent(endpoint.path),
@@ -133,6 +131,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 					print("Success: \(request)")
 					completion(.Success(request))
 				case .Failure:
+					print("Failure")
 					completion(.Failure(.MultipartDataEncoding))
 				}
 		}
