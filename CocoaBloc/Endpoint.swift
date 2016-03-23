@@ -48,16 +48,16 @@ public struct Endpoint<Serialized> {
 
 public struct FormDataPart {
 	
-	let title: String
-	let dataType: DataType
+	public let title: String
+	public let dataType: DataType
 	
-	enum DataType {
+	public enum DataType {
 		case Data(NSData)
 		case File(NSURL)
 	}
 	
-	init(title: String,
-	     dataType: DataType) {
+	public init(title: String,
+	            dataType: DataType) {
 		self.title = title
 		self.dataType = dataType
 	}
