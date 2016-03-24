@@ -126,15 +126,16 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 					let title = $0.title
 					switch $0.dataType {
 					case .Data(let data):
-						multipartData.appendBodyPart(data: data, name: title)
+						guard let mime = data.photoMime() else { return }
+						multipartData.appendBodyPart(data: data, name: title, fileName: title, mimeType: mime)
+						print("Mime: \(mime)")
 					case .File(let url):
-						multipartData.appendBodyPart(fileURL: url, name: title)
+						guard let mime = url.photoMime() else { return }
+						multipartData.appendBodyPart(fileURL: url, name: title, fileName: title, mimeType: mime)
 					}
 				}
-				
 				params.forEach { (key, value) in
 					guard let value = value.dataUsingEncoding(NSUTF8StringEncoding) else { return }
-					print("key: \(key), value: \(value)")
 					multipartData.appendBodyPart(data: value, name: key)
 				}
 			},
@@ -156,7 +157,6 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 			switch result {
 			case .Success(let request):
 				print("Request: \(request)")
-				print("Keypath: \(endpoint.keyPath)")
 				request.response(
 					responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 					completionHandler: { response in
