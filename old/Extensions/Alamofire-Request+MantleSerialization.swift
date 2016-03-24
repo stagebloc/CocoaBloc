@@ -43,6 +43,7 @@ public extension Request {
 				if let data = jsonObject.valueForKeyPath(keyPath) as? [NSObject:AnyObject] {
 					print("data: \(data)")
 					do {
+						print("Model type: \(Model.self)")
 						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: data) as? Model {
 							print("model: \(model)")
 							return .Success(model)

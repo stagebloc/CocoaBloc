@@ -141,6 +141,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
 			switch result {
 			case .Success(let request):
+				print("Request: \(request)")
+				print("Keypath: \(endpoint.keyPath)")
 				request.response(
 					responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 					completionHandler: { response in
