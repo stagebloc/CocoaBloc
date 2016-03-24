@@ -12,12 +12,20 @@
 @implementation SBAudio
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"editURL" : @"edit_url"}];
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"editURL" :		@"edit_url",
+			  @"streamURL":		@"stream_url",
+			  @"artist":		@"artist",
+			  @"isSticky":		@"sticky",
+			  @"lyrics":		@"lyrics"}];
 }
 
 + (MTLValueTransformer *)editURLJSONTransformer {
-    return [MTLValueTransformer reversibleStringToURLTransformer];
+	return [MTLValueTransformer reversibleStringToURLTransformer];
+}
+
++ (MTLValueTransformer *)streamURLJSONTransformer {
+	return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
 @end

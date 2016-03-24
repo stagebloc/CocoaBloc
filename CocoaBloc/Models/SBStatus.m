@@ -8,11 +8,23 @@
 
 #import "SBStatus.h"
 
+#import "MTLValueTransformer+CocoaBloc.h"
+#import "NSDateFormatter+CocoaBloc.h"
+
 @implementation SBStatus
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-			@{@"text" : @"text"}];
+			@{@"text"			: @"text",
+			  @"publishDate"	: @"published"}];
+}
+
++ (NSValueTransformer *)publishDateJSONTransformer {
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+}
+
+- (NSDate *)initialDate {
+	return _publishDate;
 }
 
 @end

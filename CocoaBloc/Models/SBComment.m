@@ -14,49 +14,47 @@
 @implementation SBComment
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
-            @{@"accountID"          : @"account",
-              @"account"            : @"account",
-              @"content"            : @"content",
-              @"creationDate"       : @"created",
-              @"inModeration"       : @"in_moderation",
-              @"replyCount"         : @"reply_count",
-              @"parentCommentID"    : @"reply_to",
-              @"shortURL"           : @"short_url",
-              @"text"               : @"text",
-              @"userID"             : @"user",
-              @"user"               : @"user",
-              @"fetchUserCommand"   : [NSNull null],
-              @"fetchAccountCommand": [NSNull null]
-            }];
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:
+			@{@"accountID"          : @"account",
+			  @"account"            : @"account",
+			  @"content"            : @"content",
+			  @"creationDate"       : @"created",
+			  @"inModeration"       : @"in_moderation",
+			  @"replyCount"         : @"reply_count",
+			  @"parentCommentID"    : @"reply_to",
+			  @"shortURL"           : @"short_url",
+			  @"text"               : @"text",
+			  @"userID"             : @"user",
+			  @"user"               : @"user",
+			  }];
 }
 
 + (MTLValueTransformer *)contentJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)accountIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 + (MTLValueTransformer *)accountJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)userIDJSONTransformer {
-    return [MTLValueTransformer reversibleModelIDOnlyTransformer];
+	return [MTLValueTransformer reversibleModelIDOnlyTransformer];
 }
 
 + (MTLValueTransformer *)userJSONTransformer {
-    return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
+	return [MTLValueTransformer reversibleModelJSONOnlyTransformer];
 }
 
 + (MTLValueTransformer *)creationDateJSONTransformer {
-    return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
+	return [MTLValueTransformer reversibleStringToDateTransformerWithFormatter:[NSDateFormatter CocoaBlocJSONDateFormatter]];
 }
 
 + (MTLValueTransformer *)shortURLJSONTransformer {
-    return [MTLValueTransformer reversibleStringToURLTransformer];
+	return [MTLValueTransformer reversibleStringToURLTransformer];
 }
 
 @end

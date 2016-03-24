@@ -10,6 +10,8 @@
 
 @interface NSDateFormatter (CocoaBloc)
 
-+ (NSDateFormatter *)CocoaBlocJSONDateFormatter;
++ (nonnull NSDateFormatter *)CocoaBlocJSONDateFormatter;
+// Used e.g. in convertEvent(\AccountEvent $event)
++ (nonnull NSDateFormatter *)CocoaBlocJSONDateFormatterWithTimeZone;
 
 @end

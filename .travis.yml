@@ -1,0 +1,11 @@
+language: objective-c
+osx_image: xcode7.3
+xcode_project: CocoaBloc.xcodeproj
+
+before_install:
+    - brew unlink carthage || true
+    - brew install carthage
+
+install:
+    - carthage bootstrap --no-use-binaries --use-submodules --no-build
+    - carthage build --platform iOS --no-skip-current

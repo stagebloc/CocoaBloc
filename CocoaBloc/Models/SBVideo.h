@@ -6,17 +6,21 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBContent.h"
-#import "SBPhoto.h"
+#import "SBModifiableContent.h"
+#import "SBAccountPhoto.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SBClient;
-@interface SBVideo : SBContent <MTLJSONSerializing>
+@interface SBVideo : SBModifiableContent <MTLJSONSerializing>
 
 @property (nonatomic, copy) NSString *descriptiveText;
 @property (nonatomic) NSURL *videoURL;
-@property (nonatomic) NSURL *videoCDNURL;
+@property (nonatomic, nullable) NSURL *videoCDNURL;
 
-@property (nonatomic) SBPhoto *photo;
 @property (nonatomic) NSNumber *photoID;
+@property (nonatomic, nullable) SBAccountPhoto *photo;
 
 @end
+
+NS_ASSUME_NONNULL_END

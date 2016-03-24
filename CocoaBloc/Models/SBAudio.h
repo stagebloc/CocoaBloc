@@ -6,10 +6,18 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-#import "SBContent.h"
+#import "SBModifiableContent.h"
 
-@interface SBAudio : SBContent <MTLJSONSerializing>
+NS_ASSUME_NONNULL_BEGIN
 
-@property (nonatomic, copy) NSURL *editURL;
+@interface SBAudio : SBModifiableContent <MTLJSONSerializing>
+
+@property (nonatomic, copy, nullable) NSURL *editURL;
+@property (nonatomic, copy) NSURL *streamURL;
+@property (nonatomic, copy) NSString *artist;
+@property (nonatomic, copy) NSString *lyrics;
+@property (nonatomic) NSNumber *isSticky;
 
 @end
+
+NS_ASSUME_NONNULL_END
