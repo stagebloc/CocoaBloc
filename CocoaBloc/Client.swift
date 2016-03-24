@@ -134,6 +134,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 				
 				params.forEach { (key, value) in
 					guard let value = value.dataUsingEncoding(NSUTF8StringEncoding) else { return }
+					print("key: \(key), value: \(value)")
 					multipartData.appendBodyPart(data: value, name: key)
 				}
 			},
