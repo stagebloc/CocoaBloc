@@ -108,6 +108,14 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 			fatalError("FormData must be provided when calling this method")
 		}
 		
+		var params: [String: AnyObject] = [
+			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
+			].withEntries(endpoint.parameters)
+		
+		if !authenticated {
+			params["client_id"] = clientID
+		}
+		
 		manager.upload(
 			endpoint.method,
 			baseURL.URLByAppendingPathComponent(endpoint.path),
@@ -122,6 +130,11 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 					case .File(let url):
 						multipartData.appendBodyPart(fileURL: url, name: title)
 					}
+				}
+				
+				params.forEach { (key, value) in
+					guard let value = value.dataUsingEncoding(NSUTF8StringEncoding) else { return }
+					multipartData.appendBodyPart(data: value, name: key)
 				}
 			},
 			encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold) { encodingResult in
