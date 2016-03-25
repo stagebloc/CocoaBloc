@@ -51,7 +51,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		return authenticationState.authenticationToken != nil
 	}
 	
-	internal func request<Serialized>(
+	public func request<Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = []) -> Request {
 		var params: [String: AnyObject] = [
