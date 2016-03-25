@@ -38,21 +38,15 @@ public extension Request {
 			switch JSONSerializer.serializeResponse(request, response, data, error) {
 				
 			case .Success(let jsonObject):
-				print("json: \(jsonObject)")
-				
 				if let data = jsonObject.valueForKeyPath(keyPath) as? [NSObject:AnyObject] {
-					print("data: \(data)")
 					do {
-						print("Model type: \(Model.self)")
 						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: data) as? Model {
-							print("model: \(model)")
 							return .Success(model)
 						} else {
 							return .Failure(Error.UnexpectedResponseType)
 						}
 					}
 					catch let error as NSError {
-						print("failure 2: \(error)")
 						return .Failure(Error.JSONSerialization(error))
 					}
 				} else {
@@ -60,7 +54,6 @@ public extension Request {
 				}
 				
 			case .Failure(let error):
-				print("failure 1: \(error)")
 				return failureForError(error, data: data)
 			}
 		}

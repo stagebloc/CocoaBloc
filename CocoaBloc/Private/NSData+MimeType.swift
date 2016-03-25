@@ -10,7 +10,7 @@ import Foundation
 
 extension NSData {
 	
-	func photoMime() -> String? {
+	func photoMime() -> String {
 		var c = [UInt32](count: 1, repeatedValue: 0)
 		self.getBytes(&c, length: 1)
 		switch (c[0]) {
@@ -23,7 +23,7 @@ extension NSData {
 		case 0x49, 0x4d:
 			return "image/tiff"
 		default :
-			return nil
+			return ""
 		}
 	}
 }

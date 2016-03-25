@@ -11,15 +11,16 @@ import MobileCoreServices
 
 extension NSURL {
 	
-	func photoMime() -> String? {
+	func photoMime() -> String {
 		
 		guard let ext = self.pathExtension,
-			let UTIRef = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil) else { return nil }
-		
+			let UTIRef = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
+			                                                   ext,
+			                                                   nil) else { return "" }
 		let UTI = UTIRef.takeUnretainedValue()
 		UTIRef.release()
 		
-		guard let MIMETypeRef = UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType) else { return nil }
+		guard let MIMETypeRef = UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType) else { return "" }
 		MIMETypeRef.release()
 		return MIMETypeRef.takeUnretainedValue() as String
 	}

@@ -103,11 +103,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
 		completion: Result<Request, Error> -> ()) {
-		
-		guard let formData = endpoint.formData else {
-			fatalError("Error: endpoint must contain FormData")
-		}
-		
+		guard let formData = endpoint.formData else { fatalError("Error: endpoint must contain FormData") }
 		var params: [String: AnyObject] = [
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
 			].withEntries(endpoint.parameters)
@@ -123,18 +119,22 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 				["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""] : nil,
 			multipartFormData: { multipartData in
 				formData.forEach {
-					let title = $0.title
 					switch $0.dataType {
 					case .Data(let data):
-						guard let mime = data.photoMime() else { return }
-						multipartData.appendBodyPart(data: data, name: title, mimeType: mime)
+						multipartData.appendBodyPart(data: data,
+							name: $0.title,
+							mimeType: data.photoMime())
 					case .File(let url):
-						guard let mime = url.photoMime() else { return }
-						multipartData.appendBodyPart(fileURL: url, name: title, fileName: title, mimeType: mime)
+						multipartData.appendBodyPart(fileURL: url,
+							name: $0.title,
+							fileName: $0.title,
+							mimeType: url.photoMime())
 					}
 				}
-				params.forEach { (key, value) in
-					guard let value = value.dataUsingEncoding(NSUTF8StringEncoding) else { return }
+				params.forEach { key, value in
+					guard let value = value.dataUsingEncoding(NSUTF8StringEncoding) else {
+						fatalError("Invalid parameter type")
+					}
 					multipartData.appendBodyPart(data: value, name: key)
 				}
 			},
@@ -155,7 +155,6 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
 			switch result {
 			case .Success(let request):
-				print("Request: \(request)")
 				request.response(
 					responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
 					completionHandler: { response in
