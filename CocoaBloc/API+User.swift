@@ -137,6 +137,13 @@ extension API {
 			].filterNil())
 	}
 	
+	public static func updateAuthenticatedUserImage(formData: FormDataPart) -> Endpoint<SBAccount> {
+		return Endpoint(
+			path: "users/me",
+			method: .POST,
+			formData: [formData])
+	}
+	
 	public static func signUp(
 		email: String,
 		name: String,

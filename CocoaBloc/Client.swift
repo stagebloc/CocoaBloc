@@ -105,7 +105,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		completion: Result<Request, Error> -> ()) {
 		
 		guard let formData = endpoint.formData else {
-			fatalError("FormData must be provided when calling this method")
+			fatalError("Error: endpoint must contain FormData")
 		}
 		
 		var params: [String: AnyObject] = [
@@ -128,7 +128,6 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 					case .Data(let data):
 						guard let mime = data.photoMime() else { return }
 						multipartData.appendBodyPart(data: data, name: title, mimeType: mime)
-						print("Mime: \(mime)")
 					case .File(let url):
 						guard let mime = url.photoMime() else { return }
 						multipartData.appendBodyPart(fileURL: url, name: title, fileName: title, mimeType: mime)
