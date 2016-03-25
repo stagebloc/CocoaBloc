@@ -45,20 +45,3 @@ public struct Endpoint<Serialized> {
 	internal typealias SideEffectClosure = (Request, AuthenticationStateType) -> ()
 	internal let sideEffect: SideEffectClosure?
 }
-
-public struct FormDataPart {
-	
-	public let title: String
-	public let dataType: DataType
-	
-	public enum DataType {
-		case Data(NSData)
-		case File(NSURL)
-	}
-	
-	public init(title: String,
-	            dataType: DataType) {
-		self.title = title
-		self.dataType = dataType
-	}
-}
