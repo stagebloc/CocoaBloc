@@ -127,7 +127,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 					switch $0.dataType {
 					case .Data(let data):
 						guard let mime = data.photoMime() else { return }
-						multipartData.appendBodyPart(data: data, name: title, fileName: title, mimeType: mime)
+						multipartData.appendBodyPart(data: data, name: title, mimeType: mime)
 						print("Mime: \(mime)")
 					case .File(let url):
 						guard let mime = url.photoMime() else { return }
