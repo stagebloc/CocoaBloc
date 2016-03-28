@@ -38,7 +38,6 @@ public extension Request {
 			switch JSONSerializer.serializeResponse(request, response, data, error) {
 				
 			case .Success(let jsonObject):
-				
 				if let data = jsonObject.valueForKeyPath(keyPath) as? [NSObject:AnyObject] {
 					do {
 						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: data) as? Model {

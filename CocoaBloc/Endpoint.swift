@@ -17,6 +17,7 @@ public struct Endpoint<Serialized> {
 	// HTTP request parts
 	public let path: String
 	public let method: Alamofire.Method
+	public let formData: [FormDataPart]?
 	public var parameters: [String:AnyObject]
 	
 	/// Types of objects this endpoint wants expanded from identifiers to full models
@@ -30,13 +31,15 @@ public struct Endpoint<Serialized> {
 	         expansions: [API.ExpandableValue] = [],
 	         parameters: [String:AnyObject] = [:],
 	         keyPath: String = "data",
-	         sideEffect: SideEffectClosure? = nil) {
+	         sideEffect: SideEffectClosure? = nil,
+	         formData: [FormDataPart]? = nil) {
 		self.path = path
 		self.method = method
 		self.expansions = expansions
 		self.parameters = parameters
 		self.keyPath = keyPath
 		self.sideEffect = sideEffect
+		self.formData = formData
 	}
 	
 	internal typealias SideEffectClosure = (Request, AuthenticationStateType) -> ()

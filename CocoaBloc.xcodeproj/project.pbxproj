@@ -73,6 +73,9 @@
 		4B4326B41C80BE07007D23F6 /* SBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4326B21C80BE07007D23F6 /* SBEvent.m */; };
 		4B9B802E1C87A514005A4C68 /* SBContentStreamObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9B802C1C87A514005A4C68 /* SBContentStreamObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B9B802F1C87A514005A4C68 /* SBContentStreamObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9B802D1C87A514005A4C68 /* SBContentStreamObject.m */; };
+		81A7447D1CA5AB1500ADA158 /* FormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A7447C1CA5AB1500ADA158 /* FormData.swift */; };
+		81D3FE181CA4980C00513CCA /* NSData+MimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */; };
+		81D3FE1A1CA4AD0A00513CCA /* NSURL+MimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */; };
 		81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7B1C2857A0002B9D74 /* API+User.swift */; };
 		81F35F7E1C2859B7002B9D74 /* API+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7D1C2859B7002B9D74 /* API+Content.swift */; };
 		81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7F1C2859E2002B9D74 /* API+Account.swift */; };
@@ -164,6 +167,9 @@
 		4B4326B21C80BE07007D23F6 /* SBEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBEvent.m; sourceTree = "<group>"; };
 		4B9B802C1C87A514005A4C68 /* SBContentStreamObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBContentStreamObject.h; sourceTree = "<group>"; };
 		4B9B802D1C87A514005A4C68 /* SBContentStreamObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBContentStreamObject.m; sourceTree = "<group>"; };
+		81A7447C1CA5AB1500ADA158 /* FormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormData.swift; sourceTree = "<group>"; };
+		81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+MimeType.swift"; sourceTree = "<group>"; };
+		81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+MimeType.swift"; sourceTree = "<group>"; };
 		81F35F7B1C2857A0002B9D74 /* API+User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+User.swift"; sourceTree = "<group>"; };
 		81F35F7D1C2859B7002B9D74 /* API+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Content.swift"; sourceTree = "<group>"; };
 		81F35F7F1C2859E2002B9D74 /* API+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Account.swift"; sourceTree = "<group>"; };
@@ -226,6 +232,7 @@
 				090E11141C008E9C0001C943 /* Info.plist */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
 				0925DF651C0514F400BD43E0 /* Error.swift */,
+				81A7447C1CA5AB1500ADA158 /* FormData.swift */,
 				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
 				81F35F891C285ABB002B9D74 /* API.swift */,
 				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
@@ -309,6 +316,8 @@
 			children = (
 				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
 				092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */,
+				81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */,
+				81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */,
 				0925DFC01C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.h */,
 				0925DFC11C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m */,
 				0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */,
@@ -515,6 +524,7 @@
 				81F35F881C285A83002B9D74 /* API+Coupon.swift in Sources */,
 				0925DFBB1C05344100BD43E0 /* SBUser.m in Sources */,
 				0925DF661C0514F400BD43E0 /* Error.swift in Sources */,
+				81D3FE181CA4980C00513CCA /* NSData+MimeType.swift in Sources */,
 				0925DFB51C05344100BD43E0 /* SBStoreDashboard.m in Sources */,
 				0913687D1C5B3EB700742DF5 /* NSDateFormatter+CocoaBloc.m in Sources */,
 				0925DFBD1C05344100BD43E0 /* SBVideo.m in Sources */,
@@ -542,8 +552,10 @@
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,
 				0925DFA71C05344100BD43E0 /* SBNotification.m in Sources */,
 				4B9B802F1C87A514005A4C68 /* SBContentStreamObject.m in Sources */,
+				81A7447D1CA5AB1500ADA158 /* FormData.swift in Sources */,
 				0925DFB11C05344100BD43E0 /* SBShipping.m in Sources */,
 				81F35F821C285A0B002B9D74 /* API+Comment.swift in Sources */,
+				81D3FE1A1CA4AD0A00513CCA /* NSURL+MimeType.swift in Sources */,
 				0925DFA91C05344100BD43E0 /* SBNotificationSettings.m in Sources */,
 				81F35F7E1C2859B7002B9D74 /* API+Content.swift in Sources */,
 				0925DFB71C05344100BD43E0 /* SBStoreItem.m in Sources */,

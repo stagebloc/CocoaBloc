@@ -99,10 +99,93 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		)
 	}
 	
-	public func logoutAuthenticatedUser() {
-		if authenticated {
-			authenticationState.authenticationToken = nil
-			authenticationState.authenticatedUser = nil
+	public func upload<Serialized>(
+		endpoint: Endpoint<Serialized>,
+		expansions: [API.ExpandableValue] = [],
+		completion: Result<Request, Error> -> ()) {
+		guard let formData = endpoint.formData else { fatalError("Error: endpoint must contain FormData") }
+		var params: [String: AnyObject] = [
+			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
+			].withEntries(endpoint.parameters)
+		
+		if !authenticated {
+			params["client_id"] = clientID
 		}
+		
+		manager.upload(
+			endpoint.method,
+			baseURL.URLByAppendingPathComponent(endpoint.path),
+			headers: authenticated ?
+				["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""] : nil,
+			multipartFormData: { multipartData in
+				formData.forEach {
+					switch $0.dataType {
+					case .Data(let data):
+						multipartData.appendBodyPart(data: data,
+							name: $0.title,
+							mimeType: data.photoMime())
+					case .File(let url):
+						multipartData.appendBodyPart(fileURL: url,
+							name: $0.title,
+							fileName: $0.title,
+							mimeType: url.photoMime())
+					}
+				}
+				params.forEach { key, value in
+					guard let value = value.dataUsingEncoding(NSUTF8StringEncoding) else {
+						fatalError("Invalid parameter type")
+					}
+					multipartData.appendBodyPart(data: value, name: key)
+				}
+			},
+			encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold) { encodingResult in
+				switch encodingResult {
+				case .Success(let request, _, _):
+					completion(.Success(request))
+				case .Failure:
+					completion(.Failure(.MultipartDataEncoding))
+				}
+		}
+	}
+	
+	public func uploadModelSerialization<Serialized: MTLModel>(
+		endpoint: Endpoint<Serialized>,
+		expansions: [API.ExpandableValue] = [],
+		completion: Result<Response<Serialized, Error>, Error> -> ()) {
+		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
+			switch result {
+			case .Success(let request):
+				request.response(
+					responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
+					completionHandler: { response in
+						completion(.Success(response))
+					})
+			case .Failure(let error):
+				completion(.Failure(error))
+			}
+		}
+	}
+
+	public func uploadArraySerialization<Serialized: SequenceType where Serialized.Generator.Element: MTLModel>(
+		endpoint: Endpoint<Serialized>,
+		expansions: [API.ExpandableValue] = [],
+		completion: Result<Response<[Serialized.Generator.Element], Error>, Error> -> ()) {
+		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
+			switch result {
+			case .Success(let request):
+				request.response(
+					responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
+					completionHandler: { response in
+						completion(.Success(response))
+				})
+			case .Failure(let error):
+				completion(.Failure(error))
+			}
+		}
+	}
+	
+	public func logoutAuthenticatedUser() {
+		authenticationState.authenticationToken = nil
+		authenticationState.authenticatedUser = nil
 	}
 }

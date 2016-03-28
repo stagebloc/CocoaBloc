@@ -11,6 +11,7 @@ public enum Error: ErrorType {
 	case UnexpectedResponseType
 	case API(String)
 	case Underlying(NSError)
+	case MultipartDataEncoding
 }
 
 extension Error: Equatable { }
@@ -23,6 +24,8 @@ public func == (lhs: Error, rhs: Error) -> Bool {
 	case (.API(let x), .API(let y)) where x == y:
 		return true
 	case (.Underlying(let x), .Underlying(let y)) where x == y:
+		return true
+	case (.MultipartDataEncoding, .MultipartDataEncoding):
 		return true
 	default:
 		return false
@@ -40,6 +43,8 @@ extension Error: CustomStringConvertible {
 			return "Unexpected communication error"
 		case .API(let string):
 			return string
+		case .MultipartDataEncoding:
+			return "Data encoding error"
 		}
 	}
 }
