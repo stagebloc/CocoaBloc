@@ -119,15 +119,19 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 				["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""] : nil,
 			multipartFormData: { multipartData in
 				formData.forEach {
+					let title = $0.title
 					switch $0.dataType {
 					case .Data(let data):
-						multipartData.appendBodyPart(data: data,
-							name: $0.title,
+						multipartData.appendBodyPart(
+							data: data,
+							name: title,
+							fileName: title,
 							mimeType: data.photoMime())
 					case .File(let url):
-						multipartData.appendBodyPart(fileURL: url,
-							name: $0.title,
-							fileName: $0.title,
+						multipartData.appendBodyPart(
+							fileURL: url,
+							name: title,
+							fileName: title,
 							mimeType: url.photoMime())
 					}
 				}
