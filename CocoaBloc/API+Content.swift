@@ -67,4 +67,37 @@ extension API {
 				"reason": reason
 			])
 	}
+	
+	public static func postStatusToAccount(accountID: Int, text: String) -> Endpoint<SBStatus> {
+		return Endpoint(
+			path: "/account/\(accountID)/status",
+			method: .POST,
+			parameters: [
+				"text": text
+			])
+	}
+	
+	public static func postBlogToAccount(accountID: Int, title: String, body: String) -> Endpoint<SBBlog> {
+		return Endpoint(
+			path: "/account/\(accountID)/blog",
+			method: .POST,
+			parameters: [
+				"title": title,
+				"body": body
+			])
+	}
+	
+	public static func postPhotoToAccount(accountID: Int,
+	                                      title: String?,
+	                                      description: String?,
+	                                      exclusive: Bool?) -> Endpoint<SBAccountPhoto> {
+		return Endpoint(
+			path: "/account/\(accountID)/photo",
+			method: .POST,
+			parameters: [
+				"title": title,
+				"description": description,
+				"exclusive": exclusive
+			].filterNil())
+	}
 }
