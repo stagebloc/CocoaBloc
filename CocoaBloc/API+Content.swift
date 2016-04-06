@@ -100,6 +100,6 @@ extension API {
 				"description": description,
 				"exclusive": exclusive
 			].filterNil(),
-			formData: [FormDataPart(title: title ?? "Photo", dataType: .Data(photoData))])
+			formData: [FormDataPart(title: "photo", dataType: .Data(photoData))])
 	}
 }
