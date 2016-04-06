@@ -71,10 +71,15 @@ extension API {
 			keyPath: "account")
 	}
 	
-	public static func getAuthenticatedUserAccounts() -> Endpoint<[SBAccount]> {
+	// Set admin to true to get accounts youre an admin of, otherwise gets accounts you're following.
+	public static func getAuthenticatedUserAccounts(admin: Bool = false) -> Endpoint<[SBAccount]> {
 		return Endpoint(
 			path: "accounts",
-			method: .GET)
+			method: .GET,
+			parameters: [
+				"admin"		:	admin,
+				"following"	:	!admin
+			])
 	}
 	
 	public static func getAccount(accountID: Int) -> Endpoint<SBAccount> {
