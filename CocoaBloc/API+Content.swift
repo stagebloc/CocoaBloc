@@ -88,6 +88,7 @@ extension API {
 	}
 	
 	public static func postPhotoToAccount(accountID: Int,
+	                                      photoData: NSData,
 	                                      title: String?,
 	                                      description: String?,
 	                                      exclusive: Bool?) -> Endpoint<SBAccountPhoto> {
@@ -98,6 +99,7 @@ extension API {
 				"title": title,
 				"description": description,
 				"exclusive": exclusive
-			].filterNil())
+			].filterNil(),
+			formData: [FormDataPart(title: title ?? "Photo", dataType: .Data(photoData))])
 	}
 }
