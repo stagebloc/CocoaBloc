@@ -68,7 +68,7 @@ extension API {
 			])
 	}
 	
-	public static func postStatusToAccount(accountID: Int, text: String) -> Endpoint<SBStatus> {
+	public static func postStatusToAccount(accountID: Int, text: String) -> Endpoint<[SBStatus]> {
 		return Endpoint(
 			path: "/account/\(accountID)/status",
 			method: .POST,

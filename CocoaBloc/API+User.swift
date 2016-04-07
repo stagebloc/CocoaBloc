@@ -38,8 +38,6 @@ extension API {
 						authState.authenticatedUser = user
 					} catch _ as NSError {
 						// json serialization error
-						// TODO(danzimm): Investigate sending an error down the chain after
-						//				  this failure
 					}
 				}
 

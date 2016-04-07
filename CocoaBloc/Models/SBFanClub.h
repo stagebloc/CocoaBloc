@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable) NSNumber *userTier;
 
-// TODO(danzimm): This is an dictionary of n objects, there may or may not be tier 1,2,3
+// Note that this is a dictionary of n objects, there may or may not be tier 1,2,3
 @property (nonatomic, nullable) SBTier *tierOne;
 @property (nonatomic, nullable) SBTier *tierTwo;
 @property (nonatomic, nullable) SBTier *tierThree;
