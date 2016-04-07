@@ -18,10 +18,12 @@ private func failureForError<Value>(error: NSError, data: NSData?) -> Result<Val
 			guard
 				let metadata = jsonDictionary["metadata"] as? [String:AnyObject],
 				let errorString = metadata["error"] as? String else {
+					print("Failure parsing error dict \(jsonDictionary)")
 					return .Failure(Error.UnexpectedResponseType)
 			}
 			return .Failure(Error.API(errorString))
 		} else {
+			print("Failed to create json dict in error \(jsonObject)")
 			return .Failure(Error.UnexpectedResponseType)
 		}
 	} catch let error as NSError {
@@ -34,6 +36,7 @@ public extension Request {
 	/// Serializer for a single Mantle model object
 	public class func MantleResponseSerializer<Model: MTLModel>(keyPath: String) -> Alamofire.ResponseSerializer<Model, CocoaBloc.Error> {
 		return ResponseSerializer { request, response, data, error in
+			print("Attempting to serialize")
 			let JSONSerializer = Request.JSONResponseSerializer()
 			switch JSONSerializer.serializeResponse(request, response, data, error) {
 				
@@ -43,6 +46,7 @@ public extension Request {
 						if let model = try MTLJSONAdapter.modelOfClass(Model.self, fromJSONDictionary: data) as? Model {
 							return .Success(model)
 						} else {
+							print("failed to parse to model \(data)")
 							return .Failure(Error.UnexpectedResponseType)
 						}
 					}
@@ -50,6 +54,7 @@ public extension Request {
 						return .Failure(Error.JSONSerialization(error))
 					}
 				} else {
+					print("Failed to parse to dictionary \(jsonObject)")
 					return .Failure(Error.UnexpectedResponseType)
 				}
 				
@@ -72,6 +77,7 @@ public extension Request {
 						if let model = try MTLJSONAdapter.modelsOfClass(Model.self, fromJSONArray: data) as? [Model] {
 							return .Success(model)
 						} else {
+							print("failed to parse to models \(data)")
 							return .Failure(Error.UnexpectedResponseType)
 						}
 					}
@@ -79,6 +85,7 @@ public extension Request {
 						return .Failure(Error.JSONSerialization(error))
 					}
 				} else {
+					print("Failed to parse to dictionarys \(jsonObject)")
 					return .Failure(Error.UnexpectedResponseType)
 				}
 				

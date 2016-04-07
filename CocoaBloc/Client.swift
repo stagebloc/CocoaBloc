@@ -54,6 +54,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 	public func request<Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = []) -> Request {
+		print("Making request \(endpoint.path)")
 		var params: [String: AnyObject] = [
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
 		].withEntries(endpoint.parameters)
