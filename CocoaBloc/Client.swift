@@ -27,7 +27,7 @@ public typealias Client = APIClient<AuthenticationState>
 
 public final class APIClient<AuthStateType: AuthenticationStateType> {
 	
-	private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
+	private let baseURL = NSURL(string: "https://api.hermes.staging.public.stagebloc.co/v1")!
 	private let manager: Manager
 	
 	// OAuth2 application details

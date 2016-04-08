@@ -10,6 +10,15 @@ import Foundation
 
 extension API {
 	
+	public struct ContentStreamFlavor: OptionSetType {
+		public let rawValue: Int
+		
+		public init(rawValue: Int) { self.rawValue = rawValue }
+		
+		public static let Fan = ContentStreamFlavor(rawValue: 1 << 0)
+		public static let Official = ContentStreamFlavor(rawValue: 1 << 1)
+	}
+	
 	public static func getFanClubDashboard(accountID: Int) -> Endpoint<SBFanClubDashboard> {
 		return Endpoint(
 			path: "account\(accountID)/fanclub/dashboard",
@@ -38,11 +47,12 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func getContentFromFollowedFanClubs() -> Endpoint<[SBContentStreamObject]> {
-		return Endpoint(
-			path: "account/fanclubs/following/content",
-			method: .GET)
-	}
+	public static func getContentFromFollowedFanClubs(flavor: ContentStreamFlavor)
+		-> Endpoint<[SBContentStreamObject]> {
+			return Endpoint(
+				path: "account/fanclubs/following/content",
+				method: .GET)
+		}
 	
 	public static func getFanClub(accountID: Int) -> Endpoint<SBFanClub> {
 		return Endpoint(
