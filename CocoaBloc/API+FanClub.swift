@@ -17,7 +17,7 @@ extension API {
 		
 		public static let Fan = ContentStreamFilter(rawValue: 1 << 0)
 		public static let Official = ContentStreamFilter(rawValue: 1 << 1)
-		public static let All = [Fan, Official]
+		public static let All: ContentStreamFilter = [Fan, Official]
 	}
 	
 	public static func getFanClubDashboard(accountID: Int) -> Endpoint<SBFanClubDashboard> {
