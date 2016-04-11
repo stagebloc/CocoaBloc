@@ -17,7 +17,8 @@ extension API {
 		
 		public static let Fan = ContentStreamFilter(rawValue: 1 << 0)
 		public static let Official = ContentStreamFilter(rawValue: 1 << 1)
-		public static let All: ContentStreamFilter = [Fan, Official]
+		public static let IncludingAdminAccounts = ContentStreamFilter(rawValue: 1 << 2)
+		public static let All: ContentStreamFilter = [Fan, Official, IncludingAdminAccounts]
 	}
 	
 	public static func getFanClubDashboard(accountID: Int) -> Endpoint<SBFanClubDashboard> {
@@ -48,17 +49,18 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func getContentFromFollowedFanClubs(filter: ContentStreamFilter = .Fan)
-		-> Endpoint<[SBContentStreamObject]> {
-			return Endpoint(
-				path: "account/fanclubs/following/content",
-				method: .GET,
-				parameters: [
-					"include_account_content": filter.contains(.Official),
-					"include_fan_content": filter.contains(.Fan)
-				]
-			)
-		}
+	public static func getContentFromFollowedFanClubs(
+		filter: ContentStreamFilter = [.Fan, .IncludingAdminAccounts]) -> Endpoint<[SBContentStreamObject]> {
+		return Endpoint(
+			path: "account/fanclubs/following/content",
+			method: .GET,
+			parameters: [
+				"include_account_content": filter.contains(.Official),
+				"include_fan_content": filter.contains(.Fan),
+				"include_admin_accounts": filter.contains(.IncludingAdminAccounts),
+			]
+		)
+	}
 	
 	public static func getFanClub(accountID: Int) -> Endpoint<SBFanClub> {
 		return Endpoint(
