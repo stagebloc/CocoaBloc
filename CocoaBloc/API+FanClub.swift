@@ -21,7 +21,7 @@ extension API {
 		public static let All: ContentStreamFilter = [Fan, Official, IncludingAdminAccounts]
 		
 		public var validated: ContentStreamFilter? {
-			return ContentStreamFilter.All.contains(self) ? self : nil
+			return ContentStreamFilter.All.contains(self) && self.rawValue != 0 ? self : nil
 		}
 	}
 	
