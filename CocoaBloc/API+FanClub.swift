@@ -20,7 +20,7 @@ extension API {
 		public static let IncludingAdminAccounts = ContentStreamFilter(rawValue: 1 << 2)
 		public static let All: ContentStreamFilter = [Fan, Official, IncludingAdminAccounts]
 		
-		var validated: ContentStreamFilter? {
+		public var validated: ContentStreamFilter? {
 			return ContentStreamFilter.All.contains(self) ? self : nil
 		}
 	}
