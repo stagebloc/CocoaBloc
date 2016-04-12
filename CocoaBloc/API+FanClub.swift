@@ -19,6 +19,10 @@ extension API {
 		public static let Official = ContentStreamFilter(rawValue: 1 << 1)
 		public static let IncludingAdminAccounts = ContentStreamFilter(rawValue: 1 << 2)
 		public static let All: ContentStreamFilter = [Fan, Official, IncludingAdminAccounts]
+		
+		var validated: ContentStreamFilter? {
+			return ContentStreamFilter.All.contains(self) ? self : nil
+		}
 	}
 	
 	public static func getFanClubDashboard(accountID: Int) -> Endpoint<SBFanClubDashboard> {
