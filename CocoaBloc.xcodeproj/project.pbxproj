@@ -204,10 +204,9 @@
 		090E11051C008E9C0001C943 = {
 			isa = PBXGroup;
 			children = (
-				0925DF631C04C84E00BD43E0 /* Mantle.framework */,
-				0994C2341C012E7100EE0706 /* Alamofire.framework */,
 				090E11111C008E9C0001C943 /* CocoaBloc */,
 				090E111D1C008E9C0001C943 /* CocoaBlocTests */,
+				97841A741CE8DB1E00F9804C /* Dependencies */,
 				090E11101C008E9C0001C943 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -225,23 +224,23 @@
 			isa = PBXGroup;
 			children = (
 				098DC4161C1F64380084AE45 /* Extensions */,
-				098DC41A1C1F64380084AE45 /* Protocols */,
-				0925DFBE1C053B9A00BD43E0 /* Private */,
 				0925DF6D1C05344100BD43E0 /* Models */,
-				090E11121C008E9C0001C943 /* CocoaBloc.h */,
-				090E11141C008E9C0001C943 /* Info.plist */,
-				0994C23A1C012ED500EE0706 /* Client.swift */,
-				0925DF651C0514F400BD43E0 /* Error.swift */,
-				81A7447C1CA5AB1500ADA158 /* FormData.swift */,
-				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
-				81F35F891C285ABB002B9D74 /* API.swift */,
-				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
-				81F35F7D1C2859B7002B9D74 /* API+Content.swift */,
+				0925DFBE1C053B9A00BD43E0 /* Private */,
+				098DC41A1C1F64380084AE45 /* Protocols */,
 				81F35F7F1C2859E2002B9D74 /* API+Account.swift */,
 				81F35F811C285A0B002B9D74 /* API+Comment.swift */,
-				81F35F831C285A35002B9D74 /* API+Store.swift */,
-				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
+				81F35F7D1C2859B7002B9D74 /* API+Content.swift */,
 				81F35F871C285A83002B9D74 /* API+Coupon.swift */,
+				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
+				81F35F831C285A35002B9D74 /* API+Store.swift */,
+				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
+				81F35F891C285ABB002B9D74 /* API.swift */,
+				0994C23A1C012ED500EE0706 /* Client.swift */,
+				090E11121C008E9C0001C943 /* CocoaBloc.h */,
+				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
+				0925DF651C0514F400BD43E0 /* Error.swift */,
+				81A7447C1CA5AB1500ADA158 /* FormData.swift */,
+				090E11141C008E9C0001C943 /* Info.plist */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -258,10 +257,10 @@
 		0925DF6D1C05344100BD43E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0925DF861C05344100BD43E0 /* SBAccountPhoto.h */,
-				0925DF871C05344100BD43E0 /* SBAccountPhoto.m */,
 				0925DF6E1C05344100BD43E0 /* SBAccount.h */,
 				0925DF6F1C05344100BD43E0 /* SBAccount.m */,
+				0925DF861C05344100BD43E0 /* SBAccountPhoto.h */,
+				0925DF871C05344100BD43E0 /* SBAccountPhoto.m */,
 				0925DF701C05344100BD43E0 /* SBAddress.h */,
 				0925DF711C05344100BD43E0 /* SBAddress.m */,
 				0925DF721C05344100BD43E0 /* SBAudio.h */,
@@ -274,14 +273,14 @@
 				0925DF791C05344100BD43E0 /* SBContent.m */,
 				4B9B802C1C87A514005A4C68 /* SBContentStreamObject.h */,
 				4B9B802D1C87A514005A4C68 /* SBContentStreamObject.m */,
-				4B15831A1C84F489004499D9 /* SBModifiableContent.h */,
-				4B15831B1C84F489004499D9 /* SBModifiableContent.m */,
 				4B4326B11C80BE07007D23F6 /* SBEvent.h */,
 				4B4326B21C80BE07007D23F6 /* SBEvent.m */,
 				0925DF7A1C05344100BD43E0 /* SBFanClub.h */,
 				0925DF7B1C05344100BD43E0 /* SBFanClub.m */,
 				0925DF7C1C05344100BD43E0 /* SBFanClubDashboard.h */,
 				0925DF7D1C05344100BD43E0 /* SBFanClubDashboard.m */,
+				4B15831A1C84F489004499D9 /* SBModifiableContent.h */,
+				4B15831B1C84F489004499D9 /* SBModifiableContent.m */,
 				0925DF7E1C05344100BD43E0 /* SBNotification.h */,
 				0925DF7F1C05344100BD43E0 /* SBNotification.m */,
 				0925DF801C05344100BD43E0 /* SBNotificationSettings.h */,
@@ -300,11 +299,11 @@
 				0925DF8F1C05344100BD43E0 /* SBStoreItem.m */,
 				0925DF901C05344100BD43E0 /* SBTier.h */,
 				0925DF911C05344100BD43E0 /* SBTier.m */,
+				0925DF921C05344100BD43E0 /* SBUser.h */,
+				0925DF931C05344100BD43E0 /* SBUser.m */,
 				4B12CF681C999FF900994AE1 /* SBUserColor.h */,
 				4B12CF6C1C99A9B000994AE1 /* SBUserPhoto.h */,
 				4B12CF6D1C99A9B000994AE1 /* SBUserPhoto.m */,
-				0925DF921C05344100BD43E0 /* SBUser.h */,
-				0925DF931C05344100BD43E0 /* SBUser.m */,
 				0925DF941C05344100BD43E0 /* SBVideo.h */,
 				0925DF951C05344100BD43E0 /* SBVideo.m */,
 			);
@@ -315,13 +314,13 @@
 			isa = PBXGroup;
 			children = (
 				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
-				092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */,
-				81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */,
-				81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */,
 				0925DFC01C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.h */,
 				0925DFC11C053B9A00BD43E0 /* MTLValueTransformer+CocoaBloc.m */,
+				81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */,
 				0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */,
 				0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */,
+				81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */,
+				092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -329,22 +328,29 @@
 		098DC4161C1F64380084AE45 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */,
 				09A8CEFC1C2080C60059C0E2 /* Alamofire-Request+MantleSerialization.swift */,
+				098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */,
 			);
-			name = Extensions;
-			path = old/Extensions;
-			sourceTree = SOURCE_ROOT;
+			path = Extensions;
+			sourceTree = "<group>";
 		};
 		098DC41A1C1F64380084AE45 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				098DC41B1C1F64380084AE45 /* ContentType.swift */,
 				092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */,
+				098DC41B1C1F64380084AE45 /* ContentType.swift */,
 			);
-			name = Protocols;
-			path = old/Protocols;
-			sourceTree = SOURCE_ROOT;
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		97841A741CE8DB1E00F9804C /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				0925DF631C04C84E00BD43E0 /* Mantle.framework */,
+				0994C2341C012E7100EE0706 /* Alamofire.framework */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 

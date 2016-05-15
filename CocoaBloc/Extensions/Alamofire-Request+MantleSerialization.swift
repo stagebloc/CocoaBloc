@@ -32,7 +32,11 @@ private func failureForError<Value>(error: NSError, data: NSData?) -> Result<Val
 public extension Request {
 	
 	/// Serializer for a single Mantle model object
-	public class func MantleResponseSerializer<Model: MTLModel>(keyPath: String) -> Alamofire.ResponseSerializer<Model, CocoaBloc.Error> {
+	/// - parameters:
+	///		- keyPath: The JSON key path to look for the model JSON at in the response
+	/// - returns: A response serializer for a single Mantle model
+	public class func MantleResponseSerializer<Model: MTLModel>(keyPath: String)
+		-> Alamofire.ResponseSerializer<Model, CocoaBloc.Error> {
 		return ResponseSerializer { request, response, data, error in
 			let JSONSerializer = Request.JSONResponseSerializer()
 			switch JSONSerializer.serializeResponse(request, response, data, error) {
@@ -45,8 +49,7 @@ public extension Request {
 						} else {
 							return .Failure(Error.UnexpectedResponseType)
 						}
-					}
-					catch let error as NSError {
+					} catch let error as NSError {
 						return .Failure(Error.JSONSerialization(error))
 					}
 				} else {
@@ -60,7 +63,11 @@ public extension Request {
 	}
 	
 	/// Serializer for an array of Mantle model objects
-	public class func MantleResponseSerializer<Model: MTLModel>(keyPath: String) -> Alamofire.ResponseSerializer<[Model], CocoaBloc.Error> {
+	/// - parameters:
+	///		- keyPath: The JSON key path to look for the model JSON at in the response
+	/// - returns: A response serializer for an array of Mantle models
+	public class func MantleResponseSerializer<Model: MTLModel>(keyPath: String)
+		-> Alamofire.ResponseSerializer<[Model], CocoaBloc.Error> {
 		return ResponseSerializer { request, response, data, error in
 			let JSONSerializer = Request.JSONResponseSerializer()
 			switch JSONSerializer.serializeResponse(request, response, data, error) {
@@ -74,8 +81,7 @@ public extension Request {
 						} else {
 							return .Failure(Error.UnexpectedResponseType)
 						}
-					}
-					catch let error as NSError {
+					} catch let error as NSError {
 						return .Failure(Error.JSONSerialization(error))
 					}
 				} else {
@@ -87,5 +93,4 @@ public extension Request {
 			}
 		}
 	}
-	
 }
