@@ -36,9 +36,14 @@
 		9784110E1CF4E6C4004788C0 /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110D1CF4E6C4004788C0 /* NSDateFormatter.swift */; };
 		978411101CF4E858004788C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110F1CF4E858004788C0 /* Account.swift */; };
 		978411141CF4EAC0004788C0 /* AccountPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411131CF4EAC0004788C0 /* AccountPhoto.swift */; };
-		97948A5F1CF4FF5100D521BD /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411111CF4E9F2004788C0 /* StoreItem.swift */; };
 		97948A611CF4FFCE00D521BD /* Shipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A601CF4FFCE00D521BD /* Shipping.swift */; };
 		97948A631CF5005B00D521BD /* ShippingFulfiller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A621CF5005B00D521BD /* ShippingFulfiller.swift */; };
+		97948A651CF519B100D521BD /* Curry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97948A641CF519B100D521BD /* Curry.framework */; };
+		97948A661CF519CB00D521BD /* Curry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97948A641CF519B100D521BD /* Curry.framework */; };
+		97948A671CF519CE00D521BD /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978410FE1CF4DA0D004788C0 /* Argo.framework */; };
+		97948A681CF519D100D521BD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
+		97948A6A1CF51C0500D521BD /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A691CF51C0500D521BD /* Request.swift */; };
+		97948A6C1CF51C5000D521BD /* AuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A6B1CF51C5000D521BD /* AuthenticationState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +63,6 @@
 		090E11191C008E9C0001C943 /* CocoaBlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaBlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaBlocTests.swift; sourceTree = "<group>"; };
 		090E11201C008E9C0001C943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0925DF631C04C84E00BD43E0 /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 		0925DF651C0514F400BD43E0 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		0925DF6E1C05344100BD43E0 /* SBAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAccount.h; sourceTree = "<group>"; };
 		0925DF6F1C05344100BD43E0 /* SBAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAccount.m; sourceTree = "<group>"; };
@@ -145,6 +149,9 @@
 		978411131CF4EAC0004788C0 /* AccountPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPhoto.swift; sourceTree = "<group>"; };
 		97948A601CF4FFCE00D521BD /* Shipping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shipping.swift; sourceTree = "<group>"; };
 		97948A621CF5005B00D521BD /* ShippingFulfiller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingFulfiller.swift; sourceTree = "<group>"; };
+		97948A641CF519B100D521BD /* Curry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Curry.framework; path = Carthage/Build/iOS/Curry.framework; sourceTree = "<group>"; };
+		97948A691CF51C0500D521BD /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		97948A6B1CF51C5000D521BD /* AuthenticationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97948A651CF519B100D521BD /* Curry.framework in Frameworks */,
 				978410FF1CF4DA0D004788C0 /* Argo.framework in Frameworks */,
 				0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */,
 			);
@@ -161,7 +169,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97948A681CF519D100D521BD /* Alamofire.framework in Frameworks */,
 				090E111A1C008E9C0001C943 /* CocoaBloc.framework in Frameworks */,
+				97948A661CF519CB00D521BD /* Curry.framework in Frameworks */,
+				97948A671CF519CE00D521BD /* Argo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,11 +215,11 @@
 				978411021CF4DC69004788C0 /* Expandable.swift */,
 				81F35F891C285ABB002B9D74 /* API.swift */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
-				090E11121C008E9C0001C943 /* CocoaBloc.h */,
+				97948A6B1CF51C5000D521BD /* AuthenticationState.swift */,
 				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
 				0925DF651C0514F400BD43E0 /* Error.swift */,
 				81A7447C1CA5AB1500ADA158 /* FormData.swift */,
-				090E11141C008E9C0001C943 /* Info.plist */,
+				97948A6D1CF51C8000D521BD /* Resources */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -259,6 +270,7 @@
 				978411061CF4E5DB004788C0 /* NSDate.swift */,
 				9784110B1CF4E629004788C0 /* APITypes.swift */,
 				9784110D1CF4E6C4004788C0 /* NSDateFormatter.swift */,
+				97948A691CF51C0500D521BD /* Request.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -332,11 +344,20 @@
 		97841A741CE8DB1E00F9804C /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				97948A641CF519B100D521BD /* Curry.framework */,
 				978410FE1CF4DA0D004788C0 /* Argo.framework */,
-				0925DF631C04C84E00BD43E0 /* Mantle.framework */,
 				0994C2341C012E7100EE0706 /* Alamofire.framework */,
 			);
 			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		97948A6D1CF51C8000D521BD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				090E11121C008E9C0001C943 /* CocoaBloc.h */,
+				090E11141C008E9C0001C943 /* Info.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,8 +487,9 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Argo.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Curry.framework",
 			);
 			outputPaths = (
 			);
@@ -484,7 +506,6 @@
 			files = (
 				092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */,
 				9784110A1CF4E606004788C0 /* User.swift in Sources */,
-				97948A5F1CF4FF5100D521BD /* StoreItem.swift in Sources */,
 				97948A611CF4FFCE00D521BD /* Shipping.swift in Sources */,
 				0925DF661C0514F400BD43E0 /* Error.swift in Sources */,
 				978411011CF4DC31004788C0 /* Identifiable.swift in Sources */,
@@ -492,9 +513,11 @@
 				978411031CF4DC69004788C0 /* Expandable.swift in Sources */,
 				97948A631CF5005B00D521BD /* ShippingFulfiller.swift in Sources */,
 				81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */,
+				97948A6C1CF51C5000D521BD /* AuthenticationState.swift in Sources */,
 				092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */,
 				978411051CF4E5C2004788C0 /* NSURL.swift in Sources */,
 				978411101CF4E858004788C0 /* Account.swift in Sources */,
+				97948A6A1CF51C0500D521BD /* Request.swift in Sources */,
 				098DC4201C1F64380084AE45 /* ContentType.swift in Sources */,
 				9784110E1CF4E6C4004788C0 /* NSDateFormatter.swift in Sources */,
 				092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */,

@@ -17,7 +17,7 @@ public struct ShippingPriceHandler: Decodable, Identifiable {
 	
 	public static func decode(json: JSON) -> Decoded<ShippingPriceHandler> {
 		return curry(ShippingPriceHandler.init)
-			<^> json <| "identifier"
+			<^> json <| "id"
 			<*> json <| "name"
 			<*> json <| "price"
 	}

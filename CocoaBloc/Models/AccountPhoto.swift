@@ -40,7 +40,7 @@ public struct AccountPhoto: Decodable, Identifiable {
 	
 	public static func decode(json: JSON) -> Decoded<AccountPhoto> {
 		let a = curry(AccountPhoto.init)
-			<^> json <| "identifier"
+			<^> json <| "id"
 			<*> json <| "account"
 			<*> json <| "title"
 			<*> json <| "category"

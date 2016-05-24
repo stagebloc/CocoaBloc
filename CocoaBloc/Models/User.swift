@@ -21,7 +21,7 @@ public struct User: Decodable, Identifiable {
 	
 	public static func decode(json: JSON) -> Decoded<User> {
 		return curry(User.init)
-			<^> json <| "identifier"
+			<^> json <| "id"
 			<*> json <| "url"
 			<*> json <| "created"
 			<*> json <| "name"

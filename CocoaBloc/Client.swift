@@ -9,20 +9,6 @@
 import Argo
 import Alamofire
 
-public final class AuthenticationState: AuthenticationStateType {
-	public var authenticationToken: String?
-	public var authenticatedUser: User?
-	
-	public init(authenticationToken: String? = nil, authenticatedUser: User? = nil) {
-		self.authenticationToken = authenticationToken
-		self.authenticatedUser = authenticatedUser
-	}
-	
-	public convenience init() {
-		self.init(authenticationToken: nil, authenticatedUser: nil)
-	}
-}
-
 public typealias Client = APIClient<AuthenticationState>
 
 public final class APIClient<AuthStateType: AuthenticationStateType> {
@@ -77,28 +63,29 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		return request
 	}
 	
-//	public func request<Serialized: Decodable>(
-//		endpoint: Endpoint<Serialized>,
-//		expansions: [API.ExpandableValue] = [],
-//		completion: Response<Serialized, CocoaBloc.Error> -> ()) -> Request {
-//		let req = request(endpoint, expansions: expansions)
-//		return req.response(
-//			responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
-//			completionHandler: completion
-//		)
-//	}
-//	
-//	public func request<Serialized: SequenceType where Serialized.Generator.Element: Decodable>(
-//		endpoint: Endpoint<Serialized>,
-//		expansions: [API.ExpandableValue] = [],
-//		completion: Response<[Serialized.Generator.Element], CocoaBloc.Error> -> ()) -> Request {
-//		let req = request(endpoint, expansions: expansions)
-//		return req.response(
-//			responseSerializer: Request.MantleResponseSerializer(endpoint.keyPath),
-//			completionHandler: completion
-//		)
-//	}
-//	
+	public func request<Serialized: Decodable>(
+		endpoint: Endpoint<Serialized>,
+		expansions: [API.ExpandableValue] = [],
+		completion: Response<Serialized.DecodedType, CocoaBloc.Error> -> ()) -> Request {
+		let req = request(endpoint, expansions: expansions)
+		return req.response(
+			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
+			completionHandler: completion
+		)
+	}
+	
+	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
+		endpoint: Endpoint<[Serialized]>,
+		expansions: [API.ExpandableValue] = [],
+		completion: Response<[Serialized.DecodedType], CocoaBloc.Error> -> ()) -> Request {
+		let req = request(endpoint, expansions: expansions)
+		return req.response(
+			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
+			completionHandler: completion
+		)
+	}
+	
+//
 //	public func upload<Serialized>(
 //		endpoint: Endpoint<Serialized>,
 //		expansions: [API.ExpandableValue] = [],

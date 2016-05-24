@@ -15,9 +15,9 @@ public struct ShippingFulfiller: Decodable, Identifiable {
 	public let type: String
 	public let name: String
 	
-	public static func decode(json: JSON) -> Decoded<Fulfiller> {
-		return curry(Fulfiller.init)
-			<^> json <| "identifier"
+	public static func decode(json: JSON) -> Decoded<ShippingFulfiller> {
+		return curry(ShippingFulfiller.init)
+			<^> json <| "id"
 			<*> json <| "type"
 			<*> json <| "name"
 	}
