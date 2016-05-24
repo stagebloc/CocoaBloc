@@ -1,8 +1,8 @@
 [submodule "Carthage/Checkouts/Alamofire"]
+	path = Carthage/Checkouts/Alamofire
 	url = https://github.com/Alamofire/Alamofire.git
 	ignore = dirty
-	path = Carthage/Checkouts/Alamofire
-[submodule "Carthage/Checkouts/Mantle"]
-	url = https://github.com/Mantle/Mantle.git
+[submodule "Carthage/Checkouts/Argo"]
+	path = Carthage/Checkouts/Argo
+	url = https://github.com/thoughtbot/Argo.git
 	ignore = dirty
-	path = Carthage/Checkouts/Mantle

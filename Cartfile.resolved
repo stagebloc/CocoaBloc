@@ -1,2 +1,2 @@
 github "Alamofire/Alamofire" "3.4.0"
-github "Mantle/Mantle" "2.0.7"
+github "thoughtbot/Argo" "v3.0.1"
