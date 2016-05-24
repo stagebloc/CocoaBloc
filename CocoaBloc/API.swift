@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Mantle
 import Alamofire
 
 public struct API {

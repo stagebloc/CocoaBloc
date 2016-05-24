@@ -15,40 +15,40 @@ extension API {
 		authState.authenticationToken = nil
 		authState.authenticatedUser = nil
 		
-		request.responseJSON { response in
-			switch response.result {
-			case .Success(let json):
-				guard
-					let json = json as? [String:AnyObject],
-					let data = json["data"] as? [String:AnyObject] else {
-						return // invalid response (doesn't match sb json structure)
-					}
-				
-				// set the oauth token
-				if let token = data["access_token"] as? String {
-					authState.authenticationToken = token
-				}
-				
-				// set the authenticated user
-				if let userJSON = data["user"] as? [String:AnyObject] {
-					do {
-						// swiftlint:disable force_cast
-						let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userJSON) as! SBUser
-						// swiftlint:enable force_cast
-						authState.authenticatedUser = user
-					} catch _ as NSError {
-						// json serialization error
-					}
-				}
-
-			case .Failure(_):
-				// We want to let failures pass through our side effect for whoever to handle
-				break
-			}
-		}
+//		request.responseJSON { response in
+//			switch response.result {
+//			case .Success(let json):
+//				guard
+//					let json = json as? [String:AnyObject],
+//					let data = json["data"] as? [String:AnyObject] else {
+//						return // invalid response (doesn't match sb json structure)
+//					}
+//				
+//				// set the oauth token
+//				if let token = data["access_token"] as? String {
+//					authState.authenticationToken = token
+//				}
+//				
+//				// set the authenticated user
+//				if let userJSON = data["user"] as? [String:AnyObject] {
+//					do {
+//						// swiftlint:disable force_cast
+//						let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userJSON) as! SBUser
+//						// swiftlint:enable force_cast
+//						authState.authenticatedUser = user
+//					} catch _ as NSError {
+//						// json serialization error
+//					}
+//				}
+//
+//			case .Failure(_):
+//				// We want to let failures pass through our side effect for whoever to handle
+//				break
+//			}
+//		}
 	}
 
-	public static func loginWithAuthorizationCode(authorizationCode: String) -> Endpoint<SBUser> {
+	public static func loginWithAuthorizationCode(authorizationCode: String) -> Endpoint<User> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
@@ -60,7 +60,7 @@ extension API {
 			sideEffect: userAuthSideEffect)
 	}
 	
-	public static func logInWithUsername(username: String, password: String) -> Endpoint<SBUser> {
+	public static func logInWithUsername(username: String, password: String) -> Endpoint<User> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
@@ -75,13 +75,13 @@ extension API {
 	}
 	
 	
-	public static func getUser(userID: Int) -> Endpoint<SBUser> {
+	public static func getUser(userID: Int) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/\(userID)",
 			method: .GET)
 	}
 	
-	public static func getCurrentlyAuthenticatedUser() -> Endpoint<SBUser> {
+	public static func getCurrentlyAuthenticatedUser() -> Endpoint<User> {
 		return Endpoint(
 			path: "users/me",
 			method: .GET)
@@ -102,7 +102,7 @@ extension API {
 			])
 	}
 	
-	public static func updateUserLocation(latitude: Double, longitude: Double) -> Endpoint<SBUser> {
+	public static func updateUserLocation(latitude: Double, longitude: Double) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/me/location/update",
 			method: .POST,
@@ -120,7 +120,7 @@ extension API {
 		name: String?,
 		gender: Gender?,
 		color: UserColor?
-	) -> Endpoint<SBUser> {
+	) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/me",
 			method: .POST,
@@ -135,7 +135,7 @@ extension API {
 			].filterNil())
 	}
 	
-	public static func updateAuthenticatedUserImage(formData: FormDataPart) -> Endpoint<SBUser> {
+	public static func updateAuthenticatedUserImage(formData: FormDataPart) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/me",
 			method: .POST,
@@ -150,7 +150,7 @@ extension API {
 		birthday: NSDate,
 		gender: Gender,
 		sourceAccountID: Int?
-	) -> Endpoint<SBUser> {
+	) -> Endpoint<User> {
 		let df = NSDateFormatter()
 		df.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
 		df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
@@ -172,18 +172,18 @@ extension API {
 			sideEffect: userAuthSideEffect)
 	}
 	
-	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[SBUser]> {
+	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[User]> {
 		return Endpoint(
 			path: "account/\(accountID)/fans",
 			method: .GET)
 	}
 	
-	public static func getContentForUser(
-		userID: Int,
-		contentListType: ContentListType
-	) -> Endpoint<[SBContentStreamObject]> {
-		return Endpoint(
-			path: "users/\(userID)/content/\(contentListType.rawValue)",
-			method: .GET)
-	}
+//	public static func getContentForUser(
+//		userID: Int,
+//		contentListType: ContentListType
+//	) -> Endpoint<[SBContentStreamObject]> {
+//		return Endpoint(
+//			path: "users/\(userID)/content/\(contentListType.rawValue)",
+//			method: .GET)
+//	}
 }

@@ -16,7 +16,7 @@ extension API {
 		url: String,
 		type: AccountType,
 		color: AccountColor
-	) -> Endpoint<SBAccount> {
+	) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account",
 			method: .POST,
@@ -36,7 +36,7 @@ extension API {
 		url: String?,
 		type: AccountType?,
 		color: AccountColor?
-		) -> Endpoint<SBAccount> {
+		) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account/\(accountID)",
 			method: .POST,
@@ -50,21 +50,21 @@ extension API {
 	}
 	
 	public static func updateAccountImage(accountID: Int,
-	                                      formData: FormDataPart) -> Endpoint<SBAccount> {
+	                                      formData: FormDataPart) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)",
 			method: .POST,
 			formData: [formData])
 	}
 	
-	public static func followAccount(accountID: Int) -> Endpoint<SBAccount> {
+	public static func followAccount(accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
 			method: .POST,
 			keyPath: "account")
 	}
 	
-	public static func unfollowAccount(accountID: Int) -> Endpoint<SBAccount> {
+	public static func unfollowAccount(accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
 			method: .DELETE,
@@ -72,7 +72,7 @@ extension API {
 	}
 	
 	// Set admin to true to get accounts youre an admin of, otherwise gets accounts you're following.
-	public static func getAuthenticatedUserAccounts(admin: Bool = false) -> Endpoint<[SBAccount]> {
+	public static func getAuthenticatedUserAccounts(admin: Bool = false) -> Endpoint<[Account]> {
 		return Endpoint(
 			path: "accounts",
 			method: .GET,
@@ -82,7 +82,7 @@ extension API {
 			])
 	}
 	
-	public static func getAccount(accountID: Int) -> Endpoint<SBAccount> {
+	public static func getAccount(accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account/\(accountID)",
 			method: .GET)

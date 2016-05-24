@@ -9,7 +9,7 @@
 /// Represents a type that has a mutable interface of authentication properties
 public protocol AuthenticationStateType: class {
 	var authenticationToken: String? { get set }
-	var authenticatedUser: SBUser? { get set }
+	var authenticatedUser: User? { get set }
 	
 	init()
 }

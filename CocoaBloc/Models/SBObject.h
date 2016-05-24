@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 StageBloc. All rights reserved.
 //
 
-@import Mantle;
 
 NS_ASSUME_NONNULL_BEGIN
 

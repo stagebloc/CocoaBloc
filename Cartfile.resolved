@@ -1,2 +1,3 @@
 github "Alamofire/Alamofire" "3.4.0"
 github "thoughtbot/Argo" "v3.0.1"
+github "thoughtbot/Curry" "v2.2.0"
