@@ -326,7 +326,7 @@
 				0925DF941C05344100BD43E0 /* SBVideo.h */,
 				0925DF951C05344100BD43E0 /* SBVideo.m */,
 			);
-			name = old;
+			path = old;
 			sourceTree = "<group>";
 		};
 		97841A741CE8DB1E00F9804C /* Dependencies */ = {
