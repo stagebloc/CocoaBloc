@@ -70,8 +70,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
-			completionHandler: completion
-		)
+			completionHandler: completion)
 	}
 	
 	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
@@ -81,8 +80,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
-			completionHandler: completion
-		)
+			completionHandler: completion)
 	}
 	
 //

@@ -10,7 +10,7 @@ import Foundation
 
 extension API {
 	
-	public static func getCommentsForContent(content: ContentType) -> Endpoint<[SBComment]> {
+	public static func getCommentsForContent(content: ContentType) -> Endpoint<[Comment]> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comments",
 			method: .GET)
@@ -20,7 +20,7 @@ extension API {
 		commentID: Int,
 		accountID: Int,
 		contentType: ContentTypeIdentifier
-	) -> Endpoint<[SBComment]> {
+	) -> Endpoint<[Comment]> {
 		return Endpoint(
 			path: "account/\(accountID)/\(contentType.rawValue)/comment/\(commentID)",
 			method: .GET)
@@ -39,7 +39,7 @@ extension API {
 	public static func postComment(
 		text: String,
 		onContent content: ContentType
-	) -> Endpoint<SBComment> {
+	) -> Endpoint<Comment> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comment",
 			method: .POST,
@@ -49,7 +49,7 @@ extension API {
 	public static func getComment(
 		commentID: Int,
 		content: ContentType
-	) -> Endpoint<SBComment> {
+	) -> Endpoint<Comment> {
 		return Endpoint(
 			path: "account\(content.postedAccountID)/\(content.contentType.rawValue)/comment/\(commentID)",
 			method: .GET)
