@@ -53,21 +53,27 @@ public struct StoreItem: Decodable, Identifiable {
 		case Physical(shippingPriceHandlers: [ShippingPriceHandler], fulfiller: ShippingFulfiller)
 		
 		public static func decode(json: JSON) -> Decoded<Type> {
-			switch json {
-			case .String(let string):
-				
-			}
+//			switch json {
+//				
+//			}
 		}
 	}
 	
-	public enum Currency {
-		case USD
+	public enum Currency: String {
+		case USD = "USD"
 	}
 	
-	public struct Sale {
+	public struct Sale: Decodable {
 		public let amountOff: Double
 		public let startDate: NSDate
 		public let endDate: NSDate
+		
+		public static func decode(json: JSON) -> Decoded<Sale> {
+			return curry(Sale.init)
+				<^> json <| "sale_amount"
+				<*> json <| "sale_start_date"
+				<*> json <| "sale_end_date"
+		}
 	}
 	
 	// MARK: Properties
@@ -86,18 +92,36 @@ public struct StoreItem: Decodable, Identifiable {
 	public let modificationDate: NSDate
 	public let modifier: Expandable<User>
 	public let category: String
-	public let sale: Sale?
+//	public let sale: Sale?
 	public let tags: [String]
 	public let fansNamePrice: Bool
 	public let options: [Option]
-	public let prices: [Currency: Double]
+//	public let prices: [Currency: Double]
 	public let coverPhoto: Expandable<AccountPhoto>
-	public let photos: [AccountPhoto]
+//	public let photos: [AccountPhoto]
 	
 	public static func decode(json: JSON) -> Decoded<StoreItem> {
-		return curry(StoreItem.init)
-			<^> json <| "identifier"
+		let a = curry(StoreItem.init)
+			<^> json <| "id"
 			<*> json <| "type"
+			<*> json <| "account"
+			<*> json <| "title"
+			<*> json <| "short_url"
+			<*> json <| "description"
+			<*> json <| "sold_out"
+			<*> json <| "exclusive"
+			<*> json <| "featured"
+		return a
+			<*> json <| "created"
+			<*> json <| "created_by"
+			<*> json <| "modified"
+			<*> json <| "modified_by"
+			<*> json <| "category"
 		
+			<*> json <|| "tags"
+			<*> json <| "fans_name_price"
+			<*> json <|| "options"
+		
+			<*> json <| "photo"
 	}
 }

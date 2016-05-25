@@ -51,6 +51,7 @@
 		97948A7E1CF52A7F00D521BD /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A7D1CF52A7F00D521BD /* Address.swift */; };
 		97948A801CF52B6200D521BD /* AudioPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A7F1CF52B6200D521BD /* AudioPlaylist.swift */; };
 		97948A811CF52E2000D521BD /* API+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F811C285A0B002B9D74 /* API+Comment.swift */; };
+		97948A821CF531A300D521BD /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411111CF4E9F2004788C0 /* StoreItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -551,6 +552,7 @@
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,
 				97948A801CF52B6200D521BD /* AudioPlaylist.swift in Sources */,
 				978411141CF4EAC0004788C0 /* AccountPhoto.swift in Sources */,
+				97948A821CF531A300D521BD /* StoreItem.swift in Sources */,
 				81A7447D1CA5AB1500ADA158 /* FormData.swift in Sources */,
 				81D3FE1A1CA4AD0A00513CCA /* NSURL+MimeType.swift in Sources */,
 				978411071CF4E5DB004788C0 /* NSDate.swift in Sources */,
