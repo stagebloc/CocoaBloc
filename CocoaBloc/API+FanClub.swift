@@ -62,8 +62,7 @@ extension API {
 				"include_account_content": filter.contains(.Official),
 				"include_fan_content": filter.contains(.Fan),
 				"include_admin_accounts": filter.contains(.IncludingAdminAccounts),
-			]
-		)
+			])
 	}
 	
 	public static func getFanClub(accountID: Int) -> Endpoint<SBFanClub> {
