@@ -49,7 +49,7 @@ public struct StoreItem: Decodable, Identifiable {
 	
 	public enum Type: Decodable {
 		case Digital(freeDownload: Bool, requireFollow: Bool)
-		case Bundle(storeItems: [StoreItem] /*audio: [SBAudio], playlists */)
+		case Bundle(storeItems: [StoreItem], audio: [Audio]/*, playlists */)
 		case Physical(shippingPriceHandlers: [ShippingPriceHandler], fulfiller: ShippingFulfiller)
 		
 		public static func decode(json: JSON) -> Decoded<Type> {
