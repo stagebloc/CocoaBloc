@@ -1,5 +1,3 @@
 github "Alamofire/Alamofire" "3.4.0"
 github "thoughtbot/Argo" "v3.0.1"
 github "thoughtbot/Curry" "v2.2.0"
-github "robrix/Prelude" "1.6.0"
-github "robrix/Either" "50abe887b7387cfd12b7d7b59ed982eb2b7f7674"
