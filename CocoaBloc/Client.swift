@@ -42,7 +42,9 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = []) -> Request {
 		var params: [String: AnyObject] = [
-			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
+			"expand": (expansions + endpoint.expansions)
+						.map { $0.rawValue }
+						.joinWithSeparator(",")
 		].withEntries(endpoint.parameters)
 		
 		if !authenticated {
@@ -59,31 +61,60 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 						: nil
 		).validate()
 		
-		if let authStateKeyPath = endpoint.authenticationStateKeyPath {
-			let serializer: ResponseSerializer<AuthStateType, Error> =
-				Request.DecodableResponseSerializer(AuthStateType.self, keyPath: authStateKeyPath)
-			request.response(responseSerializer: serializer) { [weak self] response in
-				switch response.result {
-				case .Success(let authState):
-					self?.authenticationState.authenticationToken = authState.authenticationToken
-					self?.authenticationState.authenticatedUser = authState.authenticatedUser
-				case .Failure:
-					()
-				}
-			}
-		}
-		
 		return request
+	}
+	
+	public func request(
+		endpoint: Endpoint<AuthStateType>,
+		expansions: [API.ExpandableValue] = []) -> Request {
+		let params: [String: AnyObject] = [
+			"expand": (expansions + endpoint.expansions)
+				.map { $0.rawValue }
+				.joinWithSeparator(","),
+			"client_id": clientID
+		].withEntries(endpoint.parameters)
+		
+		return manager.request(
+			endpoint.method,
+			baseURL.URLByAppendingPathComponent(endpoint.path),
+			parameters: params,
+			encoding: .URL,
+			headers: authenticated
+				? ["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""]
+				: nil)
+			.validate()
+			.response(
+				responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: "data"),
+				completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
+					self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
+					self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
+				})
 	}
 	
 	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: (Response<Serialized, CocoaBloc.Error>) -> ()) -> Request {
+		completion: (Response<Serialized, Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
 			completionHandler: completion)
+	}
+	
+	public func request(
+		endpoint: Endpoint<AuthStateType>,
+		expansions: [API.ExpandableValue] = [],
+		completion: (Response<AuthStateType, Error>) -> ()) -> Request {
+		let req = request(endpoint, expansions: expansions)
+		return req.response(
+			responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: endpoint.keyPath),
+			completionHandler: completion)
+		.response(
+			responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: "data"),
+			completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
+				self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
+				self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
+			})
 	}
 	
 	public func request<Serialized: SequenceType where
@@ -91,7 +122,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		Serialized.Generator.Element.DecodedType == Serialized.Generator.Element>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: (Response<[Serialized.Generator.Element], CocoaBloc.Error>) -> ()) -> Request {
+		completion: (Response<[Serialized.Generator.Element], Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(
@@ -156,8 +187,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public func uploadModelSerialization<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		requestConfiguration: ((Alamofire.Request) -> ())? = nil,
-		completion: (Result<Serialized, CocoaBloc.Error>) -> ()) {
+		requestConfiguration: ((Request) -> ())? = nil,
+		completion: (Result<Serialized, Error>) -> ()) {
 		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
 			switch result {
 			case .Success(let request):
@@ -178,8 +209,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		Serialized.Generator.Element.DecodedType == Serialized.Generator.Element>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		requestConfiguration: ((Alamofire.Request) -> ())? = nil,
-		completion: (Result<[Serialized.Generator.Element], CocoaBloc.Error>) -> ()) {
+		requestConfiguration: ((Request) -> ())? = nil,
+		completion: (Result<[Serialized.Generator.Element], Error>) -> ()) {
 		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
 			switch result {
 			case .Success(let request):

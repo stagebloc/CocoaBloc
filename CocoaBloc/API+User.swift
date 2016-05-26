@@ -51,7 +51,8 @@ extension API {
 ////		}
 //	}
 
-	public static func loginWithAuthorizationCode(authorizationCode: String) -> Endpoint<User> {
+	public static func loginWithAuthorizationCode<AuthState: AuthenticationStateType>(
+		authorizationCode: String) -> Endpoint<AuthState> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
@@ -59,11 +60,12 @@ extension API {
 				"code": authorizationCode,
 				"grant_type": "authorization_code"
 			],
-			keyPath: "data.user",
-			authenticationStateKeyPath: "data")
+			keyPath: "data.user")
 	}
 	
-	public static func logInWithUsername(username: String, password: String) -> Endpoint<User> {
+	public static func logInWithUsername<AuthState: AuthenticationStateType>(
+		username: String,
+		password: String) -> Endpoint<AuthState> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
@@ -73,8 +75,7 @@ extension API {
 				"password": password,
 				"grant_type": "password"
 			],
-			keyPath: "data.user",
-			authenticationStateKeyPath: "data")
+			keyPath: "data.user")
 	}
 	
 	
@@ -169,8 +170,7 @@ extension API {
 				"gender"    : gender.rawValue,
 				"source_account_id" : sourceAccountID
 			].filterNil(),
-			keyPath: "data.user",
-			authenticationStateKeyPath: "data")
+			keyPath: "data.user")
 	}
 	
 	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[User]> {
