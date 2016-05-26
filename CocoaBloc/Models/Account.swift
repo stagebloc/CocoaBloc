@@ -12,7 +12,7 @@ import Curry
 public struct Account: Decodable, Identifiable {
 	
 	public let identifier: Int
-	public let url: NSURL
+	public let url: NSURL?
 	public let stageBlocURL: NSURL
 	public let name: String
 	public let descriptiveText: String
@@ -24,12 +24,12 @@ public struct Account: Decodable, Identifiable {
 	public static func decode(json: JSON) -> Decoded<Account> {
 		return curry(Account.init)
 			<^> json <| "id"
-			<*> json <| "url"
+			<*> json <|? "url"
 			<*> json <| "stagebloc_url"
 			<*> json <| "name"
 			<*> json <| "description"
 			<*> json <| "type"
-			<*> json <| "stripeEnabled"
+			<*> json <| "stripe_enabled"
 			<*> json <| "verified"
 			<*> json <|? "photo"
 	}
