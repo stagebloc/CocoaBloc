@@ -109,12 +109,6 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: endpoint.keyPath),
 			completionHandler: completion)
-		.response(
-			responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: "data"),
-			completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
-				self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
-				self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
-			})
 	}
 	
 	public func request<Serialized: SequenceType where
