@@ -60,7 +60,7 @@ extension API {
 				"grant_type": "authorization_code"
 			],
 			keyPath: "data.user",
-			updateAuthenticationState: true)
+			authenticationStateKeyPath: "data")
 	}
 	
 	public static func logInWithUsername(username: String, password: String) -> Endpoint<User> {
@@ -74,7 +74,7 @@ extension API {
 				"grant_type": "password"
 			],
 			keyPath: "data.user",
-			updateAuthenticationState: true)
+			authenticationStateKeyPath: "data")
 	}
 	
 	
@@ -170,7 +170,7 @@ extension API {
 				"source_account_id" : sourceAccountID
 			].filterNil(),
 			keyPath: "data.user",
-			updateAuthenticationState: true)
+			authenticationStateKeyPath: "data")
 	}
 	
 	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[User]> {

@@ -31,16 +31,16 @@ public struct Endpoint<Serialized> {
 	         expansions: [API.ExpandableValue] = [],
 	         parameters: [String:AnyObject] = [:],
 	         keyPath: String = "data",
-	         updateAuthenticationState: Bool = false,
+	         authenticationStateKeyPath: String? = nil,
 	         formData: [FormDataPart]? = nil) {
 		self.path = path
 		self.method = method
 		self.expansions = expansions
 		self.parameters = parameters
 		self.keyPath = keyPath
-		self.updateAuthenticationState = updateAuthenticationState
+		self.authenticationStateKeyPath = authenticationStateKeyPath
 		self.formData = formData
 	}
 	
-	internal let updateAuthenticationState: Bool
+	internal let authenticationStateKeyPath: String?
 }

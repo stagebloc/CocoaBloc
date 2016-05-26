@@ -59,9 +59,9 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 						: nil
 		).validate()
 		
-		if endpoint.updateAuthenticationState {
+		if let authStateKeyPath = endpoint.authenticationStateKeyPath {
 			let serializer: ResponseSerializer<AuthStateType, Error> =
-				Request.DecodableResponseSerializer(AuthStateType.self, keyPath: endpoint.keyPath)
+				Request.DecodableResponseSerializer(AuthStateType.self, keyPath: authStateKeyPath)
 			request.response(responseSerializer: serializer) { [weak self] response in
 				switch response.result {
 				case .Success(let authState):
