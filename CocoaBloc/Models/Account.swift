@@ -16,7 +16,7 @@ public struct Account: Decodable, Identifiable {
 	public let stageBlocURL: NSURL
 	public let name: String
 	public let descriptiveText: String
-	public let type: API.AccountType
+//	public let type: API.AccountType
 	public let stripeEnabled: Bool
 	public let verified: Bool
 	public let photo: AccountPhoto?
@@ -28,7 +28,7 @@ public struct Account: Decodable, Identifiable {
 			<*> json <| "stagebloc_url"
 			<*> json <| "name"
 			<*> json <| "description"
-			<*> json <| "type"
+//			<*> json <| "type"
 			<*> json <| "stripe_enabled"
 			<*> json <| "verified"
 			<*> json <|? "photo"
