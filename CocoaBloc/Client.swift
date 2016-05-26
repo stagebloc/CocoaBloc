@@ -65,7 +65,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			request.response(responseSerializer: serializer) { [weak self] response in
 				switch response.result {
 				case .Success(let authState):
-					self?.authenticationState = authState
+					self?.authenticationState.authenticationToken = authState.authenticationToken
+					self?.authenticationState.authenticatedUser = authState.authenticatedUser
 				case .Failure:
 					()
 				}
