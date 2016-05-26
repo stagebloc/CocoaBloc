@@ -225,6 +225,7 @@
 				0925DF6D1C05344100BD43E0 /* Models */,
 				0925DFBE1C053B9A00BD43E0 /* Private */,
 				098DC41A1C1F64380084AE45 /* Protocols */,
+				97948A6D1CF51C8000D521BD /* Resources */,
 				81F35F7F1C2859E2002B9D74 /* API+Account.swift */,
 				81F35F811C285A0B002B9D74 /* API+Comment.swift */,
 				81F35F7D1C2859B7002B9D74 /* API+Content.swift */,
@@ -232,14 +233,13 @@
 				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
 				81F35F831C285A35002B9D74 /* API+Store.swift */,
 				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
-				978411021CF4DC69004788C0 /* Expandable.swift */,
 				81F35F891C285ABB002B9D74 /* API.swift */,
-				0994C23A1C012ED500EE0706 /* Client.swift */,
 				97948A6B1CF51C5000D521BD /* AuthenticationState.swift */,
+				0994C23A1C012ED500EE0706 /* Client.swift */,
 				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
 				0925DF651C0514F400BD43E0 /* Error.swift */,
+				978411021CF4DC69004788C0 /* Expandable.swift */,
 				81A7447C1CA5AB1500ADA158 /* FormData.swift */,
-				97948A6D1CF51C8000D521BD /* Resources */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -256,25 +256,25 @@
 		0925DF6D1C05344100BD43E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				978411091CF4E606004788C0 /* User.swift */,
+				978411081CF4E5FD004788C0 /* old */,
 				9784110F1CF4E858004788C0 /* Account.swift */,
-				978411111CF4E9F2004788C0 /* StoreItem.swift */,
-				97948A621CF5005B00D521BD /* ShippingFulfiller.swift */,
-				97948A601CF4FFCE00D521BD /* Shipping.swift */,
 				978411131CF4EAC0004788C0 /* AccountPhoto.swift */,
 				97948A7D1CF52A7F00D521BD /* Address.swift */,
-				97948A7F1CF52B6200D521BD /* AudioPlaylist.swift */,
-				97948A6E1CF51D0700D521BD /* Status.swift */,
-				97948A701CF51D0A00D521BD /* Blog.swift */,
-				97948A8D1CF53E0800D521BD /* Event.swift */,
 				97948A741CF5205300D521BD /* Audio.swift */,
-				97948A8B1CF53CE600D521BD /* Video.swift */,
+				97948A7F1CF52B6200D521BD /* AudioPlaylist.swift */,
+				97948A701CF51D0A00D521BD /* Blog.swift */,
+				97948A721CF51D2100D521BD /* Comment.swift */,
+				97948A8D1CF53E0800D521BD /* Event.swift */,
+				97948A851CF5388A00D521BD /* FanClub.swift */,
 				97948A831CF537DF00D521BD /* Order.swift */,
 				97948A891CF53A1F00D521BD /* OrderShipment.swift */,
+				97948A601CF4FFCE00D521BD /* Shipping.swift */,
+				97948A621CF5005B00D521BD /* ShippingFulfiller.swift */,
+				97948A6E1CF51D0700D521BD /* Status.swift */,
+				978411111CF4E9F2004788C0 /* StoreItem.swift */,
 				97948A871CF5398900D521BD /* Transaction.swift */,
-				97948A851CF5388A00D521BD /* FanClub.swift */,
-				97948A721CF51D2100D521BD /* Comment.swift */,
-				978411081CF4E5FD004788C0 /* old */,
+				978411091CF4E606004788C0 /* User.swift */,
+				97948A8B1CF53CE600D521BD /* Video.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -282,8 +282,8 @@
 		0925DFBE1C053B9A00BD43E0 /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
 				97948A761CF5246500D521BD /* Curry.swift */,
+				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
 				81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */,
 				81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */,
 				092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */,
@@ -294,11 +294,11 @@
 		098DC4161C1F64380084AE45 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */,
-				978411041CF4E5C2004788C0 /* NSURL.swift */,
-				978411061CF4E5DB004788C0 /* NSDate.swift */,
 				9784110B1CF4E629004788C0 /* APITypes.swift */,
+				978411061CF4E5DB004788C0 /* NSDate.swift */,
+				978411041CF4E5C2004788C0 /* NSURL.swift */,
 				97948A691CF51C0500D521BD /* Request.swift */,
+				098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -306,9 +306,9 @@
 		098DC41A1C1F64380084AE45 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				978411001CF4DC31004788C0 /* Identifiable.swift */,
 				092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */,
 				098DC41B1C1F64380084AE45 /* ContentType.swift */,
+				978411001CF4DC31004788C0 /* Identifiable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -385,7 +385,7 @@
 				090E11121C008E9C0001C943 /* CocoaBloc.h */,
 				090E11141C008E9C0001C943 /* Info.plist */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -693,7 +693,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = CocoaBloc/Info.plist;
+				INFOPLIST_FILE = CocoaBloc/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBloc;
@@ -715,7 +715,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = CocoaBloc/Info.plist;
+				INFOPLIST_FILE = CocoaBloc/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBloc;

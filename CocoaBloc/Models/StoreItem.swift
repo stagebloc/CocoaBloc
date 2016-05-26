@@ -98,7 +98,7 @@ public struct StoreItem: Decodable, Identifiable {
 	public let options: [Option]
 //	public let prices: [Currency: Double]
 	public let coverPhoto: Expandable<AccountPhoto>
-//	public let photos: [AccountPhoto]
+	public let photos: [AccountPhoto]
 	
 	public static func decode(json: JSON) -> Decoded<StoreItem> {
 		let a = curry(StoreItem.init)
@@ -117,11 +117,12 @@ public struct StoreItem: Decodable, Identifiable {
 			<*> json <| "modified"
 			<*> json <| "modified_by"
 			<*> json <| "category"
-		
+//			<*> json <|? "sale"
 			<*> json <|| "tags"
 			<*> json <| "fans_name_price"
 			<*> json <|| "options"
 		
 			<*> json <| "photo"
+			<*> json <|| "photos" ?? pure([])
 	}
 }
