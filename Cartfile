@@ -1,3 +1,4 @@
 github "Alamofire/Alamofire" ~> 3.0
 github "thoughtbot/Argo" ~> 3.0
 github "thoughtbot/Curry" ~> 2.0
+github "robrix/Either" "50abe887b7387cfd12b7d7b59ed982eb2b7f7674"
