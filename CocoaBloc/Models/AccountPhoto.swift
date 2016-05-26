@@ -9,12 +9,12 @@
 import Argo
 import Curry
 
-public enum ImageSize {
-	case Thumbnail
-	case Small
-	case Medium
-	case Large
-	case Original
+public enum ImageSize: String {
+	case Thumbnail =  "thumbnail_url"
+	case Small = "small_url"
+	case Medium = "medium_url"
+	case Large = "large_url"
+	case Original = "original_url"
 }
 
 public struct AccountPhoto: Decodable, Identifiable {
@@ -35,10 +35,18 @@ public struct AccountPhoto: Decodable, Identifiable {
 	public let isFanContent: Bool
 	public let commentCount: Int
 	public let likeCount: Int
-//	public let imageURLs: [ImageSize:NSURL]
+	public let imageURLs: [ImageSize:NSURL]
 	public let user: Expandable<User>
 	
 	public static func decode(json: JSON) -> Decoded<AccountPhoto> {
+		let decodedImageURLsMap: [ImageSize: Decoded<NSURL>] = [
+			.Thumbnail:	json <| ["images", ImageSize.Thumbnail.rawValue],
+			.Small:		json <| ["images", ImageSize.Small.rawValue],
+			.Medium:	json <| ["images", ImageSize.Medium.rawValue],
+			.Large:		json <| ["images", ImageSize.Large.rawValue],
+			.Original:	json <| ["images", ImageSize.Original.rawValue]
+		]
+		
 		let a = curry(AccountPhoto.init)
 			<^> json <| "id"
 			<*> json <| "account"
@@ -47,7 +55,6 @@ public struct AccountPhoto: Decodable, Identifiable {
 			<*> json <| "created"
 			<*> json <| "modified"
 			<*> json <| "short_url"
-			
 		return a
 			<*> json <| "description"
 			<*> json <| "width"
@@ -58,6 +65,7 @@ public struct AccountPhoto: Decodable, Identifiable {
 			<*> json <| "is_fan_content"
 			<*> json <| "comment_count"
 			<*> json <| "like_count"
+			<*> sequence(decodedImageURLsMap)
 			<*> json <| "user"
 	}
 }
