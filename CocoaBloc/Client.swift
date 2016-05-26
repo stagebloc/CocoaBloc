@@ -78,7 +78,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: Response<Serialized, CocoaBloc.Error> -> ()) -> Request {
+		completion: (Response<Serialized, CocoaBloc.Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
@@ -90,7 +90,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		Serialized.Generator.Element.DecodedType == Serialized.Generator.Element>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: Response<[Serialized.Generator.Element], CocoaBloc.Error> -> ()) -> Request {
+		completion: (Response<[Serialized.Generator.Element], CocoaBloc.Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(
@@ -102,7 +102,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public func upload<Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: Result<Request, Error> -> ()) {
+		completion: (Result<Request, Error>) -> ()) {
 		guard let formData = endpoint.formData else { fatalError("Error: endpoint must contain FormData") }
 		var params: [String: AnyObject] = [
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
@@ -155,8 +155,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public func uploadModelSerialization<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		requestConfiguration: (Alamofire.Request -> ())? = nil,
-		completion: Result<Serialized, CocoaBloc.Error> -> ()) {
+		requestConfiguration: ((Alamofire.Request) -> ())? = nil,
+		completion: (Result<Serialized, CocoaBloc.Error>) -> ()) {
 		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
 			switch result {
 			case .Success(let request):
@@ -177,8 +177,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		Serialized.Generator.Element.DecodedType == Serialized.Generator.Element>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		requestConfiguration: (Alamofire.Request -> ())? = nil,
-		completion: Result<[Serialized.Generator.Element], CocoaBloc.Error> -> ()) {
+		requestConfiguration: ((Alamofire.Request) -> ())? = nil,
+		completion: (Result<[Serialized.Generator.Element], CocoaBloc.Error>) -> ()) {
 		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
 			switch result {
 			case .Success(let request):

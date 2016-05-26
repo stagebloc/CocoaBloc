@@ -10,13 +10,13 @@ import Foundation
 
 extension API {
 	
-	public static func getStoreDashboard(accountID: Int) -> Endpoint<SBStoreDashboard> {
-		return Endpoint(
-			path: "account/\(accountID)/store/dashboard",
-			method: .GET)
-	}
+//	public static func getStoreDashboard(accountID: Int) -> Endpoint<SBStoreDashboard> {
+//		return Endpoint(
+//			path: "account/\(accountID)/store/dashboard",
+//			method: .GET)
+//	}
 	
-	public static func getOrders(accountID: Int) -> Endpoint<[SBOrder]> {
+	public static func getOrders(accountID: Int) -> Endpoint<[Order]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders",
 			method: .GET)
@@ -26,7 +26,7 @@ extension API {
 		orderID: Int,
 		accountID: Int,
 		trackingNumber: String,
-		carrier: String) -> Endpoint<SBOrder> {
+		carrier: String) -> Endpoint<Order> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders/\(orderID)",
 			method: .POST,
@@ -36,13 +36,13 @@ extension API {
 			])
 	}
 	
-	public static func getStoreItemsForAccount(accountID: Int) -> Endpoint<[SBStoreItem]> {
+	public static func getStoreItemsForAccount(accountID: Int) -> Endpoint<[StoreItem]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/items",
 			method: .GET)
 	}
 	
-	public static func getStoreItem(storeItemID: Int, accountID: Int) -> Endpoint<SBStoreItem> {
+	public static func getStoreItem(storeItemID: Int, accountID: Int) -> Endpoint<StoreItem> {
 		return Endpoint(
 			path: "account/\(accountID)/store/items/\(storeItemID)",
 			method: .GET)

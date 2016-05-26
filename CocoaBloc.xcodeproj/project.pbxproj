@@ -56,6 +56,7 @@
 		97948A8A1CF53A1F00D521BD /* OrderShipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A891CF53A1F00D521BD /* OrderShipment.swift */; };
 		97948A8C1CF53CE600D521BD /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A8B1CF53CE600D521BD /* Video.swift */; };
 		97948A8E1CF53E0800D521BD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A8D1CF53E0800D521BD /* Event.swift */; };
+		97948A931CF772EF00D521BD /* API+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F831C285A35002B9D74 /* API+Store.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -553,6 +554,7 @@
 				97948A6F1CF51D0700D521BD /* Status.swift in Sources */,
 				098DC4201C1F64380084AE45 /* ContentType.swift in Sources */,
 				092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */,
+				97948A931CF772EF00D521BD /* API+Store.swift in Sources */,
 				81F35F8A1C285ABB002B9D74 /* API.swift in Sources */,
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
