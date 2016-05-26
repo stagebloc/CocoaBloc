@@ -11,7 +11,7 @@ import MobileCoreServices
 
 extension NSURL {
 	
-	func photoMime() -> String {
+	internal func photoMime() -> String {
 		
 		guard let ext = self.pathExtension,
 			let UTIRef = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,

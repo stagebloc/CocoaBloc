@@ -227,20 +227,9 @@
 				0925DFBE1C053B9A00BD43E0 /* Private */,
 				098DC41A1C1F64380084AE45 /* Protocols */,
 				97948A6D1CF51C8000D521BD /* Resources */,
-				81F35F7F1C2859E2002B9D74 /* API+Account.swift */,
-				81F35F811C285A0B002B9D74 /* API+Comment.swift */,
-				81F35F7D1C2859B7002B9D74 /* API+Content.swift */,
-				81F35F871C285A83002B9D74 /* API+Coupon.swift */,
-				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
-				81F35F831C285A35002B9D74 /* API+Store.swift */,
-				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
-				81F35F891C285ABB002B9D74 /* API.swift */,
+				97948A981CF780B300D521BD /* API Types & Endpoints */,
 				97948A6B1CF51C5000D521BD /* AuthenticationState.swift */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
-				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
-				0925DF651C0514F400BD43E0 /* Error.swift */,
-				978411021CF4DC69004788C0 /* Expandable.swift */,
-				81A7447C1CA5AB1500ADA158 /* FormData.swift */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -387,6 +376,25 @@
 				090E11141C008E9C0001C943 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		97948A981CF780B300D521BD /* API Types & Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				978411021CF4DC69004788C0 /* Expandable.swift */,
+				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
+				0925DF651C0514F400BD43E0 /* Error.swift */,
+				81A7447C1CA5AB1500ADA158 /* FormData.swift */,
+				81F35F7F1C2859E2002B9D74 /* API+Account.swift */,
+				81F35F811C285A0B002B9D74 /* API+Comment.swift */,
+				81F35F7D1C2859B7002B9D74 /* API+Content.swift */,
+				81F35F871C285A83002B9D74 /* API+Coupon.swift */,
+				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
+				81F35F831C285A35002B9D74 /* API+Store.swift */,
+				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
+				81F35F891C285ABB002B9D74 /* API.swift */,
+			);
+			name = "API Types & Endpoints";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

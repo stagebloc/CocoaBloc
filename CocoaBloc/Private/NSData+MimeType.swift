@@ -10,7 +10,7 @@ import Foundation
 
 extension NSData {
 	
-	func photoMime() -> String {
+	internal func photoMime() -> String {
 		var c = [UInt32](count: 1, repeatedValue: 0)
 		self.getBytes(&c, length: 1)
 		switch c[0] {

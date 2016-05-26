@@ -6,11 +6,11 @@
 //  Copyright © 2015 StageBloc. All rights reserved.
 //
 
-internal extension SequenceType where Generator.Element == (String, AnyObject?) {
+extension SequenceType where Generator.Element == (String, AnyObject?) {
 	
 	/// Removes all dictionary entries where the value type is Optional<T> and is .None
 	/// - returns: a new dictionary guaranteed and typed to contain no nil values
-	func filterNil() -> [String:AnyObject] {
+	internal func filterNil() -> [String:AnyObject] {
 		var ret = [String:AnyObject]()
 		for (key, value) in self where value != nil {
 			ret[key] = value!

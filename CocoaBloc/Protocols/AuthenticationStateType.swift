@@ -20,7 +20,7 @@ public protocol AuthenticationStateType: Decodable {
 extension AuthenticationStateType {
 	public static func decode(json: JSON) -> Decoded<Self> {
 		return curry(Self.init)
-			<^> json <|? ["data", "access_token"]
-			<*> json <|? ["data", "user"]
+			<^> json <|? "access_token"
+			<*> json <|? "user"
 	}
 }
