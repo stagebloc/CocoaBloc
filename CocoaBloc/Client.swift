@@ -11,7 +11,8 @@ import Alamofire
 
 public typealias Client = APIClient<AuthenticationState>
 
-public final class APIClient<AuthStateType: AuthenticationStateType> {
+public final class APIClient<AuthStateType: AuthenticationStateType where
+	AuthStateType.DecodedType == AuthStateType> {
 	
 	private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
 	private let manager: Manager
@@ -20,12 +21,12 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 	public let clientID: String
 	public let clientSecret: String
 	
-	public let authenticationState: AuthStateType
+	public var authenticationState: AuthStateType
 	
 	public init(
 		clientID: String,
 		clientSecret: String,
-		authenticationState: AuthStateType = .init(),
+		authenticationState: AuthStateType = .init(authenticationToken: nil, authenticatedUser: nil),
 		manager: Manager = .init()) {
 		self.clientID = clientID
 		self.manager = manager
@@ -58,15 +59,26 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 						: nil
 		).validate()
 		
-		endpoint.sideEffect?(request, authenticationState)
+		if endpoint.updateAuthenticationState {
+			let serializer: ResponseSerializer<AuthStateType, Error> =
+				Request.DecodableResponseSerializer(AuthStateType.self, keyPath: endpoint.keyPath)
+			request.response(responseSerializer: serializer) { [weak self] response in
+				switch response.result {
+				case .Success(let authState):
+					self?.authenticationState = authState
+				case .Failure:
+					()
+				}
+			}
+		}
 		
 		return request
 	}
 	
-	public func request<Serialized: Decodable>(
+	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: Response<Serialized.DecodedType, CocoaBloc.Error> -> ()) -> Request {
+		completion: Response<Serialized, CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
@@ -76,7 +88,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType> {
 	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
-		completion: Response<[Serialized.DecodedType], CocoaBloc.Error> -> ()) -> Request {
+		completion: Response<[Serialized], CocoaBloc.Error> -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),

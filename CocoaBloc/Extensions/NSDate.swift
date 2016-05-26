@@ -13,7 +13,7 @@ extension NSDate: Decodable {
 	public static func decode(json: JSON) -> Decoded<NSDate> {
 		switch json {
 		case .String(let string):
-			return .fromOptional(NSDateFormatter.CocoaBlocJSONDateFormatter().dateFromString(string))
+			return .fromOptional(API.DateFormatter(withTimeZone: false).dateFromString(string))
 		default:
 			return .typeMismatch("Date String", actual: json)
 		}

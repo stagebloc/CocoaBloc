@@ -16,7 +16,7 @@ public struct Order: Decodable, Identifiable {
 	public let receiptURL: NSURL
 	public let ordered: Bool
 	public let shipped: Bool
-//	public let currency: StoreItem.Currency
+	public let currency: StoreItem.Currency
 	public let total: Double
 	public let totalUSD: Double
 	public let shippingAmount: Double
@@ -36,7 +36,7 @@ public struct Order: Decodable, Identifiable {
 			<*> json <| "receipt_url"
 			<*> json <| "ordered"
 			<*> json <| "shipped"
-//			<*> json <| "currency"
+			<*> json <| "currency"
 		let b = a
 			<*> json <| "total"
 			<*> json <| "total_usd"
@@ -49,6 +49,6 @@ public struct Order: Decodable, Identifiable {
 			<*> json <| "email"
 			<*> json <| "user"
 			<*> json <| "address"
-			<*> json <| "transactions"
+			<*> json <|| "transactions"
 	}
 }

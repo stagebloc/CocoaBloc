@@ -47,19 +47,19 @@ public struct StoreItem: Decodable, Identifiable {
 		}
 	}
 	
-	public enum Type: Decodable {
-		case Digital(freeDownload: Bool, requireFollow: Bool)
-		case Bundle(storeItems: [StoreItem], audio: [Audio]/*, playlists */)
-		case Physical(shippingPriceHandlers: [ShippingPriceHandler], fulfiller: ShippingFulfiller)
-		
-		public static func decode(json: JSON) -> Decoded<Type> {
-//			switch json {
-//				
-//			}
-		}
-	}
+//	public enum Type: Decodable {
+//		case Digital(freeDownload: Bool, requireFollow: Bool)
+//		case Bundle(storeItems: [StoreItem], audio: [Audio]/*, playlists */)
+//		case Physical(shippingPriceHandlers: [ShippingPriceHandler], fulfiller: ShippingFulfiller)
+//		
+//		public static func decode(json: JSON) -> Decoded<Type> {
+////			switch json {
+////				
+////			}
+//		}
+//	}
 	
-	public enum Currency: String {
+	public enum Currency: String, Decodable {
 		case USD = "USD"
 	}
 	
@@ -79,7 +79,7 @@ public struct StoreItem: Decodable, Identifiable {
 	// MARK: Properties
 	
 	public let identifier: Int
-	public let type: Type
+//	public let type: Type
 	public let account: Expandable<Account>
 	public let title: String
 	public let shortURL: NSURL
@@ -103,7 +103,7 @@ public struct StoreItem: Decodable, Identifiable {
 	public static func decode(json: JSON) -> Decoded<StoreItem> {
 		let a = curry(StoreItem.init)
 			<^> json <| "id"
-			<*> json <| "type"
+//			<*> json <| "type"
 			<*> json <| "account"
 			<*> json <| "title"
 			<*> json <| "short_url"

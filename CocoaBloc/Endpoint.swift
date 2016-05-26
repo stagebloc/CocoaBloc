@@ -31,17 +31,16 @@ public struct Endpoint<Serialized> {
 	         expansions: [API.ExpandableValue] = [],
 	         parameters: [String:AnyObject] = [:],
 	         keyPath: String = "data",
-	         sideEffect: SideEffectClosure? = nil,
+	         updateAuthenticationState: Bool = false,
 	         formData: [FormDataPart]? = nil) {
 		self.path = path
 		self.method = method
 		self.expansions = expansions
 		self.parameters = parameters
 		self.keyPath = keyPath
-		self.sideEffect = sideEffect
+		self.updateAuthenticationState = updateAuthenticationState
 		self.formData = formData
 	}
 	
-	internal typealias SideEffectClosure = (Request, AuthenticationStateType) -> ()
-	internal let sideEffect: SideEffectClosure?
+	internal let updateAuthenticationState: Bool
 }

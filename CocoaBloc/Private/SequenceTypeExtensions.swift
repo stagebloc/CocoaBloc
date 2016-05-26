@@ -12,8 +12,8 @@ internal extension SequenceType where Generator.Element == (String, AnyObject?) 
 	/// - returns: a new dictionary guaranteed and typed to contain no nil values
 	func filterNil() -> [String:AnyObject] {
 		var ret = [String:AnyObject]()
-		for tuple in self where tuple.1 != nil {
-			ret[tuple.0] = tuple.1!
+		for (key, value) in self where value != nil {
+			ret[key] = value!
 		}
 		return ret
 	}

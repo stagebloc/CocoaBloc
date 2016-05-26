@@ -15,8 +15,7 @@ extension API {
 		description: String,
 		url: String,
 		type: AccountType,
-		color: AccountColor
-	) -> Endpoint<Account> {
+		color: AccountColor) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account",
 			method: .POST,
@@ -35,8 +34,7 @@ extension API {
 		description: String?,
 		url: String?,
 		type: AccountType?,
-		color: AccountColor?
-		) -> Endpoint<Account> {
+		color: AccountColor?) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account/\(accountID)",
 			method: .POST,

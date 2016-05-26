@@ -26,8 +26,7 @@ extension API {
 		orderID: Int,
 		accountID: Int,
 		trackingNumber: String,
-		carrier: String
-	) -> Endpoint<SBOrder> {
+		carrier: String) -> Endpoint<SBOrder> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders/\(orderID)",
 			method: .POST,

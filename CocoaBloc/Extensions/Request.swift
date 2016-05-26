@@ -10,8 +10,8 @@ import Argo
 import Alamofire
 
 extension Request {
-	static func DecodableResponseSerializer<T: Decodable>(type: T.Type, keyPath: String)
-		-> ResponseSerializer<T.DecodedType, Error> {
+	static func DecodableResponseSerializer<T: Decodable where T.DecodedType == T>(type: T.Type, keyPath: String)
+		-> ResponseSerializer<T, Error> {
 			return ResponseSerializer { request, response, data, error in
 				let JSONSerializer = Request.JSONResponseSerializer()
 				switch JSONSerializer.serializeResponse(request, response, data, error) {
@@ -21,7 +21,7 @@ extension Request {
 						return .Failure(.UnexpectedResponseType)
 					}
 					
-					let decodedModel: Decoded<T.DecodedType> = T.decode(JSON(modelObject))
+					let decodedModel: Decoded<T> = T.decode(JSON(modelObject))
 					switch decodedModel {
 					case .Success(let model):
 						return .Success(model)
@@ -35,7 +35,7 @@ extension Request {
 	}
 	
 	static func DecodableResponseSerializer<T: Decodable where T.DecodedType == T>(type: T.Type, keyPath: String)
-		-> ResponseSerializer<[T.DecodedType], Error> {
+		-> ResponseSerializer<[T], Error> {
 			return ResponseSerializer { request, response, data, error in
 				let JSONSerializer = Request.JSONResponseSerializer()
 				switch JSONSerializer.serializeResponse(request, response, data, error) {
@@ -45,7 +45,7 @@ extension Request {
 						return .Failure(.UnexpectedResponseType)
 					}
 					
-					let decodedModels: Decoded<[T.DecodedType]> = Array<T.DecodedType>.decode(JSON(modelArray))
+					let decodedModels: Decoded<[T]> = Array<T>.decode(JSON(modelArray))
 					switch decodedModels {
 					case .Success(let models):
 						return .Success(models)

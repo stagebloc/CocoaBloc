@@ -12,7 +12,6 @@
 		090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */; };
 		0925DF661C0514F400BD43E0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DF651C0514F400BD43E0 /* Error.swift */; };
 		0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */; };
-		0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */; };
 		092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CA1C31D2EA00B81777 /* Endpoint.swift */; };
 		092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */; };
 		092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */; };
@@ -32,7 +31,6 @@
 		978411071CF4E5DB004788C0 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411061CF4E5DB004788C0 /* NSDate.swift */; };
 		9784110A1CF4E606004788C0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411091CF4E606004788C0 /* User.swift */; };
 		9784110C1CF4E629004788C0 /* APITypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110B1CF4E629004788C0 /* APITypes.swift */; };
-		9784110E1CF4E6C4004788C0 /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110D1CF4E6C4004788C0 /* NSDateFormatter.swift */; };
 		978411101CF4E858004788C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110F1CF4E858004788C0 /* Account.swift */; };
 		978411141CF4EAC0004788C0 /* AccountPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411131CF4EAC0004788C0 /* AccountPhoto.swift */; };
 		97948A611CF4FFCE00D521BD /* Shipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A601CF4FFCE00D521BD /* Shipping.swift */; };
@@ -119,8 +117,6 @@
 		0925DF941C05344100BD43E0 /* SBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVideo.h; sourceTree = "<group>"; };
 		0925DF951C05344100BD43E0 /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
 		0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+CocoaBloc.swift"; sourceTree = "<group>"; };
-		0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CocoaBloc.h"; sourceTree = "<group>"; };
-		0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CocoaBloc.m"; sourceTree = "<group>"; };
 		092C01CA1C31D2EA00B81777 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStateType.swift; sourceTree = "<group>"; };
 		092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
@@ -155,7 +151,6 @@
 		978411061CF4E5DB004788C0 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
 		978411091CF4E606004788C0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9784110B1CF4E629004788C0 /* APITypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITypes.swift; sourceTree = "<group>"; };
-		9784110D1CF4E6C4004788C0 /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatter.swift; sourceTree = "<group>"; };
 		9784110F1CF4E858004788C0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		978411111CF4E9F2004788C0 /* StoreItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		978411131CF4EAC0004788C0 /* AccountPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPhoto.swift; sourceTree = "<group>"; };
@@ -290,8 +285,6 @@
 				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
 				97948A761CF5246500D521BD /* Curry.swift */,
 				81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */,
-				0925DFC21C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h */,
-				0925DFC31C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.m */,
 				81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */,
 				092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */,
 			);
@@ -305,7 +298,6 @@
 				978411041CF4E5C2004788C0 /* NSURL.swift */,
 				978411061CF4E5DB004788C0 /* NSDate.swift */,
 				9784110B1CF4E629004788C0 /* APITypes.swift */,
-				9784110D1CF4E6C4004788C0 /* NSDateFormatter.swift */,
 				97948A691CF51C0500D521BD /* Request.swift */,
 			);
 			path = Extensions;
@@ -404,7 +396,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				090E11131C008E9C0001C943 /* CocoaBloc.h in Headers */,
-				0925DFC81C053B9A00BD43E0 /* NSDateFormatter+CocoaBloc.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,7 +552,6 @@
 				97948A6A1CF51C0500D521BD /* Request.swift in Sources */,
 				97948A6F1CF51D0700D521BD /* Status.swift in Sources */,
 				098DC4201C1F64380084AE45 /* ContentType.swift in Sources */,
-				9784110E1CF4E6C4004788C0 /* NSDateFormatter.swift in Sources */,
 				092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */,
 				81F35F8A1C285ABB002B9D74 /* API.swift in Sources */,
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,

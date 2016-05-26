@@ -97,4 +97,14 @@ public struct API {
 		public let contentID: Int
 		public let postedAccountID: Int
 	}
+	
+	static func DateFormatter(withTimeZone withTimeZone: Bool) -> NSDateFormatter {
+		let ret = NSDateFormatter()
+		ret.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
+		ret.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+		ret.dateFormat = withTimeZone
+			? "yyyy-MM-dd HH:mm:ss XXX"
+			: "yyyy-MM-dd HH:mm:ss"
+		return ret
+	}
 }

@@ -8,19 +8,29 @@
 
 import Argo
 
-public enum Expandable<Item where Item: Decodable, Item.DecodedType: Identifiable> {
+public enum Expandable<Item where
+	Item: Decodable,
+	Item.DecodedType: Identifiable,
+	Item.DecodedType == Item> {
 	
 	typealias Identifier = Item.DecodedType.Identifier
 	
 	case Unexpanded(identifier: Identifier)
-	indirect case Expanded(Item.DecodedType)
+	indirect case Expanded(Item)
+	
+	public var value: Item? {
+		if case .Expanded(let value) = self {
+			return value
+		}
+		return nil
+	}
 	
 	public var identifier: Identifier {
 		switch self {
 		case .Unexpanded(let identifier):
 			return identifier
-		case .Expanded(let item):
-			return item.identifier
+		case .Expanded(let value):
+			return value.identifier
 		}
 	}
 }
