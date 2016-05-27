@@ -22,7 +22,7 @@ public struct AccountPhoto: Decodable, Identifiable {
 	public let identifier: Int
 	public let account: Expandable<Account>
 	public let title: String
-	public let category: String
+	public let category: String?
 	public let creationDate: NSDate
 	public let modificationDate: NSDate
 	public let shortURL: NSURL
@@ -51,7 +51,7 @@ public struct AccountPhoto: Decodable, Identifiable {
 			<^> json <| "id"
 			<*> json <| "account"
 			<*> json <| "title"
-			<*> json <| "category"
+			<*> json <|? "category"
 			<*> json <| "created"
 			<*> json <| "modified"
 			<*> json <| "short_url"
