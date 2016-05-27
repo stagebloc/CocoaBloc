@@ -17,10 +17,10 @@ public struct StoreItem: Decodable, Identifiable {
 		let name: String
 		let sku: String
 		let disabled: Bool
-		let upc: String
+		let upc: String?
 		let unlimited: Bool
 		let soldOut: Bool
-		let quantity: Int
+		let quantity: Int?
 		let lowStockThreshold: Int
 		let weight: Float
 		let weightUnit: String
@@ -33,10 +33,10 @@ public struct StoreItem: Decodable, Identifiable {
 				<^> json <| "name"
 				<*> json <| "sku"
 				<*> json <| "disabled"
-				<*> json <| "upc"
+				<*> json <|? "upc"
 				<*> json <| "unlimited"
 				<*> json <| "sold_out"
-				<*> json <| "quantity"
+				<*> json <|? "quantity"
 			return a
 				<*> json <| "low_stock_threshold"
 				<*> json <| "weight"
@@ -91,14 +91,14 @@ public struct StoreItem: Decodable, Identifiable {
 	public let creator: Expandable<User>
 	public let modificationDate: NSDate
 	public let modifier: Expandable<User>
-	public let category: String
+	public let category: String?
 //	public let sale: Sale?
 	public let tags: [String]
 	public let fansNamePrice: Bool
 	public let options: [Option]
 //	public let prices: [Currency: Double]
-	public let coverPhoto: Expandable<AccountPhoto>
-	public let photos: ExpandableArray<AccountPhoto>
+	public let coverPhoto: Expandable<AccountPhoto>?
+	public let photos: ExpandableArray<AccountPhoto>?
 	
 	public static func decode(json: JSON) -> Decoded<StoreItem> {
 		let a = curry(StoreItem.init)
@@ -116,13 +116,13 @@ public struct StoreItem: Decodable, Identifiable {
 			<*> json <| "created_by"
 			<*> json <| "modified"
 			<*> json <| "modified_by"
-			<*> json <| "category"
+			<*> json <|? "category"
 //			<*> json <|? "sale"
-			<*> json <|| "tags"
+			<*> json <|| "tags" <|> pure([])
 			<*> json <| "fans_name_price"
-			<*> json <|| "options"
+			<*> json <|| "options" <|> pure([])
 		
-			<*> json <| "photo"
-			<*> json <| "photos"
+			<*> json <|? "photo"
+			<*> json <|? "photos"
 	}
 }
