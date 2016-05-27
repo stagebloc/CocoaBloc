@@ -61,7 +61,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 						: nil
 		).validate()
 		
-		if Serialized.self is AuthStateType {
+		if Serialized.self == AuthStateType.self {
 			request.response(
 				responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: "data"),
 				completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
@@ -104,7 +104,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		guard let formData = endpoint.formData else { fatalError("Error: endpoint must contain FormData") }
 		var params: [String: AnyObject] = [
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
-			].withEntries(endpoint.parameters)
+		].withEntries(endpoint.parameters)
 		
 		if !authenticated {
 			params["client_id"] = clientID
