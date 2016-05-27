@@ -57,6 +57,7 @@
 		97948A8C1CF53CE600D521BD /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A8B1CF53CE600D521BD /* Video.swift */; };
 		97948A8E1CF53E0800D521BD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A8D1CF53E0800D521BD /* Event.swift */; };
 		97948A931CF772EF00D521BD /* API+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F831C285A35002B9D74 /* API+Store.swift */; };
+		97948A9B1CF815B200D521BD /* UserPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A9A1CF815B200D521BD /* UserPhoto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +174,7 @@
 		97948A891CF53A1F00D521BD /* OrderShipment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderShipment.swift; sourceTree = "<group>"; };
 		97948A8B1CF53CE600D521BD /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		97948A8D1CF53E0800D521BD /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		97948A9A1CF815B200D521BD /* UserPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhoto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +251,7 @@
 				978411081CF4E5FD004788C0 /* old */,
 				9784110F1CF4E858004788C0 /* Account.swift */,
 				978411131CF4EAC0004788C0 /* AccountPhoto.swift */,
+				97948A9A1CF815B200D521BD /* UserPhoto.swift */,
 				97948A7D1CF52A7F00D521BD /* Address.swift */,
 				97948A741CF5205300D521BD /* Audio.swift */,
 				97948A7F1CF52B6200D521BD /* AudioPlaylist.swift */,
@@ -568,6 +571,7 @@
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 				9784110C1CF4E629004788C0 /* APITypes.swift in Sources */,
 				97948A751CF5205300D521BD /* Audio.swift in Sources */,
+				97948A9B1CF815B200D521BD /* UserPhoto.swift in Sources */,
 				97948A8E1CF53E0800D521BD /* Event.swift in Sources */,
 				97948A8C1CF53CE600D521BD /* Video.swift in Sources */,
 				97948A8A1CF53A1F00D521BD /* OrderShipment.swift in Sources */,
