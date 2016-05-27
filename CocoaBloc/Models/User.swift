@@ -17,6 +17,7 @@ public struct User: Decodable, Identifiable {
 	public let name: String
 	public let username: String
 	public let bio: String
+	public let photo: UserPhoto?
 	//	var color: UIColor
 	
 	public static func decode(json: JSON) -> Decoded<User> {
@@ -27,6 +28,7 @@ public struct User: Decodable, Identifiable {
 			<*> json <| "name"
 			<*> json <| "username"
 			<*> json <| "bio"
+			<*> json <|? "photo"
 		//			<*> j <| "color"
 	}
 }
