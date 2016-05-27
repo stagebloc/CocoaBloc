@@ -65,8 +65,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			request.response(
 				responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: "data"),
 				completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
-					self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
 					self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
+					self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
 				})
 		}
 		
