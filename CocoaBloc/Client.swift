@@ -21,7 +21,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public let clientID: String
 	public let clientSecret: String
 	
-	public var authenticationState: AuthStateType
+	public internal(set) var authenticationState: AuthStateType
 	
 	public init(
 		clientID: String,
