@@ -61,34 +61,16 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 						: nil
 		).validate()
 		
-		return request
-	}
-	
-	public func request(
-		endpoint: Endpoint<AuthStateType>,
-		expansions: [API.ExpandableValue] = []) -> Request {
-		let params: [String: AnyObject] = [
-			"expand": (expansions + endpoint.expansions)
-				.map { $0.rawValue }
-				.joinWithSeparator(","),
-			"client_id": clientID
-		].withEntries(endpoint.parameters)
-		
-		return manager.request(
-			endpoint.method,
-			baseURL.URLByAppendingPathComponent(endpoint.path),
-			parameters: params,
-			encoding: .URL,
-			headers: authenticated
-				? ["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""]
-				: nil)
-			.validate()
-			.response(
+		if Serialized.self is AuthStateType {
+			request.response(
 				responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: "data"),
 				completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
 					self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
 					self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
 				})
+		}
+		
+		return request
 	}
 	
 	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
@@ -98,16 +80,6 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
-			completionHandler: completion)
-	}
-	
-	public func request(
-		endpoint: Endpoint<AuthStateType>,
-		expansions: [API.ExpandableValue] = [],
-		completion: (Response<AuthStateType, Error>) -> ()) -> Request {
-		let req = request(endpoint, expansions: expansions)
-		return req.response(
-			responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: endpoint.keyPath),
 			completionHandler: completion)
 	}
 	

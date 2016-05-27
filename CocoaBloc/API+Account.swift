@@ -44,7 +44,7 @@ extension API {
 				"stagebloc_url" : url,
 				"type"          : type?.rawValue,
 				"color"         : color?.rawValue
-				].filterNil())
+			].filterNil())
 	}
 	
 	public static func updateAccountImage(accountID: Int,

@@ -39,8 +39,8 @@ extension Error: CustomStringConvertible {
 		switch self {
 		case .UnexpectedResponseType:
 			return "Unexpected server response"
-		case .Underlying:
-			return "Unexpected error"
+		case .Underlying(let error):
+			return "Underlying error: \(error)"
 		case .JSONDecoding(let decodeError):
 			return "JSON Decoding: \(decodeError)"
 		case .API(let string):
