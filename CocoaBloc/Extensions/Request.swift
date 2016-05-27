@@ -8,6 +8,7 @@
 
 import Argo
 import Alamofire
+import Foundation
 
 extension Request {
 	static func DecodableResponseSerializer<T: Decodable where T.DecodedType == T>(type: T.Type, keyPath: String)
@@ -29,6 +30,21 @@ extension Request {
 						return .Failure(.JSONDecoding(decodeError))
 					}
 				case .Failure(let error):
+					if let body = data {
+						do {
+							let jsonObject = try NSJSONSerialization.JSONObjectWithData(body, options: [])
+							let json = JSON(jsonObject)
+							let decodedErrorString: Decoded<String> = json <| ["metadata", "error"]
+							switch decodedErrorString {
+							case .Success(let errorString):
+								return .Failure(.API(errorString))
+							case .Failure(let decodeError):
+								return .Failure(.JSONDecoding(decodeError))
+							}
+						} catch {
+							return .Failure(.UnexpectedResponseType)
+						}
+					}
 					return .Failure(.Underlying(error))
 				}
 			}
@@ -53,6 +69,21 @@ extension Request {
 						return .Failure(.JSONDecoding(decodeError))
 					}
 				case .Failure(let error):
+					if let body = data {
+						do {
+							let jsonObject = try NSJSONSerialization.JSONObjectWithData(body, options: [])
+							let json = JSON(jsonObject)
+							let decodedErrorString: Decoded<String> = json <| ["metadata", "error"]
+							switch decodedErrorString {
+							case .Success(let errorString):
+								return .Failure(.API(errorString))
+							case .Failure(let decodeError):
+								return .Failure(.JSONDecoding(decodeError))
+							}
+						} catch {
+							return .Failure(.UnexpectedResponseType)
+						}
+					}
 					return .Failure(.Underlying(error))
 				}
 			}
