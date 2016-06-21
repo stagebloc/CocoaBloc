@@ -96,11 +96,20 @@ public struct StoreItem: Decodable, Identifiable {
 	public let tags: [String]
 	public let fansNamePrice: Bool
 	public let options: [Option]
-//	public let prices: [Currency: Double]
+	public let priceUSD: Double
 	public let coverPhoto: Expandable<AccountPhoto>?
 	public let photos: ExpandableArray<AccountPhoto>?
 	
 	public static func decode(json: JSON) -> Decoded<StoreItem> {
+		let price: Decoded<Double> = decodedJSON(json, forKey: "prices").flatMap { priceJSON in
+			switch priceJSON {
+			case .Array(let priceEntriesJSON):
+				return priceEntriesJSON.first! <| "price"
+			default:
+				return .missingKey("price")
+			}
+		}
+		
 		let a = curry(StoreItem.init)
 			<^> json <| "id"
 //			<*> json <| "type"
@@ -121,7 +130,7 @@ public struct StoreItem: Decodable, Identifiable {
 			<*> json <|| "tags" <|> pure([])
 			<*> json <| "fans_name_price"
 			<*> json <|| "options" <|> pure([])
-		
+			<*> price
 			<*> json <|? "photo"
 			<*> json <|? "photos"
 	}
