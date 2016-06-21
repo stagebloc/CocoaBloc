@@ -32,11 +32,11 @@ public struct RGBComponents: Decodable {
 	
 	#if os(iOS)
 	public var UIColor: UIKit.UIColor {
-		return UIKit.UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
+		return UIKit.UIColor(red: CGFloat(red / 255), green: CGFloat(green / 255), blue: CGFloat(blue / 255), alpha: 1)
 	}
 	#elseif os(OSX)
 	public var NSColor: AppKit.NSColor {
-		return AppKit.NSColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: 1)
+		return AppKit.NSColor(red: CGFloat(red / 255), green: CGFloat(green / 255), blue: CGFloat(blue / 255), alpha: 1)
 	}
 	#endif
 }
