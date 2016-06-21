@@ -21,20 +21,21 @@ public struct User: Decodable, Identifiable {
 //	public let birthday: NSDate?
 	public let gender: String?
 	public let emailAddress: String?
-	//	var color: UIColor
+	public let color: RGBComponents
 	
 	public static func decode(json: JSON) -> Decoded<User> {
-		return curry(User.init)
+		let a = curry(User.init)
 			<^> json <| "id"
 			<*> json <| "url"
 			<*> json <| "created"
 			<*> json <| "name"
 			<*> json <| "username"
 			<*> json <| "bio"
+		return a
 			<*> json <|? "photo"
 //			<*> json <|? "birthday"
 			<*> json <|? "gender"
 			<*> json <|? "email"
-		//			<*> j <| "color"
+			<*> json <| "color"
 	}
 }

@@ -20,6 +20,7 @@ public struct Account: Decodable, Identifiable {
 	public let stripeEnabled: Bool
 	public let verified: Bool
 	public let photo: AccountPhoto?
+	public let color: RGBComponents
 	
 	public static func decode(json: JSON) -> Decoded<Account> {
 		return curry(Account.init)
@@ -32,5 +33,6 @@ public struct Account: Decodable, Identifiable {
 			<*> json <| "stripe_enabled"
 			<*> json <| "verified"
 			<*> json <|? "photo"
+			<*> json <| "color"
 	}
 }
