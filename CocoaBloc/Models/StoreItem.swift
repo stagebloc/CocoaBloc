@@ -16,10 +16,10 @@ public struct StoreItem: Decodable, Identifiable {
 	public struct Option: Decodable {
 		let name: String
 		let sku: String
-		let disabled: Bool
+		let isDisabled: Bool
 		let upc: String?
-		let unlimited: Bool
-		let soldOut: Bool
+		let isUnlimited: Bool
+		let isSoldOut: Bool
 		let quantity: Int?
 		let lowStockThreshold: Int
 		let weight: Float
@@ -84,7 +84,7 @@ public struct StoreItem: Decodable, Identifiable {
 	public let title: String
 	public let shortURL: NSURL
 	public let descriptiveText: String
-	public let soldOut: Bool
+	public let isSoldOut: Bool
 	public let exclusive: Bool
 	public let featured: Bool
 	public let creationDate: NSDate
@@ -94,7 +94,7 @@ public struct StoreItem: Decodable, Identifiable {
 	public let category: String?
 //	public let sale: Sale?
 	public let tags: [String]
-	public let fansNamePrice: Bool
+	public let isFansNamePrice: Bool
 	public let options: [Option]
 	public let priceUSD: Double
 	public let coverPhoto: Expandable<AccountPhoto>?

@@ -30,10 +30,9 @@
 		971EC2DF1D19A5B400EDCC30 /* RGBComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971EC2DE1D19A5B400EDCC30 /* RGBComponents.swift */; };
 		978410FF1CF4DA0D004788C0 /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978410FE1CF4DA0D004788C0 /* Argo.framework */; };
 		978411031CF4DC69004788C0 /* Expandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411021CF4DC69004788C0 /* Expandable.swift */; };
-		978411051CF4E5C2004788C0 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411041CF4E5C2004788C0 /* NSURL.swift */; };
-		978411071CF4E5DB004788C0 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411061CF4E5DB004788C0 /* NSDate.swift */; };
+		978411051CF4E5C2004788C0 /* NSURL+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411041CF4E5C2004788C0 /* NSURL+Decodable.swift */; };
+		978411071CF4E5DB004788C0 /* NSDate+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411061CF4E5DB004788C0 /* NSDate+Decodable.swift */; };
 		9784110A1CF4E606004788C0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411091CF4E606004788C0 /* User.swift */; };
-		9784110C1CF4E629004788C0 /* APITypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110B1CF4E629004788C0 /* APITypes.swift */; };
 		978411101CF4E858004788C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110F1CF4E858004788C0 /* Account.swift */; };
 		978411141CF4EAC0004788C0 /* AccountPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411131CF4EAC0004788C0 /* AccountPhoto.swift */; };
 		97948A611CF4FFCE00D521BD /* Shipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A601CF4FFCE00D521BD /* Shipping.swift */; };
@@ -153,10 +152,9 @@
 		971EC2DE1D19A5B400EDCC30 /* RGBComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBComponents.swift; sourceTree = "<group>"; };
 		978410FE1CF4DA0D004788C0 /* Argo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Argo.framework; path = Carthage/Build/iOS/Argo.framework; sourceTree = "<group>"; };
 		978411021CF4DC69004788C0 /* Expandable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expandable.swift; sourceTree = "<group>"; };
-		978411041CF4E5C2004788C0 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
-		978411061CF4E5DB004788C0 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
+		978411041CF4E5C2004788C0 /* NSURL+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Decodable.swift"; sourceTree = "<group>"; };
+		978411061CF4E5DB004788C0 /* NSDate+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Decodable.swift"; sourceTree = "<group>"; };
 		978411091CF4E606004788C0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		9784110B1CF4E629004788C0 /* APITypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITypes.swift; sourceTree = "<group>"; };
 		9784110F1CF4E858004788C0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		978411111CF4E9F2004788C0 /* StoreItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		978411131CF4EAC0004788C0 /* AccountPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPhoto.swift; sourceTree = "<group>"; };
@@ -293,9 +291,8 @@
 		098DC4161C1F64380084AE45 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				9784110B1CF4E629004788C0 /* APITypes.swift */,
-				978411061CF4E5DB004788C0 /* NSDate.swift */,
-				978411041CF4E5C2004788C0 /* NSURL.swift */,
+				978411061CF4E5DB004788C0 /* NSDate+Decodable.swift */,
+				978411041CF4E5C2004788C0 /* NSURL+Decodable.swift */,
 				97948A691CF51C0500D521BD /* Request.swift */,
 				098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */,
 			);
@@ -566,7 +563,7 @@
 				97948A731CF51D2100D521BD /* Comment.swift in Sources */,
 				092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */,
 				97948A7E1CF52A7F00D521BD /* Address.swift in Sources */,
-				978411051CF4E5C2004788C0 /* NSURL.swift in Sources */,
+				978411051CF4E5C2004788C0 /* NSURL+Decodable.swift in Sources */,
 				978411101CF4E858004788C0 /* Account.swift in Sources */,
 				97948A6A1CF51C0500D521BD /* Request.swift in Sources */,
 				97948A6F1CF51D0700D521BD /* Status.swift in Sources */,
@@ -577,7 +574,6 @@
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,
 				971EC2DF1D19A5B400EDCC30 /* RGBComponents.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
-				9784110C1CF4E629004788C0 /* APITypes.swift in Sources */,
 				97948A9B1CF815B200D521BD /* UserPhoto.swift in Sources */,
 				97948A8E1CF53E0800D521BD /* Event.swift in Sources */,
 				97948A8C1CF53CE600D521BD /* Video.swift in Sources */,
@@ -591,7 +587,7 @@
 				5285EDD11D1F84140054AEE9 /* ExpandableArray.swift in Sources */,
 				81A7447D1CA5AB1500ADA158 /* FormData.swift in Sources */,
 				81D3FE1A1CA4AD0A00513CCA /* NSURL+MimeType.swift in Sources */,
-				978411071CF4E5DB004788C0 /* NSDate.swift in Sources */,
+				978411071CF4E5DB004788C0 /* NSDate+Decodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
