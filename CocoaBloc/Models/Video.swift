@@ -22,7 +22,7 @@ public struct Video: Decodable, Identifiable {
 	public let embedCode: String
 	public let creationDate: NSDate
 	public let modificationDate: NSDate
-	public let exclusive: Bool
+	public let isExclusive: Bool
 	public let inModeration: Bool
 	public let isFanContent: Bool
 	public let commentCount: Int

@@ -24,13 +24,13 @@ public struct Audio: Decodable, Identifiable {
 	public let creationDate: NSDate
 	public let modifier: Expandable<User>
 	public let modificationDate: NSDate
-	public let recorded: Bool
+	public let isRecorded: Bool
 	public let shortURL: NSURL
 	public let streamURL: NSURL
 	public let embedCode: String
 	public let isPrivate: Bool
-	public let sticky: Bool
-	public let exclusive: Bool
+	public let isSticky: Bool
+	public let isExclusive: Bool
 	public let inModeration: Bool
 	public let isFanContent: Bool
 	public let commentCount: Int

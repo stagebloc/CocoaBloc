@@ -9,24 +9,6 @@
 import Argo
 import Curry
 
-public struct ImageURLSet: Decodable {
-
-	public let thumbnail: NSURL
-	public let small: NSURL
-	public let medium: NSURL
-	public let large: NSURL
-	public let original: NSURL
-	
-	public static func decode(json: JSON) -> Decoded<ImageURLSet> {
-		return curry(ImageURLSet.init)
-			<^> json <| "thumbnail_url"
-			<*> json <| "small_url"
-			<*> json <| "medium_url"
-			<*> json <| "large_url"
-			<*> json <| "original_url"
-	}
-}
-
 public struct AccountPhoto: Decodable, Identifiable {
 	
 	public let identifier: Int
@@ -39,9 +21,9 @@ public struct AccountPhoto: Decodable, Identifiable {
 	public let descriptiveText: String
 	public let width: Int
 	public let height: Int
-	public let sticky: Bool
-	public let exclusive: Bool
-	public let inModeration: Bool
+	public let isSticky: Bool
+	public let isExclusive: Bool
+	public let isInModeration: Bool
 	public let isFanContent: Bool
 	public let commentCount: Int
 	public let likeCount: Int

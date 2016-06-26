@@ -14,8 +14,8 @@ public struct Order: Decodable, Identifiable {
 	public let identifier: Int
 	public let account: Expandable<Account>
 	public let receiptURL: NSURL
-	public let ordered: Bool
-	public let shipped: Bool
+	public let isOrdered: Bool
+	public let isShipped: Bool
 	public let currency: StoreItem.Currency
 	public let total: Double
 	public let totalUSD: Double

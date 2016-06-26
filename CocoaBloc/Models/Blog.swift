@@ -22,8 +22,8 @@ public struct Blog: Decodable, Identifiable {
 	public let publishDate: NSDate
 	public let creationDate: NSDate
 	public let modificationDate: NSDate
-	public let sticky: Bool
-	public let exclusive: Bool
+	public let isSticky: Bool
+	public let isExclusive: Bool
 	public let inModeration: Bool
 	public let isFanContent: Bool
 	public let commentCount: Int

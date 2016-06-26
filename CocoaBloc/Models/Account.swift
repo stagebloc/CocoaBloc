@@ -17,8 +17,8 @@ public struct Account: Decodable, Identifiable {
 	public let name: String
 	public let descriptiveText: String
 //	public let type: API.AccountType
-	public let stripeEnabled: Bool
-	public let verified: Bool
+	public let isStripeEnabled: Bool
+	public let isVerified: Bool
 	public let photo: AccountPhoto?
 	public let color: RGBComponents
 	
