@@ -34,10 +34,6 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		self.authenticationState = authenticationState
 	}
 	
-	public var authenticated: Bool {
-		return authenticationState.authenticationToken != nil
-	}
-	
 	public func request<Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = []) -> Request {
@@ -47,7 +43,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 						.joinWithSeparator(",")
 		].withEntries(endpoint.parameters)
 		
-		if !authenticated {
+		if !authenticationState.isAuthenticated {
 			params["client_id"] = clientID
 		}
 		
@@ -56,7 +52,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			baseURL.URLByAppendingPathComponent(endpoint.path),
 			parameters: params,
 			encoding: .URL,
-			headers: authenticated
+			headers: authenticationState.isAuthenticated
 						? ["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""]
 						: nil
 		).validate()
@@ -106,14 +102,14 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
 		].withEntries(endpoint.parameters)
 		
-		if !authenticated {
+		if !authenticationState.isAuthenticated {
 			params["client_id"] = clientID
 		}
 		
 		manager.upload(
 			endpoint.method,
 			baseURL.URLByAppendingPathComponent(endpoint.path),
-			headers: authenticated ?
+			headers: authenticationState.isAuthenticated ?
 				["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""] : nil,
 			multipartFormData: { multipartData in
 				formData.forEach {
@@ -192,10 +188,5 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 				completion(.Failure(error))
 			}
 		}
-	}
-	
-	public func logoutAuthenticatedUser() {
-		authenticationState.authenticationToken = nil
-		authenticationState.authenticatedUser = nil
 	}
 }

@@ -13,8 +13,21 @@ import Curry
 public protocol AuthenticationStateType: Decodable {
 	var authenticationToken: String? { get set }
 	var authenticatedUser: User? { get set }
+	var isAuthenticated: Bool { get }
+	mutating func deauthenticate()
 	
 	init(authenticationToken: String?, authenticatedUser: User?)
+}
+
+extension AuthenticationStateType {
+	public var isAuthenticated: Bool {
+		return (authenticationToken?.characters.count > 0) ?? false
+	}
+	
+	public mutating func deauthenticate() {
+		authenticationToken = nil
+		authenticatedUser = nil
+	}
 }
 
 extension AuthenticationStateType {
