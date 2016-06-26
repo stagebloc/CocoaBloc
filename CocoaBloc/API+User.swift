@@ -11,45 +11,6 @@ import Foundation
 import Alamofire
 
 extension API {
-	
-//	private static func userAuthSideEffect(request: Request, authState: AuthenticationStateType) {
-//		authState.authenticationToken = nil
-//		authState.authenticatedUser = nil
-//		
-//
-//		
-////		request.responseJSON { response in
-////			switch response.result {
-////			case .Success(let json):
-////				guard
-////					let json = json as? [String:AnyObject],
-////					let data = json["data"] as? [String:AnyObject] else {
-////						return // invalid response (doesn't match sb json structure)
-////					}
-////				
-////				// set the oauth token
-////				if let token = data["access_token"] as? String {
-////					authState.authenticationToken = token
-////				}
-////				
-////				// set the authenticated user
-////				if let userJSON = data["user"] as? [String:AnyObject] {
-////					do {
-////						// swiftlint:disable force_cast
-////						let user = try MTLJSONAdapter.modelOfClass(SBUser.self, fromJSONDictionary: userJSON) as! SBUser
-////						// swiftlint:enable force_cast
-////						authState.authenticatedUser = user
-////					} catch _ as NSError {
-////						// json serialization error
-////					}
-////				}
-////
-////			case .Failure(_):
-////				// We want to let failures pass through our side effect for whoever to handle
-////				break
-////			}
-////		}
-//	}
 
 	public static func loginWithAuthorizationCode<AuthState: AuthenticationStateType>(
 		authorizationCode: String) -> Endpoint<AuthState> {
@@ -60,7 +21,7 @@ extension API {
 				"code": authorizationCode,
 				"grant_type": "authorization_code"
 			],
-			keyPath: "data.user")
+			keyPath: "data")
 	}
 	
 	public static func logInWithUsername<AuthState: AuthenticationStateType>(
@@ -75,7 +36,7 @@ extension API {
 				"password": password,
 				"grant_type": "password"
 			],
-			keyPath: "data.user")
+			keyPath: "data")
 	}
 	
 	
