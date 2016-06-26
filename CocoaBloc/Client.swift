@@ -34,6 +34,11 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		self.authenticationState = authenticationState
 	}
 	
+	public func deauthenticate() {
+		authenticationState.authenticatedUser = nil
+		authenticationState.authenticationToken = nil
+	}
+	
 	public func request<Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = []) -> Request {
