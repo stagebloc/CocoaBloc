@@ -11,18 +11,10 @@ import Foundation
 extension API {
 	
 	public struct ContentStreamFilter: OptionSetType {
-		public let rawValue: Int
-		
-		public init(rawValue: Int) { self.rawValue = rawValue }
-		
 		public static let Fan = ContentStreamFilter(rawValue: 1 << 0)
 		public static let Official = ContentStreamFilter(rawValue: 1 << 1)
 		public static let IncludingAdminAccounts = ContentStreamFilter(rawValue: 1 << 2)
 		public static let All: ContentStreamFilter = [Fan, Official, IncludingAdminAccounts]
-		
-		public var validated: ContentStreamFilter? {
-			return ContentStreamFilter.All.contains(self) && self.rawValue != 0 ? self : nil
-		}
 	}
 	
 	public static func getFanClubDashboard(accountID: Int) -> Endpoint<SBFanClubDashboard> {
