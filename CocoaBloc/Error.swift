@@ -44,7 +44,7 @@ extension Error: CustomStringConvertible {
 		case .JSONDecoding(let decodeError):
 			return "JSON Decoding: \(decodeError)"
 		case .API(let string):
-			return string
+			return "API Error: \(string)"
 		case .MultipartDataEncoding:
 			return "Data encoding error"
 		}
