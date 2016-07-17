@@ -14,21 +14,31 @@ public struct StoreItem: Decodable, Identifiable {
 	// MARK: Types
 	
 	public struct Option: Decodable {
-		let name: String
-		let sku: String
-		let isDisabled: Bool
-		let upc: String?
-		let isUnlimited: Bool
-		let isSoldOut: Bool
-		let quantity: Int?
-		let lowStockThreshold: Int
-		let weight: Float
-		let weightUnit: String
-		let height: Float
-		let width: Float
-		let length: Float
+		public let name: String
+		public let sku: String
+		public let isDisabled: Bool
+		public let upc: String?
+		public let isUnlimited: Bool
+		public let isSoldOut: Bool
+		public let quantity: Int?
+		public let lowStockThreshold: Int
+		public let weight: Float
+		public let weightUnit: String
+		public let height: Float
+		public let width: Float
+		public let length: Float
+		public let additionalPrice: Double
 		
 		public static func decode(json: JSON) -> Decoded<Option> {
+			let price: Decoded<Double> = decodedJSON(json, forKey: "additional_price").flatMap { priceJSON in
+				switch priceJSON {
+				case .Array(let priceEntriesJSON):
+					return priceEntriesJSON.first! <| "price"
+				default:
+					return .missingKey("price")
+				}
+			}
+
 			let a = curry(Option.init)
 				<^> json <| "name"
 				<*> json <| "sku"
@@ -44,6 +54,7 @@ public struct StoreItem: Decodable, Identifiable {
 				<*> json <| "height"
 				<*> json <| "width"
 				<*> json <| "length"
+				<*> price
 		}
 	}
 	
@@ -79,7 +90,7 @@ public struct StoreItem: Decodable, Identifiable {
 	// MARK: Properties
 	
 	public let identifier: Int
-//	public let type: Type
+	public let type: String
 	public let account: Expandable<Account>
 	public let title: String
 	public let shortURL: NSURL
@@ -112,7 +123,7 @@ public struct StoreItem: Decodable, Identifiable {
 		
 		let a = curry(StoreItem.init)
 			<^> json <| "id"
-//			<*> json <| "type"
+			<*> json <| "type"
 			<*> json <| "account"
 			<*> json <| "title"
 			<*> json <| "short_url"

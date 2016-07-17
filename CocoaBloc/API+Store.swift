@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 extension API {
 	
 //	public static func getStoreDashboard(accountID: Int) -> Endpoint<SBStoreDashboard> {
@@ -15,6 +16,45 @@ extension API {
 //			path: "account/\(accountID)/store/dashboard",
 //			method: .GET)
 //	}
+	
+	public static func getCart(withSessionID cartSessionID: String) -> Endpoint<Cart> {
+		return Endpoint(path: "cart/\(cartSessionID)", method: .GET)
+	}
+	
+	public static func createCart(email: String, userID: Int?) -> Endpoint<Cart> {
+		return Endpoint(
+			path: "cart",
+			method: .POST,
+			parameters: [
+				"cart": [
+					"email": email,
+					"user_id": userID
+				].filterNil()
+			])
+	}
+	
+	public static func updateCart(withSessionID sessionID: String,
+	                                            newEmail: String?,
+	                                            newShippingAddress: Address?) -> Endpoint<Cart> {
+		precondition(newEmail != nil || newShippingAddress != nil,
+		             "Can't create an endpoint to update nothing on the cart.")
+		return Endpoint(
+			path: "cart/\(sessionID)",
+			method: .POST,
+			parameters: [
+				"cart": [
+					"session_id": sessionID,
+					"email": newEmail,
+					//				"addresses": newAddresses
+				].filterNil()
+			])
+	}
+	
+	public static func deleteCartItem(item: Cart.Item) -> Endpoint<Cart> {
+		return Endpoint(path: "cart/\(item.cartID)/items/\(item.hash)", method: .DELETE)
+	}
+	
+//	public static func createCartItem(withSessionID sessionID: String)
 	
 	public static func getOrders(accountID: Int) -> Endpoint<[Order]> {
 		return Endpoint(

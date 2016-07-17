@@ -58,6 +58,8 @@
 		97948A8E1CF53E0800D521BD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A8D1CF53E0800D521BD /* Event.swift */; };
 		97948A931CF772EF00D521BD /* API+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F831C285A35002B9D74 /* API+Store.swift */; };
 		97948A9B1CF815B200D521BD /* UserPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A9A1CF815B200D521BD /* UserPhoto.swift */; };
+		97CD391D1D3AEE2B0076C0D0 /* API+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */; };
+		97CD391F1D3AEF180076C0D0 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD391E1D3AEF180076C0D0 /* Cart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +179,8 @@
 		97948A8B1CF53CE600D521BD /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		97948A8D1CF53E0800D521BD /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		97948A9A1CF815B200D521BD /* UserPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhoto.swift; sourceTree = "<group>"; };
+		97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Address.swift"; sourceTree = "<group>"; };
+		97CD391E1D3AEF180076C0D0 /* Cart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +276,7 @@
 				97948A871CF5398900D521BD /* Transaction.swift */,
 				978411091CF4E606004788C0 /* User.swift */,
 				97948A8B1CF53CE600D521BD /* Video.swift */,
+				97CD391E1D3AEF180076C0D0 /* Cart.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -399,6 +404,7 @@
 				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
 				81F35F831C285A35002B9D74 /* API+Store.swift */,
 				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
+				97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */,
 				81F35F891C285ABB002B9D74 /* API.swift */,
 			);
 			name = "API Types & Endpoints";
@@ -561,6 +567,7 @@
 				81F35F7C1C2857A0002B9D74 /* API+User.swift in Sources */,
 				97948A6C1CF51C5000D521BD /* AuthenticationState.swift in Sources */,
 				97948A731CF51D2100D521BD /* Comment.swift in Sources */,
+				97CD391F1D3AEF180076C0D0 /* Cart.swift in Sources */,
 				092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */,
 				97948A7E1CF52A7F00D521BD /* Address.swift in Sources */,
 				978411051CF4E5C2004788C0 /* NSURL+Decodable.swift in Sources */,
@@ -578,6 +585,7 @@
 				97948A8E1CF53E0800D521BD /* Event.swift in Sources */,
 				97948A8C1CF53CE600D521BD /* Video.swift in Sources */,
 				97948A8A1CF53A1F00D521BD /* OrderShipment.swift in Sources */,
+				97CD391D1D3AEE2B0076C0D0 /* API+Address.swift in Sources */,
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,
 				97948A881CF5398900D521BD /* Transaction.swift in Sources */,
 				97948A801CF52B6200D521BD /* AudioPlaylist.swift in Sources */,

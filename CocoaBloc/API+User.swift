@@ -39,7 +39,6 @@ extension API {
 			keyPath: "data")
 	}
 	
-	
 	public static func getUser(userID: Int) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/\(userID)",
