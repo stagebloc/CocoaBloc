@@ -174,7 +174,7 @@ public struct StoreItem: Decodable, Identifiable {
 		
 		let a = curry(StoreItem.init)
 			<^> json <| "id"
-			<*> json <| "type"
+			<*> Type.decode(json)
 			<*> json <| "account"
 			<*> json <| "title"
 			<*> json <| "short_url"
