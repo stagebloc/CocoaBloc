@@ -14,7 +14,7 @@ public struct Order: Decodable, Identifiable {
 	public let identifier: Int
 	public let account: Expandable<Account>
 	public let receiptURL: NSURL
-	public let isOrdered: Bool
+	public let orderDate: NSDate
 	public let isShipped: Bool
 	public let currency: StoreItem.Currency
 	public let total: Double
@@ -25,7 +25,7 @@ public struct Order: Decodable, Identifiable {
 	public let status: String
 	public let notes: String
 	public let emailAddress: String
-	public let user: User
+	public let user: User?
 	public let address: Address
 	public let transactions: [Transaction]
 	
@@ -47,7 +47,7 @@ public struct Order: Decodable, Identifiable {
 		return b
 			<*> json <| "notes"
 			<*> json <| "email"
-			<*> json <| "user"
+			<*> json <|? "user"
 			<*> json <| "address"
 			<*> json <|| "transactions"
 	}

@@ -407,7 +407,7 @@
 				97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */,
 				81F35F891C285ABB002B9D74 /* API.swift */,
 			);
-			name = "API Types & Endpoints";
+			path = "API Types & Endpoints";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

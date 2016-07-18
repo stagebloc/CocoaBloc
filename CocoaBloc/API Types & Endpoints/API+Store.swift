@@ -8,14 +8,27 @@
 
 import Foundation
 
+public struct StoreDashboard {
+	public struct Totals {
+		
+	}
+	
+	public struct Revenue {
+		
+	}
+	
+	public struct Averages {
+		
+	}
+}
 
 extension API {
 	
-//	public static func getStoreDashboard(accountID: Int) -> Endpoint<SBStoreDashboard> {
-//		return Endpoint(
-//			path: "account/\(accountID)/store/dashboard",
-//			method: .GET)
-//	}
+	public static func getStoreDashboard(accountID: Int) -> Endpoint<StoreDashboard> {
+		return Endpoint(
+			path: "account/\(accountID)/store/dashboard",
+			method: .GET)
+	}
 	
 	public static func getCart(withSessionID cartSessionID: String) -> Endpoint<Cart> {
 		return Endpoint(path: "cart/\(cartSessionID)", method: .GET)
