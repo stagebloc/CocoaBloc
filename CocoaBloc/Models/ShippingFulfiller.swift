@@ -12,7 +12,7 @@ import Curry
 public struct ShippingFulfiller: Decodable, Identifiable {
 	
 	public let identifier: Int
-	public let type: String
+	public let type: Int
 	public let name: String
 	
 	public static func decode(json: JSON) -> Decoded<ShippingFulfiller> {
