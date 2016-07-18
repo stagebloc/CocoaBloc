@@ -58,20 +58,71 @@ public struct StoreItem: Decodable, Identifiable {
 		}
 	}
 	
-//	public enum Type: Decodable {
-//		case Digital(freeDownload: Bool, requireFollow: Bool)
-//		case Bundle(storeItems: [StoreItem], audio: [Audio]/*, playlists */)
-//		case Physical(shippingPriceHandlers: [ShippingPriceHandler], fulfiller: ShippingFulfiller)
-//		
-//		public static func decode(json: JSON) -> Decoded<Type> {
-////			switch json {
-////				
-////			}
-//		}
-//	}
+	public enum Type: Decodable {
+		case Digital(isFreeDownload: Bool, requiresFollow: Bool)
+		case Physical(shippingPriceHandlers: [ShippingPriceHandler], fulfiller: ShippingFulfiller?)
+		case Bundle(isLivingBundle: Bool, storeItems: [StoreItem])//, audio: [Audio]/*, playlists */)
+		case Experience
+		case GiftCard
+		
+		private enum TypeString: String {
+			case Digital = "digital"
+			case Physical = "physical"
+			case Bundle = "bundle"
+			case Experience = "experience"
+			case GiftCard = "gift card"
+		}
+		
+		public var APITypeString: String {
+			switch self {
+			case .Digital:
+				return TypeString.Digital.rawValue
+			case .Physical:
+				return TypeString.Physical.rawValue
+			case .Bundle:
+				return TypeString.Bundle.rawValue
+			case .Experience:
+				return TypeString.Experience.rawValue
+			case .GiftCard:
+				return TypeString.GiftCard.rawValue
+			}
+		}
+		
+		public static func decode(json: JSON) -> Decoded<Type> {
+			let typeString: Decoded<String> = json <| "type"
+			
+			return typeString.flatMap { typeStr in
+				switch typeStr {
+				case TypeString.Digital.rawValue:
+					return curry(Type.Digital)
+						<^> json <| ["free_download", "enabled"]
+						<*> json <| ["free_download", "require_follow"] <|> pure(false)
+					
+				case TypeString.Physical.rawValue:
+					return curry(Type.Physical)
+						<^> json <|| "shipping_price_handlers"
+						<*> json <|? "fulfiller"
+					
+				case TypeString.Bundle.rawValue:
+					return curry(Type.Bundle)
+						<^> json <| "living_bundle"
+						<*> json <|| ["bundled_items", "store_items"] <|> pure([])
+					
+				case TypeString.Experience.rawValue:
+					return pure(.Experience)
+					
+				case TypeString.GiftCard.rawValue:
+					return pure(.GiftCard)
+					
+				default:
+					return .customError("Unexpected store item type: \(typeStr)")
+				}
+			}
+		}
+	}
 	
 	public enum Currency: String, Decodable {
-		case USD = "USD"
+		case USD = "usd"
 	}
 	
 	public struct Sale: Decodable {
@@ -90,7 +141,7 @@ public struct StoreItem: Decodable, Identifiable {
 	// MARK: Properties
 	
 	public let identifier: Int
-	public let type: String
+	public let type: Type
 	public let account: Expandable<Account>
 	public let title: String
 	public let shortURL: NSURL
