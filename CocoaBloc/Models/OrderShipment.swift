@@ -13,7 +13,7 @@ public struct OrderShipment: Decodable, Identifiable {
 	
 	public let identifier: Int
 	public let trackingNumber: String
-	public let shipped: Bool
+	public let shippedDate: NSDate
 	
 	public static func decode(json: JSON) -> Decoded<OrderShipment> {
 		return curry(OrderShipment.init)
