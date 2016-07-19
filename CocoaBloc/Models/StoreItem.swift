@@ -27,18 +27,9 @@ public struct StoreItem: Decodable, Identifiable {
 		public let height: Float
 		public let width: Float
 		public let length: Float
-		public let additionalPrice: Double
+		public let additionalPrice: Double?
 		
 		public static func decode(json: JSON) -> Decoded<Option> {
-			let price: Decoded<Double> = decodedJSON(json, forKey: "additional_price").flatMap { priceJSON in
-				switch priceJSON {
-				case .Array(let priceEntriesJSON):
-					return priceEntriesJSON.first! <| "price"
-				default:
-					return .missingKey("price")
-				}
-			}
-
 			let a = curry(Option.init)
 				<^> json <| "name"
 				<*> json <| "sku"
@@ -54,7 +45,7 @@ public struct StoreItem: Decodable, Identifiable {
 				<*> json <| "height"
 				<*> json <| "width"
 				<*> json <| "length"
-				<*> price
+				<*> json <|? "additional_price"
 		}
 	}
 	
@@ -89,9 +80,7 @@ public struct StoreItem: Decodable, Identifiable {
 		}
 		
 		public static func decode(json: JSON) -> Decoded<Type> {
-			let typeString: Decoded<String> = json <| "type"
-			
-			return typeString.flatMap { typeStr in
+			return json <| "type" >>- { (typeStr: String) in
 				switch typeStr {
 				case TypeString.Digital.rawValue:
 					return curry(Type.Digital)
@@ -126,13 +115,30 @@ public struct StoreItem: Decodable, Identifiable {
 	}
 	
 	public struct Sale: Decodable {
-		public let amountOff: Double
+		public enum Type: Decodable {
+			case Amount(Double)
+			case Percentage(Double)
+			
+			public static func decode(json: JSON) -> Decoded<Type> {
+				return json <| "sale_type" >>- { (type: String) in
+					if type == "percent" {
+						return Type.Percentage <^> json <| "sale_percentage"
+					} else if type == "amount" {
+						return Type.Amount <^> json <| "sale_amount"
+					} else {
+						return .customError("Unsupported store option sale type")
+					}
+				}
+			}
+		}
+		public let type: Type
 		public let startDate: NSDate
 		public let endDate: NSDate
 		
 		public static func decode(json: JSON) -> Decoded<Sale> {
+			
 			return curry(Sale.init)
-				<^> json <| "sale_amount"
+				<^> Type.decode(json)
 				<*> json <| "sale_start_date"
 				<*> json <| "sale_end_date"
 		}
