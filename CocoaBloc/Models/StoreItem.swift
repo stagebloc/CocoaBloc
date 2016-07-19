@@ -147,14 +147,14 @@ public struct StoreItem: Decodable, Identifiable {
 	public let shortURL: NSURL
 	public let descriptiveText: String
 	public let isSoldOut: Bool
-	public let exclusive: Bool
-	public let featured: Bool
+	public let isExclusive: Bool
+	public let isFeatured: Bool
 	public let creationDate: NSDate
 	public let creator: Expandable<User>
 	public let modificationDate: NSDate
 	public let modifier: Expandable<User>
 	public let category: String?
-//	public let sale: Sale?
+	public let sale: Sale?
 	public let tags: [String]
 	public let isFansNamePrice: Bool
 	public let options: [Option]
@@ -188,7 +188,7 @@ public struct StoreItem: Decodable, Identifiable {
 			<*> json <| "modified"
 			<*> json <| "modified_by"
 			<*> json <|? "category"
-//			<*> json <|? "sale"
+			<*> Decoded<Sale>.optional(Sale.decode(json))
 			<*> json <|| "tags" <|> pure([])
 			<*> json <| "fans_name_price"
 			<*> json <|| "options" <|> pure([])
