@@ -12,84 +12,84 @@ import Alamofire
 public struct API {
 	
 	public enum ExpandableValue: String {
-		case Photo      = "photo"
-		case Photos     = "photos"
-		case Account    = "account"
-		case User       = "user"
-		case Tags       = "tags"
-		case Audio      = "audio"
-		case CreatedBy  = "created_by"
-		case ModifiedBy = "modified_by"
-		case Content    = "content"
+		case photo      = "photo"
+		case photos     = "photos"
+		case account    = "account"
+		case user       = "user"
+		case tags       = "tags"
+		case audio      = "audio"
+		case createdBy  = "created_by"
+		case modifiedBy = "modified_by"
+		case content    = "content"
 	}
 	
 	public enum UserColor: String {
-		case Blue   = "blue"
-		case Teal   = "teal"
-		case Green  = "green"
-		case Pink   = "pink"
-		case Red    = "red"
-		case Purple = "purple"
+		case blue   = "blue"
+		case teal   = "teal"
+		case green  = "green"
+		case pink   = "pink"
+		case red    = "red"
+		case purple = "purple"
 	}
 	
 	public enum Gender: String {
-		case Male       = "male"
-		case Female     = "female"
-		case Cupcake    = "cupcake"
+		case male       = "male"
+		case female     = "female"
+		case cupcake    = "cupcake"
 	}
 	
 	public enum ContentTypeIdentifier: String {
-		case Photo  = "photo"
-		case Audio  = "audio"
-		case Video  = "video"
-		case Blog   = "blog"
-		case Status = "status"
-		case Event	= "event"
+		case photo  = "photo"
+		case audio  = "audio"
+		case video  = "video"
+		case blog   = "blog"
+		case status = "status"
+		case event	= "event"
 	}
 	
 	public enum ContentListType: String {
-		case Update  = "updates"
-		case Like  = "likes"
+		case update  = "updates"
+		case like  = "likes"
 	}
 	
 	public enum AccountColor: String {
-		case Blue       = "blue"
-		case Purple     = "purple"
-		case Red        = "red"
-		case Orange     = "orange"
-		case Grey       = "grey"
-		case Green      = "green"
+		case blue       = "blue"
+		case purple     = "purple"
+		case red        = "red"
+		case orange     = "orange"
+		case grey       = "grey"
+		case green      = "green"
 	}
 	
 	public enum AccountType: String {
-		case Music              = "music"
-		case FilmAndTV          = "film/tv"
-		case Entertainment      = "entertainment"
-		case Sports             = "sports"
-		case Celebrity          = "celebrity"
-		case Comedian           = "comedian"
-		case RecordLabel        = "record label"
-		case ManagementCompany  = "management company"
-		case Personal           = "personal"
-		case Developer          = "developer"
-		case Photography        = "photography"
-		case Cooking            = "food"
-		case Business           = "business"
-		case Organization       = "organization"
-		case Other              = "other"
+		case music              = "music"
+		case filmAndTV          = "film/tv"
+		case entertainment      = "entertainment"
+		case sports             = "sports"
+		case celebrity          = "celebrity"
+		case comedian           = "comedian"
+		case recordLabel        = "record label"
+		case managementCompany  = "management company"
+		case personal           = "personal"
+		case developer          = "developer"
+		case photography        = "photography"
+		case cooking            = "food"
+		case business           = "business"
+		case organization       = "organization"
+		case other              = "other"
 	}
 	
 	public enum FanClubType: String {
-		case Featured   = "featured"
-		case Recent     = "recent"
-		case Following  = "following"
+		case featured   = "featured"
+		case recent     = "recent"
+		case following  = "following"
 	}
 	
 	public enum FlagType: String {
-		case Duplicate = "duplicate"
-		case Copyright = "copyright"
-		case Prejudice = "prejudice"
-		case Offensive = "offensive"
+		case duplicate = "duplicate"
+		case copyright = "copyright"
+		case prejudice = "prejudice"
+		case offensive = "offensive"
 	}
 	
 	public struct Content: ContentType {

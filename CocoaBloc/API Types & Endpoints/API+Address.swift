@@ -13,12 +13,12 @@ import Alamofire
 extension API {
 	
 	public enum AddressType: String {
-		case Shipping				= "shipping"
-		case InactiveShipping		= "inactive-shipping"
-		case Location				= "location"
-		case OneTimeShipping		= "one-time-shipping"
-		case PaymentVerification	= "payment-verification"
-		case Billing				= "billing"
+		case shipping				= "shipping"
+		case inactiveShipping		= "inactive-shipping"
+		case location				= "location"
+		case oneTimeShipping		= "one-time-shipping"
+		case paymentVerification	= "payment-verification"
+		case billing				= "billing"
 	}
 
 	public static func getAddress(withID addressID: Int) -> Endpoint<Address> {

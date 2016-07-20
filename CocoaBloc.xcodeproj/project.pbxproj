@@ -28,6 +28,7 @@
 		81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F7F1C2859E2002B9D74 /* API+Account.swift */; };
 		81F35F8A1C285ABB002B9D74 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35F891C285ABB002B9D74 /* API.swift */; };
 		971EC2DF1D19A5B400EDCC30 /* RGBComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971EC2DE1D19A5B400EDCC30 /* RGBComponents.swift */; };
+		9734C38B1D3FD9B5007F7BBA /* ShippingMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9734C38A1D3FD9B5007F7BBA /* ShippingMethod.swift */; };
 		978410FF1CF4DA0D004788C0 /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978410FE1CF4DA0D004788C0 /* Argo.framework */; };
 		978411031CF4DC69004788C0 /* Expandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411021CF4DC69004788C0 /* Expandable.swift */; };
 		978411051CF4E5C2004788C0 /* NSURL+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411041CF4E5C2004788C0 /* NSURL+Decodable.swift */; };
@@ -35,7 +36,7 @@
 		9784110A1CF4E606004788C0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411091CF4E606004788C0 /* User.swift */; };
 		978411101CF4E858004788C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784110F1CF4E858004788C0 /* Account.swift */; };
 		978411141CF4EAC0004788C0 /* AccountPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978411131CF4EAC0004788C0 /* AccountPhoto.swift */; };
-		97948A611CF4FFCE00D521BD /* Shipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A601CF4FFCE00D521BD /* Shipping.swift */; };
+		97948A611CF4FFCE00D521BD /* ShippingPriceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A601CF4FFCE00D521BD /* ShippingPriceHandler.swift */; };
 		97948A631CF5005B00D521BD /* ShippingFulfiller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A621CF5005B00D521BD /* ShippingFulfiller.swift */; };
 		97948A651CF519B100D521BD /* Curry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97948A641CF519B100D521BD /* Curry.framework */; };
 		97948A661CF519CB00D521BD /* Curry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97948A641CF519B100D521BD /* Curry.framework */; };
@@ -152,6 +153,7 @@
 		81F35F871C285A83002B9D74 /* API+Coupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Coupon.swift"; sourceTree = "<group>"; };
 		81F35F891C285ABB002B9D74 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		971EC2DE1D19A5B400EDCC30 /* RGBComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBComponents.swift; sourceTree = "<group>"; };
+		9734C38A1D3FD9B5007F7BBA /* ShippingMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingMethod.swift; sourceTree = "<group>"; };
 		978410FE1CF4DA0D004788C0 /* Argo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Argo.framework; path = Carthage/Build/iOS/Argo.framework; sourceTree = "<group>"; };
 		978411021CF4DC69004788C0 /* Expandable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expandable.swift; sourceTree = "<group>"; };
 		978411041CF4E5C2004788C0 /* NSURL+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Decodable.swift"; sourceTree = "<group>"; };
@@ -160,7 +162,7 @@
 		9784110F1CF4E858004788C0 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		978411111CF4E9F2004788C0 /* StoreItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		978411131CF4EAC0004788C0 /* AccountPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPhoto.swift; sourceTree = "<group>"; };
-		97948A601CF4FFCE00D521BD /* Shipping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shipping.swift; sourceTree = "<group>"; };
+		97948A601CF4FFCE00D521BD /* ShippingPriceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingPriceHandler.swift; sourceTree = "<group>"; };
 		97948A621CF5005B00D521BD /* ShippingFulfiller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingFulfiller.swift; sourceTree = "<group>"; };
 		97948A641CF519B100D521BD /* Curry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Curry.framework; path = Carthage/Build/iOS/Curry.framework; sourceTree = "<group>"; };
 		97948A691CF51C0500D521BD /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -268,7 +270,8 @@
 				97948A851CF5388A00D521BD /* FanClub.swift */,
 				97948A831CF537DF00D521BD /* Order.swift */,
 				97948A891CF53A1F00D521BD /* OrderShipment.swift */,
-				97948A601CF4FFCE00D521BD /* Shipping.swift */,
+				97948A601CF4FFCE00D521BD /* ShippingPriceHandler.swift */,
+				9734C38A1D3FD9B5007F7BBA /* ShippingMethod.swift */,
 				97948A621CF5005B00D521BD /* ShippingFulfiller.swift */,
 				97948A6E1CF51D0700D521BD /* Status.swift */,
 				978411111CF4E9F2004788C0 /* StoreItem.swift */,
@@ -558,7 +561,7 @@
 				97948A861CF5388A00D521BD /* FanClub.swift in Sources */,
 				9784110A1CF4E606004788C0 /* User.swift in Sources */,
 				5285EDD31D1F85590054AEE9 /* Identifiable.swift in Sources */,
-				97948A611CF4FFCE00D521BD /* Shipping.swift in Sources */,
+				97948A611CF4FFCE00D521BD /* ShippingPriceHandler.swift in Sources */,
 				97948A811CF52E2000D521BD /* API+Comment.swift in Sources */,
 				0925DF661C0514F400BD43E0 /* Error.swift in Sources */,
 				81D3FE181CA4980C00513CCA /* NSData+MimeType.swift in Sources */,
@@ -578,6 +581,7 @@
 				092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */,
 				97948A931CF772EF00D521BD /* API+Store.swift in Sources */,
 				81F35F8A1C285ABB002B9D74 /* API.swift in Sources */,
+				9734C38B1D3FD9B5007F7BBA /* ShippingMethod.swift in Sources */,
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,
 				971EC2DF1D19A5B400EDCC30 /* RGBComponents.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,

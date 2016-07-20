@@ -14,8 +14,8 @@ public struct FormDataPart {
 	public let dataType: DataType
 	
 	public enum DataType {
-		case Data(NSData)
-		case File(NSURL)
+		case data(NSData)
+		case file(NSURL)
 	}
 	
 	public init(title: String,

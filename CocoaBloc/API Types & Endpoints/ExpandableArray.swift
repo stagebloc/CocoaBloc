@@ -13,11 +13,11 @@ public enum ExpandableArray<Item where
 	Item.DecodedType: Identifiable,
 	Item.DecodedType == Item> {
 	
-	case Unexpanded(count: Int)
-	indirect case Expanded([Item])
+	case unexpanded(count: Int)
+	indirect case expanded([Item])
 	
 	public var value: [Item]? {
-		if case .Expanded(let value) = self {
+		if case .expanded(let value) = self {
 			return value
 		}
 		return nil
@@ -25,9 +25,9 @@ public enum ExpandableArray<Item where
 	
 	public var count: Int {
 		switch self {
-		case .Unexpanded(let count):
+		case .unexpanded(let count):
 			return count
-		case .Expanded(let value):
+		case .expanded(let value):
 			return value.count
 		}
 	}
@@ -37,9 +37,9 @@ extension ExpandableArray: Decodable {
 	public static func decode(json: JSON) -> Decoded<ExpandableArray<Item>> {
 		switch json {
 		case .Number(let number as Int):
-			return pure(.Unexpanded(count: number))
+			return pure(.unexpanded(count: number))
 		case .Array:
-			return Array<Item>.decode(json).map { .Expanded($0) }
+			return Array<Item>.decode(json).map { .expanded($0) }
 		default:
 			return .typeMismatch("Expandable array", actual: json)
 		}

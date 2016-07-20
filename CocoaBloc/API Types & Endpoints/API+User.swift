@@ -30,7 +30,7 @@ extension API {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
-			expansions: [.User],
+			expansions: [.user],
 			parameters: [
 				"username": username,
 				"password": password,

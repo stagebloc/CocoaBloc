@@ -14,11 +14,15 @@ public struct ShippingFulfiller: Decodable, Identifiable {
 	public let identifier: Int
 	public let type: Int
 	public let name: String
+	public let address: Address?
+	public let priceHandlers: [ShippingPriceHandler]
 	
 	public static func decode(json: JSON) -> Decoded<ShippingFulfiller> {
 		return curry(ShippingFulfiller.init)
 			<^> json <| "id"
 			<*> json <| "type"
 			<*> json <| "name"
+			<*> json <|? "address"
+			<*> json <|| "shipping_price_handlers" <|> pure([])
 	}
 }

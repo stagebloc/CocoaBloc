@@ -120,13 +120,13 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 				formData.forEach {
 					let title = $0.title
 					switch $0.dataType {
-					case .Data(let data):
+					case .data(let data):
 						multipartData.appendBodyPart(
 							data: data,
 							name: title,
 							fileName: title,
 							mimeType: data.photoMime())
-					case .File(let url):
+					case .file(let url):
 						multipartData.appendBodyPart(
 							fileURL: url,
 							name: title,
