@@ -1,6 +1,7 @@
 disabled_rules:
-    - function_parameter_count
     - trailing_whitespace
+    - nesting
+    - function_parameter_count
     - conditional_binding_cascade
 line_length: 110
 included: 

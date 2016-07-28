@@ -13,10 +13,11 @@ extension NSURL {
 	
 	internal func photoMime() -> String {
 		
-		guard let ext = self.pathExtension,
-			let UTIRef = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
-			                                                   ext,
-			                                                   nil) else { return "" }
+		guard
+			let ext = self.pathExtension,
+			let UTIRef = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil) else {
+				return ""
+		}
 		let UTI = UTIRef.takeUnretainedValue()
 		UTIRef.release()
 		

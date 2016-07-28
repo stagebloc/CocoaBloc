@@ -14,7 +14,7 @@ public typealias Client = APIClient<AuthenticationState>
 public final class APIClient<AuthStateType: AuthenticationStateType where
 	AuthStateType.DecodedType == AuthStateType> {
 	
-	private let baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
+	private let baseURL: NSURL
 	private let manager: Manager
 	
 	// OAuth2 application details
@@ -32,6 +32,12 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		self.manager = manager
 		self.clientSecret = clientSecret
 		self.authenticationState = authenticationState
+		
+		if let overrideBaseURL = NSProcessInfo().environment["COCOABLOC_OVERRIDE_URL"].flatMap(NSURL.init) {
+			baseURL = overrideBaseURL
+		} else {
+			baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
+		}
 	}
 	
 	public func deauthenticate() {
