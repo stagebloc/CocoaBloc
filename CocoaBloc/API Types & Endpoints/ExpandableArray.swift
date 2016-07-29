@@ -3,7 +3,7 @@
 //  CocoaBloc
 //
 //  Created by John Heaton on 6/25/16.
-//  Copyright © 2016 StageBloc. All rights reserved.
+//  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
 import Argo

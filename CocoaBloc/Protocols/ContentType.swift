@@ -3,11 +3,11 @@
 //  CocoaBloc
 //
 //  Created by John Heaton on 11/19/15.
-//  Copyright © 2015 StageBloc. All rights reserved.
+//  Copyright © 2015 Fullscreen Direct. All rights reserved.
 //
 
 /// Protocol describing a type containing necessary information to reference
-/// a piece of content through the StageBloc API.
+/// a piece of content through the Fullscreen Direct API.
 public protocol ContentType {
 	
 	/// Which type of content the identifier belongs to

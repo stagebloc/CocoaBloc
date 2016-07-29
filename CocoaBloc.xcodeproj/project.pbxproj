@@ -171,7 +171,6 @@
 		97948A701CF51D0A00D521BD /* Blog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
 		97948A721CF51D2100D521BD /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		97948A741CF5205300D521BD /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
-		97948A761CF5246500D521BD /* Curry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Curry.swift; sourceTree = "<group>"; };
 		97948A7D1CF52A7F00D521BD /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		97948A7F1CF52B6200D521BD /* AudioPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlaylist.swift; sourceTree = "<group>"; };
 		97948A831CF537DF00D521BD /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -236,10 +235,10 @@
 				0925DF6D1C05344100BD43E0 /* Models */,
 				0925DFBE1C053B9A00BD43E0 /* Private */,
 				098DC41A1C1F64380084AE45 /* Protocols */,
-				97948A6D1CF51C8000D521BD /* Resources */,
 				97948A981CF780B300D521BD /* API Types & Endpoints */,
 				97948A6B1CF51C5000D521BD /* AuthenticationState.swift */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
+				97948A6D1CF51C8000D521BD /* Resources */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";
@@ -287,7 +286,6 @@
 		0925DFBE1C053B9A00BD43E0 /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				97948A761CF5246500D521BD /* Curry.swift */,
 				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
 				81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */,
 				81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */,
@@ -727,7 +725,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBloc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fullscreendirect.CocoaBloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -750,7 +748,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBloc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fullscreendirect.CocoaBloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -765,7 +763,7 @@
 				);
 				INFOPLIST_FILE = CocoaBlocTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBlocTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fullscreendirect.CocoaBlocTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -779,7 +777,7 @@
 				);
 				INFOPLIST_FILE = CocoaBlocTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stagebloc.CocoaBlocTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fullscreendirect.CocoaBlocTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

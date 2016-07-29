@@ -3,7 +3,7 @@
 //  CocoaBloc
 //
 //  Created by David Warner on 12/21/15.
-//  Copyright © 2015 StageBloc. All rights reserved.
+//  Copyright © 2015 Fullscreen Direct. All rights reserved.
 //
 
 import Foundation
@@ -34,7 +34,7 @@ extension API {
 		return Endpoint(path: "cart/\(cartSessionID)", method: .GET)
 	}
 	
-	public static func createCart(email: String, userID: Int?) -> Endpoint<Cart> {
+	public static func createCart(email: String? = nil, userID: Int? = nil) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart",
 			method: .POST,

@@ -3,7 +3,7 @@
 //  CocoaBloc
 //
 //  Created by Dan Zimmerman on 2/26/16.
-//  Copyright © 2016 StageBloc. All rights reserved.
+//  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
 #import "SBContentStreamObject.h"

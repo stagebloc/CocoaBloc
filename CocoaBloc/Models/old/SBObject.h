@@ -3,7 +3,7 @@
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/18/14.
-//  Copyright (c) 2014 StageBloc. All rights reserved.
+//  Copyright (c) 2014 Fullscreen Direct. All rights reserved.
 //
 
 

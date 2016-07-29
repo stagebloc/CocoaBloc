@@ -3,7 +3,7 @@
 //  CocoaBloc
 //
 //  Created by John Heaton on 12/29/15.
-//  Copyright © 2015 StageBloc. All rights reserved.
+//  Copyright © 2015 Fullscreen Direct. All rights reserved.
 //
 
 extension SequenceType where Generator.Element == (String, AnyObject?) {

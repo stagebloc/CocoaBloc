@@ -4,7 +4,7 @@
 //
 //  Created by John Heaton on 11/19/15.
 //  Modified by Dan Zimmerman on 3/3/16
-//  Copyright © 2015 StageBloc. All rights reserved.
+//  Copyright © 2015 Fullscreen Direct. All rights reserved.
 //
 
 /*

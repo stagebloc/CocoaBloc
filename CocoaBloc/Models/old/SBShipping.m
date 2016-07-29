@@ -3,7 +3,7 @@
 //  CocoaBloc
 //
 //  Created by John Heaton on 2/25/15.
-//  Copyright (c) 2015 StageBloc. All rights reserved.
+//  Copyright (c) 2015 Fullscreen Direct. All rights reserved.
 //
 
 #import "SBShipping.h"

@@ -3,13 +3,13 @@
 //  CocoaBloc
 //
 //  Created by John Heaton on 12/28/15.
-//  Copyright © 2015 StageBloc. All rights reserved.
+//  Copyright © 2015 Fullscreen Direct. All rights reserved.
 //
 
 import Alamofire
 
 /**
-Contains the information about a StageBloc API endpoint,
+Contains the information about a Fullscreen Direct API endpoint,
 and all that is needed to create a request for it.
 */
 public struct Endpoint<Serialized> {
