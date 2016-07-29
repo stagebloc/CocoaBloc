@@ -18,4 +18,5 @@ public protocol ContentType {
 	
 	/// The identifier of the account on which this content is posted
 	var postedAccountID: Int { get }
+	
 }

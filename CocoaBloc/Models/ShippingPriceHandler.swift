@@ -23,4 +23,5 @@ public struct ShippingPriceHandler: Decodable, Identifiable {
 			<*> json <| "price"
 			<*> json <|| "shipping_methods" <|> pure([])
 	}
+	
 }

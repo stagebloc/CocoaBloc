@@ -25,4 +25,5 @@ public struct ShippingFulfiller: Decodable, Identifiable {
 			<*> json <|? "address"
 			<*> json <|| "shipping_price_handlers" <|> pure([])
 	}
+	
 }

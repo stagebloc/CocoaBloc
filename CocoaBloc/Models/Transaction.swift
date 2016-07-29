@@ -27,4 +27,5 @@ public struct Transaction: Decodable, Identifiable {
 			<*> json <| "quantity"
 			<*> json <|? "shipment"
 	}
+	
 }

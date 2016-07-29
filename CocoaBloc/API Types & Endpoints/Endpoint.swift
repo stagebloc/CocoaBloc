@@ -26,12 +26,13 @@ public struct Endpoint<Serialized> {
 	/// Key path in the response to parse Serialized from
 	public let keyPath: String
 	
-	internal init(path: String,
-	         method: Alamofire.Method,
-	         expansions: [API.ExpandableValue] = [],
-	         parameters: [String:AnyObject] = [:],
-	         keyPath: String = "data",
-	         formData: [FormDataPart]? = nil) {
+	internal init(
+		path: String,
+		method: Alamofire.Method,
+		expansions: [API.ExpandableValue] = [],
+		parameters: [String:AnyObject] = [:],
+		keyPath: String = "data",
+		formData: [FormDataPart]? = nil) {
 		self.path = path
 		self.method = method
 		self.expansions = expansions
@@ -39,4 +40,5 @@ public struct Endpoint<Serialized> {
 		self.keyPath = keyPath
 		self.formData = formData
 	}
+	
 }

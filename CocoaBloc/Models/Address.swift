@@ -31,4 +31,5 @@ public struct Address: Decodable, Identifiable {
 			<*> json <| "postal_code"
 			<*> json <| "country"
 	}
+	
 }

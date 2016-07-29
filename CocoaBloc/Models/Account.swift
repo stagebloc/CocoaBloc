@@ -35,4 +35,5 @@ public struct Account: Decodable, Identifiable {
 			<*> json <|? "photo"
 			<*> json <| "color"
 	}
+	
 }

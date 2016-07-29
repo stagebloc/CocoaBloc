@@ -20,4 +20,5 @@ public struct ShippingMethod: Decodable, Identifiable {
 			<*> json <| "price"
 			<*> json <| "handling"
 	}
+	
 }

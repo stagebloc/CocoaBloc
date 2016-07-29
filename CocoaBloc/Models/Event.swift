@@ -44,4 +44,5 @@ public struct Event: Decodable, Identifiable {
 			<*> json <| "attending_count"
 			<*> json <|? "location"
 	}
+	
 }

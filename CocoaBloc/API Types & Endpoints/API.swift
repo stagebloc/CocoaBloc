@@ -33,9 +33,9 @@ public struct API {
 	}
 	
 	public enum Gender: String {
-		case male       = "male"
-		case female     = "female"
-		case cupcake    = "cupcake"
+		case male		= "male"
+		case female		= "female"
+		case cupcake	= "cupcake"
 	}
 	
 	public enum ContentTypeIdentifier: String {
@@ -48,8 +48,8 @@ public struct API {
 	}
 	
 	public enum ContentListType: String {
-		case update  = "updates"
-		case like  = "likes"
+		case update	= "updates"
+		case like	= "likes"
 	}
 	
 	public enum AccountColor: String {
@@ -62,21 +62,21 @@ public struct API {
 	}
 	
 	public enum AccountType: String {
-		case music              = "music"
-		case filmAndTV          = "film/tv"
-		case entertainment      = "entertainment"
-		case sports             = "sports"
-		case celebrity          = "celebrity"
-		case comedian           = "comedian"
-		case recordLabel        = "record label"
-		case managementCompany  = "management company"
-		case personal           = "personal"
-		case developer          = "developer"
-		case photography        = "photography"
-		case cooking            = "food"
-		case business           = "business"
-		case organization       = "organization"
-		case other              = "other"
+		case music				= "music"
+		case filmAndTV			= "film/tv"
+		case entertainment		= "entertainment"
+		case sports				= "sports"
+		case celebrity			= "celebrity"
+		case comedian			= "comedian"
+		case recordLabel		= "record label"
+		case managementCompany	= "management company"
+		case personal			= "personal"
+		case developer			= "developer"
+		case photography		= "photography"
+		case cooking			= "food"
+		case business			= "business"
+		case organization		= "organization"
+		case other				= "other"
 	}
 	
 	public enum FanClubType: String {
@@ -107,4 +107,5 @@ public struct API {
 			: "yyyy-MM-dd HH:mm:ss"
 		return ret
 	}
+	
 }

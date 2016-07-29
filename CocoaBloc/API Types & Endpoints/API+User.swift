@@ -12,8 +12,8 @@ import Alamofire
 
 extension API {
 
-	public static func loginWithAuthorizationCode<AuthState: AuthenticationStateType>(
-		authorizationCode: String) -> Endpoint<AuthState> {
+	public static func logIn<AuthState: AuthenticationStateType>(
+		authorizationCode authorizationCode: String) -> Endpoint<AuthState> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
@@ -24,8 +24,8 @@ extension API {
 			keyPath: "data")
 	}
 	
-	public static func logInWithUsername<AuthState: AuthenticationStateType>(
-		username: String,
+	public static func logIn<AuthState: AuthenticationStateType>(
+		username username: String,
 		password: String) -> Endpoint<AuthState> {
 		return Endpoint(
 			path: "oauth2/token",
@@ -39,7 +39,7 @@ extension API {
 			keyPath: "data")
 	}
 	
-	public static func getUser(userID: Int) -> Endpoint<User> {
+	public static func getUser(withIdentifier userID: Int) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/\(userID)",
 			method: .GET)
@@ -51,13 +51,16 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func banUser(userID: Int, accountID: Int, reason: String) -> Endpoint<()> {
+	public static func banUser(
+		withIdentifier userID: Int,
+		               accountID: Int,
+		               reason: String) -> Endpoint<()> {
 		return Endpoint(
 			path: "users/\(userID)/ban/\(accountID)",
 			method: .POST)
 	}
 	
-	public static func sendPasswordReset(email: String) -> Endpoint<()> {
+	public static func sendPasswordReset(to email: String) -> Endpoint<()> {
 		return Endpoint(
 			path: "users/password/reset",
 			method: .POST,
@@ -66,7 +69,7 @@ extension API {
 			])
 	}
 	
-	public static func updateUserLocation(latitude: Double, longitude: Double) -> Endpoint<User> {
+	public static func updateUserLocation(latitude latitude: Double, longitude: Double) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/me/location/update",
 			method: .POST,
@@ -77,7 +80,7 @@ extension API {
 	}
 
 	public static func updateAuthenticatedUser(
-		bio: String?,
+		bio bio: String?,
 		birthday: NSDate?,
 		email: String?,
 		username: String?,
@@ -95,7 +98,7 @@ extension API {
 				"username"  : username,
 				"gender"    : gender?.rawValue,
 				"color"     : color?.rawValue
-			].filterNil())
+			].filterEntriesWithNilValues())
 	}
 	
 	public static func updateAuthenticatedUserImage(formData: FormDataPart) -> Endpoint<User> {
@@ -106,7 +109,7 @@ extension API {
 	}
 	
 	public static func signUp(
-		email: String,
+		email email: String,
 		name: String,
 		password: String,
 		bio: String?,
@@ -129,11 +132,11 @@ extension API {
 				"birthday"  : df.stringFromDate(birthday),
 				"gender"    : gender.rawValue,
 				"source_account_id" : sourceAccountID
-			].filterNil(),
+			].filterEntriesWithNilValues(),
 			keyPath: "data.user")
 	}
 	
-	public static func getFollowingUsersForAccount(accountID: Int) -> Endpoint<[User]> {
+	public static func getUsersFollowingAccount(withIdentifier accountID: Int) -> Endpoint<[User]> {
 		return Endpoint(
 			path: "account/\(accountID)/fans",
 			method: .GET)

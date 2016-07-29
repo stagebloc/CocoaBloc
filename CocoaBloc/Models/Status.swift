@@ -38,4 +38,5 @@ public struct Status: Decodable, Identifiable {
 			<*> json <| "likeCount"
 			<*> json <| "user"
 	}
+	
 }

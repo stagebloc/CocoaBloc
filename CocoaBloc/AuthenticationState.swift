@@ -7,6 +7,7 @@
 //
 
 public struct AuthenticationState: AuthenticationStateType {
+	
 	public var authenticationToken: String?
 	public var authenticatedUser: User?
 	
@@ -14,4 +15,5 @@ public struct AuthenticationState: AuthenticationStateType {
 		self.authenticationToken = authenticationToken
 		self.authenticatedUser = authenticatedUser
 	}
+	
 }

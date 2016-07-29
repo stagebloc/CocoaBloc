@@ -7,6 +7,8 @@
 //
 
 public protocol Identifiable {
+	
 	associatedtype Identifier
 	var identifier: Identifier { get }
+	
 }

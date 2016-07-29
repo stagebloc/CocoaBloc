@@ -21,7 +21,7 @@ extension API {
 		case billing				= "billing"
 	}
 
-	public static func getAddress(withID addressID: Int) -> Endpoint<Address> {
+	public static func getAddress(withIdentifier addressID: Int) -> Endpoint<Address> {
 		return Endpoint(path: "users/me/addresses/\(addressID)", method: .GET)
 	}
 
@@ -50,4 +50,5 @@ extension API {
 	public static func deleteAddress(withType type: AddressType, identifier: Int) -> Endpoint<Address> {
 		return Endpoint(path: "users/me/addresses/\(type)\(identifier)", method: .DELETE)
 	}
+	
 }

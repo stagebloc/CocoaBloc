@@ -10,6 +10,7 @@ import Argo
 import Foundation
 
 extension NSDate: Decodable {
+	
 	public static func decode(json: JSON) -> Decoded<NSDate> {
 		switch json {
 		case .String(let string):
@@ -18,4 +19,5 @@ extension NSDate: Decodable {
 			return .typeMismatch("Date String", actual: json)
 		}
 	}
+	
 }

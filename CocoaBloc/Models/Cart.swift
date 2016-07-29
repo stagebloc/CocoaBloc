@@ -90,4 +90,5 @@ public struct Cart: Identifiable, Decodable {
 			<*> json <| "shipping_address"
 			<*> json <| "totals"
 	}
+	
 }

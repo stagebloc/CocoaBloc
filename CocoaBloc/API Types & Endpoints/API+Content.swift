@@ -112,7 +112,8 @@ extension API {
 				"title": title,
 				"description": description,
 				"exclusive": exclusive
-			].filterNil(),
+			].filterEntriesWithNilValues(),
 			formData: [FormDataPart(title: "photo", dataType: .Data(photoData))])
 	}
+	
 }

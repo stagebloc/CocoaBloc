@@ -25,4 +25,5 @@ public struct FanClub: Decodable, Identifiable {
 			<*> json <| "account"
 			<*> json <| "moderation_queue"
 	}
+	
 }

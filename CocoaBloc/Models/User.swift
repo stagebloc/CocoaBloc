@@ -38,4 +38,5 @@ public struct User: Decodable, Identifiable {
 			<*> json <|? "email"
 			<*> json <| "color"
 	}
+	
 }

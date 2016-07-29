@@ -9,6 +9,7 @@
 // This file contains helper functions/operators for combining dictionaries
 
 extension Dictionary {
+	
 	internal mutating func addEntries(other: [Key:Value]) {
 		for (key, value) in other {
 			self[key] = value
@@ -20,6 +21,7 @@ extension Dictionary {
 		ret.addEntries(other)
 		return ret
 	}
+	
 }
 
 internal func += <Key: Hashable, Value>(inout lhs: [Key:Value], rhs: [Key:Value]) {

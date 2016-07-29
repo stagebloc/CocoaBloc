@@ -13,6 +13,7 @@ Extends SBContentStreamObject to allow it to be be used in API targets that requ
 Ex: API.LikeContent(mySBPhoto)
 */
 public extension SBContentStreamObject: ContentType {
+	
 	public var contentID: Int {
 		return identifier.integerValue
 	}
@@ -37,4 +38,5 @@ public extension SBContentStreamObject: ContentType {
 			return .Event
 		}
 	}
+	
 }

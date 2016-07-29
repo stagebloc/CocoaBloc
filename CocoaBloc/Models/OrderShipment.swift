@@ -21,4 +21,5 @@ public struct OrderShipment: Decodable, Identifiable {
 			<*> json <| "tracking_number"
 			<*> json <| "shipped"
 	}
+	
 }

@@ -25,4 +25,5 @@ public struct ImageURLSet: Decodable {
 			<*> json <| "large_url"
 			<*> json <| "original_url"
 	}
+	
 }

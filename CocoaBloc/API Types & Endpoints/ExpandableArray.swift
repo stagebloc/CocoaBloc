@@ -31,6 +31,7 @@ public enum ExpandableArray<Item where
 			return value.count
 		}
 	}
+	
 }
 
 extension ExpandableArray: Decodable {
@@ -44,4 +45,5 @@ extension ExpandableArray: Decodable {
 			return .typeMismatch("Expandable array", actual: json)
 		}
 	}
+	
 }

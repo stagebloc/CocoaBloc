@@ -11,7 +11,7 @@ import Foundation
 extension API {
 	
 	public static func createAccount(
-		name: String,
+		name name: String,
 		description: String,
 		url: String,
 		type: AccountType,
@@ -29,12 +29,17 @@ extension API {
 	}
 	
 	public static func updateAccount(
-		accountID: Int,
+		withIdentifier accountID: Int,
 		name: String?,
 		description: String?,
 		url: String?,
 		type: AccountType?,
 		color: AccountColor?) -> Endpoint<Account> {
+		precondition(
+			name != nil || description != nil || url != nil || type != nil || color != nil,
+			"You can only create an update account endpoint with something to update"
+		)
+		
 		return Endpoint(
 			path: "account/\(accountID)",
 			method: .POST,
@@ -44,25 +49,27 @@ extension API {
 				"stagebloc_url" : url,
 				"type"          : type?.rawValue,
 				"color"         : color?.rawValue
-			].filterNil())
+			].filterEntriesWithNilValues()
+		)
 	}
 	
-	public static func updateAccountImage(accountID: Int,
-	                                      formData: FormDataPart) -> Endpoint<Account> {
+	public static func updateImageForAccount(
+		withIdentifier accountID: Int,
+		               formData: FormDataPart) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)",
 			method: .POST,
 			formData: [formData])
 	}
 	
-	public static func followAccount(accountID: Int) -> Endpoint<Account> {
+	public static func followAccount(withIdentifier accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
 			method: .POST,
 			keyPath: "account")
 	}
 	
-	public static func unfollowAccount(accountID: Int) -> Endpoint<Account> {
+	public static func unfollowAccount(withIdentifier accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
 			method: .DELETE,
@@ -70,19 +77,24 @@ extension API {
 	}
 	
 	// Set admin to true to get accounts youre an admin of, otherwise gets accounts you're following.
-	public static func getAuthenticatedUserAccounts(admin: Bool = false) -> Endpoint<[Account]> {
+	public enum UserAccountType {
+		case admin
+		case following
+	}
+	public static func getAuthenticatedUserAccounts(forType type: UserAccountType) -> Endpoint<[Account]> {
 		return Endpoint(
 			path: "accounts",
 			method: .GET,
 			parameters: [
-				"admin"		:	admin,
-				"following"	:	!admin
+				"admin"		: type == .admin,
+				"following"	: type == .following
 			])
 	}
 	
-	public static func getAccount(accountID: Int) -> Endpoint<Account> {
+	public static func getAccount(withIdentifier accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account/\(accountID)",
 			method: .GET)
 	}
+
 }

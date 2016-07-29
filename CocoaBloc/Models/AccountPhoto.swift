@@ -52,4 +52,5 @@ public struct AccountPhoto: Decodable, Identifiable {
 			<*> json <| "images"
 			<*> json <| "user"
 	}
+	
 }

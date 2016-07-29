@@ -21,4 +21,5 @@ public struct UserPhoto: Decodable {
 			<*> json <| "height"
 			<*> json <| "images"
 	}
+	
 }

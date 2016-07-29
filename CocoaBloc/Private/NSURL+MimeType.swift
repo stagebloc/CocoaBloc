@@ -25,4 +25,5 @@ extension NSURL {
 		MIMETypeRef.release()
 		return MIMETypeRef.takeUnretainedValue() as String
 	}
+	
 }

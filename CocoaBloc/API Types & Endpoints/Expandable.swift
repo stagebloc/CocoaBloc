@@ -33,9 +33,11 @@ public enum Expandable<Item where
 			return value.identifier
 		}
 	}
+	
 }
 
 extension Expandable: Decodable {
+	
 	public static func decode(json: JSON) -> Decoded<Expandable<Item>> {
 		switch json {
 		case .Number(let number as Item.DecodedType.Identifier):
@@ -50,4 +52,5 @@ extension Expandable: Decodable {
 			return .typeMismatch("Expandable object", actual: json)
 		}
 	}
+	
 }

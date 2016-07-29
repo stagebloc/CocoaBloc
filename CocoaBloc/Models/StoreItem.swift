@@ -66,11 +66,11 @@ public struct StoreItem: Decodable, Identifiable {
 		case giftCard
 		
 		private enum TypeString: String {
-			case digital = "digital"
-			case physical = "physical"
-			case bundle = "bundle"
+			case digital	= "digital"
+			case physical	= "physical"
+			case bundle		= "bundle"
 			case experience = "experience"
-			case giftCard = "gift card"
+			case giftCard	= "gift card"
 		}
 		
 		public var APITypeString: String {
@@ -210,4 +210,5 @@ public struct StoreItem: Decodable, Identifiable {
 			<*> json <|? "photo"
 			<*> json <|? "photos"
 	}
+	
 }

@@ -11,6 +11,7 @@ import Alamofire
 import Foundation
 
 extension Request {
+	
 	static func DecodableResponseSerializer<T: Decodable where T.DecodedType == T>(type: T.Type, keyPath: String)
 		-> ResponseSerializer<T, Error> {
 			return ResponseSerializer { request, response, data, error in
@@ -88,4 +89,5 @@ extension Request {
 				}
 			}
 	}
+	
 }

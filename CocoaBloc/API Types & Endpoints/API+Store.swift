@@ -30,11 +30,11 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func getCart(withSessionID cartSessionID: String) -> Endpoint<Cart> {
+	public static func getCart(withIdentifier cartSessionID: String) -> Endpoint<Cart> {
 		return Endpoint(path: "cart/\(cartSessionID)", method: .GET)
 	}
 	
-	public static func createCart(email: String? = nil, userID: Int? = nil) -> Endpoint<Cart> {
+	public static func createCart(withEmail email: String? = nil, userID: Int? = nil) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart",
 			method: .POST,
@@ -42,15 +42,17 @@ extension API {
 				"cart": [
 					"email": email,
 					"user_id": userID
-				].filterNil()
+				].filterEntriesWithNilValues()
 			])
 	}
 	
-	public static func updateCart(withSessionID sessionID: String,
-	                                            newEmail: String?,
-	                                            newShippingAddress: Address?) -> Endpoint<Cart> {
-		precondition(newEmail != nil || newShippingAddress != nil,
-		             "Can't create an endpoint to update nothing on the cart.")
+	public static func updateCart(withIdentifier sessionID: String,
+	                                             newEmail: String?,
+	                                             newShippingAddress: Address?) -> Endpoint<Cart> {
+		precondition(
+			newEmail != nil || newShippingAddress != nil,
+			"Can't create an endpoint to update nothing on the cart."
+		)
 		return Endpoint(
 			path: "cart/\(sessionID)",
 			method: .POST,
@@ -59,25 +61,29 @@ extension API {
 					"session_id": sessionID,
 					"email": newEmail,
 					//				"addresses": newAddresses
-				].filterNil()
+				].filterEntriesWithNilValues()
 			])
 	}
 	
-	public static func deleteCartItem(item: Cart.Item) -> Endpoint<Cart> {
-		return Endpoint(path: "cart/\(item.cartID)/items/\(item.hash)", method: .DELETE)
+	public static func deleteCartItem(
+		withHash cartItemHash: String,
+		fromCartWithIdentifier cartSessionID: Int) -> Endpoint<Cart> {
+		return Endpoint(
+			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
+			method: .DELETE)
 	}
 	
 //	public static func createCartItem(withSessionID sessionID: String)
 	
-	public static func getOrders(accountID: Int) -> Endpoint<[Order]> {
+	public static func getOrdersForAccount(withIdentifier accountID: Int) -> Endpoint<[Order]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders",
 			method: .GET)
 	}
 	
 	public static func setOrderShipped(
-		orderID: Int,
-		accountID: Int,
+		withIdentifier orderID: Int,
+		accountIdentifier accountID: Int,
 		trackingNumber: String,
 		carrier: String) -> Endpoint<Order> {
 		return Endpoint(
@@ -89,15 +95,18 @@ extension API {
 			])
 	}
 	
-	public static func getStoreItemsForAccount(accountID: Int) -> Endpoint<[StoreItem]> {
+	public static func getStoreItemsForAccount(withIdentifier accountID: Int) -> Endpoint<[StoreItem]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/items",
 			method: .GET)
 	}
 	
-	public static func getStoreItem(storeItemID: Int, accountID: Int) -> Endpoint<StoreItem> {
+	public static func getStoreItem(
+		withIdentifier storeItemID: Int,
+		forAccountWithIdentifier accountID: Int) -> Endpoint<StoreItem> {
 		return Endpoint(
 			path: "account/\(accountID)/store/items/\(storeItemID)",
 			method: .GET)
 	}
+	
 }

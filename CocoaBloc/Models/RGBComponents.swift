@@ -15,7 +15,10 @@ import AppKit
 #endif
 
 public struct RGBComponents: Decodable {
-	public var red, green, blue: Float
+	
+	public var red: Float
+	public var green: Float
+	public var blue: Float
 	
 	public static func decode(json: JSON) -> Decoded<RGBComponents> {
 		guard case .String(let val) = json else {
@@ -45,4 +48,5 @@ public struct RGBComponents: Decodable {
 		             alpha: 1)
 	}
 	#endif
+	
 }
