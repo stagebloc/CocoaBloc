@@ -39,7 +39,7 @@ public struct Cart: Identifiable {
 	
 	public let identifier: Int
 	public let userID: Int
-//	public let user: User?
+	public let user: User?
 	public let sessionID: String
 	public let creationDate: NSDate
 	public let emailAddress: String?

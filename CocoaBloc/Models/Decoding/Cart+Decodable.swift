@@ -12,11 +12,13 @@ import Curry
 extension Cart: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Cart> {
-		return curry(Cart.init)
+		let a = curry(Cart.init)
 			<^> json <| "id"
 			<*> json <| "user_id"
+			<*> json <|? "user"
 			<*> json <| "session_id"
 			<*> json <| "created"
+		return a
 			<*> json <|? "email"
 			<*> json <| "status"
 			<*> json <|| "cart_items" <|> pure([])
