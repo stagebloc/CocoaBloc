@@ -474,7 +474,7 @@
 			buildConfigurationList = 090E11231C008E9C0001C943 /* Build configuration list for PBXNativeTarget "CocoaBloc" */;
 			buildPhases = (
 				090E110A1C008E9C0001C943 /* Sources */,
-				091368781C5B384400742DF5 /* ShellScript */,
+				091368781C5B384400742DF5 /* Run Swiftlint */,
 				090E110B1C008E9C0001C943 /* Frameworks */,
 				090E110C1C008E9C0001C943 /* Headers */,
 				090E110D1C008E9C0001C943 /* Resources */,
@@ -495,7 +495,7 @@
 				090E11151C008E9C0001C943 /* Sources */,
 				090E11161C008E9C0001C943 /* Frameworks */,
 				090E11171C008E9C0001C943 /* Resources */,
-				096554601C191C2000D8AFB2 /* ShellScript */,
+				096554601C191C2000D8AFB2 /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -561,20 +561,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		091368781C5B384400742DF5 /* ShellScript */ = {
+		091368781C5B384400742DF5 /* Run Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Swiftlint";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
-		096554601C191C2000D8AFB2 /* ShellScript */ = {
+		096554601C191C2000D8AFB2 /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -584,6 +585,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Curry.framework",
 			);
+			name = "Copy Carthage Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
