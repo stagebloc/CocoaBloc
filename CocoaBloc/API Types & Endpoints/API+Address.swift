@@ -6,10 +6,6 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-import Argo
-import Foundation
-import Alamofire
-
 extension API {
 	
 	public enum AddressType: String {

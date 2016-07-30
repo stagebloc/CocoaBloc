@@ -6,10 +6,6 @@
 //  Copyright © 2015 Fullscreen Direct. All rights reserved.
 //
 
-import Argo
-import Foundation
-import Alamofire
-
 extension API {
 
 	public static func logIn<AuthState: AuthenticationStateType>(
