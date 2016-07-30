@@ -20,8 +20,7 @@ extension API {
 			parameters: [
 				"code": authorizationCode,
 				"grant_type": "authorization_code"
-			],
-			keyPath: "data")
+			])
 	}
 	
 	public static func logIn<AuthState: AuthenticationStateType>(
@@ -35,8 +34,7 @@ extension API {
 				"username": username,
 				"password": password,
 				"grant_type": "password"
-			],
-			keyPath: "data")
+			])
 	}
 	
 	public static func getUser(withIdentifier userID: Int) -> Endpoint<User> {

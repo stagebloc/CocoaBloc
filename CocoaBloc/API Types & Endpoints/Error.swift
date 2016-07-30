@@ -12,7 +12,7 @@ public enum Error: ErrorType {
 	
 	case JSONDecoding(DecodeError)
 	case UnexpectedResponseType
-	case API(String)
+	case API(APIError)
 	case Underlying(NSError)
 	case MultipartDataEncoding
 	

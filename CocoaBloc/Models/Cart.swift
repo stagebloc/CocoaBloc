@@ -24,7 +24,7 @@ public struct Cart: Identifiable, Decodable {
 		public let status: String
 		public let sku: String
 		public let parentID: Int?
-		public let lockExpires: Int
+		public let lockExpires: NSDate
 		
 		public static func decode(json: JSON) -> Decoded<Item> {
 			let a = curry(Item.init)
@@ -60,9 +60,9 @@ public struct Cart: Identifiable, Decodable {
 	}
 	
 	public enum Status: String, Decodable {
-		case started = "STARTED"
-		case reachedCheckout = "REACHED_CHECKOUT"
-		case completedCheckout = "COMPLETED_CHECKOUT"
+		case started			= "STARTED"
+		case reachedCheckout	= "REACHED_CHECKOUT"
+		case completedCheckout	= "COMPLETED_CHECKOUT"
 	}
 	
 	public let identifier: Int

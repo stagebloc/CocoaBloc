@@ -14,30 +14,26 @@ public typealias Client = APIClient<AuthenticationState>
 public final class APIClient<AuthStateType: AuthenticationStateType where
 	AuthStateType.DecodedType == AuthStateType> {
 	
-	private let baseURL: NSURL
+	public let baseURL: NSURL
 	private let manager: Manager
 	
 	// OAuth2 application details
 	public let clientID: String
 	public let clientSecret: String
 	
-	public internal(set) var authenticationState: AuthStateType
+	public private(set) var authenticationState: AuthStateType
 	
 	public init(
 		clientID: String,
 		clientSecret: String,
 		authenticationState: AuthStateType = .init(authenticationToken: nil, authenticatedUser: nil),
-		manager: Manager = .init()) {
+		manager: Manager = .init(),
+		baseURL: NSURL = NSURL(string: "https://api.stagebloc.com/v1")!) {
 		self.clientID = clientID
 		self.manager = manager
 		self.clientSecret = clientSecret
 		self.authenticationState = authenticationState
-		
-		if let overrideBaseURL = NSProcessInfo().environment["COCOABLOC_OVERRIDE_URL"].flatMap(NSURL.init) {
-			baseURL = overrideBaseURL
-		} else {
-			baseURL = NSURL(string: "https://api.stagebloc.com/v1")!
-		}
+		self.baseURL = baseURL
 	}
 	
 	public func deauthenticate() {
@@ -66,11 +62,11 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			headers: authenticationState.isAuthenticated
 						? ["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""]
 						: nil
-		).validate()
+		)
 		
 		if Serialized.self == AuthStateType.self {
 			request.response(
-				responseSerializer: Request.DecodableResponseSerializer(AuthStateType.self, keyPath: endpoint.keyPath),
+				responseSerializer: Request.cocoaBlocModelSerializer(AuthStateType.self, keyPath: endpoint.keyPath),
 				completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
 					self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
 					self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
@@ -86,22 +82,20 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		completion: (Response<Serialized, Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
-			responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
-			completionHandler: completion)
+			responseSerializer: Request.cocoaBlocModelSerializer(Serialized.self, keyPath: endpoint.keyPath),
+			completionHandler: completion
+		)
 	}
 	
-	public func request<Serialized: SequenceType where
-		Serialized.Generator.Element: Decodable,
-		Serialized.Generator.Element.DecodedType == Serialized.Generator.Element>(
-		endpoint: Endpoint<Serialized>,
+	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
+		endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
-		completion: (Response<[Serialized.Generator.Element], Error>) -> ()) -> Request {
+		completion: (Response<[Serialized], Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
-			responseSerializer: Request.DecodableResponseSerializer(
-				Serialized.Generator.Element.self,
-				keyPath: endpoint.keyPath),
-			completionHandler: completion)
+			responseSerializer: Request.cocoaBlocModelSerializer(Serialized.self, keyPath: endpoint.keyPath),
+			completionHandler: completion
+		)
 	}
 	
 	public func upload<Serialized>(
@@ -167,7 +161,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			case .Success(let request):
 				requestConfiguration?(request)
 				request.response(
-					responseSerializer: Request.DecodableResponseSerializer(Serialized.self, keyPath: endpoint.keyPath),
+					responseSerializer: Request.cocoaBlocModelSerializer(Serialized.self, keyPath: endpoint.keyPath),
 					completionHandler: { response in
 						completion(response.result)
 					})
@@ -189,12 +183,13 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			case .Success(let request):
 				requestConfiguration?(request)
 				request.response(
-					responseSerializer: Request.DecodableResponseSerializer(
+					responseSerializer: Request.cocoaBlocModelSerializer(
 						Serialized.Generator.Element.self,
 						keyPath: endpoint.keyPath),
 					completionHandler: { response in
 						completion(response.result)
-				})
+					}
+				)
 			case .Failure(let error):
 				completion(.Failure(error))
 			}

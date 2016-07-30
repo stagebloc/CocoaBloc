@@ -66,14 +66,14 @@ extension API {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
 			method: .POST,
-			keyPath: "account")
+			keyPath: "data.account")
 	}
 	
 	public static func unfollowAccount(withIdentifier accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
 			method: .DELETE,
-			keyPath: "account")
+			keyPath: "data.account")
 	}
 	
 	// Set admin to true to get accounts youre an admin of, otherwise gets accounts you're following.

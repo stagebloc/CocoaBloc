@@ -10,6 +10,7 @@ import Argo
 import Curry
 
 public struct ShippingMethod: Decodable, Identifiable {
+	
 	public let identifier: Int
 	public let price: Double
 	public let handlingPrice: Double
