@@ -5,7 +5,7 @@ xcode_project: CocoaBloc.xcodeproj
 before_install:
     - brew update; gem update
     - brew install carthage || true
-    - gem install xcpretty || true
+    - gem install xcpretty --no-document || true
 
 install:
     - carthage bootstrap --no-use-binaries --use-submodules --platform ios
