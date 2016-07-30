@@ -42,21 +42,6 @@ public struct StoreItem: Identifiable {
 			case experience = "experience"
 			case giftCard	= "gift card"
 		}
-		
-		public var APITypeString: String {
-			switch self {
-			case .digital:
-				return TypeString.digital.rawValue
-			case .physical:
-				return TypeString.physical.rawValue
-			case .bundle:
-				return TypeString.bundle.rawValue
-			case .experience:
-				return TypeString.experience.rawValue
-			case .giftCard:
-				return TypeString.giftCard.rawValue
-			}
-		}
 	}
 	
 	public enum Currency: String {
