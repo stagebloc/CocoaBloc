@@ -45,6 +45,7 @@ public struct API {
 		case blog   = "blog"
 		case status = "status"
 		case event	= "event"
+		case store	= "store"
 	}
 	
 	public enum ContentListType: String {
