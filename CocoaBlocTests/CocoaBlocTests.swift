@@ -13,9 +13,11 @@ import Alamofire
 
 class CocoaBlocTests: XCTestCase {
 	
-	// Test user and OAuth credentials
+	// Test OAuth credentials
 	let username = "hi@stagebloc.com"
 	let password = "starwars"
+	
+	// API client, fresh per test
 	private(set) var client: Client!
 
 	// Test values
