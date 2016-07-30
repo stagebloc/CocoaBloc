@@ -20,14 +20,14 @@ extension API {
 	}
 	
 	public static func logIn<AuthState: AuthenticationStateType>(
-		username username: String,
+		usernameOrEmail usernameOrEmail: String,
 		password: String) -> Endpoint<AuthState> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
 			expansions: [.user],
 			parameters: [
-				"username": username,
+				"username": usernameOrEmail,
 				"password": password,
 				"grant_type": "password"
 			])

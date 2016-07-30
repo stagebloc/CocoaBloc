@@ -22,7 +22,7 @@ extension Request {
 				let json = JSON(jsonObject)
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
-				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.Error.decode) {
+				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
 					return .Failure(.API(apiError))
 				}
 				
@@ -48,7 +48,7 @@ extension Request {
 				let json = JSON(jsonObject)
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
-				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.Error.decode) {
+				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
 					return .Failure(.API(apiError))
 				}
 				

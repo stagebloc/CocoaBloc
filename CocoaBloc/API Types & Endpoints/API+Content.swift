@@ -17,10 +17,10 @@ public protocol ContentStreamObject {
 	var userHasLiked: Bool { get }
 	var account: Expandable<Account> { get }
 }
-//
-//extension Status: ContentStreamObject {
-//	
-//}
+
+extension Status: ContentStreamObject {
+	
+}
 
 extension API {
 	
