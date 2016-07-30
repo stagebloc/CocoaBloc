@@ -31,6 +31,21 @@ class CocoaBlocTests: XCTestCase {
 		super.tearDown()
 	}
 
+	func testNilValueDictionaryFiltering() {
+		let value: [String: AnyObject?] = [
+			"a": nil,
+			"b": 1,
+			"c": "test",
+			"d": nil
+		]
+		let filtered = value.filterEntriesWithNilValues()
+		
+		XCTAssertNil(filtered.indexForKey("a"))
+		XCTAssertNil(filtered.indexForKey("d"))
+		XCTAssertEqual(filtered["b"] as? Int, 1)
+		XCTAssertEqual(filtered["c"] as? String, "test")
+	}
+	
 	func testStoreItems() {
 		let x = expectationWithDescription("Store items should load")
 		let y = expectationWithDescription("Store items for invalid account should not load")

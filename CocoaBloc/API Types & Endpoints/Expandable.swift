@@ -45,9 +45,9 @@ extension Expandable: Decodable {
 		case .String(let string as Item.DecodedType.Identifier):
 			return pure(.unexpanded(identifier: string))
 		case .Object:
-			return Item.decode(json).map { .expanded($0) }
+			return Item.decode(json).map(Expandable<Item>.expanded)
 		case .Array:
-			return Item.decode(json).map { .expanded($0) }
+			return Item.decode(json).map(Expandable<Item>.expanded)
 		default:
 			return .typeMismatch("Expandable object", actual: json)
 		}
