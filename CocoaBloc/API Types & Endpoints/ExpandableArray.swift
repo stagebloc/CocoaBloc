@@ -40,7 +40,7 @@ extension ExpandableArray: Decodable {
 		case .Number(let number as Int):
 			return pure(.unexpanded(count: number))
 		case .Array:
-			return Array<Item>.decode(json).map { .expanded($0) }
+			return ExpandableArray.expanded <^> [Item].decode(json)
 		default:
 			return .typeMismatch("Expandable array", actual: json)
 		}
