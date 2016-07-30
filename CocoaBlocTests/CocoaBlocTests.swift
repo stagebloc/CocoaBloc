@@ -12,7 +12,6 @@ import Alamofire
 
 class CocoaBlocTests: XCTestCase {
 	
-	let client = Client(clientID: "de4346e640860eb3d6fd97e11e475d0d", clientSecret: "c2288f625407c5aff55e41d1fef1ed73")
 	// Test user and OAuth credentials
 	let username = "hi@stagebloc.com"
 	let password = "starwars"
@@ -33,15 +32,25 @@ class CocoaBlocTests: XCTestCase {
 	}
 
 	func testStoreItems() {
-		client.request(API.getStoreItemsForAccount(2912)) { response in
+		let x = expectationWithDescription("Store items should load")
+		let y = expectationWithDescription("Store items for invalid account should not load")
+
+		client.request(API.getStoreItemsForAccount(withIdentifier: 2912)) { response in
 			if let items = response.result.value {
-				
+				x.fulfill()
 			} else {
-				
+				XCTFail()
 			}
 		}
 		
-		let x = expectationWithDescription("asdf")
+		client.request(API.getStoreItemsForAccount(withIdentifier: 0)) { response in
+			if case .Failure = response.result {
+				y.fulfill()
+			} else {
+				XCTFail()
+			}
+		}
+		
 		waitForExpectationsWithTimeout(10, handler: nil)
 	}
 	

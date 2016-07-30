@@ -17,14 +17,14 @@ public protocol ContentStreamObject {
 	var userHasLiked: Bool { get }
 	var account: Expandable<Account> { get }
 }
-
-extension Status: ContentStreamObject {
-	
-}
+//
+//extension Status: ContentStreamObject {
+//	
+//}
 
 extension API {
 	
-	public static func likeContent<T: SBContentStreamObject>(content: ContentType) -> Endpoint<T> {
+	public static func likeContent<T: ContentStreamObject>(content: ContentType) -> Endpoint<T> {
 		return Endpoint(
 			path: "/account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/like",
 			method: .POST)

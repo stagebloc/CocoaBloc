@@ -6,10 +6,7 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-import Argo
-import Curry
-
-public struct Order: Decodable, Identifiable {
+public struct Order: Identifiable {
 	
 	public let identifier: Int
 	public let account: Expandable<Account>
@@ -29,27 +26,23 @@ public struct Order: Decodable, Identifiable {
 	public let address: Address
 	public let transactions: [Transaction]
 	
-	public static func decode(json: JSON) -> Decoded<Order> {
-		let a = curry(Order.init)
-			<^> json <| "id"
-			<*> json <| "account"
-			<*> json <| "receipt_url"
-			<*> json <| "ordered"
-			<*> json <| "shipped"
-			<*> json <| "currency"
-		let b = a
-			<*> json <| "total"
-			<*> json <| "total_usd"
-			<*> json <| "shipping_amount"
-			<*> json <| "handling_amount"
-			<*> json <| "tax_amount"
-			<*> json <| "status"
-		return b
-			<*> json <| "notes"
-			<*> json <| "email"
-			<*> json <|? "user"
-			<*> json <| "address"
-			<*> json <|| "transactions"
+	public struct Shipment: Identifiable {
+		
+		public let identifier: Int
+		public let trackingNumber: String
+		public let shippedDate: NSDate
+				
+	}
+	
+	public struct Transaction: Identifiable {
+		
+		public let identifier: Int
+		public let modificationDate: NSDate
+		public let amount: Double
+		public let status: String
+		public let quantity: Int
+		public let shipment: Order.Shipment?
+				
 	}
 	
 }

@@ -6,10 +6,7 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-import Argo
-import Curry
-
-public struct User: Decodable, Identifiable {
+public struct User: Identifiable {
 	
 	public let identifier: Int
 	public let url: NSURL
@@ -22,21 +19,5 @@ public struct User: Decodable, Identifiable {
 	public let gender: String?
 	public let emailAddress: String?
 	public let color: RGBComponents
-	
-	public static func decode(json: JSON) -> Decoded<User> {
-		let a = curry(User.init)
-			<^> json <| "id"
-			<*> json <| "url"
-			<*> json <| "created"
-			<*> json <| "name"
-			<*> json <| "username"
-			<*> json <| "bio"
-		return a
-			<*> json <|? "photo"
-//			<*> json <|? "birthday"
-			<*> json <|? "gender"
-			<*> json <|? "email"
-			<*> json <| "color"
-	}
 	
 }

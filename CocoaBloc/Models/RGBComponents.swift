@@ -6,32 +6,17 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-import Argo
-
 #if os(iOS)
 import UIKit
 #elseif os(OSX)
 import AppKit
 #endif
 
-public struct RGBComponents: Decodable {
+public struct RGBComponents {
 	
 	public var red: Float
 	public var green: Float
 	public var blue: Float
-	
-	public static func decode(json: JSON) -> Decoded<RGBComponents> {
-		guard case .String(let val) = json else {
-			return .typeMismatch("String", actual: json)
-		}
-		
-		let rgb = val.componentsSeparatedByString(",").flatMap(Float.init)
-		guard rgb.count == 3 else {
-			return .customError("RGB colors need three components")
-		}
-		
-		return .Success(RGBComponents(red: rgb[0], green: rgb[1], blue: rgb[2]))
-	}
 	
 	#if os(iOS)
 	public var UIColor: UIKit.UIColor {

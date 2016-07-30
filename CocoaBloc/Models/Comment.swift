@@ -6,10 +6,7 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-import Argo
-import Curry
-
-public struct Comment: Decodable, Identifiable {
+public struct Comment: Identifiable {
 	
 	public let identifier: Int
 	public let text: String
@@ -20,18 +17,5 @@ public struct Comment: Decodable, Identifiable {
 	public let replyCount: Int
 	public let shortURL: NSURL
 	public let inModeration: Bool
-	
-	public static func decode(json: JSON) -> Decoded<Comment> {
-		return curry(Comment.init)
-			<^> json <| "id"
-			<*> json <| "text"
-			<*> json <| "user"
-			<*> json <| "created"
-			<*> json <| "account"
-			<*> json <| "reply_to"
-			<*> json <| "reply_count"
-			<*> json <| "short_url"
-			<*> json <| "in_moderation"
-	}
 	
 }

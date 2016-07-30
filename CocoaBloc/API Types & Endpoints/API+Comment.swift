@@ -10,14 +10,14 @@ import Foundation
 
 extension API {
 	
-	public static func getCommentsForContent(content: ContentType) -> Endpoint<[Comment]> {
+	public static func getComments(forContent content: ContentType) -> Endpoint<[Comment]> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comments",
 			method: .GET)
 	}
 	
 	public static func getRepliesToComment(
-		commentID: Int,
+		withIdentifier commentID: Int,
 		accountID: Int,
 		contentType: ContentTypeIdentifier) -> Endpoint<[Comment]> {
 		return Endpoint(
@@ -26,7 +26,7 @@ extension API {
 	}
 	
 	public static func deleteComment(
-		commentID: Int,
+		withIdentifier commentID: Int,
 		accountID: Int,
 		contentType: ContentTypeIdentifier) -> Endpoint<()> {
 		return Endpoint(
@@ -35,7 +35,7 @@ extension API {
 	}
 	
 	public static func postComment(
-		text: String,
+		withText text: String,
 		onContent content: ContentType) -> Endpoint<Comment> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comment",
@@ -44,7 +44,7 @@ extension API {
 	}
 	
 	public static func getComment(
-		commentID: Int,
+		withIdentifier commentID: Int,
 		content: ContentType) -> Endpoint<Comment> {
 		return Endpoint(
 			path: "account\(content.postedAccountID)/\(content.contentType.rawValue)/comment/\(commentID)",
@@ -52,7 +52,7 @@ extension API {
 	}
 	
 	public static func flagComment(
-		commentID: Int,
+		withIdentifier commentID: Int,
 		contentType: ContentTypeIdentifier,
 		accountID: Int,
 		type: FlagType,

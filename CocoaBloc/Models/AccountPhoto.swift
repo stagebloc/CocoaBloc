@@ -6,10 +6,7 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-import Argo
-import Curry
-
-public struct AccountPhoto: Decodable, Identifiable {
+public struct AccountPhoto: Identifiable {
 	
 	public let identifier: Int
 	public let account: Expandable<Account>
@@ -29,28 +26,5 @@ public struct AccountPhoto: Decodable, Identifiable {
 	public let likeCount: Int
 	public let imageURLs: ImageURLSet
 	public let user: Expandable<User>
-	
-	public static func decode(json: JSON) -> Decoded<AccountPhoto> {
-		let a = curry(AccountPhoto.init)
-			<^> json <| "id"
-			<*> json <| "account"
-			<*> json <| "title"
-			<*> json <|? "category"
-			<*> json <| "created"
-			<*> json <| "modified"
-			<*> json <| "short_url"
-		return a
-			<*> json <| "description"
-			<*> json <| "width"
-			<*> json <| "height"
-			<*> json <| "sticky"
-			<*> json <| "exclusive"
-			<*> json <| "in_moderation"
-			<*> json <| "is_fan_content"
-			<*> json <| "comment_count"
-			<*> json <| "like_count"
-			<*> json <| "images"
-			<*> json <| "user"
-	}
 	
 }
