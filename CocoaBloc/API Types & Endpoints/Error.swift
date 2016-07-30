@@ -9,13 +9,11 @@
 import Argo
 
 public enum Error: ErrorType {
-	
 	case JSONDecoding(DecodeError)
 	case UnexpectedResponseType
 	case API(APIError)
 	case Underlying(NSError)
 	case MultipartDataEncoding
-	
 }
 
 extension Error: Equatable { }
@@ -37,7 +35,7 @@ public func == (lhs: Error, rhs: Error) -> Bool {
 }
 
 extension Error: CustomStringConvertible {
-	
+
 	public var description: String {
 		switch self {
 		case .UnexpectedResponseType:

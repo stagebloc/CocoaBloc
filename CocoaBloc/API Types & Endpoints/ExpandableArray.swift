@@ -35,6 +35,7 @@ public enum ExpandableArray<Item where
 }
 
 extension ExpandableArray: Decodable {
+	
 	public static func decode(json: JSON) -> Decoded<ExpandableArray<Item>> {
 		switch json {
 		case .Number(let number as Int):

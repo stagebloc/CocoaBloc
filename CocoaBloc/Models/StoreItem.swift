@@ -12,7 +12,6 @@ public struct StoreItem: Identifiable {
 	// MARK: Types
 	
 	public struct Option {
-		
 		public let name: String
 		public let sku: String
 		public let isDisabled: Bool
@@ -27,7 +26,6 @@ public struct StoreItem: Identifiable {
 		public let width: Float
 		public let length: Float
 		public let additionalPrice: Double?
-		
 	}
 	
 	public enum ItemType {
@@ -59,7 +57,6 @@ public struct StoreItem: Identifiable {
 				return TypeString.giftCard.rawValue
 			}
 		}
-		
 	}
 	
 	public enum Currency: String {
@@ -67,7 +64,6 @@ public struct StoreItem: Identifiable {
 	}
 	
 	public struct Sale {
-		
 		public enum SaleType {
 			case Amount(Double)
 			case Percentage(Double)
@@ -76,7 +72,6 @@ public struct StoreItem: Identifiable {
 		public let type: SaleType
 		public let startDate: NSDate
 		public let endDate: NSDate
-		
 	}
 	
 	// MARK: Properties

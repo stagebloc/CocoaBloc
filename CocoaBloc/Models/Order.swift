@@ -27,22 +27,18 @@ public struct Order: Identifiable {
 	public let transactions: [Transaction]
 	
 	public struct Shipment: Identifiable {
-		
 		public let identifier: Int
 		public let trackingNumber: String
 		public let shippedDate: NSDate
-				
 	}
 	
 	public struct Transaction: Identifiable {
-		
 		public let identifier: Int
 		public let modificationDate: NSDate
 		public let amount: Double
 		public let status: String
 		public let quantity: Int
 		public let shipment: Order.Shipment?
-				
 	}
 	
 }
