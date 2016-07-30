@@ -3,9 +3,10 @@ osx_image: xcode7.3
 xcode_project: CocoaBloc.xcodeproj
 
 before_install:
-    - brew uninstall carthage || true
-    - brew install carthage
+    - brew update; gem update
+    - brew install carthage || true
+    - gem install xcpretty || true
 
 install:
-    - carthage bootstrap --no-use-binaries --use-submodules --no-build
-    - carthage build --platform iOS --no-skip-current
+    - carthage bootstrap --no-use-binaries --use-submodules --platform ios
+    - xcodebuild test -scheme CocoaBloc -project CocoaBloc.xcodeproj -sdk iphonesimulator | xcpretty
