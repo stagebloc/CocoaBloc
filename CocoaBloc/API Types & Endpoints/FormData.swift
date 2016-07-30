@@ -18,9 +18,4 @@ public struct FormDataPart {
 	public let title: String
 	public let dataType: DataType
 	
-	public init(title: String, dataType: DataType) {
-		self.title = title
-		self.dataType = dataType
-	}
-	
 }
