@@ -67,7 +67,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		if Serialized.self == AuthStateType.self {
 			request.response(
 				responseSerializer: Request.cocoaBlocModelSerializer(AuthStateType.self, keyPath: endpoint.keyPath),
-				completionHandler: { [weak self] (response: Response<AuthStateType, CocoaBloc.Error>) in
+				completionHandler: { [weak self] (response: Response<AuthStateType, API.Error>) in
 					self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
 					self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
 				})
@@ -79,7 +79,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: (Response<Serialized, Error>) -> ()) -> Request {
+		completion: (Response<Serialized, API.Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.cocoaBlocModelSerializer(Serialized.self, keyPath: endpoint.keyPath),
@@ -90,7 +90,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public func request<Serialized: Decodable where Serialized.DecodedType == Serialized>(
 		endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
-		completion: (Response<[Serialized], Error>) -> ()) -> Request {
+		completion: (Response<[Serialized], API.Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
 		return req.response(
 			responseSerializer: Request.cocoaBlocModelSerializer(Serialized.self, keyPath: endpoint.keyPath),
@@ -101,7 +101,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public func upload<Serialized>(
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
-		completion: (Result<Request, Error>) -> ()) {
+		completion: (Result<Request, API.Error>) -> ()) {
 		guard let formData = endpoint.formData else { fatalError("Error: endpoint must contain FormData") }
 		var params: [String: AnyObject] = [
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
@@ -155,8 +155,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
 		requestConfiguration: ((Request) -> ())? = nil,
-		completion: (Result<Serialized, Error>) -> ()) {
-		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
+		completion: (Result<Serialized, API.Error>) -> ()) {
+		upload(endpoint, expansions: expansions) { (result: Result<Request, API.Error>) in
 			switch result {
 			case .Success(let request):
 				requestConfiguration?(request)
@@ -177,8 +177,8 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
 		requestConfiguration: ((Request) -> ())? = nil,
-		completion: (Result<[Serialized.Generator.Element], Error>) -> ()) {
-		upload(endpoint, expansions: expansions) { (result: Result<Request, Error>) in
+		completion: (Result<[Serialized.Generator.Element], API.Error>) -> ()) {
+		upload(endpoint, expansions: expansions) { (result: Result<Request, API.Error>) in
 			switch result {
 			case .Success(let request):
 				requestConfiguration?(request)

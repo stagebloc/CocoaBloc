@@ -45,28 +45,5 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertEqual(filtered["b"] as? Int, 1)
 		XCTAssertEqual(filtered["c"] as? String, "test")
 	}
-	
-	func testStoreItems() {
-		let x = expectationWithDescription("Store items should load")
-		let y = expectationWithDescription("Store items for invalid account should not load")
 
-		client.request(API.getStoreItemsForAccount(withIdentifier: 2912)) { response in
-			if let items = response.result.value {
-				x.fulfill()
-			} else {
-				XCTFail()
-			}
-		}
-		
-		client.request(API.getStoreItemsForAccount(withIdentifier: 0)) { response in
-			if case .Failure = response.result {
-				y.fulfill()
-			} else {
-				XCTFail()
-			}
-		}
-		
-		waitForExpectationsWithTimeout(10, handler: nil)
-	}
-	
 }

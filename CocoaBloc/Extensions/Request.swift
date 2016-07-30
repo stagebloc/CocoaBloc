@@ -11,47 +11,18 @@ import Curry
 import Alamofire
 import Foundation
 
-public struct APIError: Decodable, Equatable {
-	
-	public enum Type: String, Decodable {
-		case InvalidData		= "InvalidData"
-		case NotFound			= "NotFound"
-		case DatabaseError		= "DatabaseError"
-		case UserNotAuthorized	= "UserNotAuthorized"
-		case InvalidRoute		= "InvalidRoute"
-		case MissingData		= "MissingData"
-		case InvalidLogin		= "InvalidLogin"
-	}
-	
-	public let type: Type
-	public let descriptiveText: String
-	public let devNotes: String?
-	
-	public static func decode(metadata: JSON) -> Decoded<APIError> {
-		return curry(APIError.init)
-			<^> metadata <| "error_type"
-			<*> metadata <| "error"
-			<*> metadata <|? "dev_notes"
-	}
-	
-}
-
-public func == (lhs: APIError, rhs: APIError) -> Bool {
-	return lhs.type == rhs.type && lhs.descriptiveText == rhs.descriptiveText && lhs.devNotes == rhs.devNotes
-}
-
 extension Request {
 	
 	static func cocoaBlocModelSerializer<T: Decodable where T.DecodedType == T>(
 		type: T.Type,
-		keyPath: String) -> ResponseSerializer<T, Error> {
+		keyPath: String) -> ResponseSerializer<T, API.Error> {
 		return ResponseSerializer { request, response, data, error in
 			switch JSONResponseSerializer().serializeResponse(request, response, data, error) {
 			case .Success(let jsonObject):
 				let json = JSON(jsonObject)
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
-				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(APIError.decode) {
+				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.Error.decode) {
 					return .Failure(.API(apiError))
 				}
 				
@@ -70,14 +41,14 @@ extension Request {
 	
 	static func cocoaBlocModelSerializer<T: Decodable where T.DecodedType == T>(
 		type: T.Type,
-		keyPath: String) -> ResponseSerializer<[T], Error> {
+		keyPath: String) -> ResponseSerializer<[T], API.Error> {
 		return ResponseSerializer { request, response, data, error in
 			switch JSONResponseSerializer().serializeResponse(request, response, data, error) {
 			case .Success(let jsonObject):
 				let json = JSON(jsonObject)
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
-				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(APIError.decode) {
+				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.Error.decode) {
 					return .Failure(.API(apiError))
 				}
 				
