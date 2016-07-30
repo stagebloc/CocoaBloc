@@ -44,7 +44,7 @@ public struct Cart: Identifiable {
 	public let creationDate: NSDate
 	public let emailAddress: String?
 	public let status: Status
-	public let items: [Item]?
+	public let items: [Item]
 	public let shippingAddress: Expandable<Address>?
 	public let totals: Totals
 //	public let shippingDetails:
