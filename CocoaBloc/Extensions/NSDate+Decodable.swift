@@ -12,12 +12,10 @@ import Foundation
 extension NSDate: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<NSDate> {
-		switch json {
-		case .String(let string):
-			return .fromOptional(API.DateFormatter(withTimeZone: false).dateFromString(string))
-		default:
+		guard case .String(let string) = json else {
 			return .typeMismatch("Date String", actual: json)
 		}
+		return .fromOptional(API.DateFormatter(withTimeZone: false).dateFromString(string))
 	}
 	
 }

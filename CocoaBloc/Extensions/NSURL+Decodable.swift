@@ -12,12 +12,10 @@ import Foundation
 extension NSURL: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<NSURL> {
-		switch json {
-		case .String(let string):
-			return .fromOptional(NSURL(string: string))
-		default:
+		guard case .String(let string) = json else {
 			return .typeMismatch("URL String", actual: json)
 		}
+		return .fromOptional(NSURL(string: string))
 	}
 	
 }
