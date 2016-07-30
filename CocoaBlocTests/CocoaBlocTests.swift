@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Argo
 @testable import CocoaBloc
 import Alamofire
 
@@ -16,6 +17,13 @@ class CocoaBlocTests: XCTestCase {
 	let username = "hi@stagebloc.com"
 	let password = "starwars"
 	private(set) var client: Client!
+
+	// Test values
+	let testErrorInfo = API.ErrorInfo(
+		type: .InvalidData,
+		descriptiveText: "Invalid data",
+		devNotes: "Fix your code"
+	)
 	
 	override func setUp() {
 		super.setUp()
@@ -55,6 +63,9 @@ class CocoaBlocTests: XCTestCase {
 		// token
 		XCTAssertNil(AuthenticationState.Unauthenticated.token)
 		XCTAssertNotNil(AuthenticationState.Authenticated(token: "", user: nil).token)
+		
+		// user
+		XCTAssertNil(AuthenticationState.Authenticated(token: "", user: nil).user)
 	}
 	
 	func testClientDeauthentication() {
@@ -63,6 +74,30 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertTrue(client.authenticationState.isAuthenticated)
 		client.deauthenticate()
 		XCTAssertFalse(client.authenticationState.isAuthenticated)
+	}
+	
+	func testErrorInfoEquality() {
+		XCTAssertEqual(testErrorInfo, testErrorInfo)
+		XCTAssertNotEqual(testErrorInfo, API.ErrorInfo(
+			type: testErrorInfo.type,
+			descriptiveText: "_",
+			devNotes: testErrorInfo.devNotes)
+		)
+	}
+	
+	func testErrorEquality() {
+		let nsError = NSError(
+			domain: "com.fullscreendirect.test_error_domain",
+			code: 1,
+			userInfo: nil
+		)
+		let decodeError = DecodeError.Custom("test error")
+		
+		XCTAssertEqual(API.Error.MultipartDataEncoding, API.Error.MultipartDataEncoding)
+		XCTAssertEqual(API.Error.Underlying(nsError), API.Error.Underlying(nsError))
+		XCTAssertEqual(API.Error.JSONDecoding(decodeError), API.Error.JSONDecoding(decodeError))
+		XCTAssertEqual(API.Error.API(testErrorInfo), API.Error.API(testErrorInfo))
+		XCTAssertNotEqual(API.Error.MultipartDataEncoding, API.Error.Underlying(nsError))
 	}
 	
 }
