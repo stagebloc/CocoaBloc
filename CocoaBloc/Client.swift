@@ -170,20 +170,18 @@ public final class Client {
 		}
 	}
 
-	public func uploadArraySerialization<Serialized: SequenceType where
-		Serialized.Generator.Element: Decodable,
-		Serialized.Generator.Element.DecodedType == Serialized.Generator.Element>(
-		endpoint: Endpoint<Serialized>,
+	public func uploadArraySerialization<Serialized: Decodable where Serialized.DecodedType == Serialized>(
+		endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
 		requestConfiguration: ((Request) -> ())? = nil,
-		completion: (Result<[Serialized.Generator.Element], API.Error>) -> ()) {
+		completion: (Result<[Serialized], API.Error>) -> ()) {
 		upload(endpoint, expansions: expansions) { (result: Result<Request, API.Error>) in
 			switch result {
 			case .Success(let request):
 				requestConfiguration?(request)
 				request.response(
 					responseSerializer: Request.cocoaBlocModelSerializer(
-						Serialized.Generator.Element.self,
+						Serialized.self,
 						keyPath: endpoint.keyPath),
 					completionHandler: { response in
 						completion(response.result)
