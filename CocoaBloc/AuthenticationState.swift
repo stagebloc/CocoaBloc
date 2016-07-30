@@ -6,14 +6,42 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-public struct AuthenticationState: AuthenticationStateType {
+public enum AuthenticationState {
 	
-	public var authenticationToken: String?
-	public var authenticatedUser: User?
+	case Unauthenticated
+	case Authenticated(token: String, user: User?)
 	
-	public init(authenticationToken: String? = nil, authenticatedUser: User? = nil) {
-		self.authenticationToken = authenticationToken
-		self.authenticatedUser = authenticatedUser
+	var isAuthenticated: Bool {
+		if case .Unauthenticated = self {
+			return false
+		}
+		return true
+	}
+	
+	var token: String? {
+		if case .Authenticated(let token, _) = self {
+			return token
+		}
+		return nil
+	}
+	
+	var user: User? {
+		if case .Authenticated(_, let user) = self {
+			return user
+		}
+		return nil
+	}
+}
+
+import Argo
+import Curry
+
+extension AuthenticationState: Decodable {
+	
+	public static func decode(json: JSON) -> Decoded<AuthenticationState> {
+		return curry(AuthenticationState.Authenticated)
+			<^> (json <| "access_token")
+			<*> (json <| "user").map(Optional.init)
 	}
 	
 }

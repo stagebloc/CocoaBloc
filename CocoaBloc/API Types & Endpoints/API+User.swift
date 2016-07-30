@@ -8,8 +8,8 @@
 
 extension API {
 
-	public static func logIn<AuthState: AuthenticationStateType>(
-		authorizationCode authorizationCode: String) -> Endpoint<AuthState> {
+	public static func logIn(
+		authorizationCode authorizationCode: String) -> Endpoint<AuthenticationState> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,
@@ -19,9 +19,9 @@ extension API {
 			])
 	}
 	
-	public static func logIn<AuthState: AuthenticationStateType>(
+	public static func logIn(
 		usernameOrEmail usernameOrEmail: String,
-		password: String) -> Endpoint<AuthState> {
+		password: String) -> Endpoint<AuthenticationState> {
 		return Endpoint(
 			path: "oauth2/token",
 			method: .POST,

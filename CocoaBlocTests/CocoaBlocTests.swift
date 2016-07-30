@@ -15,15 +15,16 @@ class CocoaBlocTests: XCTestCase {
 	// Test user and OAuth credentials
 	let username = "hi@stagebloc.com"
 	let password = "starwars"
-	let client = Client(
-		clientID: "f38a73215b9da926c7c7614f6245b87d",
-		clientSecret: "799390cb946334e71db05eac33bd9f55"
-//		baseURL: NSURL(string: "https://api.hermes.staging.public.stagebloc.co/v1")! // staging server
-	)
+	private(set) var client: Client!
 	
 	override func setUp() {
 		super.setUp()
-		// Put setup code here. This method is called before the invocation of each test method in the class.
+
+		client = Client(
+			clientID: "f38a73215b9da926c7c7614f6245b87d",
+			clientSecret: "799390cb946334e71db05eac33bd9f55"
+			//		baseURL: NSURL(string: "https://api.hermes.staging.public.stagebloc.co/v1")! // staging server
+		)
 	}
 	
 	override func tearDown() {
@@ -46,4 +47,22 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertEqual(filtered["c"] as? String, "test")
 	}
 
+	func testAuthenticationState() {
+		// isAuthenticated
+		XCTAssertFalse(AuthenticationState.Unauthenticated.isAuthenticated)
+		XCTAssertTrue(AuthenticationState.Authenticated(token: "", user: nil).isAuthenticated)
+		
+		// token
+		XCTAssertNil(AuthenticationState.Unauthenticated.token)
+		XCTAssertNotNil(AuthenticationState.Authenticated(token: "", user: nil).token)
+	}
+	
+	func testClientDeauthentication() {
+		XCTAssertFalse(client.authenticationState.isAuthenticated)
+		client.authenticationState = .Authenticated(token: "valid_token", user: nil)
+		XCTAssertTrue(client.authenticationState.isAuthenticated)
+		client.deauthenticate()
+		XCTAssertFalse(client.authenticationState.isAuthenticated)
+	}
+	
 }

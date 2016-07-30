@@ -12,7 +12,6 @@
 		090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */; };
 		0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */; };
 		092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CA1C31D2EA00B81777 /* Endpoint.swift */; };
-		092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */; };
 		092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */; };
 		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
@@ -135,7 +134,6 @@
 		0925DF951C05344100BD43E0 /* SBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVideo.m; sourceTree = "<group>"; };
 		0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+CocoaBloc.swift"; sourceTree = "<group>"; };
 		092C01CA1C31D2EA00B81777 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStateType.swift; sourceTree = "<group>"; };
 		092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContentStreamObject+ContentType.swift"; sourceTree = "<group>"; };
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
@@ -331,7 +329,6 @@
 		098DC41A1C1F64380084AE45 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				092C01CC1C32CCEB00B81777 /* AuthenticationStateType.swift */,
 				098DC41B1C1F64380084AE45 /* ContentType.swift */,
 				5285EDD21D1F85590054AEE9 /* Identifiable.swift */,
 			);
@@ -618,7 +615,6 @@
 				97948A731CF51D2100D521BD /* Comment.swift in Sources */,
 				973D79691D4C99130097742F /* AccountPhoto+Decodable.swift in Sources */,
 				97CD391F1D3AEF180076C0D0 /* Cart.swift in Sources */,
-				092C01CD1C32CCEB00B81777 /* AuthenticationStateType.swift in Sources */,
 				97948A7E1CF52A7F00D521BD /* Address.swift in Sources */,
 				973D79851D4CA2CD0097742F /* Shipping+Decodable.swift in Sources */,
 				978411051CF4E5C2004788C0 /* NSURL+Decodable.swift in Sources */,

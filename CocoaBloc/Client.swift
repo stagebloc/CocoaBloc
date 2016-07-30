@@ -9,10 +9,7 @@
 import Argo
 import Alamofire
 
-public typealias Client = APIClient<AuthenticationState>
-
-public final class APIClient<AuthStateType: AuthenticationStateType where
-	AuthStateType.DecodedType == AuthStateType> {
+public final class Client {
 	
 	public let baseURL: NSURL
 	private let manager: Manager
@@ -21,12 +18,15 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	public let clientID: String
 	public let clientSecret: String
 	
-	public private(set) var authenticationState: AuthStateType
+	public var authenticationStateChanged: Optional<(AuthenticationState) -> ()> = nil
+	public var authenticationState: AuthenticationState {
+		didSet { authenticationStateChanged?(authenticationState) }
+	}
 	
 	public init(
 		clientID: String,
 		clientSecret: String,
-		authenticationState: AuthStateType = .init(authenticationToken: nil, authenticatedUser: nil),
+		authenticationState: AuthenticationState = .Unauthenticated,
 		manager: Manager = .init(),
 		baseURL: NSURL = NSURL(string: "https://api.stagebloc.com/v1")!) {
 		self.clientID = clientID
@@ -37,8 +37,7 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 	}
 	
 	public func deauthenticate() {
-		authenticationState.authenticatedUser = nil
-		authenticationState.authenticationToken = nil
+		authenticationState = .Unauthenticated
 	}
 	
 	public func request<Serialized>(
@@ -59,17 +58,16 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 			baseURL.URLByAppendingPathComponent(endpoint.path),
 			parameters: params,
 			encoding: .URL,
-			headers: authenticationState.isAuthenticated
-						? ["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""]
-						: nil
+			headers: authenticationState.token.map { token in
+				return ["Authorization": "Token token=\"\(token)\""]
+			}
 		)
 		
-		if Serialized.self == AuthStateType.self {
+		if Serialized.self == AuthenticationState.self {
 			request.response(
-				responseSerializer: Request.cocoaBlocModelSerializer(AuthStateType.self, keyPath: endpoint.keyPath),
-				completionHandler: { [weak self] (response: Response<AuthStateType, API.Error>) in
-					self?.authenticationState.authenticationToken = response.result.value?.authenticationToken
-					self?.authenticationState.authenticatedUser = response.result.value?.authenticatedUser
+				responseSerializer: Request.cocoaBlocModelSerializer(AuthenticationState.self, keyPath: endpoint.keyPath),
+				completionHandler: { [weak self] (response: Response<AuthenticationState, API.Error>) in
+					self?.authenticationState = response.result.value ?? .Unauthenticated
 				})
 		}
 		
@@ -114,8 +112,9 @@ public final class APIClient<AuthStateType: AuthenticationStateType where
 		manager.upload(
 			endpoint.method,
 			baseURL.URLByAppendingPathComponent(endpoint.path),
-			headers: authenticationState.isAuthenticated ?
-				["Authorization": "Token token=\"\(authenticationState.authenticationToken!)\""] : nil,
+			headers: authenticationState.token.map { token in
+				return ["Authorization": "Token token=\"\(token)\""]
+			},
 			multipartFormData: { multipartData in
 				formData.forEach {
 					let title = $0.title
