@@ -29,8 +29,8 @@ extension Blog: Decodable {
 			<*> json <| "exclusive"
 			<*> json <| "in_moderation"
 			<*> json <| "is_fan_content"
-			<*> json <| "commentCount"
-			<*> json <| "likeCount"
+			<*> json <| "comment_count"
+			<*> json <| "like_count"
 			<*> json <| "user"
 	}
 

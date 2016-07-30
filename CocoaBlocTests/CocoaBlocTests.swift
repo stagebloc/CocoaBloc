@@ -17,12 +17,15 @@ class CocoaBlocTests: XCTestCase {
 	let username = "hi@stagebloc.com"
 	let password = "starwars"
 	
+	// Configuration
+	let requestTimeout: NSTimeInterval = 10
+	
 	// API client, fresh per test
 	private(set) var client: Client!
 
 	// Test values
 	let testErrorInfo = API.ErrorInfo(
-		type: .InvalidData,
+		type: .invalidData,
 		descriptiveText: "Invalid data",
 		devNotes: "Fix your code"
 	)
@@ -95,11 +98,11 @@ class CocoaBlocTests: XCTestCase {
 		)
 		let decodeError = DecodeError.Custom("test error")
 		
-		XCTAssertEqual(API.Error.MultipartDataEncoding, API.Error.MultipartDataEncoding)
-		XCTAssertEqual(API.Error.Underlying(nsError), API.Error.Underlying(nsError))
-		XCTAssertEqual(API.Error.JSONDecoding(decodeError), API.Error.JSONDecoding(decodeError))
-		XCTAssertEqual(API.Error.API(testErrorInfo), API.Error.API(testErrorInfo))
-		XCTAssertNotEqual(API.Error.MultipartDataEncoding, API.Error.Underlying(nsError))
+		XCTAssertEqual(API.Error.multipartDataEncoding, API.Error.multipartDataEncoding)
+		XCTAssertEqual(API.Error.underlying(nsError), API.Error.underlying(nsError))
+		XCTAssertEqual(API.Error.jsonDecoding(decodeError), API.Error.jsonDecoding(decodeError))
+		XCTAssertEqual(API.Error.api(testErrorInfo), API.Error.api(testErrorInfo))
+		XCTAssertNotEqual(API.Error.multipartDataEncoding, API.Error.underlying(nsError))
 	}
 	
 	struct TestExpandableType: Decodable, Identifiable {
@@ -133,5 +136,48 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertNotNil(expanded.value)
 		XCTAssertEqual(expanded.value!, value)
 	}
+	
+	private func jsonForFile(named name: String) -> JSON {
+		let thisBundle = NSBundle(forClass: self.dynamicType)
+		let path = thisBundle.pathForResource(name, ofType: "json")!
+		let data = NSData(contentsOfFile: path)
+		let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: [])
+		return JSON(json)
+	}
+	
+	func testAccountDecoding() {
+		switch Account.decode(jsonForFile(named: "Account")) {
+		case .Failure(let error):
+			XCTFail(error.description)
+		case .Success(_):
+			()
+		}
+	}
+	
+	func testAccountPhotoDecoding() {
+		switch AccountPhoto.decode(jsonForFile(named: "AccountPhoto")) {
+		case .Failure(let error):
+			XCTFail(error.description)
+		case .Success(_):
+			()
+		}
+	}
+	
+	func testBlogDecoding() {
+		switch Blog.decode(jsonForFile(named: "Blog")) {
+		case .Failure(let error):
+			XCTFail(error.description)
+		case .Success(_):
+			()
+		}
+	}
 
+	func testCartDecoding() {
+		switch Cart.decode(jsonForFile(named: "Cart")) {
+		case .Failure(let error):
+			XCTFail(error.description)
+		case .Success(_):
+			()
+		}
+	}
 }

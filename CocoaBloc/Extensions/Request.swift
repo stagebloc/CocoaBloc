@@ -23,7 +23,7 @@ extension Request {
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
 				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
-					return .Failure(.API(apiError))
+					return .Failure(.api(apiError))
 				}
 				
 				// Decode the actual data JSON as the decodable type
@@ -31,10 +31,10 @@ extension Request {
 				case .Success(let model):
 					return .Success(model)
 				case .Failure(let decodeError):
-					return .Failure(.JSONDecoding(decodeError))
+					return .Failure(.jsonDecoding(decodeError))
 				}
 			case .Failure(let error):
-				return .Failure(.Underlying(error))
+				return .Failure(.underlying(error))
 			}
 		}
 	}
@@ -49,7 +49,7 @@ extension Request {
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
 				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
-					return .Failure(.API(apiError))
+					return .Failure(.api(apiError))
 				}
 				
 				// Decode the actual data JSON as the decodable type
@@ -57,10 +57,10 @@ extension Request {
 				case .Success(let model):
 					return .Success(model)
 				case .Failure(let decodeError):
-					return .Failure(.JSONDecoding(decodeError))
+					return .Failure(.jsonDecoding(decodeError))
 				}
 			case .Failure(let error):
-				return .Failure(.Underlying(error))
+				return .Failure(.underlying(error))
 			}
 		}
 	}

@@ -145,7 +145,7 @@ public final class Client {
 				case .Success(let request, _, _):
 					completion(.Success(request))
 				case .Failure:
-					completion(.Failure(.MultipartDataEncoding))
+					completion(.Failure(.multipartDataEncoding))
 				}
 		}
 	}

@@ -40,12 +40,12 @@ public struct Cart: Identifiable {
 	public let identifier: Int
 	public let userID: Int
 //	public let user: User?
-	public let sessionID: Int
+	public let sessionID: String
 	public let creationDate: NSDate
 	public let emailAddress: String?
 	public let status: Status
 //	public let items: [Item]?
-	public let shippingAddress: Expandable<Address>
+	public let shippingAddress: Expandable<Address>?
 	public let totals: Totals
 //	public let shippingDetails:
 //	public let shippingRates:
