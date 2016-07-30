@@ -13,7 +13,6 @@ extension API {
 	
 	public enum Error: ErrorType {
 		case JSONDecoding(DecodeError)
-		case UnexpectedResponseType
 		case API(ErrorInfo)
 		case Underlying(NSError)
 		case MultipartDataEncoding
@@ -60,8 +59,6 @@ public func == (lhs: API.Error, rhs: API.Error) -> Bool {
 	switch (lhs, rhs) {
 	case (.JSONDecoding(let x), .JSONDecoding(let y)):
 		return x == y
-	case (.UnexpectedResponseType, .UnexpectedResponseType):
-		return true
 	case (.API(let x), .API(let y)):
 		return x == y
 	case (.Underlying(let x), .Underlying(let y)):
@@ -77,8 +74,6 @@ extension API.Error: CustomStringConvertible {
 	
 	public var description: String {
 		switch self {
-		case .UnexpectedResponseType:
-			return "Unexpected server response"
 		case .Underlying(let error):
 			return "Underlying error: \(error)"
 		case .JSONDecoding(let decodeError):
