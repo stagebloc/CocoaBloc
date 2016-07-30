@@ -281,6 +281,7 @@
 		0925DF6D1C05344100BD43E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				973D79651D4C98C90097742F /* Decoding */,
 				978411081CF4E5FD004788C0 /* old */,
 				9784110F1CF4E858004788C0 /* Account.swift */,
 				978411131CF4EAC0004788C0 /* AccountPhoto.swift */,
@@ -301,7 +302,6 @@
 				978411091CF4E606004788C0 /* User.swift */,
 				97948A9A1CF815B200D521BD /* UserPhoto.swift */,
 				97948A8B1CF53CE600D521BD /* Video.swift */,
-				973D79651D4C98C90097742F /* Decoding */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -350,16 +350,16 @@
 				973D79721D4C9A9E0097742F /* Event+Decodable.swift */,
 				973D79741D4C9AAD0097742F /* FanClub+Decodable.swift */,
 				973D79761D4C9AB40097742F /* ImageURLSet+Decodable.swift */,
-				973D797A1D4C9C880097742F /* Status+Decodable.swift */,
 				973D79781D4C9B200097742F /* Order+Decodable.swift */,
 				973D797C1D4C9CB60097742F /* RGBComponents+Decodable.swift */,
+				973D79841D4CA2CD0097742F /* Shipping+Decodable.swift */,
+				973D797A1D4C9C880097742F /* Status+Decodable.swift */,
 				973D797E1D4C9D0A0097742F /* StoreItem+Decodable.swift */,
 				973D79801D4CA17B0097742F /* User+Decodable.swift */,
-				973D79821D4CA1D10097742F /* Video+Decodable.swift */,
-				973D79841D4CA2CD0097742F /* Shipping+Decodable.swift */,
 				973D79861D4CA3650097742F /* UserPhoto+Decodable.swift */,
+				973D79821D4CA1D10097742F /* Video+Decodable.swift */,
 			);
-			name = Decoding;
+			path = Decoding;
 			sourceTree = "<group>";
 		};
 		978411081CF4E5FD004788C0 /* old */ = {
