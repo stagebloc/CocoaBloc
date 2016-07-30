@@ -55,7 +55,7 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertEqual(filtered["c"] as? String, "test")
 	}
 
-	func testAuthenticationState() {
+	func testAuthenticationStateType() {
 		// isAuthenticated
 		XCTAssertFalse(AuthenticationState.Unauthenticated.isAuthenticated)
 		XCTAssertTrue(AuthenticationState.Authenticated(token: "", user: nil).isAuthenticated)
@@ -100,4 +100,36 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertNotEqual(API.Error.MultipartDataEncoding, API.Error.Underlying(nsError))
 	}
 	
+	struct TestExpandableType: Decodable, Identifiable {
+		var identifier: Int
+		
+		static func decode(json: JSON) -> Decoded<TestExpandableType> {
+			return TestExpandableType.init <^> json <| "id"
+		}
+	}
+	func testExpandableType() {
+		let identifier = 5
+		let value = TestExpandableType(identifier: identifier)
+		let expanded = Expandable<TestExpandableType>.expanded(value)
+		let unexpanded = Expandable<TestExpandableType>.unexpanded(identifier: identifier)
+		
+		XCTAssertEqual(expanded.identifier, unexpanded.identifier)
+		
+		XCTAssertNil(unexpanded.value)
+		XCTAssertNotNil(expanded.value)
+		XCTAssertEqual(expanded.value?.identifier, value.identifier)
+	}
+	
+	func testExpandableArrayType() {
+		let value = [1, 2, 3]
+		let expanded = ExpandableArray<Int>.expanded(value)
+		let unexpanded = ExpandableArray<Int>.unexpanded(count: value.count)
+		
+		XCTAssertEqual(expanded.count, unexpanded.count)
+		
+		XCTAssertNil(unexpanded.value)
+		XCTAssertNotNil(expanded.value)
+		XCTAssertEqual(expanded.value!, value)
+	}
+
 }

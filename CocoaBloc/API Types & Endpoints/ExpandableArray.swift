@@ -10,7 +10,6 @@ import Argo
 
 public enum ExpandableArray<Item where
 	Item: Decodable,
-	Item.DecodedType: Identifiable,
 	Item.DecodedType == Item> {
 	
 	case unexpanded(count: Int)
