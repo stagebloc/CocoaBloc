@@ -19,6 +19,7 @@ extension Cart: Decodable {
 			<*> json <| "created"
 			<*> json <|? "email"
 			<*> json <| "status"
+			<*> json <||? "cart_items"
 			<*> json <|? "shipping_address"
 			<*> json <| "totals"
 	}
