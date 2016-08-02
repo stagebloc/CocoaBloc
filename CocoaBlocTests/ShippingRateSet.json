@@ -1,0 +1,79 @@
+{
+  "order": {
+    "fulfillers": [
+      {
+        "id": 1,
+        "type": 0,
+        "name": "Main Warehouse",
+        "postal_code": "53103",
+        "address": {
+          "id": 1,
+          "name": "Domestic",
+          "street_address": "S89 W22630 Loretto Lane",
+          "street_address_2": "",
+          "city": "Big Bend",
+          "state": "WI",
+          "postal_code": "53103",
+          "country": "US"
+        },
+        "shipping_price_handlers": [
+          {
+            "id": 11,
+            "shipping_methods": [
+              {
+                "id": 1,
+                "price": 0,
+                "handling": 0,
+                "commitment": "",
+                "name": "Pick Up",
+                "notice": ""
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "shipping_methods": [
+              {
+                "id": 1,
+                "price": 10,
+                "handling": 0,
+                "commitment": "",
+                "name": "Flat Rate",
+                "notice": ""
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "shipping_methods": [
+              {
+                "id": 1,
+                "price": 26.42,
+                "handling": 5,
+                "name": "FedEx Ground",
+                "commitment": "",
+                "notice": ""
+              },
+              {
+                "id": 5,
+                "price": 76.9,
+                "handling": 5,
+                "name": "FedEx International Economy",
+                "commitment": "TUE",
+                "notice": ""
+              },
+              {
+                "id": 4,
+                "price": 88.46,
+                "handling": 5,
+                "name": "FedEx International Priority",
+                "commitment": "MON",
+                "notice": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

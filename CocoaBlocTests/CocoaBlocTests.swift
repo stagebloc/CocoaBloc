@@ -148,4 +148,14 @@ class CocoaBlocTests: XCTestCase {
 			()
 		}
 	}
+	
+	func testShippingRateSetDecoding() {
+		switch Shipping.RateSet.decode(jsonForFile(named: "ShippingRateSet")) {
+		case .Failure(let error):
+			XCTFail(error.description)
+		case .Success(_):
+			()
+		}
+	}
+
 }

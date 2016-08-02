@@ -49,8 +49,8 @@ extension Shipping.RateSet: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Shipping.RateSet> {
 		return curry(Shipping.RateSet.init)
-			<^> json <|| "order"
-			<*> json <|| "preorder" <|> pure([])
+			<^> json <|| ["order", "fulfillers"]
+			<*> json <|| ["preorder", "fulfillers"] <|> pure([])
 	}
 	
 }

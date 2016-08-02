@@ -82,6 +82,7 @@
 		97CD391D1D3AEE2B0076C0D0 /* API+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */; };
 		97CD391F1D3AEF180076C0D0 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD391E1D3AEF180076C0D0 /* Cart.swift */; };
 		97FA704D1D510FA800ADAA08 /* API+Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA704C1D510FA800ADAA08 /* API+Cart.swift */; };
+		97FA704F1D51187000ADAA08 /* ShippingRateSet.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FA704E1D51187000ADAA08 /* ShippingRateSet.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,7 @@
 		97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Address.swift"; sourceTree = "<group>"; };
 		97CD391E1D3AEF180076C0D0 /* Cart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		97FA704C1D510FA800ADAA08 /* API+Cart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Cart.swift"; sourceTree = "<group>"; };
+		97FA704E1D51187000ADAA08 /* ShippingRateSet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ShippingRateSet.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +245,7 @@
 				9792B4861D4D43BE006E85BD /* AccountPhoto.json */,
 				9792B4881D4D44AF006E85BD /* Blog.json */,
 				9792B48A1D4D45F4006E85BD /* Cart.json */,
+				97FA704E1D51187000ADAA08 /* ShippingRateSet.json */,
 				090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */,
 				97003B981D50165400AC21C0 /* ExpandableTests.swift */,
 				97003BA01D5027D300AC21C0 /* RGBComponentsTests.swift */,
@@ -477,6 +480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9792B4891D4D44AF006E85BD /* Blog.json in Resources */,
+				97FA704F1D51187000ADAA08 /* ShippingRateSet.json in Resources */,
 				9792B4871D4D43BE006E85BD /* AccountPhoto.json in Resources */,
 				9792B4851D4D417A006E85BD /* Account.json in Resources */,
 				9792B48B1D4D45F4006E85BD /* Cart.json in Resources */,
