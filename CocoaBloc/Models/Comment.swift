@@ -11,11 +11,11 @@ public struct Comment: Identifiable {
 	public let identifier: Int
 	public let text: String
 	public let user: Expandable<User>
-	public let creationDate: NSDate
+	public let creationDate: Date
 	public let account: Expandable<Account>
 	public let replyToIdentifier: Int
 	public let replyCount: Int
-	public let shortURL: NSURL
+	public let shortURL: URL
 	public let inModeration: Bool
 	
 }

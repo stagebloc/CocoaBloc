@@ -14,11 +14,11 @@ public struct Video: Identifiable {
 	public let descriptiveText: String
 	public let category: String
 	public let photo: Expandable<AccountPhoto>
-	public let shortURL: NSURL
-	public let videoURL: NSURL
+	public let shortURL: URL
+	public let videoURL: URL
 	public let embedCode: String
-	public let creationDate: NSDate
-	public let modificationDate: NSDate
+	public let creationDate: Date
+	public let modificationDate: Date
 	public let isExclusive: Bool
 	public let inModeration: Bool
 	public let isFanContent: Bool

@@ -1,5 +1,5 @@
 //
-//  NSURL.swift
+//  URL.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 5/24/16.
@@ -9,13 +9,17 @@
 import Argo
 import Foundation
 
-extension NSURL: Decodable {
+public struct URL {
+	let url: NSURL
+}
+
+extension URL: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<NSURL> {
+	public static func decode(json: JSON) -> Decoded<URL> {
 		guard case .String(let string) = json else {
 			return .typeMismatch("URL String", actual: json)
 		}
-		return .fromOptional(NSURL(string: string))
+		return .fromOptional(NSURL(string: string).flatMap(URL.init))
 	}
 	
 }

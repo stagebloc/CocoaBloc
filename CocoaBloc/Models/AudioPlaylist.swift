@@ -15,12 +15,12 @@ public struct AudioPlaylist: Decodable, Identifiable {
 	public let account: Expandable<Account>
 	public let title: String
 	public let descriptiveText: String
-	public let shortURL: NSURL
+	public let shortURL: URL
 	public let embedCode: String
 	public let creator: Expandable<User>
-	public let creationDate: NSDate
+	public let creationDate: Date
 	public let modifier: Expandable<User>
-	public let modificationDate: NSDate
+	public let modificationDate: Date
 	public let likeCount: Int
 	public let artist: String
 	public let label: String

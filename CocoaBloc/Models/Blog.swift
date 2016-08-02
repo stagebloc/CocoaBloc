@@ -15,10 +15,10 @@ public struct Blog: Identifiable {
 	public let strippedBody: String
 	public let category: String
 	public let slug: String
-	public let shortURL: NSURL
-	public let publishDate: NSDate
-	public let creationDate: NSDate
-	public let modificationDate: NSDate
+	public let shortURL: URL
+	public let publishDate: Date
+	public let creationDate: Date
+	public let modificationDate: Date
 	public let isSticky: Bool
 	public let isExclusive: Bool
 	public let inModeration: Bool

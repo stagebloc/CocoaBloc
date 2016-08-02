@@ -11,7 +11,7 @@ public struct Cart: Identifiable {
 	public struct Item: Identifiable {
 		public let identifier: Int
 		public let cartID: Int
-		public let creationDate: NSDate
+		public let creationDate: Date
 		public let hash: String
 		public let productID: Int
 		public let productType: String
@@ -21,7 +21,7 @@ public struct Cart: Identifiable {
 		public let status: String
 		public let sku: String
 		public let parentID: Int?
-		public let lockExpires: NSDate
+		public let lockExpires: Date
 	}
 	
 	public struct Totals {
@@ -41,7 +41,7 @@ public struct Cart: Identifiable {
 	public let userID: Int
 	public let user: User?
 	public let sessionID: String
-	public let creationDate: NSDate
+	public let creationDate: Date
 	public let emailAddress: String?
 	public let status: Status
 	public let items: [Item]

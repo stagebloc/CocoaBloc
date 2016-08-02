@@ -10,12 +10,12 @@ public struct Status: Identifiable {
 	
 	public let identifier: Int
 	public let account: Expandable<Account>
-	public let shortURL: NSURL
+	public let shortURL: URL
 	public let text: String
 	public let category: String
 	public let inModeration: Bool
 	public let isFanContent: Bool
-	public let publishDate: NSDate
+	public let publishDate: Date
 	public let commentCount: Int
 	public let likeCount: Int
 	public let user: Expandable<User>

@@ -9,8 +9,8 @@
 public struct Account: Identifiable {
 
 	public let identifier: Int
-	public let url: NSURL?
-	public let stageBlocURL: NSURL
+	public let url: URL?
+	public let stageBlocURL: URL
 	public let name: String
 	public let descriptiveText: String
 //	public let type: API.AccountType

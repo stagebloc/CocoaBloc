@@ -6,10 +6,7 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-/// Describes a type which has a single identifier of any type
+/// Describes a type which has a single integer identifier
 public protocol Identifiable {
-	
-	associatedtype Identifier
-	var identifier: Identifier { get }
-	
+	var identifier: Int { get }
 }

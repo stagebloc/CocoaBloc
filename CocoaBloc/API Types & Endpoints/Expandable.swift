@@ -13,9 +13,7 @@ public enum Expandable<Item where
 	Item.DecodedType: Identifiable,
 	Item.DecodedType == Item> {
 	
-	typealias Identifier = Item.Identifier
-	
-	case unexpanded(identifier: Identifier)
+	case unexpanded(identifier: Int)
 	indirect case expanded(Item)
 	
 	public var value: Item? {
@@ -25,7 +23,7 @@ public enum Expandable<Item where
 		return nil
 	}
 	
-	public var identifier: Identifier {
+	public var identifier: Int {
 		switch self {
 		case .unexpanded(let identifier):
 			return identifier
@@ -40,14 +38,12 @@ extension Expandable: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Expandable<Item>> {
 		switch json {
-		case .Number(let number as Item.Identifier):
+		case .Number(let number as Int):
 			return pure(.unexpanded(identifier: number))
-		case .String(let string as Item.Identifier):
-			return pure(.unexpanded(identifier: string))
 		case .Object, .Array:
 			return Expandable.expanded <^> Item.decode(json)
 		default:
-			return .typeMismatch("Expandable object", actual: json)
+			return .typeMismatch("Unexpanded identifier -OR- expanded object/array", actual: json)
 		}
 	}
 	

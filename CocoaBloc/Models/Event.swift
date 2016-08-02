@@ -12,11 +12,11 @@ public struct Event: Identifiable {
 	public let account: Expandable<Account>
 	public let title: String
 	public let descriptiveText: String
-	public let shortURL: NSURL
+	public let shortURL: URL
 	public let ticketPrice: Float
-	public let ticketLink: NSURL
-	public let startDate: NSDate
-	public let endDate: NSDate
+	public let ticketLink: URL
+	public let startDate: Date
+	public let endDate: Date
 	public let timeZone: String
 	public let commentCount: Int
 	public let likeCount: Int

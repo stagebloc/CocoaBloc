@@ -21,12 +21,12 @@ public struct Audio: Decodable, Identifiable {
 	public let artist: String
 	public let photo: Expandable<AccountPhoto>
 	public let creator: Expandable<User>
-	public let creationDate: NSDate
+	public let creationDate: Date
 	public let modifier: Expandable<User>
-	public let modificationDate: NSDate
+	public let modificationDate: Date
 	public let isRecorded: Bool
-	public let shortURL: NSURL
-	public let streamURL: NSURL
+	public let shortURL: URL
+	public let streamURL: URL
 	public let embedCode: String
 	public let isPrivate: Bool
 	public let isSticky: Bool

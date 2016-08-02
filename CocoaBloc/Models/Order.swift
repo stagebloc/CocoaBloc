@@ -10,8 +10,8 @@ public struct Order: Identifiable {
 	
 	public let identifier: Int
 	public let account: Expandable<Account>
-	public let receiptURL: NSURL
-	public let orderDate: NSDate
+	public let receiptURL: URL
+	public let orderDate: Date
 	public let isShipped: Bool
 	public let currency: StoreItem.Currency
 	public let total: Double
@@ -29,12 +29,12 @@ public struct Order: Identifiable {
 	public struct Shipment: Identifiable {
 		public let identifier: Int
 		public let trackingNumber: String
-		public let shippedDate: NSDate
+		public let shippedDate: Date
 	}
 	
 	public struct Transaction: Identifiable {
 		public let identifier: Int
-		public let modificationDate: NSDate
+		public let modificationDate: Date
 		public let amount: Double
 		public let status: String
 		public let quantity: Int

@@ -55,8 +55,8 @@ public struct StoreItem: Identifiable {
 		}
 		
 		public let type: SaleType
-		public let startDate: NSDate
-		public let endDate: NSDate
+		public let startDate: Date
+		public let endDate: Date
 	}
 	
 	// MARK: Properties
@@ -65,14 +65,14 @@ public struct StoreItem: Identifiable {
 	public let type: ItemType
 	public let account: Expandable<Account>
 	public let title: String
-	public let shortURL: NSURL
+	public let shortURL: URL
 	public let descriptiveText: String
 	public let isSoldOut: Bool
 	public let isExclusive: Bool
 	public let isFeatured: Bool
-	public let creationDate: NSDate
+	public let creationDate: Date
 	public let creator: Expandable<User>
-	public let modificationDate: NSDate
+	public let modificationDate: Date
 	public let modifier: Expandable<User>
 	public let category: String?
 	public let sale: Sale?

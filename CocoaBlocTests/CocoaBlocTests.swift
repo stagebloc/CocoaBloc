@@ -105,38 +105,6 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertNotEqual(API.Error.multipartDataEncoding, API.Error.underlying(nsError))
 	}
 	
-	struct TestExpandableType: Decodable, Identifiable {
-		var identifier: Int
-		
-		static func decode(json: JSON) -> Decoded<TestExpandableType> {
-			return TestExpandableType.init <^> json <| "id"
-		}
-	}
-	func testExpandableType() {
-		let identifier = 5
-		let value = TestExpandableType(identifier: identifier)
-		let expanded = Expandable<TestExpandableType>.expanded(value)
-		let unexpanded = Expandable<TestExpandableType>.unexpanded(identifier: identifier)
-		
-		XCTAssertEqual(expanded.identifier, unexpanded.identifier)
-		
-		XCTAssertNil(unexpanded.value)
-		XCTAssertNotNil(expanded.value)
-		XCTAssertEqual(expanded.value?.identifier, value.identifier)
-	}
-	
-	func testExpandableArrayType() {
-		let value = [1, 2, 3]
-		let expanded = ExpandableArray<Int>.expanded(value)
-		let unexpanded = ExpandableArray<Int>.unexpanded(count: value.count)
-		
-		XCTAssertEqual(expanded.count, unexpanded.count)
-		
-		XCTAssertNil(unexpanded.value)
-		XCTAssertNotNil(expanded.value)
-		XCTAssertEqual(expanded.value!, value)
-	}
-	
 	private func jsonForFile(named name: String) -> JSON {
 		let thisBundle = NSBundle(forClass: self.dynamicType)
 		let path = thisBundle.pathForResource(name, ofType: "json")!

@@ -12,9 +12,9 @@ public struct AccountPhoto: Identifiable {
 	public let account: Expandable<Account>
 	public let title: String
 	public let category: String?
-	public let creationDate: NSDate
-	public let modificationDate: NSDate
-	public let shortURL: NSURL
+	public let creationDate: Date
+	public let modificationDate: Date
+	public let shortURL: URL
 	public let descriptiveText: String
 	public let width: Int
 	public let height: Int

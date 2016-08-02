@@ -9,13 +9,13 @@
 public struct User: Identifiable {
 	
 	public let identifier: Int
-	public let url: NSURL
-	public let creationDate: NSDate
+	public let url: URL
+	public let creationDate: Date
 	public let name: String
 	public let username: String
 	public let bio: String
 	public let photo: UserPhoto?
-//	public let birthday: NSDate?
+//	public let birthday: Date?
 	public let gender: String?
 	public let emailAddress: String?
 	public let color: RGBComponents

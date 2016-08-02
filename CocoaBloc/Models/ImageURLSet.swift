@@ -8,10 +8,10 @@
 
 public struct ImageURLSet {
 	
-	public let thumbnail: NSURL
-	public let small: NSURL
-	public let medium: NSURL
-	public let large: NSURL
-	public let original: NSURL
+	public let thumbnail: URL
+	public let small: URL
+	public let medium: URL
+	public let large: URL
+	public let original: URL
 	
 }
