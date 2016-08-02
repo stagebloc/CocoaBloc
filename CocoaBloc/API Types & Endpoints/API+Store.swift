@@ -9,6 +9,7 @@
 import Foundation
 
 public struct StoreDashboard {
+	
 	public struct Totals {
 		
 	}
@@ -20,6 +21,7 @@ public struct StoreDashboard {
 	public struct Averages {
 		
 	}
+	
 }
 
 extension API {
@@ -30,7 +32,7 @@ extension API {
 			method: .GET)
 	}
 	
-	public static func getCart(withIdentifier cartSessionID: String) -> Endpoint<Cart> {
+	public static func getCart(withSessionIdentifier cartSessionID: String) -> Endpoint<Cart> {
 		return Endpoint(path: "cart/\(cartSessionID)", method: .GET)
 	}
 	
@@ -46,21 +48,57 @@ extension API {
 			])
 	}
 	
-	public static func updateCart(withIdentifier sessionID: String,
-	                                             newEmail: String?,
-	                                             newShippingAddress: Address?) -> Endpoint<Cart> {
+	public static func updateCart(withSessionIdentifier cartSessionID: String,
+	                                                    newEmail: String?,
+	                                                    newShippingAddress: Address?) -> Endpoint<Cart> {
 		precondition(
 			newEmail != nil || newShippingAddress != nil,
 			"Can't create an endpoint to update nothing on the cart."
 		)
 		return Endpoint(
-			path: "cart/\(sessionID)",
+			path: "cart/\(cartSessionID)",
 			method: .POST,
 			parameters: [
 				"cart": [
-					"session_id": sessionID,
+					"session_id": cartSessionID,
 					"email": newEmail,
 					//				"addresses": newAddresses
+				].filterEntriesWithNilValues()
+			])
+	}
+	
+	public static func addItemToCart(
+		withSessionIdentifier cartSessionID: String,
+		storeItemIdentifier storeItemID: Int,
+		                    sku: String,
+		                    quantity: Int) -> Endpoint<Cart> {
+		return Endpoint(
+			path: "cart/\(cartSessionID)/items",
+			method: .POST,
+			parameters: [
+				"item": [
+					"type": "store",
+					"id": storeItemID,
+					"sku": sku,
+					"quantity": quantity
+				]
+			])
+	}
+	
+	public static func updateItemInCart(
+		withSessionIdentifier cartSessionID: String,
+		                      cartItemHash: String,
+		                      sku: String?,
+		                      quantity: Int?) -> Endpoint<Cart> {
+		precondition(sku != nil || quantity != nil, "Must specify something to update on the cart item")
+		
+		return Endpoint(
+			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
+			method: .POST,
+			parameters: [
+				"item": [
+					"sku": sku,
+					"quantity": quantity
 				].filterEntriesWithNilValues()
 			])
 	}
@@ -73,7 +111,7 @@ extension API {
 			method: .DELETE)
 	}
 	
-//	public static func createCartItem(withSessionID sessionID: String)
+	//	public static func createCartItem(withSessionID sessionID: String)
 	
 	public static func getOrdersForAccount(withIdentifier accountID: Int) -> Endpoint<[Order]> {
 		return Endpoint(
@@ -84,8 +122,8 @@ extension API {
 	public static func setOrderShipped(
 		withIdentifier orderID: Int,
 		accountIdentifier accountID: Int,
-		trackingNumber: String,
-		carrier: String) -> Endpoint<Order> {
+		                  trackingNumber: String,
+		                  carrier: String) -> Endpoint<Order> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders/\(orderID)",
 			method: .POST,

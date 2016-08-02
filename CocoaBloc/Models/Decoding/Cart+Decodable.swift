@@ -24,6 +24,7 @@ extension Cart: Decodable {
 			<*> json <|| "cart_items" <|> pure([])
 			<*> json <|? "shipping_address"
 			<*> json <| "totals"
+			<*> json <|? "shipping_rates"
 	}
 	
 }
@@ -36,15 +37,15 @@ extension Cart.Item: Decodable {
 			<*> json <| "cart"
 			<*> json <| "created"
 			<*> json <| "hash"
-			<*> json <| "product_id"
-			<*> json <| "product_type"
+			<*> json <| ["product", "id"]
+			<*> json <| ["product", "type"]
 			<*> json <| "named_price"
 		return a
 			<*> json <| "quantity"
 			<*> json <| "status"
 			<*> json <| "sku"
 			<*> json <|? "parent_id"
-			<*> json <| "lock_expires"
+			<*> json <|? "lock_expires"
 	}
 	
 }

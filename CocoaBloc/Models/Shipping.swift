@@ -28,5 +28,25 @@ public enum Shipping {
 		public let address: Address?
 		public let priceHandlers: [PriceHandler]
 	}
-
+	
+	public struct RateSet {
+		public let orderFulfillers: [Fulfiller]
+		public let preorderFulfillers: [Fulfiller]
+	}
+	
+	public struct Selection {
+		public let fulfillerID: Int
+		public let handlerID: Int
+		public let methodID: Int
+		public let price: Double
+		public let handlingPrice: Double
+	}
+	
+	public struct SelectionSet {
+		public let orderSelection: Selection
+		public let preorderSelection: Selection?
+	}
+	
+	
+	
 }

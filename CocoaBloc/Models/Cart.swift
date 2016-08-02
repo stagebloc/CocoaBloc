@@ -21,7 +21,7 @@ public struct Cart: Identifiable {
 		public let status: String
 		public let sku: String
 		public let parentID: Int?
-		public let lockExpires: Date
+		public let lockExpires: Date?
 	}
 	
 	public struct Totals {
@@ -32,9 +32,9 @@ public struct Cart: Identifiable {
 	}
 	
 	public enum Status: String {
-		case started			= "STARTED"
-		case reachedCheckout	= "REACHED_CHECKOUT"
-		case completedCheckout	= "COMPLETED_CHECKOUT"
+		case started			= "started"
+		case reachedCheckout	= "reached_checkout"
+		case completedCheckout	= "completed_checkout"
 	}
 	
 	public let identifier: Int
@@ -47,8 +47,7 @@ public struct Cart: Identifiable {
 	public let items: [Item]
 	public let shippingAddress: Expandable<Address>?
 	public let totals: Totals
-//	public let shippingDetails:
-//	public let shippingRates:
-//	public let selectedShipping
+	public let shippingRates: Shipping.RateSet?
+//	public let selectedShipping: Shipping.
 	
 }
