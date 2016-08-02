@@ -20,16 +20,16 @@ public struct RGBComponents {
 	
 	#if os(iOS)
 	public var UIColor: UIKit.UIColor {
-		return .init(red: CGFloat(red / 255),
-		             green: CGFloat(green / 255),
-		             blue: CGFloat(blue / 255),
+		return .init(red: CGFloat(red) / 255,
+		             green: CGFloat(green) / 255,
+		             blue: CGFloat(blue) / 255,
 		             alpha: 1)
 	}
 	#elseif os(OSX)
 	public var NSColor: AppKit.NSColor {
-		return .init(red: CGFloat(red / 255),
-		             green: CGFloat(green / 255),
-		             blue: CGFloat(blue / 255),
+		return .init(red: CGFloat(red) / 255,
+		             green: CGFloat(green) / 255,
+		             blue: CGFloat(blue) / 255,
 		             alpha: 1)
 	}
 	#endif

@@ -20,6 +20,13 @@ class RGBComponentsTests: XCTestCase {
 			XCTAssertEqual(red, components.red)
 			XCTAssertEqual(green, components.green)
 			XCTAssertEqual(blue, components.blue)
+			
+			let color = components.UIColor
+			var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0
+			color.getRed(&r, green: &g, blue: &b, alpha: nil)
+			XCTAssertEqual(CGFloat(red) / 255, r)
+			XCTAssertEqual(CGFloat(green) / 255, g)
+			XCTAssertEqual(CGFloat(blue) / 255, b)
 		case .Failure(let decodeError):
 			XCTFail(decodeError.description)
 		}
