@@ -118,7 +118,7 @@ public final class Client {
 			multipartFormData: { multipartData in
 				formData.forEach {
 					let title = $0.title
-					switch $0.dataType {
+					switch $0.source {
 					case .data(let data):
 						multipartData.appendBodyPart(
 							data: data,

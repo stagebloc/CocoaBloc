@@ -9,7 +9,8 @@
 import Argo
 import Foundation
 
-public struct Date {
+extension Date: Decodable {
+	
 	static let formatter: NSDateFormatter = {
 		let ret = NSDateFormatter()
 		ret.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
@@ -18,14 +19,11 @@ public struct Date {
 		return ret
 	}()
 	
-	public let date: NSDate
-}
-
-extension Date: Decodable {
 	public static func decode(json: JSON) -> Decoded<Date> {
 		guard case .String(let string) = json else {
 			return .typeMismatch("Date String", actual: json)
 		}
 		return .fromOptional(Date.formatter.dateFromString(string).flatMap(Date.init))
 	}
+	
 }

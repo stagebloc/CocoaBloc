@@ -10,12 +10,12 @@ import Foundation
 
 public struct FormDataPart {
 	
-	public enum DataType {
+	public enum DataSource {
 		case data(NSData)
 		case file(NSURL)
 	}
 	
 	public let title: String
-	public let dataType: DataType
+	public let source: DataSource
 	
 }

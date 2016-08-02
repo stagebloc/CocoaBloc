@@ -9,10 +9,6 @@
 import Argo
 import Foundation
 
-public struct URL {
-	let url: NSURL
-}
-
 extension URL: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<URL> {
