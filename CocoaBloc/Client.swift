@@ -25,7 +25,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 	public init(
 		clientID: String,
 		clientSecret: String,
-		authenticationStateContainer: AuthStateContainer,
+		authenticationStateContainer: AuthStateContainer = .init(),
 		manager: Manager = .init(),
 		baseURL: NSURL = NSURL(string: "https://api.stagebloc.com/v1")!) {
 		self.clientID = clientID

@@ -8,6 +8,7 @@
 
 public protocol AuthenticationStateContainer {
 	var state: AuthenticationState { get set }
+	init()
 }
 
 public struct CallbackAuthenticationStateContainer: AuthenticationStateContainer {
@@ -17,6 +18,10 @@ public struct CallbackAuthenticationStateContainer: AuthenticationStateContainer
 	}
 	
 	public var callback: Optional<(AuthenticationState) -> ()>
+	
+	public init() {
+		state = .unauthenticated
+	}
 	
 }
 
