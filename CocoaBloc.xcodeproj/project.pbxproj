@@ -81,6 +81,7 @@
 		97948A9B1CF815B200D521BD /* UserPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97948A9A1CF815B200D521BD /* UserPhoto.swift */; };
 		97CD391D1D3AEE2B0076C0D0 /* API+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */; };
 		97CD391F1D3AEF180076C0D0 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD391E1D3AEF180076C0D0 /* Cart.swift */; };
+		97FA704D1D510FA800ADAA08 /* API+Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA704C1D510FA800ADAA08 /* API+Cart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +174,7 @@
 		97948A9A1CF815B200D521BD /* UserPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhoto.swift; sourceTree = "<group>"; };
 		97CD391C1D3AEE2B0076C0D0 /* API+Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Address.swift"; sourceTree = "<group>"; };
 		97CD391E1D3AEF180076C0D0 /* Cart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
+		97FA704C1D510FA800ADAA08 /* API+Cart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Cart.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +363,7 @@
 				973D79881D4CB3F70097742F /* API+Error.swift */,
 				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
 				81F35F831C285A35002B9D74 /* API+Store.swift */,
+				97FA704C1D510FA800ADAA08 /* API+Cart.swift */,
 				81F35F7B1C2857A0002B9D74 /* API+User.swift */,
 				81F35F891C285ABB002B9D74 /* API.swift */,
 				092C01CA1C31D2EA00B81777 /* Endpoint.swift */,
@@ -525,6 +528,7 @@
 				973D796F1D4C99D80097742F /* Cart+Decodable.swift in Sources */,
 				97948A711CF51D0A00D521BD /* Blog.swift in Sources */,
 				5285EDD51D1F8C0D0054AEE9 /* ImageURLSet.swift in Sources */,
+				97FA704D1D510FA800ADAA08 /* API+Cart.swift in Sources */,
 				97948A861CF5388A00D521BD /* FanClub.swift in Sources */,
 				97003B9D1D5023B800AC21C0 /* Date.swift in Sources */,
 				973D797B1D4C9C880097742F /* Status+Decodable.swift in Sources */,
