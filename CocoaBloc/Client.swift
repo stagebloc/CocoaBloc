@@ -18,26 +18,24 @@ public final class Client {
 	public let clientID: String
 	public let clientSecret: String
 	
-	public var authenticationStateChanged: Optional<(AuthenticationState) -> ()> = nil
-	public var authenticationState: AuthenticationState {
-		didSet { authenticationStateChanged?(authenticationState) }
-	}
+	public var authenticationStateContainer: AuthenticationStateContainer
 	
 	public init(
 		clientID: String,
 		clientSecret: String,
-		authenticationState: AuthenticationState = .Unauthenticated,
+		authenticationStateContainer: AuthenticationStateContainer
+			= CallbackAuthenticationStateContainer(state: .unauthenticated, callback: nil),
 		manager: Manager = .init(),
 		baseURL: NSURL = NSURL(string: "https://api.stagebloc.com/v1")!) {
 		self.clientID = clientID
 		self.manager = manager
 		self.clientSecret = clientSecret
-		self.authenticationState = authenticationState
+		self.authenticationStateContainer = authenticationStateContainer
 		self.baseURL = baseURL
 	}
 	
 	public func deauthenticate() {
-		authenticationState = .Unauthenticated
+		authenticationStateContainer.state = .unauthenticated
 	}
 	
 	public func request<Serialized>(
@@ -49,7 +47,7 @@ public final class Client {
 						.joinWithSeparator(",")
 		].withEntries(endpoint.parameters)
 		
-		if !authenticationState.isAuthenticated {
+		if !authenticationStateContainer.state.isAuthenticated {
 			params["client_id"] = clientID
 		}
 		
@@ -58,7 +56,7 @@ public final class Client {
 			baseURL.URLByAppendingPathComponent(endpoint.path),
 			parameters: params,
 			encoding: .URL,
-			headers: authenticationState.token.map { token in
+			headers: authenticationStateContainer.state.token.map { token in
 				return ["Authorization": "Token token=\"\(token)\""]
 			}
 		)
@@ -67,7 +65,7 @@ public final class Client {
 			request.response(
 				responseSerializer: Request.cocoaBlocModelSerializer(AuthenticationState.self, keyPath: endpoint.keyPath),
 				completionHandler: { [weak self] (response: Response<AuthenticationState, API.Error>) in
-					self?.authenticationState = response.result.value ?? .Unauthenticated
+					self?.authenticationStateContainer.state = response.result.value ?? .unauthenticated
 				})
 		}
 		
@@ -105,14 +103,14 @@ public final class Client {
 			"expand": (["kind"] + (expansions + endpoint.expansions).map { $0.rawValue }).joinWithSeparator(",")
 		].withEntries(endpoint.parameters)
 		
-		if !authenticationState.isAuthenticated {
+		if !authenticationStateContainer.state.isAuthenticated {
 			params["client_id"] = clientID
 		}
 		
 		manager.upload(
 			endpoint.method,
 			baseURL.URLByAppendingPathComponent(endpoint.path),
-			headers: authenticationState.token.map { token in
+			headers: authenticationStateContainer.state.token.map { token in
 				return ["Authorization": "Token token=\"\(token)\""]
 			},
 			multipartFormData: { multipartData in

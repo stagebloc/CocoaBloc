@@ -62,23 +62,23 @@ class CocoaBlocTests: XCTestCase {
 
 	func testAuthenticationStateType() {
 		// isAuthenticated
-		XCTAssertFalse(AuthenticationState.Unauthenticated.isAuthenticated)
-		XCTAssertTrue(AuthenticationState.Authenticated(token: "", user: nil).isAuthenticated)
+		XCTAssertFalse(AuthenticationState.unauthenticated.isAuthenticated)
+		XCTAssertTrue(AuthenticationState.authenticated(token: "", user: nil).isAuthenticated)
 		
 		// token
-		XCTAssertNil(AuthenticationState.Unauthenticated.token)
-		XCTAssertNotNil(AuthenticationState.Authenticated(token: "", user: nil).token)
+		XCTAssertNil(AuthenticationState.unauthenticated.token)
+		XCTAssertNotNil(AuthenticationState.authenticated(token: "", user: nil).token)
 		
 		// user
-		XCTAssertNil(AuthenticationState.Authenticated(token: "", user: nil).user)
+		XCTAssertNil(AuthenticationState.authenticated(token: "", user: nil).user)
 	}
 	
 	func testClientDeauthentication() {
-		XCTAssertFalse(client.authenticationState.isAuthenticated)
-		client.authenticationState = .Authenticated(token: "valid_token", user: nil)
-		XCTAssertTrue(client.authenticationState.isAuthenticated)
+		XCTAssertFalse(client.authenticationStateContainer.state.isAuthenticated)
+		client.authenticationStateContainer.state = .authenticated(token: "valid_token", user: nil)
+		XCTAssertTrue(client.authenticationStateContainer.state.isAuthenticated)
 		client.deauthenticate()
-		XCTAssertFalse(client.authenticationState.isAuthenticated)
+		XCTAssertFalse(client.authenticationStateContainer.state.isAuthenticated)
 	}
 	
 	func testErrorInfoEquality() {
