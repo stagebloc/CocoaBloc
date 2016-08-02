@@ -11,21 +11,21 @@ public enum AuthenticationState {
 	case Unauthenticated
 	case Authenticated(token: String, user: User?)
 	
-	var isAuthenticated: Bool {
+	public var isAuthenticated: Bool {
 		if case .Unauthenticated = self {
 			return false
 		}
 		return true
 	}
 	
-	var token: String? {
+	public var token: String? {
 		if case .Authenticated(let token, _) = self {
 			return token
 		}
 		return nil
 	}
 	
-	var user: User? {
+	public var user: User? {
 		if case .Authenticated(_, let user) = self {
 			return user
 		}
