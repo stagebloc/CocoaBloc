@@ -14,9 +14,9 @@ import AppKit
 
 public struct RGBComponents {
 	
-	public var red: Float
-	public var green: Float
-	public var blue: Float
+	public var red: UInt8
+	public var green: UInt8
+	public var blue: UInt8
 	
 	#if os(iOS)
 	public var UIColor: UIKit.UIColor {

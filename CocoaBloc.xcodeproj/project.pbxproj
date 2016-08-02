@@ -28,6 +28,7 @@
 		97003B991D50165400AC21C0 /* ExpandableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97003B981D50165400AC21C0 /* ExpandableTests.swift */; };
 		97003B9D1D5023B800AC21C0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97003B9C1D5023B800AC21C0 /* Date.swift */; };
 		97003B9F1D5023BC00AC21C0 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97003B9E1D5023BC00AC21C0 /* URL.swift */; };
+		97003BA11D5027D300AC21C0 /* RGBComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97003BA01D5027D300AC21C0 /* RGBComponentsTests.swift */; };
 		971EC2DF1D19A5B400EDCC30 /* RGBComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971EC2DE1D19A5B400EDCC30 /* RGBComponents.swift */; };
 		973D79671D4C98DD0097742F /* Account+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D79661D4C98DD0097742F /* Account+Decodable.swift */; };
 		973D79691D4C99130097742F /* AccountPhoto+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D79681D4C99130097742F /* AccountPhoto+Decodable.swift */; };
@@ -123,6 +124,7 @@
 		97003B981D50165400AC21C0 /* ExpandableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTests.swift; sourceTree = "<group>"; };
 		97003B9C1D5023B800AC21C0 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		97003B9E1D5023BC00AC21C0 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		97003BA01D5027D300AC21C0 /* RGBComponentsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBComponentsTests.swift; sourceTree = "<group>"; };
 		971EC2DE1D19A5B400EDCC30 /* RGBComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBComponents.swift; sourceTree = "<group>"; };
 		973D79661D4C98DD0097742F /* Account+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Account+Decodable.swift"; sourceTree = "<group>"; };
 		973D79681D4C99130097742F /* AccountPhoto+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AccountPhoto+Decodable.swift"; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				9792B48A1D4D45F4006E85BD /* Cart.json */,
 				090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */,
 				97003B981D50165400AC21C0 /* ExpandableTests.swift */,
+				97003BA01D5027D300AC21C0 /* RGBComponentsTests.swift */,
 				090E11201C008E9C0001C943 /* Info.plist */,
 			);
 			path = CocoaBlocTests;
@@ -586,6 +589,7 @@
 			files = (
 				090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */,
 				97003B991D50165400AC21C0 /* ExpandableTests.swift in Sources */,
+				97003BA11D5027D300AC21C0 /* RGBComponentsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

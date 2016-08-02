@@ -15,7 +15,9 @@ extension RGBComponents: Decodable {
 			return .typeMismatch("String", actual: json)
 		}
 		
-		let rgb = val.componentsSeparatedByString(",").flatMap(Float.init)
+		let rgb = val.componentsSeparatedByString(",")
+			.map { $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) }
+			.flatMap { UInt8($0, radix: 10) }
 		guard rgb.count == 3 else {
 			return .customError("RGB colors need three components")
 		}
