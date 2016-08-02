@@ -9,7 +9,9 @@
 import Argo
 import Alamofire
 
-public final class Client {
+public typealias CallbackClient = Client<CallbackAuthenticationStateContainer>
+
+public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 	
 	public let baseURL: NSURL
 	private let manager: Manager
@@ -18,13 +20,12 @@ public final class Client {
 	public let clientID: String
 	public let clientSecret: String
 	
-	public var authenticationStateContainer: AuthenticationStateContainer
+	public var authenticationStateContainer: AuthStateContainer
 	
 	public init(
 		clientID: String,
 		clientSecret: String,
-		authenticationStateContainer: AuthenticationStateContainer
-			= CallbackAuthenticationStateContainer(state: .unauthenticated, callback: nil),
+		authenticationStateContainer: AuthStateContainer,
 		manager: Manager = .init(),
 		baseURL: NSURL = NSURL(string: "https://api.stagebloc.com/v1")!) {
 		self.clientID = clientID

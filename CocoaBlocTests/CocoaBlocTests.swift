@@ -21,7 +21,7 @@ class CocoaBlocTests: XCTestCase {
 	let requestTimeout: NSTimeInterval = 10
 	
 	// API client, fresh per test
-	private(set) var client: Client!
+	private(set) var client: Client<CallbackAuthenticationStateContainer>!
 
 	// Test values
 	let testErrorInfo = API.ErrorInfo(
@@ -35,7 +35,8 @@ class CocoaBlocTests: XCTestCase {
 
 		client = Client(
 			clientID: "f38a73215b9da926c7c7614f6245b87d",
-			clientSecret: "799390cb946334e71db05eac33bd9f55"
+			clientSecret: "799390cb946334e71db05eac33bd9f55",
+			authenticationStateContainer: CallbackAuthenticationStateContainer(state: .unauthenticated, callback: nil)
 			//		baseURL: NSURL(string: "https://api.hermes.staging.public.stagebloc.co/v1")! // staging server
 		)
 	}
