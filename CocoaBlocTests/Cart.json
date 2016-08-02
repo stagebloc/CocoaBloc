@@ -1,15 +1,15 @@
 {
-	"id": 715112,
+	"id": 715473,
 	"user_id": 0,
-	"session_id": "b6mrqsva3076kbio1fhra46be6",
-	"created": "2016-08-02 17:07:10",
+	"session_id": "1qf9p02hbv96jup6qd7f64rl05",
+	"created": "2016-08-02 20:43:18",
 	"email": null,
-	"status": "started",
+	"status": "reached_checkout",
 	"cart_items": {
 		"2d50cc0c0ac9f56a9b1d5406a7e2dfec": {
-			"id": 1309421,
-			"cart": 715096,
-			"created": "2016-08-02 16:56:32",
+			"id": 1310161,
+			"cart": 715473,
+			"created": "2016-08-02 20:43:23",
 			"hash": "2d50cc0c0ac9f56a9b1d5406a7e2dfec",
 			"product": {
 				"id": 10502,
@@ -17,19 +17,73 @@
 			},
 			"named_price": null,
 			"quantity": 1,
-			"details": null,
+			"details": "",
 			"status": "okay",
 			"sku": "ACC022",
 			"parent_id": null,
 			"lock_expires": null
 		}
 	},
-	"shipping_address": null,
+	"shipping_address": {
+		"id": 1457085,
+		"name": "Cool Address",
+		"street_address": "1234 Potato Dr.",
+		"street_address_2": "",
+		"city": "",
+		"state": "OH",
+		"postal_code": "44312",
+		"country": "US"
+	},
 	"totals": {
-		"items": 0,
-		"subtotal": 0,
-		"total": 0,
+		"items": 20,
+		"subtotal": 20,
+		"total": 20,
 		"discounts": [],
 		"shipping": 0
+	},
+	"shipping_rates": {
+		"order": {
+			"fulfillers": [
+				{
+					"id": 3,
+					"type": 1,
+					"name": "Nashville Warehouse",
+					"postal_code": "37206",
+					"address": {
+						"id": 292479,
+						"name": "Nashville Warehouse",
+						"street_address": "",
+						"street_address_2": "",
+						"city": "",
+						"state": "",
+						"postal_code": "37206",
+						"country": ""
+					},
+					"shipping_price_handlers": [
+						{
+							"id": 10,
+							"shipping_methods": [
+								{
+									"id": 0,
+									"price": 2.83,
+									"handling": 2.75,
+									"name": "USPS First Class Mail",
+									"commitment": "5 - 7 business days",
+									"notice": ""
+								},
+								{
+									"id": 1,
+									"price": 6.85,
+									"handling": 2.75,
+									"name": "USPS Priority Mail",
+									"commitment": "1 - 3 business days",
+									"notice": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
 	}
 }

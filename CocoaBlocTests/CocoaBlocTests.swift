@@ -144,8 +144,10 @@ class CocoaBlocTests: XCTestCase {
 		switch Cart.decode(jsonForFile(named: "Cart")) {
 		case .Failure(let error):
 			XCTFail(error.description)
-		case .Success(_):
-			()
+		case .Success(let cart):
+			XCTAssertNotNil(cart.shippingAddress)
+			XCTAssertNotNil(cart.shippingRates)
+			XCTAssert(cart.items.count > 0)
 		}
 	}
 	
