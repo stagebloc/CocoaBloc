@@ -5,7 +5,25 @@
 	"created": "2016-08-02 17:07:10",
 	"email": null,
 	"status": "started",
-	"cart_items": [],
+	"cart_items": {
+		"2d50cc0c0ac9f56a9b1d5406a7e2dfec": {
+			"id": 1309421,
+			"cart": 715096,
+			"created": "2016-08-02 16:56:32",
+			"hash": "2d50cc0c0ac9f56a9b1d5406a7e2dfec",
+			"product": {
+				"id": 10502,
+				"type": "store_item"
+			},
+			"named_price": null,
+			"quantity": 1,
+			"details": null,
+			"status": "okay",
+			"sku": "ACC022",
+			"parent_id": null,
+			"lock_expires": null
+		}
+	},
 	"shipping_address": null,
 	"totals": {
 		"items": 0,

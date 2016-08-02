@@ -15,7 +15,7 @@ public struct Cart: Identifiable {
 		public let hash: String
 		public let productID: Int
 		public let productType: String
-		public let namedPrice: String
+		public let namedPrice: String?
 		public let quantity: Int
 		//		public let details:
 		public let status: String

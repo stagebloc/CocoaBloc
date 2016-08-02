@@ -20,7 +20,7 @@ extension API {
 				"cart": [
 					"email": email,
 					"user_id": userID
-					].filterEntriesWithNilValues()
+				].filterEntriesWithNilValues()
 			])
 	}
 	
@@ -39,7 +39,7 @@ extension API {
 					"session_id": cartSessionID,
 					"email": newEmail,
 					//				"addresses": newAddresses
-					].filterEntriesWithNilValues()
+				].filterEntriesWithNilValues()
 			])
 	}
 	
@@ -75,7 +75,7 @@ extension API {
 				"item": [
 					"sku": sku,
 					"quantity": quantity
-					].filterEntriesWithNilValues()
+				].filterEntriesWithNilValues()
 			])
 	}
 	
@@ -111,7 +111,9 @@ extension API {
 			}
 			return value
 		}
+		
 	}
+	
 	public static func purchaseCart(
 		withSessionIdentifier cartSessionID: String,
 		                      payments: [Payment]) -> Endpoint<Cart> {

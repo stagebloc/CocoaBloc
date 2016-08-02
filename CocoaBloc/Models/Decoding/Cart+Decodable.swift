@@ -21,7 +21,14 @@ extension Cart: Decodable {
 		return a
 			<*> json <|? "email"
 			<*> json <| "status"
-			<*> json <|| "cart_items" <|> pure([])
+			<*> decodedJSON(json, forKey: "cart_items").flatMap { itemsJson in
+				switch itemsJson {
+				case .Object(let jsonItemsMap):
+					return sequence(jsonItemsMap.values.map(Item.decode))
+				default:
+					return pure([])
+				}
+			}
 			<*> json <|? "shipping_address"
 			<*> json <| "totals"
 			<*> json <|? "shipping_rates"
@@ -39,7 +46,7 @@ extension Cart.Item: Decodable {
 			<*> json <| "hash"
 			<*> json <| ["product", "id"]
 			<*> json <| ["product", "type"]
-			<*> json <| "named_price"
+			<*> json <|? "named_price"
 		return a
 			<*> json <| "quantity"
 			<*> json <| "status"
