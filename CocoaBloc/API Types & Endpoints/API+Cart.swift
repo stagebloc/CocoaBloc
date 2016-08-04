@@ -24,9 +24,10 @@ extension API {
 			])
 	}
 	
-	public static func updateCart(withSessionIdentifier cartSessionID: String,
-	                                                    newEmail: String?,
-	                                                    newShippingAddress: Address?) -> Endpoint<Cart> {
+	public static func updateCart(
+		withSessionIdentifier cartSessionID: String,
+		                      newEmail: String?,
+		                      newShippingAddress: Expandable<Address>?) -> Endpoint<Cart> {
 		precondition(
 			newEmail != nil || newShippingAddress != nil,
 			"Can't create an endpoint to update nothing on the cart."
@@ -38,7 +39,24 @@ extension API {
 				"cart": [
 					"session_id": cartSessionID,
 					"email": newEmail,
-					//				"addresses": newAddresses
+					"addresses": newShippingAddress.map { expandableAddress -> [String:AnyObject] in
+						switch expandableAddress {
+						case .unexpanded(let identifier):
+							return ["shipping_id": identifier]
+						case .expanded(let address):
+							return [
+								"shipping": [
+									"name": address.name,
+									"street_address": address.streetAddress,
+									"street_address_2": address.streetAddress2,
+									"city": address.city,
+									"state": address.state,
+									"postal_code": address.postalCode,
+									"country": address.country
+								]
+							]
+						}
+					}
 				].filterEntriesWithNilValues()
 			])
 	}
@@ -81,7 +99,7 @@ extension API {
 	
 	public static func deleteItemInCart(
 		withHash cartItemHash: String,
-		fromCartWithSessionIdentifier cartSessionID: Int) -> Endpoint<Cart> {
+		fromCartWithSessionIdentifier cartSessionID: String) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
 			method: .DELETE)
