@@ -54,7 +54,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		
 		let request = manager.request(
 			endpoint.method,
-			baseURL.URLByAppendingPathComponent(endpoint.path),
+			baseURL.URLByAppendingPathComponent(endpoint.path)!,
 			parameters: params,
 			encoding: .URL,
 			headers: authenticationStateContainer.state.token.map { token in
@@ -110,7 +110,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		
 		manager.upload(
 			endpoint.method,
-			baseURL.URLByAppendingPathComponent(endpoint.path),
+			baseURL.URLByAppendingPathComponent(endpoint.path)!,
 			headers: authenticationStateContainer.state.token.map { token in
 				return ["Authorization": "Token token=\"\(token)\""]
 			},
