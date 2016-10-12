@@ -13,7 +13,7 @@ public struct User: Identifiable {
 	public let creationDate: Date
 	public let name: String
 	public let username: String
-	public let bio: String
+	public let bio: String?
 	public let photo: UserPhoto?
 //	public let birthday: Date?
 	public let gender: String?

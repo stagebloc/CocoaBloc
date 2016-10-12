@@ -18,7 +18,7 @@ extension User: Decodable {
 			<*> json <| "created"
 			<*> json <| "name"
 			<*> json <| "username"
-			<*> json <| "bio"
+			<*> json <|? "bio"
 		return a
 			<*> json <|? "photo"
 			//			<*> json <|? "birthday"
