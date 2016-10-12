@@ -83,4 +83,23 @@ public struct StoreItem: Identifiable {
 	public let coverPhoto: Expandable<AccountPhoto>?
 	public let photos: ExpandableArray<AccountPhoto>?
 	
+	public var productIsOnSale: Bool {
+		if let sale = sale {
+			let now = NSDate()
+			return sale.startDate.date.earlierDate(now) == sale.startDate.date
+				&& sale.endDate.date.laterDate(now) == sale.endDate.date
+		} else { return false }
+	}
+	
+	public var productSalePrice: Double {
+		if let sale = sale {
+			switch sale.type {
+			case .Amount(let amount):
+				return priceUSD - amount
+			case .Percentage(let percentage):
+				return priceUSD * (100.0 - percentage) / 100.0
+			}
+		} else { return priceUSD }
+	}
+	
 }
