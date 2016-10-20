@@ -81,6 +81,7 @@ extension API {
 	
 	public static func updateItemInCart(
 		withSessionIdentifier cartSessionID: String,
+		                      storeItemID: Int,
 		                      cartItemHash: String,
 		                      sku: String?,
 		                      quantity: Int?) -> Endpoint<Cart> {
@@ -91,6 +92,8 @@ extension API {
 			method: .POST,
 			parameters: [
 				"item": [
+					"type": "store",
+					"id": storeItemID,
 					"sku": sku,
 					"quantity": quantity
 				].filterEntriesWithNilValues()
