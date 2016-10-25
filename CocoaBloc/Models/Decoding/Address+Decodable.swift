@@ -24,3 +24,10 @@ extension Address: Decodable {
 	}
 	
 }
+
+extension Addresses: Decodable {
+	public static func decode(json: JSON) -> Decoded<Addresses> {
+		return curry(Addresses.init)
+			<^> json <|| "addresses"
+	}
+}

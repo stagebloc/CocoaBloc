@@ -18,3 +18,7 @@ public struct Address: Identifiable {
 	public let country: String
 	
 }
+
+public struct Addresses {
+	public let addresses: [Address]
+}

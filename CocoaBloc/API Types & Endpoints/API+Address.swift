@@ -21,7 +21,7 @@ extension API {
 		return Endpoint(path: "users/me/addresses/\(addressID)", method: .GET)
 	}
 
-	public static func getAllAddresses(forType type: AddressType) -> Endpoint<[Address]> {
+	public static func getAllAddresses(forType type: AddressType) -> Endpoint<Addresses> {
 		return Endpoint(path: "users/me/addresses/\(type)", method: .GET)
 	}
 	
