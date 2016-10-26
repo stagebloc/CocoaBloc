@@ -45,7 +45,7 @@ public struct Cart: Identifiable {
 	public let emailAddress: String?
 	public let status: Status
 	public let items: [Item]
-	public let shippingAddress: Expandable<Address>?
+	public let shippingAddress: Address?
 	public let totals: Totals
 	public let shippingRates: Shipping.RateSet?
 //	public let selectedShipping: Shipping.
