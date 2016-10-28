@@ -56,7 +56,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 			endpoint.method,
 			baseURL.URLByAppendingPathComponent(endpoint.path)!,
 			parameters: params,
-			encoding: .URL,
+			encoding: .JSON,
 			headers: authenticationStateContainer.state.token.map { token in
 				return ["Authorization": "Token token=\"\(token)\""]
 			}
@@ -78,6 +78,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		expansions: [API.ExpandableValue] = [],
 		completion: (Response<Serialized, API.Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
+		debugPrint(req)
 		return req.response(
 			responseSerializer: Request.cocoaBlocModelSerializer(Serialized.self, keyPath: endpoint.keyPath),
 			completionHandler: completion
@@ -89,6 +90,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		expansions: [API.ExpandableValue] = [],
 		completion: (Response<[Serialized], API.Error>) -> ()) -> Request {
 		let req = request(endpoint, expansions: expansions)
+		debugPrint(req)
 		return req.response(
 			responseSerializer: Request.cocoaBlocModelSerializer(Serialized.self, keyPath: endpoint.keyPath),
 			completionHandler: completion
