@@ -14,8 +14,8 @@ extension Shipping.PriceHandler: Decodable {
 	public static func decode(json: JSON) -> Decoded<Shipping.PriceHandler> {
 		return curry(Shipping.PriceHandler.init)
 			<^> json <| "id"
-			<*> json <| "name"
-			<*> json <| "price"
+//			<*> json <| "name"
+//			<*> json <| "price"
 			<*> json <|| "shipping_methods" <|> pure([])
 	}
 
@@ -25,7 +25,8 @@ extension Shipping.Method: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Shipping.Method> {
 		return curry(Shipping.Method.init)
-			<^> json <| "identifier"
+			<^> json <| "id"
+			<*> json <| "name"
 			<*> json <| "price"
 			<*> json <| "handling"
 	}

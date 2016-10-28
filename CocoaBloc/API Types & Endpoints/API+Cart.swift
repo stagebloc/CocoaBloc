@@ -39,20 +39,45 @@ extension API {
 				"cart": [
 					"session_id": cartSessionID,
 					"email": newEmail,
-					"addresses": newShippingAddress.map { address -> [String:AnyObject] in
-						return [
-							"shipping": [
-								"name": address.name,
-								"street_address": address.streetAddress,
-								"street_address_2": address.streetAddress2,
-								"city": address.city,
-								"state": address.state,
-								"postal_code": address.postalCode,
-								"country": address.country
-							]
-						]
-					}
+					"addresses": [
+						"shipping_id": newShippingAddress?.identifier
+					].filterEntriesWithNilValues()
+//						newShippingAddress.map { address -> [String:AnyObject] in
+//						return [
+//							"shipping": [
+//								"name": address.name,
+//								"street_address": address.streetAddress,
+//								"street_address_2": address.streetAddress2,
+//								"city": address.city,
+//								"state": address.state,
+//								"postal_code": address.postalCode,
+//								"country": address.country
+//							]
+//						]
+//					}
 				].filterEntriesWithNilValues()
+			])
+	}
+	
+	public static func updateCart(
+		withSessionIdentifier cartSessionID: String,
+		                      shippingInfo: Shipping.ShippingInfo) -> Endpoint<Cart> {
+		return Endpoint(
+			path: "cart/\(cartSessionID)",
+			method: .POST,
+			parameters: [
+				"cart": [
+					"session_id": cartSessionID,
+					"shipping_details": [
+						"order": [[
+							"fulfiller_id": shippingInfo.fulfillerId,
+							"price_handler_id": shippingInfo.handlerId,
+							"method_id": shippingInfo.methodId,
+							"price": shippingInfo.price,
+							"handling": shippingInfo.handling,
+						]]
+					]
+				]
 			])
 	}
 	

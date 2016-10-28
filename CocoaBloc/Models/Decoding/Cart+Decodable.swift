@@ -65,6 +65,7 @@ extension Cart.Totals: Decodable {
 			<*> json <| "subtotal"
 			<*> json <| "total"
 			<*> json <| "shipping"
+			<*> json <|? "taxes"
 	}
 	
 }
