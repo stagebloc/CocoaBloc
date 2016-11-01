@@ -109,7 +109,7 @@ extension API {
 		bio: String?,
 		birthday: NSDate,
 		gender: Gender,
-		sourceAccountID: Int?) -> Endpoint<User> {
+		sourceAccountID: Int?) -> Endpoint<AuthenticationState> {
 		let df = NSDateFormatter()
 		df.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
 		df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
@@ -127,7 +127,7 @@ extension API {
 				"gender"    : gender.rawValue,
 				"source_account_id" : sourceAccountID
 			].filterEntriesWithNilValues(),
-			keyPath: "data.user")
+			keyPath: "data")
 	}
 	
 	public static func getUsersFollowingAccount(withIdentifier accountID: Int) -> Endpoint<[User]> {
