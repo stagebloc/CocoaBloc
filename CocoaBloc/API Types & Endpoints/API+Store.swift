@@ -8,22 +8,6 @@
 
 import Foundation
 
-public struct StoreDashboard {
-	
-	public struct Totals {
-		
-	}
-	
-	public struct Revenue {
-		
-	}
-	
-	public struct Averages {
-		
-	}
-	
-}
-
 extension API {
 	
 	public static func getStoreDashboard(accountID: Int) -> Endpoint<StoreDashboard> {

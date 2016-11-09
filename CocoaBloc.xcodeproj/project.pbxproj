@@ -16,6 +16,8 @@
 		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
+		284292A01DCD084A007087C8 /* StoreDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842929F1DCD084A007087C8 /* StoreDashboard.swift */; };
+		284292A21DCD085F007087C8 /* StoreDashboard+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */; };
 		5285EDD11D1F84140054AEE9 /* ExpandableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285EDD01D1F84140054AEE9 /* ExpandableArray.swift */; };
 		5285EDD31D1F85590054AEE9 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285EDD21D1F85590054AEE9 /* Identifiable.swift */; };
 		5285EDD51D1F8C0D0054AEE9 /* ImageURLSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285EDD41D1F8C0D0054AEE9 /* ImageURLSet.swift */; };
@@ -109,6 +111,8 @@
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		2842929F1DCD084A007087C8 /* StoreDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDashboard.swift; sourceTree = "<group>"; };
+		284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StoreDashboard+Decodable.swift"; sourceTree = "<group>"; };
 		5285EDD01D1F84140054AEE9 /* ExpandableArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableArray.swift; sourceTree = "<group>"; };
 		5285EDD21D1F85590054AEE9 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		5285EDD41D1F8C0D0054AEE9 /* ImageURLSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageURLSet.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 				971EC2DE1D19A5B400EDCC30 /* RGBComponents.swift */,
 				97948A601CF4FFCE00D521BD /* Shipping.swift */,
 				97948A6E1CF51D0700D521BD /* Status.swift */,
+				2842929F1DCD084A007087C8 /* StoreDashboard.swift */,
 				978411111CF4E9F2004788C0 /* StoreItem.swift */,
 				978411091CF4E606004788C0 /* User.swift */,
 				97948A9A1CF815B200D521BD /* UserPhoto.swift */,
@@ -327,6 +332,7 @@
 				973D79781D4C9B200097742F /* Order+Decodable.swift */,
 				973D797C1D4C9CB60097742F /* RGBComponents+Decodable.swift */,
 				973D79841D4CA2CD0097742F /* Shipping+Decodable.swift */,
+				284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */,
 				973D797A1D4C9C880097742F /* Status+Decodable.swift */,
 				973D797E1D4C9D0A0097742F /* StoreItem+Decodable.swift */,
 				973D79801D4CA17B0097742F /* User+Decodable.swift */,
@@ -534,6 +540,8 @@
 				973D796F1D4C99D80097742F /* Cart+Decodable.swift in Sources */,
 				97948A711CF51D0A00D521BD /* Blog.swift in Sources */,
 				5285EDD51D1F8C0D0054AEE9 /* ImageURLSet.swift in Sources */,
+				284292A21DCD085F007087C8 /* StoreDashboard+Decodable.swift in Sources */,
+				284292A01DCD084A007087C8 /* StoreDashboard.swift in Sources */,
 				97FA704D1D510FA800ADAA08 /* API+Cart.swift in Sources */,
 				97948A861CF5388A00D521BD /* FanClub.swift in Sources */,
 				97003B9D1D5023B800AC21C0 /* Date.swift in Sources */,
