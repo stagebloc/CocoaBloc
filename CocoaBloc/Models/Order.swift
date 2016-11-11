@@ -32,6 +32,11 @@ public struct Order: Identifiable {
 		public let shippedDate: Date
 	}
 	
+	public struct Item {
+		public let type: String
+		public let object: StoreItem
+	}
+	
 	public struct Transaction: Identifiable {
 		public let identifier: Int
 		public let modificationDate: Date
@@ -39,6 +44,7 @@ public struct Order: Identifiable {
 		public let status: String
 		public let quantity: Int
 		public let shipment: Order.Shipment?
+		public let item: Order.Item
 	}
 	
 }

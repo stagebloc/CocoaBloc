@@ -50,6 +50,7 @@ extension Order.Shipment: Decodable {
 extension Order.Transaction: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Order.Transaction> {
+		let item: Decoded<Order.Item> = decodedJSON(json, forKey: "item").flatMap(Order.Item.decode)
 		return curry(Order.Transaction.init)
 			<^> json <| "id"
 			<*> json <| "modified"
@@ -57,6 +58,17 @@ extension Order.Transaction: Decodable {
 			<*> json <| "status"
 			<*> json <| "quantity"
 			<*> json <|? "shipment"
+			<*> item
 	}
 
+}
+
+extension Order.Item: Decodable {
+	
+	public static func decode(json: JSON) -> Decoded<Order.Item> {
+		let object: Decoded<StoreItem> = decodedJSON(json, forKey: "object").flatMap(StoreItem.decode)
+		return curry(Order.Item.init)
+			<^> json <| "type"
+			<*> object
+	}
 }
