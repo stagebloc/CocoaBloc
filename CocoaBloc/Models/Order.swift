@@ -20,7 +20,7 @@ public struct Order: Identifiable {
 	public let handlingAmount: Double
 	public let taxAmount: Double
 	public let status: String
-	public let notes: String
+	public let notes: String?
 	public let emailAddress: String
 	public let user: User?
 	public let address: Address
@@ -44,7 +44,7 @@ public struct Order: Identifiable {
 		public let status: String
 		public let quantity: Int
 		public let shipment: Order.Shipment?
-		public let item: Order.Item
+		public let item: Order.Item?
 	}
 	
 }

@@ -17,7 +17,7 @@ extension Order: Decodable {
 			<*> json <| "account"
 			<*> json <| "receipt_url"
 			<*> json <| "ordered"
-			<*> json <| "shipped"
+			<*> json <| "shipped" <|> .Success(true)
 			<*> json <| "currency"
 		let b = a
 			<*> json <| "total"
@@ -27,7 +27,7 @@ extension Order: Decodable {
 			<*> json <| "tax_amount"
 			<*> json <| "status"
 		return b
-			<*> json <| "notes"
+			<*> json <|? "notes"
 			<*> json <| "email"
 			<*> json <|? "user"
 			<*> json <| "address"
@@ -50,7 +50,11 @@ extension Order.Shipment: Decodable {
 extension Order.Transaction: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Order.Transaction> {
-		let item: Decoded<Order.Item> = decodedJSON(json, forKey: "item").flatMap(Order.Item.decode)
+//		json
+//		var item: Decoded<Order.Item>? = decodedJSON(json, forKey: "item").flatMap(Order.Item.decode)
+//		if case .Failure(_) = item! {
+//			item = nil
+//		}
 		return curry(Order.Transaction.init)
 			<^> json <| "id"
 			<*> json <| "modified"
@@ -58,7 +62,7 @@ extension Order.Transaction: Decodable {
 			<*> json <| "status"
 			<*> json <| "quantity"
 			<*> json <|? "shipment"
-			<*> item
+			<*> json <|? "item"
 	}
 
 }
