@@ -22,6 +22,14 @@ extension API {
 			method: .GET)
 	}
 	
+	public static func resendReceipt(
+		withIdentifier orderID: Int,
+		accountIdentifier accountID: Int) -> Endpoint<()> {
+		return Endpoint(
+			path: "account/\(accountID)/store/orders/\(orderID)/receipt/resend",
+			method: .POST)
+	}
+	
 	public static func setOrderShipped(
 		withIdentifier orderID: Int,
 		accountIdentifier accountID: Int,
