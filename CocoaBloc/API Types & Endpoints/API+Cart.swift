@@ -153,6 +153,11 @@ extension API {
 			return value
 		}
 		
+		public init(type: PaymentType, amount: Double) {
+			self.type = type
+			self.amount = amount
+		}
+		
 	}
 	
 	public static func purchaseCart(
