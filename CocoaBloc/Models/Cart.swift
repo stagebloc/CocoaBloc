@@ -49,6 +49,6 @@ public struct Cart: Identifiable {
 	public let shippingAddress: Address?
 	public let totals: Totals
 	public let shippingRates: Shipping.RateSet?
-//	public let selectedShipping: Shipping.
+	public let shippingSelected: [Shipping.Selection]
 	
 }

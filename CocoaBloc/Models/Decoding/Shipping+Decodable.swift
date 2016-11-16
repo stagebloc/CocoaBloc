@@ -55,3 +55,15 @@ extension Shipping.RateSet: Decodable {
 	}
 	
 }
+
+extension Shipping.Selection: Decodable {
+	
+	public static func decode(json: JSON) -> Decoded<Shipping.Selection> {
+		return curry(Shipping.Selection.init)
+			<^> json <| "fulfiller"
+			<*> json <| "handler"
+			<*> json <| "method"
+			<*> json <| "price"
+			<*> json <| "handling"
+	}
+}

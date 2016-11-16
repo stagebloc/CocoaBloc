@@ -84,8 +84,8 @@ extension API {
 			path: "accounts",
 			method: .GET,
 			parameters: [
-				"admin"		: type == .admin,
-				"following"	: type == .following
+				"admin"		: type == .admin ? 1:0,
+				"following"	: type == .following ? 1:0
 			])
 	}
 	

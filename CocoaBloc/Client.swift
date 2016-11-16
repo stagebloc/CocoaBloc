@@ -56,7 +56,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 			endpoint.method,
 			baseURL.URLByAppendingPathComponent(endpoint.path)!,
 			parameters: params,
-			encoding: .JSON,
+			encoding: (endpoint.method == .POST) ? .JSON:.URL,
 			headers: authenticationStateContainer.state.token.map { token in
 				return ["Authorization": "Token token=\"\(token)\""]
 			}

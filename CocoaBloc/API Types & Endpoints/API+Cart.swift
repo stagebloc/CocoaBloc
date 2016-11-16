@@ -61,7 +61,7 @@ extension API {
 	
 	public static func updateCart(
 		withSessionIdentifier cartSessionID: String,
-		                      shippingInfo: Shipping.ShippingInfo) -> Endpoint<Cart> {
+		                      shippingInfo: Shipping.Selection) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)",
 			method: .POST,
@@ -70,11 +70,11 @@ extension API {
 					"session_id": cartSessionID,
 					"shipping_details": [
 						"order": [[
-							"fulfiller_id": shippingInfo.fulfillerId,
-							"price_handler_id": shippingInfo.handlerId,
-							"method_id": shippingInfo.methodId,
+							"fulfiller_id": shippingInfo.fulfillerID,
+							"price_handler_id": shippingInfo.handlerID,
+							"method_id": shippingInfo.methodID,
 							"price": shippingInfo.price,
-							"handling": shippingInfo.handling,
+							"handling": shippingInfo.handlingPrice,
 						]]
 					]
 				]

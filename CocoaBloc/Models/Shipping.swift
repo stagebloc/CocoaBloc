@@ -6,9 +6,7 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-public enum Shipping {
-	
-	public typealias ShippingInfo = (fulfillerId: Int, handlerId: Int, methodId: Int, price: Double, handling: Double)
+public struct Shipping {
 	
 	public struct PriceHandler: Identifiable {
 		public let identifier: Int
@@ -41,6 +39,14 @@ public enum Shipping {
 		public let methodID: Int
 		public let price: Double
 		public let handlingPrice: Double
+		
+		public init(fulfillerID: Int, handlerID: Int, methodID: Int, price: Double, handlingPrice: Double) {
+			self.fulfillerID = fulfillerID
+			self.handlerID = handlerID
+			self.methodID = methodID
+			self.price = price
+			self.handlingPrice = handlingPrice
+		}
 	}
 	
 	public struct SelectionSet {

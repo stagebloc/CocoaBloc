@@ -12,6 +12,20 @@ import Curry
 extension Cart: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Cart> {
+		var selected_shippings:Decoded<[Shipping.Selection]> = decodedJSON(json, forKey: "shipping_selected").flatMap { shippingJson in
+			return decodedJSON(shippingJson, forKey: "order").flatMap { itemsJson in
+				switch itemsJson {
+				case .Object(let jsonItemsMap):
+					let ts = sequence(jsonItemsMap.values.map(Shipping.Selection.decode))
+					return ts//sequence(jsonItemsMap.values.map(Shipping.Selection.decode))
+				default:
+					return pure([])
+				}
+			}
+		}
+		if case .Failure = selected_shippings {
+			selected_shippings = pure([])
+		}
 		let a = curry(Cart.init)
 			<^> json <| "id"
 			<*> json <| "user_id"
@@ -32,6 +46,7 @@ extension Cart: Decodable {
 			<*> json <|? "shipping_address"
 			<*> json <| "totals"
 			<*> json <|? "shipping_rates"
+			<*> selected_shippings
 	}
 	
 }
