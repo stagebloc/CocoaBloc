@@ -162,7 +162,7 @@ extension API {
 	
 	public static func purchaseCart(
 		withSessionIdentifier cartSessionID: String,
-		                      payments: [Payment]) -> Endpoint<Cart> {
+		                      payments: [Payment]) -> Endpoint<[Order]> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
 			method: .POST,
