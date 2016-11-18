@@ -13,7 +13,7 @@ extension Address: Decodable {
 	
 	public static func decode(json: JSON) -> Decoded<Address> {
 		return curry(Address.init)
-			<^> json <| "id"
+			<^> json <|? "id"
 			<*> json <| "name"
 			<*> json <| "street_address"
 			<*> json <| "street_address_2"
