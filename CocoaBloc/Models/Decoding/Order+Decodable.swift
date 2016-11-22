@@ -30,7 +30,7 @@ extension Order: Decodable {
 			<*> json <|? "notes"
 			<*> json <| "email"
 			<*> json <|? "user"
-			<*> json <| "address"
+			<*> json <|? "address"
 			<*> json <|| "transactions"
 	}
 

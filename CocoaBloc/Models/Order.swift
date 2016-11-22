@@ -23,7 +23,7 @@ public struct Order: Identifiable {
 	public let notes: String?
 	public let emailAddress: String
 	public let user: User?
-	public let address: Address
+	public let address: Address?
 	public let transactions: [Transaction]
 	
 	public struct Shipment: Identifiable {
