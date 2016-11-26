@@ -12,16 +12,50 @@ extension API {
 		return Endpoint(path: "cart/\(cartSessionID)", method: .GET)
 	}
 	
-	public static func createCart(withEmail email: String? = nil, userID: Int? = nil) -> Endpoint<Cart> {
-		return Endpoint(
-			path: "cart",
-			method: .POST,
-			parameters: [
-				"cart": [
-					"email": email,
-					"user_id": userID
-				].filterEntriesWithNilValues()
-			])
+	public static func createCart(withEmail email: String? = nil, userID: Int? = nil, venue: Address? = nil) -> Endpoint<Cart> {
+		if let _ = venue {
+			return Endpoint(
+				path: "cart",
+				method: .POST,
+				parameters: [
+					"cart": [
+						"email": email,
+						"user_id": userID,
+						"addresses": venue.map { address -> [String:AnyObject] in
+							return [
+								"shipping": [
+									"name": address.name,
+									"street_address": address.streetAddress,
+									"street_address_2": address.streetAddress2,
+									"city": address.city,
+									"state": address.state,
+									"postal_code": address.postalCode,
+									"country": address.country
+								]
+							]
+						},
+						"shipping_details": [
+							"order": [[
+								"fulfiller_id": 1,
+								"price_handler_id": 11,
+								"method_id": 1,
+								"price": 0,
+								"handling": 0,
+							]]
+						]
+					].filterEntriesWithNilValues()
+				])
+		} else {
+			return Endpoint(
+				path: "cart",
+				method: .POST,
+				parameters: [
+					"cart": [
+						"email": email,
+						"user_id": userID
+					].filterEntriesWithNilValues()
+				])
+		}
 	}
 	
 	public static func updateCart(
@@ -74,7 +108,8 @@ extension API {
 	
 	public static func updateCart(
 		withSessionIdentifier cartSessionID: String,
-		                      shippingInfo: Shipping.Selection) -> Endpoint<Cart> {
+		                      shippingInfo: Shipping.Selection,
+		                      overrideShipping: Bool = false) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)",
 			method: .POST,
@@ -90,7 +125,8 @@ extension API {
 							"handling": shippingInfo.handlingPrice,
 						]]
 					]
-				]
+				],
+				"pickup_override": overrideShipping
 			])
 	}
 	
@@ -136,6 +172,14 @@ extension API {
 	public static func deleteItemInCart(
 		withHash cartItemHash: String,
 		fromCartWithSessionIdentifier cartSessionID: String) -> Endpoint<Cart> {
+		return Endpoint(
+			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
+			method: .DELETE)
+	}
+	
+	public static func deleteAddressCart(
+		withHash cartItemHash: String,
+		         fromCartWithSessionIdentifier cartSessionID: String) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
 			method: .DELETE)
