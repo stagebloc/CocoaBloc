@@ -33,16 +33,7 @@ extension API {
 									"country": address.country
 								]
 							]
-						},
-						"shipping_details": [
-							"order": [[
-								"fulfiller_id": 1,
-								"price_handler_id": 11,
-								"method_id": 1,
-								"price": 0,
-								"handling": 0,
-							]]
-						]
+						}
 					].filterEntriesWithNilValues()
 				])
 		} else {
@@ -62,10 +53,6 @@ extension API {
 		withSessionIdentifier cartSessionID: String,
 		                      newEmail: String?,
 		                      newShippingAddress: Address?) -> Endpoint<Cart> {
-		precondition(
-			newEmail != nil || newShippingAddress != nil,
-			"Can't create an endpoint to update nothing on the cart."
-		)
 		if let identifier = newShippingAddress?.identifier {
 			return Endpoint(
 				path: "cart/\(cartSessionID)",
@@ -116,6 +103,7 @@ extension API {
 			parameters: [
 				"cart": [
 					"session_id": cartSessionID,
+					"pickup_override": overrideShipping,
 					"shipping_details": [
 						"order": [[
 							"fulfiller_id": shippingInfo.fulfillerID,
@@ -125,8 +113,7 @@ extension API {
 							"handling": shippingInfo.handlingPrice,
 						]]
 					]
-				],
-				"pickup_override": overrideShipping
+				]
 			])
 	}
 	
@@ -204,7 +191,7 @@ extension API {
 			case .giftCard:
 				value["payment_processor"] = "gift_card"
 			case .stripe(let token):
-				value["payment_processor"] = "stripe"
+				value["payment_processor"] = "STRIPE"
 				value["token"] = token
 			}
 			return value
