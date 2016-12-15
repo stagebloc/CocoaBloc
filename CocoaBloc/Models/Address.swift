@@ -32,3 +32,7 @@ public struct Address {
 public struct Addresses {
 	public let addresses: [Address]
 }
+
+public struct SingleAddress {
+	public let address: Address
+}

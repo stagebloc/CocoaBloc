@@ -25,13 +25,22 @@ extension API {
 		return Endpoint(path: "users/me/addresses/\(type)", method: .GET)
 	}
 	
-	public static func createAddress(withType type: AddressType) -> Endpoint<Address> {
+	public static func createAddress(withType type: AddressType, newShippingAddress: Address) -> Endpoint<SingleAddress> {
 		return Endpoint(
 			path: "users/me/addresses/\(type)",
 			method: .POST,
 			parameters: [
-				:
-			])
+					"address": [
+						"name": newShippingAddress.name,
+						"street_address": newShippingAddress.streetAddress,
+						"street_address_2": newShippingAddress.streetAddress2,
+						"city": newShippingAddress.city,
+						"state": newShippingAddress.state,
+						"postal_code": newShippingAddress.postalCode,
+						"country": newShippingAddress.country
+					]
+				].filterEntriesWithNilValues()
+			)
 	}
 	
 	public static func updateAddress(withType type: AddressType, identifier: Int) -> Endpoint<Address> {

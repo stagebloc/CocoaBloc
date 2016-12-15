@@ -31,3 +31,10 @@ extension Addresses: Decodable {
 			<^> json <|| "addresses"
 	}
 }
+
+extension SingleAddress: Decodable {
+	public static func decode(json: JSON) -> Decoded<SingleAddress> {
+		return curry(SingleAddress.init)
+			<^> json <| "address"
+	}
+}
