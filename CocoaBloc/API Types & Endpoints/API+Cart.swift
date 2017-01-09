@@ -97,14 +97,15 @@ extension API {
 		withSessionIdentifier cartSessionID: String,
 		                      shippingInfo: Shipping.Selection,
 		                      overrideShipping: Bool = false) -> Endpoint<Cart> {
+		let shippingTitle = overrideShipping ? "shipping_override" : "shipping_details"
 		return Endpoint(
 			path: "cart/\(cartSessionID)",
 			method: .POST,
 			parameters: [
 				"cart": [
 					"session_id": cartSessionID,
-					"pickup_override": overrideShipping,
-					"shipping_details": [
+//					"pickup_override": overrideShipping,
+					shippingTitle: [
 						"order": [[
 							"fulfiller_id": shippingInfo.fulfillerID,
 							"price_handler_id": shippingInfo.handlerID,
@@ -206,7 +207,17 @@ extension API {
 	
 	public static func purchaseCart(
 		withSessionIdentifier cartSessionID: String,
-		                      payments: [Payment]) -> Endpoint<[Order]> {
+		                      payments: [Payment],
+		                      tax: Double? = nil) -> Endpoint<[Order]> {
+		if let tax = tax {
+			return Endpoint(
+				path: "cart/\(cartSessionID)/purchase",
+				method: .POST,
+				parameters: [
+					"payments": payments.map { $0.json },
+					"tax_override": tax
+				])
+		}
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
 			method: .POST,
