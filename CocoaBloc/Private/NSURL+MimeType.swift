@@ -9,7 +9,7 @@
 import Foundation
 import MobileCoreServices
 
-extension NSURL {
+extension Foundation.URL {
 	
 	internal func photoMime() -> String {
 		

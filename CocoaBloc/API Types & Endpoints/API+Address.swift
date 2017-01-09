@@ -18,17 +18,17 @@ extension API {
 	}
 
 	public static func getAddress(withIdentifier addressID: Int) -> Endpoint<Address> {
-		return Endpoint(path: "users/me/addresses/\(addressID)", method: .GET)
+		return Endpoint(path: "users/me/addresses/\(addressID)", method: .get)
 	}
 
 	public static func getAllAddresses(forType type: AddressType) -> Endpoint<Addresses> {
-		return Endpoint(path: "users/me/addresses/\(type)", method: .GET)
+		return Endpoint(path: "users/me/addresses/\(type)", method: .get)
 	}
 	
 	public static func createAddress(withType type: AddressType, newShippingAddress: Address) -> Endpoint<SingleAddress> {
 		return Endpoint(
 			path: "users/me/addresses/\(type)",
-			method: .POST,
+			method: .post,
 			parameters: [
 					"address": [
 						"name": newShippingAddress.name,
@@ -46,14 +46,14 @@ extension API {
 	public static func updateAddress(withType type: AddressType, identifier: Int) -> Endpoint<Address> {
 		return Endpoint(
 			path: "users/me/addresses/\(type)/\(identifier)",
-			method: .POST,
+			method: .post,
 			parameters: [
 				:
 			])
 	}
 	
 	public static func deleteAddress(withType type: AddressType, identifier: Int) -> Endpoint<Address> {
-		return Endpoint(path: "users/me/addresses/\(type)\(identifier)", method: .DELETE)
+		return Endpoint(path: "users/me/addresses/\(type)\(identifier)", method: .delete)
 	}
 	
 }

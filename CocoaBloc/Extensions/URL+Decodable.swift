@@ -11,11 +11,11 @@ import Foundation
 
 extension URL: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<URL> {
-		guard case .String(let string) = json else {
-			return .typeMismatch("URL String", actual: json)
+	public static func decode(_ json: JSON) -> Decoded<URL> {
+		guard case .string(let string) = json else {
+			return .typeMismatch(expected: "URL String", actual: json)
 		}
-		return .fromOptional(NSURL(string: string).flatMap(URL.init))
+		return .fromOptional(Foundation.URL(string: string).flatMap(URL.init))
 	}
 	
 }

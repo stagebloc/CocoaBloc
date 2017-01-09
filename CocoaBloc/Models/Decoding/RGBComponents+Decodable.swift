@@ -10,19 +10,19 @@ import Argo
 
 extension RGBComponents: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<RGBComponents> {
-		guard case .String(let val) = json else {
+	public static func decode(_ json: JSON) -> Decoded<RGBComponents> {
+		guard case .string(let val) = json else {
 			return .typeMismatch("String", actual: json)
 		}
 		
-		let rgb = val.componentsSeparatedByString(",")
-			.map { $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) }
+		let rgb = val.components(separatedBy: ",")
+			.map { $0.trimmingCharacters(in: CharacterSet.whitespaces) }
 			.flatMap { UInt8($0, radix: 10) }
 		guard rgb.count == 3 else {
 			return .customError("RGB colors need three components")
 		}
 		
-		return .Success(RGBComponents(red: rgb[0], green: rgb[1], blue: rgb[2]))
+		return .success(RGBComponents(red: rgb[0], green: rgb[1], blue: rgb[2]))
 	}
 
 }

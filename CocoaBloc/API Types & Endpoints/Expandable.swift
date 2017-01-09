@@ -7,11 +7,12 @@
 //
 
 import Argo
+import Runes
 
-public enum Expandable<Item where
+public enum Expandable<Item> where
 	Item: Decodable,
 	Item.DecodedType: Identifiable,
-	Item.DecodedType == Item> {
+	Item.DecodedType == Item {
 	
 	case unexpanded(identifier: Int)
 	indirect case expanded(Item)
@@ -36,14 +37,14 @@ public enum Expandable<Item where
 
 extension Expandable: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Expandable<Item>> {
+	public static func decode(_ json: JSON) -> Decoded<Expandable<Item>> {
 		switch json {
-		case .Number(let number as Int):
+		case .number(let number as Int):
 			return pure(.unexpanded(identifier: number))
-		case .Object, .Array:
+		case .object, .array:
 			return Expandable.expanded <^> Item.decode(json)
 		default:
-			return .typeMismatch("Unexpanded identifier -OR- expanded object/array", actual: json)
+			return .typeMismatch(expected: "Unexpanded identifier -OR- expanded object/array", actual: json)
 		}
 	}
 	

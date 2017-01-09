@@ -17,7 +17,7 @@ class ExpandableTests: XCTestCase {
 	struct TestIdentifiable: Identifiable, Decodable {
 		var identifier: Int
 		
-		static func decode(json: JSON) -> Decoded<TestIdentifiable> {
+		static func decode(_ json: JSON) -> Decoded<TestIdentifiable> {
 			return TestIdentifiable.init <^> json <| "identifier"
 		}
 	}
@@ -28,7 +28,7 @@ class ExpandableTests: XCTestCase {
 	func testValueProperty() {
 		XCTAssertNil(unexpanded.value)
 		XCTAssertNotNil(expanded.value)
-		XCTAssertEqual(expanded.value?.identifier, .Some(ExpandableTests.identifier))
+		XCTAssertEqual(expanded.value?.identifier, .some(ExpandableTests.identifier))
 	}
 	
 	func testIdentifierProperty() {
@@ -42,30 +42,30 @@ class ExpandableTests: XCTestCase {
 		let jsonDecoded = Expandable<TestIdentifiable>.decode(JSON(["identifier":ExpandableTests.identifier]))
 		
 		switch numberDecoded {
-		case .Success(let expandable):
+		case .success(let expandable):
 			guard case .unexpanded = expandable else {
 				XCTFail()
 				break
 			}
-		case .Failure(let decodeError):
+		case .failure(let decodeError):
 			XCTFail(decodeError.description)
 		}
 //
 		switch stringDecoded {
-		case .Success:
+		case .success:
 			XCTFail()
-		case .Failure:
+		case .failure:
 			break
 		}
 		
 		switch jsonDecoded {
-		case .Success(let expandable):
+		case .success(let expandable):
 			guard case .expanded(let value) = expandable else {
 				XCTFail()
 				break
 			}
 			XCTAssertEqual(value.identifier, ExpandableTests.identifier)
-		case .Failure(let decodeError):
+		case .failure(let decodeError):
 			XCTFail(decodeError.description)
 		}
 	}

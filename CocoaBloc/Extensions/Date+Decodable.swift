@@ -11,19 +11,19 @@ import Foundation
 
 extension Date: Decodable {
 	
-	static let formatter: NSDateFormatter = {
-		let ret = NSDateFormatter()
-		ret.locale = NSLocale(localeIdentifier: "EN_US_POSIX")
-		ret.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+	static let formatter: DateFormatter = {
+		let ret = DateFormatter()
+		ret.locale = Locale(identifier: "EN_US_POSIX")
+		ret.timeZone = TimeZone(secondsFromGMT: 0)
 		ret.dateFormat = "yyyy-MM-dd HH:mm:ss"
 		return ret
 	}()
 	
-	public static func decode(json: JSON) -> Decoded<Date> {
-		guard case .String(let string) = json else {
+	public static func decode(_ json: JSON) -> Decoded<Date> {
+		guard case .string(let string) = json else {
 			return .typeMismatch("Date String", actual: json)
 		}
-		return .fromOptional(Date.formatter.dateFromString(string).flatMap(Date.init))
+		return .fromOptional(Date.formatter.date(from: string).flatMap(Date.init))
 	}
 	
 }

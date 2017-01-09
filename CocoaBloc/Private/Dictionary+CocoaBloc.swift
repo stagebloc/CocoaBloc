@@ -10,13 +10,13 @@
 
 extension Dictionary {
 	
-	internal mutating func addEntries(other: [Key:Value]) {
+	internal mutating func addEntries(_ other: [Key:Value]) {
 		for (key, value) in other {
 			self[key] = value
 		}
 	}
 	
-	internal func withEntries(other: [Key:Value]) -> [Key:Value] {
+	internal func withEntries(_ other: [Key:Value]) -> [Key:Value] {
 		var ret = self
 		ret.addEntries(other)
 		return ret
@@ -24,7 +24,7 @@ extension Dictionary {
 	
 }
 
-internal func += <Key: Hashable, Value>(inout lhs: [Key:Value], rhs: [Key:Value]) {
+internal func += <Key: Hashable, Value>(lhs: inout [Key:Value], rhs: [Key:Value]) {
 	lhs.addEntries(rhs)
 }
 

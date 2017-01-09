@@ -13,54 +13,54 @@ import Foundation
 
 extension Request {
 	
-	static func cocoaBlocModelSerializer<T: Decodable where T.DecodedType == T>(
-		type: T.Type,
-		keyPath: String) -> ResponseSerializer<T, API.Error> {
+	static func cocoaBlocModelSerializer<T: Decodable>(
+		_ type: T.Type,
+		keyPath: String) -> ResponseSerializer<T, API.Error> where T.DecodedType == T {
 		return ResponseSerializer { request, response, data, error in
 			switch JSONResponseSerializer().serializeResponse(request, response, data, error) {
-			case .Success(let jsonObject):
+			case .success(let jsonObject):
 				let json = JSON(jsonObject)
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
-				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
-					return .Failure(.api(apiError))
+				if case .success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
+					return .failure(.api(apiError))
 				}
 				
 				// Decode the actual data JSON as the decodable type
 				switch decodedJSON(json, forKey: keyPath).flatMap(T.decode) {
-				case .Success(let model):
-					return .Success(model)
-				case .Failure(let decodeError):
-					return .Failure(.jsonDecoding(decodeError))
+				case .success(let model):
+					return .success(model)
+				case .failure(let decodeError):
+					return .failure(.jsonDecoding(decodeError))
 				}
-			case .Failure(let error):
-				return .Failure(.underlying(error))
+			case .failure(let error):
+				return .failure(.underlying(error))
 			}
 		}
 	}
 	
-	static func cocoaBlocModelSerializer<T: Decodable where T.DecodedType == T>(
-		type: T.Type,
-		keyPath: String) -> ResponseSerializer<[T], API.Error> {
+	static func cocoaBlocModelSerializer<T: Decodable>(
+		_ type: T.Type,
+		keyPath: String) -> ResponseSerializer<[T], API.Error> where T.DecodedType == T {
 		return ResponseSerializer { request, response, data, error in
 			switch JSONResponseSerializer().serializeResponse(request, response, data, error) {
-			case .Success(let jsonObject):
+			case .success(let jsonObject):
 				let json = JSON(jsonObject)
 				
 				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
-				if case .Success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
-					return .Failure(.api(apiError))
+				if case .success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
+					return .failure(.api(apiError))
 				}
 				
 				// Decode the actual data JSON as the decodable type
 				switch decodedJSON(json, forKey: keyPath).flatMap([T].decode) {
-				case .Success(let model):
-					return .Success(model)
-				case .Failure(let decodeError):
-					return .Failure(.jsonDecoding(decodeError))
+				case .success(let model):
+					return .success(model)
+				case .failure(let decodeError):
+					return .failure(.jsonDecoding(decodeError))
 				}
-			case .Failure(let error):
-				return .Failure(.underlying(error))
+			case .failure(let error):
+				return .failure(.underlying(error))
 			}
 		}
 	}

@@ -7,11 +7,12 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension Event: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Event> {
+	public static func decode(_ json: JSON) -> Decoded<Event> {
 		let a = curry(Event.init)
 			<^> json <| "id"
 			<*> json <| "account"

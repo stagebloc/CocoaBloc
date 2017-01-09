@@ -7,6 +7,7 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 public struct AudioPlaylist: Decodable, Identifiable {
@@ -27,7 +28,7 @@ public struct AudioPlaylist: Decodable, Identifiable {
 	public let photo: AccountPhoto?
 //	public let audio: [Audio]
 	
-	public static func decode(json: JSON) -> Decoded<AudioPlaylist> {
+	public static func decode(_ json: JSON) -> Decoded<AudioPlaylist> {
 		let a = curry(AudioPlaylist.init)
 			<^> json <| "id"
 			<*> json <| "account"

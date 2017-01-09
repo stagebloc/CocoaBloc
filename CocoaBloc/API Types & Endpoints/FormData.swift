@@ -11,8 +11,8 @@ import Foundation
 public struct FormDataPart {
 	
 	public enum DataSource {
-		case data(NSData)
-		case file(NSURL)
+		case data(Data)
+		case file(Foundation.URL)
 	}
 	
 	public let title: String

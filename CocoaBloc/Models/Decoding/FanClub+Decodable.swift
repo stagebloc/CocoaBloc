@@ -8,10 +8,11 @@
 
 import Argo
 import Curry
+import Runes
 
 extension FanClub: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<FanClub> {
+	public static func decode(_ json: JSON) -> Decoded<FanClub> {
 		return curry(FanClub.init)
 			<^> json <| "id"
 			<*> json <| "title"

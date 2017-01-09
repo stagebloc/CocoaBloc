@@ -7,11 +7,12 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension Shipping.PriceHandler: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Shipping.PriceHandler> {
+	public static func decode(_ json: JSON) -> Decoded<Shipping.PriceHandler> {
 		return curry(Shipping.PriceHandler.init)
 			<^> json <| "id"
 //			<*> json <| "name"
@@ -23,7 +24,7 @@ extension Shipping.PriceHandler: Decodable {
 
 extension Shipping.Method: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Shipping.Method> {
+	public static func decode(_ json: JSON) -> Decoded<Shipping.Method> {
 		return curry(Shipping.Method.init)
 			<^> json <| "id"
 			<*> json <| "name"
@@ -35,7 +36,7 @@ extension Shipping.Method: Decodable {
 
 extension Shipping.Fulfiller: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Shipping.Fulfiller> {
+	public static func decode(_ json: JSON) -> Decoded<Shipping.Fulfiller> {
 		return curry(Shipping.Fulfiller.init)
 			<^> json <| "id"
 			<*> json <| "type"
@@ -48,7 +49,7 @@ extension Shipping.Fulfiller: Decodable {
 
 extension Shipping.RateSet: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Shipping.RateSet> {
+	public static func decode(_ json: JSON) -> Decoded<Shipping.RateSet> {
 		return curry(Shipping.RateSet.init)
 			<^> json <|| ["order", "fulfillers"]
 			<*> json <|| ["preorder", "fulfillers"] <|> pure([])
@@ -58,7 +59,7 @@ extension Shipping.RateSet: Decodable {
 
 extension Shipping.Selection: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Shipping.Selection> {
+	public static func decode(_ json: JSON) -> Decoded<Shipping.Selection> {
 		return curry(Shipping.Selection.init)
 			<^> json <| "fulfiller"
 			<*> json <| "handler"

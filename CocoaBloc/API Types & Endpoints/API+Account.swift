@@ -9,14 +9,14 @@
 extension API {
 	
 	public static func createAccount(
-		name name: String,
+		name: String,
 		description: String,
 		url: String,
 		type: AccountType,
 		color: AccountColor) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"name"          : name,
 				"description"   : description,
@@ -40,7 +40,7 @@ extension API {
 		
 		return Endpoint(
 			path: "account/\(accountID)",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"name"          : name,
 				"description"   : description,
@@ -56,21 +56,21 @@ extension API {
 		               formData: FormDataPart) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)",
-			method: .POST,
+			method: .post,
 			formData: [formData])
 	}
 	
 	public static func followAccount(withIdentifier accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
-			method: .POST,
+			method: .post,
 			keyPath: "data.account")
 	}
 	
 	public static func unfollowAccount(withIdentifier accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "/account/\(accountID)/follow",
-			method: .DELETE,
+			method: .delete,
 			keyPath: "data.account")
 	}
 	
@@ -82,7 +82,7 @@ extension API {
 	public static func getAuthenticatedUserAccounts(forType type: UserAccountType) -> Endpoint<[Account]> {
 		return Endpoint(
 			path: "accounts",
-			method: .GET,
+			method: .get,
 			parameters: [
 				"admin"		: type == .admin ? 1:0,
 				"following"	: type == .following ? 1:0
@@ -92,7 +92,7 @@ extension API {
 	public static func getAccount(withIdentifier accountID: Int) -> Endpoint<Account> {
 		return Endpoint(
 			path: "account/\(accountID)",
-			method: .GET)
+			method: .get)
 	}
 
 }

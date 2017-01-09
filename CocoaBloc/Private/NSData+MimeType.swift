@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension NSData {
+extension Data {
 	
 	internal func photoMime() -> String {
-		var c = [UInt32](count: 1, repeatedValue: 0)
-		self.getBytes(&c, length: 1)
+		var c = [UInt32](repeating: 0, count: 1)
+		(self as NSData).getBytes(&c, length: 1)
 		switch c[0] {
 		case 0xFF:
 			return "image/jpeg"

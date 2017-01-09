@@ -10,16 +10,16 @@ import Foundation
 
 extension API {
 	
-	public static func getStoreDashboard(accountID: Int) -> Endpoint<StoreDashboard> {
+	public static func getStoreDashboard(_ accountID: Int) -> Endpoint<StoreDashboard> {
 		return Endpoint(
 			path: "account/\(accountID)/store/dashboard",
-			method: .GET)
+			method: .get)
 	}
 	
 	public static func getOrdersForAccount(withIdentifier accountID: Int) -> Endpoint<[Order]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders",
-			method: .GET)
+			method: .get)
 	}
 	
 	public static func resendReceipt(
@@ -27,7 +27,7 @@ extension API {
 		accountIdentifier accountID: Int) -> Endpoint<()> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders/\(orderID)/receipt/resend",
-			method: .POST)
+			method: .post)
 	}
 	
 	public static func setOrderShipped(
@@ -37,7 +37,7 @@ extension API {
 		                  carrier: String) -> Endpoint<Order> {
 		return Endpoint(
 			path: "account/\(accountID)/store/orders/\(orderID)",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"tracking_number": trackingNumber,
 				"carrier": carrier
@@ -47,7 +47,7 @@ extension API {
 	public static func getStoreItemsForAccount(withIdentifier accountID: Int) -> Endpoint<[StoreItem]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/items",
-			method: .GET,
+			method: .get,
 			parameters: [
 				"limit": 99999
 			])
@@ -58,7 +58,7 @@ extension API {
 		forAccountWithIdentifier accountID: Int) -> Endpoint<StoreItem> {
 		return Endpoint(
 			path: "account/\(accountID)/store/items/\(storeItemID)",
-			method: .GET)
+			method: .get)
 	}
 	
 }

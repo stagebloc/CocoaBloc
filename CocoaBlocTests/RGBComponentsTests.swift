@@ -14,9 +14,9 @@ class RGBComponentsTests: XCTestCase {
 	
 	func testRGBStringDecoding() {
 		let red: UInt8 = 50, green: UInt8 = 100, blue: UInt8 = 150
-		let components = RGBComponents.decode(JSON.String("\(red), \(green), \(blue)"))
+		let components = RGBComponents.decode(JSON.string("\(red), \(green), \(blue)"))
 		switch components {
-		case .Success(let components):
+		case .success(let components):
 			XCTAssertEqual(red, components.red)
 			XCTAssertEqual(green, components.green)
 			XCTAssertEqual(blue, components.blue)
@@ -27,37 +27,37 @@ class RGBComponentsTests: XCTestCase {
 			XCTAssertEqual(CGFloat(red) / 255, r)
 			XCTAssertEqual(CGFloat(green) / 255, g)
 			XCTAssertEqual(CGFloat(blue) / 255, b)
-		case .Failure(let decodeError):
+		case .failure(let decodeError):
 			XCTFail(decodeError.description)
 		}
 		
-		let badComponents = RGBComponents.decode(JSON.String("1, 2"))
+		let badComponents = RGBComponents.decode(JSON.string("1, 2"))
 		switch badComponents {
-		case .Success:
+		case .success:
 			XCTFail()
-		case .Failure:
+		case .failure:
 			()
 		}
 	}
 	
 	func testWrongTypeDecoding() {
-		guard case .Failure = RGBComponents.decode(JSON.Null) else {
+		guard case .failure = RGBComponents.decode(JSON.null) else {
 			XCTFail()
 			return
 		}
-		guard case .Failure = RGBComponents.decode(JSON.Number(5)) else {
+		guard case .failure = RGBComponents.decode(JSON.number(5)) else {
 			XCTFail()
 			return
 		}
-		guard case .Failure = RGBComponents.decode(JSON.Array([])) else {
+		guard case .failure = RGBComponents.decode(JSON.array([])) else {
 			XCTFail()
 			return
 		}
-		guard case .Failure = RGBComponents.decode(JSON.Object([:])) else {
+		guard case .failure = RGBComponents.decode(JSON.object([:])) else {
 			XCTFail()
 			return
 		}
-		guard case .Failure = RGBComponents.decode(JSON.Bool(true)) else {
+		guard case .failure = RGBComponents.decode(JSON.bool(true)) else {
 			XCTFail()
 			return
 		}

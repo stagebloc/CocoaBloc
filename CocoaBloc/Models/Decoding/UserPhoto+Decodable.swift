@@ -8,10 +8,11 @@
 
 import Argo
 import Curry
+import Runes
 
 extension UserPhoto: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<UserPhoto> {
+	public static func decode(_ json: JSON) -> Decoded<UserPhoto> {
 		return curry(UserPhoto.init)
 			<^> json <| "width"
 			<*> json <| "height"

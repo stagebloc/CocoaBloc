@@ -16,9 +16,9 @@ public struct Endpoint<Serialized> {
 	
 	// HTTP request parts
 	public let path: String
-	public let method: Alamofire.Method
+	public let method: Alamofire.HTTPMethod
 	public let formData: [FormDataPart]?
-	public var parameters: [String:AnyObject]
+	public var parameters: [String:String]
 	
 	/// Types of objects this endpoint wants expanded from identifiers to full models
 	public var expansions: [API.ExpandableValue]
@@ -28,9 +28,9 @@ public struct Endpoint<Serialized> {
 	
 	internal init(
 		path: String,
-		method: Alamofire.Method,
+		method: Alamofire.HTTPMethod,
 		expansions: [API.ExpandableValue] = [],
-		parameters: [String:AnyObject] = [:],
+		parameters: [String:String] = [:],
 		keyPath: String = "data",
 		formData: [FormDataPart]? = nil) {
 		self.path = path

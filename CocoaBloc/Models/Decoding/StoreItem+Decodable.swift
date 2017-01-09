@@ -7,14 +7,15 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension StoreItem: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreItem> {
+	public static func decode(_ json: JSON) -> Decoded<StoreItem> {
 		let price: Decoded<Double> = decodedJSON(json, forKey: "prices").flatMap { priceJSON in
 			switch priceJSON {
-			case .Array(let priceEntriesJSON):
+			case .array(let priceEntriesJSON):
 				return priceEntriesJSON.first! <| "price"
 			default:
 				return .missingKey("price")
@@ -50,10 +51,10 @@ extension StoreItem: Decodable {
 
 extension StoreItem.Option: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreItem.Option> {
+	public static func decode(_ json: JSON) -> Decoded<StoreItem.Option> {
 		let price: Decoded<Double?> = .optional(decodedJSON(json, forKey: "additional_price").flatMap { priceJSON in
 			switch priceJSON {
-			case .Array(let priceEntriesJSON):
+			case .array(let priceEntriesJSON):
 				return priceEntriesJSON.first! <| "price"
 			default:
 				return .missingKey("price")
@@ -82,7 +83,7 @@ extension StoreItem.Option: Decodable {
 
 extension StoreItem.ItemType: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreItem.ItemType> {
+	public static func decode(_ json: JSON) -> Decoded<StoreItem.ItemType> {
 		return json <| "type" >>- { (typeStr: String) in
 			switch typeStr {
 			case TypeString.digital.rawValue:
@@ -116,7 +117,7 @@ extension StoreItem.ItemType: Decodable {
 
 extension StoreItem.Sale: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreItem.Sale> {
+	public static func decode(_ json: JSON) -> Decoded<StoreItem.Sale> {
 		return curry(StoreItem.Sale.init)
 			<^> SaleType.decode(json)
 			<*> json <| "sale_start_date"
@@ -127,12 +128,12 @@ extension StoreItem.Sale: Decodable {
 
 extension StoreItem.Sale.SaleType: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreItem.Sale.SaleType> {
+	public static func decode(_ json: JSON) -> Decoded<StoreItem.Sale.SaleType> {
 		return json <| "sale_type" >>- { (type: String) in
 			if type == "percent" {
-				return StoreItem.Sale.SaleType.Percentage <^> json <| "sale_percentage"
+				return StoreItem.Sale.SaleType.percentage <^> json <| "sale_percentage"
 			} else if type == "amount" {
-				return StoreItem.Sale.SaleType.Amount <^> json <| "sale_amount"
+				return StoreItem.Sale.SaleType.amount <^> json <| "sale_amount"
 			} else {
 				return .customError("Unsupported store option sale type")
 			}

@@ -11,7 +11,7 @@ import Curry
 
 extension ImageURLSet: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<ImageURLSet> {
+	public static func decode(_ json: JSON) -> Decoded<ImageURLSet> {
 		return curry(ImageURLSet.init)
 			<^> json <| "thumbnail_url"
 			<*> json <| "small_url"

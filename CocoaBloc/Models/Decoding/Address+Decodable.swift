@@ -7,11 +7,12 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension Address: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Address> {
+	public static func decode(_ json: JSON) -> Decoded<Address> {
 		return curry(Address.init)
 			<^> json <|? "id"
 			<*> json <| "name"
@@ -26,14 +27,14 @@ extension Address: Decodable {
 }
 
 extension Addresses: Decodable {
-	public static func decode(json: JSON) -> Decoded<Addresses> {
+	public static func decode(_ json: JSON) -> Decoded<Addresses> {
 		return curry(Addresses.init)
 			<^> json <|| "addresses"
 	}
 }
 
 extension SingleAddress: Decodable {
-	public static func decode(json: JSON) -> Decoded<SingleAddress> {
+	public static func decode(_ json: JSON) -> Decoded<SingleAddress> {
 		return curry(SingleAddress.init)
 			<^> json <| "address"
 	}

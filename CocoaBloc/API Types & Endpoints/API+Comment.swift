@@ -13,7 +13,7 @@ extension API {
 	public static func getComments(forContent content: ContentType) -> Endpoint<[Comment]> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comments",
-			method: .GET)
+			method: .get)
 	}
 	
 	public static func getRepliesToComment(
@@ -22,7 +22,7 @@ extension API {
 		contentType: ContentTypeIdentifier) -> Endpoint<[Comment]> {
 		return Endpoint(
 			path: "account/\(accountID)/\(contentType.rawValue)/comment/\(commentID)",
-			method: .GET)
+			method: .get)
 	}
 	
 	public static func deleteComment(
@@ -31,7 +31,7 @@ extension API {
 		contentType: ContentTypeIdentifier) -> Endpoint<()> {
 		return Endpoint(
 			path: "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)",
-			method: .DELETE)
+			method: .delete)
 	}
 	
 	public static func postComment(
@@ -39,7 +39,7 @@ extension API {
 		onContent content: ContentType) -> Endpoint<Comment> {
 		return Endpoint(
 			path: "account/\(content.postedAccountID)/\(content.contentType.rawValue)/\(content.contentID)/comment",
-			method: .POST,
+			method: .post,
 			parameters: ["text": text])
 	}
 	
@@ -48,7 +48,7 @@ extension API {
 		content: ContentType) -> Endpoint<Comment> {
 		return Endpoint(
 			path: "account\(content.postedAccountID)/\(content.contentType.rawValue)/comment/\(commentID)",
-			method: .GET)
+			method: .get)
 	}
 	
 	public static func flagComment(
@@ -59,7 +59,7 @@ extension API {
 		reason: String) -> Endpoint<()> {
 		return Endpoint(
 			path: "account\(accountID)/\(contentType.rawValue)/comment/\(commentID)/flag",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"type": type.rawValue,
 				"reason": reason

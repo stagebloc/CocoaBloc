@@ -50,8 +50,8 @@ public struct StoreItem: Identifiable {
 	
 	public struct Sale {
 		public enum SaleType {
-			case Amount(Double)
-			case Percentage(Double)
+			case amount(Double)
+			case percentage(Double)
 		}
 		
 		public let type: SaleType
@@ -85,18 +85,18 @@ public struct StoreItem: Identifiable {
 	
 	public var productIsOnSale: Bool {
 		if let sale = sale {
-			let now = NSDate()
-			return sale.startDate.date.earlierDate(now) == sale.startDate.date
-				&& sale.endDate.date.laterDate(now) == sale.endDate.date
+			let now = Foundation.Date()
+			return (sale.startDate.date as NSDate).earlierDate(now) == sale.startDate.date as Date
+				&& (sale.endDate.date as NSDate).laterDate(now) == sale.endDate.date as Date
 		} else { return false }
 	}
 	
 	public var productSalePrice: Double {
 		if let sale = sale {
 			switch sale.type {
-			case .Amount(let amount):
+			case .amount(let amount):
 				return priceUSD - amount
-			case .Percentage(let percentage):
+			case .percentage(let percentage):
 				return priceUSD * (100.0 - percentage) / 100.0
 			}
 		} else { return priceUSD }

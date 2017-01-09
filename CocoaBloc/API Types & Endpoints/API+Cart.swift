@@ -9,14 +9,14 @@
 extension API {
 	
 	public static func getCart(withSessionIdentifier cartSessionID: String) -> Endpoint<Cart> {
-		return Endpoint(path: "cart/\(cartSessionID)", method: .GET)
+		return Endpoint(path: "cart/\(cartSessionID)", method: .get)
 	}
 	
 	public static func createCart(withEmail email: String? = nil, userID: Int? = nil, venue: Address? = nil) -> Endpoint<Cart> {
 		if let _ = venue {
 			return Endpoint(
 				path: "cart",
-				method: .POST,
+				method: .post,
 				parameters: [
 					"cart": [
 						"email": email,
@@ -32,14 +32,14 @@ extension API {
 									"postal_code": address.postalCode,
 									"country": address.country
 								]
-							]
+							] as [String:AnyObject]
 						}
 					].filterEntriesWithNilValues()
 				])
 		} else {
 			return Endpoint(
 				path: "cart",
-				method: .POST,
+				method: .post,
 				parameters: [
 					"cart": [
 						"email": email,
@@ -56,7 +56,7 @@ extension API {
 		if let identifier = newShippingAddress?.identifier {
 			return Endpoint(
 				path: "cart/\(cartSessionID)",
-				method: .POST,
+				method: .post,
 				parameters: [
 					"cart": [
 						"session_id": cartSessionID,
@@ -69,7 +69,7 @@ extension API {
 		} else {
 			return Endpoint(
 				path: "cart/\(cartSessionID)",
-				method: .POST,
+				method: .post,
 				parameters: [
 					"cart": [
 						"session_id": cartSessionID,
@@ -99,7 +99,7 @@ extension API {
 		                      overrideShipping: Bool = false) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"cart": [
 					"session_id": cartSessionID,
@@ -124,7 +124,7 @@ extension API {
 		                    quantity: Int) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/items",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"item": [
 					"type": "store",
@@ -145,7 +145,7 @@ extension API {
 		
 		return Endpoint(
 			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"item": [
 					"type": "store",
@@ -161,7 +161,7 @@ extension API {
 		fromCartWithSessionIdentifier cartSessionID: String) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
-			method: .DELETE)
+			method: .delete)
 	}
 	
 	public static func deleteAddressCart(
@@ -169,7 +169,7 @@ extension API {
 		         fromCartWithSessionIdentifier cartSessionID: String) -> Endpoint<Cart> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
-			method: .DELETE)
+			method: .delete)
 	}
 	
 	public struct Payment {
@@ -183,16 +183,16 @@ extension API {
 		public var type: PaymentType
 		public var amount: Double
 		
-		private var json: [String:AnyObject] {
-			var value: [String:AnyObject] = ["amount": amount]
+		fileprivate var json: [String:AnyObject] {
+			var value: [String:AnyObject] = ["amount": amount as AnyObject]
 			switch type {
 			case .cash:
-				value["payment_processor"] = "cash"
+				value["payment_processor"] = "cash" as AnyObject?
 			case .giftCard:
-				value["payment_processor"] = "gift_card"
+				value["payment_processor"] = "gift_card" as AnyObject?
 			case .stripe(let token):
-				value["payment_processor"] = "STRIPE"
-				value["token"] = token
+				value["payment_processor"] = "STRIPE" as AnyObject?
+				value["token"] = token as AnyObject?
 			}
 			return value
 		}
@@ -209,7 +209,7 @@ extension API {
 		                      payments: [Payment]) -> Endpoint<[Order]> {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
-			method: .POST,
+			method: .post,
 			parameters: [
 				"payments": payments.map { $0.json }
 			])

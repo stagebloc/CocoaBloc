@@ -7,11 +7,12 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension API {
 	
-	public enum Error: ErrorType {
+	public enum Error: Error {
 		case jsonDecoding(DecodeError)
 		case api(ErrorInfo)
 		case underlying(NSError)
@@ -41,7 +42,7 @@ extension API {
 
 extension API.ErrorInfo: Decodable {
 	
-	public static func decode(metadata: JSON) -> Decoded<API.ErrorInfo> {
+	public static func decode(_ metadata: JSON) -> Decoded<API.ErrorInfo> {
 		return curry(API.ErrorInfo.init)
 			<^> metadata <| "error_type"
 			<*> metadata <| "error"

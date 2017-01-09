@@ -18,10 +18,10 @@ class CocoaBlocTests: XCTestCase {
 	let password = "starwars"
 	
 	// Configuration
-	let requestTimeout: NSTimeInterval = 10
+	let requestTimeout: TimeInterval = 10
 	
 	// API client, fresh per test
-	private(set) var client: Client<CallbackAuthenticationStateContainer>!
+	fileprivate(set) var client: Client<CallbackAuthenticationStateContainer>!
 
 	// Test values
 	let testErrorInfo = API.ErrorInfo(
@@ -48,14 +48,14 @@ class CocoaBlocTests: XCTestCase {
 	func testNilValueDictionaryFiltering() {
 		let value: [String: AnyObject?] = [
 			"a": nil,
-			"b": 1,
-			"c": "test",
+			"b": 1 as Optional<AnyObject>,
+			"c": "test" as Optional<AnyObject>,
 			"d": nil
 		]
 		let filtered = value.filterEntriesWithNilValues()
 		
-		XCTAssertNil(filtered.indexForKey("a"))
-		XCTAssertNil(filtered.indexForKey("d"))
+		XCTAssertNil(filtered.index(forKey: "a"))
+		XCTAssertNil(filtered.index(forKey: "d"))
 		XCTAssertEqual(filtered["b"] as? Int, 1)
 		XCTAssertEqual(filtered["c"] as? String, "test")
 	}
@@ -96,7 +96,7 @@ class CocoaBlocTests: XCTestCase {
 			code: 1,
 			userInfo: nil
 		)
-		let decodeError = DecodeError.Custom("test error")
+		let decodeError = DecodeError.custom("test error")
 		
 		XCTAssertEqual(API.Error.multipartDataEncoding, API.Error.multipartDataEncoding)
 		XCTAssertEqual(API.Error.underlying(nsError), API.Error.underlying(nsError))
@@ -105,46 +105,46 @@ class CocoaBlocTests: XCTestCase {
 		XCTAssertNotEqual(API.Error.multipartDataEncoding, API.Error.underlying(nsError))
 	}
 	
-	private func jsonForFile(named name: String) -> JSON {
-		let thisBundle = NSBundle(forClass: self.dynamicType)
-		let path = thisBundle.pathForResource(name, ofType: "json")!
-		let data = NSData(contentsOfFile: path)
-		let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: [])
+	fileprivate func jsonForFile(named name: String) -> JSON {
+		let thisBundle = Bundle(for: type(of: self))
+		let path = thisBundle.path(forResource: name, ofType: "json")!
+		let data = try? Data(contentsOf: Foundation.URL(fileURLWithPath: path))
+		let json = try! JSONSerialization.jsonObject(with: data!, options: [])
 		return JSON(json)
 	}
 	
 	func testAccountDecoding() {
 		switch Account.decode(jsonForFile(named: "Account")) {
-		case .Failure(let error):
+		case .failure(let error):
 			XCTFail(error.description)
-		case .Success(_):
+		case .success(_):
 			()
 		}
 	}
 	
 	func testAccountPhotoDecoding() {
 		switch AccountPhoto.decode(jsonForFile(named: "AccountPhoto")) {
-		case .Failure(let error):
+		case .failure(let error):
 			XCTFail(error.description)
-		case .Success(_):
+		case .success(_):
 			()
 		}
 	}
 	
 	func testBlogDecoding() {
 		switch Blog.decode(jsonForFile(named: "Blog")) {
-		case .Failure(let error):
+		case .failure(let error):
 			XCTFail(error.description)
-		case .Success(_):
+		case .success(_):
 			()
 		}
 	}
 
 	func testCartDecoding() {
 		switch Cart.decode(jsonForFile(named: "Cart")) {
-		case .Failure(let error):
+		case .failure(let error):
 			XCTFail(error.description)
-		case .Success(let cart):
+		case .success(let cart):
 			XCTAssertNotNil(cart.shippingAddress)
 			XCTAssertNotNil(cart.shippingRates)
 			XCTAssert(cart.items.count > 0)
@@ -153,9 +153,9 @@ class CocoaBlocTests: XCTestCase {
 	
 	func testShippingRateSetDecoding() {
 		switch Shipping.RateSet.decode(jsonForFile(named: "ShippingRateSet")) {
-		case .Failure(let error):
+		case .failure(let error):
 			XCTFail(error.description)
-		case .Success(_):
+		case .success(_):
 			()
 		}
 	}

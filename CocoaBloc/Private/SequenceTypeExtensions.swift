@@ -6,7 +6,7 @@
 //  Copyright © 2015 Fullscreen Direct. All rights reserved.
 //
 
-extension SequenceType where Generator.Element == (String, AnyObject?) {
+extension Sequence where Iterator.Element == (String, AnyObject?) {
 	
 	/// Removes all dictionary entries where the value type is Optional<T> and is .None
 	/// - returns: a new dictionary guaranteed and typed to contain no nil values pairs

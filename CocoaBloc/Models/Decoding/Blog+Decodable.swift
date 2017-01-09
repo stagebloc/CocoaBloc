@@ -7,11 +7,12 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension Blog: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<Blog> {
+	public static func decode(_ json: JSON) -> Decoded<Blog> {
 		let a = curry(Blog.init)
 			<^> json <| "id"
 			<*> json <| "account"

@@ -8,9 +8,9 @@
 
 import Argo
 
-public enum ExpandableArray<Item where
+public enum ExpandableArray<Item> where
 	Item: Decodable,
-	Item.DecodedType == Item> {
+	Item.DecodedType == Item {
 	
 	case unexpanded(count: Int)
 	indirect case expanded([Item])
@@ -35,11 +35,11 @@ public enum ExpandableArray<Item where
 
 extension ExpandableArray: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<ExpandableArray<Item>> {
+	public static func decode(_ json: JSON) -> Decoded<ExpandableArray<Item>> {
 		switch json {
-		case .Number(let number as Int):
+		case .number(let number as Int):
 			return pure(.unexpanded(count: number))
-		case .Array:
+		case .array:
 			return ExpandableArray.expanded <^> [Item].decode(json)
 		default:
 			return .typeMismatch("Expandable array", actual: json)

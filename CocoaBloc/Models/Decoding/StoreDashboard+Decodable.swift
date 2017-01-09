@@ -7,11 +7,12 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension StoreDashboard: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreDashboard> {
+	public static func decode(_ json: JSON) -> Decoded<StoreDashboard> {
 		let totals: Decoded<Totals> = decodedJSON(json, forKey: "totals").flatMap(Totals.decode)
 		
 		let revenue: Decoded<Revenue> = decodedJSON(json, forKey: "revenue").flatMap(Revenue.decode)
@@ -29,7 +30,7 @@ extension StoreDashboard: Decodable {
 
 extension StoreDashboard.Totals: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreDashboard.Totals> {
+	public static func decode(_ json: JSON) -> Decoded<StoreDashboard.Totals> {
 		return curry(StoreDashboard.Totals.init)
 			<^> json <| "revenue"
 			<*> json <| "shipping_handling"
@@ -40,7 +41,7 @@ extension StoreDashboard.Totals: Decodable {
 
 extension StoreDashboard.Revenue: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreDashboard.Revenue> {
+	public static func decode(_ json: JSON) -> Decoded<StoreDashboard.Revenue> {
 		return curry(StoreDashboard.Revenue.init)
 			<^> json <| "store"
 			<*> json <| "fan_club"
@@ -49,7 +50,7 @@ extension StoreDashboard.Revenue: Decodable {
 
 extension StoreDashboard.Averages: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<StoreDashboard.Averages> {
+	public static func decode(_ json: JSON) -> Decoded<StoreDashboard.Averages> {
 		return curry(StoreDashboard.Averages.init)
 			<^> json <| "order_price"
 			<*> json <| "fan_value"

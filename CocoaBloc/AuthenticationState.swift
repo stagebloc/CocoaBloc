@@ -6,6 +6,8 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
+import Runes
+
 public protocol AuthenticationStateContainer {
 	var state: AuthenticationState { get set }
 	init()
@@ -58,7 +60,7 @@ import Curry
 
 extension AuthenticationState: Decodable {
 	
-	public static func decode(json: JSON) -> Decoded<AuthenticationState> {
+	public static func decode(_ json: JSON) -> Decoded<AuthenticationState> {
 		return curry(AuthenticationState.authenticated)
 			<^> (json <| "access_token")
 			<*> (json <| "user").map(Optional.init)
