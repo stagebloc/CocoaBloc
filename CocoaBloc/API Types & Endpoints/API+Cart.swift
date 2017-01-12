@@ -208,22 +208,19 @@ extension API {
 	public static func purchaseCart(
 		withSessionIdentifier cartSessionID: String,
 		                      payments: [Payment],
-		                      tax: Double? = nil) -> Endpoint<[Order]> {
+		                      tax: Double? = nil,
+		                      phone: String? = nil) -> Endpoint<[Order]> {
+		var parameters: [String: AnyObject] = ["payments": payments.map { $0.json }]
 		if let tax = tax {
-			return Endpoint(
-				path: "cart/\(cartSessionID)/purchase",
-				method: .POST,
-				parameters: [
-					"payments": payments.map { $0.json },
-					"tax_override": tax
-				])
+			parameters.updateValue(tax, forKey: "tax_override")
+		}
+		if let phone = phone {
+			parameters.updateValue(phone, forKey: "phone_number")
 		}
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
 			method: .POST,
-			parameters: [
-				"payments": payments.map { $0.json }
-			])
+			parameters: parameters)
 	}
 	
 }
