@@ -15,7 +15,7 @@ extension URL: Decodable {
 		guard case .string(let string) = json else {
 			return .typeMismatch(expected: "URL String", actual: json)
 		}
-		return .fromOptional(Foundation.URL(string: string).flatMap(URL.init))
+		return .fromOptional(URL(string: string))//.flatMap(URL.init))
 	}
 	
 }

@@ -12,7 +12,7 @@ extension RGBComponents: Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<RGBComponents> {
 		guard case .string(let val) = json else {
-			return .typeMismatch("String", actual: json)
+			return .typeMismatch(expected: "String", actual: json)
 		}
 		
 		let rgb = val.components(separatedBy: ",")

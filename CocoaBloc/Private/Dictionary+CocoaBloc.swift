@@ -22,6 +22,14 @@ extension Dictionary {
 		return ret
 	}
 	
+	internal func filterEntriesWithNilValues() -> [Key: AnyObject] {
+		var ret = [Key: AnyObject]()
+		for (key, value) in self {
+			ret[key] = value as AnyObject
+		}
+		return ret
+	}
+	
 }
 
 internal func += <Key: Hashable, Value>(lhs: inout [Key:Value], rhs: [Key:Value]) {

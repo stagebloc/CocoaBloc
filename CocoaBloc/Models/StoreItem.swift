@@ -62,7 +62,7 @@ public struct StoreItem: Identifiable {
 	// MARK: Properties
 	
 	public let identifier: Int
-	public let type: ItemType
+//	public let type: ItemType
 	public let account: Expandable<Account>
 	public let title: String
 	public let shortURL: URL
@@ -86,8 +86,8 @@ public struct StoreItem: Identifiable {
 	public var productIsOnSale: Bool {
 		if let sale = sale {
 			let now = Foundation.Date()
-			return (sale.startDate.date as NSDate).earlierDate(now) == sale.startDate.date as Date
-				&& (sale.endDate.date as NSDate).laterDate(now) == sale.endDate.date as Date
+			return (sale.startDate as NSDate).earlierDate(now) == sale.startDate
+				&& (sale.endDate as NSDate).laterDate(now) == sale.endDate
 		} else { return false }
 	}
 	

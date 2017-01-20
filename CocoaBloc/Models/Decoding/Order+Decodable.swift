@@ -18,7 +18,7 @@ extension Order: Decodable {
 			<*> json <| "account"
 			<*> json <| "receipt_url"
 			<*> json <| "ordered"
-			<*> json <| "shipped" <|> .success(true)
+			<*> (json <| "shipped" <|> .success(true))
 			<*> json <| "currency"
 		let b = a
 			<*> json <| "total"

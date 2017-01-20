@@ -12,7 +12,6 @@
 		090E111F1C008E9C0001C943 /* CocoaBlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E111E1C008E9C0001C943 /* CocoaBlocTests.swift */; };
 		0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */; };
 		092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CA1C31D2EA00B81777 /* Endpoint.swift */; };
-		092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */; };
 		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
 		0994C2371C012E7100EE0706 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0994C2341C012E7100EE0706 /* Alamofire.framework */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
@@ -106,7 +105,6 @@
 		090E11201C008E9C0001C943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+CocoaBloc.swift"; sourceTree = "<group>"; };
 		092C01CA1C31D2EA00B81777 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContentStreamObject+ContentType.swift"; sourceTree = "<group>"; };
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C2341C012E7100EE0706 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 				0925DFBF1C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift */,
 				81D3FE171CA4980C00513CCA /* NSData+MimeType.swift */,
 				81D3FE191CA4AD0A00513CCA /* NSURL+MimeType.swift */,
-				092C01CE1C32CD4B00B81777 /* SequenceTypeExtensions.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -445,7 +442,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = StageBloc;
 				TargetAttributes = {
 					090E110E1C008E9C0001C943 = {
@@ -539,6 +536,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Argo.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Curry.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Runes.framework",
 			);
 			outputPaths = (
 			);
@@ -553,7 +551,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				092C01CF1C32CD4B00B81777 /* SequenceTypeExtensions.swift in Sources */,
 				973D796F1D4C99D80097742F /* Cart+Decodable.swift in Sources */,
 				97948A711CF51D0A00D521BD /* Blog.swift in Sources */,
 				5285EDD51D1F8C0D0054AEE9 /* ImageURLSet.swift in Sources */,
@@ -652,8 +649,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -700,8 +699,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -721,6 +722,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -732,6 +734,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -742,7 +745,7 @@
 				);
 				INFOPLIST_FILE = CocoaBloc/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fullscreendirect.CocoaBloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -756,6 +759,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -766,7 +770,7 @@
 				);
 				INFOPLIST_FILE = CocoaBloc/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fullscreendirect.CocoaBloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";

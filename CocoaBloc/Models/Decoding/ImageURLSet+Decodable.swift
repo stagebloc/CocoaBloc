@@ -7,6 +7,7 @@
 //
 
 import Argo
+import Runes
 import Curry
 
 extension ImageURLSet: Decodable {

@@ -10,6 +10,6 @@ import Foundation
 
 /// A type containing a single date. This is used instead of NSDate directly
 /// so that we don't occupy the public Decodable conformance with our own implementation.
-public struct Date {
-	public let date: Foundation.Date
-}
+//public struct Date {
+//	public let date: Foundation.Date
+//}

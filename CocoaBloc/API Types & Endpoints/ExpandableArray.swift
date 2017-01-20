@@ -7,6 +7,7 @@
 //
 
 import Argo
+import Runes
 
 public enum ExpandableArray<Item> where
 	Item: Decodable,
@@ -42,7 +43,7 @@ extension ExpandableArray: Decodable {
 		case .array:
 			return ExpandableArray.expanded <^> [Item].decode(json)
 		default:
-			return .typeMismatch("Expandable array", actual: json)
+			return .typeMismatch(expected: "Expandable array", actual: json)
 		}
 	}
 	

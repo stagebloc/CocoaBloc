@@ -12,10 +12,8 @@ import MobileCoreServices
 extension Foundation.URL {
 	
 	internal func photoMime() -> String {
-		
-		guard
-			let ext = self.pathExtension,
-			let UTIRef = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil) else {
+		let ext = self.pathExtension
+		guard let UTIRef = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext as CFString, nil) else {
 				return ""
 		}
 		let UTI = UTIRef.takeUnretainedValue()

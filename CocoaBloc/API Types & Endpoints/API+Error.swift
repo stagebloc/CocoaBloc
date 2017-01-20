@@ -12,10 +12,10 @@ import Curry
 
 extension API {
 	
-	public enum Error: Error {
+	public enum APIError: Error {
 		case jsonDecoding(DecodeError)
 		case api(ErrorInfo)
-		case underlying(NSError)
+		case underlying(Error)
 		case multipartDataEncoding
 	}
 	
@@ -51,28 +51,28 @@ extension API.ErrorInfo: Decodable {
 	
 }
 
-extension API.ErrorInfo: Equatable { }
-public func == (lhs: API.ErrorInfo, rhs: API.ErrorInfo) -> Bool {
-	return lhs.type == rhs.type && lhs.descriptiveText == rhs.descriptiveText && lhs.devNotes == rhs.devNotes
-}
+//extension API.ErrorInfo: Equatable { }
+//public func == (lhs: API.ErrorInfo, rhs: API.ErrorInfo) -> Bool {
+//	return lhs.type == rhs.type && lhs.descriptiveText == rhs.descriptiveText && lhs.devNotes == rhs.devNotes
+//}
+//
+//extension API.APIError: Equatable { }
+//public func == (lhs: API.APIError, rhs: API.APIError) -> Bool {
+//	switch (lhs, rhs) {
+//	case (.jsonDecoding(let x), .jsonDecoding(let y)):
+//		return x == y
+//	case (.api(let x), .api(let y)):
+//		return x == y
+//	case (.underlying(let x), .underlying(let y)):
+//		return x == y
+//	case (.multipartDataEncoding, .multipartDataEncoding):
+//		return true
+//	default:
+//		return false
+//	}
+//}
 
-extension API.Error: Equatable { }
-public func == (lhs: API.Error, rhs: API.Error) -> Bool {
-	switch (lhs, rhs) {
-	case (.jsonDecoding(let x), .jsonDecoding(let y)):
-		return x == y
-	case (.api(let x), .api(let y)):
-		return x == y
-	case (.underlying(let x), .underlying(let y)):
-		return x == y
-	case (.multipartDataEncoding, .multipartDataEncoding):
-		return true
-	default:
-		return false
-	}
-}
-
-extension API.Error: CustomStringConvertible {
+extension API.APIError: CustomStringConvertible {
 	
 	public var description: String {
 		switch self {

@@ -11,19 +11,27 @@ import Curry
 import Alamofire
 import Foundation
 
-extension Request {
+extension Alamofire.DataRequest {
 	
-	static func cocoaBlocModelSerializer<T: Decodable>(
-		_ type: T.Type,
-		keyPath: String) -> ResponseSerializer<T, API.Error> where T.DecodedType == T {
-		return ResponseSerializer { request, response, data, error in
-			switch JSONResponseSerializer().serializeResponse(request, response, data, error) {
-			case .success(let jsonObject):
-				let json = JSON(jsonObject)
+	@discardableResult
+	func cocoaBlocModelSerializer<T: Decodable>(
+		keyPath: String,
+		queue: DispatchQueue? = nil,
+		completionHandler: @escaping (DataResponse<T>) -> Void) -> Self
+		where T.DecodedType == T {
+			let responseSerializer = DataResponseSerializer<T> { request, response, data, error in
+				guard error == nil else { return .failure(API.APIError.underlying(error!)) }
 				
-				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
+				let jsonSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
+				let result = jsonSerializer.serializeResponse(request, response, data, nil)
+				
+				guard case let .success(jsonObject) = result else {
+					return .failure(API.APIError.underlying(result.error!))
+				}
+				
+				let json = JSON(jsonObject)
 				if case .success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
-					return .failure(.api(apiError))
+					return .failure(API.APIError.api(apiError))
 				}
 				
 				// Decode the actual data JSON as the decodable type
@@ -31,25 +39,32 @@ extension Request {
 				case .success(let model):
 					return .success(model)
 				case .failure(let decodeError):
-					return .failure(.jsonDecoding(decodeError))
+					return .failure(API.APIError.jsonDecoding(decodeError))
 				}
-			case .failure(let error):
-				return .failure(.underlying(error))
 			}
-		}
+			
+			return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
 	}
 	
-	static func cocoaBlocModelSerializer<T: Decodable>(
-		_ type: T.Type,
-		keyPath: String) -> ResponseSerializer<[T], API.Error> where T.DecodedType == T {
-		return ResponseSerializer { request, response, data, error in
-			switch JSONResponseSerializer().serializeResponse(request, response, data, error) {
-			case .success(let jsonObject):
-				let json = JSON(jsonObject)
+	@discardableResult
+	func cocoaBlocModelSerializer<T: Decodable>(
+		keyPath: String,
+		queue: DispatchQueue? = nil,
+		completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self
+		where T.DecodedType == T {
+			let responseSerializer = DataResponseSerializer<[T]> { request, response, data, error in
+				guard error == nil else { return .failure(API.APIError.underlying(error!)) }
 				
-				// Assuming this is an unvalidated-by-status-code request, check for our JSON error data to validate
+				let jsonSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
+				let result = jsonSerializer.serializeResponse(request, response, data, nil)
+				
+				guard case let .success(jsonObject) = result else {
+					return .failure(API.APIError.underlying(result.error!))
+				}
+				
+				let json = JSON(jsonObject)
 				if case .success(let apiError) = decodedJSON(json, forKey: "metadata").flatMap(API.ErrorInfo.decode) {
-					return .failure(.api(apiError))
+					return .failure(API.APIError.api(apiError))
 				}
 				
 				// Decode the actual data JSON as the decodable type
@@ -57,12 +72,11 @@ extension Request {
 				case .success(let model):
 					return .success(model)
 				case .failure(let decodeError):
-					return .failure(.jsonDecoding(decodeError))
+					return .failure(API.APIError.jsonDecoding(decodeError))
 				}
-			case .failure(let error):
-				return .failure(.underlying(error))
 			}
-		}
+			
+			return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
 	}
 	
 }

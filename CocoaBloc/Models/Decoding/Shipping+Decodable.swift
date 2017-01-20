@@ -15,9 +15,7 @@ extension Shipping.PriceHandler: Decodable {
 	public static func decode(_ json: JSON) -> Decoded<Shipping.PriceHandler> {
 		return curry(Shipping.PriceHandler.init)
 			<^> json <| "id"
-//			<*> json <| "name"
-//			<*> json <| "price"
-			<*> json <|| "shipping_methods" <|> pure([])
+			<*> (json <|| "shipping_methods" <|> pure([]))
 	}
 
 }
@@ -42,7 +40,7 @@ extension Shipping.Fulfiller: Decodable {
 			<*> json <| "type"
 			<*> json <| "name"
 			<*> json <|? "address"
-			<*> json <|| "shipping_price_handlers" <|> pure([])
+			<*> (json <|| "shipping_price_handlers" <|> pure([]))
 	}
 
 }
@@ -52,7 +50,7 @@ extension Shipping.RateSet: Decodable {
 	public static func decode(_ json: JSON) -> Decoded<Shipping.RateSet> {
 		return curry(Shipping.RateSet.init)
 			<^> json <|| ["order", "fulfillers"]
-			<*> json <|| ["preorder", "fulfillers"] <|> pure([])
+			<*> (json <|| ["preorder", "fulfillers"] <|> pure([]))
 	}
 	
 }

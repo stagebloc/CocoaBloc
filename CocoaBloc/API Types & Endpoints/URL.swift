@@ -6,10 +6,10 @@
 //  Copyright © 2016 StageBloc. All rights reserved.
 //
 
-import Foundation
-
-/// A type containing a single URL. This is used instead of NSURL directly
-/// so that we don't occupy the public Decodable conformance with our own implementation.
-public struct URL {
-	public let url: Foundation.URL
-}
+//import Foundation
+//
+///// A type containing a single URL. This is used instead of NSURL directly
+///// so that we don't occupy the public Decodable conformance with our own implementation.
+//public struct URL {
+//	public let url: Foundation.URL
+//}

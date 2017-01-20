@@ -21,7 +21,7 @@ extension API {
 					"cart": [
 						"email": email,
 						"user_id": userID,
-						"addresses": venue.map { address -> [String:AnyObject] in
+						"addresses": venue.map { address in
 							return [
 								"shipping": [
 									"name": address.name,
@@ -32,9 +32,9 @@ extension API {
 									"postal_code": address.postalCode,
 									"country": address.country
 								]
-							] as [String:AnyObject]
+							]
 						}
-					].filterEntriesWithNilValues()
+						].filterEntriesWithNilValues()
 				])
 		} else {
 			return Endpoint(
@@ -44,7 +44,7 @@ extension API {
 					"cart": [
 						"email": email,
 						"user_id": userID
-					].filterEntriesWithNilValues()
+						].filterEntriesWithNilValues()
 				])
 		}
 	}
@@ -74,7 +74,7 @@ extension API {
 					"cart": [
 						"session_id": cartSessionID,
 						"email": newEmail,
-						"addresses": newShippingAddress.map { address -> [String:AnyObject] in
+						"addresses": newShippingAddress.map { address in
 							return [
 								"shipping": [
 									"name": address.name,
@@ -147,12 +147,12 @@ extension API {
 			path: "cart/\(cartSessionID)/items/\(cartItemHash)",
 			method: .post,
 			parameters: [
-				"item": [
+				"item": ([
 					"type": "store",
 					"id": storeItemID,
 					"sku": sku,
 					"quantity": quantity
-				].filterEntriesWithNilValues()
+				]).filterEntriesWithNilValues()
 			])
 	}
 	

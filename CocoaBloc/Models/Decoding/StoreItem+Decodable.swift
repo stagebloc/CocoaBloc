@@ -24,7 +24,7 @@ extension StoreItem: Decodable {
 		
 		let a = curry(StoreItem.init)
 			<^> json <| "id"
-			<*> ItemType.decode(json)
+//			<*> ItemType.decode(json)
 			<*> json <| "account"
 			<*> json <| "title"
 			<*> json <| "short_url"
@@ -39,9 +39,9 @@ extension StoreItem: Decodable {
 			<*> json <| "modified_by"
 			<*> json <|? "category"
 			<*> Decoded<Sale>.optional(Sale.decode(json))
-			<*> json <|| "tags" <|> pure([])
+			<*> (json <|| "tags" <|> pure([]))
 			<*> json <| "fans_name_price"
-			<*> json <|| "options" <|> pure([])
+			<*> (json <|| "options" <|> pure([]))
 			<*> price
 			<*> json <|? "photo"
 			<*> json <|? "photos"
@@ -89,7 +89,7 @@ extension StoreItem.ItemType: Decodable {
 			case TypeString.digital.rawValue:
 				return curry(StoreItem.ItemType.digital)
 					<^> json <| ["free_download", "enabled"]
-					<*> json <| ["free_download", "require_follow"] <|> pure(false)
+					<*> (json <| ["free_download", "require_follow"] <|> pure(true))// pure(false)
 				
 			case TypeString.physical.rawValue:
 				return curry(StoreItem.ItemType.physical)
@@ -99,7 +99,7 @@ extension StoreItem.ItemType: Decodable {
 			case TypeString.bundle.rawValue:
 				return curry(StoreItem.ItemType.bundle)
 					<^> json <| "living_bundle"
-					<*> json <|| ["bundled_items", "store_items"] <|> pure([])
+					<*> (json <|| ["bundled_items", "store_items"] <|> pure([]))
 				
 			case TypeString.experience.rawValue:
 				return pure(StoreItem.ItemType.experience)
