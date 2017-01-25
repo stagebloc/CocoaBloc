@@ -405,7 +405,6 @@
 				090E110B1C008E9C0001C943 /* Frameworks */,
 				090E110C1C008E9C0001C943 /* Headers */,
 				090E110D1C008E9C0001C943 /* Resources */,
-				28C8EDA31E15EC950020C8D1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -521,23 +520,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Curry.framework",
 			);
 			name = "Copy Carthage Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-		28C8EDA31E15EC950020C8D1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Argo.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Curry.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Runes.framework",
-			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
