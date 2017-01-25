@@ -30,6 +30,7 @@ extension API {
 			case missingData			= "MissingData"
 			case invalidLogin			= "InvalidLogin"
 			case unauthorizedGrantType	= "UnauthorizedGrantType"
+			case error					= "Error"
 		}
 		
 		public let type: ErrorType
