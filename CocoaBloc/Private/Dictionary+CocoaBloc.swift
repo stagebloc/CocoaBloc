@@ -22,10 +22,14 @@ extension Dictionary {
 		return ret
 	}
 	
-	internal func filterEntriesWithNilValues() -> [Key: AnyObject] {
-		var ret = [Key: AnyObject]()
-		for (key, value) in self {
-			ret[key] = value as AnyObject
+	internal func filterEntriesWithNilValues() -> [Key: Value] {
+		var ret = [Key: Value]()
+		for key in keys {
+			if let val = self[key] {
+				if val as AnyObject !== NSNull() {
+					ret[key] = val
+				}
+			}
 		}
 		return ret
 	}

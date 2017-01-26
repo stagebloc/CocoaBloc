@@ -11,7 +11,7 @@ import Curry
 import Alamofire
 import Foundation
 
-extension Alamofire.DataRequest {
+extension DataRequest {
 	
 	@discardableResult
 	func cocoaBlocModelSerializer<T: Decodable>(
