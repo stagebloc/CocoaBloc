@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F1CFD0DB6B2FD1647E03019DA117856068862DC2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C58DF4F5AF818C3F08350621ED3BBC1728CE77EB" : 9223372036854775807,
+    "F1CFD0DB6B2FD1647E03019DA117856068862DC2" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4A3A603D-DB62-4B16-885F-5FB48ACA9C50",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C58DF4F5AF818C3F08350621ED3BBC1728CE77EB" : "..\/..",
+    "F1CFD0DB6B2FD1647E03019DA117856068862DC2" : "CocoaBloc\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CocoaBloc",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CocoaBloc.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/stagebloc\/checkout-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C58DF4F5AF818C3F08350621ED3BBC1728CE77EB"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/stagebloc\/CocoaBloc.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F1CFD0DB6B2FD1647E03019DA117856068862DC2"
+    }
+  ]
+}

@@ -44,12 +44,12 @@ extension API {
 			])
 	}
 	
-	public static func getStoreItemsForAccount(withIdentifier accountID: Int) -> Endpoint<[StoreItem]> {
+	public static func getStoreItemsForAccount(withIdentifier accountID: Int, limit: Int = 99999) -> Endpoint<[StoreItem]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/items",
 			method: .get,
 			parameters: [
-				"limit": 99999
+				"limit": limit
 			])
 	}
 	

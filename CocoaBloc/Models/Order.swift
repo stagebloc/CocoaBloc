@@ -43,6 +43,7 @@ public struct Order: Identifiable {
 		public let amount: Double
 		public let status: String
 		public let quantity: Int
+		public let sku: String
 		public let shipment: Order.Shipment?
 		public let item: Order.Item?
 	}

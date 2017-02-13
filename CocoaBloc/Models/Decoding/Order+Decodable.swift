@@ -62,6 +62,7 @@ extension Order.Transaction: Decodable {
 			<*> json <| "amount"
 			<*> json <| "status"
 			<*> json <| "quantity"
+			<*> json <| "sku"
 			<*> json <|? "shipment"
 			<*> json <|? "item"
 	}

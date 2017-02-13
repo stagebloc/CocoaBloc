@@ -18,5 +18,5 @@ public struct Account: Identifiable {
 	public let isVerified: Bool
 	public let photo: AccountPhoto?
 	public let color: RGBComponents
-	
+	public var hasStoreItems: Bool?
 }

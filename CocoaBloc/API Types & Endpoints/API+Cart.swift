@@ -95,26 +95,37 @@ extension API {
 	
 	public static func updateCart(
 		withSessionIdentifier cartSessionID: String,
-		                      shippingInfo: Shipping.Selection,
+		                      shippingInfo: Shipping.Selection?,
 		                      overrideShipping: Bool = false) -> Endpoint<Cart> {
 		let shippingTitle = overrideShipping ? "shipping_override" : "shipping_details"
+		if let shippingInfo = shippingInfo {
+			return Endpoint(
+				path: "cart/\(cartSessionID)",
+				method: .post,
+				parameters: [
+					"cart": [
+						"session_id": cartSessionID,
+	//					"pickup_override": overrideShipping,
+						shippingTitle: [
+							"order": [[
+								"fulfiller_id": shippingInfo.fulfillerID,
+								"price_handler_id": shippingInfo.handlerID,
+								"method_id": shippingInfo.methodID,
+								"price": shippingInfo.price,
+								"handling": shippingInfo.handlingPrice,
+							]]
+						]
+					]
+				])
+		}
 		return Endpoint(
 			path: "cart/\(cartSessionID)",
 			method: .post,
 			parameters: [
 				"cart": [
 					"session_id": cartSessionID,
-//					"pickup_override": overrideShipping,
-					shippingTitle: [
-						"order": [[
-							"fulfiller_id": shippingInfo.fulfillerID,
-							"price_handler_id": shippingInfo.handlerID,
-							"method_id": shippingInfo.methodID,
-							"price": shippingInfo.price,
-							"handling": shippingInfo.handlingPrice,
-						]]
-					]
-				]
+					//					"pickup_override": overrideShipping,
+					shippingTitle: nil]
 			])
 	}
 	
@@ -179,6 +190,7 @@ extension API {
 			case cash
 			case giftCard
 			case stripe(token: String)
+			case credit
 		}
 		
 		public var type: PaymentType
@@ -194,6 +206,8 @@ extension API {
 			case .stripe(let token):
 				value["payment_processor"] = "STRIPE" as AnyObject?
 				value["token"] = token as AnyObject?
+			case .credit:
+				value["payment_processor"] = "credit" as AnyObject?
 			}
 			return value
 		}

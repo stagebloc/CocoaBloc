@@ -111,6 +111,7 @@
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		2842929F1DCD084A007087C8 /* StoreDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDashboard.swift; sourceTree = "<group>"; };
 		284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StoreDashboard+Decodable.swift"; sourceTree = "<group>"; };
+		28EE9AAF1E39B4A0005DBF83 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		5285EDD01D1F84140054AEE9 /* ExpandableArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableArray.swift; sourceTree = "<group>"; };
 		5285EDD21D1F85590054AEE9 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		5285EDD41D1F8C0D0054AEE9 /* ImageURLSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageURLSet.swift; sourceTree = "<group>"; };
@@ -236,6 +237,7 @@
 				97948A6D1CF51C8000D521BD /* Resources */,
 				97948A6B1CF51C5000D521BD /* AuthenticationState.swift */,
 				0994C23A1C012ED500EE0706 /* Client.swift */,
+				28EE9AAF1E39B4A0005DBF83 /* Playground.playground */,
 			);
 			path = CocoaBloc;
 			sourceTree = "<group>";

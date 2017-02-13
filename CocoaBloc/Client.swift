@@ -41,7 +41,8 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 	
 	public func request<Serialized>(
 		_ endpoint: Endpoint<Serialized>,
-		expansions: [API.ExpandableValue] = []) -> Alamofire.DataRequest {
+		expansions: [API.ExpandableValue] = [],
+		cached: Bool = false) -> Alamofire.DataRequest {
 		var params: [String: Any] = [
 			"expand": (expansions + endpoint.expansions)
 						.map { $0.rawValue }
@@ -51,31 +52,47 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		if !authenticationStateContainer.state.isAuthenticated {
 			params["client_id"] = clientID as String?
 		}
-
-		let request = manager.request(
-			baseURL.appendingPathComponent(endpoint.path),
-			method: endpoint.method,
-			parameters: params,
-			encoding: (endpoint.method == .post) ? JSONEncoding.default: URLEncoding.default,
-			headers: authenticationStateContainer.state.token.map { token in
-							return ["Authorization": "Token token=\"\(token)\""]
-			}
-		)
+		
+		var originalRequest: URLRequest?
+		let encoding: ParameterEncoding = (endpoint.method == .post) ? JSONEncoding.default: URLEncoding.default
+		var urlRequest: DataRequest?
+		
+		do {
+			originalRequest = try URLRequest(url: baseURL.appendingPathComponent(endpoint.path),
+					method: endpoint.method,
+					headers: authenticationStateContainer.state.token.map { token in
+				return ["Authorization": "Token token=\"\(token)\""]
+			})
+			originalRequest?.cachePolicy = cached ? .returnCacheDataElseLoad : .useProtocolCachePolicy
+			let encodedURLRequest = try encoding.encode(originalRequest!, with: params)
+			urlRequest = manager.request(encodedURLRequest)
+		} catch {
+			return manager.request(
+				baseURL.appendingPathComponent(endpoint.path),
+				method: endpoint.method,
+				parameters: params,
+				encoding: (endpoint.method == .post) ? JSONEncoding.default: URLEncoding.default,
+				headers: authenticationStateContainer.state.token.map { token in
+					return ["Authorization": "Token token=\"\(token)\""]
+				}
+			)
+		}
 
 		if Serialized.self == AuthenticationState.self {
-			request.cocoaBlocModelSerializer(keyPath: endpoint.keyPath) { [weak self] (response: DataResponse<AuthenticationState>) in
+			urlRequest?.cocoaBlocModelSerializer(keyPath: endpoint.keyPath) { [weak self] (response: DataResponse<AuthenticationState>) in
 			self?.authenticationStateContainer.state = response.result.value ?? .unauthenticated
 			}
 		}
 		
-		return request
+		return urlRequest!
 	}
 	
 	public func request<Serialized: Decodable>(
 		_ endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
+		cached: Bool = false,
 		completion: @escaping (DataResponse<Serialized>) -> Void) -> Alamofire.DataRequest where Serialized.DecodedType == Serialized {
-		let req = self.request(endpoint, expansions: expansions)
+		let req = self.request(endpoint, expansions: expansions, cached: cached)
 		debugPrint(req)
 		
 		return req.cocoaBlocModelSerializer(keyPath: endpoint.keyPath, completionHandler: completion)
@@ -84,8 +101,9 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 	public func request<Serialized: Decodable>(
 		_ endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
+		cached: Bool = false,
 		completion: @escaping (DataResponse<[Serialized]>) -> Void) -> Alamofire.DataRequest where Serialized.DecodedType == Serialized {
-		let req = request(endpoint, expansions: expansions)
+		let req = request(endpoint, expansions: expansions, cached: cached)
 		debugPrint(req)
 		
 		return req.cocoaBlocModelSerializer(

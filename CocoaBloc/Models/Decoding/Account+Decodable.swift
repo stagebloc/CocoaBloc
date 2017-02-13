@@ -24,6 +24,7 @@ extension Account: Decodable {
 			<*> json <| "verified"
 			<*> json <|? "photo"
 			<*> json <| "color"
+			<*> json <|? "hasStoreItems"
 	}
 	
 }
