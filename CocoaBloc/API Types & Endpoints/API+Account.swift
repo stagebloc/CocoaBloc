@@ -42,11 +42,11 @@ extension API {
 			path: "account/\(accountID)",
 			method: .post,
 			parameters: [
-				"name"          : name,
-				"description"   : description,
-				"stagebloc_url" : url,
-				"type"          : type?.rawValue,
-				"color"         : color?.rawValue
+				"name"          : name as Any,
+				"description"   : description as Any,
+				"stagebloc_url" : url as Any,
+				"type"          : type?.rawValue as Any,
+				"color"         : color?.rawValue as Any
 			].filterEntriesWithNilValues()
 		)
 	}

@@ -19,8 +19,8 @@ extension API {
 				method: .post,
 				parameters: [
 					"cart": [
-						"email": email,
-						"user_id": userID,
+						"email": email as Any,
+						"user_id": userID as Any,
 						"addresses": venue.map { address in
 							return [
 								"shipping": [
@@ -33,7 +33,7 @@ extension API {
 									"country": address.country
 								]
 							]
-						}
+						} as Any
 						].filterEntriesWithNilValues()
 				])
 		} else {
@@ -42,8 +42,8 @@ extension API {
 				method: .post,
 				parameters: [
 					"cart": [
-						"email": email,
-						"user_id": userID
+						"email": email as Any,
+						"user_id": userID as Any
 						].filterEntriesWithNilValues()
 				])
 		}
@@ -60,7 +60,7 @@ extension API {
 				parameters: [
 					"cart": [
 						"session_id": cartSessionID,
-						"email": newEmail,
+						"email": newEmail as Any,
 						"addresses": [
 							"shipping_id": identifier
 							].filterEntriesWithNilValues()
@@ -73,7 +73,7 @@ extension API {
 				parameters: [
 					"cart": [
 						"session_id": cartSessionID,
-						"email": newEmail,
+						"email": newEmail as Any,
 						"addresses": newShippingAddress.map { address in
 							return [
 								"shipping": [
@@ -86,7 +86,7 @@ extension API {
 									"country": address.country
 								]
 							]
-						}
+						} as Any
 						].filterEntriesWithNilValues()
 				]
 			)
@@ -162,8 +162,8 @@ extension API {
 				"item": ([
 					"type": "store",
 					"id": storeItemID,
-					"sku": sku,
-					"quantity": quantity
+					"sku": sku as Any,
+					"quantity": quantity as Any
 				]).filterEntriesWithNilValues()
 			])
 	}

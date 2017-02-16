@@ -85,13 +85,13 @@ extension API {
 			path: "users/me",
 			method: .post,
 			parameters: [
-				"bio"       : bio,
-				"birthday"  : birthday,
-				"email"     : email,
-				"name"      : name,
-				"username"  : username,
-				"gender"    : gender?.rawValue,
-				"color"     : color?.rawValue
+				"bio"       : bio as Any,
+				"birthday"  : birthday as Any,
+				"email"     : email as Any,
+				"name"      : name as Any,
+				"username"  : username as Any,
+				"gender"    : gender?.rawValue as Any,
+				"color"     : color?.rawValue as Any
 			].filterEntriesWithNilValues())
 	}
 	
@@ -121,11 +121,11 @@ extension API {
 			parameters: [
 				"email"     : email,
 				"name"      : name,
-				"bio"       : bio,
+				"bio"       : bio as Any,
 				"password"  : password,
 				"birthday"  : df.string(from: birthday),
 				"gender"    : gender.rawValue,
-				"source_account_id" : sourceAccountID
+				"source_account_id" : sourceAccountID as Any
 			].filterEntriesWithNilValues(),
 			keyPath: "data")
 	}
