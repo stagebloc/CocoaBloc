@@ -12,31 +12,31 @@ Extends SBContentStreamObject to allow it to be be used in API targets that requ
 
 Ex: API.LikeContent(mySBPhoto)
 */
-//public extension SBContentStreamObject: ContentType {
-//	
-//	public var contentID: Int {
-//		return identifier.integerValue
-//	}
-//	
-//	public var postedAccountID: Int {
-//		return accountID.integerValue
-//	}
-//	
-//	public var contentType: API.ContentTypeIdentifier {
-//		switch self {
-//		case is SBPhoto:
-//			return .Photo
-//		case is SBBlog:
-//			return .Blog
-//		case is SBStatus:
-//			return .Status
-//		case is SBAudio:
-//			return .Audio
-//		case is SBVideo:
-//			return .Video
-//		case is SBEvent:
-//			return .Event
-//		}
-//	}
-//	
-//}
+public extension SBContentStreamObject: ContentType {
+	
+	public var contentID: Int {
+		return identifier.integerValue
+	}
+	
+	public var postedAccountID: Int {
+		return accountID.integerValue
+	}
+	
+	public var contentType: API.ContentTypeIdentifier {
+		switch self {
+		case is SBPhoto:
+			return .Photo
+		case is SBBlog:
+			return .Blog
+		case is SBStatus:
+			return .Status
+		case is SBAudio:
+			return .Audio
+		case is SBVideo:
+			return .Video
+		case is SBEvent:
+			return .Event
+		}
+	}
+	
+}
