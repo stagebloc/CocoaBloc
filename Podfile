@@ -12,6 +12,7 @@ target 'CocoaBloc' do
   pod 'Runes'
   pod 'Argo'
   pod 'Curry'
+  pod 'ReactiveCocoa', '~> 5.0.0'
   
   target 'CocoaBlocTests' do
     inherit! :search_paths

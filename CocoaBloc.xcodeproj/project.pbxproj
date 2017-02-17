@@ -16,6 +16,8 @@
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
 		284292A01DCD084A007087C8 /* StoreDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842929F1DCD084A007087C8 /* StoreDashboard.swift */; };
 		284292A21DCD085F007087C8 /* StoreDashboard+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */; };
+		288D75FA1E564908003FB4E5 /* ReactiveAuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D75F61E564908003FB4E5 /* ReactiveAuthenticationState.swift */; };
+		288D75FB1E564908003FB4E5 /* ReactiveClientRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D75F71E564908003FB4E5 /* ReactiveClientRequests.swift */; };
 		5285EDD11D1F84140054AEE9 /* ExpandableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285EDD01D1F84140054AEE9 /* ExpandableArray.swift */; };
 		5285EDD31D1F85590054AEE9 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285EDD21D1F85590054AEE9 /* Identifiable.swift */; };
 		5285EDD51D1F8C0D0054AEE9 /* ImageURLSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5285EDD41D1F8C0D0054AEE9 /* ImageURLSet.swift */; };
@@ -108,6 +110,8 @@
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		2842929F1DCD084A007087C8 /* StoreDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDashboard.swift; sourceTree = "<group>"; };
 		284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StoreDashboard+Decodable.swift"; sourceTree = "<group>"; };
+		288D75F61E564908003FB4E5 /* ReactiveAuthenticationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveAuthenticationState.swift; sourceTree = "<group>"; };
+		288D75F71E564908003FB4E5 /* ReactiveClientRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveClientRequests.swift; sourceTree = "<group>"; };
 		28EE9AAF1E39B4A0005DBF83 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		38E992AA240652589ED92744 /* Pods-CocoaBlocTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaBlocTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaBlocTests/Pods-CocoaBlocTests.release.xcconfig"; sourceTree = "<group>"; };
 		44DA2AA3F83977D6FAF5BD81 /* Pods_CocoaBloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaBloc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +209,7 @@
 		090E11051C008E9C0001C943 = {
 			isa = PBXGroup;
 			children = (
+				288D75F41E564908003FB4E5 /* ReactiveCocoaBloc */,
 				090E11111C008E9C0001C943 /* CocoaBloc */,
 				090E111D1C008E9C0001C943 /* CocoaBlocTests */,
 				97841A741CE8DB1E00F9804C /* Dependencies */,
@@ -311,6 +316,15 @@
 				5285EDD21D1F85590054AEE9 /* Identifiable.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		288D75F41E564908003FB4E5 /* ReactiveCocoaBloc */ = {
+			isa = PBXGroup;
+			children = (
+				288D75F61E564908003FB4E5 /* ReactiveAuthenticationState.swift */,
+				288D75F71E564908003FB4E5 /* ReactiveClientRequests.swift */,
+			);
+			path = ReactiveCocoaBloc;
 			sourceTree = "<group>";
 		};
 		973D79651D4C98C90097742F /* Decoding */ = {
@@ -671,9 +685,11 @@
 				971EC2DF1D19A5B400EDCC30 /* RGBComponents.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,
 				97948A9B1CF815B200D521BD /* UserPhoto.swift in Sources */,
+				288D75FA1E564908003FB4E5 /* ReactiveAuthenticationState.swift in Sources */,
 				973D79671D4C98DD0097742F /* Account+Decodable.swift in Sources */,
 				973D796D1D4C99880097742F /* Blog+Decodable.swift in Sources */,
 				97948A8E1CF53E0800D521BD /* Event.swift in Sources */,
+				288D75FB1E564908003FB4E5 /* ReactiveClientRequests.swift in Sources */,
 				97948A8C1CF53CE600D521BD /* Video.swift in Sources */,
 				97CD391D1D3AEE2B0076C0D0 /* API+Address.swift in Sources */,
 				0925DFC51C053B9A00BD43E0 /* Dictionary+CocoaBloc.swift in Sources */,

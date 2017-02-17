@@ -16,10 +16,18 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => 'https://github.com/stagebloc/CocoaBloc.git', :branch => 'v2/cocoapod', :tag => s.version.to_s }
 
-  s.source_files  = "CocoaBloc/**/*.{swift,h,m}"
-  s.public_header_files = "CocoaBloc/**/*.h"
-  s.exclude_files = ["CocoaBloc/Extensions/SBContentStreamObject+ContentType.swift", "CocoaBloc/API Types & Endpoints/API+Content.swift", "CocoaBloc/API Types & Endpoints/API+FanClub.swift", "CocoaBloc/API Types & Endpoints/API+User.swift", "CocoaBloc/**/Audio.swift", "CocoaBloc/**/Audio*.swift"]
+  s.subspec 'Core' do |ss|
+    ss.source_files = "CocoaBloc/**/*.{swift,h,m}"
+    ss.public_header_files = "CocoaBloc/**/*.h"
+    ss.exclude_files = ["CocoaBloc/Extensions/SBContentStreamObject+ContentType.swift", "CocoaBloc/API Types & Endpoints/API+Content.swift", "CocoaBloc/API Types & Endpoints/API+FanClub.swift", "CocoaBloc/API Types & Endpoints/API+User.swift", "CocoaBloc/**/Audio.swift", "CocoaBloc/**/Audio*.swift", "*ReactiveCocoaBloc*"]
+  end
 
+
+  s.subspec 'ReactiveCocoaBloc' do |ss|
+    ss.source_files = 'ReactiveCocoaBloc/**/*.{swift}'
+    ss.dependency 'ReactiveCocoa', '~> 5.0.0'
+    ss.dependency 'CocoaBloc/Core'
+  end
 
    s.requires_arc = true
    s.frameworks = "Foundation"
