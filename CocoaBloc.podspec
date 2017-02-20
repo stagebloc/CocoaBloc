@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |ss|
     ss.source_files = "CocoaBloc/**/*.{swift,h,m}"
     ss.public_header_files = "CocoaBloc/**/*.h"
-    ss.exclude_files = ["CocoaBloc/Extensions/SBContentStreamObject+ContentType.swift", "CocoaBloc/API Types & Endpoints/API+Content.swift", "CocoaBloc/API Types & Endpoints/API+FanClub.swift", "CocoaBloc/API Types & Endpoints/API+User.swift", "CocoaBloc/**/Audio.swift", "CocoaBloc/**/Audio*.swift", "*ReactiveCocoaBloc*"]
+    ss.exclude_files = ["CocoaBloc/Extensions/SBContentStreamObject+ContentType.swift", "CocoaBloc/API Types & Endpoints/API+Content.swift", "CocoaBloc/API Types & Endpoints/API+FanClub.swift", "CocoaBloc/**/Audio.swift", "CocoaBloc/**/Audio*.swift", "*ReactiveCocoaBloc*"]
   end
 
 
