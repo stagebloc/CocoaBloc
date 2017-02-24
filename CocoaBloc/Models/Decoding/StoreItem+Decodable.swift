@@ -21,10 +21,10 @@ extension StoreItem: Decodable {
 				return .missingKey("price")
 			}
 		}
+		let type: Decoded<StoreItem.ItemType> = ItemType.decode(json)
 		
 		let a = curry(StoreItem.init)
 			<^> json <| "id"
-//			<*> ItemType.decode(json)
 			<*> json <| "account"
 			<*> json <| "title"
 			<*> json <| "short_url"
@@ -33,10 +33,10 @@ extension StoreItem: Decodable {
 			<*> json <| "exclusive"
 			<*> json <| "featured"
 		return a
-			<*> json <| "created"
-			<*> json <| "created_by"
-			<*> json <| "modified"
-			<*> json <| "modified_by"
+//			<*> json <| "created"
+//			<*> json <| "created_by"
+//			<*> json <| "modified"
+//			<*> json <| "modified_by"
 			<*> json <|? "category"
 			<*> Decoded<Sale>.optional(Sale.decode(json))
 			<*> (json <|| "tags" <|> pure([]))
@@ -45,6 +45,7 @@ extension StoreItem: Decodable {
 			<*> price
 			<*> json <|? "photo"
 			<*> json <|? "photos"
+			<*> type
 	}
 
 }
@@ -85,26 +86,26 @@ extension StoreItem.ItemType: Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreItem.ItemType> {
 		return json <| "type" >>- { (typeStr: String) in
-			switch typeStr {
-			case TypeString.digital.rawValue:
+			switch TypeString(rawValue: typeStr) ?? .error {
+			case .digital:
 				return curry(StoreItem.ItemType.digital)
 					<^> json <| ["free_download", "enabled"]
 					<*> (json <| ["free_download", "require_follow"] <|> pure(true))// pure(false)
 				
-			case TypeString.physical.rawValue:
+			case .physical:
 				return curry(StoreItem.ItemType.physical)
 					<^> json <|| "shipping_price_handlers"
 					<*> json <|? "fulfiller"
 				
-			case TypeString.bundle.rawValue:
+			case .bundle:
 				return curry(StoreItem.ItemType.bundle)
 					<^> json <| "living_bundle"
 					<*> (json <|| ["bundled_items", "store_items"] <|> pure([]))
 				
-			case TypeString.experience.rawValue:
+			case .experience:
 				return pure(StoreItem.ItemType.experience)
 				
-			case TypeString.giftCard.rawValue:
+			case .giftCard:
 				return pure(StoreItem.ItemType.giftCard)
 				
 			default:

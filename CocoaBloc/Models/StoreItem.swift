@@ -41,6 +41,7 @@ public struct StoreItem: Identifiable {
 			case bundle		= "bundle"
 			case experience = "experience"
 			case giftCard	= "gift card"
+			case error		= "error"
 		}
 	}
 	
@@ -62,7 +63,6 @@ public struct StoreItem: Identifiable {
 	// MARK: Properties
 	
 	public let identifier: Int
-//	public let type: ItemType
 	public let account: Expandable<Account>
 	public let title: String
 	public let shortURL: URL
@@ -70,10 +70,10 @@ public struct StoreItem: Identifiable {
 	public let isSoldOut: Bool
 	public let isExclusive: Bool
 	public let isFeatured: Bool
-	public let creationDate: Date
-	public let creator: Expandable<User>
-	public let modificationDate: Date
-	public let modifier: Expandable<User>
+//	public let creationDate: Date
+//	public let creator: Expandable<User>
+//	public let modificationDate: Date
+//	public let modifier: Expandable<User>
 	public let category: String?
 	public let sale: Sale?
 	public let tags: [String]
@@ -82,24 +82,29 @@ public struct StoreItem: Identifiable {
 	public let priceUSD: Double
 	public let coverPhoto: Expandable<AccountPhoto>?
 	public let photos: ExpandableArray<AccountPhoto>?
+	public let type: ItemType
 	
 	public var productIsOnSale: Bool {
-		if let sale = sale {
-			let now = Foundation.Date()
-			return (sale.startDate as NSDate).earlierDate(now) == sale.startDate
-				&& (sale.endDate as NSDate).laterDate(now) == sale.endDate
-		} else { return false }
+		get {
+			if let sale = sale {
+				let now = Foundation.Date()
+				return (sale.startDate as NSDate).earlierDate(now) == sale.startDate
+					&& (sale.endDate as NSDate).laterDate(now) == sale.endDate
+			} else { return false }
+		}
 	}
 	
 	public var productSalePrice: Double {
-		if let sale = sale {
-			switch sale.type {
-			case .amount(let amount):
-				return priceUSD - amount
-			case .percentage(let percentage):
-				return priceUSD * (100.0 - percentage) / 100.0
-			}
-		} else { return priceUSD }
+		get {
+			if let sale = sale {
+				switch sale.type {
+				case .amount(let amount):
+					return priceUSD - amount
+				case .percentage(let percentage):
+					return priceUSD * (100.0 - percentage) / 100.0
+				}
+			} else { return priceUSD }
+		}
 	}
 	
 }
