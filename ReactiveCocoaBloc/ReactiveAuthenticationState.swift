@@ -6,7 +6,6 @@
 //  Copyright © 2016 StageBloc. All rights reserved.
 //
 
-import CocoaBloc
 import ReactiveSwift
 
 public typealias ReactiveClient = Client<ReactiveAuthenticationStateContainer>

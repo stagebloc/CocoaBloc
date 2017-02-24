@@ -8,7 +8,6 @@
 
 import Alamofire
 import Argo
-import CocoaBloc
 import ReactiveSwift
 
 extension Client {

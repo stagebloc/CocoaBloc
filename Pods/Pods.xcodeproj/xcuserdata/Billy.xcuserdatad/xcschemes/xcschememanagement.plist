@@ -29,6 +29,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReactiveCocoa.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReactiveSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Result.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Runes.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,7 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>45245270E6D919153D24E7DE7492DD40</key>
+		<key>54E2379F92BA3AFC714F8F6A9B03C52B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +72,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>60B41A74BABB38BA3E90FC04B5CB6B45</key>
+		<key>697E42CF7F49D3E1BC9A237AF0CD313B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7E724CDB6CCDAC3B1A06B2F317B1DC95</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A36F333B624A097519E9A647C72EFFC7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DCA1582DAF91516086C5C88DE88814F8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
