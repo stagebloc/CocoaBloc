@@ -107,4 +107,15 @@ public struct StoreItem: Identifiable {
 		}
 	}
 	
+	public var productCoverPhoto: ExpandableArray<AccountPhoto>? {
+		get {
+			if let coverPhoto = coverPhoto {
+				return ExpandableArray<AccountPhoto>.expanded([coverPhoto.value!])
+			} else if case .bundle(_, let items) = type {
+				return ExpandableArray<AccountPhoto>.expanded(items.filter { $0.coverPhoto != nil && $0.coverPhoto!.value != nil }.map { $0.coverPhoto!.value! })
+			}
+			return nil
+		}
+	}
+	
 }
