@@ -56,13 +56,14 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		var originalRequest: URLRequest?
 		let encoding: ParameterEncoding = (endpoint.method == .post) ? JSONEncoding.default: URLEncoding.default
 		var urlRequest: DataRequest?
-		
+
 		do {
 			originalRequest = try URLRequest(url: baseURL.appendingPathComponent(endpoint.path),
 					method: endpoint.method,
-					headers: authenticationStateContainer.state.token.map { token in
+					headers: endpoint.header + (authenticationStateContainer.state.token.map { token in
 				return ["Authorization": "Token token=\"\(token)\""]
-			})
+						} ?? [:])
+				)
 			originalRequest?.cachePolicy = cached ? .returnCacheDataElseLoad : .useProtocolCachePolicy
 			let encodedURLRequest = try encoding.encode(originalRequest!, with: params)
 			urlRequest = manager.request(encodedURLRequest)
@@ -72,9 +73,9 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 				method: endpoint.method,
 				parameters: params,
 				encoding: (endpoint.method == .post) ? JSONEncoding.default: URLEncoding.default,
-				headers: authenticationStateContainer.state.token.map { token in
+				headers: endpoint.header + (authenticationStateContainer.state.token.map { token in
 					return ["Authorization": "Token token=\"\(token)\""]
-				}
+				} ?? [:])
 			)
 		}
 

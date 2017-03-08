@@ -10,12 +10,12 @@ import Foundation
 
 extension API {
 	
-	public struct ContentStreamFilter: OptionSetType {
-		public static let fan = ContentStreamFilter(rawValue: 1 << 0)
-		public static let official = ContentStreamFilter(rawValue: 1 << 1)
-		public static let includingAdminAccounts = ContentStreamFilter(rawValue: 1 << 2)
-		public static let all: ContentStreamFilter = [fan, official, includingAdminAccounts]
-	}
+//	public struct ContentStreamFilter: OptionSetType {
+//		public static let fan = ContentStreamFilter(rawValue: 1 << 0)
+//		public static let official = ContentStreamFilter(rawValue: 1 << 1)
+//		public static let includingAdminAccounts = ContentStreamFilter(rawValue: 1 << 2)
+//		public static let all: ContentStreamFilter = [fan, official, includingAdminAccounts]
+//	}
 	
 //	public static func getFanClubDashboard(accountID: Int) -> Endpoint<SBFanClubDashboard> {
 //		return Endpoint(
@@ -59,7 +59,7 @@ extension API {
 	public static func getFanClub(accountID: Int) -> Endpoint<FanClub> {
 		return Endpoint(
 			path: "account/\(accountID)/fanclub",
-			method: .GET)
+			method: .get)
 	}
 	
 //	public static func getFanClubContent(accountID: Int) -> Endpoint<[SBContentStreamObject]> {

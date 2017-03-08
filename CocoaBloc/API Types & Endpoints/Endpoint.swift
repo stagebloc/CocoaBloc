@@ -19,6 +19,7 @@ public struct Endpoint<Serialized> {
 	public let method: Alamofire.HTTPMethod
 	public let formData: [FormDataPart]?
 	public var parameters: [String:Any]
+	public var header: [String:String]
 	
 	/// Types of objects this endpoint wants expanded from identifiers to full models
 	public var expansions: [API.ExpandableValue]
@@ -31,12 +32,14 @@ public struct Endpoint<Serialized> {
 		method: Alamofire.HTTPMethod,
 		expansions: [API.ExpandableValue] = [],
 		parameters: [String:Any] = [:],
+		header: [String:String] = [:],
 		keyPath: String = "data",
 		formData: [FormDataPart]? = nil) {
 		self.path = path
 		self.method = method
 		self.expansions = expansions
 		self.parameters = parameters
+		self.header = header
 		self.keyPath = keyPath
 		self.formData = formData
 	}

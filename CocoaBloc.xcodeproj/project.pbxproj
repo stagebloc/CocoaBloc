@@ -14,6 +14,9 @@
 		092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C01CA1C31D2EA00B81777 /* Endpoint.swift */; };
 		098DC4201C1F64380084AE45 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DC41B1C1F64380084AE45 /* ContentType.swift */; };
 		0994C23B1C012ED500EE0706 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0994C23A1C012ED500EE0706 /* Client.swift */; };
+		281D019D1E6F3F33007EE40F /* API+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D019C1E6F3F33007EE40F /* API+Device.swift */; };
+		281D019F1E6F3F6A007EE40F /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D019E1E6F3F6A007EE40F /* Device.swift */; };
+		281D01A11E6F3F7D007EE40F /* Device+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D01A01E6F3F7D007EE40F /* Device+Decodable.swift */; };
 		284292A01DCD084A007087C8 /* StoreDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842929F1DCD084A007087C8 /* StoreDashboard.swift */; };
 		284292A21DCD085F007087C8 /* StoreDashboard+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */; };
 		288D75FA1E564908003FB4E5 /* ReactiveAuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D75F61E564908003FB4E5 /* ReactiveAuthenticationState.swift */; };
@@ -108,6 +111,9 @@
 		098DC4191C1F64380084AE45 /* SBContentStreamObject+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SBContentStreamObject+ContentType.swift"; sourceTree = "<group>"; };
 		098DC41B1C1F64380084AE45 /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0994C23A1C012ED500EE0706 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		281D019C1E6F3F33007EE40F /* API+Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Device.swift"; sourceTree = "<group>"; };
+		281D019E1E6F3F6A007EE40F /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		281D01A01E6F3F7D007EE40F /* Device+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+Decodable.swift"; sourceTree = "<group>"; };
 		2842929F1DCD084A007087C8 /* StoreDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDashboard.swift; sourceTree = "<group>"; };
 		284292A11DCD085F007087C8 /* StoreDashboard+Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StoreDashboard+Decodable.swift"; sourceTree = "<group>"; };
 		288D75F61E564908003FB4E5 /* ReactiveAuthenticationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveAuthenticationState.swift; sourceTree = "<group>"; };
@@ -272,6 +278,7 @@
 				97948A701CF51D0A00D521BD /* Blog.swift */,
 				97CD391E1D3AEF180076C0D0 /* Cart.swift */,
 				97948A721CF51D2100D521BD /* Comment.swift */,
+				281D019E1E6F3F6A007EE40F /* Device.swift */,
 				97948A8D1CF53E0800D521BD /* Event.swift */,
 				97948A851CF5388A00D521BD /* FanClub.swift */,
 				5285EDD41D1F8C0D0054AEE9 /* ImageURLSet.swift */,
@@ -336,6 +343,7 @@
 				973D796C1D4C99880097742F /* Blog+Decodable.swift */,
 				973D796E1D4C99D80097742F /* Cart+Decodable.swift */,
 				973D79701D4C9A970097742F /* Comment+Decodable.swift */,
+				281D01A01E6F3F7D007EE40F /* Device+Decodable.swift */,
 				973D79721D4C9A9E0097742F /* Event+Decodable.swift */,
 				973D79741D4C9AAD0097742F /* FanClub+Decodable.swift */,
 				973D79761D4C9AB40097742F /* ImageURLSet+Decodable.swift */,
@@ -377,6 +385,7 @@
 				81F35F811C285A0B002B9D74 /* API+Comment.swift */,
 				81F35F7D1C2859B7002B9D74 /* API+Content.swift */,
 				81F35F871C285A83002B9D74 /* API+Coupon.swift */,
+				281D019C1E6F3F33007EE40F /* API+Device.swift */,
 				973D79881D4CB3F70097742F /* API+Error.swift */,
 				81F35F851C285A5A002B9D74 /* API+FanClub.swift */,
 				81F35F831C285A35002B9D74 /* API+Store.swift */,
@@ -643,6 +652,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				281D019D1E6F3F33007EE40F /* API+Device.swift in Sources */,
 				973D796F1D4C99D80097742F /* Cart+Decodable.swift in Sources */,
 				97948A711CF51D0A00D521BD /* Blog.swift in Sources */,
 				5285EDD51D1F8C0D0054AEE9 /* ImageURLSet.swift in Sources */,
@@ -677,10 +687,12 @@
 				973D79731D4C9A9E0097742F /* Event+Decodable.swift in Sources */,
 				092C01CB1C31D2EA00B81777 /* Endpoint.swift in Sources */,
 				97948A931CF772EF00D521BD /* API+Store.swift in Sources */,
+				281D01A11E6F3F7D007EE40F /* Device+Decodable.swift in Sources */,
 				973D79791D4C9B200097742F /* Order+Decodable.swift in Sources */,
 				973D79811D4CA17B0097742F /* User+Decodable.swift in Sources */,
 				97003B9F1D5023BC00AC21C0 /* URL.swift in Sources */,
 				81F35F8A1C285ABB002B9D74 /* API.swift in Sources */,
+				281D019F1E6F3F6A007EE40F /* Device.swift in Sources */,
 				81F35F801C2859E2002B9D74 /* API+Account.swift in Sources */,
 				971EC2DF1D19A5B400EDCC30 /* RGBComponents.swift in Sources */,
 				0994C23B1C012ED500EE0706 /* Client.swift in Sources */,

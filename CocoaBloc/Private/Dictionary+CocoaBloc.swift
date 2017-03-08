@@ -36,10 +36,10 @@ extension Dictionary {
 	
 }
 
-internal func += <Key: Hashable, Value>(lhs: inout [Key:Value], rhs: [Key:Value]) {
+func += <Key: Hashable, Value>(lhs: inout [Key:Value], rhs: [Key:Value]) {
 	lhs.addEntries(rhs)
 }
 
-internal func + <Key: Hashable, Value>(lhs: [Key:Value], rhs: [Key:Value]) -> [Key:Value] {
+func + <Key: Hashable, Value>(lhs: [Key:Value], rhs: [Key:Value]) -> [Key:Value] {
 	return lhs.withEntries(rhs)
 }

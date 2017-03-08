@@ -190,6 +190,7 @@ extension API {
 			case cash
 			case giftCard
 			case stripe(token: String)
+			case stripeCharge(id: String)
 			case credit
 		}
 		
@@ -206,6 +207,9 @@ extension API {
 			case .stripe(let token):
 				value["payment_processor"] = "STRIPE" as AnyObject?
 				value["token"] = token as AnyObject?
+			case .stripeCharge(let id):
+				value["payment_processor"] = "STRIPE" as AnyObject?
+				value["charge_id"] = id as AnyObject?
 			case .credit:
 				value["payment_processor"] = "credit" as AnyObject?
 			}
@@ -223,7 +227,9 @@ extension API {
 		withSessionIdentifier cartSessionID: String,
 		payments: [Payment],
 		tax: Double? = nil,
-		phone: String? = nil) -> Endpoint<[Order]> {
+		phone: String? = nil,
+		deviceID: String = "",
+		offline: Bool = false) -> Endpoint<[Order]> {
 		var parameters: [String: Any] = ["payments": payments.map { $0.json }]
 		if let tax = tax {
 			parameters.updateValue(tax, forKey: "tax_override")
@@ -234,7 +240,9 @@ extension API {
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
 			method: .post,
-			parameters: parameters)
+			parameters: parameters,
+			header: ["x-application-device-identifier": deviceID,
+			         "x-application-mode": offline ? "offline" : "online"])
 	}
 	
 }
