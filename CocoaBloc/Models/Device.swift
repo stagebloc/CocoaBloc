@@ -9,4 +9,9 @@
 public struct Device {
 	public let identifier: String
 	public let label: String
+	
+	public init(identifier: String, label: String) {
+		self.identifier = identifier
+		self.label = label
+	}
 }
