@@ -76,11 +76,26 @@ extension Cart.Item: Decodable {
 extension Cart.Totals: Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Cart.Totals> {
+		let share: Decoded<Double?> = .optional(decodedJSON(json, forKey: "revenue_share").flatMap { priceJSON in
+			switch priceJSON {
+			case .object(let shareJSON):
+				if let (_, result) = shareJSON.first {
+					if case .number(let shareNumber) = result {
+						return .success(Double(shareNumber))
+					}
+					return .success(0.0)
+				}
+				return .success(0.0)
+			default:
+				return .missingKey("price")
+			}
+		})
 		return curry(Cart.Totals.init)
 			<^> json <| "items"
 			<*> json <| "subtotal"
 			<*> json <| "total"
 			<*> json <| "shipping"
+			<*> share
 			<*> json <|? "taxes"
 	}
 	

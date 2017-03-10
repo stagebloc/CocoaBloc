@@ -29,6 +29,7 @@ public struct Cart: Identifiable {
 		public let subtotal: Double
 		public let total: Double
 		public let shipping: Double
+		public let revenueShare: Double?
 		public let taxes: Double?
 	}
 	

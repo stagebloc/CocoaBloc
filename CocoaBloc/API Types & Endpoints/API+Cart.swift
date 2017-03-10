@@ -105,7 +105,6 @@ extension API {
 				parameters: [
 					"cart": [
 						"session_id": cartSessionID,
-	//					"pickup_override": overrideShipping,
 						shippingTitle: [
 							"order": [[
 								"fulfiller_id": shippingInfo.fulfillerID,
@@ -124,7 +123,6 @@ extension API {
 			parameters: [
 				"cart": [
 					"session_id": cartSessionID,
-					//					"pickup_override": overrideShipping,
 					shippingTitle: nil]
 			])
 	}
