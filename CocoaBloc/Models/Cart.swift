@@ -30,6 +30,7 @@ public struct Cart: Identifiable {
 		public let total: Double
 		public let shipping: Double
 		public let revenueShare: Double?
+		public let couponDiscount: Double
 		public let taxes: Double?
 	}
 	
@@ -45,6 +46,7 @@ public struct Cart: Identifiable {
 	public let sessionID: String
 	public let creationDate: Date
 	public let emailAddress: String?
+	public let coupons: [String]
 	public let status: Status
 	public let items: [Item]
 	public let shippingAddress: Address?

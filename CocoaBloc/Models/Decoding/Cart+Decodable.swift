@@ -35,6 +35,7 @@ extension Cart: Decodable {
 			<*> json <| "created"
 		return a
 			<*> json <|? "email"
+			<*> (json <|| "coupon_code" <|> pure([]))
 			<*> json <| "status"
 			<*> decodedJSON(json, forKey: "cart_items").flatMap { itemsJson in
 				switch itemsJson {
@@ -90,12 +91,27 @@ extension Cart.Totals: Decodable {
 				return .missingKey("price")
 			}
 		})
+		let discount: Decoded<Double> = decodedJSON(json, forKey: "discounts").flatMap { priceJSON in
+			switch priceJSON {
+			case .object(let discountJSON):
+				if let coupon = discountJSON["coupons"] {
+					if case .number(let couponNumber) = coupon {
+						return .success(Double(couponNumber))
+					}
+					return .success(0.0)
+				}
+				return .success(0.0)
+			default:
+				return .success(0.0)
+			}
+		}
 		return curry(Cart.Totals.init)
 			<^> json <| "items"
 			<*> json <| "subtotal"
 			<*> json <| "total"
 			<*> json <| "shipping"
 			<*> share
+			<*> discount
 			<*> json <|? "taxes"
 	}
 	

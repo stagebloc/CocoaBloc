@@ -243,4 +243,18 @@ extension API {
 			         "x-application-mode": offline ? "offline" : "online"])
 	}
 	
+	public static func updateCoupon(
+		withSessionIdentifier cartSessionID: String,
+		coupon: String = "") -> Endpoint<Cart> {
+		return Endpoint(
+			path: "cart/\(cartSessionID)",
+			method: .post,
+			parameters: [
+				"cart": [
+					"session_id": cartSessionID,
+					"coupon_code": coupon
+				]
+			])
+	}
+	
 }
