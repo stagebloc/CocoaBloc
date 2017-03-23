@@ -252,7 +252,7 @@ extension API {
 			parameters: [
 				"cart": [
 					"session_id": cartSessionID,
-					"coupon_code": coupon
+					"coupon_code": [coupon]
 				]
 			])
 	}
