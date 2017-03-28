@@ -18,6 +18,7 @@ public struct Order: Identifiable {
 	public let totalUSD: Double
 	public let shippingAmount: Double
 	public let handlingAmount: Double
+	public let savedAmount: Double
 	public let taxAmount: Double
 	public let status: String
 	public let notes: String?

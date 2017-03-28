@@ -25,6 +25,7 @@ extension Order: Decodable {
 			<*> json <| "total_usd"
 			<*> json <| "shipping_amount"
 			<*> json <| "handling_amount"
+			<*> json <| "saved_amount"
 			<*> json <| "tax_amount"
 			<*> json <| "status"
 		return b
