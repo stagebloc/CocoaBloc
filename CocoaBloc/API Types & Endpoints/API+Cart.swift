@@ -227,13 +227,17 @@ extension API {
 		tax: Double? = nil,
 		phone: String? = nil,
 		deviceID: String = "",
-		offline: Bool = false) -> Endpoint<[Order]> {
+		offline: Bool = false,
+		notes: String? = nil) -> Endpoint<[Order]> {
 		var parameters: [String: Any] = ["payments": payments.map { $0.json }]
 		if let tax = tax {
 			parameters.updateValue(tax, forKey: "tax_override")
 		}
 		if let phone = phone {
 			parameters.updateValue(phone, forKey: "phone_number")
+		}
+		if let notes = notes {
+			parameters.updateValue(notes, forKey: "notes")
 		}
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
