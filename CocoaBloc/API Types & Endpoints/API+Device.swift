@@ -19,7 +19,7 @@ extension API {
 	public static func saveDevice(forAccount accountID: String, device: Device) -> Endpoint<Device> {
 		return Endpoint(path: "account/\(accountID)/device", method: .post,
 		                parameters: [
-							"deviceIdentifier": device.identifier,
+							"device_identifier": device.identifier,
 							"label": device.label
 						]
 		)
