@@ -18,7 +18,7 @@ extension API {
 	
 	public static func getOrdersForAccount(withIdentifier accountID: Int) -> Endpoint<[Order]> {
 		return Endpoint(
-			path: "account/\(accountID)/store/orders",
+			path: "account/\(accountID)/store/order",
 			method: .get)
 	}
 	
@@ -26,7 +26,7 @@ extension API {
 		withIdentifier orderID: Int,
 		accountIdentifier accountID: Int) -> Endpoint<()> {
 		return Endpoint(
-			path: "account/\(accountID)/store/orders/\(orderID)/receipt/resend",
+			path: "account/\(accountID)/store/order/\(orderID)/receipt/resend",
 			method: .post)
 	}
 	
@@ -36,7 +36,7 @@ extension API {
 		                  trackingNumber: String,
 		                  carrier: String) -> Endpoint<Order> {
 		return Endpoint(
-			path: "account/\(accountID)/store/orders/\(orderID)",
+			path: "account/\(accountID)/store/order/\(orderID)",
 			method: .post,
 			parameters: [
 				"tracking_number": trackingNumber,
