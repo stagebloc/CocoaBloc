@@ -26,8 +26,26 @@ extension API {
 		withIdentifier orderID: Int,
 		accountIdentifier accountID: Int) -> Endpoint<()> {
 		return Endpoint(
-			path: "account/\(accountID)/store/order/\(orderID)/receipt/resend",
+			path: "account/\(accountID)/order/\(orderID)/receipt/resend",
 			method: .post)
+	}
+	
+	public static func cancelOrder(
+		withIdentifier orderID: Int,
+		accountIndentifier accountID: Int,
+		adjustStock: Bool = false,
+		alertUser: Bool = false,
+		reasonCode: String = "Return",
+		reasonText: String = "") -> Endpoint<()> {
+		return Endpoint(
+			path: "account/\(accountID)/order/\(orderID)/refund",
+			method: .post,
+			parameters: [
+				"adjust_stock": adjustStock,
+				"alert_user": alertUser,
+				"refund_reason": reasonCode,
+				"refund_reason_text": reasonText
+			])
 	}
 	
 	public static func setOrderShipped(
