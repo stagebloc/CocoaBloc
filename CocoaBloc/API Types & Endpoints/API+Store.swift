@@ -32,7 +32,7 @@ extension API {
 	
 	public static func cancelOrder(
 		withIdentifier orderID: Int,
-		accountIndentifier accountID: Int,
+		accountIdentifier accountID: Int,
 		adjustStock: Bool = false,
 		alertUser: Bool = false,
 		reasonCode: String = "Return",
