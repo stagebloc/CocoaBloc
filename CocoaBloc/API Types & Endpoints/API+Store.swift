@@ -35,10 +35,10 @@ extension API {
 		accountIdentifier accountID: Int,
 		adjustStock: Bool = false,
 		alertUser: Bool = false,
-		reasonCode: String = "Return",
-		reasonText: String = "") -> Endpoint<()> {
+		reasonCode: String = "good_will",
+		reasonText: String = "Checkout App Return") -> Endpoint<()> {
 		return Endpoint(
-			path: "account/\(accountID)/order/\(orderID)/refund",
+			path: "account/\(accountID)/store/order/\(orderID)/refund",
 			method: .post,
 			parameters: [
 				"adjust_stock": adjustStock,
