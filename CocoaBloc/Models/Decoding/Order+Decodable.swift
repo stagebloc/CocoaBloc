@@ -30,6 +30,8 @@ extension Order: Decodable {
 			<*> json <| "status"
 		return b
 			<*> json <|? "notes"
+			<*> json <| "device" <|> .success("")
+			<*> json <| "source" <|> .success("")
 			<*> json <| "email"
 			<*> json <|? "user"
 			<*> json <|? "address"

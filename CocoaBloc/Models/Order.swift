@@ -22,6 +22,8 @@ public struct Order: Identifiable {
 	public let taxAmount: Double
 	public let status: String
 	public let notes: String?
+	public let device: String
+	public let source: String
 	public let emailAddress: String
 	public let user: User?
 	public let address: Address?
