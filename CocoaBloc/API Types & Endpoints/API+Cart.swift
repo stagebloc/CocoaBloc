@@ -239,12 +239,12 @@ extension API {
 		if let notes = notes {
 			parameters.updateValue(notes, forKey: "notes")
 		}
+		parameters.updateValue(deviceID, forKey: "device_identifier")
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
 			method: .post,
 			parameters: parameters,
-			header: ["x-application-device-identifier": deviceID,
-			         "x-application-mode": offline ? "offline" : "online"])
+			header: ["x-application-mode": offline ? "offline" : "online"])
 	}
 	
 	public static func updateCoupon(
