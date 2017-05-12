@@ -227,6 +227,7 @@ extension API {
 		tax: Double? = nil,
 		phone: String? = nil,
 		deviceID: String = "",
+		accountID: String = "",
 		offline: Bool = false,
 		notes: String? = nil) -> Endpoint<[Order]> {
 		var parameters: [String: Any] = ["payments": payments.map { $0.json }]
@@ -239,12 +240,14 @@ extension API {
 		if let notes = notes {
 			parameters.updateValue(notes, forKey: "notes")
 		}
+		parameters.updateValue(accountID, forKey: "admin_id")
 		parameters.updateValue(deviceID, forKey: "device_identifier")
+		parameters.updateValue(offline ? "offline" : "online", forKey: "application_mode")
+		
 		return Endpoint(
 			path: "cart/\(cartSessionID)/purchase",
 			method: .post,
-			parameters: parameters,
-			header: ["x-application-mode": offline ? "offline" : "online"])
+			parameters: parameters)
 	}
 	
 	public static func updateCoupon(
