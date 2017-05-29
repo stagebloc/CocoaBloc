@@ -43,13 +43,22 @@ extension API {
 			)
 	}
 	
-	public static func updateAddress(withType type: AddressType, identifier: Int) -> Endpoint<Address> {
+	public static func updateAddress(withType type: AddressType, shippingAddress: Address) -> Endpoint<Address> {
 		return Endpoint(
 			path: "users/me/addresses/\(type)/\(identifier)",
 			method: .post,
 			parameters: [
-				:
-			])
+				"address": [
+					"name": shippingAddress.name,
+					"street_address": shippingAddress.streetAddress,
+					"street_address_2": shippingAddress.streetAddress2,
+					"city": shippingAddress.city,
+					"state": shippingAddress.state,
+					"postal_code": shippingAddress.postalCode,
+					"country": shippingAddress.country
+				]
+				].filterEntriesWithNilValues()
+			)
 	}
 	
 	public static func deleteAddress(withType type: AddressType, identifier: Int) -> Endpoint<Address> {
