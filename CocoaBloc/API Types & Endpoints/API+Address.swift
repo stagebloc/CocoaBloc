@@ -43,9 +43,9 @@ extension API {
 			)
 	}
 	
-	public static func updateAddress(withType type: AddressType, shippingAddress: Address) -> Endpoint<Address> {
+	public static func updateAddress(withType type: AddressType, shippingAddress: Address) -> Endpoint<SingleAddress> {
 		return Endpoint(
-			path: "users/me/addresses/\(type)/\(identifier)",
+			path: "users/me/addresses/\(type)/\(shippingAddress.identifier ?? 0)",
 			method: .post,
 			parameters: [
 				"address": [
@@ -61,8 +61,8 @@ extension API {
 			)
 	}
 	
-	public static func deleteAddress(withType type: AddressType, identifier: Int) -> Endpoint<Address> {
-		return Endpoint(path: "users/me/addresses/\(type)\(identifier)", method: .delete)
+	public static func deleteAddress(withType type: AddressType, identifier: Int) -> Endpoint<SingleAddress> {
+		return Endpoint(path: "users/me/addresses/\(type)/\(identifier)", method: .delete)
 	}
 	
 }
