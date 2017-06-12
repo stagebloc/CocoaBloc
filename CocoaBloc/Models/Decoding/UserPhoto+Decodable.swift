@@ -1,5 +1,5 @@
 //
-//  UserPhoto+Decodable.swift
+//  UserPhoto+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Curry
 import Runes
 
-extension UserPhoto: Decodable {
+extension UserPhoto: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<UserPhoto> {
 		return curry(UserPhoto.init)

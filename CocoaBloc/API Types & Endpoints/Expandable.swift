@@ -10,7 +10,7 @@ import Argo
 import Runes
 
 public enum Expandable<Item> where
-	Item: Decodable,
+	Item: Argo.Decodable,
 	Item.DecodedType: Identifiable,
 	Item.DecodedType == Item {
 	
@@ -35,7 +35,7 @@ public enum Expandable<Item> where
 	
 }
 
-extension Expandable: Decodable {
+extension Expandable: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Expandable<Item>> {
 		switch json {

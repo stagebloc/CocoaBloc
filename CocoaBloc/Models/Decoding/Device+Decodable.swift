@@ -1,5 +1,5 @@
 //
-//  Device+Decodable.swift
+//  Device+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by Billy Lavoie on 2017-03-07.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Device: Decodable {
+extension Device: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Device> {
 		return curry(Device.init)

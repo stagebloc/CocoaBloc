@@ -1,5 +1,5 @@
 //
-//  Video+Decodable.swift
+//  Video+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Video: Decodable {
+extension Video: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Video> {
 		let a = curry(Video.init)

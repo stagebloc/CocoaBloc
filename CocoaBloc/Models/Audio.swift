@@ -9,7 +9,7 @@
 import Argo
 import Curry
 
-public struct Audio: Decodable, Identifiable {
+public struct Audio: Argo.Decodable, Identifiable {
 	
 	public let identifier: Int
 	public let account: Expandable<Account>

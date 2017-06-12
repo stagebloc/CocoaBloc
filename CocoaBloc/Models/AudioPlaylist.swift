@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-public struct AudioPlaylist: Decodable, Identifiable {
+public struct AudioPlaylist: Argo.Decodable, Identifiable {
 	
 	public let identifier: Int
 	public let account: Expandable<Account>

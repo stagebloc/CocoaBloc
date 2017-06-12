@@ -1,5 +1,5 @@
 //
-//  StoreItem+Decodable.swift
+//  StoreItem+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension StoreItem: Decodable {
+extension StoreItem: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreItem> {
 		let price: Decoded<Double> = decodedJSON(json, forKey: "prices").flatMap { priceJSON in
@@ -50,7 +50,7 @@ extension StoreItem: Decodable {
 
 }
 
-extension StoreItem.Option: Decodable {
+extension StoreItem.Option: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreItem.Option> {
 		let price: Decoded<Double?> = .optional(decodedJSON(json, forKey: "additional_price").flatMap { priceJSON in
@@ -82,7 +82,7 @@ extension StoreItem.Option: Decodable {
 
 }
 
-extension StoreItem.ItemType: Decodable {
+extension StoreItem.ItemType: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreItem.ItemType> {
 		return json <| "type" >>- { (typeStr: String) in
@@ -116,7 +116,7 @@ extension StoreItem.ItemType: Decodable {
 
 }
 
-extension StoreItem.Sale: Decodable {
+extension StoreItem.Sale: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreItem.Sale> {
 		return curry(StoreItem.Sale.init)
@@ -127,7 +127,7 @@ extension StoreItem.Sale: Decodable {
 
 }
 
-extension StoreItem.Sale.SaleType: Decodable {
+extension StoreItem.Sale.SaleType: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreItem.Sale.SaleType> {
 		return json <| "sale_type" >>- { (type: String) in
@@ -143,4 +143,4 @@ extension StoreItem.Sale.SaleType: Decodable {
 
 }
 
-extension StoreItem.Currency: Decodable { }
+extension StoreItem.Currency: Argo.Decodable { }

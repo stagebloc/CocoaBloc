@@ -21,7 +21,7 @@ extension API {
 	
 	public struct ErrorInfo {
 		
-		public enum ErrorType: String, Decodable {
+		public enum ErrorType: String, Argo.Decodable {
 			case invalidData			= "InvalidData"
 			case notFound				= "NotFound"
 			case databaseError			= "DatabaseError"
@@ -41,7 +41,7 @@ extension API {
 
 }
 
-extension API.ErrorInfo: Decodable {
+extension API.ErrorInfo: Argo.Decodable {
 	
 	public static func decode(_ metadata: JSON) -> Decoded<API.ErrorInfo> {
 		return curry(API.ErrorInfo.init)

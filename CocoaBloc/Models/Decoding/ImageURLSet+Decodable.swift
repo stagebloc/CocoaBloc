@@ -1,5 +1,5 @@
 //
-//  ImageURLSet+Decodable.swift
+//  ImageURLSet+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension ImageURLSet: Decodable {
+extension ImageURLSet: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<ImageURLSet> {
 		return curry(ImageURLSet.init)

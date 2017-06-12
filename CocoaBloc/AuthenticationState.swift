@@ -58,7 +58,7 @@ public enum AuthenticationState {
 import Argo
 import Curry
 
-extension AuthenticationState: Decodable {
+extension AuthenticationState: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<AuthenticationState> {
 		return curry(AuthenticationState.authenticated)

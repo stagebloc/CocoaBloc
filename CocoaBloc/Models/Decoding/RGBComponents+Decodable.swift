@@ -1,5 +1,5 @@
 //
-//  RGBComponents+Decodable.swift
+//  RGBComponents+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -8,7 +8,7 @@
 
 import Argo
 
-extension RGBComponents: Decodable {
+extension RGBComponents: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<RGBComponents> {
 		guard case .string(let val) = json else {

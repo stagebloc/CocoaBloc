@@ -1,5 +1,5 @@
 //
-//  Blog+Decodable.swift
+//  Blog+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Blog: Decodable {
+extension Blog: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Blog> {
 		let a = curry(Blog.init)

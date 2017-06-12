@@ -88,7 +88,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		return urlRequest!
 	}
 	
-	public func request<Serialized: Decodable>(
+	public func request<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
 		cached: Bool = false,
@@ -99,7 +99,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		return req.cocoaBlocModelSerializer(keyPath: endpoint.keyPath, completionHandler: completion)
 	}
 
-	public func request<Serialized: Decodable>(
+	public func request<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
 		cached: Bool = false,
@@ -163,7 +163,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		
 	}
 
-	public func uploadModelSerialization<Serialized: Decodable>(
+	public func uploadModelSerialization<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
 		requestConfiguration: ((DataRequest) -> Void)? = nil,
@@ -181,7 +181,7 @@ public final class Client<AuthStateContainer: AuthenticationStateContainer> {
 		}
 	}
 
-	public func uploadArraySerialization<Serialized: Decodable>(
+	public func uploadArraySerialization<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
 		requestConfiguration: ((DataRequest) -> Void)? = nil,

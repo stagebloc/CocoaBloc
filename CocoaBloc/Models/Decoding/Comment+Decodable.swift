@@ -1,5 +1,5 @@
 //
-//  Comment+Decodable.swift
+//  Comment+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Comment: Decodable {
+extension Comment: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Comment> {
 		return curry(Comment.init)

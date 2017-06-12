@@ -1,5 +1,5 @@
 //
-//  Order+Decodable.swift
+//  Order+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Order: Decodable {
+extension Order: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Order> {
 		let a = curry(Order.init)
@@ -40,7 +40,7 @@ extension Order: Decodable {
 
 }
 
-extension Order.Shipment: Decodable {
+extension Order.Shipment: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Order.Shipment> {
 		return curry(Order.Shipment.init)
@@ -51,7 +51,7 @@ extension Order.Shipment: Decodable {
 
 }
 
-extension Order.Transaction: Decodable {
+extension Order.Transaction: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Order.Transaction> {
 //		json
@@ -72,7 +72,7 @@ extension Order.Transaction: Decodable {
 
 }
 
-extension Order.Item: Decodable {
+extension Order.Item: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Order.Item> {
 		let object: Decoded<StoreItem> = decodedJSON(json, forKey: "object").flatMap(StoreItem.decode)

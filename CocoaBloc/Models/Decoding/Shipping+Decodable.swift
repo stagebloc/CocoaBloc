@@ -1,5 +1,5 @@
 //
-//  Shipping+Decodable.swift
+//  Shipping+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Shipping.PriceHandler: Decodable {
+extension Shipping.PriceHandler: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Shipping.PriceHandler> {
 		return curry(Shipping.PriceHandler.init)
@@ -20,7 +20,7 @@ extension Shipping.PriceHandler: Decodable {
 
 }
 
-extension Shipping.Method: Decodable {
+extension Shipping.Method: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Shipping.Method> {
 		return curry(Shipping.Method.init)
@@ -32,7 +32,7 @@ extension Shipping.Method: Decodable {
 
 }
 
-extension Shipping.Fulfiller: Decodable {
+extension Shipping.Fulfiller: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Shipping.Fulfiller> {
 		return curry(Shipping.Fulfiller.init)
@@ -45,7 +45,7 @@ extension Shipping.Fulfiller: Decodable {
 
 }
 
-extension Shipping.RateSet: Decodable {
+extension Shipping.RateSet: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Shipping.RateSet> {
 		return curry(Shipping.RateSet.init)
@@ -55,7 +55,7 @@ extension Shipping.RateSet: Decodable {
 	
 }
 
-extension Shipping.Selection: Decodable {
+extension Shipping.Selection: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Shipping.Selection> {
 		return curry(Shipping.Selection.init)

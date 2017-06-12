@@ -1,5 +1,5 @@
 //
-//  FanClub+Decodable.swift
+//  FanClub+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Curry
 import Runes
 
-extension FanClub: Decodable {
+extension FanClub: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<FanClub> {
 		return curry(FanClub.init)
@@ -29,7 +29,7 @@ extension FanClub: Decodable {
 	}
 }
 
-extension FanClub.Tier: Decodable {
+extension FanClub.Tier: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<FanClub.Tier> {
 		let a = curry(FanClub.Tier.init)
@@ -44,4 +44,4 @@ extension FanClub.Tier: Decodable {
 	 }
 }
 
-extension FanClub.Tier.TimeUnit: Decodable { }
+extension FanClub.Tier.TimeUnit: Argo.Decodable { }

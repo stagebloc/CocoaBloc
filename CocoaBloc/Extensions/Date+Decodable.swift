@@ -9,7 +9,7 @@
 import Argo
 import Foundation
 
-extension Date: Decodable {
+extension Date: Argo.Decodable {
 	
 	static let formatter: DateFormatter = {
 		let ret = DateFormatter()

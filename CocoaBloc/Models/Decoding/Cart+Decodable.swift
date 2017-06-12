@@ -1,5 +1,5 @@
 //
-//  Cart+Decodable.swift
+//  Cart+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Cart: Decodable {
+extension Cart: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Cart> {
 		var selected_shippings:Decoded<[Shipping.Selection]> = decodedJSON(json, forKey: "shipping_selected").flatMap { shippingJson in
@@ -53,7 +53,7 @@ extension Cart: Decodable {
 	
 }
 
-extension Cart.Item: Decodable {
+extension Cart.Item: Argo.Decodable {
 
 	public static func decode(_ json: JSON) -> Decoded<Cart.Item> {
 		let a = curry(Cart.Item.init)
@@ -74,7 +74,7 @@ extension Cart.Item: Decodable {
 	
 }
 
-extension Cart.Totals: Decodable {
+extension Cart.Totals: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Cart.Totals> {
 		let share: Decoded<Double?> = .optional(decodedJSON(json, forKey: "revenue_share").flatMap { priceJSON in
@@ -117,4 +117,4 @@ extension Cart.Totals: Decodable {
 	
 }
 
-extension Cart.Status: Decodable { }
+extension Cart.Status: Argo.Decodable { }

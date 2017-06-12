@@ -14,7 +14,7 @@ class ExpandableTests: XCTestCase {
 	
 	static let identifier = 350
 	
-	struct TestIdentifiable: Identifiable, Decodable {
+	struct TestIdentifiable: Identifiable, Argo.Decodable {
 		var identifier: Int
 		
 		static func decode(_ json: JSON) -> Decoded<TestIdentifiable> {

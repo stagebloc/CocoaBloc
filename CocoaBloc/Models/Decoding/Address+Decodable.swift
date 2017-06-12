@@ -1,5 +1,5 @@
 //
-//  Address+Decodable.swift
+//  Address+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by John Heaton on 7/30/16.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension Address: Decodable {
+extension Address: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<Address> {
 		return curry(Address.init)
@@ -26,14 +26,14 @@ extension Address: Decodable {
 	
 }
 
-extension Addresses: Decodable {
+extension Addresses: Argo.Decodable {
 	public static func decode(_ json: JSON) -> Decoded<Addresses> {
 		return curry(Addresses.init)
 			<^> json <|| "addresses"
 	}
 }
 
-extension SingleAddress: Decodable {
+extension SingleAddress: Argo.Decodable {
 	public static func decode(_ json: JSON) -> Decoded<SingleAddress> {
 		return curry(SingleAddress.init)
 			<^> json <| "address"

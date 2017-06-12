@@ -1,5 +1,5 @@
 //
-//  StoreDashboard+Decodable.swift
+//  StoreDashboard+Argo.Decodable.swift
 //  CocoaBloc
 //
 //  Created by Billy Lavoie on 2016-11-04.
@@ -10,7 +10,7 @@ import Argo
 import Runes
 import Curry
 
-extension StoreDashboard: Decodable {
+extension StoreDashboard: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreDashboard> {
 		let totals: Decoded<Totals> = decodedJSON(json, forKey: "totals").flatMap(Totals.decode)
@@ -28,7 +28,7 @@ extension StoreDashboard: Decodable {
 	
 }
 
-extension StoreDashboard.Totals: Decodable {
+extension StoreDashboard.Totals: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreDashboard.Totals> {
 		return curry(StoreDashboard.Totals.init)
@@ -39,7 +39,7 @@ extension StoreDashboard.Totals: Decodable {
 	}
 }
 
-extension StoreDashboard.Revenue: Decodable {
+extension StoreDashboard.Revenue: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreDashboard.Revenue> {
 		return curry(StoreDashboard.Revenue.init)
@@ -48,7 +48,7 @@ extension StoreDashboard.Revenue: Decodable {
 	}
 }
 
-extension StoreDashboard.Averages: Decodable {
+extension StoreDashboard.Averages: Argo.Decodable {
 	
 	public static func decode(_ json: JSON) -> Decoded<StoreDashboard.Averages> {
 		return curry(StoreDashboard.Averages.init)

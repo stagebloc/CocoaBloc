@@ -14,7 +14,7 @@ import Foundation
 extension DataRequest {
 	
 	@discardableResult
-	func cocoaBlocModelSerializer<T: Decodable>(
+	func cocoaBlocModelSerializer<T: Argo.Decodable>(
 		keyPath: String,
 		queue: DispatchQueue? = nil,
 		completionHandler: @escaping (DataResponse<T>) -> Void) -> Self
@@ -34,7 +34,7 @@ extension DataRequest {
 					return .failure(API.APIError.api(apiError))
 				}
 				
-				// Decode the actual data JSON as the decodable type
+				// Decode the actual data JSON as the Argo.Decodable type
 				switch decodedJSON(json, forKey: keyPath).flatMap(T.decode) {
 				case .success(let model):
 					return .success(model)
@@ -47,7 +47,7 @@ extension DataRequest {
 	}
 	
 	@discardableResult
-	func cocoaBlocModelSerializer<T: Decodable>(
+	func cocoaBlocModelSerializer<T: Argo.Decodable>(
 		keyPath: String,
 		queue: DispatchQueue? = nil,
 		completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self
@@ -67,7 +67,7 @@ extension DataRequest {
 					return .failure(API.APIError.api(apiError))
 				}
 				
-				// Decode the actual data JSON as the decodable type
+				// Decode the actual data JSON as the Argo.Decodable type
 				switch decodedJSON(json, forKey: keyPath).flatMap([T].decode) {
 				case .success(let model):
 					return .success(model)

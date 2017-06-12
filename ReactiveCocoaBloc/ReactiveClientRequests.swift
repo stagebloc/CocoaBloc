@@ -32,7 +32,7 @@ extension Client {
 			}
 	}
 	
-	public func request<Serialized: Decodable>(
+	public func request<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
 		cached: Bool = false,
@@ -54,7 +54,7 @@ extension Client {
 			}
 	}
 	
-	public func request<Serialized: Decodable>(
+	public func request<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
 		cached: Bool = false,
@@ -80,7 +80,7 @@ extension Client {
 
 extension Client {
 	
-	public func upload<Serialized: Decodable>(
+	public func upload<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<Serialized>,
 		expansions: [API.ExpandableValue] = [],
 		requestConfiguration: ((Alamofire.Request) -> ())? = nil)
@@ -100,7 +100,7 @@ extension Client {
 			}
 	}
 	
-	public func upload<Serialized: Decodable>(
+	public func upload<Serialized: Argo.Decodable>(
 		_ endpoint: Endpoint<[Serialized]>,
 		expansions: [API.ExpandableValue] = [],
 		requestConfiguration: ((Alamofire.Request) -> ())? = nil)
