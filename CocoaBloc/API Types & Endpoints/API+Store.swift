@@ -16,10 +16,13 @@ extension API {
 			method: .get)
 	}
 	
-	public static func getOrdersForAccount(withIdentifier accountID: Int) -> Endpoint<[Order]> {
+	public static func getOrdersForAccount(withIdentifier accountID: Int, limit: Int = 99999) -> Endpoint<[Order]> {
 		return Endpoint(
 			path: "account/\(accountID)/store/order",
-			method: .get)
+			method: .get,
+			parameters: [
+				"limit": limit
+			])
 	}
 	
 	public static func resendReceipt(
