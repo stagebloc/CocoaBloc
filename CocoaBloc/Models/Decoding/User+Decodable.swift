@@ -15,12 +15,12 @@ extension User: Argo.Decodable {
 	public static func decode(_ json: JSON) -> Decoded<User> {
 		let a = curry(User.init)
 			<^> json <| "id"
-			<*> json <| "url"
+			<*> json <|? "url"
 			<*> json <| "created"
 			<*> json <| "name"
 			<*> json <| "username"
-			<*> json <|? "bio"
 		return a
+			<*> json <|? "bio"
 			<*> json <|? "photo"
 			//			<*> json <|? "birthday"
 			<*> json <|? "gender"
