@@ -79,8 +79,7 @@ extension API {
 		email: String?,
 		username: String?,
 		name: String?,
-		gender: Gender?,
-		color: UserColor?) -> Endpoint<User> {
+		gender: Gender?) -> Endpoint<User> {
 		return Endpoint(
 			path: "users/me",
 			method: .post,
@@ -90,9 +89,18 @@ extension API {
 				"email"     : email as Any,
 				"name"      : name as Any,
 				"username"  : username as Any,
-				"gender"    : gender?.rawValue as Any,
-				"color"     : color?.rawValue as Any
+				"gender"    : gender?.rawValue as Any
 			].filterEntriesWithNilValues())
+	}
+	
+	public static func updateAuthenticatedUser(
+		user: User) -> Endpoint<User> {
+		return updateAuthenticatedUser(bio: user.bio,
+		                               birthday: nil, // user.birthday
+		                               email: user.emailAddress,
+		                               username: user.username,
+		                               name: user.name,
+		                               gender: Gender(rawValue: user.gender ?? "cupcake"))
 	}
 	
 	public static func updateAuthenticatedUserImage(_ formData: FormDataPart) -> Endpoint<User> {
