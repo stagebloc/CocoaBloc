@@ -70,7 +70,7 @@ extension Client {
 		case following
 	}
 	
-	public func getAuthenticatedUserAccounts(forType type: UserAccountType, useCache: Bool = true, completionHandler: @escaping ([Account]?, Error?) -> Void) {
+	public func getAuthenticatedUserAccounts(forType type: UserAccountType, useCache: Bool = true, completionHandler: @escaping (Result<[Account], APIError>) -> Void) {
 		let params = [
 			"admin"		: (type == .admin ? 1:0),
 			"following"	: (type == .following ? 1:0)
@@ -78,11 +78,11 @@ extension Client {
 		get(withEndPoint: "accounts", params: params, useCache: useCache, completionHandler: completionHandler)
 	}
 	
-	public func getAuthenticatedUserAccounts(withIdentifier accountID: Int, useCache: Bool = true, completionHandler: @escaping (Account?, Error?) -> Void) {
+	public func getAuthenticatedUserAccounts(withIdentifier accountID: Int, useCache: Bool = true, completionHandler: @escaping (Result<Account, APIError>) -> Void) {
 		get(withEndPoint: "account/\(accountID)", useCache: useCache, completionHandler: completionHandler)
 	}
 	
-	public func getPayworksKeysForAccount(withIdentifier accountID: Int, completionHandler: @escaping (PayworksMerchant?, Error?) -> Void) {
+	public func getPayworksKeysForAccount(withIdentifier accountID: Int, completionHandler: @escaping (Result<PayworksMerchant, APIError>) -> Void) {
 		get(withEndPoint: "account/\(accountID)/store/setting/secure", completionHandler: completionHandler)
 	}
 	

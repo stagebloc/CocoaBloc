@@ -6,9 +6,9 @@
 //  Copyright © 2016 Fullscreen Direct. All rights reserved.
 //
 
-public struct Address: APIObject {
+public struct Address: Codable {
 	
-	public let id: Int
+	public let id: Int?
 	public let name: String?
 	public let streetAddress: String?
 	public let streetAddress2: String?
@@ -31,6 +31,18 @@ public struct Address: APIObject {
 	private enum CodingKeys: String, CodingKey {
 		case id, name, streetAddress = "street_address", streetAddress2 = "street_address_2", city, state, postalCode = "postal_code", country
 	}
+
+	public static func == (lhs: Address, rhs: Address) -> Bool {
+		return lhs.id == rhs.id &&
+			lhs.name == rhs.name &&
+			lhs.streetAddress == rhs.streetAddress &&
+			lhs.streetAddress2 == rhs.streetAddress2 &&
+			lhs.city == rhs.city &&
+			lhs.state == rhs.state &&
+			lhs.postalCode == rhs.postalCode &&
+			lhs.country == rhs.country
+	}
+
 }
 
 private struct PostAddress: Codable {
@@ -42,21 +54,22 @@ struct Addresses: Codable {
 }
 
 extension Client {
-	public func getAddress(withIdentifier addressID: Int, completionHandler: @escaping (Address?, Error?) -> Void) {
+	public func getAddress(withIdentifier addressID: Int, completionHandler: @escaping (Result<Address, APIError>) -> Void) {
 		get(withEndPoint: "users/me/addresses/\(addressID)", completionHandler: completionHandler)
 	}
 	
-	public func getAllAddresses(forType type: AddressType, completionHandler: @escaping ([Address]?, Error?) -> Void) {
-		get(withEndPoint: "users/me/addresses/\(type)") { (addresses: Addresses?, error: Error?) -> Void in
-			guard error == nil else {
-				completionHandler(nil, error)
-				return
+	public func getAllAddresses(forType type: AddressType, completionHandler: @escaping (Result<[Address], APIError>) -> Void) {
+		get(withEndPoint: "users/me/addresses/\(type)") { (result: Result<Addresses, APIError>) -> Void in
+			switch result {
+			case .success(let addresses):
+				completionHandler(.success(addresses.addresses ?? []))
+			case .failure(let error):
+				completionHandler(.failure(error))
 			}
-			completionHandler(addresses?.addresses, error)
 		}
 	}
 	
-	public func createAddress(withType type: AddressType, newShippingAddress: Address, completionHandler: @escaping (Address?, Error?) -> Void) {
+	public func createAddress(withType type: AddressType, newShippingAddress: Address, completionHandler: @escaping (Result<Address, APIError>) -> Void) {
 		let newAddress = PostAddress(address: newShippingAddress)
 		
 		do {
@@ -64,11 +77,11 @@ extension Client {
 			let newAddressJSON = try encoder.encode(newAddress)
 			post(withEndPoint: "users/me/addresses/\(type)", postJSON: newAddressJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode address to JSON")))
 		}
 	}
 	
-	public func updateAddress(withType type: AddressType, shippingAddress: Address, completionHandler: @escaping (Address?, Error?) -> Void) {
+	public func updateAddress(withType type: AddressType, shippingAddress: Address, completionHandler: @escaping (Result<Address, APIError>) -> Void) {
 		let address = PostAddress(address: shippingAddress)
 		
 		do {
@@ -76,11 +89,11 @@ extension Client {
 			let addressJSON = try encoder.encode(address)
 			post(withEndPoint: "users/me/addresses/\(type)", postJSON: addressJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode address to JSON")))
 		}
 	}
 	
-	public func deleteAddress(withType type: AddressType, identifier: Int, completionHandler: @escaping (Address?, Error?) -> Void) {
+	public func deleteAddress(withType type: AddressType, identifier: Int, completionHandler: @escaping (Result<Address, APIError>) -> Void) {
 		delete(withEndPoint: "users/me/addresses/\(type)/\(identifier)", completionHandler: completionHandler)
 	}
 	

@@ -8,6 +8,11 @@
 
 import Foundation
 
+public enum Result<T, APIError>  {
+	case success(T)
+	case failure(APIError)
+}
+
 public final class Client: NSObject {
 	
 	public let baseURL: URL
@@ -29,12 +34,21 @@ public final class Client: NSObject {
 		clientSecret: String,
 		authenticationState: AuthenticationState = .unauthenticated,
 		session: URLSession,
-		baseURL: URL = URL(string: "https://api.stagebloc.com/v1")!) {
+		baseURL: URL = URL(string: "https://api.stagebloc.com/v1/")!) {
 		self.clientID = clientID
 		self.session = session
 		self.clientSecret = clientSecret
 		self.authenticationState = authenticationState
 		self.baseURL = baseURL
+		super.init()
+	}
+
+	public init(fromAdminClient client: Client) {
+		self.clientID = client.clientID
+		self.clientSecret = client.clientSecret
+		self.authenticationState = .unauthenticated
+		self.session = client.session
+		self.baseURL = client.baseURL
 		super.init()
 	}
 	
@@ -148,7 +162,7 @@ public final class Client: NSObject {
 		public let metadata: APIMetadata
 	}
 	
-	public func get<Item: Codable>(withEndPoint endPoint: String, params: [String: Any] = [:], useCache: Bool = false, completionHandler: @escaping (Item?, Error?) -> Void) {
+	public func get<Item: Codable>(withEndPoint endPoint: String, params: [String: Any] = [:], useCache: Bool = false, completionHandler: @escaping (Result<Item, APIError>) -> Void) {
 		var finalParams = params
 		if !authenticationState.isAuthenticated {
 			finalParams["client_id"] = clientID
@@ -157,7 +171,7 @@ public final class Client: NSObject {
 		guard let url = urlForEndpoint(endPoint, params: finalParams) else {
 			print("Error: cannot create URL")
 			let error = APIError.system("Error: cannot create URL")
-			completionHandler(nil, error)
+			completionHandler(.failure(error))
 			return
 		}
 		
@@ -168,7 +182,7 @@ public final class Client: NSObject {
 		request(with: urlRequest, completionHandler: completionHandler)
 	}
 	
-	public func delete<Item: Codable>(withEndPoint endPoint: String, params: [String: Any] = [:], completionHandler: @escaping (Item?, Error?) -> Void) {
+	public func delete<Item: Codable>(withEndPoint endPoint: String, params: [String: Any] = [:], completionHandler: @escaping (Result<Item, APIError>) -> Void) {
 		var finalParams = params
 		if !authenticationState.isAuthenticated {
 			finalParams["client_id"] = clientID
@@ -176,7 +190,7 @@ public final class Client: NSObject {
 		guard let url = urlForEndpoint(endPoint, params: finalParams) else {
 			print("Error: cannot create URL")
 			let error = APIError.system("Error: cannot create URL")
-			completionHandler(nil, error)
+			completionHandler(.failure(error))
 			return
 		}
 		var urlRequest = URLRequest(url: url)
@@ -185,7 +199,7 @@ public final class Client: NSObject {
 		request(with: urlRequest, completionHandler: completionHandler)
 	}
 	
-	public func post<Item: Codable>(withEndPoint endPoint: String, postJSON: Data? = nil, params: [String: Any] = [:], useCache: Bool = false, completionHandler: @escaping (Item?, Error?) -> Void) {
+	public func post<Item: Codable>(withEndPoint endPoint: String, postJSON: Data? = nil, params: [String: Any] = [:], useCache: Bool = false, completionHandler: @escaping (Result<Item, APIError>) -> Void) {
 		var finalParams = params
 		if !authenticationState.isAuthenticated {
 			finalParams["client_id"] = clientID
@@ -193,7 +207,7 @@ public final class Client: NSObject {
 		guard let url = urlForEndpoint(endPoint, params: finalParams) else {
 			print("Error: cannot create URL")
 			let error = APIError.system("Error: cannot create URL")
-			completionHandler(nil, error)
+			completionHandler(.failure(error))
 			return
 		}
 		var urlRequest = URLRequest(url: url)
@@ -208,7 +222,7 @@ public final class Client: NSObject {
 		request(with: urlRequest, completionHandler: completionHandler)
 	}
 	
-	public func request<Item: Codable>(with request: URLRequest, completionHandler: @escaping (Item?, Error?) -> Void) {
+	public func request<Item: Codable>(with request: URLRequest, completionHandler: @escaping (Result<Item, APIError>) -> Void) {
 		var finalRequest = request
 		if let token = authenticationState.token {
 			finalRequest.addValue("Token token=\"\(token)\"", forHTTPHeaderField: "Authorization")
@@ -221,14 +235,14 @@ public final class Client: NSObject {
 		let task = session.dataTask(with: finalRequest, completionHandler: {
 			(data, response, error) in
 			guard error == nil else {
-				completionHandler(nil, error)
+				completionHandler(.failure(APIError.underlying(error!)))
 				return
 			}
 			// make sure we got data in the response
 			guard let responseData = data else {
 				print("Error: did not receive data")
 				let error = APIError.system("No data in response")
-				completionHandler(nil, error)
+				completionHandler(.failure(error))
 				return
 			}
 //			debugPrint(String(data: responseData, encoding: .utf8) ?? "no data")
@@ -237,19 +251,18 @@ public final class Client: NSObject {
 			// then create an object from the JSON
 			let formatter = DateFormatter()
 			formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+			formatter.isLenient = true
 			let decoder = JSONDecoder()
 			decoder.dateDecodingStrategy = .formatted(formatter)
 			do {
 				let response = try decoder.decode(Response<Item>.self, from: responseData)
 				if let data = response.data {
-					completionHandler(data, nil)
+					completionHandler(.success(data))
 				} else {
-					completionHandler(nil, APIError.api(response.metadata))
+					completionHandler(.failure(APIError.api(response.metadata)))
 				}
 			} catch {
-				print("error trying to convert data to JSON")
-				print(error)
-				completionHandler(nil, error)
+				completionHandler(Result.failure(APIError.jsonParsingFailure(String(describing: Item.self))))
 			}
 		})
 		task.resume()
@@ -269,7 +282,7 @@ public final class Client: NSObject {
 			string += " -H \"\(key): \(value)\""
 		}
 		if let body = request.httpBody {
-			string += " -d \(String(data: body, encoding: .utf8) ?? "no body")"
+			string += " -d \'\(String(data: body, encoding: .utf8) ?? "no body")\'"
 		}
 		string += " \"\(request.url?.absoluteString ?? "")\""
 		

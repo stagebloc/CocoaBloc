@@ -261,5 +261,4 @@ public struct StoreItem: APIObject {
 	private enum CodingKeys: String, CodingKey {
 		case id, account, creationDate = "created", title, modificationDate = "modified", category, shortURL = "short_url", descriptiveText = "description", isSoldOut = "sold_out", isFeatured = "featured", isExclusive = "exclusive", creator = "created_by", modifier = "modified_by", sale, tags, isFansNamePrice = "fans_name_price", options, priceUSD = "price", coverPhoto = "photo", photos, type, livingBundle = "living_bundle", freeDownload = "free_download", requireFollow = "require_follow", shippingPriceHandlers = "shipping_price_handler", fulfiller, bundledItems = "bundled_items", onSale = "on_sale", saleEnd = "sale_end_date", saleStart = "sale_start_date", saleAmount = "sale_amount", salePercentage = "sale_percentage"
 	}
-	
 }

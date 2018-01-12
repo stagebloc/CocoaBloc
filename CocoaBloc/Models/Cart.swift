@@ -160,8 +160,7 @@ public struct Cart: APIObject {
 			items = try Array(values.decode([String:Item].self, forKey: .items).values)
 		} catch let error {
 			debugPrint(error)
-			items = [] 
-			
+			items = []
 		}
 		shippingAddress = try values.decodeIfPresent(Address.self, forKey: .shippingAddress)
 		totals = try values.decode(Totals.self, forKey: .totals)
@@ -237,11 +236,11 @@ private struct PostPurchase: Codable {
 }
 
 extension Client {
-	public func getCart(withSessionIdentifier cartSessionID: String, completionHandler: @escaping (Cart?, Error?) -> Void) {
+	public func getCart(withSessionIdentifier cartSessionID: String, completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		get(withEndPoint: "cart/\(cartSessionID)", completionHandler: completionHandler)
 	}
 	
-	public func createCart(withEmail email: String? = nil, userID: Int? = nil, venue: Address? = nil, completionHandler: @escaping (Cart?, Error?) -> Void) {
+	public func createCart(withEmail email: String? = nil, userID: Int? = nil, venue: Address? = nil, completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		if let venue = venue {
 			let newCart = PostCart(cart: PostCart.Cart(addresses: PostCart.Shipping(shipping: venue), session_id: nil, user_id: userID, email: email, coupon: nil))
 			
@@ -250,25 +249,25 @@ extension Client {
 				let newCartJSON = try encoder.encode(newCart)
 				post(withEndPoint: "cart", postJSON: newCartJSON, completionHandler: completionHandler)
 			} catch {
-				completionHandler(nil, error)
+				completionHandler(.failure(.system("Failed to encode cart to JSON")))
 			}
 		} else {
 			post(withEndPoint: "cart", completionHandler: completionHandler)
 		}
 	}
 	
-	public func updateCart(withSessionIdentifier cartSessionID: String, newEmail: String? = nil, newShippingAddress: Address? = nil, completionHandler: @escaping (Cart?, Error?) -> Void) {
+	public func updateCart(withSessionIdentifier cartSessionID: String, newEmail: String? = nil, newShippingAddress: Address? = nil, completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		let updatedCart = PostCart(cart: PostCart.Cart(addresses: (newShippingAddress != nil ? PostCart.Shipping(shipping: newShippingAddress!) : nil), session_id: cartSessionID, user_id: nil, email: newEmail, coupon: nil))
 		do {
 			let encoder = JSONEncoder()
 			let updatedCartJSON = try encoder.encode(updatedCart)
 			post(withEndPoint: "cart/\(cartSessionID)", postJSON: updatedCartJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode cart to JSON")))
 		}
 	}
 	
-	public func updateCart(withSessionIdentifier cartSessionID: String, shippingInfo: Shipping.Selection, overrideShipping: Bool = false, completionHandler: @escaping (Cart?, Error?) -> Void) {
+	public func updateCart(withSessionIdentifier cartSessionID: String, shippingInfo: Shipping.Selection, overrideShipping: Bool = false, completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		let updateShipping: PostShipping
 		if overrideShipping {
 			updateShipping = PostShipping(cart: PostShipping.Cart(session_id: cartSessionID, shipping_override:
@@ -282,35 +281,35 @@ extension Client {
 			let updateShippingJSON = try encoder.encode(updateShipping)
 			post(withEndPoint: "cart/\(cartSessionID)", postJSON: updateShippingJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode shipping to JSON")))
 		}
 	}
 	
-	public func addItemToCart(withSessionIdentifier cartSessionID: String, storeItemIdentifier storeItemID: Int, sku: String, quantity: Int, completionHandler: @escaping (Cart?, Error?) -> Void) {
+	public func addItemToCart(withSessionIdentifier cartSessionID: String, storeItemIdentifier storeItemID: Int, sku: String, quantity: Int, completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		let postItem = PostItem(item: PostItem.Item(type: "store", id: storeItemID, sku: sku, quantity: quantity))
 		do {
 			let encoder = JSONEncoder()
 			let postItemJSON = try encoder.encode(postItem)
 			post(withEndPoint: "cart/\(cartSessionID)/items", postJSON: postItemJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode store item to JSON")))
 		}
 	}
 	
-	public func updateItemInCart(withSessionIdentifier cartSessionID: String, storeItemID: Int, cartItemHash: String, sku: String?, quantity: Int?, completionHandler: @escaping (Cart?, Error?) -> Void) {
+	public func updateItemInCart(withSessionIdentifier cartSessionID: String, storeItemID: Int, cartItemHash: String, sku: String?, quantity: Int?, completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		let postItem = PostItem(item: PostItem.Item(type: "store", id: storeItemID, sku: sku, quantity: quantity))
 		do {
 			let encoder = JSONEncoder()
 			let postItemJSON = try encoder.encode(postItem)
 			post(withEndPoint: "cart/\(cartSessionID)/items/\(cartItemHash)", postJSON: postItemJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode store item to JSON")))
 		}
 	}
 	
 	public func deleteItemInCart(
 		withHash cartItemHash: String,
-		fromCartWithSessionIdentifier cartSessionID: String, completionHandler: @escaping (Cart?, Error?) -> Void) {
+		fromCartWithSessionIdentifier cartSessionID: String, completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		delete(withEndPoint: "cart/\(cartSessionID)/items/\(cartItemHash)", completionHandler: completionHandler)
 	}
 	
@@ -397,25 +396,25 @@ extension Client {
 		
 	}
 	
-	public func purchaseCart(withSessionIdentifier cartSessionID: String, payments: [Payment], tax: Double? = nil, phone: String? = nil, deviceID: String = "", accountID: String = "", offline: Bool = false, notes: String? = nil, completionHandler: @escaping ([Order]?, Error?) -> Void) {
+	public func purchaseCart(withSessionIdentifier cartSessionID: String, payments: [Payment], tax: Double? = nil, phone: String? = nil, deviceID: String = "", accountID: String = "", offline: Bool = false, notes: String? = nil, completionHandler: @escaping (Result<[Order], APIError>) -> Void) {
 		let postPurchase = PostPurchase(payments: payments, tax: tax, phone: phone, notes: notes, adminID: accountID, deviceID: deviceID, applicationMode: (offline ? "offline" : "online"))
 		do {
 			let encoder = JSONEncoder()
 			let postPurchaseJSON = try encoder.encode(postPurchase)
 			post(withEndPoint: "cart/\(cartSessionID)/purchase", postJSON: postPurchaseJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode purchase to JSON")))
 		}
 	}
 	
-	public func updateCoupon(withSessionIdentifier cartSessionID: String, coupon: String = "", completionHandler: @escaping (Cart?, Error?) -> Void) {
+	public func updateCoupon(withSessionIdentifier cartSessionID: String, coupon: String = "", completionHandler: @escaping (Result<Cart, APIError>) -> Void) {
 		let postCart = PostCart(cart: PostCart.Cart(addresses: nil, session_id: cartSessionID, user_id: nil, email: nil, coupon: [coupon]))
 		do {
 			let encoder = JSONEncoder()
 			let postCartJSON = try encoder.encode(postCart)
 			post(withEndPoint: "cart/\(cartSessionID)/purchase", postJSON: postCartJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode cart to JSON")))
 		}
 	}
 }

@@ -22,21 +22,21 @@ public struct Device: Codable {
 
 extension Client {
 	
-	public func getDevice(withDeviceIdentifier deviceID: String, forAccount accountID: String, completionHandler: @escaping (Device?, Error?) -> Void) {
+	public func getDevice(withDeviceIdentifier deviceID: String, forAccount accountID: String, completionHandler: @escaping (Result<Device, APIError>) -> Void) {
 		get(withEndPoint: "account/\(accountID)/device/\(deviceID)", completionHandler: completionHandler)
 	}
 	
-	public func getDevices(forAccount accountID: String, completionHandler: @escaping ([Device]?, Error?) -> Void) {
+	public func getDevices(forAccount accountID: String, completionHandler: @escaping (Result<[Device], APIError>) -> Void) {
 		get(withEndPoint: "account/\(accountID)/device", completionHandler: completionHandler)
 	}
 	
-	public func saveDevice(forAccount accountID: String, device: Device, completionHandler: @escaping (Device?, Error?) -> Void) {
+	public func saveDevice(forAccount accountID: String, device: Device, completionHandler: @escaping (Result<Device, APIError>) -> Void) {
 		do {
 			let encoder = JSONEncoder()
 			let deviceJSON = try encoder.encode(device)
 			post(withEndPoint: "account/\(accountID)/device", postJSON: deviceJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode device to JSON")))
 		}
 	}
 }

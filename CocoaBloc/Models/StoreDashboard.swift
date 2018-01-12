@@ -82,11 +82,11 @@ private struct PostCancelOrder: Codable {
 
 extension Client {
 	
-	public func getStoreDashboard(_ accountID: Int, completionHandler: @escaping (StoreDashboard?, Error?) -> Void) {
+	public func getStoreDashboard(_ accountID: Int, completionHandler: @escaping (Result<StoreDashboard, APIError>) -> Void) {
 		get(withEndPoint: "account/\(accountID)/store/dashboard", completionHandler: completionHandler)
 	}
 	
-	public func getOrdersForAccount(withIdentifier accountID: Int, offset: Int = 0, limit: Int = 50, useCache: Bool = true, completionHandler: @escaping ([Order]?, Error?) -> Void) {
+	public func getOrdersForAccount(withIdentifier accountID: Int, offset: Int = 0, limit: Int = 50, useCache: Bool = true, completionHandler: @escaping (Result<[Order], APIError>) -> Void) {
 		let params = [
 			"offset": offset,
 			"limit": limit,
@@ -95,11 +95,11 @@ extension Client {
 		get(withEndPoint: "account/\(accountID)/store/order", params: params, useCache: useCache, completionHandler: completionHandler)
 	}
 	
-	public func resendReceipt(withIdentifier orderID: Int, accountIdentifier accountID: Int, completionHandler: @escaping (Bool?, Error?) -> Void) {
+	public func resendReceipt(withIdentifier orderID: Int, accountIdentifier accountID: Int, completionHandler: @escaping (Result<Bool, APIError>) -> Void) {
 		post(withEndPoint: "account/\(accountID)/order/\(orderID)/receipt/resend", completionHandler: completionHandler)
 	}
 	
-	public func cancelOrder(withIdentifier orderID: Int, accountIdentifier accountID: Int, adjustStock: Bool = false, alertUser: Bool = false, reasonCode: String = "good_will", reasonText: String = "Checkout App Return", completionHandler: @escaping (Bool?, Error?) -> Void) {
+	public func cancelOrder(withIdentifier orderID: Int, accountIdentifier accountID: Int, adjustStock: Bool = false, alertUser: Bool = false, reasonCode: String = "good_will", reasonText: String = "Checkout App Return", completionHandler: @escaping (Result<Bool, APIError>) -> Void) {
 		let postCancel = PostCancelOrder(adjust_stock: adjustStock, alert_user: alertUser, refund_reason: reasonCode, refund_reason_text: reasonText)
 		
 		do {
@@ -107,7 +107,7 @@ extension Client {
 			let postCancelJSON = try encoder.encode(postCancel)
 			post(withEndPoint: "account/\(accountID)/store/order/\(orderID)/refund", postJSON: postCancelJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode request to JSON")))
 		}
 	}
 	
@@ -125,7 +125,7 @@ extension Client {
 //			])
 //	}
 	
-	public func getStoreItemsForAccount(withIdentifier accountID: Int, offset: Int = 0, limit: Int = 50, useCache: Bool = true, completionHandler: @escaping ([StoreItem]?, Error?) -> Void) {
+	public func getStoreItemsForAccount(withIdentifier accountID: Int, offset: Int = 0, limit: Int = 50, useCache: Bool = true, completionHandler: @escaping (Result<[StoreItem], APIError>) -> Void) {
 		let params = [
 			"offset": offset,
 			"limit": limit,
@@ -134,7 +134,7 @@ extension Client {
 		get(withEndPoint: "account/\(accountID)/store/items", params: params, useCache: useCache, completionHandler: completionHandler)
 	}
 	
-	public func getStoreItem(withIdentifier storeItemID: Int, forAccountWithIdentifier accountID: Int, completionHandler: @escaping (StoreItem?, Error?) -> Void) {
+	public func getStoreItem(withIdentifier storeItemID: Int, forAccountWithIdentifier accountID: Int, completionHandler: @escaping (Result<StoreItem, APIError>) -> Void) {
 		get(withEndPoint: "account/\(accountID)/store/items/\(storeItemID)", completionHandler: completionHandler)
 	}
 }

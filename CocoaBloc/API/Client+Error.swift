@@ -8,18 +8,32 @@
 
 extension Client {
 	public enum APIError: Error {
+		case requestFailed
 		case api(APIMetadata)
 		case system(String)
 		case underlying(Error)
+		case jsonParsingFailure(String)
+		case responseUnsuccessful
 		
-		public var errorString: String {
+//		public var errorString: String {
+//			switch self {
+//			case .system(let error):
+//				return error
+//			case .underlying(let error):
+//				return error.localizedDescription
+//			case .api(let meta):
+//				return meta.error ?? "API Error"
+//			}
+//		}
+		
+		public var localizedDescription: String {
 			switch self {
-			case .system(let error):
-				return error
-			case .underlying(let error):
-				return error.localizedDescription
-			case .api(let meta):
-				return meta.error ?? "API Error"
+			case .requestFailed: return "Request Failed"
+			case .api(let metadata): return metadata.error ?? (metadata.dev_notes ?? "API Error")
+			case .responseUnsuccessful: return "Response Unsuccessful"
+			case .jsonParsingFailure(let desc): return "JSON Parsing Failure: \(desc)"
+			case .underlying(let error): return error.localizedDescription
+			case .system(let system): return system
 			}
 		}
 	}

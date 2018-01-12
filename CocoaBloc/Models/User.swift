@@ -85,18 +85,18 @@ private struct SignUpPost: Codable {
 
 extension Client {
 	
-	public func logIn(authorizationCode: String, completionHandler: @escaping (AuthenticationState?, Error?) -> Void) {
+	public func logIn(authorizationCode: String, completionHandler: @escaping (Result<AuthenticationState, APIError>) -> Void) {
 		let postCancel = LoginPost(username: nil, password: nil, code: authorizationCode, grant_type: "authorization_code", expand: "user")
 		do {
 			let encoder = JSONEncoder()
 			let postCancelJSON = try encoder.encode(postCancel)
 			post(withEndPoint: "oauth2/token", postJSON: postCancelJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode request to JSON")))
 		}
 	}
 	
-	public func logIn(usernameOrEmail: String, password: String, useCache: Bool = true, completionHandler: @escaping (AuthenticationState?, Error?) -> Void) {
+	public func logIn(usernameOrEmail: String, password: String, useCache: Bool = true, completionHandler: @escaping (Result<AuthenticationState, APIError>) -> Void) {
 		let params = [
 			"username"	: usernameOrEmail,
 			"password"	: password,
@@ -105,18 +105,19 @@ extension Client {
 		do {
 			let encoder = JSONEncoder()
 			let postCancelJSON = try encoder.encode(postCancel)
-			post(withEndPoint: "oauth2/token", postJSON: postCancelJSON, params: params, useCache: useCache) { [unowned self] (state: AuthenticationState?, error: Error?) in
-				guard error == nil else {
-					completionHandler(nil, error)
-					return
+			post(withEndPoint: "oauth2/token", postJSON: postCancelJSON, params: params, useCache: useCache) { [unowned self] (result: Result<AuthenticationState, APIError>) in
+				switch result {
+				case .success(let state):
+					if state.user != nil {
+						self.authenticationState = state
+					}
+					completionHandler(.success(state))
+				case .failure(let error):
+					completionHandler(.failure(error))
 				}
-				if let state = state, let _ = state.user {
-					self.authenticationState = state
-				}
-				completionHandler(state, error)
 			}
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode request to JSON")))
 		}
 	}
 	
@@ -150,26 +151,26 @@ extension Client {
 //		}
 
 	
-	public func getUser(withIdentifier userID: Int, completionHandler: @escaping (User?, Error?) -> Void) {
+	public func getUser(withIdentifier userID: Int, completionHandler: @escaping (Result<User, APIError>) -> Void) {
 		get(withEndPoint: "users/\(userID)", completionHandler: completionHandler)
 	}
 	
-	public func getCurrentlyAuthenticatedUser(completionHandler: @escaping (User?, Error?) -> Void) {
+	public func getCurrentlyAuthenticatedUser(completionHandler: @escaping (Result<User, APIError>) -> Void) {
 		get(withEndPoint: "users/me", completionHandler: completionHandler)
 	}
 	
-	public func banUser(withIdentifier userID: Int, accountID: Int, reason: String, completionHandler: @escaping (String?, Error?) -> Void) {
+	public func banUser(withIdentifier userID: Int, accountID: Int, reason: String, completionHandler: @escaping (Result<String, APIError>) -> Void) {
 		post(withEndPoint: "users/\(userID)/ban/\(accountID)", completionHandler: completionHandler)
 	}
 	
-	public func sendPasswordReset(to email: String, completionHandler: @escaping (String?, Error?) -> Void) {
+	public func sendPasswordReset(to email: String, completionHandler: @escaping (Result<String, APIError>) -> Void) {
 		let params = [
 			"email" : email
 		]
 		post(withEndPoint: "users/password/reset", params: params, completionHandler: completionHandler)
 	}
 	
-	public func updateUserLocation(latitude: Double, longitude: Double, completionHandler: @escaping (User?, Error?) -> Void) {
+	public func updateUserLocation(latitude: Double, longitude: Double, completionHandler: @escaping (Result<User, APIError>) -> Void) {
 		let params = [
 			"latitude" : latitude,
 			"longitude" : longitude
@@ -177,7 +178,7 @@ extension Client {
 		post(withEndPoint: "users/me/location/update", params: params, completionHandler: completionHandler)
 	}
 	
-	public func updateAuthenticatedUser(bio: String?, birthday: Date?, email: String?, username: String?, name: String?, gender: Gender?, completionHandler: @escaping (User?, Error?) -> Void) {
+	public func updateAuthenticatedUser(bio: String?, birthday: Date?, email: String?, username: String?, name: String?, gender: Gender?, completionHandler: @escaping (Result<User, APIError>) -> Void) {
 		let df = DateFormatter()
 		df.locale = Locale(identifier: "EN_US_POSIX")
 		df.timeZone = TimeZone(secondsFromGMT: 0)
@@ -189,17 +190,17 @@ extension Client {
 			let signUpPostJSON = try encoder.encode(signUpPost)
 			post(withEndPoint: "users/me", postJSON: signUpPostJSON, completionHandler: completionHandler)
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode request to JSON")))
 		}
 	}
 	
 	public func updateAuthenticatedUser(
-		user: User, completionHandler: @escaping (User?, Error?) -> Void) {
+		user: User, completionHandler: @escaping (Result<User, APIError>) -> Void) {
 		updateAuthenticatedUser(bio: user.bio, birthday: nil, // user.birthday
 			email: user.emailAddress,
 			username: user.username,
 			name: user.name,
-			gender: user.gender ?? Client.Gender.cupcake, completionHandler: completionHandler)
+			gender: user.gender ?? Client.Gender.other, completionHandler: completionHandler)
 	}
 	
 //	public static func updateAuthenticatedUserImage(_ formData: FormDataPart) -> Endpoint<User> {
@@ -209,7 +210,7 @@ extension Client {
 //			formData: [formData])
 //	}
 	
-	public func signUp(email: String, name: String, password: String, bio: String?, birthday: Date, gender: Gender, sourceAccountID: Int, completionHandler: @escaping (AuthenticationState?, Error?) -> Void) {
+	public func signUp(email: String, name: String, password: String, bio: String?, birthday: Date, gender: Gender, sourceAccountID: Int, completionHandler: @escaping (Result<AuthenticationState, APIError>) -> Void) {
 		let df = DateFormatter()
 		df.locale = Locale(identifier: "EN_US_POSIX")
 		df.timeZone = TimeZone(secondsFromGMT: 0)
@@ -219,22 +220,23 @@ extension Client {
 		do {
 			let encoder = JSONEncoder()
 			let signUpPostJSON = try encoder.encode(signUpPost)
-			post(withEndPoint: "users", postJSON: signUpPostJSON) { [unowned self] (state: AuthenticationState?, error: Error?) in
-				guard error == nil else {
-					completionHandler(nil, error)
-					return
+			post(withEndPoint: "users", postJSON: signUpPostJSON) { [unowned self] (result: Result<AuthenticationState, APIError>) in
+				switch result {
+				case .success(let state):
+					if state.user != nil {
+						self.authenticationState = state
+					}
+					completionHandler(.success(state))
+				case .failure(let error):
+					completionHandler(.failure(error))
 				}
-				if let state = state, let _ = state.user {
-					self.authenticationState = state
-				}
-				completionHandler(state, error)
 			}
 		} catch {
-			completionHandler(nil, error)
+			completionHandler(.failure(.system("Failed to encode request to JSON")))
 		}
 	}
 	
-	public func getUsersFollowingAccount(withIdentifier accountID: Int, completionHandler: @escaping ([User]?, Error?) -> Void) {
+	public func getUsersFollowingAccount(withIdentifier accountID: Int, completionHandler: @escaping (Result<[User], APIError>) -> Void) {
 		get(withEndPoint: "", completionHandler: completionHandler)
 	}
 }

@@ -83,6 +83,14 @@ public struct Shipping: Codable {
 		private enum CodingKeys: String, CodingKey {
 			case fulfillerID = "fulfiller_id", handlerID = "price_handler_id", methodID = "method_id", price, handlingPrice = "handling"
 		}
+		
+		public static func == (lhs: Selection, rhs: Selection) -> Bool {
+			return lhs.fulfillerID == rhs.fulfillerID &&
+				lhs.handlerID == rhs.handlerID &&
+				lhs.handlingPrice == rhs.handlingPrice &&
+				lhs.methodID == rhs.methodID &&
+				lhs.price == rhs.price
+		}
 	}
 	
 	public struct SelectionSet: Codable {
