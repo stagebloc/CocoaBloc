@@ -86,6 +86,7 @@ public final class Client: NSObject {
 		case male		= "male"
 		case female		= "female"
 		case cupcake	= "cupcake"
+		case other		= "other"
 	}
 	
 	public enum ContentTypeIdentifier: String, Codable {
